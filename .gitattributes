@@ -1,0 +1,11 @@
+# 统一行尾处理，避免出现"整文件改写"式的无意义 diff，
+# 保证每次实验版本 commit 的差异可归因到真实修改。
+* text=auto
+
+# 位流与图像等按二进制处理，不做行尾转换
+*.bit binary
+*.pdf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary

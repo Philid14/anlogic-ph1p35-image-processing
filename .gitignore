@@ -1,0 +1,43 @@
+# ============================================================
+# 2026 FPGA 创新设计赛道（上海安路 选题二）
+# 基于安路 PH1P35 的实时数字图像处理系统 —— 仓库忽略规则
+#
+# 原则：
+#   保留重建工程所需内容（.al 入口 / .sdc / RTL / IP 配置 / ROM 初始化文件 / 文档）
+#   排除 TD 自动生成的构建目录、运行日志、临时文件，以及未按版本归档的 bit
+# ============================================================
+
+# ---- Tang Dynasty 自动生成构建目录（体量最大，必须排除） ----
+*_Runs/
+best_result/
+phy_*/
+syn_*/
+
+# ---- 布线 / 时序 / 崩溃转储等临时产物 ----
+*.timingsummary
+*.timing
+minidump-*.dmp
+*.dmp
+
+# ---- TD 运行日志与用户仓库缓存 ----
+td_project/log/
+td_*.log
+td_*.logw
+bw_*.log
+bw_*.logw
+*.log
+*.logw
+.recent_user_depot.ini
+.RecentUserDepot
+
+# ---- 未按 artifacts/bitstreams/<VERSION>/ 归档的 bit 一律不入库 ----
+*.bit
+!artifacts/bitstreams/**/*.bit
+
+# ---- 编辑器 / 系统噪声 ----
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+*.swp
+*~
