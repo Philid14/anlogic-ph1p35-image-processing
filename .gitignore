@@ -34,6 +34,14 @@ bw_*.logw
 *.bit
 !artifacts/bitstreams/**/*.bit
 
+# ---- 已按版本归档的构建证据（bit + BUILD_INFO + 构建日志）必须入库 ----
+!artifacts/bitstreams/**/*.log
+!artifacts/bitstreams/**/*.logw
+!artifacts/bitstreams/**/*.qor
+!artifacts/bitstreams/**/*.ts
+!artifacts/bitstreams/**/*.timing
+!artifacts/bitstreams/**/*.area
+
 # ---- 编辑器 / 系统噪声 ----
 Thumbs.db
 desktop.ini
