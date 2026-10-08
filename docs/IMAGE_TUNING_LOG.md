@@ -1,11 +1,11 @@
 # 基础彩色视频画质调试记录
 
-主工程：`in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd`。本表记录**实际修改和上板结果**；未测试内容写“待测”，不把静态推断当成实测。每版只改变一个主要因素，保留可回退的原始工程和配置。2026-10-05 已进入 AWB_V1 修改，实际画质仍待上板验证。
+主工程：`in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd`。本表记录**实际修改和上板结果**；未测试内容写“待测”，不把静态推断当成实测。每版只改变一个主要因素，保留可回退的原始工程和配置。2026-10-08 用户反馈 AWB_V1 已上板，颜色仅轻微改善，画面仍有明显灰雾感；具体黑场数值待测。
 
 | Version | 修改内容 | 原值 | 新值 | 测试环境 | 结果 | 是否保留 |
 |---|---|---|---|---|---|---|
 | Baseline V0 | 实际上板的当前 A 工程；未改本轮 RTL | 实际编译 AWB 每拍仅统计 1/4 像素、帧内更新，增益近 0～约 16×；初始化曝光编码 1990，手动模块默认 3000 | 无 | 2026-10-05，同一室内环境，白/蓝/绿/红物体；四张显示器照片见下 | 用户实测：白明显青蓝/青绿；蓝与绿区分差；红成分严重不足；暗部较差；安路 Logo、黄色文字基本正常。基础颜色测试**不通过**。无寄存器读回和数值色度数据 | 保留作对照 |
-| Candidate AWB_V1 | 仅修改实际编译的 `user_source/hdl_source/awb.v`：四像素全帧统一统计，过滤近黑/近饱和样本，帧末计算、次帧固定增益，除零保护、限幅和限步；保留下游所需的提前帧标记 | 每拍只统计 1 像素；`R+G+B<720`；逐拍除法/帧内更新；增益可近 0～约 16× | 每拍统计 4 像素；像素最大通道 `24..239`；≥1024 有效样本；Q4.16 增益 0.75～3.00×；每帧最多变化 0.125× | 待上板：白/红/绿/蓝、正常室内、较暗场景；其余 camera/AE/Gain/OSD/DDR 均保持 V0 | **待上板验证**，不得写成已经改善 | 待定 |
+| Candidate AWB_V1 | 仅修改实际编译的 `user_source/hdl_source/awb.v`：四像素全帧统一统计，过滤近黑/近饱和样本，帧末计算、次帧固定增益，除零保护、限幅和限步；保留下游所需的提前帧标记 | 每拍只统计 1 像素；`R+G+B<720`；逐拍除法/帧内更新；增益可近 0～约 16× | 每拍统计 4 像素；像素最大通道 `24..239`；≥1024 有效样本；Q4.16 增益 0.75～3.00×；每帧最多变化 0.125× | 用户 2026-10-08 反馈已上板；同场景数值、照片、遮光测试尚未提供 | **颜色仅轻微改善**；仍明显偏色且有灰雾感、黑位抬高、对比度低。无黑场数值，不能定量归因 | 保留作 BLC_V1 对照 |
 | 旧建议，延期 | 将 `ae_set.v` 默认曝光 3000 对齐初始化 1990 | 3000 | 暂不修改 | 本轮只处理基础颜色异常，不测 K3/K4 | 未执行 | 延期 |
 
 ## Baseline V0：真实上板证据
@@ -51,6 +51,31 @@
 
 六场景均用同一光源、物距、显示器与拍照设置；本轮不测试 K3/K4，也不宣称尚未测得的改善。
 
+## Candidate BLC_V1（2026-10-08）：仅检验 RAW10 黑位扣除假设
+
+**上板前证据与不确定性。** A 工程 `td_project/camera_to_dsi_display_Runs/syn_1/camera_to_dsi_display.prj` 未编译 `isp/BLC/BLC.v`；`isp/raw10_unpacket_2lane.v` 中使用 `I_camera_black_level` 的四路扣除代码被整段注释，顶层也未连接该端口。实际数据为 RAW10 解包后直接送 `uial2axis → demosaic`；`mipi_to_raw_converter.v` 取每像素 `[9:2]`，没有 FPGA 端 BLC。SC500CS 当前初始化写 `0x4000–0x4009`，但缺少该型号的公开逐位寄存器说明与实测 RAW 黑场，**传感器内部 BLC 是否已把输出校到零，以及实际黑电平是多少，目前无法确定**。
+
+- 唯一修改假设：RAW10 输出含有未消除的非零 pedestal，造成黑位抬高，并削弱 AWB_V1 的颜色比例校正。本轮仅增加 RAW10 Bayer 域统一饱和减法；AWB_V1、sensor 寄存器、曝光/增益、Gamma、CCM、DDR、OSD、HDMI 均不改。
+- 修改文件：`in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v`。输入四个 RAW10 像素各自执行 `max(raw - BLACK_LEVEL_RAW10, 0)`，组合逻辑连接到现有 demosaic 输入；valid、ready、frame、line 信号直接沿用原连线，未增加延迟。
+- `BLACK_LEVEL_RAW10 = 15` 的**唯一数值来源**是随工程提供但未接入 A 工程的 `isp/BLC/BLC.v`，其四路默认 offset 均为 10-bit 的 15。该值不是 SC500CS 规格值或本板测量值，只是有源码出处的首次对照参数；若镜头遮光实测接近 0，或出现黑位压死，应判定本假设不成立并回滚。
+- RAW10→RAW8：原映射 `raw8 = floor(raw10/4)`，若真实黑位 `BL_raw10`，则其 8-bit 对应约为 `floor(BL_raw10/4)`；现在 `raw8 = floor(max(raw10-15,0)/4)`。`[9:2]` 本身仍完整映射 0–1023 到 0–255，只降低 2 bit 精度；它不自动把非零黑位搬到 0，也不把不足满量程的白位扩展到 255。15 RAW10 约相当于 3.75 RAW8 级，不能据此承诺能消除强烈灰雾。
+- Demosaic 主要是非负 8-bit 采样的加法和右移平均，输出有 8-bit 饱和，不会主动减黑位。近似均匀黑场 RAW8 值 `p` 会得到近似 `R=G=B=p`（边界及截断除外）；AWB_V1 的 G 直通，R/B 乘以 0.75–3.00 并饱和，可能保留或放大色偏。若每通道信号为 `S_c+P`，AWB 比值 `(S_G+P)/(S_R+P)` 随共同 pedestal 增大趋向 1，能解释“改善有限”的一种机制，但尚无实测 `P`。
+- HDMI 路径：`video_out` 输出连续 RGB888，`hdmi_mixer` 对摄像头数据直接透传，并以常量生成 OSD；HDMI TX 配置为 `VIDEO_FORMAT="RGB"`。未找到摄像头 RGB 的 16–235 偏移/缩放。HDMI IP 内部量化信息与显示器配置尚无读回，但 OSD 黄色和背景正常，整链路 range mismatch 优先级较低。本轮不修改 HDMI。
+- Gamma：**现在不加入**。若黑位已抬高，Gamma 不会恢复真实黑位，部分曲线反会继续抬亮暗部。先看遮光场景与黑/白物体，再决定是否研究 Gamma 或 CCM。
+
+| 指标（路由后） | AWB_V1 | BLC_V1 | 变化 |
+|---|---:|---:|---:|
+| LUT6 | 13,561 | 13,474 | −87 |
+| Slice FF | 13,609 | 13,627 | +18 |
+| ERAM20K | 40 | 40 | 0 |
+| DSP | 9 | 9 | 0 |
+| Setup WNS | +0.101 ns | +0.137 ns | +0.036 ns |
+| Hold WNS | +0.020 ns | +0.020 ns | 0 |
+
+TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Setup/Hold TNS 均为 0。`final_timing.rpt` 生成于 2026-10-08 18:22:32；原始 bit 于 18:22:41 重新生成，SHA-256 为 `2B9E427DEE8304106F5E75A686899D189E4B61EB3514A4AE33C51EA536FB133D`。MIPI 时钟域最差 setup 余量 +5.763 ns；全局 WNS +0.137 ns。关键告警仍为既有 `PHY-5060` 两条和 `PHY-5079` 一条，无新增关键告警或 Error。**Board Test Result：待上板。**
+
+下次仅按顺序比较 AWB_V1 与 BLC_V1：①完全不透光遮镜头（画面黑度、灰雾、色偏、固定噪声、AWB 跨帧变化）；②黑色物体；③白纸；④灰色物体；⑤正常综合色彩场景；⑥红；⑦绿；⑧蓝；⑨较暗场景。若 BLC_V1 的遮光/黑物体更接近中性黑且白、灰、彩色细节不被压死，同时 OSD/连续性保持，则支持 pedestal 假设；若两版无差异，优先寻求 RAW 黑场统计；若暗部被压死、颜色更差或出现显示错位，回滚到已归档 AWB_V1 bit。手机拍屏需锁定曝光和白平衡，不能用自动调节照片直接量化黑位。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
@@ -75,11 +100,11 @@
 | Version | Git Commit | Git Tag | 实际编译源码 | 源码 SHA-256 | 归档 bit | Bit SHA-256 | Build Result | Board Test Result | 是否保留 |
 |---|---|---|---|---|---|---|---|---|---|
 | Baseline V0 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | 无 | `docs/baseline/awb_v0_compiled.v` | `B6D9D83A6B48952CC9531DAF39BC6C6B94C4E45DDEFE603908E9CB275533E50A` | `artifacts/bitstreams/BASELINE_V0/camera_to_dsi_display.bit` | `D42E4AFC8CC6939230DAB332EEBE6E439297F1EA9FC57E6984152B60C673D668` | 综合 / 实现 / bit 全部成功；Setup WNS +0.109 ns、Hold WNS +0.020 ns、TNS 0 | 已上板（2026-10-05 约 21:00）：基础颜色测试不通过 | 保留作对照 |
-| Candidate AWB_V1 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | `awb-v1-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v` | `F952339EC4F19C61947B98C041CF9801021A6763B6CF103D32A46D89D6B47AD3` | `artifacts/bitstreams/AWB_V1/camera_to_dsi_display.bit` | `6512B12C1F231DED42A7809766273CA58D677472FFB08BBE009B839512C729A3` | 综合 / 实现 / bit 全部成功；Setup WNS +0.101 ns、Hold WNS +0.020 ns、TNS 0 | **未上板（待验证）** | 待定 |
+| Candidate AWB_V1 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | `awb-v1-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v` | `F952339EC4F19C61947B98C041CF9801021A6763B6CF103D32A46D89D6B47AD3` | `artifacts/bitstreams/AWB_V1/camera_to_dsi_display.bit` | `6512B12C1F231DED42A7809766273CA58D677472FFB08BBE009B839512C729A3` | 综合 / 实现 / bit 全部成功；Setup WNS +0.101 ns、Hold WNS +0.020 ns、TNS 0 | **用户反馈已上板**：相对 V0 色彩轻微改善；仍有明显偏色与灰雾感，缺同场景定量数值 | 保留作 BLC_V1 对照 |
 
 补充说明：
 
-- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，尚未上板。
+- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，用户于 2026-10-08 反馈已上板。
 - 资源明细、告警与证据清单见 `artifacts/bitstreams/<VERSION>/BUILD_INFO.md`；两个版本的构建日志已随版本一并归档。
 - V0 的 bit 在构建时未记录 SHA-256 与归档路径，原始 `phy_1` 目录随后被 AWB_V1 构建覆盖。本次从 `best_result/` 中恢复出与 V0 构建时间（2026-10-05 20:22:08）及 `phy_run.log` 一致的 bit 并归档；该对应关系以时间戳和构建日志为据，**未做上板复现**。
 - 未建立 `baseline-official-osd` / `baseline-official-edge`：归档时 `user_source/hdl_source/awb.v` 已是 AWB_V1，工作目录内不存在可逐字节校验的官方原始副本，不能把已修改工程标记为官方基线。需取回官方原始压缩包校验后单独提交并打 tag。

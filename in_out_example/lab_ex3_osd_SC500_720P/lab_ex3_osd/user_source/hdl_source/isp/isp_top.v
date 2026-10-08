@@ -1,4 +1,8 @@
-module isp_top (
+module isp_top #(
+    // Experimental RAW10 pedestal from the bundled, inactive BLC/BLC.v
+    // reference. This is not a measured SC500CS black level.
+    parameter [9:0] BLACK_LEVEL_RAW10 = 10'd15
+) (
     input 			axi4s_video_aclk,
     input 			I_rst_n			,
     input 			I_tlast			,
@@ -21,6 +25,18 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire         m_aixs_tready;  //synthesis keep 
   
   wire [ 95:0] m_aixs_tdata_96;  //synthesis keep 
+
+  // Apply one identical saturating offset to all four Bayer RAW10 samples.
+  // Combinational placement preserves tvalid/tuser/tlast/ready timing.
+  wire [39:0] blc_raw10;
+  genvar blc_p;
+  generate for (blc_p = 0; blc_p < 4; blc_p = blc_p + 1) begin : blc_pixel
+      wire [9:0] raw_sample;
+      assign raw_sample = I_tdata[blc_p*10 +: 10];
+      assign blc_raw10[blc_p*10 +: 10] =
+          (raw_sample > BLACK_LEVEL_RAW10) ?
+          (raw_sample - BLACK_LEVEL_RAW10) : 10'd0;
+  end endgenerate
 
 
   wire         awb_O_tlast;  //synthesis keep 
@@ -56,7 +72,7 @@ u_demosaic
 (
     .I_clk   			(axi4s_video_aclk)	,   // 时钟信号
     .I_rst_n 			(I_rst_n)	,   // 复位信号，低有效
-    .axi4s_video_tdata 	(I_tdata)	,  // AXI4-Stream视频数据
+    .axi4s_video_tdata 	(blc_raw10)	,  // RAW10 BLC before demosaic
     .axi4s_video_tdest 	(I_tdest)	,
     .axi4s_video_tlast 	(I_tlast)	,  // 行结束信号
     .axi4s_video_tvalid	(I_tvalid)	,  // 数据有效信号
