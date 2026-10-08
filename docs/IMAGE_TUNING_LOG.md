@@ -6,6 +6,7 @@
 |---|---|---|---|---|---|---|
 | Baseline V0 | 实际上板的当前 A 工程；未改本轮 RTL | 实际编译 AWB 每拍仅统计 1/4 像素、帧内更新，增益近 0～约 16×；初始化曝光编码 1990，手动模块默认 3000 | 无 | 2026-10-05，同一室内环境，白/蓝/绿/红物体；四张显示器照片见下 | 用户实测：白明显青蓝/青绿；蓝与绿区分差；红成分严重不足；暗部较差；安路 Logo、黄色文字基本正常。基础颜色测试**不通过**。无寄存器读回和数值色度数据 | 保留作对照 |
 | Candidate AWB_V1 | 仅修改实际编译的 `user_source/hdl_source/awb.v`：四像素全帧统一统计，过滤近黑/近饱和样本，帧末计算、次帧固定增益，除零保护、限幅和限步；保留下游所需的提前帧标记 | 每拍只统计 1 像素；`R+G+B<720`；逐拍除法/帧内更新；增益可近 0～约 16× | 每拍统计 4 像素；像素最大通道 `24..239`；≥1024 有效样本；Q4.16 增益 0.75～3.00×；每帧最多变化 0.125× | 用户 2026-10-08 反馈已上板；同场景数值、照片、遮光测试尚未提供 | **颜色仅轻微改善**；仍明显偏色且有灰雾感、黑位抬高、对比度低。无黑场数值，不能定量归因 | 保留作 BLC_V1 对照 |
+| Candidate AWB_V2 | 仅在 BLC_V1 基础上改变 AWB 统计样本：加入低色度判定；样本不足保持上一增益 | 最大通道 `24..239` 的所有像素均参与统计 | 原亮度窗口不变，且 `max-min<32`；仍需 ≥1024 样本 | 待上板：白纸、中性灰、正常综合色彩和中性背景中占 20–30% 的红/绿/蓝目标 | **仅模型及完整构建通过，画质待验证** | 保留作候选 |
 | 旧建议，延期 | 将 `ae_set.v` 默认曝光 3000 对齐初始化 1990 | 3000 | 暂不修改 | 本轮只处理基础颜色异常，不测 K3/K4 | 未执行 | 延期 |
 
 ## Baseline V0：真实上板证据
@@ -90,6 +91,7 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Fallback：低色度样本少于 1024 或任一累加通道为零时，原 `frame_ready` 保持 0，不启动两路除法；`target_r/b` 和实际 `gain_r/b` 保留上一有效值，不回退到整帧彩色 Gray World。上电初值仍为 1.0。现有 `O_tuser` 提前脉冲和 50 时钟像素延迟不改。
 - 用 `tests/awb_v2_selection_model.py` 的 RGB888/Q4.16 离线模型检查：全屏红/绿/蓝在 V2 均无候选样本并维持 1.0；灰、白可采样；`(160,185,180)` 偏色白可采样并推动 R 增益；25% 红物体加 75% 中性灰时，V1 首帧 R 增益降至 0.875，V2 保持 1.0。此模型不是 RTL 时序仿真，也不证明实拍场景的像素分布。
 - 风险：若真实偏青白纸在输入 RGB 的通道跨度已经大于等于 32，它也会被拒绝，可能导致长期不更新增益；若背景没有足够中性色，同样会保持旧增益。需在上板比较中判定，而不能宣称此阈值已最佳。BLC 15 和 SC500CS exposure/analog gain/digital gain/VTS 均不改；暗场亮度不足另立实验。
+- 构建：TD 6.2.168116 于 22:35–22:43 完成 Synthesis、Physical Design、Timing Check 和 bitgen；路由后 LUT6 13,708（较 BLC_V1 +234）、Slice FF 13,627（不变）、ERAM20K 40、DSP 9、Setup WNS +0.101 ns、Hold WNS +0.020 ns，TNS 均 0。MIPI 时钟域 Setup slack +3.823 ns（BLC_V1 +5.763 ns）；既有 `PHY-5060` ×2、`PHY-5079` ×1，无新增关键告警。归档 bit SHA-256 `D6AA67BB303D661E9ABEADCDE456AB27F6828CA948D89029F89F23028D5AA111`；**Board Test Result：待上板**。
 - 下一次只比较 BLC_V1 与 AWB_V2：同照明、机位和显示设置，依次看白纸、中性灰、正常室内综合色彩，再让红/绿/蓝目标各占画面约 20–30%，其余留白/灰背景；最后记录暗场现象但不作为本次 AWB 成败指标。观察白/灰中性、彩色物体进出时背景白平衡与帧间闪色、OSD“安路”、HDMI 连续性。若白/灰更偏、长期不调整、色温漂移或闪色，回滚已归档的 BLC_V1 bit。
 
 ## 每次测试填写项
@@ -118,10 +120,11 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 | Baseline V0 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | 无 | `docs/baseline/awb_v0_compiled.v` | `B6D9D83A6B48952CC9531DAF39BC6C6B94C4E45DDEFE603908E9CB275533E50A` | `artifacts/bitstreams/BASELINE_V0/camera_to_dsi_display.bit` | `D42E4AFC8CC6939230DAB332EEBE6E439297F1EA9FC57E6984152B60C673D668` | 综合 / 实现 / bit 全部成功；Setup WNS +0.109 ns、Hold WNS +0.020 ns、TNS 0 | 已上板（2026-10-05 约 21:00）：基础颜色测试不通过 | 保留作对照 |
 | Candidate AWB_V1 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | `awb-v1-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v` | `F952339EC4F19C61947B98C041CF9801021A6763B6CF103D32A46D89D6B47AD3` | `artifacts/bitstreams/AWB_V1/camera_to_dsi_display.bit` | `6512B12C1F231DED42A7809766273CA58D677472FFB08BBE009B839512C729A3` | 综合 / 实现 / bit 全部成功；Setup WNS +0.101 ns、Hold WNS +0.020 ns、TNS 0 | **用户反馈已上板**：相对 V0 色彩轻微改善；仍有明显偏色与灰雾感，缺同场景定量数值 | 保留作 BLC_V1 对照 |
 | BLC_V1 | `347dff76d67f8072fc3f0c7a4e78bd01bfae7dbc` | `blc-v1-candidate`；上板记录 `blc-v1` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v` | `4F15F8588FA6AA7249CD01D470E943E18B761F95B356AC3F7698E8C01B054DD5` | `artifacts/bitstreams/BLC_V1/camera_to_dsi_display.bit` | `2B9E427DEE8304106F5E75A686899D189E4B61EB3514A4AE33C51EA536FB133D` | 综合 / 实现 / bit 全部成功；Setup WNS +0.137 ns、Hold WNS +0.020 ns、TNS 0；关键告警无新增 | **用户反馈已上板**：遮光黑位较好；白/绿有所改善；白仍偏青绿，红/蓝和低照度偏暗；未观察到显示异常 | 保留；BLC 参数 15 暂时冻结，低照度留作独立问题 |
+| Candidate AWB_V2 | `529e5245e386e1f459a4074d01275326571a3d4b` | `awb-v2-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v` | `5DB871953306D5EDB4F2D9B17E1EC18F0A6D32DE052192F77FDF999ECC336FF0` | `artifacts/bitstreams/AWB_V2/camera_to_dsi_display.bit` | `D6AA67BB303D661E9ABEADCDE456AB27F6828CA948D89029F89F23028D5AA111` | 综合 / 实现 / bit 全部成功；Setup WNS +0.101 ns、Hold WNS +0.020 ns、TNS 0；关键告警无新增 | **待上板**：重点比较白、灰和混合彩色场景的色偏与帧间稳定性 | 保留作单变量候选，等待真实测试 |
 
 补充说明：
 
-- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，用户于 2026-10-08 反馈已上板；BLC_V1 = 2026-10-08 18:13–18:22 构建，用户同日反馈已上板。
+- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，用户于 2026-10-08 反馈已上板；BLC_V1 = 2026-10-08 18:13–18:22 构建，用户同日反馈已上板；AWB_V2 = 2026-10-08 22:35–22:43 构建，待上板。
 - 资源明细、告警与证据清单见 `artifacts/bitstreams/<VERSION>/BUILD_INFO.md`；两个版本的构建日志已随版本一并归档。
 - V0 的 bit 在构建时未记录 SHA-256 与归档路径，原始 `phy_1` 目录随后被 AWB_V1 构建覆盖。本次从 `best_result/` 中恢复出与 V0 构建时间（2026-10-05 20:22:08）及 `phy_run.log` 一致的 bit 并归档；该对应关系以时间戳和构建日志为据，**未做上板复现**。
 - 未建立 `baseline-official-osd` / `baseline-official-edge`：归档时 `user_source/hdl_source/awb.v` 已是 AWB_V1，工作目录内不存在可逐字节校验的官方原始副本，不能把已修改工程标记为官方基线。需取回官方原始压缩包校验后单独提交并打 tag。
