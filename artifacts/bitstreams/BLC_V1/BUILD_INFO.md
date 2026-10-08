@@ -1,6 +1,6 @@
 # BUILD_INFO — BLC_V1
 
-BLC_V1 是 RAW10 黑电平扣除的**单变量候选实验**。AWB_V1、SC500CS 寄存器、曝光与增益、Gamma、CCM、MIPI、DDR、OSD、HDMI 均未修改。`BLACK_LEVEL_RAW10=15` 来源于工程自带但未接入的 `isp/BLC/BLC.v` 四路默认值，**不是 SC500CS 测量值或规格值**。本 bit 尚未上板。
+BLC_V1 是 RAW10 黑电平扣除的**单变量实验**。AWB_V1、SC500CS 寄存器、曝光与增益、Gamma、CCM、MIPI、DDR、OSD、HDMI 均未修改。`BLACK_LEVEL_RAW10=15` 来源于工程自带但未接入的 `isp/BLC/BLC.v` 四路默认值，**不是 SC500CS 测量值或规格值**。2026-10-08 用户反馈本 bit 已上板，方向有正向效果，暂时冻结参数。
 
 ## 版本标识
 
@@ -8,7 +8,7 @@ BLC_V1 是 RAW10 黑电平扣除的**单变量候选实验**。AWB_V1、SC500CS 
 |---|---|
 | Version | `BLC_V1` |
 | Git Commit（本 bit 的源码提交） | `347dff76d67f8072fc3f0c7a4e78bd01bfae7dbc` |
-| Git Tag | `blc-v1-candidate`（指向包含本 bit 与 BUILD_INFO 的归档提交） |
+| Git Tag | `blc-v1-candidate`（原候选归档）；`blc-v1`（上板结果记录提交） |
 | Build Time | 2026-10-08 18:13–18:22（TD 本地时间） |
 | Device | PH1P35MDG324（HX1P35A） |
 | Top Module | `design_top_wrapper` |
@@ -52,7 +52,7 @@ BLC_V1 是 RAW10 黑电平扣除的**单变量候选实验**。AWB_V1、SC500CS 
 
 ## Board Test Status
 
-**待上板**。先以 AWB_V1 bit 作同场景对照，再烧录 BLC_V1。依次遮光、黑/白/灰物体、红/绿/蓝物体、正常室内与低照度场景，记录黑位、暗部是否压死、颜色、OSD“安路”可见性、画面连续性及运行稳定性。若遮光黑场无改善或暗部被压死，应回滚 AWB_V1；不得把静态分析和构建成功当成画质验收。
+**用户反馈已上板（2026-10-08）**：相对先前版本，白色和绿色有一定改善；遮光时 HDMI 摄像头区域呈较好的黑色，无明显灰白 pedestal。白色仍偏青绿；红色、蓝色分别能识别为红/暖色和蓝色，但明显偏暗。较暗真实场景仍亮度不足、色彩弱。用户目前未观察到大面积黑位压死、HDMI/OSD 颜色异常、花屏或明显时序问题。没有提供 RAW 黑场数值、定量色卡数据或长时间运行记录，因此不能宣称黑电平 15 已校准或全部稳定性门槛通过。本版保留供 AWB_V2 对照，`BLACK_LEVEL_RAW10=15` 暂时冻结；低照度不足留待独立曝光/增益实验。
 
 ## 证据清单
 

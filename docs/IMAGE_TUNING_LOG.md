@@ -76,6 +76,13 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 
 下次仅按顺序比较 AWB_V1 与 BLC_V1：①完全不透光遮镜头（画面黑度、灰雾、色偏、固定噪声、AWB 跨帧变化）；②黑色物体；③白纸；④灰色物体；⑤正常综合色彩场景；⑥红；⑦绿；⑧蓝；⑨较暗场景。若 BLC_V1 的遮光/黑物体更接近中性黑且白、灰、彩色细节不被压死，同时 OSD/连续性保持，则支持 pedestal 假设；若两版无差异，优先寻求 RAW 黑场统计；若暗部被压死、颜色更差或出现显示错位，回滚到已归档 AWB_V1 bit。手机拍屏需锁定曝光和白平衡，不能用自动调节照片直接量化黑位。
 
+### BLC_V1 上板反馈（用户报告，2026-10-08）
+
+- Version / Git Tag / bit：`BLC_V1` / `blc-v1-candidate` / SHA-256 `2B9E427DEE8304106F5E75A686899D189E4B61EB3514A4AE33C51EA536FB133D`；源码提交 `347dff76d67f8072fc3f0c7a4e78bd01bfae7dbc`，归档提交 `02b27b114bf20ecd6ee176a90ded6863a2a0385c`。
+- 修改假设与唯一变量：在 RAW10 Bayer 域扣除可能存在的公共 pedestal；原先旁路，现统一饱和减去 15。构建成功，路由后 Setup WNS +0.137 ns、Hold WNS +0.020 ns，无新增关键告警。
+- 实测场景：白色和绿色较此前有所改善；白色仍偏青绿。蓝色目标能识别为蓝色、红色目标能识别为红/暖色，但两者都明显偏暗。完全遮光时摄像头区域为较好的黑色，没有明显灰白 pedestal。较暗真实场景仍明显偏暗、色彩弱。用户目前未观察到大面积黑位压死、HDMI/OSD 颜色异常、花屏或明显时序问题。
+- 结论：保留 BLC_V1，`BLACK_LEVEL_RAW10=15` 暂时冻结。上述正向现象支持继续使用本候选 bit，但尚无 RAW 数值、定量色卡或长时间运行证据，不能证明 15 是准确的 sensor 校准值。下一个独立变量为 AWB 样本选择；低照度亮度不足留待以后单独研究 sensor exposure / gain / AE。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
@@ -101,11 +108,11 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 |---|---|---|---|---|---|---|---|---|---|
 | Baseline V0 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | 无 | `docs/baseline/awb_v0_compiled.v` | `B6D9D83A6B48952CC9531DAF39BC6C6B94C4E45DDEFE603908E9CB275533E50A` | `artifacts/bitstreams/BASELINE_V0/camera_to_dsi_display.bit` | `D42E4AFC8CC6939230DAB332EEBE6E439297F1EA9FC57E6984152B60C673D668` | 综合 / 实现 / bit 全部成功；Setup WNS +0.109 ns、Hold WNS +0.020 ns、TNS 0 | 已上板（2026-10-05 约 21:00）：基础颜色测试不通过 | 保留作对照 |
 | Candidate AWB_V1 | `7466c7f19e8e3f592486b52ba5d9720eb5f176c0` | `awb-v1-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v` | `F952339EC4F19C61947B98C041CF9801021A6763B6CF103D32A46D89D6B47AD3` | `artifacts/bitstreams/AWB_V1/camera_to_dsi_display.bit` | `6512B12C1F231DED42A7809766273CA58D677472FFB08BBE009B839512C729A3` | 综合 / 实现 / bit 全部成功；Setup WNS +0.101 ns、Hold WNS +0.020 ns、TNS 0 | **用户反馈已上板**：相对 V0 色彩轻微改善；仍有明显偏色与灰雾感，缺同场景定量数值 | 保留作 BLC_V1 对照 |
-| Candidate BLC_V1 | `347dff76d67f8072fc3f0c7a4e78bd01bfae7dbc` | `blc-v1-candidate` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v` | `4F15F8588FA6AA7249CD01D470E943E18B761F95B356AC3F7698E8C01B054DD5` | `artifacts/bitstreams/BLC_V1/camera_to_dsi_display.bit` | `2B9E427DEE8304106F5E75A686899D189E4B61EB3514A4AE33C51EA536FB133D` | 综合 / 实现 / bit 全部成功；Setup WNS +0.137 ns、Hold WNS +0.020 ns、TNS 0；关键告警无新增 | **待上板**：遮光黑场与 AWB_V1 对比，重点检查黑位、暗部裁切与连续显示 | 保留作候选，不立最终 tag |
+| BLC_V1 | `347dff76d67f8072fc3f0c7a4e78bd01bfae7dbc` | `blc-v1-candidate`；上板记录 `blc-v1` | `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v` | `4F15F8588FA6AA7249CD01D470E943E18B761F95B356AC3F7698E8C01B054DD5` | `artifacts/bitstreams/BLC_V1/camera_to_dsi_display.bit` | `2B9E427DEE8304106F5E75A686899D189E4B61EB3514A4AE33C51EA536FB133D` | 综合 / 实现 / bit 全部成功；Setup WNS +0.137 ns、Hold WNS +0.020 ns、TNS 0；关键告警无新增 | **用户反馈已上板**：遮光黑位较好；白/绿有所改善；白仍偏青绿，红/蓝和低照度偏暗；未观察到显示异常 | 保留；BLC 参数 15 暂时冻结，低照度留作独立问题 |
 
 补充说明：
 
-- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，用户于 2026-10-08 反馈已上板；BLC_V1 = 2026-10-08 18:13–18:22 构建，待上板。
+- 时间线：V0 = 2026-10-05 20:13–20:22 构建，约 21:00 上板；AWB_V1 = 2026-10-05 21:43–22:17 构建，用户于 2026-10-08 反馈已上板；BLC_V1 = 2026-10-08 18:13–18:22 构建，用户同日反馈已上板。
 - 资源明细、告警与证据清单见 `artifacts/bitstreams/<VERSION>/BUILD_INFO.md`；两个版本的构建日志已随版本一并归档。
 - V0 的 bit 在构建时未记录 SHA-256 与归档路径，原始 `phy_1` 目录随后被 AWB_V1 构建覆盖。本次从 `best_result/` 中恢复出与 V0 构建时间（2026-10-05 20:22:08）及 `phy_run.log` 一致的 bit 并归档；该对应关系以时间戳和构建日志为据，**未做上板复现**。
 - 未建立 `baseline-official-osd` / `baseline-official-edge`：归档时 `user_source/hdl_source/awb.v` 已是 AWB_V1，工作目录内不存在可逐字节校验的官方原始副本，不能把已修改工程标记为官方基线。需取回官方原始压缩包校验后单独提交并打 tag。
