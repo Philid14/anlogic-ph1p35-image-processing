@@ -4,7 +4,7 @@ WebSite:https://www.milianke.com
 TechWeb:https://www.uisrc.com
 Copyright (c) MiLianKe. All rights reserved.
 
-AWB_V1: frame statistics and frame-constant RGB gain. The module
+AWB_V2: select low-chroma pixels for frame-constant RGB gain. The module
 interface, signal_delay RAM and Anlogic divider IP remain unchanged.
 *****************************************************************/
 module awb #(
@@ -31,18 +31,25 @@ module awb #(
     localparam [19:0] GAIN_STEP = 20'h02000; // 0.125 per frame
     localparam [20:0] MIN_SAMPLES = 21'd1024;
     localparam [20:0] MAX_SAMPLES = IMG_WIDTH * IMG_HEIGHT;
+    // RGB888 trial threshold: tolerate moderate cast on gray/white regions
+    // while rejecting strongly colored red/green/blue regions.
+    localparam [7:0] CHROMA_THRESHOLD = 8'd32;
 
     function pixel_usable;
         input [23:0] pixel;
-        reg [7:0] r, g, b, max_rg, max_rgb;
+        reg [7:0] r, g, b, max_rg, max_rgb, min_rg, min_rgb;
         begin
             r = pixel[23:16];
             g = pixel[15:8];
             b = pixel[7:0];
             max_rg = (r > g) ? r : g;
             max_rgb = (max_rg > b) ? max_rg : b;
-            // Ignore near-black and any channel close to clipping.
-            pixel_usable = (max_rgb >= 8'd24) && (max_rgb < 8'd240);
+            min_rg = (r < g) ? r : g;
+            min_rgb = (min_rg < b) ? min_rg : b;
+            // Use only plausible neutral surfaces for Gray World statistics.
+            // A frame without >= MIN_SAMPLES candidates holds prior gains.
+            pixel_usable = (max_rgb >= 8'd24) && (max_rgb < 8'd240) &&
+                           ((max_rgb - min_rgb) < CHROMA_THRESHOLD);
         end
     endfunction
 

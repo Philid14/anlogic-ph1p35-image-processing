@@ -92,3 +92,12 @@
 SmartSens 官方 [SC500CS 产品简介](https://smartsens.oss-cn-beijing.aliyuncs.com/web/products/SC500CS_V4.0.pdf) 明确支持 10/8-bit、2-lane MIPI RAW，但没有寄存器 `0x4000–0x4009` 的逐位定义或 RAW10 黑电平数值。**本轮无法确定传感器输出的实际 black pedestal，也无法确认其内部 BLC 是否已把黑位校到 0。** 不使用其他型号传感器（例如 OV4689）的 `0x400x` 寄存器说明推断 SC500CS。
 
 本地有效 RTL 证据：A 工程清单没有编译 `isp/BLC/BLC.v`；`raw10_unpacket_2lane.v` 中使用 `I_camera_black_level` 的减法位于整块注释中，而顶层直接把解包 RAW10 送去马赛克。随例程的 `isp/BLC/BLC.v` 给出四个 RAW10 offset 默认值均为 **15**，但未连接到 A 工程，且没有注明是 SC500CS 的测量结果。本轮 BLC_V1 若用 15，只能标为**来自随工程参考模块的试验初值**，不能写成传感器已校准黑电平。新 RTL 独立写为饱和减法，没有复制外部 GitHub 实现。
+
+## 6. AWB_V2 低色度样本选择依据（2026-10-08）
+
+| Repository / Owner | 固定 revision、License、参考文件 | 参考内容与采用范围 |
+|---|---|---|
+| `10x-Engineers/Infinite-ISP` / 10x Engineers | commit `32212079dc13528125df711fed27da332250485e`；Apache-2.0；[`modules/auto_white_balance/gray_world.py`](https://github.com/10x-Engineers/Infinite-ISP/blob/32212079dc13528125df711fed27da332250485e/modules/auto_white_balance/gray_world.py) | 已有普通 Gray World 的 `G/R`、`G/B` 对照。本地按实际 `awb.v` 推导：单色区域主导均值时会压低对应通道。**采用算法比较思想，不复制源码或参数**。 |
+| 学术论文，非 GitHub 仓库 / Kai-Fu Yang、Shao-Bing Gao、Yong-Jie Li | [CVPR 2015《Efficient Illuminant Estimation for Color Constancy Using Grey Pixels》](https://openaccess.thecvf.com/content_cvpr_2015/html/Yang_Efficient_Illuminant_Estimation_2015_CVPR_paper.html)；revision 为 CVPR 2015 正式论文；本文非代码仓库，代码许可不适用，论文文本版权未用于代码复制 | 论文提出从灰色像素估计照明，而非假设整幅场景平均为灰；其检测用对数颜色空间等更复杂方法。**只采用中性候选像素的设计思想**，本地 `max(R,G,B)-min(R,G,B)<32` 是针对 RGB888 资源和上板试验独立设计的简单门槛，并非论文公式或参数。 |
+
+实际决策受本地 BLC_V1 上板反馈和有效 `awb.v` 控制逻辑主导：红/蓝单色可辨但偏暗，符合纯色 Gray World 造成的对应通道目标增益低于 1 的可能性，仍不能仅凭照片定量归因。现有帧末 `sample_count>=1024` 才启动除法，为低色度样本不足时保留上一增益提供已有硬件保护。阈值 32 为 **AWB_V2 单一实验初值**，约为 RGB888 满量程的 12.5%；对明显纯色（如 `200,30,30`）拒绝，对中等偏色的白/灰（如 `160,185,180`）保留。没有本机逐像素采样数据证明 32 最优；若白纸实际色差超过 31，候选样本可能不足，需要在下一轮上板记录中如实报告，不在本轮另扫 bit。
