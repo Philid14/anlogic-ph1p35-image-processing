@@ -4,9 +4,9 @@
 
 本轮以 A 工程实际编译的 `uics500reg_720p60.v`、`uicfgcs500_720p.v`、`uics500regAE.v`、`SC500GainTbl.v`、`uii2c.v`、`ae_set.v`、`design_top_wrapper.v` 为本地依据。寄存器语义交叉核对 SmartSens SC500CS Preliminary 数据手册 V1.8 的本地摘录（仅为研究辅助、来源原件尚未在仓库核验），以及下述固定版本的 SC500CS Linux/Android 驱动。外部驱动均未复制代码到 FPGA 工程。没有本板 sensor 寄存器读回、I²C 波形或逐帧 RAW 数值；所有“已配置”在此指 RTL **请求写入的目标值**，传感器实际接受情况待上板验证。
 
-## 当前固定初始化
+## AWB_V2 / GAIN_TEST_B 扫描前基线初始化
 
-| 功能 | 当前初始化写入 | 解码 |
+| 功能 | AWB_V2 / GAIN_TEST_B 初始化写入 | 解码 |
 |---|---|---|
 | HTS | `0x320c=06, 0x320d=40` | `0x0640=1600` |
 | VTS | `0x320e=03, 0x320f=e8` | `0x03e8=1000` 行；`0x326d` 扩展位未写 |
@@ -14,7 +14,7 @@
 | Analog Gain | `0x3e08=0f, 0x3e09=20` | 粗增益 4×、细增益 `0x20/32=1`，目标模拟增益 **4×** |
 | Digital Gain | 初始化表不写 `0x3e06/07` | 本轮保持原复位/既有状态，不推定其确切值 |
 
-SC500CS 曝光最小 3 个半行；在固定 VTS 时上限为 `2×VTS−10` 个半行。当前 VTS=1000，上限为 **1990 个半行，即 995 行**；初始化目标正好在该上限。Sensor 手册说明曝光/增益在第 N 帧写入、第 N+2 帧生效，并建议帧开始后写入。实际行时间由传感器模式决定；若 720p60 模式确实保持 60 fps，则 1000 行/帧约 60 kline/s、995 行约 16.58 ms，不能仅凭 HDMI 720p60 断言摄像头帧率已实测 60 fps。
+SC500CS 曝光最小 3 个半行；在固定 VTS 时上限为 `2×VTS−10` 个半行。三版 VTS 都为 1000，上限为 **1990 个半行，即 995 行**；初始化目标正好在该上限。Sensor 手册说明曝光/增益在第 N 帧写入、第 N+2 帧生效，并建议帧开始后写入。实际行时间由传感器模式决定；若 720p60 模式确实保持 60 fps，则 1000 行/帧约 60 kline/s、995 行约 16.58 ms，不能仅凭 HDMI 720p60 断言摄像头帧率已实测 60 fps。
 
 曝光超过当前 `2×VTS−10` 后，应先将 VTS 增大至至少 `ceil((曝光半行数+10)/2)`，同时核查 `0x326d` 扩展位与当前模式的时钟约束。公开 Allwinner SC500CS 驱动的 `sensor_s_exp_gain` 在长曝光时按该关系延长帧长并写 `0x320e/f`。例如按键默认请求的 3000 半行至少需要 VTS=1505；行时间近似不变时，帧率随 VTS 增大按 `fps_new ≈ fps_old×VTS_old/VTS_new` 下降，若原为 60 fps 则约为 39.9 fps。图像采集与 HDMI 显示可能发生帧率失配。本轮不改 VTS、曝光或帧率。
 
@@ -40,6 +40,16 @@ SC500CS 模拟增益为 `0x3e08` 粗档乘以 `0x3e09` 细档：
 3. `r_ag_set` 发生变化且相机/AE 配置完成时，`O_ae_req` 脉冲，同时锁存 `O_ae` 与 `O_ag`。`uicfgcs500_720p` 在空闲态接收请求，`uics500regAE` 随后顺序写 `0x3e00/01/02`、`0x3e08/09`。因此不是“只改变 RTL 状态而永不发写请求”的明显断链；但请求只在状态机空闲时受理，没有队列，在忙时的非握手脉冲理论上可丢失。`ae_set` 以 `O_ae_cfg_done` 做节流，通常会等当前五次写完。
 4. **明确的混杂因素**：`ae_set` 复位/默认 `r_ae=3000` 半行 = 1500 行，超过当前 VTS=1000 的 1990 半行上限。即使只按 gain 键，写表仍会把 Exposure 重写为 3000，同时写 Gain；未同步增大 VTS。对 K3/K4“肉眼无变化”的现象，不能从静态 RTL 单独判定是按键无效、sensor 拒绝越界曝光、I²C 失败，还是增益范围有限。固定 Gain Sweep 测试期间不要按键。
 5. `uii2c` 自带 `O_iic_bus_error`（NACK 检测），但 `uicfgcs500_720p` 实例没有接出该信号，也没有把 ACK 成功作为推进写表条件；`.I_rd_cnt(0)` 禁用读回。状态机的“完成”仅表示命令发送流程结束，**不能证明 sensor ACK 或寄存器实际值**。最低成本验证是对 SCL/SDA 捕获初始化第 112/113 次写入（`6c 3e 08 XX`、`6c 3e 09 20`）及 ACK，或下一轮单独接出 error/readback 观察；本轮不改 I²C/OSD RTL，且不声称已读回。
+
+## 三个可烧录 candidate 的构建结果
+
+| Version / Tag | `3e08/09` | 目标模拟增益 | Bit SHA-256 | Setup / Hold WNS | Board status |
+|---|---|---:|---|---:|---|
+| `GAIN_TEST_A` / `gain-test-a-candidate` | `03/20` | 1× | `DDE2589CC0CD74E89D4198C4AD937AB946FF4D1DBC65241A1F425A7E3D551AF6` | +0.101 / +0.020 ns | 待上板 |
+| `GAIN_TEST_B` / `gain-test-b-candidate` | `0f/20` | 4× | `A34131C7F2E991F3C9C59627DADBE797CCE7A33E4EB0A0F9A272A5BD9C8CB37E` | +0.107 / +0.020 ns | 待上板 |
+| `GAIN_TEST_C` / `gain-test-c-candidate` | `1f/20` | 8× | `A7CDBFADF6E10FB68C0B79FE8786AFFBA142D8F4509B48D449C4289ACE32FC66` | +0.104 / +0.020 ns | 待上板 |
+
+三版均完成完整 Synthesis→Physical Design→Timing Check→bitgen，Setup/Hold TNS 均 0；构建详情、资源、告警和证据日志见各自 `artifacts/bitstreams/GAIN_TEST_*/BUILD_INFO.md`。归档 bit SHA-256 已重新计算并与生成 bit 核对。上板结果尚不存在，不能把此表当作 Sensor Gain Control Verified 的实测证据。
 
 ## 测试与判据
 

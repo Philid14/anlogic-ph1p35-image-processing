@@ -101,6 +101,19 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：用户报告白/绿相较早期明显改善，红/蓝相较 AWB_V2 前改善，中性灰基本保持灰色，RGB 主色可区分；遮光黑场较好。当前主要缺陷为正常室内和低照度场景整体偏暗，OSD 黄色文字与“安路”Logo 亮度正常。无锁定拍照参数的同场景定量测量、sensor 寄存器读回或连续 30 分钟记录，不将相对改善写成量化结论。
 - 是否保留：保留 AWB_V2 作为 Gain Sweep 基线；`CHROMA_THRESHOLD=32` 和 BLC 15 本阶段冻结。下一步仅审计 SC500CS 曝光与模拟增益，固定参数做单变量测试，不在本轮修改 AWB 或实现 AE。
 
+## Fixed Gain Sweep candidate（2026-10-09，待上板）
+
+- 修改假设：整体偏暗可能与 SC500CS 固定模拟增益有关；三版唯一功能变量是实际编译初始化表的 `0x3e08` 粗增益字节。Exposure `0x3e00/01/02=00/7c/60`（1990 半行）、VTS 1000、HTS 1600、`0x3e09=20`、数字增益、BLC 15、AWB_V2 色度阈值 32 及其余 ISP/视频链均不变。相对 B，A 另将旧的“约 4 倍”源码注释改为中性说明；相对 A，C 仅修改该字节。完整审计见 `SC500CS_EXPOSURE_GAIN_AUDIT.md`。
+- 预期：同场景锁定手机曝光/白平衡，A(1×)→B(4×)→C(8×) 逐级变亮；噪声与过曝可能增加。此为预期，不是上板结果。测试时不要按增益键，因为 `ae_set` 会同时写超出当前 VTS 上限的 3000 半行曝光。
+
+| Version | 源码提交 | Candidate tag | `3e08/09` | 目标模拟增益 | Bit SHA-256 | Build Result | Board Test Result / 是否保留 |
+|---|---|---|---|---:|---|---|---|
+| GAIN_TEST_A | `5f73df1c0fb4569c312ea33894e89b08df66becc` | `gain-test-a-candidate` | `03/20` | 1× | `DDE2589CC0CD74E89D4198C4AD937AB946FF4D1DBC65241A1F425A7E3D551AF6` | 完整综合/实现/时序/bit 通过；Setup/Hold WNS +0.101/+0.020 ns | **待上板**；是否保留待比较 |
+| GAIN_TEST_B | `16be9c4378fd5a94c467315a0a9e9e45e54b5965` | `gain-test-b-candidate` | `0f/20` | 4× | `A34131C7F2E991F3C9C59627DADBE797CCE7A33E4EB0A0F9A272A5BD9C8CB37E` | 完整综合/实现/时序/bit 通过；Setup/Hold WNS +0.107/+0.020 ns | **待上板**；是否保留待比较 |
+| GAIN_TEST_C | `1e3a601cfb8074aa30d81f83600ef5a7a8c42712` | `gain-test-c-candidate` | `1f/20` | 8× | `A7CDBFADF6E10FB68C0B79FE8786AFFBA142D8F4509B48D449C4289ACE32FC66` | 完整综合/实现/时序/bit 通过；Setup/Hold WNS +0.104/+0.020 ns | **待上板**；是否保留待比较 |
+
+逐版原始参数、构建报告、bit 完整路径和证据见 `artifacts/bitstreams/GAIN_TEST_A`、`GAIN_TEST_B`、`GAIN_TEST_C`。本阶段没有硬件 I²C ACK、寄存器读回或定量亮度记录；不可填写“控制已验证”。下一步仅执行固定机位/灯光/显示器/目标的 A→B→C 烧录比较，每版等待 3–5 秒并记录亮度、暗部、白/灰/RGB、噪声、过曝、彩色噪点、OSD“安路”和 HDMI 连续性；测试完成后再建立各版结果提交和正式 tag。本轮不实现 AE。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
