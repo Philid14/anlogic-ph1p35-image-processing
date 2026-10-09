@@ -73,7 +73,7 @@ always @(*) begin
         108: REG_DATA={16'h4509,8'h28}; 109: REG_DATA={16'h4837,8'h42}; // 480Mbps/lane
         110: REG_DATA={16'h5000,8'h4e}; 111: REG_DATA={16'h5901,8'h04};
         // 固定模拟增益实验；仅改变0x3e08粗档，细档0x3e09保持0x20。
-        112: REG_DATA={16'h3e08,8'h03}; 113: REG_DATA={16'h3e09,8'h20};
+        112: REG_DATA={16'h3e08,8'h1f}; 113: REG_DATA={16'h3e09,8'h20};
         114: REG_DATA={16'h0100,8'h01}; // stream on
         115: REG_DATA={16'h302d,8'h00}; // stream on后延时10ms
         default: REG_DATA={16'h0000,8'h00};
