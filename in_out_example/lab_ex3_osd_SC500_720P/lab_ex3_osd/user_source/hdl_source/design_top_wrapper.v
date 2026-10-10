@@ -9,7 +9,7 @@ module design_top_wrapper (
     output wire       O_cam_24m,
     output wire       O_cam_rst,
       
-    inout wire [1:0]  I_button,
+    input wire [1:0]  I_button,
 
     output wire       O_screen_pwm,
     output wire       O_tmds_ch0_p,
@@ -431,15 +431,20 @@ module design_top_wrapper (
 	
 
   
-  ae_set u_ae_set (
-      .I_clk(S_24m_clk),
-      .I_rst(~S_rst_n),
-      .I_btn({I_button,2'b11}),
-      .I_cam_cfg_done(S_cam_cfg_done),
-      .I_ae_cfg_done(S_ae_cfg_done),
-      .O_ae_req(S_ae_req),
-      .O_ae(S_ae),
-      .O_ag(S_ag)
+  // EDGE_CONTROL_V1: keys control only the FPGA algorithm. Prevent the old
+  // manual AE/gain path from rewriting the frozen sensor initialization.
+  assign S_ae_req = 1'b0;
+  assign S_ae = 16'd1990;
+  assign S_ag = 16'd0; // unused while S_ae_req=0, not a sensor gain encoding
+  wire [8:0] S_edge_requested_config, S_edge_received_config;
+  edge_key_control u_edge_keys (
+      .clk(S_24m_clk), .rst_n(S_rst_n), .keys_n(I_button),
+      .requested_config(S_edge_requested_config)
+  );
+  edge_config_cdc u_edge_config_cdc (
+      .src_clk(S_24m_clk), .dst_clk(S_csi_rx_clk), .rst_n(S_rst_n),
+      .requested_config(S_edge_requested_config),
+      .received_config(S_edge_received_config)
   );
   
     uicfgcs500_720p #(
@@ -580,8 +585,9 @@ assign S_raw_tuser  = S_axis_tuser;
 
 
 //ISP算法顶层模块
-isp_top u_isp_top (
+isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
+.I_edge_config   (S_edge_received_config),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
 .I_tuser         (S_raw_tuser	),

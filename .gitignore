@@ -49,3 +49,7 @@ desktop.ini
 .idea/
 *.swp
 *~
+
+# Local verification vectors, PDF renders and Python bytecode
+/tmp/
+__pycache__/

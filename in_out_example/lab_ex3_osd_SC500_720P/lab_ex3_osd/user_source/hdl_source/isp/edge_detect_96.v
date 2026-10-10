@@ -7,7 +7,8 @@
 module edge_detect_96 #(
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
-    parameter [13:0] EDGE_TH = 14'd80
+    parameter [13:0] EDGE_TH = 14'd80,
+    parameter integer RUNTIME_THRESHOLD = 0
 )(
     input I_clk,
     input I_rst_n,
@@ -20,7 +21,8 @@ module edge_detect_96 #(
     output O_tuser,
     output reg [95:0] O_tdata,
     output O_tvalid,
-    input O_tready
+    input O_tready,
+    input [7:0] I_threshold
 );
     // The camera/packer chain has no backpressure protocol. Never discard a
     // valid camera beat because its existing downstream ready is undriven.
@@ -41,15 +43,22 @@ module edge_detect_96 #(
                          + {1'b0,gray(I_tdata[23:0])};
 
     reg [4:0] valid_p, user_p, last_p;
+    reg [7:0] threshold_p [0:3];
+    integer th_stage;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             valid_p <= 5'b0;
             user_p <= 5'b0;
             last_p <= 5'b0;
+            for (th_stage=0; th_stage<4; th_stage=th_stage+1)
+                threshold_p[th_stage] <= EDGE_TH[7:0];
         end else begin
             valid_p <= {valid_p[3:0],I_tvalid};
             user_p <= {user_p[3:0],I_tuser};
             last_p <= {last_p[3:0],I_tlast};
+            threshold_p[0] <= I_threshold;
+            for (th_stage=1; th_stage<4; th_stage=th_stage+1)
+                threshold_p[th_stage] <= threshold_p[th_stage-1];
         end
     end
     assign O_tvalid = valid_p[4];
@@ -166,8 +175,9 @@ module edge_detect_96 #(
     // S4: L1 gradient magnitude; S5: threshold and four-pixel RGB packing.
     reg [13:0] mag0_s4,mag1_s4;
     reg window_s4;
-    wire [23:0] edge0 = window_s4 && (mag0_s4 >= EDGE_TH) ? 24'hffffff : 24'h0;
-    wire [23:0] edge1 = window_s4 && (mag1_s4 >= EDGE_TH) ? 24'hffffff : 24'h0;
+    wire [13:0] comparison_threshold = RUNTIME_THRESHOLD ? {6'd0,threshold_p[3]} : EDGE_TH;
+    wire [23:0] edge0 = window_s4 && (mag0_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
+    wire [23:0] edge1 = window_s4 && (mag1_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             mag0_s4 <= 0; mag1_s4 <= 0; window_s4 <= 0;

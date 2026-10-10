@@ -151,6 +151,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：**待上板**。暂未确认新增算法的轮廓质量、噪声假边、HDMI连续性、Logo可见或长期稳定性。完整流程及量化填写项见 `docs/EDGE_V1_BOARD_TEST.md`。
 - 是否保留/下一步：保留candidate；PROGRAM_SRAM以E对照固定Edge，观察竖/横/斜界、室内轮廓、移动、光照变化和至少30分钟运行。等待用户实拍后再决定Stage2共享灰度/Binary及Stage3四模式；本轮停止，不自行加AE/Gamma/CCM/VTS或阈值调节。
 
+### EDGE_V1 上板观察（用户2026-10-10 EDGE_CONTROL任务反馈）
+
+- Version / Git Commit / Git Tag：EDGE_V1 / 归档 `08d2a0d39991d29b410235645e769b642246d97d` / `edge-v1-candidate`；构建源码、唯一变量及参数见上节，原tag不移动。
+- Bit SHA-256：`268EAEE8830AF99C6275EAB45AC1C1CDE231127B91DC3B4729754C6FD581D1D6`，完整构建通过，Setup/Hold +0.107/+0.020 ns。
+- Board Test Result：用户确认可以输出边缘检测画面，但弱光时许多弱边缘不明显或检测不到；没有报告30分钟稳定性验收或量化边缘/噪声数据。
+- 是否保留/下一步：保留作为有效Sobel对照。下一版只做ORIGIN/EDGE切换、10–250阈值控制及对应OSD；保持sensor/ISP参数，不通过提高增益/曝光补偿。
+- 按键补充：用户说明旧两个“增益按键”输入此前未使用并允许修改；用户提供的原理图证明N2/J14为扩展GPIO，板载K3/K4应为B9/C7。本轮按该只读原理图修正，详见EDGE_CONTROL_V1_PLAN。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。

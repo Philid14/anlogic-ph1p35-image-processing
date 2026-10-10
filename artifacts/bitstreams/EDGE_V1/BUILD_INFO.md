@@ -22,7 +22,7 @@
 | Setup WNS / TNS / 违例端点 | +0.107 ns / 0.000 ns / 0 |
 | Hold WNS / TNS / 违例端点 | +0.020 ns / 0.000 ns / 0 |
 | 新的关键warning | 未发现新增类型；既有PHY-5060、PHY-5079保留，见原始日志 |
-| Board Test Status | **待上板**；本轮仅完成固定Edge candidate，未宣称采集/显示/长稳实测通过 |
+| Board Test Status | **已上板观察（用户2026-10-10 EDGE_CONTROL任务反馈）**：可以输出边缘画面，弱光下部分弱边缘检测不到；尚未完成30分钟稳定性验收。原candidate tag保持，不补造长稳或量化结果。 |
 
 ## 唯一主要变量与冻结基线
 

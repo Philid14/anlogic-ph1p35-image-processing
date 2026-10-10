@@ -3,9 +3,11 @@ module isp_top #(
     // reference. This is not a measured SC500CS black level.
     parameter [9:0] BLACK_LEVEL_RAW10 = 10'd15,
     parameter EDGE_ENABLE = 1,
-    parameter [13:0] EDGE_THRESHOLD = 14'd80
+    parameter [13:0] EDGE_THRESHOLD = 14'd80,
+    parameter integer EDGE_CONTROL_ENABLE = 0
 ) (
     input 			axi4s_video_aclk,
+    input [8:0] I_edge_config,
     input 			I_rst_n			,
     input 			I_tlast			,
     input 			I_tuser			,
@@ -54,7 +56,23 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire [95:0] algorithm_data;
   wire algorithm_valid, algorithm_user, algorithm_last, algorithm_last_128;
   generate
-  if (EDGE_ENABLE) begin : g_edge
+  if (EDGE_CONTROL_ENABLE) begin : g_control
+      reg last_128;
+      always @(posedge axi4s_video_aclk or negedge I_rst_n) begin
+          if (!I_rst_n) last_128 <= 1'b0;
+          else last_128 <= algorithm_last;
+      end
+      assign algorithm_last_128 = last_128;
+      edge_control_stream u_control (
+          .clk(axi4s_video_aclk), .rst_n(I_rst_n),
+          .requested_config(I_edge_config),
+          .I_data(awb_O_tdata), .I_valid(awb_O_tvalid),
+          .I_user(awb_O_tuser), .I_last(awb_O_tlast),
+          .I_ready(awb_O_tready), .O_ready(O_tready),
+          .O_data(algorithm_data), .O_valid(algorithm_valid),
+          .O_user(algorithm_user), .O_last(algorithm_last)
+      );
+  end else if (EDGE_ENABLE) begin : g_edge
       reg last_128;
       always @(posedge axi4s_video_aclk or negedge I_rst_n) begin
           if (!I_rst_n) last_128 <= 1'b0;
@@ -64,7 +82,7 @@ wire         m_aixs_tvalid;  //synthesis keep
       edge_detect_96 #(.IMG_WIDTH(1280), .IMG_HEIGHT(720),
                        .EDGE_TH(EDGE_THRESHOLD)) u_edge (
           .I_clk(axi4s_video_aclk), .I_rst_n(I_rst_n),
-          .I_tlast(awb_O_tlast), .I_tuser(awb_O_tuser),
+          .I_tlast(awb_O_tlast), .I_tuser(awb_O_tuser), .I_threshold(8'd80),
           .I_tdata(awb_O_tdata), .I_tvalid(awb_O_tvalid),
           .I_tready(awb_O_tready), .O_tready(O_tready),
           .O_tlast(algorithm_last), .O_tuser(algorithm_user),
