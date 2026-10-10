@@ -12,7 +12,7 @@
 | 归档 bit 路径 | `artifacts/bitstreams/GAIN_TEST_C/camera_to_dsi_display.bit` |
 | Bit SHA-256 | `A7CDBFADF6E10FB68C0B79FE8786AFFBA142D8F4509B48D449C4289ACE32FC66` |
 | Bit 大小 | 1,789,539 bytes |
-| Board Test Status | **待上板**；不能声称 I²C ACK/寄存器读回成功 |
+| Board Test Status | **已上板（用户 2026-10-10 反馈）**：同场景 A(1×)→B(4×)→C(8×) 画面亮度稳定、明显、单调增加；C 较此前改善，但正常室内仍略暗。模拟增益控制链可判为基本有效；仍无 I²C ACK/寄存器读回或噪声定量结果。 |
 
 ## 唯一变量与源码指纹
 

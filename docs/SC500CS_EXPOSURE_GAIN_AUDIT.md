@@ -45,11 +45,11 @@ SC500CS 模拟增益为 `0x3e08` 粗档乘以 `0x3e09` 细档：
 
 | Version / Tag | `3e08/09` | 目标模拟增益 | Bit SHA-256 | Setup / Hold WNS | Board status |
 |---|---|---:|---|---:|---|
-| `GAIN_TEST_A` / `gain-test-a-candidate` | `03/20` | 1× | `DDE2589CC0CD74E89D4198C4AD937AB946FF4D1DBC65241A1F425A7E3D551AF6` | +0.101 / +0.020 ns | 待上板 |
-| `GAIN_TEST_B` / `gain-test-b-candidate` | `0f/20` | 4× | `A34131C7F2E991F3C9C59627DADBE797CCE7A33E4EB0A0F9A272A5BD9C8CB37E` | +0.107 / +0.020 ns | 待上板 |
-| `GAIN_TEST_C` / `gain-test-c-candidate` | `1f/20` | 8× | `A7CDBFADF6E10FB68C0B79FE8786AFFBA142D8F4509B48D449C4289ACE32FC66` | +0.104 / +0.020 ns | 待上板 |
+| `GAIN_TEST_A` / `gain-test-a-candidate` | `03/20` | 1× | `DDE2589CC0CD74E89D4198C4AD937AB946FF4D1DBC65241A1F425A7E3D551AF6` | +0.101 / +0.020 ns | 已上板，最低亮度对照 |
+| `GAIN_TEST_B` / `gain-test-b-candidate` | `0f/20` | 4× | `A34131C7F2E991F3C9C59627DADBE797CCE7A33E4EB0A0F9A272A5BD9C8CB37E` | +0.107 / +0.020 ns | 已上板，较 A 明显变亮 |
+| `GAIN_TEST_C` / `gain-test-c-candidate` | `1f/20` | 8× | `A7CDBFADF6E10FB68C0B79FE8786AFFBA142D8F4509B48D449C4289ACE32FC66` | +0.104 / +0.020 ns | 已上板，较 B 明显变亮；室内仍略暗 |
 
-三版均完成完整 Synthesis→Physical Design→Timing Check→bitgen，Setup/Hold TNS 均 0；构建详情、资源、告警和证据日志见各自 `artifacts/bitstreams/GAIN_TEST_*/BUILD_INFO.md`。归档 bit SHA-256 已重新计算并与生成 bit 核对。上板结果尚不存在，不能把此表当作 Sensor Gain Control Verified 的实测证据。
+三版均完成完整 Synthesis→Physical Design→Timing Check→bitgen，Setup/Hold TNS 均 0；构建详情、资源、告警和证据日志见各自 `artifacts/bitstreams/GAIN_TEST_*/BUILD_INFO.md`。归档 bit SHA-256 已重新计算并与生成 bit 核对。2026-10-10 用户报告同场景 A→B→C 亮度稳定、明显、单调增加，支持模拟增益控制链**基本有效**；仍无 I²C ACK/寄存器读回和量化噪声证据。
 
 ## 测试与判据
 
