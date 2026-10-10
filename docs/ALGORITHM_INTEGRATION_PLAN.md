@@ -75,4 +75,22 @@ GAIN_TEST_E：LUT6 13757/21216、FF13625/42432、Slice15652/21216（73.77%）、
 
 测试还在AWB输出边界注入相同激励，对照实际 `isp_top` 的 Original 生成分支与原打包器；完整1280×720激励另验证实际 Edge 生成分支的128b data/valid/tuser及补偿后的tlast。`tests/isp_boundary_stubs.v` 只用于这个接线测试，不模拟冻结的AWB或demosaic算法。
 
-`tests/edge_v1_frozen_manifest.json` 保存改动前的192个主工程文件及68个B/C只读源码指纹，运行前后均一致。RTL测试不模拟MIPI、AWB RAM/除法IP、完整DDR/HDMI；这些由完整TD实现检查以及随后上板验证覆盖。此节将在TD全流程结束后补充实际资源/时序，当前不宣称新增Sobel已上板。
+`tests/edge_v1_frozen_manifest.json` 保存改动前的192个主工程文件及68个B/C只读源码指纹，运行前后以及TD构建结束后均一致。RTL测试不模拟MIPI、AWB RAM/除法IP、完整DDR/HDMI；完整TD实现验证编译与时序，功能和长期稳定性仍待上板。
+
+TD6.2.168116于2026-10-10完成：Synthesis 21:41:04–21:46:15、Physical Design/Timing Check/bitgen 21:48:30–21:53:43，两个命令退出码均0。实际构建源码提交为 `dd42086963eec1b1dbf8284048335502139da069`；归档tag `edge-v1-candidate` 固定源码、工程、bit及证据。之前 `5b80672` 的综合因发现打包后行尾需要再对齐1拍而主动中断，未作为通过候选；该历史保留，修正后重新执行全流程。
+
+| 路由后指标 | GAIN_TEST_E Original | EDGE_V1 | 差值 |
+|---|---:|---:|---:|
+| LUT6（容量21216） | 13757（64.84%） | 14174（66.81%） | +417 |
+| Slice FF（容量42432） | 13625（32.11%） | 13656（32.18%） | +31 |
+| Slice（容量21216） | 15652（73.77%） | 16031（75.56%） | +379 |
+| ERAM20K（容量108） | 40（37.04%） | 34（31.48%） | -6 |
+| DSP（容量40） | 9（22.50%） | 9（22.50%） | 0 |
+| Setup WNS | 0.000 ns | +0.107 ns | +0.107 ns |
+| Hold WNS | +0.020 ns | +0.020 ns | 0 |
+
+两版Setup/Hold TNS均0，违例端点均0。EDGE_V1的WNS为正但余量有限，不能替代上板稳定性证据。Sobel的两行逻辑容量为10240bit，综合层级报告实际为256个分布式RAM LUT、32个F7MUX、0 ERAM、0 DSP；`ram_style="block"` 未被TD映射为ERAM。固定黑白且成对复制的输出让既有FIFO被压缩，总ERAM减少6并不代表算法使用负资源；以后恢复RGB并行模式不应外推这个结果。剩余Slice5185（24.44%），后续四模式须重新完整构建评估。
+
+已有HDL/IP告警保留；新增Sobel未发现锁存、多驱动或宽度告警。Physical关键告警仍为既有 `PHY-5060` 混合时钟扇出、`PHY-5079` 局部时钟路由类型；未发现新增关键告警类型或Error。原始报告与日志完整复制到 `artifacts/bitstreams/EDGE_V1/build_evidence/`，不清理或改写其中原始内容。
+
+归档bit SHA-256：`268EAEE8830AF99C6275EAB45AC1C1CDE231127B91DC3B4729754C6FD581D1D6`。详细构建元数据见 `artifacts/bitstreams/EDGE_V1/BUILD_INFO.md`；真实上板状态为**待测试**，步骤见 `docs/EDGE_V1_BOARD_TEST.md`。完成本candidate后停止，Stage2/3等待用户反馈。

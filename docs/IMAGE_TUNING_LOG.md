@@ -140,6 +140,17 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：用户确认15.75×亮度基本满意，并决定暂时保持。没有提供D/E同场景定量比较、噪声/高光测量、I²C读回或长稳结果，不补造这些数据。
 - 是否保留/下一步：保留E为算法集成临时基线；Stage1只新增Sobel，冻结所有ISP和传感器参数。D继续保留候选对照，未补报上板结论。
 
+## EDGE_V1 Stage 1 candidate（2026-10-10）
+
+- Version / Git Commit / Git Tag：`EDGE_V1` / 实际完整构建源码 `dd42086963eec1b1dbf8284048335502139da069` / `edge-v1-candidate`（归档提交SHA由该tag唯一恢复）。E用户反馈正式tag `gain-test-e` 保留，未移动原candidate tag。
+- 修改假设：在用户已认可亮度的E固定基线上，在AWB后、DDR前增加FPGA Sobel流水，维持1280×720连续输入输出与原Logo/CNT。唯一主要变量是Original→固定Edge；修改前AWB输出直接打包，修改后5级两像素对Sobel、阈值80，再打包。编译参数 `EDGE_ENABLE=1`；0分支保留原链路用于接线回归，不实现运行时切换。
+- 冻结值：Exposure1990 half-lines、VTS1000、HTS1600、模拟增益1f/3f=15.75×、Digital Gain、BLC15、AWB_V2 CHROMA32及全部参数、MIPI/demosaic/DDR/HDMI/OSD、按键、PLL/ADC/SDC。192个冻结主工程文件SHA一致；B/C只读参考68文件SHA一致。
+- Bit SHA-256：`268EAEE8830AF99C6275EAB45AC1C1CDE231127B91DC3B4729754C6FD581D1D6`；归档 `artifacts/bitstreams/EDGE_V1/camera_to_dsi_display.bit`，大小1789539bytes。
+- Build Result：完整Synthesis/Physical Design/Timing Check/bitgen通过；LUT6 14174（66.81%）、FF13656（32.18%）、Slice16031（75.56%）、ERAM20K34（31.48%）、DSP9（22.50%）；Setup/Hold WNS +0.107/+0.020 ns，TNS0、违例端点0，无新增关键warning类型。独立空间参考RTL测试7组、512024有效拍通过，含两完整1280×720帧及实际isp_top边界/真实打包器。
+- 算法边界：640点水平边缘采样、结果复制两像素，前两行/首4像素黑边，因果窗口约右移2像素/下移1行；不能称为全宽逐像素Sobel。两行RAM实际映射256分布式RAM LUT，不新增ERAM/DSP；总ERAM下降源于黑白输出的FIFO优化。
+- Board Test Result：**待上板**。暂未确认新增算法的轮廓质量、噪声假边、HDMI连续性、Logo可见或长期稳定性。完整流程及量化填写项见 `docs/EDGE_V1_BOARD_TEST.md`。
+- 是否保留/下一步：保留candidate；PROGRAM_SRAM以E对照固定Edge，观察竖/横/斜界、室内轮廓、移动、光照变化和至少30分钟运行。等待用户实拍后再决定Stage2共享灰度/Binary及Stage3四模式；本轮停止，不自行加AE/Gamma/CCM/VTS或阈值调节。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
