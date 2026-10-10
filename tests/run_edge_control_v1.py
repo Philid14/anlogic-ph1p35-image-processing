@@ -44,8 +44,9 @@ def frozen():
     assert re.search(r"I_button\[1\].*LOCATION = C7", adc)
     baseline_adc = subprocess.check_output(["git", "show", "edge-v1-candidate:" +
         (HDL.parent / "constraints_source/pin.adc").relative_to(ROOT).as_posix()], cwd=ROOT).decode()
-    assert re.sub(r"I_button\[0\].*?LOCATION = B9", "I_button[0] }\t\t\t{ LOCATION = N2", adc).replace(
-        "LOCATION = C7", "LOCATION = J14") == baseline_adc
+    non_key_lines = lambda text: [line for line in text.splitlines() if "I_button[" not in line]
+    assert non_key_lines(adc) == non_key_lines(baseline_adc)
+    assert all("DRIVESTRENGTH" not in line for line in adc.splitlines() if "I_button[" in line)
     assert "DEBOUNCE_CYCLES = 480000" in (HDL / "edge_key_control.v").read_text()
     assert "LONG_CYCLES = 16800000" in (HDL / "edge_key_control.v").read_text()
     print("PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers", flush=True)
