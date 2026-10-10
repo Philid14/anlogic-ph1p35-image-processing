@@ -101,6 +101,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：用户报告白/绿相较早期明显改善，红/蓝相较 AWB_V2 前改善，中性灰基本保持灰色，RGB 主色可区分；遮光黑场较好。当前主要缺陷为正常室内和低照度场景整体偏暗，OSD 黄色文字与“安路”Logo 亮度正常。无锁定拍照参数的同场景定量测量、sensor 寄存器读回或连续 30 分钟记录，不将相对改善写成量化结论。
 - 是否保留：保留 AWB_V2 作为 Gain Sweep 基线；`CHROMA_THRESHOLD=32` 和 BLC 15 本阶段冻结。下一步仅审计 SC500CS 曝光与模拟增益，固定参数做单变量测试，不在本轮修改 AWB 或实现 AE。
 
+### GAIN_TEST_A 上板结果（用户 2026-10-10 反馈）
+
+- Version / 源码提交 / Git Tag：`GAIN_TEST_A` / `5f73df1c0fb4569c312ea33894e89b08df66becc` / `gain-test-a`（本结果提交）；candidate tag `gain-test-a-candidate` 保留。
+- 假设与唯一主要变量：固定 SC500CS `3e08/09=03/20`，理论 1×；与 B 的比较只改变模拟粗增益，原值 1×、新值 4×。Exposure 1990 half-lines、VTS 1000、HTS 1600、BLC 15、AWB_V2 及视频链冻结。
+- Bit SHA-256：`DDE2589CC0CD74E89D4198C4AD937AB946FF4D1DBC65241A1F425A7E3D551AF6`。Build Result：综合、实现、时序、bitgen 通过，Setup/Hold WNS +0.101/+0.020 ns。
+- Board Test Result：用户在完全相同场景比较 A→B→C，画面亮度稳定、明显、单调增加。A 是三者最低亮度档；没有定量亮度、噪声、I²C ACK 或寄存器读回记录。
+- 是否保留：保留 A 为已上板的低增益对照；下一步使用 B、C 及更高增益候选作同场景画质比较。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
