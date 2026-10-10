@@ -121,6 +121,17 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：A→B→C 画面亮度**稳定、明显、单调增加**。因此固定模拟增益写入控制链可判为**基本有效**，仍不等同于逐字节 I²C ACK 或寄存器读回证明。C=8× 相比此前明显改善，但正常室内亮度仍略低；用户尚未报告高增益噪声、彩色噪点、高光过曝、灰/白/RGB 定量变化或长时间稳定性结果。
 - 是否保留：A、B 保留为已测试对照版本；C 保留为上限档位扩展的起点，不预设最终固定增益。下一步只做 `3e08/09=1f/30`（12×）和 `1f/3f`（15.75×）的单变量候选，比较亮度与噪声；不修改曝光/VTS、数字增益、ISP 或按键，也不实现 AE。
 
+## Analog Gain Upper Range Test candidate（2026-10-10）
+
+- 修改假设：在已实测 8× 且仍略暗的条件下，提高唯一变量 SC500CS 模拟增益细档，检验 12× 是否适合作固定基准，并以 15.75× 观察上限效果。Exposure 1990 half-lines、VTS 1000、HTS 1600、数字增益、BLC 15、AWB_V2、MIPI/Demosaic/DDR/OSD/HDMI 和按键逻辑全部冻结；没有实现 AE。用户提供的 A→B→C 单调增亮属于已有上板证据，D/E 尚未上板。
+
+| Version | 构建时源码提交 | Candidate tag | `3e08/09` | 理论模拟增益 | Bit SHA-256 | Build Result | Board Test Result / 是否保留 |
+|---|---|---|---|---:|---|---|---|
+| GAIN_TEST_D | `1a3e549fb2ebef29412c90098ccae3c44681f021` | `gain-test-d-candidate` | `1f/30` | 12× | `78E20726747B65B7CC6B5A1149698824B0AA83157E6A8A4DD3BB5DEAEA00C80A` | 全流程完成；LUT6 13,841、FF 13,631、ERAM20K 40、DSP 9；Setup/Hold WNS +0.106/+0.020 ns | **待上板**；保留作候选 |
+| GAIN_TEST_E | `b2301a228050458051d4425484fef4c0c523a931` | `gain-test-e-candidate` | `1f/3f` | 15.75× | `EE477E5BAC6D3A315408D2935F80D9DFD85240D45060BA6C434AC421BFE900E2` | 全流程完成；LUT6 13,757、FF 13,625、ERAM20K 40、DSP 9；Setup/Hold WNS 0.000/+0.020 ns，零 setup 裕量、无违反端点 | **待上板**；保留作上限候选 |
+
+两版归档 bit、详细构建证据与源码指纹见 `artifacts/bitstreams/GAIN_TEST_D`、`GAIN_TEST_E`。逐版固定机位、场景、灯光、显示器及手机曝光/白平衡，按 **C=8× → D=12× → E=15.75×** 比较整体亮度、暗部、普通/彩色噪点、白灰 RGB、高光过曝、AWB 稳定性，并观察 OSD“安路”、HDMI 连续性。若 D 亮度合适且噪声可接受，考虑以 12× 为后续固定基准；若 D 仍暗，再看 E；若 E 亮度合适但噪声明显恶化，下阶段研究 VTS/曝光与帧率折中，不直接加数字增益。本轮在 candidate 归档后停止，等待实测。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
