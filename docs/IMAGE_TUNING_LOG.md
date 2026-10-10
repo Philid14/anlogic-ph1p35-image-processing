@@ -132,6 +132,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 
 两版归档 bit、详细构建证据与源码指纹见 `artifacts/bitstreams/GAIN_TEST_D`、`GAIN_TEST_E`。逐版固定机位、场景、灯光、显示器及手机曝光/白平衡，按 **C=8× → D=12× → E=15.75×** 比较整体亮度、暗部、普通/彩色噪点、白灰 RGB、高光过曝、AWB 稳定性，并观察 OSD“安路”、HDMI 连续性。若 D 亮度合适且噪声可接受，考虑以 12× 为后续固定基准；若 D 仍暗，再看 E；若 E 亮度合适但噪声明显恶化，下阶段研究 VTS/曝光与帧率折中，不直接加数字增益。本轮在 candidate 归档后停止，等待实测。
 
+### GAIN_TEST_E 上板选择（用户 2026-10-10 算法集成任务反馈）
+
+- Version / Git Commit / Git Tag：`GAIN_TEST_E` / 构建源码 `b2301a228050458051d4425484fef4c0c523a931`，归档 `c1e3002bcf895ce1902d517b184cfeaca79ae74b` / `gain-test-e`（本结果提交），原 `gain-test-e-candidate` 保留。
+- 唯一变量：模拟细增益 `3e09=30→3f`，粗增益 `3e08=1f`，12×→15.75×；Exposure 1990 half-lines、VTS1000、HTS1600、BLC15、AWB_V2固定。
+- Bit SHA-256：`EE477E5BAC6D3A315408D2935F80D9DFD85240D45060BA6C434AC421BFE900E2`；Build Result：完整构建完成、零违例端点，Setup/Hold WNS 0.000/+0.020 ns，setup零裕量。
+- Board Test Result：用户确认15.75×亮度基本满意，并决定暂时保持。没有提供D/E同场景定量比较、噪声/高光测量、I²C读回或长稳结果，不补造这些数据。
+- 是否保留/下一步：保留E为算法集成临时基线；Stage1只新增Sobel，冻结所有ISP和传感器参数。D继续保留候选对照，未补报上板结论。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。

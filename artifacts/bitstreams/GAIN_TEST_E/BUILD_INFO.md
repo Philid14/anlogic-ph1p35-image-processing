@@ -12,7 +12,7 @@
 | 归档 bit 路径 | `artifacts/bitstreams/GAIN_TEST_E/camera_to_dsi_display.bit` |
 | Bit SHA-256 | `EE477E5BAC6D3A315408D2935F80D9DFD85240D45060BA6C434AC421BFE900E2` |
 | Bit 大小 | 1,789,539 bytes |
-| Board Test Status | **待上板**；本版只用于确定高档模拟增益的亮度与画质边界。 |
+| Board Test Status | **已上板（用户 2026-10-10 本轮任务反馈）**：15.75×亮度基本满意，暂选为后续算法的固定画质基线；噪声定量、寄存器读回、长时间运行仍未提供。本结果对应正式 tag `gain-test-e`，原 candidate tag 保留。 |
 
 ## 唯一变量与源码指纹
 
