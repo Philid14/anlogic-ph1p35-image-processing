@@ -83,17 +83,39 @@ module tb_edge_control_mailbox;
         .requested_config(requested),.received_config(received));
     integer i;
     reg [7:0] next_threshold;
+    reg [8:0] sent_packets [0:255];
+    reg [8:0] sampled_request, previous_received={1'b1,8'd80};
+    reg previous_toggle=0;
+    integer launched=0,delivered=0;
+    always @(posedge sc) begin
+        sampled_request=requested;
+        #1;
+        if(!rn) begin launched=0;previous_toggle=0;end
+        else if(dut.req_toggle!==previous_toggle) begin
+            sent_packets[launched]=sampled_request;launched=launched+1;
+            previous_toggle=dut.req_toggle;
+        end
+    end
+    always @(posedge dc) begin
+        #1;
+        if(!rn) begin delivered=0;previous_received={1'b1,8'd80};end
+        else if(received!==previous_received) begin
+            if(delivered>=launched || received!==sent_packets[delivered])
+                $fatal(1,"FAIL CDC torn/out-of-order packet %0d got %h expected %h",delivered,received,sent_packets[delivered]);
+            delivered=delivered+1;previous_received=received;
+        end
+    end
     initial begin
         repeat(4) @(negedge sc);rn=1;
         for(i=0;i<200;i=i+1) begin
             @(negedge sc);next_threshold=10+10*(i%25);requested={i[0],next_threshold};
         end
         repeat(80) @(negedge sc);
-        if(received!==requested) $fatal(1,"FAIL coalesced CDC latest request");
+        if(received!==requested || delivered!=launched) $fatal(1,"FAIL coalesced CDC latest request");
         rn=0;repeat(5) @(negedge sc);rn=1;
         repeat(80) @(negedge sc);
-        if(received!==requested) $fatal(1,"FAIL mailbox reset recovery");
-        $display("PASS checkpoint_A mailbox: asynchronous clocks, 200 fast requests, latest state, common reset recovery");
+        if(received!==requested || delivered!=launched) $fatal(1,"FAIL mailbox reset recovery");
+        $display("PASS checkpoint_A mailbox: asynchronous clocks, 200 fast requests, exact atomic packet order, latest state, common reset recovery");
         $finish;
     end
 endmodule

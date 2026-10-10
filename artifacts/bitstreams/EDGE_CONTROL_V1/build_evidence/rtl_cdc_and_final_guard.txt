@@ -1,0 +1,6 @@
+PASS checkpoint_A mailbox: asynchronous clocks, 200 fast requests, exact atomic packet order, latest state, common reset recovery
+tests\tb_edge_control_keys.v:119: $finish called at 2214000 (1ps)
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers

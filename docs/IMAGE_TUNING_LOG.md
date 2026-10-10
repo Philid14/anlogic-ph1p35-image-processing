@@ -159,6 +159,16 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留/下一步：保留作为有效Sobel对照。下一版只做ORIGIN/EDGE切换、10–250阈值控制及对应OSD；保持sensor/ISP参数，不通过提高增益/曝光补偿。
 - 按键补充：用户说明旧两个“增益按键”输入此前未使用并允许修改；用户提供的原理图证明N2/J14为扩展GPIO，板载K3/K4应为B9/C7。本轮按该只读原理图修正，详见EDGE_CONTROL_V1_PLAN。
 
+## EDGE_CONTROL_V1 candidate（2026-10-10）
+
+- Version / Git Commit / Git Tag：`EDGE_CONTROL_V1` / 实际TD构建源码 `dff499a75cf0a348aaf2167548b4fe34bf4a78a9` / `edge-control-v1-candidate`，归档提交SHA可由该tag唯一恢复；原EDGE/E及其他版本保留。
+- 修改假设/唯一主要变量：为同一Sobel增加运行时控制能力及帧关联状态。修改前固定EDGE/80；修改后默认EDGE/80，K3(B9)切换ORIGIN/EDGE，K4(C7)短按−10/长按约0.7s+10，阈值10–250饱和。输入同步、消抖、CDC整体邮箱、AWB提前SOF帧边界提交；Original增加5拍对齐，Sobel始终运行。状态文字在DDR前叠加，原DDR后Logo/CNT保持。
+- Sensor隔离与冻结：旧ae_set实例解除、I_ae_req固定0，按键不能触发Exposure/Gain写入。Exposure1990、VTS1000、HTS1600、Gain1f/3f=15.75×、Digital Gain、BLC15、AWB_V2及MIPI/demosaic/DDR配置/HDMI/PLL/SDC不变。用户允许修改旧未使用输入，按用户原理图修正N2/J14扩展GPIO为K3/K4真实B9/C7。190冻结主工程、68只读参考、3原理图SHA一致；58个实际TD输入与构建源码一致。
+- Bit SHA-256：`05E05B153800E38982D7D1C2981A347B3616EAFA6EABA91A43443468FAF5DCF6`；`artifacts/bitstreams/EDGE_CONTROL_V1/camera_to_dsi_display.bit`，1789539bytes。
+- Build Result：完整Synthesis/Physical/Timing/bitgen通过；LUT6 14724、FF14417、Slice16473（77.64%）、ERAM20K39、DSP9；Setup/Hold +0.100/+0.020ns，TNS0、违例端点0，无新增关键warning类型。首轮纯输入ADC的DRIVESTRENGTH入口失败已修正并重新完整构建，保留失败日志。RTL检查点A–D通过，共1293320有效拍/969990打包字，四完整720p帧；异步CDC200快速请求、116次sensor初始化写入后50组按键无新增写入（I2C握手stub）。
+- Board Test Result：**待用户上板**，没有新版本实拍或30分钟结果。步骤见EDGE_CONTROL_V1_BOARD_TEST；固定场景比较80/60/40/20及100/120/160，记录真实轮廓和噪声假边，至少20次模式切换与30分钟稳定性。
+- 是否保留/下一步：保留candidate，停止并等待用户反馈。640点Sobel/两像素复制与既有核偏移保持，降低阈值不等于增加采集信息；不自行进入Gray/Binary/AE或曝光/VTS调整。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。

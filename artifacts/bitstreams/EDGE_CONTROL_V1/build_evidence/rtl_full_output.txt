@@ -1,0 +1,23 @@
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS checkpoint_A keys: bounce, single mode, short/long exclusivity, 80/70/60/90/100, 10/250 saturation, CDC ACK
+D:\anlogic_formal_project\tests\tb_edge_control_keys.v:72: $finish called at 52800000 (1ps)
+PASS checkpoint_A mailbox: asynchronous clocks, 200 fast requests, latest state, common reset recovery
+D:\anlogic_formal_project\tests\tb_edge_control_keys.v:97: $finish called at 2214000 (1ps)
+PASS checkpoint_A sensor: 116 initial writes, exposure1990 VTS1000 HTS1600 gain1f/3f, no writes after 50 key sequences
+D:\anlogic_formal_project\tests\tb_edge_control_sensor.v:35: $finish called at 977196000 (1ps)
+PASS checkpoint_D decimal: all 256 values, 010/080/100/200/250, correct carries
+D:\anlogic_formal_project\tests\tb_edge_control_decimal.v:18: $finish called at 0 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=16 cycles=4452 valid_beats=3076 packed_words=2307
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:83: $finish called at 44606000 (1ps)
+PASS checkpoints_B_C_D stream width=1280 height=96 cycles=374740 valid_beats=368644 packed_words=276483
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:83: $finish called at 3747486000 (1ps)
+PASS checkpoints_B_C_D stream width=1280 height=720 cycles=936134 valid_beats=921600 packed_words=691200
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:83: $finish called at 9361426000 (1ps)
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS EDGE_CONTROL_V1 checkpoints A-D; full board/IP validation pending

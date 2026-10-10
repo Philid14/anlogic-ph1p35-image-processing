@@ -1,0 +1,9 @@
+PASS 190 frozen main files, 68 read-only reference files, 3 schematic PDFs.
+PASS actual Top sensor isolation and key-only ADC differences.
+PASS all 58 TD source/IP/constraint entries match dff499a75cf0a348aaf2167548b4fe34bf4a78a9 (Git text CRLF normalized).
+PASS both TD run source lists equal tracked AL entries.
+PASS fresh successful synthesis, physical/timing, bitgen; no ERROR.
+PASS routed setup +0.100ns, hold +0.020ns; TNS0 and violated endpoints0.
+PASS no new critical warning types relative to EDGE_V1: PHY-5060, PHY-5079.
+PASS archived bit equals fresh build bit, SHA256=05E05B153800E38982D7D1C2981A347B3616EAFA6EABA91A43443468FAF5DCF6.
+Board test pending. status_layout.png is a reference-model preview, not a board photo.
