@@ -52,9 +52,15 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire [127:0] awb_O_tdata_128;  //synthesis keep 
 
   wire [95:0] algorithm_data;
-  wire algorithm_valid, algorithm_user, algorithm_last;
+  wire algorithm_valid, algorithm_user, algorithm_last, algorithm_last_128;
   generate
   if (EDGE_ENABLE) begin : g_edge
+      reg last_128;
+      always @(posedge axi4s_video_aclk or negedge I_rst_n) begin
+          if (!I_rst_n) last_128 <= 1'b0;
+          else last_128 <= algorithm_last;
+      end
+      assign algorithm_last_128 = last_128;
       edge_detect_96 #(.IMG_WIDTH(1280), .IMG_HEIGHT(720),
                        .EDGE_TH(EDGE_THRESHOLD)) u_edge (
           .I_clk(axi4s_video_aclk), .I_rst_n(I_rst_n),
@@ -70,10 +76,11 @@ wire         m_aixs_tvalid;  //synthesis keep
       assign algorithm_valid = awb_O_tvalid;
       assign algorithm_user = awb_O_tuser;
       assign algorithm_last = awb_O_tlast;
+      assign algorithm_last_128 = awb_O_tlast;
   end
   endgenerate
   assign O_tdata  = awb_O_tdata_128;
-  assign O_tlast  = algorithm_last;
+  assign O_tlast  = algorithm_last_128;
   assign O_tuser  = awb_O_tuser_128    ;
   assign O_tvalid = awb_O_tvalid_128   ;
   

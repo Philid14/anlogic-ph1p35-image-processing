@@ -9,6 +9,27 @@ module tb_edge_v1;
     wire [95:0] od;
     wire pv,pu;
     wire [127:0] pd;
+    wire iv128,iu128,il128,orig_v,orig_u,orig_l,ref_orig_v,ref_orig_u;
+    wire [127:0] id128,orig_data,ref_orig_data;
+    reg ref_last=0;
+    always @(posedge clk) ref_last<=ol;
+    isp_top #(.EDGE_ENABLE(1),.EDGE_THRESHOLD(THRESHOLD)) integrated_edge (
+        .axi4s_video_aclk(clk),.I_rst_n(rst_n),.I_tlast(1'b0),.I_tuser(1'b0),
+        .I_tdata(40'b0),.I_tvalid(1'b0),.I_tdest(10'b0),.O_tready(ready),
+        .O_tdata(id128),.O_tvalid(iv128),.O_tuser(iu128),.O_tlast(il128),.I_tready()
+    );
+    // isp_top has fixed 1280x720 demosaic parameters; the boundary injection
+    // below tests its actual routing at that size, while small cases exercise
+    // the parameterized standalone edge module.
+    isp_top #(.EDGE_ENABLE(0)) integrated_original (
+        .axi4s_video_aclk(clk),.I_rst_n(rst_n),.I_tlast(1'b0),.I_tuser(1'b0),
+        .I_tdata(40'b0),.I_tvalid(1'b0),.I_tdest(10'b0),.O_tready(ready),
+        .O_tdata(orig_data),.O_tvalid(orig_v),.O_tuser(orig_u),.O_tlast(orig_l),.I_tready()
+    );
+    data_96bit_to_128bit original_packer (
+        .I_clk(clk),.I_rst_n(rst_n),.I_96b_frame_start(u),.I_96b_valid(v),
+        .I_96b_data(data),.O_128b_frame_start(ref_orig_u),.O_128b_valid(ref_orig_v),.O_128b_data(ref_orig_data)
+    );
     edge_detect_96 #(.IMG_WIDTH(WIDTH),.IMG_HEIGHT(HEIGHT),.EDGE_TH(THRESHOLD)) dut (
         .I_clk(clk),.I_rst_n(rst_n),.I_tvalid(v),.I_tuser(u),.I_tlast(l),
         .I_tdata(data),.O_tready(ready),.I_tready(ir),
@@ -49,6 +70,13 @@ module tb_edge_v1;
             end
             prev_user=eu[4];
             if(ov) beats=beats+1;
+            if(WIDTH==1280 && HEIGHT==720 &&
+               (iv128 !== pv || iu128 !== pu || id128 !== pd || il128 !== ref_last)) begin
+                $display("FAIL integrated Edge route/last cycle=%0d",cycles);$finish;
+            end
+            if(orig_v !== ref_orig_v || orig_u !== ref_orig_u || orig_data !== ref_orig_data) begin
+                $display("FAIL Original generate branch cycle=%0d",cycles);$finish;
+            end
             if(CHECK_PACK && pv) begin
                 rc=$fscanf(pf,"%h\n",expected_pack);
                 if(rc != 1 || pd !== expected_pack) begin
@@ -66,6 +94,14 @@ module tb_edge_v1;
         inf=$fopen(input_path,"r");pf=$fopen(pack_path,"r");
         if(inf==0 || pf==0) begin $display("FAIL open vectors");$finish;end
         for(j=0;j<5;j=j+1) golden[j]=0;
+        force integrated_edge.awb_O_tdata=data;
+        force integrated_edge.awb_O_tvalid=v;
+        force integrated_edge.awb_O_tuser=u;
+        force integrated_edge.awb_O_tlast=l;
+        force integrated_original.awb_O_tdata=data;
+        force integrated_original.awb_O_tvalid=v;
+        force integrated_original.awb_O_tuser=u;
+        force integrated_original.awb_O_tlast=l;
         repeat(8) @(negedge clk);
         rst_n=1;
         while(!$feof(inf)) begin

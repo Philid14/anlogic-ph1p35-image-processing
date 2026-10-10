@@ -173,7 +173,9 @@ def main():
                        f"-Ptb_edge_v1.WIDTH={width}", f"-Ptb_edge_v1.HEIGHT={height}",
                        f"-Ptb_edge_v1.THRESHOLD={threshold}", f"-Ptb_edge_v1.CHECK_PACK={int(not bubbles)}",
                        "-o", str(exe), str(ROOT / "tests/tb_edge_v1.v"),
-                       str(HDL / "isp/edge_detect_96.v"), str(HDL / "data_96bit_to_128bit.v")]
+                       str(HDL / "isp/edge_detect_96.v"), str(HDL / "data_96bit_to_128bit.v"),
+                       str(HDL / "isp/isp_top.v"), str(HDL / "isp/data128_96/data128_96.v"),
+                       str(ROOT / "tests/isp_boundary_stubs.v")]
             subprocess.run(command, check=True, capture_output=True, text=True)
             run = subprocess.run([vvp, str(exe), f"+STIM={stimulus.as_posix()}",
                                   f"+PACK={packed.as_posix()}", f"+WORDS={words}"],

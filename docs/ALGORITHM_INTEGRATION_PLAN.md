@@ -51,7 +51,7 @@ Stage 1 保留 B 的灰度、像素对采样、Sobel核、阈值和结果复制�
 | `rtl/osd/al_osd_statusbar.v` | 需精简/CDC适配，中 | 在现有Logo层后独立文字层、复用字模的思路可用；当前模式/使能等直接跨域，统计逐位同步不保证多位一致性，需帧级状态协议 |
 | `rtl/pix/al_pix_pipeline.v` | 不适合整体复用，高 | 文件头仍说5拍，实际 LAT=12；包含大量本轮禁用功能，空间与分支延迟复杂且资源开销较高 |
 
-C 中已确认具体错误：`al_morph3x3.i_mode` 为2位，却传 `.i_mode(2'd4)`；4被截断为0，所谓Edge去斑点实际选择旁路。控制域 `S_disp_mode` 直接用于像素MUX和HDMI OSD，未帧边界生效，也没有DDR帧关联，可能半帧切换且文字与显示内容不同步。不能因为仿真模型通过就忽略这些接口事实。当前 C route.qor 为 Slice17224（81.18%）、RAM69、DSP22、Setup+108ps/Hold+20ps；仅为C自身报告，不预测A集成结果。
+C 中已确认具体错误：`al_morph3x3.i_mode` 为2位，却传 `.i_mode(2'd4)`；4被截断为0，所谓Edge去斑点实际选择旁路。控制域 `S_disp_mode` 直接用于像素MUX和HDMI OSD，未帧边界生效，也没有DDR帧关联，可能半帧切换且文字与显示内容不同步。OSD `dec1` 只减十位未减百位，值100/200的个位会截断成4/8，后续不能直接复用其数值显示。不能因为仿真模型通过就忽略这些接口事实。当前 C route.qor 为 Slice17224（81.18%）、RAM69、DSP22、Setup+108ps/Hold+20ps；仅为C自身报告，不预测A集成结果。
 
 只读源码指纹：`al_pix_pipeline.v=c8c2f4777b84d470efe1b0dda37fd97d3205c7aa89b5bae74b13e57fee0e0027`；`al_linebuf_3x3.v=e62b7163d1d747f8e9c6eecd770dd7a2f4ad66fd25eab2d4d466e5d121de3bd1`；`al_sobel.v=51010ab8c5da25df9019e71e118e8582d89814384f3a80fb2ad890947b4ea1c2`。本轮不复制C RTL，不修改C，也不把其全部内容加入Git。
 
@@ -59,7 +59,7 @@ C 中已确认具体错误：`al_morph3x3.i_mode` 为2位，却传 `.i_mode(2'd4
 
 实际连接：SC500CS→MIPI→RAW10→BLC15→demosaic→AWB_V2→**edge_detect_96**→96/128打包→DDR→现有Logo/CNT OSD→HDMI。仅新增算法文件并在 `isp_top` 局部接线；`EDGE_ENABLE` 编译时参数默认1，0生成分支完全恢复原96b输出路径，不同时并行硬MUX不同延迟的分支。运行时切换和MODE文字留Stage3。
 
-算法预定5个寄存级：灰度/像素对→同步RAM读/当前行对齐→Gx/Gy→绝对值幅值和→阈值RGB。数据valid、提前tuser、tlast同样延迟5拍。两行RAM不复位，后一行缓存写入延后一拍，用已寄存中间行数据避免组合RAM级联；行地址随数据寄存。SOF无论valid与否都重置计数/横向carry；同拍首像素使用地址0和行0。每帧/每行像素数保持不变，前两行和首组清黑，后续边缘核遵循B近似定义。
+算法预定5个寄存级：灰度/像素对→同步RAM读/当前行对齐→Gx/Gy→绝对值幅值和→阈值RGB。数据valid、提前tuser、tlast同样延迟5拍。打包器再寄存1拍，Edge分支的顶层tlast也补1拍，与128b valid/data对齐；Original生成分支保留原接线。两行RAM不复位，后一行缓存写入延后一拍，用已寄存中间行数据避免组合RAM级联；行地址随数据寄存。SOF无论valid与否都重置计数/横向carry；同拍首像素使用地址0和行0。每帧/每行像素数保持不变，前两行和首组清黑，后续边缘核遵循B近似定义。
 
 新增验证应覆盖：均匀/黑白竖界/横界/斜界/RGB分量、阈值边界、四像素顺序、像素对复制、连续多帧、提前/同拍SOF、复位/截断帧恢复、不同消隐长度与有效气泡（模块级）、全宽1280；逐拍比较独立软件空间模型与RTL。用真实打包器核对每帧DDR字数、字节顺序与提前SOF位置。软件模型、RTL仿真、TD实现与上板必须分别记录。
 
@@ -72,5 +72,7 @@ GAIN_TEST_E：LUT6 13757/21216、FF13625/42432、Slice15652/21216（73.77%）、
 ## 本轮验证与交付状态
 
 静态审计及 Icarus Verilog RTL 仿真已完成。`tests/run_edge_v1.py --full` 用独立空间模型逐拍对照真实算法和原有打包器，七组测试共512024有效输入拍通过，含64/1280行宽、阈值0/80/81/2025、均匀/水平/垂直/斜向/RGB/随机场景、提前或同拍SOF、截断帧恢复及算法级气泡。两完整1280×720帧共460800个96b输入拍、345600个128b输出字，字节内容、valid、tuser、tlast、5拍算法延迟全部匹配；每完整帧172800个DDR字。算法级气泡测试不用于宣称原打包器支持行内气泡。
+
+测试还在AWB输出边界注入相同激励，对照实际 `isp_top` 的 Original 生成分支与原打包器；完整1280×720激励另验证实际 Edge 生成分支的128b data/valid/tuser及补偿后的tlast。`tests/isp_boundary_stubs.v` 只用于这个接线测试，不模拟冻结的AWB或demosaic算法。
 
 `tests/edge_v1_frozen_manifest.json` 保存改动前的192个主工程文件及68个B/C只读源码指纹，运行前后均一致。RTL测试不模拟MIPI、AWB RAM/除法IP、完整DDR/HDMI；这些由完整TD实现检查以及随后上板验证覆盖。此节将在TD全流程结束后补充实际资源/时序，当前不宣称新增Sobel已上板。
