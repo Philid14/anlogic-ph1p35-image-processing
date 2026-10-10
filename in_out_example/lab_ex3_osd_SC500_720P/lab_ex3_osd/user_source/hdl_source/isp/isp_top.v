@@ -1,7 +1,9 @@
 module isp_top #(
     // Experimental RAW10 pedestal from the bundled, inactive BLC/BLC.v
     // reference. This is not a measured SC500CS black level.
-    parameter [9:0] BLACK_LEVEL_RAW10 = 10'd15
+    parameter [9:0] BLACK_LEVEL_RAW10 = 10'd15,
+    parameter EDGE_ENABLE = 1,
+    parameter [13:0] EDGE_THRESHOLD = 14'd80
 ) (
     input 			axi4s_video_aclk,
     input 			I_rst_n			,
@@ -49,9 +51,29 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire         awb_O_tvalid_128;  //synthesis keep 
   wire [127:0] awb_O_tdata_128;  //synthesis keep 
 
-  assign awb_O_tready = O_tready;
+  wire [95:0] algorithm_data;
+  wire algorithm_valid, algorithm_user, algorithm_last;
+  generate
+  if (EDGE_ENABLE) begin : g_edge
+      edge_detect_96 #(.IMG_WIDTH(1280), .IMG_HEIGHT(720),
+                       .EDGE_TH(EDGE_THRESHOLD)) u_edge (
+          .I_clk(axi4s_video_aclk), .I_rst_n(I_rst_n),
+          .I_tlast(awb_O_tlast), .I_tuser(awb_O_tuser),
+          .I_tdata(awb_O_tdata), .I_tvalid(awb_O_tvalid),
+          .I_tready(awb_O_tready), .O_tready(O_tready),
+          .O_tlast(algorithm_last), .O_tuser(algorithm_user),
+          .O_tdata(algorithm_data), .O_tvalid(algorithm_valid)
+      );
+  end else begin : g_original
+      assign awb_O_tready = O_tready;
+      assign algorithm_data = awb_O_tdata;
+      assign algorithm_valid = awb_O_tvalid;
+      assign algorithm_user = awb_O_tuser;
+      assign algorithm_last = awb_O_tlast;
+  end
+  endgenerate
   assign O_tdata  = awb_O_tdata_128;
-  assign O_tlast  = awb_O_tlast    ;
+  assign O_tlast  = algorithm_last;
   assign O_tuser  = awb_O_tuser_128    ;
   assign O_tvalid = awb_O_tvalid_128   ;
   
@@ -112,9 +134,9 @@ awb #(
         .I_clk              ( axi4s_video_aclk  ),
         .I_rst_n            ( I_rst_n           ),
 	
-        .I_96b_frame_start  ( awb_O_tuser	    ),
-        .I_96b_valid        ( awb_O_tvalid 		),
-        .I_96b_data         ( awb_O_tdata		),
+        .I_96b_frame_start  ( algorithm_user     ),
+        .I_96b_valid        ( algorithm_valid    ),
+        .I_96b_data         ( algorithm_data     ),
 	
         .O_128b_frame_start ( awb_O_tuser_128  	),
         .O_128b_valid       ( awb_O_tvalid_128 	),
