@@ -13,6 +13,7 @@
 | 路径 | 内容 |
 |---|---|
 | `AGENTS.md` | 赛题基准、平台约束、验收门槛、Git/GitHub 与实验追溯规则 |
+| `docs/TEAM_AI_WORK_PROTOCOL.md` | 三人 AI 分工、文件所有权、接口协议、GitHub PR 审查与角色启动提示词 |
 | `docs/` | 画质调试记录、GitHub 参考调研、官方基线源码副本、赛题资料 |
 | `docs/IMAGE_TUNING_LOG.md` | 每个实际上板版本的参数、bit、构建与测试记录 |
 | `docs/GITHUB_REFERENCE_RESEARCH.md` | GitHub 外部参考的仓库/许可/采用方式记录 |
