@@ -61,6 +61,9 @@ module color_target_overlay #(
     wire box_hit   = (y_in_band && x_in_span) || (x_in_band && y_in_span);
 
     // ---- 中心十字 ----
+    // 臂长向两侧展开；线宽**居中**：横臂行范围 [cy - T/2, cy + (T-1)/2]，
+    // 竖臂列范围同理。否则 CROSS_THICK>1 时十字会整体偏向一侧，视觉中心偏离
+    // 模块对外报告的 center_*。默认 T=1 时退化为单像素线，行为不变。
     wire [X1-1:0] cxw = {1'b0, I_center_x};
     wire [Y1-1:0] cyw = {1'b0, I_center_y};
     wire [X1-1:0] arm_x_lo = (cxw >= CROSS_ARM) ? (cxw - CROSS_ARM) : {X1{1'b0}};
@@ -68,10 +71,17 @@ module color_target_overlay #(
     wire [Y1-1:0] arm_y_lo = (cyw >= CROSS_ARM) ? (cyw - CROSS_ARM) : {Y1{1'b0}};
     wire [Y1-1:0] arm_y_hi = cyw + CROSS_ARM;
 
+    localparam integer CT_LO = CROSS_THICK / 2;          // 向负方向扩张
+    localparam integer CT_HI = (CROSS_THICK - 1) / 2;    // 向正方向扩张
+    wire [Y1-1:0] hbar_lo = (cyw >= CT_LO) ? (cyw - CT_LO) : {Y1{1'b0}};
+    wire [Y1-1:0] hbar_hi = cyw + CT_HI;
+    wire [X1-1:0] vbar_lo = (cxw >= CT_LO) ? (cxw - CT_LO) : {X1{1'b0}};
+    wire [X1-1:0] vbar_hi = cxw + CT_HI;
+
     wire x_in_arm  = (px >= arm_x_lo) && (px <= arm_x_hi);
     wire y_in_arm  = (py >= arm_y_lo) && (py <= arm_y_hi);
-    wire y_hbar    = (py >= cyw) && (py <= cyw + (CROSS_THICK-1));
-    wire x_vbar    = (px >= cxw) && (px <= cxw + (CROSS_THICK-1));
+    wire y_hbar    = (py >= hbar_lo) && (py <= hbar_hi);
+    wire x_vbar    = (px >= vbar_lo) && (px <= vbar_hi);
     wire cross_hit = (x_in_arm && y_hbar) || (x_vbar && y_in_arm);
 
     wire active = I_pixel_valid && I_result_valid && I_target_present;

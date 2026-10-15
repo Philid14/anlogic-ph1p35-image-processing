@@ -22,7 +22,7 @@
 
 ## 2. 怎么接
 
-接线代码见 [`INTERFACE.md` §4.3](INTERFACE.md)。三条要点：
+接线代码见 [`INTERFACE.md` §7](INTERFACE.md)。三条要点：
 
 1. **detect 是观察者，不是通路**：把观察点（风格化之前的彩色流）**扇出**给它即可，
    它不产生 `ready`、不串联像素、不施加反压。§4.2 的 lane 映射与 `sof` 来源需 MAIN 核实。
@@ -107,8 +107,8 @@ overlay 不额外增加像素通路延迟（overlay 纯组合）。**最大工�
 
 ## 7. 接入步骤建议
 
-1. 核实 §4.2 的观察点位置、lane 映射、`sof` 来源（三项都在 `INTERFACE.md` §7 待确认）。
-2. 把 `features/color_target/rtl/*.v` 加入 TD 输入清单，按 §4.3 接线。
+1. 核实 §4.2 的观察点位置、lane 映射、`sof` 来源（三项都在 [`INTERFACE.md` §10](INTERFACE.md) 待确认）。
+2. 把 `features/color_target/rtl/*.v` 加入 TD 输入清单，按 `INTERFACE.md` §7 接线。
 3. 先只接 detect，跑一次综合看资源与时序余量；再依次加 track、overlay。
 4. 首次上板建议：`MAX_JUMP=0`、`ACQ_FRAMES=3`、`LOST_FRAMES=15`，先用**红色实物**在
    简单背景前验证；记录阈值是否需要调整（§4.2 允许因颜色校正变化要求重估）。
@@ -116,7 +116,7 @@ overlay 不额外增加像素通路延迟（overlay 纯组合）。**最大工�
 
 ## 8. 需要 MAIN 确认/提供的项
 
-见 [`INTERFACE.md` §7](INTERFACE.md) 的 6 条：观察点与彩色流位置、`I_data` 排列、`sof` 来源、
+见 [`INTERFACE.md` §10](INTERFACE.md) 的 6 条：观察点与彩色流位置、`I_data` 排列、`sof` 来源、
 结果 CDC 归属、T3 需要的叠加区域与统一字库、整机资源份额。
 
 在这 6 条确认前，按协议 §5.2 本功能只能报告 **"独立模块完成 / 模拟事件验证通过"**，

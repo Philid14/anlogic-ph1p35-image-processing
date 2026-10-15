@@ -32,7 +32,7 @@ Task branch:
 
 Interface version / 状态:
   TEAM_PROTOCOL_V1 §4.2（输入观察流）/ §4.3（输出结果）；
-  本模块接口状态 = 接口草案，待 MAIN 确认（见 INTERFACE.md 第 7 节的 6 项待确认）。
+  本模块接口状态 = 接口草案，待 MAIN 确认（见 INTERFACE.md 第 10 节的 6 项待确认）。
 
 依赖MAIN或另一个角色的输入:
   1) 观察点的实际位置，且必须是风格化输出之前的彩色流；
@@ -49,7 +49,7 @@ Interface version / 状态:
           tb/{tb_color_target, tb_color_target_overlay, tb_color_target_track,
               tb_color_target_chain}.v、
           run_color_target{,_overlay,_track,_chain}.py、
-          INTERFACE.md、README.md、GITHUB_RESEARCH.md、本文件。
+          INTERFACE.md、INTEGRATION.md、README.md、GITHUB_RESEARCH.md、本文件。
   验收：run_color_target.py 15/15（--full 16/16）＋两条结构断言；
         run_color_target_overlay.py 10/10；run_color_target_track.py 11/11；
         run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）。
@@ -60,7 +60,7 @@ Interface version / 状态:
 | # | 事项 | 归属 |
 |---|---|---|
 | 1 | Issue 登记或追认本任务 | 人类负责人 / MAIN |
-| 2 | `INTERFACE.md` 第 7 节的 6 项待确认 | MAIN |
+| 2 | `INTERFACE.md` 第 10 节的 6 项待确认 | MAIN |
 | 3 | 资源与时序的**实测**结果（当前只有估计） | MAIN 接入 TD 后 |
 | 4 | T3 标注：**几何部分（框线 + 中心十字）已完成并自检；坐标文字待 MAIN 用统一字库呈现** | TARGET 已完成几何 / 文字归 MAIN（§4.5） |
 | 5 | T4 跟踪状态机与防抖：**已完成并自检（11/11）**；`ACQ_FRAMES` / `LOST_FRAMES` / `MAX_JUMP` 的取值待有实板噪声数据后确定 | TARGET 已完成结构 / 参数待实板 |

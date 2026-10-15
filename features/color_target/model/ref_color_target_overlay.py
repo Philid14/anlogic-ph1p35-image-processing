@@ -37,8 +37,11 @@ def overlay_pixel(x, y, result_valid, present, xmin, xmax, ymin, ymax, cx, cy, p
     ay_hi = cy + a
     x_in_arm = ax_lo <= x <= ax_hi
     y_in_arm = ay_lo <= y <= ay_hi
-    y_hbar = cy <= y <= cy + (p["cross_thick"] - 1)
-    x_vbar = cx <= x <= cx + (p["cross_thick"] - 1)
+    # 十字线宽**居中**（与 RTL 的 CT_LO/CT_HI 一致）；T=1 时退化为单像素线。
+    t = p["cross_thick"]
+    lo_off, hi_off = t // 2, (t - 1) // 2
+    y_hbar = (cy - lo_off if cy >= lo_off else 0) <= y <= cy + hi_off
+    x_vbar = (cx - lo_off if cx >= lo_off else 0) <= x <= cx + hi_off
     cross_hit = (x_in_arm and y_hbar) or (x_vbar and y_in_arm)
 
     if cross_hit:

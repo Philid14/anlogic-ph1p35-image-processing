@@ -108,6 +108,28 @@ def run_sim(sim, tmp, params, stim, outp):
     return r.stdout + r.stderr
 
 
+def symmetry_violations(rows, got, cx, cy, arm, pad=2):
+    """**不依赖参考模型**的独立断言：中心附近的覆盖图案必须 180 度旋转对称。
+
+    为什么需要它：模型是照着同一套设计写的，若 RTL 与模型"一起错"，逐行对拍永远一致。
+    本题就发生过一次——十字线宽原本只向一侧生长（横臂落在 cy..cy+T-1），模型也照此实现，
+    于是对拍全绿，直到人工复查才发现视觉中心偏离了模块对外报告的 center_*。
+    这里改用与实现无关的不变量：以 (cx,cy) 为中心，点 (cx+dx, cy+dy) 与 (cx-dx, cy-dy)
+    必须同为覆盖或同为不覆盖。
+    """
+    if cx < arm + pad or cy < arm + pad or cx > 1279 - (arm + pad) or cy > 719 - (arm + pad):
+        return []          # 贴边时会被裁掉，对称性不成立，跳过
+    cov = {(r[1], r[2]): (1 if v else 0) for r, v in zip(rows, got)}
+    bad = []
+    for dx in range(-pad, pad + 1):
+        for dy in range(-pad, pad + 1):
+            a = cov.get((cx + dx, cy + dy))
+            b = cov.get((cx - dx, cy - dy))
+            if a is not None and b is not None and a != b:
+                bad.append((dx, dy, a, b))
+    return bad
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--sim", default="auto", choices=["auto", "iverilog", "modelsim"])
@@ -169,6 +191,16 @@ def main():
                 for row, g, w in bad[:6]:
                     print(f"      像素 x={row[1]} y={row[2]}: got=0x{g:06x} want=0x{w:06x}")
                 continue
+            # 与实现无关的不变量：中心附近的覆盖图案必须 180 度旋转对称。
+            # 这一条能抓到"RTL 与模型一起错"的缺陷，逐行对拍抓不到。
+            if res["present"] and res["rv"]:
+                sym = symmetry_violations(rows, got, res["cx"], res["cy"], ov_p["cross_arm"])
+                if sym:
+                    print(f"FAIL  {name}  [对称性不变量]  {len(sym)} 处不对称")
+                    for dx, dy, a, b in sym[:6]:
+                        print(f"      ({res['cx']+dx},{res['cy']+dy})={a} 与 "
+                              f"({res['cx']-dx},{res['cy']-dy})={b} 不一致")
+                    continue
             passed += 1
             print(f"PASS  {name}  (pixels={len(want)})")
 
