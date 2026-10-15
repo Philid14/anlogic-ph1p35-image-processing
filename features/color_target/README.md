@@ -1,8 +1,8 @@
 # `features/color_target/` —— 颜色目标检测（TARGET）
 
 对应赛题 **扩展二、进阶二**；对应协议 `TEAM_PROTOCOL_V1` 的 TARGET 角色与 §2.2 分阶段任务。
-当前完成 **T1（参数化颜色分类）+ T2（匹配像素数 / 包围框 / 包围框中心 / 帧身份）** 的独立
-模块与自检；T3（标注模块）、T4（动态跟踪与防抖）未开始。
+当前完成 **T1（参数化颜色分类）+ T2（匹配像素数 / 包围框 / 包围框中心 / 帧身份）+ T3（框线与中心十字的覆盖请求）**
+的独立模块与自检；T4（动态跟踪与防抖）未开始。
 
 > ⚠️ **状态口径（协议 §5.3.4、§6 要求如实区分）**：
 > 本功能**独立模块完成、模拟事件验证通过**。**未接入主线、未生成 bit、未上板。**
@@ -16,9 +16,13 @@
 |---|---|
 | `rtl/color_classify.v` | 单像素颜色分类（HSV 扇区法，无除法器） |
 | `rtl/color_target_detect.v` | 检测顶层：4 路并行分类 + 帧内统计 + 帧末原子锁存 |
-| `model/ref_color_target.py` | 位精确 Python 参考模型（与 RTL 逐拍等价） |
-| `tb/tb_color_target.v` | 自检台；另带两条不依赖期望值的结构断言 |
-| `run_color_target.py` | 生成激励 → 仿真 → 与模型逐行比对 |
+| `rtl/color_target_overlay.v` | 标注模块（T3）：框线 + 中心十字的覆盖请求，纯组合、不加流水级 |
+| `model/ref_color_target.py` | 位精确 Python 参考模型（与检测 RTL 逐拍等价） |
+| `model/ref_color_target_overlay.py` | 标注的逐像素参考模型（单独成文件，与检测解耦） |
+| `tb/tb_color_target.v` | 检测自检台；另带两条不依赖期望值的结构断言 |
+| `tb/tb_color_target_overlay.v` | 标注自检台（纯组合，无需时钟） |
+| `run_color_target.py` | 检测自检驱动：生成激励 → 仿真 → 与模型逐行比对 |
+| `run_color_target_overlay.py` | 标注自检驱动 |
 | `INTERFACE.md` | 接口说明（状态：**接口草案**，待 MAIN 确认） |
 | `GITHUB_RESEARCH.md` | 外部实现调研记录（本目录内，不写共享 `docs/`） |
 | `TASK.md` | 开工记录（等价任务说明；本机无法创建 GitHub Issue） |
@@ -54,6 +58,32 @@ python features/color_target/run_color_target.py --sim modelsim
 
 自检台还带两条不依赖期望值的结构断言：`O_result_ready` 必须恰好对应当拍 `valid&&eof`；
 未发布期间结果寄存器必须保持不变（§4.3 原子发布要求）。
+
+### 2.1 标注模块（T3）自检
+
+```bash
+python features/color_target/run_color_target_overlay.py
+```
+
+最近一次结果：**10/10 通过**。逐像素比对（每例约 0.3k–27k 个采样点），覆盖：
+
+| 用例 | 覆盖点 |
+|---|---|
+| `no_result` / `result_invalid` | 无目标或结果无效时不得有任何覆盖 |
+| `box_and_cross_basic` | 框线四边 + 十字两臂 + 框内非描边处不覆盖 |
+| `box_at_origin` | 框贴左上角，检验 `in+THICK-1` 与下界饱和 |
+| `box_at_far_corner` | 框在 `x=1279 / y=719`，检验上界不溢出 |
+| `box_smaller_than_thick` | 框小于线宽（`max-THICK+1` 会为负）时的饱和 |
+| `cross_at_edge` | 十字贴在 `x=0 / y=0`，臂下界饱和到 0 |
+| `degenerate_single_pixel_box` | 框退化为单像素 |
+| `thick_cross` / `thick_box` | `CROSS_THICK=3` / `BOX_THICK=1` 的参数化 |
+
+**T3 第一版只做几何，不做文字。** 坐标文字需要字库，而协议 §4.5 规定字库与字体由 MAIN
+统一、且不得改写已有字库；因此文字由 MAIN 用它自己的字库、按本模块给出的框坐标呈现。
+这是明确边界，不是遗漏。
+
+**本模块不决定遮挡优先级。** §4.5 规定 Logo/主线状态 > 性能文字 > 目标框/十字，
+合成顺序由 MAIN 的 mixer 执行；本模块不做遮挡规避，也不绑定按键/引脚。
 
 ## 3. 为什么这样设计
 

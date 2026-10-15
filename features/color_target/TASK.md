@@ -15,9 +15,10 @@ Issue / 人类确认来源:
 
 目标与不包含的内容:
   目标：T1 参数化颜色分类（首个演示目标默认红）+ T2 匹配像素数 / 包围框 /
-        包围框中心 / session+frame 身份，做成独立可自检模块。
-  不包含：T3 标注模块、T4 动态跟踪与防抖；不做神经网络；不新增整帧缓存；
-        不做多目标分离；不改主线任何文件。
+        包围框中心 / session+frame 身份 + T3 框线与中心十字的覆盖请求，
+        均做成独立可自检模块。
+  不包含：T4 动态跟踪与防抖；T3 第一版不做坐标**文字**（字库按 §4.5 归 MAIN）；
+        不做神经网络；不新增整帧缓存；不做多目标分离；不改主线任何文件。
 
 Base branch / Base SHA:
   origin/main / c42168e26026425660f2a6f51eec76b04c85eea0
@@ -42,11 +43,14 @@ Interface version / 状态:
   以上未落实期间，只能报告"独立模块完成 / 模拟事件验证通过"。
 
 交付物与验收条件:
-  交付物：rtl/color_classify.v、rtl/color_target_detect.v、model/ref_color_target.py、
-          tb/tb_color_target.v、run_color_target.py、INTERFACE.md、README.md、
-          GITHUB_RESEARCH.md、本文件。
-  验收：run_color_target.py 全部用例通过（当前 15/15；--full 16/16），
-        且自检台两条结构断言（ready 对应本拍 valid&&eof、未发布期间结果不变）成立。
+  交付物：rtl/color_classify.v、rtl/color_target_detect.v、rtl/color_target_overlay.v、
+          model/ref_color_target.py、model/ref_color_target_overlay.py、
+          tb/tb_color_target.v、tb/tb_color_target_overlay.v、
+          run_color_target.py、run_color_target_overlay.py、
+          INTERFACE.md、README.md、GITHUB_RESEARCH.md、本文件。
+  验收：run_color_target.py 全部用例通过（当前 15/15；--full 16/16）＋两条结构断言
+        （ready 对应本拍 valid&&eof、未发布期间结果不变）；
+        run_color_target_overlay.py 全部用例通过（当前 10/10）。
 ```
 
 ## 未完成 / 待办
@@ -56,6 +60,6 @@ Interface version / 状态:
 | 1 | Issue 登记或追认本任务 | 人类负责人 / MAIN |
 | 2 | `INTERFACE.md` 第 7 节的 6 项待确认 | MAIN |
 | 3 | 资源与时序的**实测**结果（当前只有估计） | MAIN 接入 TD 后 |
-| 4 | T3 标注模块 | TARGET（待 T2 接口确认） |
-| 5 | T4 动态跟踪与防抖（含去噪） | TARGET（待有实板噪声数据） |
+| 4 | T3 标注：**几何部分（框线 + 中心十字）已完成并自检；坐标文字待 MAIN 用统一字库呈现** | TARGET 已完成几何 / 文字归 MAIN（§4.5） |
+| 5 | T4 动态跟踪与防抖（含目标消失/重现状态更新、去噪） | TARGET（待有实板噪声数据） |
 | 6 | `GITHUB_RESEARCH.md` 的 commit / License 核实 | 仅在将来需要**采用代码**时才需要 |
