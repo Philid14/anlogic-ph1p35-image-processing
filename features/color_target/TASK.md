@@ -43,15 +43,16 @@ Interface version / 状态:
   以上未落实期间，只能报告"独立模块完成 / 模拟事件验证通过"。
 
 交付物与验收条件:
-  交付物：rtl/color_classify.v、rtl/color_target_detect.v、rtl/color_target_overlay.v、
-          rtl/color_target_track.v、
-          model/ref_color_target.py、model/ref_color_target_overlay.py、
-          model/ref_color_target_track.py、
-          tb/tb_color_target.v、tb/tb_color_target_overlay.v、tb/tb_color_target_track.v、
-          run_color_target.py、run_color_target_overlay.py、run_color_target_track.py、
+  交付物：rtl/{color_classify, color_target_detect, color_target_overlay, color_target_track}.v、
+          model/{ref_color_target, ref_color_target_overlay, ref_color_target_track,
+                 ref_color_target_chain}.py、
+          tb/{tb_color_target, tb_color_target_overlay, tb_color_target_track,
+              tb_color_target_chain}.v、
+          run_color_target{,_overlay,_track,_chain}.py、
           INTERFACE.md、README.md、GITHUB_RESEARCH.md、本文件。
   验收：run_color_target.py 15/15（--full 16/16）＋两条结构断言；
-        run_color_target_overlay.py 10/10；run_color_target_track.py 11/11。
+        run_color_target_overlay.py 10/10；run_color_target_track.py 11/11；
+        run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）。
 ```
 
 ## 未完成 / 待办
@@ -63,4 +64,5 @@ Interface version / 状态:
 | 3 | 资源与时序的**实测**结果（当前只有估计） | MAIN 接入 TD 后 |
 | 4 | T3 标注：**几何部分（框线 + 中心十字）已完成并自检；坐标文字待 MAIN 用统一字库呈现** | TARGET 已完成几何 / 文字归 MAIN（§4.5） |
 | 5 | T4 跟踪状态机与防抖：**已完成并自检（11/11）**；`ACQ_FRAMES` / `LOST_FRAMES` / `MAX_JUMP` 的取值待有实板噪声数据后确定 | TARGET 已完成结构 / 参数待实板 |
-| 6 | `GITHUB_RESEARCH.md` 的 commit / License 核实 | 仅在将来需要**采用代码**时才需要 |
+| 6 | **结果与显示帧的对齐**：实测若把 overlay 直接接在 track 上，本帧最后 1~2 个像素会用上刚发布的新结果（框在帧末跳变）。需 MAIN 在帧边界寄存一级（协议 §4.3） | MAIN |
+| 7 | `GITHUB_RESEARCH.md` 的 commit / License 核实 | 仅在将来需要**采用代码**时才需要 |

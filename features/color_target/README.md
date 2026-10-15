@@ -27,6 +27,9 @@
 | `model/ref_color_target_track.py` | 跟踪的逐帧参考模型 |
 | `tb/tb_color_target_track.v` | 跟踪自检台 |
 | `run_color_target_track.py` | 跟踪自检驱动 |
+| `model/ref_color_target_chain.py` | 三级链路的组合参考模型（按逐拍时序，非简单首尾相接） |
+| `tb/tb_color_target_chain.v` | 链路自检台：实例化全部三个模块 |
+| `run_color_target_chain.py` | 链路自检驱动 |
 | `INTERFACE.md` | 接口说明（状态：**接口草案**，待 MAIN 确认） |
 | `GITHUB_RESEARCH.md` | 外部实现调研记录（本目录内，不写共享 `docs/`） |
 | `TASK.md` | 开工记录（等价任务说明；本机无法创建 GitHub Issue） |
@@ -123,6 +126,39 @@ DUT，第一行会因与复位释放时刻重合而跨过两个 posedge、**被�
 一帧"。改为"先读临时寄存器、再在 negedge 统一驱动"后正常。检测与标注两个自检**不受**此
 影响——它们的用例里含"若被双次评估就必然失败"的项（`count_below_min`、`single_beat_all_red`），
 一直是绿的。
+
+### 2.3 三级链路端到端自检（detect → track → overlay）
+
+```bash
+python features/color_target/run_color_target_chain.py
+```
+
+最近一次结果：**PASS，396 拍逐拍比对**。用 6 帧合成画面驱动整条链路：无目标 → 红块左移
+→ 中 → 右 → 无目标 → 红块重现。实测状态迁移：
+
+```
+拍   0: SEARCH  show=0
+拍 130: ACQ     show=0     ← 第 1 次确认计数
+拍 262: TRACK   show=1     ← 连续 3 帧确认
+拍 328: HOLD    show=1     ← 目标消失，框保持
+拍 394: TRACK   show=1     ← 目标重现
+```
+
+**这条自检刻意按逐拍时序接，而不是"把三个模型首尾相接"**，因为协议 §4.3 特意警告过
+"不能把上一帧的框悄悄标成当前帧检测结果"。实际时序是：
+
+- detect 的结果在 **eof 那一拍之后 1 拍**才发布（`O_result_ready` 单拍脉冲）；
+- track 在那个脉冲那一拍消费它，所以 **track 的输出在 eof 之后 1 拍才更新**；
+- overlay 是纯组合的，于是**框在 eof 之后 1 拍才变**，而那一拍仍属于本帧的最后像素。
+
+**这条要交给 MAIN**：如果直接把 overlay 接在 track 上，本帧最后 1~2 个像素会用到刚发布的
+新结果。要完全避免，需要在**帧边界**把结果寄存一级再喂给 overlay（协议 §4.3 要求的
+"读出时使用匹配结果"）。本自检台按其**现有直接接线**测量并如实记录了这个现象，没有在
+测试里替 MAIN 加适配层——免得掩盖真实接线行为。
+
+**这条自检的价值**：它证明了我自己三个模块之间的接口接法（含 `O_show` 到 overlay 两行接线、
+帧身份的传递、HOLD 期间 overlay 用的是保持住的框）是正确的，也给 MAIN 提供了一份可照抄的
+接线与期望行为参考。**但它仍是模拟输入，不代表整机或上板。**
 
 ## 3. 为什么这样设计
 

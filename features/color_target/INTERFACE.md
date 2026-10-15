@@ -150,6 +150,52 @@ overlay.I_target_present = track.O_show;
 - 需要 MAIN 注意：`O_out_session_id/frame_id` 是**上一次被接受**的那一帧身份，不是当前帧。
   MAIN 若要判断"这个框是不是本帧的"，应比较该身份与当前帧身份。
 
+## 4.3 三级接线参考（给 MAIN）
+
+数据通路：**`detect → track → overlay`**，其中 track 与 overlay 的连接只需两行：
+
+```verilog
+u_track u_track (
+    .clk(clk), .rst_n(rst_n),
+    .I_result_strobe  (u_detect.O_result_ready),
+    .I_result_valid   (u_detect.O_result_valid),
+    .I_target_present (u_detect.O_target_present),
+    .I_pixel_count    (u_detect.O_pixel_count),
+    .I_xmin (u_detect.O_xmin), .I_xmax (u_detect.O_xmax), .I_center_x (u_detect.O_center_x),
+    .I_ymin (u_detect.O_ymin), .I_ymax (u_detect.O_ymax), .I_center_y (u_detect.O_center_y),
+    .I_session_id (u_detect.O_res_session_id), .I_frame_id (u_detect.O_res_frame_id),
+    /* O_* 见 §4.2 */
+);
+
+u_overlay u_overlay (
+    .I_pixel_valid   (display_pixel_valid),   // 显示坐标有效
+    .I_x (display_x), .I_y (display_y),
+    .I_result_valid   (u_track.O_show),
+    .I_target_present (u_track.O_show),
+    .I_xmin (u_track.O_out_xmin), .I_xmax (u_track.O_out_xmax),
+    .I_center_x (u_track.O_out_center_x),
+    .I_ymin (u_track.O_out_ymin), .I_ymax (u_track.O_out_ymax),
+    .I_center_y (u_track.O_out_center_y),
+    /* O_overlay_valid / O_overlay_rgb 交 MAIN 的 mixer */
+);
+```
+
+**⚠️ 必须由 MAIN 处理的一件事：结果与显示帧的对齐。**
+已实测（`run_color_target_chain.py`，396 拍逐拍比对）的实际时序是：
+
+| 时刻 | 事件 |
+|---|---|
+| 本帧最后一个有效拍 | detect 收到 `eof` |
+| 该拍**之后 1 拍** | detect 发 `O_result_ready`，结果锁存 |
+| 同上那一拍 | track 消费结果 → `O_show` 与框坐标更新 |
+| 同上那一拍 | overlay 是纯组合的，**立刻**改用新结果 |
+
+也就是说，若把 overlay 直接接在 track 上，**本帧最后 1~2 个像素会用上刚发布的新结果**
+（框在这一帧末尾就跳了）。要完全避免，MAIN 需在**帧边界**把结果寄存一级再喂给 overlay
+——这正是协议 §4.3 要求的"读出时使用匹配结果；不能把上一帧的框悄悄标成当前帧检测结果"。
+
+本自检台按**现有直接接线**测量并如实记录该现象，没有替 MAIN 加适配层，免得掩盖真实接线行为。
+
 ## 5. 参数
 
 | 参数 | 默认 | 含义 |
