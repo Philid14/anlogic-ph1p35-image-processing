@@ -31,6 +31,7 @@
 | `tb/tb_color_target_chain.v` | 链路自检台：实例化全部三个模块 |
 | `run_color_target_chain.py` | 链路自检驱动 |
 | `INTERFACE.md` | 接口说明（状态：**接口草案**，待 MAIN 确认） |
+| `INTEGRATION.md` | **给 MAIN 的一页接入说明**：接线、参数初值、期望行为、资源估计、接入步骤 |
 | `GITHUB_RESEARCH.md` | 外部实现调研记录（本目录内，不写共享 `docs/`） |
 | `TASK.md` | 开工记录（等价任务说明；本机无法创建 GitHub Issue） |
 
