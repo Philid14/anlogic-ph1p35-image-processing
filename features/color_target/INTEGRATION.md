@@ -12,7 +12,7 @@
 
 | 模块 | 文件 | 自检 |
 |---|---|---|
-| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（17/17，`--full` 18/18） |
+| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（18/18，`--full` 19/19） |
 | 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10） |
 | 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（11/11） |
 | 三级链路 | 上述三者的组合 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
@@ -37,7 +37,7 @@
 | `HUE_HALF_WIDTH_DEG` | detect | `30` | hue 半宽。**取 30 时斜率恰为 2 的幂，乘法退化成移位，不占 LUT**；调小更严、调大更松 |
 | `C_MIN` | detect | `24` | 彩度下限，同时滤白灰与暗部噪声 |
 | `V_MIN` | detect | `32` | 亮度下限 |
-| `MIN_COUNT` | detect | `64` | 帧内命中像素数门限 |
+| `MIN_COUNT` | detect | `64` | 帧内命中像素数门限。**取 0 会被编译期夹到 1** —— 否则零命中的帧也会判为"存在"，而那时包围框还是中性元（`xmin=2047`/`xmax=0`），会输出垃圾坐标 |
 | `ACQ_FRAMES` | track | `3` | 连续几帧确认。**待实板噪声数据后定** |
 | `LOST_FRAMES` | track | `15` | 连续几帧判彻底失去；越小框消失越快 |
 | `MAX_JUMP` | track | `0`（关闭） | 跳变门限。**默认不要开**——开了会让快速移动的目标被判丢 |

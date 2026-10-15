@@ -127,6 +127,12 @@ def build_cases(p):
     cases.append(("abort_on_idle_no_leak",
                   leaky + make_frame(32, 8, rect, 1, 26), {}))
 
+    # 复查发现的参数陷阱：MIN_COUNT=0 曾会让"零命中"的帧也判为存在，并输出中性元包围框
+    # （xmin=2047 / xmax=0 → 中心 1023）这类垃圾坐标。RTL 与模型现在都在编译期夹到 1，
+    # 本用例锁住这个行为——这一帧全白、零命中，期望 present=0 且坐标全 0。
+    cases.append(("mincount_zero_is_clamped",
+                  make_frame(8, 2, lambda x, y: WHITE, 1, 27), {"min_count": 0}))
+
     # 截断帧（不发 eof）后接一帧正常帧：只应发布后者的结果
     trunc = make_frame(16, 4, rect, 1, 17, emit_eof=False)
     ok = make_frame(16, 4, rect, 1, 18)

@@ -87,7 +87,8 @@ def run(beats, p=None):
 
         if pend:
             eff_ok = (open_f or start_f) and not (aborted_f or bt["abort"])
-            present = eff_ok and (nxt_cnt >= p["min_count"])
+            # 与 RTL 一致：MIN_COUNT 夹到 >=1（取 0 时会用中性元包围框输出垃圾坐标）
+            present = eff_ok and (nxt_cnt >= max(1, p["min_count"]))
             published.append(dict(
                 # 单拍帧（sof 与 eof 同拍）时 cur_* 还没更新，必须取本拍身份，
                 # 与 RTL 的 eff_session / eff_frame 一致。

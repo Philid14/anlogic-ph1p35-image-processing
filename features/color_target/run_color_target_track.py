@@ -110,6 +110,48 @@ def write_stim(path, beats):
                 b["session"], b["frame"]))
 
 
+def check_invariants(beats, got):
+    """**不依赖参考模型**的性质断言，直接检查 RTL 的逐帧转储。
+
+    为什么需要：参考模型是照同一套意图写的，"RTL 与模型一起错"时逐帧对拍永远一致。
+    这里只用**激励与转储本身**就能判定的性质——它们独立于我的状态机设计意图：
+
+      P0 show 必须恰好等价于 state ∈ {TRACK, HOLD}
+      P1 显示时，结果必须来自某个"被接受"的帧（rvalid=1 且 present=1）
+      P2 显示时坐标合法：min<=max、在 1280x720 内、count>=1
+      P3 SEARCH 不得显示
+      P4 change 必须恰好表示"状态发生了变化"（含会话变化的语义）
+      P5 连续 HOLD 期间结果不得变化
+    """
+    accepted = {(b["count"], b["xmin"], b["xmax"], b["ymin"], b["ymax"],
+                 b["cx"], b["cy"], b["session"], b["frame"])
+                for b in beats if b["strobe"] and b["rvalid"] and b["present"]}
+    bad = []
+    prev_state, prev_sess = 0, None
+    for i, r in enumerate(got):
+        st, show, cnt, xmin, xmax, ymin, ymax, cx, cy, sess, fid, chg = r
+        if show != (1 if st in (2, 3) else 0):
+            bad.append(f"P0 帧{i}: show={show} 与 state={st} 不符")
+        if show:
+            if (cnt, xmin, xmax, ymin, ymax, cx, cy, sess, fid) not in accepted:
+                bad.append(f"P1 帧{i}: 显示的结果（count={cnt} x={xmin}..{xmax} "
+                           f"y={ymin}..{ymax} 中心=({cx},{cy}) 身份=({sess},{fid})）"
+                           f"不来自任何被接受的帧")
+            if not (xmin <= xmax and ymin <= ymax and cnt >= 1
+                    and xmax <= 1279 and ymax <= 719 and cx <= 1279 and cy <= 719):
+                bad.append(f"P2 帧{i}: 坐标/计数越界或反序")
+        if st == 0 and show:
+            bad.append(f"P3 帧{i}: SEARCH 却在显示")
+        eff_prev = 0 if (prev_sess is not None and sess != prev_sess) else prev_state
+        if chg != (1 if st != eff_prev else 0):
+            bad.append(f"P4 帧{i}: change={chg} 但状态 {eff_prev}->{st}")
+        if (st == 3 and prev_state == 3 and sess == prev_sess and i > 0
+                and list(r[2:11]) != list(got[i - 1][2:11])):
+            bad.append(f"P5 帧{i}: HOLD 期间结果发生了变化")
+        prev_state, prev_sess = st, sess
+    return bad
+
+
 def main():
     ap = argparse.ArgumentParser()
     simlib = _simlib()
@@ -155,6 +197,13 @@ def main():
                 print(f"FAIL  {name}  [与模型不符]  {len(bad)}/{len(want)} 帧不同")
                 for i, g, w in bad[:5]:
                     print(f"      帧{i}: got={g} want={w}")
+                continue
+            # 与实现无关的性质断言（能抓到"RTL 与模型一起错"的情况）
+            inv = check_invariants(beats, got)
+            if inv:
+                print(f"FAIL  {name}  [性质不变量]  {len(inv)} 条违反")
+                for line in inv[:6]:
+                    print("      " + line)
                 continue
             passed += 1
             print(f"PASS  {name}  (frames={len(want)})")

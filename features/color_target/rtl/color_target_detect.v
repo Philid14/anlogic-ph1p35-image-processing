@@ -158,8 +158,11 @@ module color_target_detect #(
     // 单拍帧（sof 与 eof 同拍）时 cur_* 尚未更新，必须取本拍的 I_*_id，否则会报上一帧身份
     wire [31:0]  eff_session = start_f ? I_session_id : cur_session;
     wire [31:0]  eff_frame   = start_f ? I_frame_id   : cur_frame;
-    // 只有"帧有效 且 命中数达门限"才填字段；否则按 §4.3 全部清零（含中止帧）
-    wire         res_ok  = eff_ok & (nxt_cnt >= MIN_COUNT[19:0]);
+    // 只有"帧有效 且 命中数达门限"才填字段；否则按 §4.3 全部清零（含中止帧）。
+    // MIN_COUNT 在编译期夹到 >=1：取 0 会让"零命中"的帧也判为存在，而那时包围框还是
+    // 中性元（xmin=全 1、xmax=0），会输出 2047/1023 这类垃圾坐标。夹取不产生运行时逻辑。
+    localparam [19:0] MIN_COUNT_EFF = (MIN_COUNT < 1) ? 20'd1 : MIN_COUNT[19:0];
+    wire         res_ok  = eff_ok & (nxt_cnt >= MIN_COUNT_EFF);
     // 中心：先把加法拓宽一位再右移。xmin+xmax 最大 2555、ymin+ymax 最大 1438，
     // 直接用 XW/YW 位相加会截断（Verilog 按操作数最大位宽求值）。
     wire [XW:0]   cx_sum = {1'b0, nxt_xmin} + {1'b0, nxt_xmax};

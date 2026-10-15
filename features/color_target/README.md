@@ -39,7 +39,7 @@
 ## 2. 跑自检
 
 ```bash
-python features/color_target/run_color_target.py            # 17 个用例
+python features/color_target/run_color_target.py            # 18 个用例
 python features/color_target/run_color_target.py --full     # 追加一个完整 1280x720 帧
 ```
 
@@ -56,7 +56,7 @@ python features/color_target/run_color_target.py --full     # 追加一个完整
 试不到就报错并给出指定方法。若 PATH 上的 `python` 是 Windows 应用商店占位符，
 请改用真实解释器。
 
-最近一次结果：**17/17 通过**（`--full` 为 18/18），覆盖：
+最近一次结果：**18/18 通过**（`--full` 为 19/19），覆盖：
 
 | 用例 | 覆盖点 |
 |---|---|
@@ -137,6 +137,23 @@ DUT，第一行会因与复位释放时刻重合而跨过两个 posedge、**被�
 一帧"。改为"先读临时寄存器、再在 negedge 统一驱动"后正常。检测与标注两个自检**不受**此
 影响——它们的用例里含"若被双次评估就必然失败"的项（`count_below_min`、`single_beat_all_red`），
 一直是绿的。
+
+**性质不变量（不依赖参考模型）**：除逐帧对拍外，自检还直接检查 RTL 转储本身就能判定的性质
+——它们独立于我的状态机设计意图，因此能抓到"RTL 与模型一起错"的情况：
+
+| 编号 | 性质 |
+|---|---|
+| P0 | `show` 必须恰好等价于 `state ∈ {TRACK, HOLD}` |
+| P1 | 显示时，结果必须来自某个**被接受**的帧（`strobe && rvalid && present`） |
+| P2 | 显示时坐标合法：`min<=max`、在 1280×720 内、`count>=1` |
+| P3 | `SEARCH` 不得显示 |
+| P4 | `change` 必须恰好表示"状态发生了变化"（含会话变化的语义） |
+| P5 | 连续 `HOLD` 期间结果不得变化 |
+
+**这六条都做过反向验证**（喂进"故意写错"的转储确认能抓到、喂正确转储确认无误报）：
+P1/P0/P4 直接构造违反即命中；P2 用"被接受但 `xmin>xmax`"的 bundle 独立证明；
+P5 用"两个 bundle 都合法来源、但 HOLD 期间被换掉"独立证明——这两条刻意绕开 P1，
+否则会被 P1 顺带抓到、无法证明它们自己有效。
 
 ### 2.3 三级链路端到端自检（detect → track → overlay）
 
