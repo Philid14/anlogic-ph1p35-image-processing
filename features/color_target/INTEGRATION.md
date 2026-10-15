@@ -12,7 +12,7 @@
 
 | 模块 | 文件 | 自检 |
 |---|---|---|
-| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（15/15，`--full` 16/16） |
+| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（17/17，`--full` 18/18） |
 | 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10） |
 | 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（11/11） |
 | 三级链路 | 上述三者的组合 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |

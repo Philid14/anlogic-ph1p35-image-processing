@@ -10,9 +10,6 @@
 
 import argparse
 import importlib.util
-import os
-import shutil
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -20,7 +17,14 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 RTL = HERE / "rtl"
 TB = HERE / "tb"
-MSIM = Path(r"D:\altera\14.1\modelsim_ase\win32aloem")
+def _simlib():
+    """加载共用的仿真内核 tools/simlib.py —— 本目录的脚本不写死任何人的安装路径（协议 §5.1）。"""
+    spec = importlib.util.spec_from_file_location("ct_simlib", HERE / "tools" / "simlib.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
 TB_NAME = "tb_color_target_chain"
 MOD_NAME = "color_target_chain"
 
@@ -101,57 +105,10 @@ def write_stim(path, beats):
                 (d >> 32) & 0xFFFFFFFF, d & 0xFFFFFFFF, b["session"], b["frame"]))
 
 
-def compile_iverilog(tmp, params):
-    iv = shutil.which("iverilog") or "C:/iverilog/bin/iverilog.exe"
-    if not Path(iv).exists():
-        return None
-    cmd = [iv, "-g2005", "-Wall", "-s", TB_NAME]
-    for k, v in params.items():
-        cmd.append(f"-P{TB_NAME}.{k}={v}")
-    cmd += ["-o", str(tmp / "ch.vvp"), str(TB / "tb_color_target_chain.v"),
-            str(RTL / "color_classify.v"), str(RTL / "color_target_detect.v"),
-            str(RTL / "color_target_track.v"), str(RTL / "color_target_overlay.v")]
-    r = subprocess.run(cmd, capture_output=True, text=True)
-    return "iverilog" if r.returncode == 0 else f"[iverilog 编译失败]\n{r.stdout}\n{r.stderr}"
-
-
-def compile_modelsim(tmp, params):
-    if not MSIM.exists():
-        return None
-    exe = lambda n: str(MSIM / n)
-    env = dict(os.environ)
-    env["PATH"] = f"{MSIM};{env.get('PATH','')}"
-    subprocess.run([exe("vlib.exe"), "work"], cwd=tmp, capture_output=True, text=True, env=env)
-    r = subprocess.run([exe("vlog.exe"), "-quiet", "-work", "work",
-                        str(RTL / "color_classify.v"), str(RTL / "color_target_detect.v"),
-                        str(RTL / "color_target_track.v"), str(RTL / "color_target_overlay.v"),
-                        str(TB / "tb_color_target_chain.v")],
-                       cwd=tmp, capture_output=True, text=True, env=env)
-    return "modelsim" if r.returncode == 0 else f"[vlog 失败]\n{r.stdout}\n{r.stderr}"
-
-
-def run_sim(sim, tmp, params, stim, outp):
-    if sim == "iverilog":
-        vvp = shutil.which("vvp") or "C:/iverilog/bin/vvp.exe"
-        r = subprocess.run([vvp, str(tmp / "ch.vvp"), f"+STIM={stim.as_posix()}",
-                            f"+OUT={outp.as_posix()}"], cwd=tmp,
-                           capture_output=True, text=True)
-    else:
-        exe = lambda n: str(MSIM / n)
-        env = dict(os.environ)
-        env["PATH"] = f"{MSIM};{env.get('PATH','')}"
-        cmd = [exe("vsim.exe"), "-c", "-quiet"]
-        for k, v in params.items():
-            cmd.append(f"-g{k}={v}")
-        cmd += [f"work.{TB_NAME}", f"+STIM={stim.as_posix()}", f"+OUT={outp.as_posix()}",
-                "-do", "run -all; quit -f"]
-        r = subprocess.run(cmd, cwd=tmp, capture_output=True, text=True, env=env)
-    return r.stdout + r.stderr
-
-
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sim", default="auto", choices=["auto", "iverilog", "modelsim"])
+    simlib = _simlib()
+    simlib.add_args(ap)
     args = ap.parse_args()
 
     model = load_model()
@@ -170,16 +127,17 @@ def main():
         tmp = Path(td)
         stim, outp = tmp / "stim.txt", tmp / "dut.txt"
         write_stim(stim, beats)
-        sim = args.sim
-        if sim == "auto":
-            sim = compile_iverilog(tmp, params) or compile_modelsim(tmp, params)
-        else:
-            sim = compile_iverilog(tmp, params) if sim == "iverilog" \
-                  else compile_modelsim(tmp, params)
-        if sim not in ("iverilog", "modelsim"):
-            print(sim)
+        ok, out, err = simlib.simulate(
+            srcs=[RTL / "color_classify.v", RTL / "color_target_detect.v",
+                  RTL / "color_target_track.v", RTL / "color_target_overlay.v",
+                  TB / "tb_color_target_chain.v"],
+            tb_top=TB_NAME, params=params,
+            plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),
+            requested=args.sim, msim_root=getattr(args, "msim", None),
+            workdir=tmp, name="ch")
+        if not ok:
+            print("[仿真]\n      " + err.strip().replace("\n", "\n      "))
             return 2
-        out = run_sim(sim, tmp, params, stim, outp)
         if "FAIL" in out or f"PASS {MOD_NAME}" not in out:
             print("[仿真台]\n" + out.strip()[-2500:])
             return 1

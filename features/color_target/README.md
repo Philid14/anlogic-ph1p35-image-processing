@@ -30,6 +30,7 @@
 | `model/ref_color_target_chain.py` | 三级链路的组合参考模型（按逐拍时序，非简单首尾相接） |
 | `tb/tb_color_target_chain.v` | 链路自检台：实例化全部三个模块 |
 | `run_color_target_chain.py` | 链路自检驱动 |
+| `tools/simlib.py` | 四个自检脚本共用的仿真内核调用；**不写死任何人的安装路径**（协议 §5.1） |
 | `INTERFACE.md` | 接口说明（状态：**接口草案**，待 MAIN 确认） |
 | `INTEGRATION.md` | **给 MAIN 的一页接入说明**：接线、参数初值、期望行为、资源估计、接入步骤 |
 | `GITHUB_RESEARCH.md` | 外部实现调研记录（本目录内，不写共享 `docs/`） |
@@ -38,15 +39,24 @@
 ## 2. 跑自检
 
 ```bash
-python features/color_target/run_color_target.py            # 15 个用例
+python features/color_target/run_color_target.py            # 17 个用例
 python features/color_target/run_color_target.py --full     # 追加一个完整 1280x720 帧
-python features/color_target/run_color_target.py --sim modelsim
 ```
 
-仿真器优先用 Icarus Verilog；本机没有安装时自动回落到 ModelSim（`--sim` 可强制指定）。
-若 PATH 上的 `python` 是 Windows 应用商店占位符，请改用真实解释器。
+（四个自检脚本用法相同：`--sim iverilog|modelsim|auto`、`--msim <路径>`。）
 
-最近一次结果：**15/15 通过**（`--full` 为 16/16），覆盖：
+**仿真器怎么指**（四个脚本共用 `tools/simlib.py` 的查找逻辑）：
+
+1. **Icarus Verilog**（仓库既有 runner 的默认）：装好并放进 PATH，或用环境变量
+   `COLOR_TARGET_IVERILOG_DIR=<bin 目录>`；
+2. **ModelSim**：用 `--msim <win32aloem 路径>`，或环境变量 `COLOR_TARGET_MSIM`。
+
+两者都没找到时会打印一段怎么装的说明，而不是静默失败。**脚本不写死任何人的安装路径**
+（协议 §5.1：不写死负责人的 D 盘路径）；只在最后顺手试几个常见的厂商默认安装位置，
+试不到就报错并给出指定方法。若 PATH 上的 `python` 是 Windows 应用商店占位符，
+请改用真实解释器。
+
+最近一次结果：**17/17 通过**（`--full` 为 18/18），覆盖：
 
 | 用例 | 覆盖点 |
 |---|---|

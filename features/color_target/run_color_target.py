@@ -11,9 +11,6 @@
 
 import argparse
 import importlib.util
-import os
-import shutil
-import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -21,7 +18,12 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 RTL = HERE / "rtl"
 TB = HERE / "tb"
-MSIM = Path(r"D:\altera\14.1\modelsim_ase\win32aloem")
+def _simlib():
+    """加载共用的仿真内核 tools/simlib.py —— 本目录的脚本不写死任何人的安装路径（协议 §5.1）。"""
+    spec = importlib.util.spec_from_file_location("ct_simlib", HERE / "tools" / "simlib.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
 
 DEFAULTS = dict(target_class=0, hue_half_width_deg=30, c_min=24, v_min=32,
                 min_count=4, xw=11, yw=10)
@@ -112,6 +114,19 @@ def build_cases(p):
     cases.append(("aborted_frame",
                   make_frame(32, 8, rect, 1, 16, abort=True), {}))
 
+    # 复查补的覆盖缺口：此前只在"首拍"中断过，中途中断与"空闲拍中断"两条路径都没测。
+    # 中途中断：应同样作废整帧（RTL 的中断标志是帧内粘滞的）。
+    mid = make_frame(32, 8, rect, 1, 24)
+    mid[len(mid) // 2]["abort"] = 1
+    cases.append(("abort_mid_frame", mid, {}))
+
+    # 空闲拍中断 + 紧随一帧正常帧：中断不得泄漏到下一帧（start_f 会重写 aborted_f）。
+    leaky = make_frame(32, 8, rect, 1, 25)
+    leaky.append(dict(valid=0, sof=0, eol=0, eof=0, abort=1, x0=0, y=0,
+                      data96=0, session=0, frame=0))
+    cases.append(("abort_on_idle_no_leak",
+                  leaky + make_frame(32, 8, rect, 1, 26), {}))
+
     # 截断帧（不发 eof）后接一帧正常帧：只应发布后者的结果
     trunc = make_frame(16, 4, rect, 1, 17, emit_eof=False)
     ok = make_frame(16, 4, rect, 1, 18)
@@ -163,61 +178,10 @@ def write_stim(path, beats):
                 (d >> 32) & 0xFFFFFFFF, d & 0xFFFFFFFF, b["session"], b["frame"]))
 
 
-def sim_iverilog(tmp, params):
-    iv = shutil.which("iverilog") or "C:/iverilog/bin/iverilog.exe"
-    vvp = shutil.which("vvp") or "C:/iverilog/bin/vvp.exe"
-    if not Path(iv).exists():
-        return None
-    cmd = [iv, "-g2005", "-Wall", "-s", "tb_color_target"]
-    for k, v in params.items():
-        cmd.append(f"-Ptb_color_target.{k}={v}")
-    cmd += ["-o", str(tmp / "ct.vvp"), str(TB / "tb_color_target.v"),
-            str(RTL / "color_target_detect.v"), str(RTL / "color_classify.v")]
-    r = subprocess.run(cmd, capture_output=True, text=True)
-    if r.returncode != 0:
-        return f"[iverilog 编译失败]\n{r.stdout}\n{r.stderr}"
-    return "iverilog"
-
-
-def sim_modelsim(tmp, params):
-    if not MSIM.exists():
-        return None
-    exe = lambda n: str(MSIM / n)
-    env = dict(os.environ)
-    env["PATH"] = f"{MSIM};{env.get('PATH','')}"
-    def sh(c):
-        return subprocess.run(c, cwd=tmp, capture_output=True, text=True, env=env)
-    sh([exe("vlib.exe"), "work"])
-    r = sh([exe("vlog.exe"), "-quiet", "-work", "work",
-            str(RTL / "color_classify.v"), str(RTL / "color_target_detect.v"),
-            str(TB / "tb_color_target.v")])
-    if r.returncode != 0:
-        return f"[vlog 失败]\n{r.stdout}\n{r.stderr}"
-    return "modelsim"
-
-
-def run_sim(sim, tmp, params, stim, outp):
-    if sim == "iverilog":
-        vvp = shutil.which("vvp") or "C:/iverilog/bin/vvp.exe"
-        cmd = [vvp, str(tmp / "ct.vvp"), f"+STIM={stim.as_posix()}", f"+OUT={outp.as_posix()}"]
-    else:
-        exe = lambda n: str(MSIM / n)
-        env = dict(os.environ)
-        env["PATH"] = f"{MSIM};{env.get('PATH','')}"
-        cmd = [exe("vsim.exe"), "-c", "-quiet"]
-        for k, v in params.items():
-            cmd.append(f"-g{k}={v}")
-        cmd += ["work.tb_color_target", f"+STIM={stim.as_posix()}",
-                f"+OUT={outp.as_posix()}", "-do", "run -all; quit -f"]
-        r = subprocess.run(cmd, cwd=tmp, capture_output=True, text=True, env=env)
-        return r.stdout + r.stderr
-    r = subprocess.run(cmd, cwd=tmp, capture_output=True, text=True)
-    return r.stdout + r.stderr
-
-
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sim", default="auto", choices=["auto", "iverilog", "modelsim"])
+    simlib = _simlib()
+    simlib.add_args(ap)
     ap.add_argument("--full", action="store_true")
     args = ap.parse_args()
 
@@ -243,18 +207,15 @@ def main():
                           HUE_HALF_WIDTH_DEG=p["hue_half_width_deg"],
                           C_MIN=p["c_min"], V_MIN=p["v_min"],
                           MIN_COUNT=p["min_count"], XW=p["xw"], YW=p["yw"])
-            sim = args.sim
-            if sim == "auto":
-                sim = sim_iverilog(tmp, params) or sim_modelsim(tmp, params)
-                if sim not in ("iverilog", "modelsim"):
-                    print(sim)
-                    return 2
-            else:
-                setup = sim_iverilog(tmp, params) if sim == "iverilog" else sim_modelsim(tmp, params)
-                if setup not in ("iverilog", "modelsim"):
-                    print(setup)
-
-            out = run_sim(sim, tmp, params, stim, outp)
+            ok, out, err = simlib.simulate(
+                srcs=[RTL / "color_classify.v", RTL / "color_target_detect.v",
+                      TB / "tb_color_target.v"],
+                tb_top="tb_color_target", params=params,
+                plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),
+                requested=args.sim, msim_root=args.msim, workdir=tmp, name="ct")
+            if not ok:
+                print(f"FAIL  {name}  [仿真]\n      " + err.strip().replace("\n", "\n      "))
+                return 2
             if "FAIL" in out or "PASS color_target" not in out:
                 print(f"FAIL  {name}  [仿真台断言]\n      " + out.strip().replace("\n", "\n      "))
                 continue

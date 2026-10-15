@@ -50,7 +50,7 @@ Interface version / 状态:
               tb_color_target_chain}.v、
           run_color_target{,_overlay,_track,_chain}.py、
           INTERFACE.md、INTEGRATION.md、README.md、GITHUB_RESEARCH.md、本文件。
-  验收：run_color_target.py 15/15（--full 16/16）＋两条结构断言；
+  验收：run_color_target.py 17/17（--full 18/18）＋两条结构断言；
         run_color_target_overlay.py 10/10；run_color_target_track.py 11/11；
         run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）。
 ```
