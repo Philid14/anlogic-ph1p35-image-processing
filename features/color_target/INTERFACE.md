@@ -114,6 +114,42 @@ MAIN 逐像素调用即可，不引入对齐负担。
   MAIN 用它自己的字库按框坐标渲染文字。
 - 纯组合模块，**不承诺最大工作频率**；需由 MAIN 按整机时序预算决定是否插寄存器。
 
+## 4.2 跟踪模块接口（T4，`rtl/color_target_track.v`）
+
+`detect` 与 `overlay` 之间的一级。把"每帧一次的原始检出"变成"稳定可演示的显示结果"，
+数据通路为 **`detect → track → overlay`**。
+
+| 信号 | 方向 | 位宽 | 说明 |
+|---|---|---|---|
+| `I_result_strobe` | in | 1 | 接 `color_target_detect` 的 `O_result_ready` |
+| `I_result_valid` / `I_target_present` | in | 1 / 1 | 接 detect 的同名输出 |
+| `I_pixel_count` | in | 20 | 同上 |
+| `I_xmin` `I_xmax` `I_center_x` | in | `XW` | 同上 |
+| `I_ymin` `I_ymax` `I_center_y` | in | `YW` | 同上 |
+| `I_session_id` / `I_frame_id` | in | 32 / 32 | 同上 |
+| `O_track_state` | out | 2 | 0=SEARCH 1=ACQ 2=TRACK 3=HOLD（可直接送 MAIN 的 OSD 显示状态文字） |
+| `O_show` | out | 1 | 1 时才有可显示的框（TRACK 或 HOLD） |
+| `O_out_*`（count/坐标/身份） | out | 同输入 | HOLD 期间保持"上次被接受"的那一帧 |
+| `O_state_change` | out | 1 | 状态变化时的一拍脉冲 |
+
+参数：`ACQ_FRAMES`(3，连续检出多少帧确认)、`LOST_FRAMES`(15，连续丢失多少帧判彻底失去)、
+`MAX_JUMP`(0=关闭，跳变门限，单位像素)。
+
+**接 overlay 的接线**（两行即可）：
+
+```verilog
+overlay.I_result_valid   = track.O_show;
+overlay.I_target_present = track.O_show;
+```
+
+**语义要点（§4.1 / §4.3）**：
+- **中止帧（`I_result_valid=0`）不评估**：跳过，不改变状态。§4.3 说检测模块丢弃中止帧结果，
+  但"丢一帧结果"不等于"目标消失"，当丢失处理会误判。
+- **会话变化强制清零**：新会话首帧按 SEARCH 重新判定，不把旧会话状态带过去（§4.1）。
+- **HOLD 期间不清零显示结果**：保持上一次被接受的那一帧的坐标与身份，避免框突然消失。
+- 需要 MAIN 注意：`O_out_session_id/frame_id` 是**上一次被接受**的那一帧身份，不是当前帧。
+  MAIN 若要判断"这个框是不是本帧的"，应比较该身份与当前帧身份。
+
 ## 5. 参数
 
 | 参数 | 默认 | 含义 |

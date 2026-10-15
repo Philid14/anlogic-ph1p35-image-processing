@@ -1,8 +1,8 @@
 # `features/color_target/` —— 颜色目标检测（TARGET）
 
 对应赛题 **扩展二、进阶二**；对应协议 `TEAM_PROTOCOL_V1` 的 TARGET 角色与 §2.2 分阶段任务。
-当前完成 **T1（参数化颜色分类）+ T2（匹配像素数 / 包围框 / 包围框中心 / 帧身份）+ T3（框线与中心十字的覆盖请求）**
-的独立模块与自检；T4（动态跟踪与防抖）未开始。
+当前完成 **T1（参数化颜色分类）+ T2（匹配像素数 / 包围框 / 包围框中心 / 帧身份）+ T3（框线与中心十字的覆盖请求）+ T4（跟踪状态机与参数化防抖）**
+的独立模块与自检。数据通路为 `detect → track → overlay`，三段都可独立自检。
 
 > ⚠️ **状态口径（协议 §5.3.4、§6 要求如实区分）**：
 > 本功能**独立模块完成、模拟事件验证通过**。**未接入主线、未生成 bit、未上板。**
@@ -23,6 +23,10 @@
 | `tb/tb_color_target_overlay.v` | 标注自检台（纯组合，无需时钟） |
 | `run_color_target.py` | 检测自检驱动：生成激励 → 仿真 → 与模型逐行比对 |
 | `run_color_target_overlay.py` | 标注自检驱动 |
+| `rtl/color_target_track.v` | 跟踪状态机与防抖（T4）：SEARCH / ACQ / TRACK / HOLD |
+| `model/ref_color_target_track.py` | 跟踪的逐帧参考模型 |
+| `tb/tb_color_target_track.v` | 跟踪自检台 |
+| `run_color_target_track.py` | 跟踪自检驱动 |
 | `INTERFACE.md` | 接口说明（状态：**接口草案**，待 MAIN 确认） |
 | `GITHUB_RESEARCH.md` | 外部实现调研记录（本目录内，不写共享 `docs/`） |
 | `TASK.md` | 开工记录（等价任务说明；本机无法创建 GitHub Issue） |
@@ -84,6 +88,41 @@ python features/color_target/run_color_target_overlay.py
 
 **本模块不决定遮挡优先级。** §4.5 规定 Logo/主线状态 > 性能文字 > 目标框/十字，
 合成顺序由 MAIN 的 mixer 执行；本模块不做遮挡规避，也不绑定按键/引脚。
+
+### 2.2 跟踪模块（T4）自检
+
+```bash
+python features/color_target/run_color_target_track.py
+```
+
+最近一次结果：**11/11 通过**，逐帧比对。覆盖：
+
+| 用例 | 覆盖点 |
+|---|---|
+| `never_present` | 始终无目标 → 停在 SEARCH、不显示 |
+| `acquire_at_threshold` | 恰好第 `ACQ_FRAMES` 帧才转 TRACK |
+| `acq_interrupted` | 确认前断掉 → 退回 SEARCH，计数清零 |
+| `track_hold_reacquire` | TRACK → 丢失 → HOLD（仍显示）→ 重现 → TRACK |
+| `hold_then_lost` | HOLD 连续丢满 `LOST_FRAMES` 帧 → SEARCH、不再显示 |
+| `abort_frames_ignored` | `I_result_valid=0` 的中止帧**不改变状态** |
+| `session_change_resets` | 会话变化 → 当帧按 SEARCH 重判，不把旧状态带进新会话 |
+| `bundle_held_during_hold` | HOLD 期间显示结果保持"上次被接受"的那一帧，不被丢失帧清零 |
+| `jump_rejected` / `jump_allowed_when_disabled` | `MAX_JUMP` 启用/关闭的对照 |
+| `no_strobe_no_change` | 无 strobe 的拍不得改变任何状态 |
+
+**设计口径**（与协议一致，已在 RTL 注释中说明）：
+- **中止帧不等于目标消失**：§4.3 要求检测模块丢弃中止帧结果，但把中止当丢失会误判，
+  所以本模块直接跳过不评估。
+- **会话变化强制清零**：§4.1 要求复位/重新采集开新 session，不得把旧会话的跟踪状态带过去；
+  这里把新会话首帧当作 SEARCH 重新判定，而不是丢弃它。
+- **跳变门限默认关闭**（`MAX_JUMP=0`）：它是给"画面里有第二块同色区域"准备的，
+  但会让快速移动的目标被判丢，因此默认不启用，需按实板场景再定。
+
+**自检台写法上的一个坑（值得记下）**：跟踪是逐帧驱动，若把 `$fscanf` 读到的值直接送给
+DUT，第一行会因与复位释放时刻重合而跨过两个 posedge、**被评估两次**，表现是"DUT 比模型早
+一帧"。改为"先读临时寄存器、再在 negedge 统一驱动"后正常。检测与标注两个自检**不受**此
+影响——它们的用例里含"若被双次评估就必然失败"的项（`count_below_min`、`single_beat_all_red`），
+一直是绿的。
 
 ## 3. 为什么这样设计
 
