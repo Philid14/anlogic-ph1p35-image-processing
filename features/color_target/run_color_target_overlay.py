@@ -67,6 +67,32 @@ def write_stim(path, rows):
             f.write("%d %d %d %d %d %d %d %d %d %d %d\n" % r)
 
 
+def run_overlay(simlib, args, rows, params, tmp, name):
+    """编译一次、跑一遍，返回 (每像素覆盖颜色列表, 错误说明)。
+
+    抽成函数是为了让"参数夹取等价性"能拿同一份激励跑两次 RTL 再逐像素比对。
+    """
+    stim, outp = tmp / "stim.txt", tmp / "dut.txt"
+    write_stim(stim, rows)
+    ok, out, err = simlib.simulate(
+        srcs=[RTL / "color_target_overlay.v", TB / "tb_color_target_overlay.v"],
+        tb_top=TB_NAME, params=params,
+        plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),
+        requested=args.sim, msim_root=args.msim, workdir=tmp, name="ov")
+    if not ok:
+        return None, err
+    # 注意匹配的是 tb 里 $display 的实际字样（模块名），不是 tb 文件名
+    if "FAIL" in out or f"PASS {MOD_NAME}" not in out:
+        return None, "仿真台断言失败：\n" + out.strip()
+    got = []
+    if outp.exists():
+        for line in outp.read_text().splitlines():
+            if line.strip():
+                v, rgb = line.split()
+                got.append(int(rgb, 16) if int(v) else 0)
+    return got, None
+
+
 def symmetry_violations(rows, got, cx, cy, arm, pad=2):
     """**不依赖参考模型**的独立断言：中心附近的覆盖图案必须 180 度旋转对称。
 
@@ -121,27 +147,12 @@ def main():
                       CROSS_RGB=ov_p["cross_rgb"])
         with tempfile.TemporaryDirectory(prefix="ctov-") as td:
             tmp = Path(td)
-            stim, outp = tmp / "stim.txt", tmp / "dut.txt"
-            write_stim(stim, rows)
-            ok, out, err = simlib.simulate(
-                srcs=[RTL / "color_target_overlay.v", TB / "tb_color_target_overlay.v"],
-                tb_top=TB_NAME, params=params,
-                plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),
-                requested=args.sim, msim_root=args.msim, workdir=tmp, name="ov")
-            if not ok:
+            got, err = run_overlay(simlib, args, rows, params, tmp, name)
+            if got is None:
                 print(f"FAIL  {name}  [仿真]\n      " + err.strip().replace("\n", "\n      "))
+                if "仿真台断言失败" in err:
+                    continue
                 return 2
-            # 注意匹配的是 tb 里 $display 的实际字样（模块名），不是 tb 文件名
-            if "FAIL" in out or f"PASS {MOD_NAME}" not in out:
-                print(f"FAIL  {name}  [仿真台]\n      " + out.strip().replace("\n", "\n      "))
-                continue
-
-            got = []
-            if outp.exists():
-                for line in outp.read_text().splitlines():
-                    if line.strip():
-                        v, rgb = line.split()
-                        got.append(int(rgb, 16) if int(v) else 0)
             if got != want:
                 bad = [(rows[i], got[i], want[i]) for i in range(min(len(got), len(want)))
                        if got[i] != want[i]]
@@ -162,7 +173,49 @@ def main():
             passed += 1
             print(f"PASS  {name}  (pixels={len(want)})")
 
-    print(f"\n{passed}/{total} 用例通过  [sim={args.sim}]")
+    # ---- 参数夹取等价性：不依赖参考模型，直接比两次 RTL 运行的逐像素转储 ----
+    # 越界参数必须"夹到边界"，于是结果应与显式取边界值逐像素完全一致。
+    # 这条能独立抓住"我把夹取写成了位截断"或"夹取了但没接到判据上"。
+    exs, eys = model.overlay_window(100, 299, 80, 199, 199, 139, pad=5)
+    exs = sorted(set(exs + [0, 1279, 99, 300]))
+    eys = sorted(set(eys + [0, 719, 79, 200]))
+    eq_rows = [(1, x, y, 1, 1, 100, 299, 80, 199, 199, 139)
+               for y in eys for x in exs]
+    base = dict(XW=11, YW=10, BOX_THICK=3, BOX_RGB=0x00FF00,
+                CROSS_ARM=12, CROSS_THICK=1, CROSS_RGB=0xFFFF00)
+    equiv = [
+        ("BOX_THICK", 0, 1, "框线 0 夹到 1（不要框应由 present=0 表达，而不是把线宽设成 0）"),
+        ("BOX_THICK", -3, 1, "框线负数夹到 1"),
+        ("CROSS_THICK", 0, 1, "十字线宽 0 夹到 1"),
+        ("CROSS_THICK", -2, 1, "十字线宽负数夹到 1"),
+        ("CROSS_ARM", -5, 0, "十字半臂负数夹到 0（退化成一点）"),
+    ]
+    n_eq = 0
+    with tempfile.TemporaryDirectory(prefix="ctov-eq-") as td:
+        tmp = Path(td)
+        for key, lhs, rhs, why in equiv:
+            pa, pb = dict(base), dict(base)
+            pa[key], pb[key] = lhs, rhs
+            ga, erra = run_overlay(simlib, args, eq_rows, pa, tmp, "eqa")
+            if ga is None:
+                print(f"FAIL  等价性 {key}={lhs}: 仿真失败\n      " + erra.strip())
+                return 2
+            gb, errb = run_overlay(simlib, args, eq_rows, pb, tmp, "eqb")
+            if gb is None:
+                print(f"FAIL  等价性 {key}={rhs}: 仿真失败\n      " + errb.strip())
+                return 2
+            diff = [(i, a, b) for i, (a, b) in enumerate(zip(ga, gb)) if a != b]
+            if diff:
+                print(f"FAIL  等价性 {key}={lhs} vs {rhs}：{why}，"
+                      f"但 {len(diff)}/{len(ga)} 像素不同")
+                for i, a, b in diff[:5]:
+                    print(f"      像素 x={eq_rows[i][1]} y={eq_rows[i][2]}: "
+                          f"{lhs}->0x{a:06x}  {rhs}->0x{b:06x}")
+                return 1
+            n_eq += 1
+            print(f"PASS  {key}={lhs} == {key}={rhs}（{len(ga)} 像素）  {why}")
+
+    print(f"\n{passed}/{total} 用例通过；夹取等价性 {n_eq}/{len(equiv)} 通过  [sim={args.sim}]")
     return 0 if passed == total else 1
 
 

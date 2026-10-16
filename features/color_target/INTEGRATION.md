@@ -12,14 +12,18 @@
 
 | 模块 | 文件 | 自检 |
 |---|---|---|
-| 颜色分类（T1） | `rtl/color_classify.v` | `python features/color_target/run_color_classify.py`（31 个参数组合 / 30074 像素，期望值按判据独立计算） |
-| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（20/20，`--full` 21/21） |
-| 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10） |
+| 颜色分类（T1） | `rtl/color_classify.v` | `python features/color_target/run_color_classify.py`（40 个参数组合 / 39079 像素 + 8 条参数等价性，期望值按判据独立计算） |
+| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（23/23，`--full` 24/24） |
+| 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10 + 5 条夹取等价性） |
 | 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（21/21） |
 | 三级链路 | 上述三者的组合 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
+| 链路渲染（验收素材） | 上述三者的组合 | `python features/color_target/render_color_target_frames.py --out <目录>`（192010 拍 / 768000 像素逐像素比对 + 10 帧 PNG） |
 
 自检台优先用 Icarus Verilog；本机没装时**自动回落到 ModelSim**（也可 `--sim modelsim` 强制）。
 若 PATH 上的 `python` 是 Windows 应用商店占位符，请改用真实解释器。
+
+**渲染出来的 PNG 可以直接当接入讨论的素材**（框在哪里、什么时候保持、什么时候消失），
+但它是**合成画面**，不是实拍，也不能当作上板效果的证据。
 
 ## 2. 怎么接
 
@@ -38,11 +42,12 @@
 | `HUE_HALF_WIDTH_DEG` | detect | `30` | hue 半宽，合法范围 **0..60**（编译期夹取；"目标通道为最大"的扇区本身只有 60° 宽）。判据是交叉乘积 `60·|d| ≤ W·C`，位宽与 `W` 无关，调小任意值都不会溢出。调小更严、调大更松 |
 | `C_MIN` | detect | `24` | 彩度下限，合法范围 **0..511**（内部按 9 位比较），同时滤白灰与暗部噪声 |
 | `V_MIN` | detect | `32` | 亮度下限，合法范围 **0..255** |
-| `MIN_COUNT` | detect | `64` | 帧内命中像素数门限。**取 0 会被编译期夹到 1** —— 否则零命中的帧也会判为"存在"，而那时包围框还是中性元（`xmin=2047`/`xmax=0`），会输出垃圾坐标 |
+| `MIN_COUNT` | detect | `64` | 帧内命中像素数门限，合法范围 **1..2²⁰-1**。取 0 会被夹到 1 —— 否则零命中的帧也会判为"存在"，而那时包围框还是中性元（`xmin=2047`/`xmax=0`），会输出垃圾坐标；取 2²⁰ 会被夹到 2²⁰-1（不夹就会被 20 位截成 0，反变成"零命中也算存在"）。设得比整帧像素数还大表示"永不判存在"，这是参数选择的自然结果 |
 | `ACQ_FRAMES` | track | `3` | 连续几帧确认，合法范围 **1..255**（8 位计数器；取 0 与取 1 同义，超过 255 夹到 255 而不是被截成 0）。**待实板噪声数据后定** |
 | `LOST_FRAMES` | track | `15` | 连续几帧判彻底失去，合法范围 **1..255**；越小框消失越快。**取 1 表示首次丢失就立刻隐藏** |
 | `MAX_JUMP` | track | `0`（关闭） | 跳变门限，取 **0 或正数**（负数夹到 0 = 关闭）。**默认不要开**——开了会让快速移动的目标被判丢 |
-| `BOX_THICK` / `CROSS_ARM` | overlay | `3` / `12` | 框线粗细与十字半臂长 |
+| `BOX_THICK` / `CROSS_ARM` / `CROSS_THICK` | overlay | `3` / `12` / `1` | 框线粗细 / 十字半臂长 / 十字线宽。合法范围 **≥1 / ≥0 / ≥1**（编译期夹取）。想让框消失请让 `I_target_present=0`，**不要**把 `BOX_THICK` 设成 0——那会让四条带退化成空集、判据悄悄失效 |
+| `XW` / `YW` | 全部 | `11` / `10` | 1280×720 用默认值；更小几何也支持（已实测 320×240 的 `9/8`、`XW=2/YW=2` 边界值） |
 
 **不要为了迁就检测去改主线 AWB / 曝光**（协议 §2.2）。hue 法本身抗亮度变化；若白平衡把红目标
 整体推成橙色系，正确的动作是通知 TARGET 重新评估 `HUE_HALF_WIDTH_DEG`（协议 §4.2），不是改主线。

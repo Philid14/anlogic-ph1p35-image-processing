@@ -64,12 +64,19 @@ def sim_chain(beats, p=None):
     trecs = _trk.sim_track(tin, trk_p)
 
     # 3) overlay：与 tb 的接线一致 —— I_result_valid = I_target_present = track.O_show，
-    #    坐标系用 lane0 的 (x0, y)
+    #    坐标系用 lane0 的 (x0, y)。
+    #    这里额外把 track 的结果包（框/中心/计数）一并带出来：现有调用方只读
+    #    state/show/ov，而渲染工具要对同一个包在**每个 lane** 上求覆盖，
+    #    所以它需要拿到这些字段而不是重新推一遍。
     out = []
     for i, b in enumerate(beats):
         t = trecs[i]
         ov = _ovl.overlay_pixel(b["x0"], b["y"], t["show"], t["show"],
                                 t["xmin"], t["xmax"], t["ymin"], t["ymax"],
                                 t["cx"], t["cy"], ovl_p)
-        out.append(dict(state=t["state"], show=t["show"], ov=ov))
+        out.append(dict(state=t["state"], show=t["show"], ov=ov,
+                        count=t["count"], xmin=t["xmin"], xmax=t["xmax"],
+                        ymin=t["ymin"], ymax=t["ymax"], cx=t["cx"], cy=t["cy"],
+                        # 身份也要带出来：它就是 MAIN 用来区分"实检"与"HOLD 保持"的依据
+                        session=t["session"], frame=t["frame"]))
     return out

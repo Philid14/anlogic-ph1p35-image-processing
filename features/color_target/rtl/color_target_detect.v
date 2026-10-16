@@ -73,9 +73,13 @@ module color_target_detect #(
     wire        any_hit = |hits;
 
     wire [XW-1:0] x0 = I_x0;
-    wire [XW-1:0] x1 = I_x0 + {{(XW-3){1'b0}}, 2'd1};
-    wire [XW-1:0] x2 = I_x0 + {{(XW-3){1'b0}}, 2'd2};
-    wire [XW-1:0] x3 = I_x0 + {{(XW-3){1'b0}}, 2'd3};
+    // lane k 的 x = x0 + k。直接写 `+ 2'd1` 就够：Verilog 按操作数最大位宽求值，
+    // 赋值到 [XW-1:0] 时截断，对任意 XW >= 1 都正确。原先写成
+    // {{(XW-3){1'b0}}, 2'd1} 的显式零扩展在 XW < 3 时是负数重复次数，直接编译失败
+    // ——把一个无意义的参数取值变成编译错误，而不是给出可解释的结果。
+    wire [XW-1:0] x1 = I_x0 + 2'd1;
+    wire [XW-1:0] x2 = I_x0 + 2'd2;
+    wire [XW-1:0] x3 = I_x0 + 2'd3;
 
     localparam [XW-1:0] X_MAX = {XW{1'b1}};
     localparam [YW-1:0] Y_MAX = {YW{1'b1}};
@@ -162,9 +166,14 @@ module color_target_detect #(
     wire [31:0]  eff_session = start_f ? I_session_id : cur_session;
     wire [31:0]  eff_frame   = start_f ? I_frame_id   : cur_frame;
     // 只有"帧有效 且 命中数达门限"才填字段；否则按 §4.3 全部清零（含中止帧）。
-    // MIN_COUNT 在编译期夹到 >=1：取 0 会让"零命中"的帧也判为存在，而那时包围框还是
-    // 中性元（xmin=全 1、xmax=0），会输出 2047/1023 这类垃圾坐标。夹取不产生运行时逻辑。
-    localparam [19:0] MIN_COUNT_EFF = (MIN_COUNT < 1) ? 20'd1 : MIN_COUNT[19:0];
+    // MIN_COUNT 在编译期夹到 1..1048575，不产生运行时逻辑：
+    //   下界 1：取 0 会让"零命中"的帧也判为存在，而那时包围框还是中性元（xmin=全 1、
+    //           xmax=0），会输出 2047/1023 这类垃圾坐标。
+    //   上界 2^20-1：它要跟 20 位计数比较，不夹的话 2^20 会被 [19:0] 截成 0，
+    //           本意"严到不可能命中"反变成"零命中也算存在"。夹后仍可设得比整帧像素数还大，
+    //           那表示"永不判存在"——这是参数选择的自然结果。
+    localparam [19:0] MIN_COUNT_EFF = (MIN_COUNT < 1) ? 20'd1
+                                    : ((MIN_COUNT > 1048575) ? 20'hFFFFF : MIN_COUNT[19:0]);
     wire         res_ok  = eff_ok & (nxt_cnt >= MIN_COUNT_EFF);
     // 中心：先把加法拓宽一位再右移。xmin+xmax 最大 2555、ymin+ymax 最大 1438，
     // 直接用 XW/YW 位相加会截断（Verilog 按操作数最大位宽求值）。

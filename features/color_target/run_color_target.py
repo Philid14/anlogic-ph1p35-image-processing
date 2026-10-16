@@ -190,6 +190,29 @@ def build_cases(p):
     cases.append(("single_beat_aborted_still_void", single_abort, {"min_count": 1},
                   [[3, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
 
+    # —— 参数合法范围：越界值必须被编译期夹取，不能变成静默失效 ——
+    # MIN_COUNT 上界 2^20-1：不夹的话 2^20 会被 [19:0] 截成 0，本意"严到不可能命中"
+    # 反变成"零命中也算存在"。这里给一整帧全红（4 命中），期望仍是 present=0。
+    cases.append(("mincount_over_20bit_is_clamped",
+                  make_frame(4, 1, lambda x, y: RED, 1, 30), {"min_count": 1 << 20},
+                  [[1, 30, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
+
+    # XW=2 / YW=2：旧实现在这里直接**编译失败** —— 拍内 x0+k 的显式零扩展写成
+    # {{(XW-3){1'b0}}, ...}，XW<3 时是负数重复次数。去掉那个多余扩展后，任意 XW>=1
+    # 都能编译，坐标按位宽自然截断。4x4 画面、左上 2x2 红块 -> 4 命中，框 0..1 / 0..1，中心 (0,0)。
+    def tiny_block(x, y):
+        return RED if (x <= 1 and y <= 1) else WHITE
+    cases.append(("tiny_geometry_xw2_yw2",
+                  make_frame(4, 4, tiny_block, 1, 31), {"xw": 2, "yw": 2, "min_count": 1},
+                  [[1, 31, 1, 1, 0, 4, 0, 1, 0, 1, 0, 0]]))
+
+    # XW=3 / YW=2（旧实现同样编译失败）：8x4 画面、左上 4x2 红块 -> 8 命中，框 0..3 / 0..1，中心 (1,0)
+    def small_block(x, y):
+        return RED if (x <= 3 and y <= 1) else WHITE
+    cases.append(("small_geometry_xw3_yw2",
+                  make_frame(8, 4, small_block, 1, 32), {"xw": 3, "yw": 2},
+                  [[1, 32, 1, 1, 0, 8, 0, 3, 0, 1, 1, 0]]))
+
     # 跨帧身份：两帧不同 session/frame，结果必须各自对应
     f1 = make_frame(8, 2, rect, 7, 100)
     f2 = make_frame(8, 2, rect, 7, 101)

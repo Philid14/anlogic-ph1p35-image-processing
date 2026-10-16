@@ -12,7 +12,9 @@
 
 判据（W = hue 半宽，单位度；d = 另两个通道之差的绝对值；C = max-min）：
     hit = (目标通道为最大) and (60*|d| <= W*C) and (C >= C_MIN) and (max >= V_MIN)
-W 与 RTL 一致地夹到 0..60；C_MIN 取 0..511、V_MIN 取 0..255（与 RTL 的位宽一致）。
+W 夹到 0..60、C_MIN 夹到 0..511、V_MIN 夹到 0..255，TARGET_CLASS 除 1/2 外一律按红
+——都与 RTL 的编译期夹取逐条对应。**是夹取不是位截断**：这四类越界参数原先会让判据
+静默失效（例如 C_MIN=512 被低 9 位截成 0，"严到不可能命中"变成"完全不滤彩度"）。
 
 用法：
     python features/color_target/run_color_classify.py
@@ -48,10 +50,22 @@ def w_eff(w):
     return 0 if w < 0 else (60 if w > 60 else w)
 
 
+def c_min_eff(v):
+    """与 RTL 的 CMIN_D 夹取一致（0..511）。"""
+    return 0 if v < 0 else (511 if v > 511 else v)
+
+
+def v_min_eff(v):
+    """与 RTL 的 VMIN_D 夹取一致（0..255）。"""
+    return 0 if v < 0 else (255 if v > 255 else v)
+
+
 def criterion(r, g, b, tc, w, c_min, v_min):
     """数学判据的独立实现（不调用 model/）。返回值 0/1。
 
-    位宽与 RTL 对齐：C_MIN 按 9 位、V_MIN 按 8 位参与比较，超出即按低位截断语义。
+    位宽与 RTL 对齐：C_MIN 按 9 位、V_MIN 按 8 位参与比较，超出即按**夹取**语义
+    （不是位截断——夹取与截断在越界时结果相反，下方锁定用例专门钉住这一点）。
+    TARGET_CLASS 除 1/2 外一律按红处理（与 RTL 的 generate 一致）。
     """
     mx, mn = max(r, g, b), min(r, g, b)
     chroma = mx - mn
@@ -62,7 +76,7 @@ def criterion(r, g, b, tc, w, c_min, v_min):
     else:
         sel, d = (r >= g) and (r >= b), abs(g - b)
     return int(bool(sel and (60 * d <= w_eff(w) * chroma)
-                    and (chroma >= (c_min & 0x1FF)) and (mx >= (v_min & 0xFF))))
+                    and (chroma >= c_min_eff(c_min)) and (mx >= v_min_eff(v_min))))
 
 
 # ---------------------------------------------------------------------------
@@ -98,6 +112,19 @@ LOCKED = [
     (0, 30, 24, 32, (30, 220, 40), 0, "同一像素在红色类下：r 不是最大通道"),
     (2, 30, 24, 32, (30, 40, 220), 1, "蓝：d=|r-g|=10，C=190"),
     (2, 30, 24, 32, (220, 30, 40), 0, "红在蓝色类下：b 不是最大通道"),
+
+    # —— 越界参数：必须是"夹取"，不能是"位截断"。下面四条都刻意构造成两种语义结果相反，
+    #    所以它们能真正区分"我夹了"和"我让低位截断了"。——
+    (0, 30, 512, 32, (128, 128, 128), 0,
+     "C_MIN=512 夹到 511；灰的 C=0 < 511 → 否。若按位截断则 512→0，会判成命中，方向正好相反"),
+    (0, 30, -1, 32, (128, 128, 128), 1,
+     "C_MIN=-1 夹到 0；灰的 C=0>=0 且 d=0 → 是。若按位截断则 -1→511，会判成否"),
+    (0, 30, 24, 300, (200, 40, 40), 0,
+     "V_MIN=300 夹到 255；max=200 < 255 → 否。若按位截断则 300→44，200>=44 会判成命中"),
+    (0, 30, 24, -1, (30, 6, 6), 1,
+     "V_MIN=-1 夹到 0；C=24 达标、max=30>=0 → 是。若按位截断则 -1→255，会判成否"),
+    (3, 30, 24, 32, (200, 40, 40), 1,
+     "TARGET_CLASS=3 按红处理（与 RTL 的 generate 一致），不是'选不中任何类'的静默失效"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -109,11 +136,29 @@ SWEEP_W = [0, 1, 2, 5, 10, 15, 25, 30, 31, 32, 45, 47, 48, 59, 60, 90]
 THRESH_COMBOS = [
     (0, 30, 0, 32), (0, 30, 1, 32), (0, 30, 24, 33), (0, 30, 24, 0),
     (0, 30, 255, 32), (0, 30, 511, 32), (0, 10, 64, 64), (0, 10, 0, 0),
+    (0, 30, 24, 255), (0, 30, 24, 1),
+    # 越界：验证是"夹取"而不是"位截断"（夹到上/下界，不是丢掉低位）
+    (0, 30, 512, 32), (0, 30, -1, 32), (0, 30, 24, 300), (0, 30, 24, -1),
 ]
 
-# 三个目标类各自扫一遍（含小半宽），确认剪枝没有串类
+# 三个目标类各自扫一遍（含小半宽），确认剪枝没有串类；3 与 7 是越界值，
+# 应与红（0）逐像素完全一致（见下方 EQUIV 的等价性断言）。
 CLASS_COMBOS = [(1, 30, 24, 32), (1, 10, 24, 32), (2, 30, 24, 32), (2, 10, 24, 32),
-                (1, 60, 24, 32), (2, 60, 24, 32)]
+                (1, 60, 24, 32), (2, 60, 24, 32),
+                (3, 30, 24, 32), (3, 10, 24, 32), (7, 30, 24, 32)]
+
+# 参数组合等价性断言（不依赖判据、也不依赖模型）：左边的参数应与右边逐像素完全一致。
+# 用在"越界值应当退化到合法值"和"夹取后应当与显式取值等价"两类情形上。
+EQUIV = [
+    ((3, 30, 24, 32), (0, 30, 24, 32), "TARGET_CLASS=3 应当与红(0)完全一致"),
+    ((3, 10, 24, 32), (0, 10, 24, 32), "TARGET_CLASS=3 在小半宽下也应与红(0)一致"),
+    ((7, 30, 24, 32), (0, 30, 24, 32), "TARGET_CLASS=7 应当与红(0)完全一致"),
+    ((0, 60, 24, 32), (0, 90, 24, 32), "W=90 夹到 60，应与显式 60 完全一致"),
+    ((0, 30, 512, 32), (0, 30, 511, 32), "C_MIN=512 夹到 511，应与显式 511 完全一致"),
+    ((0, 30, -1, 32), (0, 30, 0, 32), "C_MIN=-1 夹到 0，应与显式 0 完全一致"),
+    ((0, 30, 24, 300), (0, 30, 24, 255), "V_MIN=300 夹到 255，应与显式 255 完全一致"),
+    ((0, 30, 24, -1), (0, 30, 24, 0), "V_MIN=-1 夹到 0，应与显式 0 完全一致"),
+]
 
 
 def build_combos(locked_only=False):
@@ -206,6 +251,7 @@ def main():
 
     n_combo = n_px = 0
     bad_combos = []
+    dumps = {}                      # combo -> 该组合的逐像素转储，供 EQUIV 等价性断言使用
     with tempfile.TemporaryDirectory(prefix="ct-cls-") as td:
         tmp = Path(td)
         for combo in sorted(combos):
@@ -221,6 +267,7 @@ def main():
                 print(f"FAIL  tc={tc} w={w} cmin={cmin} vmin={vmin}  "
                       f"输出行数 {len(got)} != 激励行数 {len(pixels)}")
                 return 2
+            dumps[combo] = (pixels, got)
             mism = [(px, g, criterion(px[0], px[1], px[2], tc, w, cmin, vmin))
                     for px, g in zip(pixels, got)
                     if g != criterion(px[0], px[1], px[2], tc, w, cmin, vmin)]
@@ -235,8 +282,47 @@ def main():
             n_px += len(pixels)
             print(f"PASS  tc={tc} w={w} cmin={cmin} vmin={vmin}  pixels={len(pixels)}")
 
+    # —— 参数组合等价性：不依赖判据、也不依赖模型，直接比两次 RTL 运行的转储 ——
+    # 缺任何一侧都算测试脚手架故障（而不是静默跳过），否则一个笔误就能让断言蒸发。
+    n_equiv = n_equiv_skip = 0
+    for lhs, rhs, why in EQUIV:
+        if lhs not in dumps or rhs not in dumps:
+            if args.locked_only:
+                # --locked-only 只仿真手算用例所在的组合，未覆盖的组合按预期跳过
+                n_equiv_skip += 1
+                continue
+            missing = lhs if lhs not in dumps else rhs
+            print(f"FAIL  等价性断言引用了未仿真的参数组合 {missing}（check {lhs} vs {rhs}）")
+            return 2
+        px_l, got_l = dumps[lhs]
+        px_r, got_r = dumps[rhs]
+        # 两个组合的激励列表不一定相同（各自还带自己的手算边界像素），所以在**共同像素**
+        # 上比较，并把实际比对了多少个像素报出来——"PASS" 不该掩盖它只比了 2 个像素。
+        map_l = dict(zip(px_l, got_l))
+        map_r = dict(zip(px_r, got_r))
+        common = sorted(set(map_l) & set(map_r))
+        if not common:
+            # --locked-only 每个组合只带自己的手算像素，两侧可能没有交集；按预期跳过。
+            # 全量模式下每个组合都含整张网格，没有交集就说明脚手架有问题，按故障处理。
+            if args.locked_only:
+                n_equiv_skip += 1
+                continue
+            print(f"FAIL  等价性断言两侧没有共同激励：{lhs} vs {rhs}")
+            return 2
+        diff = [(px, map_l[px], map_r[px]) for px in common if map_l[px] != map_r[px]]
+        if diff:
+            print(f"FAIL  等价性 {lhs} vs {rhs}：{why}，但 {len(diff)}/{len(common)} 像素不同")
+            for px, a, b in diff[:6]:
+                print(f"      RGB={px} 左={a} 右={b}")
+            return 1
+        n_equiv += 1
+        print(f"PASS  等价性 {lhs} == {rhs}（共同 {len(common)} 像素）  {why}")
+
     n_bad = len(bad_combos)
-    print(f"\n{n_combo - n_bad}/{n_combo} 参数组合通过，共 {n_px} 像素逐点比对  [sim={args.sim}]")
+    print(f"\n{n_combo - n_bad}/{n_combo} 参数组合通过，共 {n_px} 像素逐点比对；"
+          f"等价性断言 {n_equiv}/{len(EQUIV) - n_equiv_skip} 通过"
+          + (f"（--locked-only 跳过 {n_equiv_skip} 条）" if n_equiv_skip else "")
+          + f"  [sim={args.sim}]")
     if n_bad:
         # 不撞到第一个就退出：把全部失配组合都列出来，失败时的证据才是完整的
         print(f"失配组合 {n_bad} 个：")

@@ -11,13 +11,40 @@ DEFAULTS = dict(target_class=0, hue_half_width_deg=30, c_min=24, v_min=32,
                 min_count=64, xw=11, yw=10)
 
 
+def clamp_hue_width(v):
+    """与 RTL 的 W_DEG 一致：夹到 0..60（目标通道为最大的扇区只有 60 度宽）。"""
+    return 0 if v < 0 else (60 if v > 60 else v)
+
+
+def clamp_c_min(v):
+    """与 RTL 的 CMIN_D 一致：夹到 0..511（内部按 9 位比较）。
+
+    不夹的话，512 会被低 9 位截成 0（本意"严到不可能命中"反变成"完全不滤彩度"），
+    而 -1 的低 9 位是 511（等于"永不命中"）。
+    """
+    return 0 if v < 0 else (511 if v > 511 else v)
+
+
+def clamp_v_min(v):
+    """与 RTL 的 VMIN_D 一致：夹到 0..255（内部按 8 位比较）。"""
+    return 0 if v < 0 else (255 if v > 255 else v)
+
+
+def clamp_min_count(v):
+    """与 RTL 的 MIN_COUNT_EFF 一致：夹到 1..1048575（20 位计数域）。
+
+    下界 1：取 0 会让零命中的帧也判为存在，而那时包围框还是中性元。
+    上界 2^20-1：它要跟 20 位计数比较，2^20 会被截成 0，语义正好反过来。
+    """
+    return 1 if v < 1 else (1048575 if v > 1048575 else v)
+
+
 def classify(r, g, b, p):
     """单像素分类，与 color_classify.v 等价。"""
     mx = max(r, g, b)
     mn = min(r, g, b)
     chroma = mx - mn
-    w = p["hue_half_width_deg"]
-    w = 0 if w < 0 else (60 if w > 60 else w)   # 与 RTL 的 W_DEG 夹取一致
+    w = clamp_hue_width(p["hue_half_width_deg"])
     tc = p["target_class"]
     if tc == 1:
         sel = (g > r) and (g >= b)
@@ -26,11 +53,13 @@ def classify(r, g, b, p):
         sel = (b > r) and (b > g)
         d = abs(r - g)
     else:
+        # 除 1/2 之外一律按红处理（与 RTL 的 generate 一致），不存在"选不中任何类"
         sel = (r >= g) and (r >= b)
         d = abs(g - b)
     # 判据用交叉乘积 60*|d| <= W*C（与 RTL 一致），不再预合并 Q8 斜率
     return bool(sel and (d * 60 <= chroma * w)
-                and (chroma >= p["c_min"]) and (mx >= p["v_min"]))
+                and (chroma >= clamp_c_min(p["c_min"]))
+                and (mx >= clamp_v_min(p["v_min"])))
 
 
 def lanes(data96):
@@ -91,8 +120,8 @@ def run(beats, p=None):
             # 不带上一帧遗留的 aborted_f（否则单拍帧会被误判为中止帧）
             eff_abort = bt["abort"] if start_f else (aborted_f or bt["abort"])
             eff_ok = (open_f or start_f) and not eff_abort
-            # 与 RTL 一致：MIN_COUNT 夹到 >=1（取 0 时会用中性元包围框输出垃圾坐标）
-            present = eff_ok and (nxt_cnt >= max(1, p["min_count"]))
+            # 与 RTL 一致：MIN_COUNT 夹到 1..2^20-1（取 0 时会用中性元包围框输出垃圾坐标）
+            present = eff_ok and (nxt_cnt >= clamp_min_count(p["min_count"]))
             published.append(dict(
                 # 单拍帧（sof 与 eof 同拍）时 cur_* 还没更新，必须取本拍身份，
                 # 与 RTL 的 eff_session / eff_frame 一致。

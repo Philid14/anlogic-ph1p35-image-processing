@@ -50,10 +50,13 @@ Interface version / 状态:
               tb_color_target_track, tb_color_target_chain}.v、
           run_color_classify.py、run_color_target{,_overlay,_track,_chain}.py、
           INTERFACE.md、INTEGRATION.md、README.md、GITHUB_RESEARCH.md、本文件。
-  验收：run_color_classify.py 31/31 参数组合 / 30074 像素（期望值按数学判据独立计算）；
-        run_color_target.py 20/20（--full 21/21）＋两条结构断言；
-        run_color_target_overlay.py 10/10；run_color_target_track.py 21/21；
-        run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）。
+  验收：run_color_classify.py 40/40 参数组合 / 39079 像素 + 8 条参数等价性
+          （期望值按数学判据独立计算）；
+        run_color_target.py 23/23（--full 24/24）＋两条结构断言；
+        run_color_target_overlay.py 10/10 + 5 条夹取等价性；
+        run_color_target_track.py 21/21；
+        run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）；
+        render_color_target_frames.py 192010 拍 / 768000 像素逐像素比对通过 + 10 帧 PNG。
 ```
 
 ## 未完成 / 待办
@@ -69,3 +72,5 @@ Interface version / 状态:
 | 7 | `GITHUB_RESEARCH.md` 的 commit / License 核实 | 仅在将来需要**采用代码**时才需要 |
 | 8 | 审查意见 ①②③ 的三处修复与回归：**已完成**（`README.md` §6 记录了复现、影响面与"修复前 RTL 喂给新回归确认会失败"） | TARGET 已完成 / 待 Philid14 复审 |
 | 9 | 整机接口对齐、统一 OSD 合成顺序、资源与时序实测、上板效果 | **MAIN 集成确认**（§4.5 / §5.3.4） |
+| 10 | 参数健壮性收敛（所有越界参数编译期夹取 + 等价性断言）与链路渲染验收：**已完成**（`README.md` §7、§2.5） | TARGET 已完成 / 待 Philid14 复审 |
+| 11 | **像素级去噪**（默认关闭的可选模块）：目前最大的功能性缺口。渲染量化了后果——40 个孤立噪点把框从 60×60 撑到 309×209，且被 HOLD 保持若干帧。**滤波器形态需要实板噪声数据才能定**，建议等 MAIN 的实拍样本 | 待实拍数据；TARGET 可先做机制 |

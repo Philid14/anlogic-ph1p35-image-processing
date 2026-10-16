@@ -8,6 +8,26 @@ OVERLAY_DEFAULTS = dict(box_thick=3, box_rgb=0x00FF00,
                         cross_arm=12, cross_thick=1, cross_rgb=0xFFFF00)
 
 
+def clamp_box_thick(v):
+    """与 RTL 的 BT 一致：夹到 >=1。
+
+    0 或负数会让四条带都退化成空集（"没有框"），而"框消失"应当由 present=0 表达
+    （协议 §4.3 的语义），不是把线宽设成 0。夹取也让下面的整数除法不再遇到负数
+    ——Verilog 的整数除法向零截断、Python 的 // 向下取整，负数下两者结果不同。
+    """
+    return 1 if v < 1 else v
+
+
+def clamp_cross_thick(v):
+    """与 RTL 的 CT 一致：夹到 >=1（0 会因截断退化成 1，不如显式夹取）。"""
+    return 1 if v < 1 else v
+
+
+def clamp_cross_arm(v):
+    """与 RTL 的 CA 一致：夹到 >=0（负臂长是空集，0 表示十字退化成一个点）。"""
+    return 0 if v < 0 else v
+
+
 def overlay_pixel(x, y, result_valid, present, xmin, xmax, ymin, ymax, cx, cy, p=None):
     """返回该像素的覆盖颜色；0 表示不覆盖。
 
@@ -17,7 +37,7 @@ def overlay_pixel(x, y, result_valid, present, xmin, xmax, ymin, ymax, cx, cy, p
     p = dict(OVERLAY_DEFAULTS, **(p or {}))
     if not (result_valid and present):
         return 0
-    b = p["box_thick"]
+    b = clamp_box_thick(p["box_thick"])
 
     xl_hi = xmin + (b - 1)
     xr_lo = xmax - (b - 1) if xmax >= (b - 1) else 0
@@ -30,7 +50,7 @@ def overlay_pixel(x, y, result_valid, present, xmin, xmax, ymin, ymax, cx, cy, p
     y_in_band = (ymin <= y <= yt_hi) or (yb_lo <= y <= ymax)
     box_hit = (y_in_band and x_in_span) or (x_in_band and y_in_span)
 
-    a = p["cross_arm"]
+    a = clamp_cross_arm(p["cross_arm"])
     ax_lo = cx - a if cx >= a else 0
     ax_hi = cx + a
     ay_lo = cy - a if cy >= a else 0
@@ -38,7 +58,7 @@ def overlay_pixel(x, y, result_valid, present, xmin, xmax, ymin, ymax, cx, cy, p
     x_in_arm = ax_lo <= x <= ax_hi
     y_in_arm = ay_lo <= y <= ay_hi
     # 十字线宽**居中**（与 RTL 的 CT_LO/CT_HI 一致）；T=1 时退化为单像素线。
-    t = p["cross_thick"]
+    t = clamp_cross_thick(p["cross_thick"])
     lo_off, hi_off = t // 2, (t - 1) // 2
     y_hbar = (cy - lo_off if cy >= lo_off else 0) <= y <= cy + hi_off
     x_vbar = (cx - lo_off if cx >= lo_off else 0) <= x <= cx + hi_off

@@ -30,11 +30,19 @@ module color_classify #(
     input      [7:0] I_b,
     output           O_hit
 );
-    // 参数合法范围：W 的语义是"hue 半宽（度）"，而 R 为最大通道的扇区本身只有 60 度宽，
-    // 因此把 W 夹到 0..60。夹取是编译期常量折叠，不产生运行时逻辑，也顺带杜绝
-    // 越界参数造成的乘积溢出。其余参数：C_MIN 取 0..511（内部按 9 位比较）、V_MIN 取 0..255。
-    localparam integer W_DEG = (HUE_HALF_WIDTH_DEG < 0) ? 0
-                             : ((HUE_HALF_WIDTH_DEG > 60) ? 60 : HUE_HALF_WIDTH_DEG);
+    // 参数合法范围（都在编译期夹取，常量折叠，不产生运行时逻辑）：
+    //   HUE_HALF_WIDTH_DEG 夹到 0..60：W 的语义是"hue 半宽（度）"，而目标通道为最大的
+    //     扇区本身只有 60 度宽；顺带杜绝越界参数造成的乘积溢出（见下方交叉乘积的说明）。
+    //   C_MIN 夹到 0..511（内部按 9 位比较）：越上限会让 [8:0] 截断，例如 512 截成 0 ——
+    //     本意"严到不可能命中"，截断后却变成"完全不滤彩度"，正好相反；负数同理（-1 的
+    //     低 9 位是 511，等于"永不命中"）。夹到 0 的语义是明确的"不滤彩度"。
+    //   V_MIN 夹到 0..255（内部按 8 位比较），理由同上。
+    //   TARGET_CLASS 只认 1 与 2，其余一律按红处理（见下方 generate），
+    //     所以不存在"选不中任何类"的静默失效。
+    localparam integer W_DEG  = (HUE_HALF_WIDTH_DEG < 0) ? 0
+                              : ((HUE_HALF_WIDTH_DEG > 60) ? 60 : HUE_HALF_WIDTH_DEG);
+    localparam integer CMIN_D = (C_MIN < 0) ? 0 : ((C_MIN > 511) ? 511 : C_MIN);
+    localparam integer VMIN_D = (V_MIN < 0) ? 0 : ((V_MIN > 255) ? 255 : V_MIN);
 
     wire [7:0] lmax = (I_r >= I_g) ? ((I_r >= I_b) ? I_r : I_b)
                                    : ((I_g >= I_b) ? I_g : I_b);
@@ -78,6 +86,6 @@ module color_classify #(
 
     assign O_hit = sel_max
                 && (hue_lhs <= hue_rhs)
-                && (chroma  >= C_MIN[8:0])
-                && (lmax    >= V_MIN[7:0]);
+                && (chroma  >= CMIN_D[8:0])
+                && (lmax    >= VMIN_D[7:0]);
 endmodule
