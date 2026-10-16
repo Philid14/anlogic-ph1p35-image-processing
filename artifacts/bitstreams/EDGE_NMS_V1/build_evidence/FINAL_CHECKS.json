@@ -1,0 +1,19 @@
+{
+  "source_commit": "8ae2fd6c38416095e1232783a0e63b2eb2d1e9f3",
+  "base_commit": "08ea909febf2dd0952e7221a0ce2bf34b24e3b44",
+  "bit_sha256": "734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448",
+  "lut6": 15206,
+  "ff": 15018,
+  "slice": 16598,
+  "eram": 39,
+  "dsp": 9,
+  "setup_wns_ns": 0.101,
+  "hold_wns_ns": 0.02,
+  "sta_coverage": "96.37%",
+  "syn_log": "td_20261016_232120.log",
+  "phy_log": "td_20261016_232756.log",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ]
+}

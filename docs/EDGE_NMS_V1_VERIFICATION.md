@@ -53,3 +53,35 @@ Gaussian4+Sobel前四级4+NMS4+原阈值S5=13拍Edge；Original/9bit配置同13�
 原降噪脚本NMS=0完整旁路另1764876拍/1323657字通过，包括四完整720p帧，保证恢复旧行为；Gaussian独立1282拍通过。按键/CDC/Sensor/decimal独立回归也执行通过。原始输出存build_evidence，不修改PASS日志中的计数或时间。本轮迄今未出现功能性RTL仿真失败；综合/实现结果将在完成后另补录。
 
 首轮5e4c3d9综合完整完成，但出现3条HDL-5373（nms_valid_d/user_d/last_d先使用后声明）。随后仅把该reg声明移到首次使用前，always/assign/运算均未改变；增加--small选项，重跑25方向、2564拍NMS单元及两种小尺寸联合回归通过。此为声明顺序清理，不是算法更改或失败bit。首轮日志和门级area单独保留，最终源码由BUILD_INFO记录，重新完整综合和实现，不直接沿用首轮数据库。
+
+## 最终TD构建补录（2026-10-16）
+
+实际源码/配置提交 `8ae2fd6c38416095e1232783a0e63b2eb2d1e9f3`，研究提交7620c16、完整RTL测试检查点5e4c3d9和声明清理后small回归的证据均保留。最终综合日志td_20261016_232120.log，完整物理/时序/bitgen日志td_20261016_232756.log，最终两进程退出0、无ERROR、无HDL-5373。
+
+| 路由后 | EDGE_DENOISE_V1 | EDGE_NMS_V1 | 增量 |
+|---|---:|---:|---:|
+| LUT6 |15163|15206|+43|
+| FF |14667|15018|+351|
+| Slice |16859 (79.46%)|16598 (78.23%)|-261|
+| ERAM20K |39|39|+0|
+| DSP |9|9|+0|
+| Setup WNS(ns) |+0.112|+0.101| |
+| Hold WNS(ns) |+0.020|+0.020| |
+
+全设计DRAM LUT 1256（旧808，增量+448），shifter LUT 168（旧168），F7MUX 112（旧64）。实际NMS层级行（顺序logic LUT/ripple/seq/ERAM/DSP/DRAM/shifter/F7MUX等，详见area表头）：
+
+```text
+|        g_nms$u_nms                                              |nms_gradient_pair_3x3                          |283       |0       |325     |0       |0       |448      |0           |48      |0       |0       |0       |
+```
+
+两行逻辑容量19200bit保留14bit幅值和中心2bit方向；实际AUTO映射以该层级行及报告为准，不把逻辑bit数直接当ERAM数量。新RAM无强制block提示；既有Gaussian/Sobel/FIFO的SYN-5041仍在，未通过修改其RTL消除。关键warning类型仍为PHY-5060/PHY-5079，无新增关键类型；不是无warning。Setup/Hold TNS与违例端点均0；STA覆盖96.37%，未放宽SDC、PLL或异步分组。
+
+归档bit SHA256 `734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448`；全部60个实际TD源码/IP/约束输入与构建提交内容匹配（只归一Git文本换行），195冻结主工程/68参考/3原理图一致；12个旧归档bit与基线08ea909逐字节相同。SOURCE_MANIFEST、PREVIOUS_BITS_UNCHANGED、FINAL_CHECKS、完整flow日志、核心area/qor/ts/exception及测试原始输出随bit归档。完整逐路径报告在忽略的Runs，摘要和关键路径另存build_evidence。
+
+本轮没有功能性RTL失败或失败bit；首轮仅综合完成并发现3条声明顺序warning，无物理构建/bit。清理后重新完整构建，首轮日志/area保留。candidate尚未真实上板：MIPI采集、连续HDMI、细化收益、20次切换和30分钟稳定性均不能用离线仿真替代。完成candidate后停止，等待人类审查与实板反馈。
+
+### 路径、预算与warning说明
+
+最差setup仍在HDMI_PIXEL_CLK：u_hdmi_mixer/mult0_syn_59.clk → u_hdmi_mixer/O_hdmi_data_reg[17]_syn_2.ib，数据路径12.838ns、slack+0.101ns；MIPI_RX_BYTE_CLK本域Setup WNS+4.154ns。约束/时钟均未修改。PHY-5060涉及既有I2C scl_clk和O_cam_24m混合扇出，PHY-5079涉及既有局部时钟路由；DDR加密厂商IP中既有HDL-5369 latch warning与基线同位置，未引入NMS锁存或多驱动告警。
+
+最终Slice78.23%低于约85%目标；全设计LUT6+43、FF+351、Slice−261是本次完整工具重映射/打包后的净变化，不代表NMS本身不花资源或占负资源。新增NMS层级实际283逻辑LUT、325FF、448 DRAM LUT、48F7MUX、0ERAM/0DSP；含方向量化、对齐及其他全设计映射变化后的净值须与该局部成本分开解释。Gaussian源码冻结但工具层级映射可变化，未为满足预算修改冻结模块。

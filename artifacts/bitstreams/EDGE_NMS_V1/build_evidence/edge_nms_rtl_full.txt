@@ -1,0 +1,37 @@
+PASS frozen_main: 195 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS axis: 25 signed13bit/zero/ratio_equal/boundary/polarity/Gy-up tests
+D:\anlogic_formal_project\tests\tb_nms_axis.v:25: $finish called at 1000 (1ps)
+PASS NMS unit: cycles=3010 beats=2564 checked_samples=4200 full14bit/center_axis/four_neighbors/equal_platform/SOF/recovery
+D:\anlogic_formal_project\tests\tb_nms_gradient_pair.v:59: $finish called at 30186000 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=16 cycles=14319 valid_beats=11012 packed_words=8259 denoise=1 nms=0 depth=11
+D:\anlogic_formal_project\tests\tb_edge_nms_stream.v:110: $finish called at 143276000 (1ps)
+PASS NMS=0 64x16 Gx/Gy/magnitude/axis and output/OSD/packing beats=11012 words=8259
+PASS checkpoints_B_C_D stream width=64 height=16 cycles=14323 valid_beats=11012 packed_words=8259 denoise=1 nms=1 depth=15
+D:\anlogic_formal_project\tests\tb_edge_nms_stream.v:110: $finish called at 143316000 (1ps)
+PASS NMS=1 64x16 Gx/Gy/magnitude/axis and output/OSD/packing beats=11012 words=8259
+PASS checkpoints_B_C_D stream width=1280 height=96 cycles=1334435 valid_beats=1320964 packed_words=990723 denoise=1 nms=1 depth=15
+D:\anlogic_formal_project\tests\tb_edge_nms_stream.v:110: $finish called at 13344436000 (1ps)
+PASS NMS=1 1280x96 Gx/Gy/magnitude/axis and output/OSD/packing beats=1320964 words=990723
+PASS checkpoints_B_C_D stream width=1280 height=720 cycles=930382 valid_beats=921600 packed_words=691200 denoise=1 nms=1 depth=15
+D:\anlogic_formal_project\tests\tb_edge_nms_stream.v:110: $finish called at 9303906000 (1ps)
+PASS NMS=1 1280x720 Gx/Gy/magnitude/axis and output/OSD/packing beats=921600 words=691200
+PASS frozen_main: 195 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS EDGE_NMS_V1 RTL; real-scene thinning and long-run behavior pending

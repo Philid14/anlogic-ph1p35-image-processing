@@ -227,3 +227,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - V0 的 bit 在构建时未记录 SHA-256 与归档路径，原始 `phy_1` 目录随后被 AWB_V1 构建覆盖。本次从 `best_result/` 中恢复出与 V0 构建时间（2026-10-05 20:22:08）及 `phy_run.log` 一致的 bit 并归档；该对应关系以时间戳和构建日志为据，**未做上板复现**。
 - 未建立 `baseline-official-osd` / `baseline-official-edge`：归档时 `user_source/hdl_source/awb.v` 已是 AWB_V1，工作目录内不存在可逐字节校验的官方原始副本，不能把已修改工程标记为官方基线。需取回官方原始压缩包校验后单独提交并打 tag。
 - 追溯链：`bit 文件 → Git commit → 源码 + 工程配置 + 约束 + 文档 + 构建信息 + 上板测试记录`。
+
+## EDGE_NMS_V1 candidate（2026-10-16，MAIN）
+
+- Version / Git Commit / Git Tag：EDGE_NMS_V1；实际构建源码`8ae2fd6c38416095e1232783a0e63b2eb2d1e9f3`；归档提交通过`git rev-parse edge-nms-v1-candidate^{commit}`唯一解析；tag `edge-nms-v1-candidate`；分支codex/main/edge-nms-v1，base08ea909/PR #3，Draft PR依赖降噪分支，等待Philid14最新提交审查。
+- 修改假设/唯一主要变量：只在Gaussian+Sobel幅值与二值阈值间加入方向NMS，压窄粗边；原值Gaussian4+Sobel5共9拍分支，新值Gaussian4+Sobel前4+NMS4+阈值1共13拍，Original/配置/标记同步延迟。逻辑缓存新增19200bit。Exposure1990 half-lines/VTS1000/HTS1600/Gain15.75×/BLC15/AWB_V2/Gaussian/按键/OSD/MIPI/DDR/HDMI/PLL/约束冻结，无双阈值硬件。
+- Bit SHA-256：`734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448`；路径artifacts/bitstreams/EDGE_NMS_V1/camera_to_dsi_display.bit。
+- Build Result：完整Synthesis→Physical Design→Timing Check→bitgen通过；LUT6 15206、FF 15018、Slice 16598 (78.23%)、ERAM 39、DSP 9；Setup/Hold +0.101/+0.020ns，TNS0/端点违例0，既有PHY-5060/5079保留无新增关键类型。新联合2264588拍/1698441字、NMS单元2564拍/4200中心、25方向、旧旁路1764876拍/1323657字及控制回归通过。首轮仅有声明顺序warning，修复后完整重建，无失败bit；原始证据保留。
+- Board Test Result：**待用户上板**。软件合成TH40直阶跃厚度4→1、模糊阶跃7→1且100%逐行覆盖；不等于真实场景测量。未发现真实ORIGIN RGB帧，未证明物理I2C/厂商PHY或长期整机稳定。
+- 是否保留/下一步：保留candidate及旧降噪对照；按EDGE_NMS_V1_BOARD_TEST同条件比较020/040/060/080，优先边缘变细且主要轮廓不过度断裂，纹理仍被检测不直接判失败。至少20次切换/30分钟，等待结果；不自行进入滞后硬件、AE或其他扩展。
