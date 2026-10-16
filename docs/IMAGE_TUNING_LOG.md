@@ -186,6 +186,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：**待用户上板**；实际雪花减少幅度、真实弱边/细线是否保留、HDMI连续性及30分钟长稳尚未测试。新旧核中心约偏移4像素/2行与2像素/1行；候选首4行/首8像素置黑，整帧172800个DDR字不变。
 - 是否保留/下一步：保留候选和原控制版bit，按EDGE_DENOISE_V1_BOARD_TEST同机位/照明分别扫描阈值，重点弱光ROI/细线/遮挡/运动、20次切换与30分钟。完成候选即停止，不直接集成Median/Canny/AE或改变曝光/VTS。
 
+### EDGE_DENOISE_V1 上板观察（用户EDGE_NMS任务反馈）
+
+- Version / Git Commit / Git Tag：EDGE_DENOISE_V1 / candidate归档08ea909febf2dd0952e7221a0ce2bf34b24e3b44，构建b78dd6b / edge-denoise-v1-candidate。bit SHA256 `224D4BE2F53B807137E19D095DCF6132BAA9CFC023C3C59BCE17ABDE3332B84A`，原完整构建+0.112/+0.020ns。
+- Board Test Result：用户描述夜间弱光020/040/060/080四档实拍：020碎纹理密集且局部成片；040轮廓和纹理丰富但碎边多；060主要轮廓相对明显而弱细节减少；080较干净但丢弱边。不能将所有白纹理判断为噪声。未得到本轮可用ORIGIN RGB输入或30分钟结果，不补造定量结论。
+- 是否保留/下一步：保留未NMS对照，下一版只加二值化前NMS，研究双阈值仅限软件。PR #3尚未合并，不自动合并或改其分支，新增依赖分支codex/main/edge-nms-v1。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。

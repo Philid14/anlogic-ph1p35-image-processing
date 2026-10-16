@@ -5,7 +5,8 @@ module isp_top #(
     parameter EDGE_ENABLE = 1,
     parameter [13:0] EDGE_THRESHOLD = 14'd80,
     parameter integer EDGE_CONTROL_ENABLE = 0,
-    parameter integer DENOISE_ENABLE = 0
+    parameter integer DENOISE_ENABLE = 0,
+    parameter integer NMS_ENABLE = 0
 ) (
     input 			axi4s_video_aclk,
     input [8:0] I_edge_config,
@@ -64,7 +65,7 @@ wire         m_aixs_tvalid;  //synthesis keep
           else last_128 <= algorithm_last;
       end
       assign algorithm_last_128 = last_128;
-      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE)) u_control (
+      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE)) u_control (
           .clk(axi4s_video_aclk), .rst_n(I_rst_n),
           .requested_config(I_edge_config),
           .I_data(awb_O_tdata), .I_valid(awb_O_tvalid),
@@ -81,7 +82,7 @@ wire         m_aixs_tvalid;  //synthesis keep
       end
       assign algorithm_last_128 = last_128;
       edge_detect_96 #(.IMG_WIDTH(1280), .IMG_HEIGHT(720),
-                       .EDGE_TH(EDGE_THRESHOLD), .DENOISE_ENABLE(DENOISE_ENABLE)) u_edge (
+                       .EDGE_TH(EDGE_THRESHOLD), .DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE)) u_edge (
           .I_clk(axi4s_video_aclk), .I_rst_n(I_rst_n),
           .I_tlast(awb_O_tlast), .I_tuser(awb_O_tuser), .I_threshold(8'd80),
           .I_tdata(awb_O_tdata), .I_tvalid(awb_O_tvalid),

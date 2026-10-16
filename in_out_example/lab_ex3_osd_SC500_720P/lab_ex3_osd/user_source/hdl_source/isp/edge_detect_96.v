@@ -2,14 +2,15 @@
 // Stage 1 adaptation of the bundled edge_example edge_detect_96.v.
 // Keep its pair-averaged luminance, Sobel kernel and duplicated binary output.
 // 1280 output pixels represent 640 horizontal Sobel samples, not 1280 kernels.
-// Five Sobel stages, optional four-stage paired-gray Gaussian front end,
-// early SOF and non-stalling semantics. See EDGE_DENOISE_RESEARCH.md.
+// Five Sobel stages, optional four-stage Gaussian and four-stage gradient NMS.
+// Early SOF and non-stalling semantics. See EDGE_NMS_V1_DESIGN.md.
 module edge_detect_96 #(
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
     parameter [13:0] EDGE_TH = 14'd80,
     parameter integer RUNTIME_THRESHOLD = 0,
-    parameter integer DENOISE_ENABLE = 0
+    parameter integer DENOISE_ENABLE = 0,
+    parameter integer NMS_ENABLE = 0
 )(
     input I_clk,
     input I_rst_n,
@@ -78,9 +79,9 @@ module edge_detect_96 #(
                 threshold_p[th_stage] <= threshold_p[th_stage-1];
         end
     end
-    assign O_tvalid = valid_p[4];
-    assign O_tuser = user_p[4];
-    assign O_tlast = last_p[4];
+    assign O_tvalid = NMS_ENABLE ? nms_valid_d : valid_p[4];
+    assign O_tuser = NMS_ENABLE ? nms_user_d : user_p[4];
+    assign O_tlast = NMS_ENABLE ? nms_last_d : last_p[4];
 
     // S1: one word per four RGB pixels. Count only valid beats; SOF also
     // resets counters when it arrives before the AWB delayed pixels.
@@ -193,8 +194,44 @@ module edge_detect_96 #(
     reg [13:0] mag0_s4,mag1_s4;
     reg window_s4;
     wire [13:0] comparison_threshold = RUNTIME_THRESHOLD ? {6'd0,threshold_p[3]} : EDGE_TH;
-    wire [23:0] edge0 = window_s4 && (mag0_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
-    wire [23:0] edge1 = window_s4 && (mag1_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
+    function [1:0] gradient_axis;
+        input signed [12:0] gx,gy;
+        reg [12:0] ax,ay;
+        begin
+            ax=abs13(gx);ay=abs13(gy);
+            if({ay,1'b0}<={1'b0,ax}) gradient_axis=0;
+            else if({ax,1'b0}<={1'b0,ay}) gradient_axis=2;
+            else gradient_axis=(gx[12]==gy[12]) ? 2'd1:2'd3;
+        end
+    endfunction
+    wire [27:0] nms_magnitude;
+    wire [1:0] nms_keep;
+    wire nms_valid,nms_user,nms_last;
+    wire [13:0] nms_threshold;
+    reg nms_valid_d,nms_user_d,nms_last_d;
+    generate if(NMS_ENABLE) begin : g_nms
+        reg [1:0] dir0_s4,dir1_s4;
+        always @(posedge I_clk or negedge I_rst_n) begin
+            if(!I_rst_n) begin dir0_s4<=0;dir1_s4<=0;end
+            else begin dir0_s4<=gradient_axis(gx0_s3,gy0_s3);dir1_s4<=gradient_axis(gx1_s3,gy1_s3);end
+        end
+        nms_gradient_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+            .INPUT_BORDER(DENOISE_ENABLE ? 4:2)) u_nms (
+            .clk(I_clk),.rst_n(I_rst_n),
+            .I_magnitude(window_s4 ? {mag0_s4,mag1_s4}:28'd0),.I_direction({dir0_s4,dir1_s4}),
+            .I_valid(valid_p[3]),.I_user(user_p[3]),.I_last(last_p[3]),.I_threshold(comparison_threshold),
+            .O_magnitude(nms_magnitude),.O_keep(nms_keep),.O_valid(nms_valid),.O_user(nms_user),
+            .O_last(nms_last),.O_threshold(nms_threshold),.O_debug_valid(),.O_center(),
+            .O_direction(),.O_negative(),.O_positive());
+    end else begin : g_no_nms
+        assign nms_magnitude=0;assign nms_keep=0;assign nms_valid=0;assign nms_user=0;assign nms_last=0;assign nms_threshold=0;
+    end endgenerate
+    always @(posedge I_clk or negedge I_rst_n) begin
+        if(!I_rst_n) begin nms_valid_d<=0;nms_user_d<=0;nms_last_d<=0;end
+        else begin nms_valid_d<=nms_valid;nms_user_d<=nms_user;nms_last_d<=nms_last;end
+    end
+    wire [23:0] edge0 = (NMS_ENABLE ? (nms_keep[1] && nms_magnitude[27:14]>=nms_threshold) : (window_s4 && mag0_s4>=comparison_threshold)) ? 24'hffffff : 24'h0;
+    wire [23:0] edge1 = (NMS_ENABLE ? (nms_keep[0] && nms_magnitude[13:0]>=nms_threshold) : (window_s4 && mag1_s4>=comparison_threshold)) ? 24'hffffff : 24'h0;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             mag0_s4 <= 0; mag1_s4 <= 0; window_s4 <= 0;
@@ -203,7 +240,7 @@ module edge_detect_96 #(
             mag0_s4 <= {1'b0,abs13(gx0_s3)} + {1'b0,abs13(gy0_s3)};
             mag1_s4 <= {1'b0,abs13(gx1_s3)} + {1'b0,abs13(gy1_s3)};
             window_s4 <= window_s3;
-            O_tdata <= valid_p[3] ? {edge0,edge0,edge1,edge1} : 96'd0;
+            O_tdata <= (NMS_ENABLE ? nms_valid : valid_p[3]) ? {edge0,edge0,edge1,edge1} : 96'd0;
         end
     end
 endmodule
