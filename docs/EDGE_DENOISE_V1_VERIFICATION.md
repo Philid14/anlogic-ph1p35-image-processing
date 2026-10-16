@@ -53,3 +53,15 @@ Gaussian4拍+Sobel5拍=9拍分支，Original/config同样9拍；OSD2拍、打包
 完整TD日志、资源、时序、warning和新bit以BUILD_INFO及build_evidence为证据；实际生成时间和SHA同时校验，TD进程退出0不能单独作为成功依据。首轮独立Gaussian测试曾因无效拍阈值复位值的测试预期不一致而失败；修正为在valid/SOF检查阈值后通过，未因此更改算法。
 
 真实实板降噪效果、20次模式切换、Logo/CNT/HDMI连续性、光照变化和至少30分钟运行仍待用户测试。软件/RTL没有模拟实际SC500CS噪声特性；当前DDR整体是否撕裂/溢出不由此测试证明。candidate完成即停止，按EDGE_DENOISE_V1_BOARD_TEST.md做同场景双bit及各自阈值扫描。
+
+## 5. 实际完整构建结果（2026-10-16）
+
+实际源码`b78dd6b43730c69896bf99753c6b961c3f44a9ae`，Synthesis日志`td_20261016_212319.log`，Physical日志`td_20261016_212757.log`；两个进程退出0，均无ERROR且完整流程已完成，21:32:42生成新bit。最终路由LUT6 15163（71.47%）、FF14667（34.57%）、Slice16859（79.46%）、ERAM20K39、DSP9；Setup/Hold WNS +0.112/+0.020ns、TNS0、违例端点0。
+
+相对EDGE_CONTROL_V1增加439 LUT6、250 FF、386 Slice，ERAM/DSP不变，位于预先提出的800/1000/1400增量预算内。全设计DRAM LUT808（原552，增加256），shifter LUT168（原160），F7MUX64（原32）。Gaussian层级路由报告：logic LUT258、FF250、DRAM LUT256、F7MUX32、ERAM0、DSP0；门级综合前期373 logic LUT/261FF只是阶段值，最终以路由报告为准。总设计差额包含重新优化，不能将其简单全视为Gaussian模块资源。
+
+最差setup在冻结的HDMI_PIXEL_CLK：`u_hdmi_mixer/mult0_syn_59.clk`→`u_hdmi_mixer/O_hdmi_data_reg[10]_syn_2.imf`，slack0.112ns，数据路径12.925ns，12级逻辑；关键路径摘录随bit归档。MIPI_RX_BYTE_CLK本域Setup WNS+4.366ns。STA覆盖96.16%，SDC/PLL/时钟均未改；既有异步分组不等同于所有异步行为获得STA证明。
+
+没有新增关键warning类型，既有PHY-5060/5079保留；Gaussian两行RAM新增两条SYN-5041（与旧Sobel相同类型），说明ram_style=block提示未采用、按AUTO推断为上述DRAM，不宣称映射ERAM。新增算法无锁存/多驱动告警。
+
+最终59项TD输入及syn/phy清单与构建提交一致，194/68/3冻结检查通过，11个旧归档bit与origin/main逐字节一致。新bit大小1789539bytes，SHA256 `224D4BE2F53B807137E19D095DCF6132BAA9CFC023C3C59BCE17ABDE3332B84A`。详见归档BUILD_INFO及SOURCE_MANIFEST；仍未真实上板。

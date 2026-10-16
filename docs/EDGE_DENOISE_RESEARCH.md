@@ -58,3 +58,7 @@ Original/config/valid/user/last扩展至9拍分支对齐；阈值与Gaussian同�
 ## 后续门槛
 
 对两种编译参数逐拍验证，至少两完整720p帧，覆盖所有边界/模式/阈值/OSD/真实打包及源ISP接线；检查冻结文件与只读参考。完整TD构建后以路由报告替换预算数，负WNS先局部修复，不改Sensor/PLL/SDC。归档独立candidate并推送任务分支/PR，等待人类审查和上板，不能把模型或构建成功报告成实板降噪成功。
+
+## 实现后补录
+
+Gaussian候选完整构建通过，路由LUT6 15163/FF14667/Slice16859/ERAM39/DSP9，较控制版+439/+250/+386/0/0；Setup/Hold +0.112/+0.020ns、TNS0。Gaussian实际占用256 DRAM LUT、32F7MUX、0ERAM/0DSP；新增行缓存按AUTO而非block提示推断，保留两条对应SYN-5041。Median仍只有软件模型，未进行硬件综合。新增联合RTL1764876有效拍通过，含四完整720p帧，另有旧版旁路完整回归；细节见EDGE_DENOISE_V1_VERIFICATION.md。实际低照度噪声改善和弱边/细线折中仍需双bit上板比较。

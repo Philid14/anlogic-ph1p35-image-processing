@@ -175,6 +175,17 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：ORIGIN彩色正常，无肉眼明显雪花，亮度基本满意；弱光EDGE在80漏弱边，降阈值增加真边也增加大量白色假边；增照明明显减少雪花；部分遮挡噪点相对稳定并小幅波动；全遮光几乎全黑。尚无定量数据、20次切换或30分钟稳定性结果。
 - 是否保留/下一步：保留未降噪对照。只验证Edge分支Gaussian滤波，先对照原Sobel/Gaussian/Median合成模型，不改变Sensor/ISP画质；现象支持低照噪声梯度重叠，但不能排除其他硬件因素。
 
+## EDGE_DENOISE_V1 candidate（2026-10-16）
+
+- Version / Git Commit / Git Tag：EDGE_DENOISE_V1 / 实际构建源码`b78dd6b43730c69896bf99753c6b961c3f44a9ae` / `edge-denoise-v1-candidate`（归档提交由tag唯一恢复）；MAIN分支codex/main/edge-denoise-v1，基线c42168e，协议TEAM_PROTOCOL_V1；PR等待Philid14审查，未自动合并main。
+- 修改假设/唯一主要变量：Edge在原灰度/两像素平均后新增3×3Gaussian，再保持原Sobel/阈值；降低噪声梯度同时保留足够真实轮廓。原DENOISE_ENABLE=0，无滤波5拍；候选=1，Gaussian4拍+Sobel5拍，原图/配置同9拍，OSD2+打包1总12拍。K3/K4语义、默认EDGE080/10–250、OSD内容/位置不变。
+- 冻结参数：Exposure1990、VTS1000、HTS1600、Gain1f/3f=15.75×、Digital Gain、BLC15、AWB_V2、demosaic/MIPI/DDR/HDMI/PLL/ADC/SDC与旧版一致。194主工程/68只读参考/3原理图SHA一致；59实际TD输入与构建提交匹配；旧11个bit均未改。
+- 模型：研究提交a3796fe先于RTL，13合成场景/三方案/13阈值=507行CSV；无实际传感器RAW/RGB帧。低对比阶跃选点原TH70/GaussianTH40/MedianTH40误检0.2634%/0.0718%/0.0399%、召回均100%；细线保留下降、椒盐Median更好。不能把合成收益当作实板结论。
+- Bit SHA-256：`224D4BE2F53B807137E19D095DCF6132BAA9CFC023C3C59BCE17ABDE3332B84A`，归档artifacts/bitstreams/EDGE_DENOISE_V1/camera_to_dsi_display.bit，1789539bytes。
+- Build Result：完整Synthesis/Physical/Timing/bitgen通过；LUT6 15163、FF14667、Slice16859（79.46%）、ERAM39、DSP9；Setup/Hold +0.112/+0.020ns、TNS0、违例0，既有关键类型PHY-5060/5079，无新增关键类型。Gaussian新增两条SYN-5041，实际额外256 DRAM LUT、0ERAM/0DSP。独立Gaussian1282拍、新联合1764876拍/1323657字（四完整720p帧）、旧旁路回归1293320拍全部PASS。
+- Board Test Result：**待用户上板**；实际雪花减少幅度、真实弱边/细线是否保留、HDMI连续性及30分钟长稳尚未测试。新旧核中心约偏移4像素/2行与2像素/1行；候选首4行/首8像素置黑，整帧172800个DDR字不变。
+- 是否保留/下一步：保留候选和原控制版bit，按EDGE_DENOISE_V1_BOARD_TEST同机位/照明分别扫描阈值，重点弱光ROI/细线/遮挡/运动、20次切换与30分钟。完成候选即停止，不直接集成Median/Canny/AE或改变曝光/VTS。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
