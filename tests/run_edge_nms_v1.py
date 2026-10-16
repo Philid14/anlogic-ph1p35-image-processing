@@ -111,7 +111,7 @@ def append_intermediate_traces(stim,width,height):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--full',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--full',action='store_true');parser.add_argument('--small',action='store_true');args=parser.parse_args()
     frozen()
     with tempfile.TemporaryDirectory(prefix='nms-unit-') as temp:
         d=Path(temp)
@@ -120,6 +120,7 @@ def main():
         result=control.simulate(d,'tb_nms_gradient_pair',[ROOT/'tests/tb_nms_gradient_pair.v',HDL/'isp/nms_gradient_pair_3x3.v'],plus=[f'+STIM={stim.as_posix()}'])
         assert f'beats={beats} ' in result
     cases=[(64,16,0,False),(64,16,1,False),(1280,96,1,False)]
+    if args.small:cases=cases[:2]
     if args.full:cases.append((1280,720,1,True))
     for width,height,nms,full in cases:
         with tempfile.TemporaryDirectory(prefix='nms-stream-') as temp:

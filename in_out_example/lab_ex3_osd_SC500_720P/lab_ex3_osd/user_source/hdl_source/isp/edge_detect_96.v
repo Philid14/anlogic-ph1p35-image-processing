@@ -61,6 +61,7 @@ module edge_detect_96 #(
     end endgenerate
 
     reg [4:0] valid_p, user_p, last_p;
+    reg nms_valid_d,nms_user_d,nms_last_d;
     reg [7:0] threshold_p [0:3];
     integer th_stage;
     always @(posedge I_clk or negedge I_rst_n) begin
@@ -208,7 +209,6 @@ module edge_detect_96 #(
     wire [1:0] nms_keep;
     wire nms_valid,nms_user,nms_last;
     wire [13:0] nms_threshold;
-    reg nms_valid_d,nms_user_d,nms_last_d;
     generate if(NMS_ENABLE) begin : g_nms
         reg [1:0] dir0_s4,dir1_s4;
         always @(posedge I_clk or negedge I_rst_n) begin
