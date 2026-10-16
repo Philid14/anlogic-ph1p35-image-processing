@@ -6,8 +6,11 @@
 // 求覆盖，并把"覆盖后的最终像素"写出来，因此可以还原出 MAIN 合成后的画面。
 //
 // 两个输出文件：
-//   +PIX=<path>   每像素一行： frame y x comp_rgb ov
+//   +PIX=<path>   每像素一行： frame y x comp_rgb ov_box ov_txt
 //   +BEAT=<path>  每拍一行：   track_state track_show
+//
+// 合成优先级（协议 §4.5）：文字（性能/目标文字）> 目标框/十字 > 基础图像。
+// comp_rgb 已经是三选一之后的最终像素，两个标志位用来核对"是谁盖住的"。
 //
 // 激励每行 12 字段（与 tb_color_target 相同）：
 //   valid sof eol eof abort x0 y d_hi d_mid d_lo session frame
@@ -28,6 +31,12 @@ module tb_color_target_chain_render;
     parameter integer BOX_THICK          = 3;
     parameter integer CROSS_ARM          = 12;
     parameter integer CROSS_THICK        = 1;
+    // 文字标注（T3 的文字部分）：区域与字形参数，默认按 720p 放在左下角
+    parameter integer T_ENABLE           = 1;
+    parameter integer TX0                = 16;
+    parameter integer TY0                = 600;
+    parameter integer TSCALE             = 1;
+    parameter integer TCHARS             = 14;
 
     reg clk = 0;
     // 周期取 30ns，而不是别的台用的 10ns：本台在每拍之后要额外花几纳秒把 4 个 lane
@@ -109,6 +118,28 @@ module tb_color_target_chain_render;
         .O_overlay_valid(ov), .O_overlay_rgb(orgb)
     );
 
+    // 字形源：由 runner 决定编译桩还是主线真字库（端口一致）。
+    // 本台不实例化 MAIN 的 osd_char_lib：字形由 ct_text_font 提供，
+    // 要验证的是文字块位置、字符内容与合成优先级，以及（用真字库时）字形位索引约定。
+    wire        tov;
+    wire [23:0] trgb;
+    wire [7:0]  tgch;
+    wire [3:0]  tgrow;
+    wire [15:0] tgbits;
+    ct_text_font u_font (.I_char(tgch), .I_row(tgrow), .O_row_bits(tgbits));
+
+    color_target_text_overlay #(
+        .XW(XW), .YW(YW), .ENABLE(T_ENABLE), .X0(TX0), .Y0(TY0),
+        .SCALE(TSCALE), .LINE_CHARS(TCHARS)
+    ) u_text (
+        .clk(clk), .rst_n(rst_n),
+        .I_pixel_valid(valid), .I_x(ovl_x), .I_y(y),
+        .I_update(d_rr), .I_show(t_show), .I_state(t_state),
+        .I_count(t_cnt), .I_center_x(t_cx), .I_center_y(t_cy),
+        .O_glyph_char(tgch), .O_glyph_row(tgrow), .I_glyph_bits(tgbits),
+        .O_overlay_valid(tov), .O_overlay_rgb(trgb)
+    );
+
     integer fin, fpix, fbeat, rc, n = 0, k;
     reg [2047:0] spath, ppath, bpath;
     reg          s_in, rv_in, pr_in;
@@ -145,15 +176,17 @@ module tb_color_target_chain_render;
                 @(posedge clk); #1;
                 // 本拍的状态与显示（与 tb_color_target_chain 完全一致，便于与链路模型对拍）
                 $fwrite(fbeat, "%0d %0d\n", t_state, t_show);
-                // 逐 lane 求覆盖并合成最终像素。lane k 的 x = x0+k，颜色取 data 的对应 24 位
+                // 逐 lane 求覆盖并合成最终像素。lane k 的 x = x0+k，颜色取 data 的对应 24 位。
+                // 合成优先级按协议 §4.5：文字（性能/目标文字）压在框线之上。
                 if (valid) begin
                     for (k = 0; k < 4; k = k + 1) begin
                         ovl_x = x0 + k;
                         #1;
                         base_rgb = data[95 - 24*k -: 24];
-                        comp     = ov ? orgb : base_rgb;
+                        comp     = tov ? trgb : (ov ? orgb : base_rgb);
                         px       = x0 + k;
-                        $fwrite(fpix, "%0d %0d %0d %06x %0d\n", fid, y, px, comp, ov);
+                        $fwrite(fpix, "%0d %0d %0d %06x %0d %0d\n",
+                                fid, y, px, comp, ov, tov);
                     end
                     ovl_x = x0;
                 end

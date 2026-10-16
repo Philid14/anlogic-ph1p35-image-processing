@@ -58,6 +58,10 @@ def load_overlay_model():
     return _load("ref_ct_ovl_render", HERE / "model" / "ref_color_target_overlay.py")
 
 
+def load_text_model():
+    return _load("ref_ct_txt_render", HERE / "model" / "ref_color_target_text.py")
+
+
 def load_detect_model():
     return _load("ref_ct_det_render", HERE / "model" / "ref_color_target.py")
 
@@ -197,6 +201,11 @@ def main():
                     help="PNG 输出目录；默认写到系统临时目录（不往仓库里写生成物）")
     ap.add_argument("--acq-frames", type=int, default=2)
     ap.add_argument("--lost-frames", type=int, default=2)
+    ap.add_argument("--no-text", action="store_true",
+                    help="这一轮不画文字（默认画：文字块放在左下角，区域按场景尺寸换算）")
+    ap.add_argument("--font", default="auto", choices=["auto", "stub", "real"],
+                    help="字形来源：auto=有主线字库就用真字库（默认），stub=只用桩")
+    ap.add_argument("--font-path", default=None, help="主线 osd_char_lib.v 的路径")
     args = ap.parse_args()
 
     w, h = args.width, args.height
@@ -208,6 +217,37 @@ def main():
     det_run = load_detect_runner()
     chain_model = load_chain_model()
     ovl_model = load_overlay_model()
+    text_model = load_text_model()
+
+    # 字形来源：默认优先用主线真字库（渲染出来的就是接入后的样子，而且是逐位比对的）
+    glyph_fn, font_srcs = None, [TB / "ct_text_font_stub.v"]
+    font_path = text_model.find_font(args.font_path)
+    if (args.font == "real" or (args.font == "auto" and font_path)) and font_path:
+        glyph_fn = text_model.make_font_bit(text_model.parse_font(font_path))
+        font_srcs = [TB / "ct_text_font_real.v", font_path]
+        print(f"[字形] 用主线真字库：{font_path}")
+    elif args.font == "real":
+        print("FAIL  --font real 但找不到主线字库（用 --font-path 指定）")
+        return 2
+    else:
+        print("[字形] 用桩 ct_text_font_stub.v（没找到主线字库或指定了 --font stub）")
+
+    # 文字区域：放在左下角，尺寸按场景换算（SCALE=1 -> 每行 14 字符、两行 = 224x34）。
+    # 场景太小就自适应：先减每行字符数，实在放不下就关掉并说明——不静默放到画面外。
+    txt_p = dict(text_model.TEXT_DEFAULTS)
+    txt_p["x0"] = 8
+    txt_p["line_chars"] = 14
+    max_chars = (w - 2 * txt_p["x0"]) // (16 * txt_p["scale"])
+    txt_p["line_chars"] = max(1, min(txt_p["line_chars"], max_chars))
+    _s, _l, _cell, _gap, t_reg_w, t_reg_h = text_model.geom(txt_p)
+    txt_p["y0"] = max(0, h - t_reg_h - 8)
+    if args.no_text:
+        txt_p["enable"] = 0
+    elif txt_p["x0"] + t_reg_w > w or txt_p["y0"] + t_reg_h > h:
+        print(f"[文字] 场景 {w}x{h} 放不下文字区域（需 {t_reg_w}x{t_reg_h}），本轮关闭文字层")
+        txt_p["enable"] = 0
+    if txt_p["line_chars"] < 14:
+        print(f"[文字] 场景较窄，每行字符数降为 {txt_p['line_chars']}（长内容尾部会被裁掉）")
     det_model = load_detect_model()
 
     # 每帧一个 frame 身份，session 固定为 1
@@ -227,11 +267,15 @@ def main():
                   MIN_COUNT=64, XW=xw, YW=yw,
                   ACQ_FRAMES=args.acq_frames, LOST_FRAMES=args.lost_frames, MAX_JUMP=0,
                   BOX_THICK=ovl_p["box_thick"], CROSS_ARM=ovl_p["cross_arm"],
-                  CROSS_THICK=ovl_p["cross_thick"])
+                  CROSS_THICK=ovl_p["cross_thick"],
+                  T_ENABLE=txt_p["enable"], TX0=txt_p["x0"], TY0=txt_p["y0"],
+                  TSCALE=txt_p["scale"], TCHARS=txt_p["line_chars"])
 
     cfg = (f"几何 {w}x{h}（XW={xw} YW={yw}）、ACQ_FRAMES={args.acq_frames}、"
            f"LOST_FRAMES={args.lost_frames}、MIN_COUNT=64、hue ±30°、"
-           f"BOX_THICK={ovl_p['box_thick']}、CROSS_ARM={ovl_p['cross_arm']}")
+           f"BOX_THICK={ovl_p['box_thick']}、CROSS_ARM={ovl_p['cross_arm']}、"
+           f"文字区域 ({txt_p['x0']},{txt_p['y0']})+{t_reg_w}x{t_reg_h}"
+           + ("（关闭）" if not txt_p["enable"] else ""))
     print(f"[场景] {len(scene)} 帧，{len(beats)} 拍，{cfg}")
 
     recs = chain_model.sim_chain(beats, dict(detect=det_p, track=trk_p, overlay=ovl_p))
@@ -249,7 +293,8 @@ def main():
         ok, out, err = sl.simulate(
             srcs=[RTL / "color_classify.v", RTL / "color_target_detect.v",
                   RTL / "color_target_track.v", RTL / "color_target_overlay.v",
-                  TB / "tb_color_target_chain_render.v"],
+                  RTL / "color_target_text_overlay.v"] + font_srcs
+                 + [TB / "tb_color_target_chain_render.v"],
             tb_top="tb_color_target_chain_render", params=params,
             plusargs=dict(STIM=stim.as_posix(), PIX=pixf.as_posix(),
                           BEAT=beatf.as_posix()),
@@ -275,44 +320,54 @@ def main():
                 print(f"      拍{i}（frame={beats[i]['frame']}）: got={g} want={x}")
             return 1
 
-        # ---- 逐像素：覆盖与合成结果（4 个 lane 全比）----
+        # ---- 逐像素：覆盖与合成结果（4 个 lane 全比，含文字层的优先级）----
         # 像素按 (帧号, x, y) 建索引：多帧画面里坐标会重复，只按坐标建图会被后一帧覆盖。
         pixels = {}
         for ln in pixf.read_text().splitlines():
             if not ln.strip():
                 continue
-            fid, ys, xs, rgb, ov = ln.split()
+            fid, ys, xs, rgb, ov_b, ov_t = ln.split()
             v = int(rgb, 16)
-            pixels[(int(fid), int(xs), int(ys))] = (v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF)
+            pixels[(int(fid), int(xs), int(ys))] = (
+                (v >> 16 & 0xFF, v >> 8 & 0xFF, v & 0xFF), int(ov_b), int(ov_t))
 
         def lane_rgb(data96, k):
             w24 = (data96 >> (24 * (3 - k))) & 0xFFFFFF
             return (w24 >> 16 & 0xFF, w24 >> 8 & 0xFF, w24 & 0xFF)
 
-        n_pix = 0
+        n_pix = n_txt = 0
         for i, b in enumerate(beats):
             if not b["valid"]:
                 continue
             r = recs[i]
+            # 该帧这一拍的文字内容（与 RTL 的转换结果对应：值在帧末更新，本帧显示上一帧的值）
+            line0, line1 = text_model.text_lines(r["state"], r["count"], r["cx"], r["cy"], txt_p)
             for k in range(4):
                 px = (b["x0"] + k, b["y"])
-                color = ovl_model.overlay_pixel(
+                box = ovl_model.overlay_pixel(
                     px[0], px[1], r["show"], r["show"], r["xmin"], r["xmax"],
                     r["ymin"], r["ymax"], r["cx"], r["cy"], ovl_p)
-                # 两边都用 (r,g,b) 元组比较：overlay_pixel 返回的是 24 位整数，
-                # 直接和转储出来的"合成像素"比会变成 int 与 tuple 比（值对、类型错）。
-                want = ((color >> 16 & 0xFF, color >> 8 & 0xFF, color & 0xFF)
-                        if color else lane_rgb(b["data96"], k))
+                tv, trgb, _tch, _trow = text_model.overlay_pixel(
+                    px[0], px[1], line0, line1, r["show"], txt_p, glyph_fn=glyph_fn)
+                col_txt = ((trgb >> 16 & 0xFF, trgb >> 8 & 0xFF, trgb & 0xFF)
+                           if tv else None)
+                col_box = ((box >> 16 & 0xFF, box >> 8 & 0xFF, box & 0xFF) if box else None)
+                # 优先级：文字 > 框 > 基础像素（协议 §4.5）
+                want = col_txt or col_box or lane_rgb(b["data96"], k)
                 got = pixels.get((b["frame"], px[0], px[1]))
                 n_pix += 1
-                if got != want:
+                n_txt += 1 if tv else 0
+                if got is None or got[0] != want or got[1] != (1 if col_box else 0) \
+                        or got[2] != (1 if tv else 0):
                     print(f"FAIL  [逐像素与模型不符] 帧{b['frame']} 像素 {px}: "
-                          f"got={got} want={want}（覆盖色=0x{color:06x}）")
+                          f"got={got} want=({want}, 框={1 if col_box else 0}, "
+                          f"文字={1 if tv else 0})")
                     return 1
         if len(pixels) != n_pix:
             print(f"FAIL  [逐像素] 转储 {len(pixels)} 个像素 != 期望 {n_pix}")
             return 1
-        print(f"PASS  逐拍 {len(want_beat)} 拍、逐像素 {n_pix} 像素与链路模型一致")
+        print(f"PASS  逐拍 {len(want_beat)} 拍、逐像素 {n_pix} 像素与链路模型一致"
+              f"（其中被文字覆盖 {n_txt} 个像素）")
 
     # ---- 渲染 ----
     index = ["# 渲染帧图索引（**合成画面，非实拍**）", "",
@@ -331,7 +386,7 @@ def main():
             b = beats[i]
             for k in range(4):
                 px = (b["x0"] + k, b["y"])
-                fpx[px] = pixels.get((fid, px[0], px[1]), (0, 0, 0))
+                fpx[px] = pixels.get((fid, px[0], px[1]), ((0, 0, 0), 0, 0))[0]
         frame_to_png(fpx, w, h, args.scale, outdir / f"{name}.png")
         r = recs[idxs[-1]]
         st = STATE_NAMES[r["state"]]

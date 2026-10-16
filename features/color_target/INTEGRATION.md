@@ -15,9 +15,11 @@
 | 颜色分类（T1） | `rtl/color_classify.v` | `python features/color_target/run_color_classify.py`（40 个参数组合 / 39079 像素 + 8 条参数等价性，期望值按判据独立计算） |
 | 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（23/23，`--full` 24/24） |
 | 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10 + 5 条夹取等价性） |
+| **文字标注（T3 文字部分）** | `rtl/color_target_text_overlay.v` | `python features/color_target/run_color_target_text_overlay.py`（28/28，307078 像素；默认用**主线真字库**逐位比对） |
 | 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（21/21） |
-| 三级链路 | 上述三者的组合 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
-| 链路渲染（验收素材） | 上述三者的组合 | `python features/color_target/render_color_target_frames.py --out <目录>`（192010 拍 / 768000 像素逐像素比对 + 10 帧 PNG） |
+| 三级链路 | 检测 + 跟踪 + 两个标注 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
+| 链路渲染（验收素材） | 上述四者的组合，含文字层 | `python features/color_target/render_color_target_frames.py --out <目录>`（192010 拍 / 768000 像素逐像素比对，其中 76160 个被文字覆盖；输出 10 帧 PNG） |
+| 演示步骤 | — | 见 [`DEMO_STEPS.md`](DEMO_STEPS.md)（A 级仿真演示 + B 级上板脚本与话术） |
 
 自检台优先用 Icarus Verilog；本机没装时**自动回落到 ModelSim**（也可 `--sim modelsim` 强制）。
 若 PATH 上的 `python` 是 Windows 应用商店占位符，请改用真实解释器。
@@ -27,12 +29,25 @@
 
 ## 2. 怎么接
 
-接线代码见 [`INTERFACE.md` §7](INTERFACE.md)。三条要点：
+接线代码见 [`INTERFACE.md` §7](INTERFACE.md) 与 §10.1。五条要点：
 
 1. **detect 是观察者，不是通路**：把观察点（风格化之前的彩色流）**扇出**给它即可，
-   它不产生 `ready`、不串联像素、不施加反压。§4.2 的 lane 映射与 `sof` 来源需 MAIN 核实。
-2. **track 接 detect 靠 `O_result_ready` 这一个 strobe**，其余字段同名直连。
-3. **overlay 接 track 只要两行**：`I_result_valid = I_target_present = track.O_show`。
+   它不产生 `ready`、不串联像素、不施加反压。
+   观察点建议取 **AWB 输出 `awb_O_tdata[95:0]`**（进 `edge_control_stream` 之前）；
+   **lane 映射已核对过与 §4.2 完全一致**（`data128_96.v:16` 反序取 24 位、
+   demosaic 每像素 `{8'b0,R,G,B}`），**不需要适配器转换字节序**。见 `INTERFACE.md` §10 第 1、2 条。
+2. **`sof` 直接取 `awb_O_tuser`**（它就是 SOF）；**`eof` 必须自己造**——主线的 `awb_O_tlast`
+   是**行尾 EOL**，不是帧尾（`isp/uial2axis.v:55`）。**把 `I_last` 当 `I_eof` 会让每行都发布一次结果**，
+   这是接入时最容易踩的一条。`I_eol` 接 `tlast`，`I_eof` 接由行计数/vsync 导出的帧尾。
+3. **track 接 detect 靠 `O_result_ready` 这一个 strobe**，其余字段同名直连。
+4. **跨时钟域**：观察流在 `S_csi_rx_clk`、显示在 HDMI 像素时钟。结果每帧只变一次，
+   **一个窄握手（或 2 级同步 + 单拍脉冲）就够，不需要 FIFO**；归属建议放 MAIN 的适配层。
+   跨域后得到显示域的 `td_count/td_state/td_cx/td_cy/td_show`，再喂给两个标注模块。
+5. **两个标注模块并联**，各只出覆盖请求：
+   `color_target_overlay`（框/十字）要两行接线 —— `I_result_valid = I_target_present = track.O_show`；
+   `color_target_text_overlay`（文字）要 track 的结果字段 + **字形三根线**（接 MAIN 已有的
+   `osd_char_lib` 实例，见 `INTERFACE.md` §5.1）。**合成优先级由 MAIN 的 mixer 定**
+   （§4.5：Logo/主线状态 > 性能文字 > 框/十字 > 基础图像）。
 
 ## 3. 参数与建议初值
 

@@ -54,6 +54,7 @@ Interface version / 状态:
           （期望值按数学判据独立计算）；
         run_color_target.py 23/23（--full 24/24）＋两条结构断言；
         run_color_target_overlay.py 10/10 + 5 条夹取等价性；
+        run_color_target_text_overlay.py 28/28 / 307078 像素（默认用主线真字库逐位比对）；
         run_color_target_track.py 21/21；
         run_color_target_chain.py 396 拍逐拍比对通过（三级链路端到端）；
         render_color_target_frames.py 192010 拍 / 768000 像素逐像素比对通过 + 10 帧 PNG。
@@ -74,3 +75,6 @@ Interface version / 状态:
 | 9 | 整机接口对齐、统一 OSD 合成顺序、资源与时序实测、上板效果 | **MAIN 集成确认**（§4.5 / §5.3.4） |
 | 10 | 参数健壮性收敛（所有越界参数编译期夹取 + 等价性断言）与链路渲染验收：**已完成**（`README.md` §7、§2.5） | TARGET 已完成 / 待 Philid14 复审 |
 | 11 | **像素级去噪**（默认关闭的可选模块）：目前最大的功能性缺口。渲染量化了后果——40 个孤立噪点把框从 60×60 撑到 309×209，且被 HOLD 保持若干帧。**滤波器形态需要实板噪声数据才能定**，建议等 MAIN 的实拍样本 | 待实拍数据；TARGET 可先做机制 |
+| 12 | 文字标注（T3 文字部分）：**已完成并自检（28/28，用主线真字库逐位比对）**；区域由 MAIN 分配（默认左下角，参数可改） | TARGET 已完成 / 区域待 MAIN |
+| 13 | 交付物补齐：`DEMO_STEPS.md`（协议 §2.2 点名）、`INTERFACE.md` §10 改成"带证据与默认假设的一次性清单" | TARGET 已完成 / 待 Philid14 复审 |
+| 14 | **接入前的三件外部依赖**（都不是本角色能自造的）：`I_eof` 由 MAIN 从"行尾 EOL"推导；观察域→显示域的窄握手 CDC；显示叠加区域分配 | MAIN（`INTERFACE.md` §10 第 3、4、5 条） |

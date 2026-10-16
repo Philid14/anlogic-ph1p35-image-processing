@@ -126,9 +126,48 @@ MAIN 逐像素调用即可，不引入对齐负担。
 - **帧/行内不改变基础像素数量**：只发出颜色请求，不消费、不延迟、不复制像素。
 - **不决定遮挡与合成顺序**：§4.5 的优先级（Logo/主线状态 > 性能文字 > 目标框/十字）由 MAIN
   的 mixer 执行，本模块不做遮挡规避、不绑定按键/引脚、不改共用字库。
-- **文字由 MAIN 出**：坐标文字需要字库，§4.5 规定字库统一由 MAIN 维护；本模块只给几何，
-  MAIN 用它自己的字库按框坐标渲染文字。
+- **文字见 §5.1**：文字由**独立的** `color_target_text_overlay.v` 出（它同样不拥有字库，
+  字形向 MAIN 借）；本模块只给几何。两者是并列的两个覆盖请求，优先级由 MAIN 的 mixer 定。
 - 纯组合模块，**不承诺最大工作频率**；需由 MAIN 按整机时序预算决定是否插寄存器。
+
+## 5.1 文字标注接口（T3 的文字部分，`rtl/color_target_text_overlay.v`）
+
+对应赛题扩展要求(2) 的"文字说明"与高阶挑战项(2) 的"坐标叠加"。**逐像素、带时钟**（内部有一个
+只在每帧结果更新后跑约 66 拍的小状态机做十进制转换），区域与字形全部参数化。
+
+| 信号 | 方向 | 位宽 | 说明 |
+|---|---|---|---|
+| `clk` / `rst_n` | in | 1 | 与**显示侧**同域（HDMI 像素时钟），不是观察时钟——见 §10 第 4 条 |
+| `I_pixel_valid` / `I_x` / `I_y` | in | 1 / `XW` / `YW` | 当前显示坐标（与 `color_target_overlay` 同一约定） |
+| `I_update` | in | 1 | **可选**：结果更新脉冲（接 `O_result_ready`）。不接也能工作——值变化会自动触发转换 |
+| `I_show` / `I_state` | in | 1 / 2 | `track.O_show` / `track.O_track_state`；`I_show` 只决定字形亮/暗，不决定是否覆盖 |
+| `I_count` / `I_center_x` / `I_center_y` | in | 20 / `XW` / `YW` | `track.O_out_count` / `O_out_center_x` / `O_out_center_y` |
+| `O_glyph_char` / `O_glyph_row` | out | 8 / 4 | **字形请求**：字符（ASCII）与该字形行（0..15） |
+| `I_glyph_bits` | in | 16 | **字形点阵**，`[15]` 最左；由 MAIN 的 `osd_char_lib` 组合返回 |
+| `O_overlay_valid` / `O_overlay_rgb` | out | 1 / 24 | 覆盖请求（区域内一律覆盖：底色或字形色） |
+
+参数：`XW`/`YW`、`ENABLE`(1)、`X0`(16)、`Y0`(600)、`SCALE`(1，只支持 1 或 2)、`LINE_CHARS`(14)、
+`TEXT_RGB`(白)、`DIM_RGB`(灰，`I_show=0` 时用)、`BG_RGB`(深灰)。区域尺寸 =
+`LINE_CHARS×16×SCALE` 宽 × `2×16×SCALE+2×SCALE` 高。
+
+画面内容（两行）：
+
+```
+RED Xnnnn Ynnn              ← 目标中心坐标（**不是质心**）
+Nnnnnnn SEARCH|ACQ|TRACK|HOLD
+```
+
+**三条硬约束/约定**：
+1. **本模块不实例化字库**（§3：共享 OSD 归 MAIN）。`O_glyph_char`/`O_glyph_row` 是**组合请求**，
+   MAIN 把它接到已有的 `osd_char_lib` 实例上，把返回的 16 位点阵接回 `I_glyph_bits` 即可。
+   字库未定义字符返回 `0x0000`（主线的 `default` 就是 0），所以空格自然是空白。
+2. **只能在显示侧合成**（不能放在 ISP→DDR 之前）：检测结果帧末才有，塞不进本帧像素流。
+   详细理由见 §10 与模块文件头。
+3. **超显示位数时饱和、不截断**：`count>999999`→`999999`、`x>9999`→`9999`、`y>999`→`999`。
+   实际取值范围内不会触发（`count≤921600`、`x≤1279`、`y≤719`）。
+
+**接入前已验证**：与主线**真实字库**逐位比对通过（28 用例 / 307078 像素），
+即"字形位索引 `[15]` 最左、16 位/行、16 行"这条隐式契约与主线一致。
 
 ## 6. 跟踪模块接口（T4，`rtl/color_target_track.v`）
 
@@ -228,6 +267,8 @@ u_overlay u_overlay (
 | `XW` / `YW` | 11 / 10 | ≥ 1 | 坐标位宽。1280×720 需 `XW=11`/`YW=10`；更小的几何也支持（已实测 `XW=9/YW=8` 的 320×240、`XW=7/YW=6`、以及 `XW=2/YW=2` 的边界值），位宽不足时坐标按位宽截断，这是选定了位宽的自然结果 |
 
 overlay 的参数见 §5 一节：`BOX_THICK >= 1`、`CROSS_THICK >= 1`、`CROSS_ARM >= 0`。
+文字标注的参数见 §5.1：`ENABLE`、`X0`/`Y0`（区域，**由 MAIN 决定**）、`SCALE`(1 或 2)、
+`LINE_CHARS`、三个颜色。区域尺寸由它们算出，不是写死的。
 
 **合法范围都在编译期夹取**（常量折叠，不产生运行时逻辑），越界参数不会造成溢出、除零
 或"高位被悄悄丢掉"这类退化行为。判据用交叉乘积 `60·|d| ≤ W·C`，**位宽与 `W` 无关**，
@@ -248,13 +289,43 @@ overlay 的参数见 §5 一节：`BOX_THICK >= 1`、`CROSS_THICK >= 1`、`CROSS
    去改主线 AWB/曝光**（§2.2）。
 5. **未接入主线、未上板**。当前只有模拟输入下的自检结果。
 
-## 10. 待 MAIN 确认 / 需要 MAIN 提供
+## 10. 待确认 / 需要 MAIN 提供（一次性清单）
 
-| # | 事项 | 状态 |
-|---|---|---|
-| 1 | 观察点的实际位置与彩色流是否位于风格化输出之前 | 待确认 |
-| 2 | `I_data` 的 lane 排列与每 lane 字节序是否与 §4.2 一致 | 待确认 |
-| 3 | `sof` 由 MAIN 从现有提前帧通知转换而来 | 待确认 |
-| 4 | 结果的 CDC 归属与采样方式（谁做握手/FIFO） | 待确认 |
-| 5 | 显示叠加区域分配（T3 需要）与共用字库 | 待确认 |
-| 6 | 整机资源预算中给本模块的份额 | 待确认 |
+下面每一条都给出：**我在主线代码里查到的事实**（带证据）、**我的默认假设**、以及**假设不成立的影响**。
+MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读查证，未修改任何主线文件。
+
+| # | 事项 | 代码查到的事实（证据） | 我的默认假设 | 若不同，影响 |
+|---|---|---|---|---|
+| 1 | 观察点位置 | AWB 输出 `awb_O_tdata[95:0]` 即风格化之前：它进 `edge_control_stream` 才被二选一（`isp/isp_top.v:48,69,153`；`isp/edge_control_stream.v:49` `config_p[4][8] ? edge_data : original_p[4]`） | 取 `awb_O_tdata`（只读扇出，不串联、不加反压） | 若 MAIN 认为必须放在别处，本模块的输入宽度与 lane 约定要重评 |
+| 2 | `I_data` 的 lane 排列与字节序 | **与 §4.2 完全一致**，无需转换：`isp/data128_96/data128_96.v:16` 反序取 24 位；demosaic 每像素 `{8'b0,R,G,B}`（`isp/demosaic_4x_2_0/bilinear_interpolation.v:882`），故 lane0=[95:72]、每 lane {R,G,B}；同链路的消费端 `isp/edge_detect_96.v:36-43`、`edge_status_osd.v:107-111` 亦同 | 直接按 §4.2 接 | 无 |
+| 3 | **`sof` / `eof`（最重要的一条）** | `I_user` **就是 SOF**（`isp/uial2axis.v:56` `axis_tuser = vcnt==0 && hcnt==0 && tvalid`）；但 `I_last` **是行尾 EOL 不是帧尾**（`isp/uial2axis.v:55` `axis_tlast = hcnt == IMG_WIDTH_4X-1`；`isp_top.v:124` 注释亦写"行结束信号"）。**帧尾没有现成的流信号** | `I_sof ← I_user`；`I_eol ← I_last`；**`I_eof` 由 MAIN 生成**（最后一行最后一个有效拍，可由行计数 + vsync/计数器导出） | 若把 `I_last` 直接当 `I_eof`，每行都会"发布一次结果"——整帧统计会完全错。这是接入时最容易踩的一条 |
+| 4 | 结果的 CDC 归属 | 观察流在 **`S_csi_rx_clk`**（`design_top_wrapper.v:589` → `isp_top`，`isp/isp_top.v:9`），**不是** HDMI 像素时钟；显示侧在 `I_clk`(HDMI_PIXEL_CLK) | 结果每帧才更新一次，所以**不需要 FIFO**：一个窄握手（或 `O_result_ready` 单拍脉冲 + 2 级同步）就够；我倾向由 **MAIN 的适配层**实现并署名归属 | 若直接跨域采样宽计数器会取到不稳定值（协议 §4.4 明确禁止） |
+| 5 | 显示叠加区域与共用字库 | 主线已有 `osd_char_lib.v`（字库，"frozen"）与 `edge_status_osd.v`（**参数化区域 X0/Y0**、含不用除法器的三位十进制分解）；`hdmi_mixer.v:900-905` 是逐像素合成点（显示坐标 `S_x_2d/S_y_2d`，`:556-559`），`:563` 那段组合逻辑是自然接入位置；主线状态框占 (800,16)+448×72 | 框/十字与文字块区域由 MAIN 分配；我**默认**文字块放左下 (16,600)+224×34（720p），SCALE=1。**字形借 MAIN 已有实例**（我的模块不实例化字库） | 区域只影响 `X0/Y0` 参数；若 MAIN 要求另放一份字库，实测代价参考：整份 `edge_status_osd`（**含字库**）248 LUT/234 reg |
+| 6 | 整机资源预算中给本模块的份额 | 现存 EDGE_CONTROL_V1：`#lut 18307 / 38189`（48%）、slice 利用率 68.84%（`artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/camera_to_dsi_display_gate.area`） | det+track+overlay 估 600–900 LUT，文字模块估 ~200 LUT，**合计约 2–3% 器件** | 预算不足时优先砍文字模块（`ENABLE=0`）或降 `SCALE` |
+| 7 | 显示坐标约定 | `hdmi_mixer` 的 `S_x_2d/S_y_2d` 与 `S_video_data_2d` 对齐；mixer 有 `H_OFFSET/V_OFFSET` 参数 | 我假设 overlay 收到的 (x,y) **就是**显示坐标（与 `S_x_2d/S_y_2d` 同域同原点），**不需要**再减偏移 | 若需要减偏移，MAIN 在适配层处理；我的模块只认收到的坐标 |
+
+### 10.1 接线示意（按默认假设）
+
+```verilog
+// 观察（S_csi_rx_clk 域，只读扇出，不串联像素）
+color_target_detect #(...) u_detect (
+    .I_pixel_valid(awb_O_tvalid), .I_data(awb_O_tdata[95:0]),
+    .I_sof(awb_O_tuser),                 // = SOF，见第 3 条
+    .I_eol(awb_O_tlast),                 // = EOL
+    .I_eof(ct_frame_eof),                // ← MAIN 生成（第 3 条）
+    ...);
+
+color_target_track #(...) u_track (...);   // 同域，吃 detect 的 O_result_ready
+
+// 跨域（MAIN 的适配层，第 4 条）：把 track 的结果窄握手到显示域 → td_* 信号
+// 显示（HDMI 像素时钟域，在 hdmi_mixer 的逐像素合成处）
+color_target_overlay      #(...) u_box  (.I_x(S_x_2d), .I_y(S_y_2d), ...);
+color_target_text_overlay #(...) u_text (.I_x(S_x_2d), .I_y(S_y_2d),
+                                          .I_count(td_count), .I_state(td_state), ...,
+                                          .O_glyph_char(fnt_char), .O_glyph_row(fnt_row),
+                                          .I_glyph_bits(fnt_bits));
+// 合成优先级（§4.5）：文字 > 框/十字 > 基础图像
+```
+
+需要 MAIN 额外提供而本角色**不能自造**的只有三样：**`I_eof` 的生成**、**跨域适配**、
+**区域分配**。其余都已在上面查证或已参数化。
