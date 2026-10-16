@@ -34,6 +34,29 @@ def load_model():
     return m
 
 
+# 转储每行的字段顺序（与 tb_color_target_track.v 的 $fwrite 一致）
+FIELDS = ["state", "show", "count", "xmin", "xmax", "ymin", "ymax",
+          "cx", "cy", "session", "frame", "change"]
+
+
+def check_hard(got, hard):
+    """硬编码期望检查：hard = {帧序号: {字段名: 期望值}}，只查写出来的字段。
+
+    为什么需要：参考模型是照同一套意图写的，"RTL 与模型一起错"时逐帧对拍永远一致。
+    这里的期望值来自审查意见与状态机语义的推演，**不经过模型**，能独立兜底。
+    """
+    bad = []
+    for idx in sorted(hard):
+        if idx >= len(got):
+            bad.append(f"帧{idx}: 转储只有 {len(got)} 帧，缺这一帧")
+            continue
+        for f, v in hard[idx].items():
+            j = FIELDS.index(f)
+            if got[idx][j] != v:
+                bad.append(f"帧{idx} {f}: got={got[idx][j]} want={v}（整行 {got[idx]}）")
+    return bad
+
+
 def B(**kw):
     """一帧的默认结果；用关键字覆盖。"""
     d = dict(strobe=1, rvalid=1, present=1, count=100,
@@ -98,6 +121,90 @@ def build_cases():
                    B(strobe=0, present=0, frame=4), B(strobe=0, present=0, frame=5),
                    B(frame=6)], {}))
 
+    # ==================================================================
+    # 审查意见③：最小门限 / 默认门限 / 目标重现 / 会话切换 / 计数器范围
+    #
+    # 缺陷：S_TRACK 收到首次丢失时**无条件**进 HOLD，没有走门限判断（S_HOLD 分支
+    # 却有），于是 LOST_FRAMES=1 时目标不会立刻隐藏，要多丢一帧才消失——比配置
+    # 要求的晚一帧，也和其他门限的行为不一致。
+    #
+    # 下面这些用例的期望值**不经过参考模型**，直接按状态机的语义写死在第 4 项里
+    # （{帧序号: {字段名: 期望值}}），所以"模型与 RTL 一起错"时它们照样会失败。
+    # ==================================================================
+
+    # LOST_FRAMES=1：首次丢失就必须立刻回 SEARCH 并停止显示
+    cases.append(("lost_frames_1_hides_on_first_miss",
+                  [B(frame=1), B(present=0, frame=2)],
+                  {"acq_frames": 1, "lost_frames": 1},
+                  {0: dict(state=2, show=1, change=1),    # 确认
+                   1: dict(state=0, show=0, change=1)}))  # 首次丢失即隐藏
+
+    # LOST_FRAMES=2：首次丢失只到 HOLD（框保持），第二次丢失才回 SEARCH
+    cases.append(("lost_frames_2_holds_once",
+                  [B(frame=1), B(present=0, frame=2), B(present=0, frame=3)],
+                  {"acq_frames": 1, "lost_frames": 2},
+                  {1: dict(state=3, show=1, change=1),
+                   2: dict(state=0, show=0, change=1)}))
+
+    # 默认门限 LOST_FRAMES=15：前 14 次丢失保持 HOLD 且一直显示，第 15 次才失去
+    dflt = ([B(frame=1), B(frame=2), B(frame=3)]
+            + [B(present=0, frame=4 + i) for i in range(15)])
+    hard_dflt = {2: dict(state=2, show=1)}                 # 第 3 帧确认 TRACK
+    for i in range(1, 16):                                 # 第 i 次丢失
+        hard_dflt[2 + i] = dict(state=(3 if i < 15 else 0),
+                                show=(1 if i < 15 else 0))
+    cases.append(("default_lost_frames_holds_14_then_search", dflt, {}, hard_dflt))
+
+    # 目标重现：彻底失去后再出现，必须重新走一遍确认，不能直接 TRACK
+    cases.append(("reappear_after_loss_reacquires",
+                  [B(frame=1), B(frame=2), B(frame=3),
+                   B(present=0, frame=4), B(frame=5), B(frame=6), B(frame=7)],
+                  {"acq_frames": 3, "lost_frames": 1},
+                  {2: dict(state=2, show=1),
+                   3: dict(state=0, show=0, change=1),     # LOST_FRAMES=1 -> 失去
+                   4: dict(state=1, show=0, change=1),     # 重现 -> 回到 ACQ，仍不显示
+                   5: dict(state=1, show=0, change=0),
+                   6: dict(state=2, show=1, change=1)}))
+
+    # 会话切换：不得继承旧会话的跟踪状态，但本帧仍要按新会话重新评估（不丢弃）
+    cases.append(("session_switch_reevaluates_frame",
+                  [B(frame=1), B(frame=2), B(frame=3), B(session=2, frame=1)],
+                  {"acq_frames": 3, "lost_frames": 15},
+                  {2: dict(state=2, show=1, session=1, frame=3),
+                   3: dict(state=1, show=0, change=1, session=2, frame=1)}))
+
+    # 计数器上限：ACQ_FRAMES / LOST_FRAMES 是 8 位，255 必须真的数到第 255 帧
+    n255 = ([B(frame=i + 1) for i in range(255)]
+            + [B(present=0, frame=300 + i) for i in range(255)])
+    cases.append(("counter_full_range_255", n255,
+                  {"acq_frames": 255, "lost_frames": 255},
+                  {253: dict(state=1, show=0),      # 第 254 帧：还在 ACQ
+                   254: dict(state=2, show=1),      # 第 255 帧：确认
+                   255: dict(state=3, show=1),      # 首次丢失 -> HOLD（未到 255）
+                   508: dict(state=3, show=1),      # 第 254 次丢失：仍在 HOLD
+                   509: dict(state=0, show=0)}))    # 第 255 次丢失：达门限
+
+    # 越界参数：0 与 1 同义（"立即"，不是"永不"）
+    cases.append(("acq_frames_0_is_immediate",
+                  [B(frame=1)], {"acq_frames": 0},
+                  {0: dict(state=2, show=1, change=1)}))
+    cases.append(("lost_frames_0_hides_immediately",
+                  [B(frame=1), B(present=0, frame=2)],
+                  {"acq_frames": 1, "lost_frames": 0},
+                  {1: dict(state=0, show=0)}))
+
+    # 越界参数：>255 夹到 255，而不是让高位被 [7:0] 截掉
+    # （ACQ_FRAMES=256 截断成 0 会变成"第一帧就确认"，与"要 256 帧"完全相反）
+    cases.append(("acq_frames_256_clamped_to_255",
+                  [B(frame=i + 1) for i in range(255)], {"acq_frames": 256},
+                  {253: dict(state=1, show=0), 254: dict(state=2, show=1)}))
+
+    # 负的跳变门限夹到 0（关闭）：否则"任意偏移都超标"会把目标永久锁住
+    cases.append(("negative_max_jump_is_disabled",
+                  [B(frame=1, cx=100, cy=100), B(frame=2, cx=500, cy=100)],
+                  {"acq_frames": 1, "max_jump": -5},
+                  {1: dict(state=2, show=1, change=0)}))
+
     return cases
 
 
@@ -160,7 +267,9 @@ def main():
 
     model = load_model()
     total = passed = 0
-    for name, beats, over in build_cases():
+    for case in build_cases():
+        name, beats, over = case[0], case[1], case[2]
+        hard = case[3] if len(case) > 3 else None
         p = dict(model.TRACK_DEFAULTS, **over)
         want_recs = model.sim_track([dict(b) for b in beats], p)
         want = [[r["state"], r["show"], r["count"], r["xmin"], r["xmax"], r["ymin"],
@@ -191,6 +300,14 @@ def main():
                 for line in outp.read_text().splitlines():
                     if line.strip():
                         got.append([int(v) for v in line.split()])
+            # 先查硬编码期望：它不依赖模型，出问题时最该先被看到
+            if hard:
+                hb = check_hard(got, hard)
+                if hb:
+                    print(f"FAIL  {name}  [硬编码期望不符，未经模型]  {len(hb)} 处")
+                    for line in hb[:8]:
+                        print("      " + line)
+                    continue
             if got != want:
                 bad = [(i, got[i], want[i]) for i in range(min(len(got), len(want)))
                        if got[i] != want[i]]

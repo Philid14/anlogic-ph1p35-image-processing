@@ -13,6 +13,20 @@ S_SEARCH, S_ACQ, S_TRACK, S_HOLD = 0, 1, 2, 3
 STATE_NAMES = {S_SEARCH: "SEARCH", S_ACQ: "ACQ", S_TRACK: "TRACK", S_HOLD: "HOLD"}
 
 
+def clamp_frames(v):
+    """与 RTL 的 ACQ_EFF / LOST_EFF 一致：8 位计数器，合法范围夹到 1..255。
+
+    取 0 与取 1 同义（都表示"立即"）；超过 255 在 8 位里表示不了，一律夹到 255，
+    而不是让高位被悄悄丢掉（ACQ_FRAMES=256 截成 0 会变成"第一帧就确认"）。
+    """
+    return 1 if v < 1 else (255 if v > 255 else v)
+
+
+def clamp_max_jump(v):
+    """与 RTL 的 MAX_JUMP_EFF 一致：0 表示关闭，负数夹到 0。"""
+    return 0 if v < 0 else v
+
+
 def sim_track(beats, p=None):
     """beats: 每项 dict(strobe, rvalid, present, count, xmin, xmax, ymin, ymax,
                         cx, cy, session, frame)。
@@ -21,7 +35,9 @@ def sim_track(beats, p=None):
     对应 tb 在每拍 posedge 之后立即采样的那一行。
     """
     p = dict(TRACK_DEFAULTS, **(p or {}))
-    acq_f, lost_f, max_jump = p["acq_frames"], p["lost_frames"], p["max_jump"]
+    acq_f = clamp_frames(p["acq_frames"])
+    lost_f = clamp_frames(p["lost_frames"])
+    max_jump = clamp_max_jump(p["max_jump"])
 
     state = S_SEARCH
     acq = lost = 0
@@ -61,7 +77,10 @@ def sim_track(beats, p=None):
                 if eff_state in (S_SEARCH, S_ACQ):
                     nxt_state = S_SEARCH
                 elif eff_state == S_TRACK:
-                    nxt_state, nxt_lost = S_HOLD, 1
+                    # 与 RTL 一致：门限对 TRACK 的首次丢失同样生效，
+                    # LOST_FRAMES=1 时立刻回 SEARCH，而不是先进 HOLD
+                    nxt_lost = 1
+                    nxt_state = S_SEARCH if 1 >= lost_f else S_HOLD
                 else:
                     nxt_lost = eff_lost + 1
                     nxt_state = S_SEARCH if (eff_lost + 1) >= lost_f else S_HOLD

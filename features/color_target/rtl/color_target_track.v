@@ -25,11 +25,18 @@
 //   3. **跳变门限默认关闭**。MAX_JUMP=0 表示不启用；启用后本帧检出若与上次接受的中心
 //      相差超过 MAX_JUMP 像素，则当作未检出。它是给"画面里有第二块同色区域"准备的，
 //      但会让快速移动的目标被判丢，**默认不启用**，需按实测场景再决定。
+//
+// 参数合法范围（都在编译期夹取，不产生运行时逻辑，也避免越界参数造成的退化行为）：
+//   ACQ_FRAMES / LOST_FRAMES  1..255 —— 底层是 8 位计数器。取 0 与取 1 同义（都表示
+//                             "立即"，即不需要防抖）；超过 255 在 8 位里无法表示，
+//                             一律夹到 255，而不是让高位被悄悄丢掉。
+//   MAX_JUMP                  0..    —— 0 表示关闭；负数夹到 0（否则"任意偏移都算超标"
+//                             会把目标永久锁死在 HOLD）。
 module color_target_track #(
     parameter integer XW          = 11,
     parameter integer YW          = 10,
-    parameter integer ACQ_FRAMES  = 3,    // 连续检出多少帧才算确认
-    parameter integer LOST_FRAMES = 15,   // 连续丢失多少帧才算彻底失去
+    parameter integer ACQ_FRAMES  = 3,    // 连续检出多少帧才算确认（1..255）
+    parameter integer LOST_FRAMES = 15,   // 连续丢失多少帧才算彻底失去（1..255）
     parameter integer MAX_JUMP    = 0     // 0 = 关闭跳变门限；单位像素
 )(
     input               clk,
@@ -55,6 +62,16 @@ module color_target_track #(
 );
     localparam [1:0] S_SEARCH = 2'd0, S_ACQ = 2'd1, S_TRACK = 2'd2, S_HOLD = 2'd3;
 
+    // 计数器是 8 位，参数在这里夹到可表示范围（编译期常量折叠，无运行时逻辑）：
+    //   0 → 1：与"立即确认/立即隐藏"同义，不是"永不"。取 0 会让阈值判断退化成
+    //          "(0+1) >= 0" 恒真，表面上也是立即，但语义含糊且 0 帧防抖本身就是陷阱。
+    //   >255 → 255：不夹的话 (eff + 1) >= (参数) 里参数的高位会被 [7:0] 截掉，
+    //          例如 ACQ_FRAMES=256 截成 0，第一帧就确认，和"要 256 帧"完全相反。
+    localparam integer ACQ_EFF  = (ACQ_FRAMES  < 1) ? 1 : ((ACQ_FRAMES  > 255) ? 255 : ACQ_FRAMES);
+    localparam integer LOST_EFF = (LOST_FRAMES < 1) ? 1 : ((LOST_FRAMES > 255) ? 255 : LOST_FRAMES);
+    // 负数夹到 0（= 关闭）：否则"任意偏移都超过门限"会让目标一旦确认就再也接受不到更新
+    localparam integer MAX_JUMP_EFF = (MAX_JUMP < 0) ? 0 : MAX_JUMP;
+
     reg [1:0]  state;
     reg [7:0]  acq_cnt, lost_cnt;
     reg [XW-1:0] last_cx;
@@ -73,8 +90,8 @@ module color_target_track #(
     // 跳变门限（默认关闭）
     wire [XW:0] ddx = (I_center_x >= last_cx) ? (I_center_x - last_cx) : (last_cx - I_center_x);
     wire [YW:0] ddy = (I_center_y >= last_cy) ? (I_center_y - last_cy) : (last_cy - I_center_y);
-    wire jump_bad = (MAX_JUMP != 0) && eff_tracked &&
-                    ((ddx > MAX_JUMP) || (ddy > MAX_JUMP));
+    wire jump_bad = (MAX_JUMP_EFF != 0) && eff_tracked &&
+                    ((ddx > MAX_JUMP_EFF) || (ddy > MAX_JUMP_EFF));
 
     wire accept = strobe && I_target_present && !jump_bad;
     wire miss   = strobe && !accept;
@@ -91,7 +108,7 @@ module color_target_track #(
                 nxt_acq  = eff_acq + 8'd1;
                 nxt_lost = 8'd0;
                 if (eff_state == S_SEARCH || eff_state == S_ACQ)
-                    nxt_state = ((eff_acq + 8'd1) >= ACQ_FRAMES[7:0]) ? S_TRACK : S_ACQ;
+                    nxt_state = ((eff_acq + 8'd1) >= ACQ_EFF[7:0]) ? S_TRACK : S_ACQ;
                 else
                     nxt_state = S_TRACK;              // TRACK 保持；HOLD 表示目标重现
             end else begin
@@ -99,10 +116,15 @@ module color_target_track #(
                 case (eff_state)
                     S_SEARCH: nxt_state = S_SEARCH;
                     S_ACQ:    nxt_state = S_SEARCH;   // 还没确认就断了，退回搜索
-                    S_TRACK:  begin nxt_state = S_HOLD; nxt_lost = 8'd1; end
+                    S_TRACK:  begin
+                        // 门限对"TRACK 的首次丢失"同样生效：LOST_FRAMES=1 时必须立刻隐藏，
+                        // 而不是先进 HOLD 再等下一次丢失（原实现漏了这一步，与 S_HOLD 分支不一致）。
+                        nxt_lost  = 8'd1;
+                        nxt_state = (8'd1 >= LOST_EFF[7:0]) ? S_SEARCH : S_HOLD;
+                    end
                     default:  begin                   // S_HOLD
                         nxt_lost  = eff_lost + 8'd1;
-                        nxt_state = ((eff_lost + 8'd1) >= LOST_FRAMES[7:0]) ? S_SEARCH : S_HOLD;
+                        nxt_state = ((eff_lost + 8'd1) >= LOST_EFF[7:0]) ? S_SEARCH : S_HOLD;
                     end
                 endcase
             end

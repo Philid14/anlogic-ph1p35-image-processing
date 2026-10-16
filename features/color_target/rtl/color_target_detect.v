@@ -153,7 +153,10 @@ module color_target_detect #(
     // 读 acc_* 会丢掉 eof 那一拍的 4 个像素，而协议 §4.3 明确要求把它们计入。
     // eff_open / eff_abort 覆盖 sof 与 eof（或 abort）同拍的单拍帧情形。
     wire         eff_open  = open_f | start_f;
-    wire         eff_abort = aborted_f | I_frame_abort;
+    // eff_abort 在 start_f 那一拍只看**本帧**的中止输入。原实现写成 aborted_f | I_frame_abort，
+    // 于是上一帧遗留的 aborted_f 会把紧随其后的新帧误判为中止帧 —— 尤其当新帧是
+    // "sof 与 eof 同拍"的单拍帧时，整帧结果会被错误地丢掉（valid=0）。
+    wire         eff_abort = start_f ? I_frame_abort : (aborted_f | I_frame_abort);
     wire         eff_ok    = eff_open & ~eff_abort;
     // 单拍帧（sof 与 eof 同拍）时 cur_* 尚未更新，必须取本拍的 I_*_id，否则会报上一帧身份
     wire [31:0]  eff_session = start_f ? I_session_id : cur_session;

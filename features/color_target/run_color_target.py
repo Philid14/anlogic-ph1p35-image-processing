@@ -30,9 +30,12 @@ DEFAULTS = dict(target_class=0, hue_half_width_deg=30, c_min=24, v_min=32,
 
 RED = (230, 30, 30)
 WHITE = (200, 200, 200)
-ORANGE = (250, 150, 40)      # hue 偏出 ±30 度窗口
-PINK = (200, 170, 170)       # 彩度低
-DARKRED = (60, 12, 12)       # 亮度低
+ORANGE = (250, 150, 40)      # hue 31.43°，偏出默认 ±30 度窗口
+# 下面两个各**只**踩一条门限，取值是按判据反推的——原先的 (200,170,170)/(60,12,12)
+# 其实三条门限都过得去（C=30 与 C=48 都 >= C_MIN=24），名字叫"低彩/亮度低"却根本没测到
+# 那两条门限，注释"都不应计入"与事实相反。这里是订正后的取值：
+PINK = (200, 180, 180)       # C=20 < C_MIN=24：只踩彩度门限
+DARKRED = (28, 2, 2)         # C=26 >= 24 但 max=28 < V_MIN=32：只踩亮度门限
 
 
 def load_model():
@@ -77,7 +80,13 @@ def idle(n=3):
 
 
 def build_cases(p):
-    """返回 [(名称, beats, 该用例的参数覆盖)]。"""
+    """返回 [(名称, beats, 该用例的参数覆盖[, 硬编码期望])]。
+
+    第 4 项可选：一组**不经过参考模型**直接写死的期望结果行
+    （与转储同格式：[session, frame, valid, present, cls, count, xmin, xmax,
+      ymin, ymax, cx, cy]）。审查意见明确要求关键用例"期望值应根据数学判据
+    独立计算"或直接按意见给出——这类期望由人手写，模型与 RTL 一起错也拦得住。
+    """
     cases = []
 
     cases.append(("flat_white_no_target",
@@ -138,13 +147,15 @@ def build_cases(p):
     ok = make_frame(16, 4, rect, 1, 18)
     cases.append(("truncated_then_ok", trunc + idle(2) + ok, {}))
 
-    # 颜色边界：橙 / 低彩 / 暗红都不应计入
+    # 颜色门限各踩一条：橙偏出色相窗、粉彩度不足、暗红亮度不足，都不应计入。
+    # 期望值硬编码：valid=1（帧本身正常）但 present=0、计数与坐标全 0（协议 §4.3）。
+    no_target = lambda sess, fid: [[sess, fid, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
     cases.append(("orange_out_of_hue",
-                  make_frame(8, 2, lambda x, y: ORANGE, 1, 19), {}))
+                  make_frame(8, 2, lambda x, y: ORANGE, 1, 19), {}, no_target(1, 19)))
     cases.append(("low_chroma",
-                  make_frame(8, 2, lambda x, y: PINK, 1, 20), {}))
+                  make_frame(8, 2, lambda x, y: PINK, 1, 20), {}, no_target(1, 20)))
     cases.append(("dark_red",
-                  make_frame(8, 2, lambda x, y: DARKRED, 1, 21), {}))
+                  make_frame(8, 2, lambda x, y: DARKRED, 1, 21), {}, no_target(1, 21)))
 
     # 参数化验证：同一块绿/蓝目标，只有在对应 TARGET_CLASS 下才应命中
     def green_block(x, y):
@@ -158,6 +169,26 @@ def build_cases(p):
         return (30, 40, 220) if (4 <= x <= 11 and y <= 1) else WHITE
     cases.append(("blue_as_class2",
                   make_frame(16, 2, blue_block, 1, 23), {"target_class": 2}))
+
+    # —— 审查意见②：上一帧被中止后，紧跟一帧**正常**的单拍全红帧 ——
+    # 缺陷：eff_abort 写成 aborted_f | I_frame_abort，上一帧遗留的 aborted_f 会泄漏进
+    # 新帧；当新帧是"sof 与 eof 同拍"的单拍帧时，整帧结果被错误作废（valid=0）。
+    # 多拍帧侥幸没事（start_f 那一拍就把 aborted_f 清掉了，而那一拍不发布结果），
+    # 单拍帧的 sof 与 eof 是同一拍，于是直接踩中。
+    # 期望值按审查意见**硬编码**，不经过模型：valid=1、present=1、count=4。
+    # 单拍全红帧 4x1：4 个像素全命中 → count=4，x 0..3、y 0，中心 (1,0)。
+    after_abort = (make_frame(32, 8, rect, 2, 89, abort=True) + idle(2)
+                   + make_frame(4, 1, lambda x, y: RED, 3, 90))
+    cases.append(("abort_then_single_beat_ok", after_abort, {"min_count": 1},
+                  [[2, 89, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                   [3, 90, 1, 1, 0, 4, 0, 3, 0, 0, 1, 0]]))
+
+    # 反向用例：单拍帧**自己**被中止时仍必须作废。
+    # 防止②的修复矫枉过正——把"sof 同拍的中止"这条合法路径也一起放过。
+    single_abort = make_frame(4, 1, lambda x, y: RED, 3, 91)
+    single_abort[0]["abort"] = 1
+    cases.append(("single_beat_aborted_still_void", single_abort, {"min_count": 1},
+                  [[3, 91, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]))
 
     # 跨帧身份：两帧不同 session/frame，结果必须各自对应
     f1 = make_frame(8, 2, rect, 7, 100)
@@ -197,7 +228,9 @@ def main():
         cases += extra_full_frame(DEFAULTS)
 
     total = passed = 0
-    for name, beats, over in cases:
+    for case in cases:
+        name, beats, over = case[0], case[1], case[2]
+        hard = case[3] if len(case) > 3 else None
         p = dict(DEFAULTS, **over)
         total += 1
         # 参考模型期望（用同一份 beat 序列）
@@ -234,6 +267,12 @@ def main():
             want = [[e["session"], e["frame"], e["valid"], e["present"], e["cls"],
                      e["count"], e["xmin"], e["xmax"], e["ymin"], e["ymax"],
                      e["cx"], e["cy"]] for e in expect]
+            # 先比硬编码期望：它是"不依赖模型"的那一份，出问题时最该先被看到
+            if hard is not None and got != hard:
+                print(f"FAIL  {name}  [硬编码期望不符，未经模型]")
+                print(f"      got  = {got}")
+                print(f"      want = {hard}")
+                continue
             if got != want:
                 print(f"FAIL  {name}  [结果与模型不符]")
                 print(f"      got  = {got}")

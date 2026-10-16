@@ -17,7 +17,7 @@ def classify(r, g, b, p):
     mn = min(r, g, b)
     chroma = mx - mn
     w = p["hue_half_width_deg"]
-    slope = (60 * 256 + w // 2) // w          # HUE_SLOPE_Q8
+    w = 0 if w < 0 else (60 if w > 60 else w)   # 与 RTL 的 W_DEG 夹取一致
     tc = p["target_class"]
     if tc == 1:
         sel = (g > r) and (g >= b)
@@ -28,7 +28,8 @@ def classify(r, g, b, p):
     else:
         sel = (r >= g) and (r >= b)
         d = abs(g - b)
-    return bool(sel and (d * slope <= chroma * 256)
+    # 判据用交叉乘积 60*|d| <= W*C（与 RTL 一致），不再预合并 Q8 斜率
+    return bool(sel and (d * 60 <= chroma * w)
                 and (chroma >= p["c_min"]) and (mx >= p["v_min"]))
 
 
@@ -86,7 +87,10 @@ def run(beats, p=None):
         nxt_ymax = max(hit_ymax, base_ymax)
 
         if pend:
-            eff_ok = (open_f or start_f) and not (aborted_f or bt["abort"])
+            # 与 RTL 一致：start_f 那一拍只看本帧的中止输入，
+            # 不带上一帧遗留的 aborted_f（否则单拍帧会被误判为中止帧）
+            eff_abort = bt["abort"] if start_f else (aborted_f or bt["abort"])
+            eff_ok = (open_f or start_f) and not eff_abort
             # 与 RTL 一致：MIN_COUNT 夹到 >=1（取 0 时会用中性元包围框输出垃圾坐标）
             present = eff_ok and (nxt_cnt >= max(1, p["min_count"]))
             published.append(dict(

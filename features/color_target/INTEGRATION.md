@@ -12,9 +12,10 @@
 
 | 模块 | 文件 | 自检 |
 |---|---|---|
-| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（18/18，`--full` 19/19） |
+| 颜色分类（T1） | `rtl/color_classify.v` | `python features/color_target/run_color_classify.py`（31 个参数组合 / 30074 像素，期望值按判据独立计算） |
+| 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（20/20，`--full` 21/21） |
 | 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10） |
-| 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（11/11） |
+| 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（21/21） |
 | 三级链路 | 上述三者的组合 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
 
 自检台优先用 Icarus Verilog；本机没装时**自动回落到 ModelSim**（也可 `--sim modelsim` 强制）。
@@ -34,13 +35,13 @@
 | 参数 | 模块 | 建议初值 | 说明 |
 |---|---|---|---|
 | `TARGET_CLASS` | detect | `0`（红） | 0=红 1=绿 2=蓝；已自检证明可切换 |
-| `HUE_HALF_WIDTH_DEG` | detect | `30` | hue 半宽。**取 30 时斜率恰为 2 的幂，乘法退化成移位，不占 LUT**；调小更严、调大更松 |
-| `C_MIN` | detect | `24` | 彩度下限，同时滤白灰与暗部噪声 |
-| `V_MIN` | detect | `32` | 亮度下限 |
+| `HUE_HALF_WIDTH_DEG` | detect | `30` | hue 半宽，合法范围 **0..60**（编译期夹取；"目标通道为最大"的扇区本身只有 60° 宽）。判据是交叉乘积 `60·|d| ≤ W·C`，位宽与 `W` 无关，调小任意值都不会溢出。调小更严、调大更松 |
+| `C_MIN` | detect | `24` | 彩度下限，合法范围 **0..511**（内部按 9 位比较），同时滤白灰与暗部噪声 |
+| `V_MIN` | detect | `32` | 亮度下限，合法范围 **0..255** |
 | `MIN_COUNT` | detect | `64` | 帧内命中像素数门限。**取 0 会被编译期夹到 1** —— 否则零命中的帧也会判为"存在"，而那时包围框还是中性元（`xmin=2047`/`xmax=0`），会输出垃圾坐标 |
-| `ACQ_FRAMES` | track | `3` | 连续几帧确认。**待实板噪声数据后定** |
-| `LOST_FRAMES` | track | `15` | 连续几帧判彻底失去；越小框消失越快 |
-| `MAX_JUMP` | track | `0`（关闭） | 跳变门限。**默认不要开**——开了会让快速移动的目标被判丢 |
+| `ACQ_FRAMES` | track | `3` | 连续几帧确认，合法范围 **1..255**（8 位计数器；取 0 与取 1 同义，超过 255 夹到 255 而不是被截成 0）。**待实板噪声数据后定** |
+| `LOST_FRAMES` | track | `15` | 连续几帧判彻底失去，合法范围 **1..255**；越小框消失越快。**取 1 表示首次丢失就立刻隐藏** |
+| `MAX_JUMP` | track | `0`（关闭） | 跳变门限，取 **0 或正数**（负数夹到 0 = 关闭）。**默认不要开**——开了会让快速移动的目标被判丢 |
 | `BOX_THICK` / `CROSS_ARM` | overlay | `3` / `12` | 框线粗细与十字半臂长 |
 
 **不要为了迁就检测去改主线 AWB / 曝光**（协议 §2.2）。hue 法本身抗亮度变化；若白平衡把红目标
@@ -87,16 +88,22 @@ MAIN 需要的数据本模块都已经给出，不必再算：
 
 ## 6. 资源与延时（**估计，未经综合**）
 
-按逻辑逐项估算（`HUE_HALF_WIDTH_DEG=30` 时斜率是 2 的幂，8×10 的常数乘法不占 LUT）：
+按逻辑逐项估算。判据是交叉乘积 `60·|d| ≤ W·C`，两个常数乘法都走移位加法（`60 = 2⁶−2²`，
+默认 `W=30 = 2⁵−2¹`），各是一个 14 位减法器的量级，不占 DSP：
 
 | 模块 | LUT6 | FF | 依据 |
 |---|---:|---:|---|
-| detect（4 路分类 + 累加 + 锁存） | 600–900 | 150–250 | 4 路分类各约 60–80；20 位计数与 6 组 min/max 约 80–150；锁存约 120 FF |
+| detect（4 路分类 + 累加 + 锁存） | 600–900 | 150–250 | 4 路分类各约 60–80（含上述两个常数乘法的移位加法）；20 位计数与 6 组 min/max 约 80–150；锁存约 120 FF |
 | track（状态机 + 计数器 + 结果保持） | 150–250 | 150–250 | 2 个 8 位计数、状态译码、跳变门减法 ≈22 位、结果寄存 |
 | overlay（纯组合） | 120–200 | 0 | 8 组 12 位范围比较 + 少量加法 |
 | **合计** | **约 900–1350** | **约 300–500** | |
 | ERAM | **0** | | 不新增任何缓存（§4.5） |
 | DSP | **0** | | 常数乘走 LUT 的 CSD / 移位 |
+
+**与上一版相比的一处变化**（如实说明）：旧判据写成"常数斜率 × 差值"，`W=30` 时斜率恰好
+是 2 的幂，乘法退化成纯移位，看着更省；但那个形式在 `W<15` 时会乘积溢出、判据失效
+（`README.md` §6 缺陷①）。改成交叉乘积后每路多出十几 LUT6 量级的减法器，换来的是
+**位宽与 `W` 无关**——参数怎么调都不会溢出。这个代价落在上表 ±40% 的估计噪声之内。
 
 **这是估计，不是实测**，误差可能 ±40%。§4.5 要求的"实际结果"与"最大工作频率依据"必须由 MAIN
 把模块加入 TD 工程后综合得到——本角色不擅自改 TD 输入清单（§3）。
