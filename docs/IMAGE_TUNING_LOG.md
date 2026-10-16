@@ -169,6 +169,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：**待用户上板**，没有新版本实拍或30分钟结果。步骤见EDGE_CONTROL_V1_BOARD_TEST；固定场景比较80/60/40/20及100/120/160，记录真实轮廓和噪声假边，至少20次模式切换与30分钟稳定性。
 - 是否保留/下一步：保留candidate，停止并等待用户反馈。640点Sobel/两像素复制与既有核偏移保持，降低阈值不等于增加采集信息；不自行进入Gray/Binary/AE或曝光/VTS调整。
 
+### EDGE_CONTROL_V1 上板观察（用户2026-10-16反馈）
+
+- Version / Git Commit / Git Tag：EDGE_CONTROL_V1 / 归档`467df3cee53218f4bc9eab7b29bfbc9df084dd97` / `edge-control-v1-candidate`；原bit和tag保持，SHA256 `05E05B153800E38982D7D1C2981A347B3616EAFA6EABA91A43443468FAF5DCF6`，原构建+0.100/+0.020ns。
+- Board Test Result：ORIGIN彩色正常，无肉眼明显雪花，亮度基本满意；弱光EDGE在80漏弱边，降阈值增加真边也增加大量白色假边；增照明明显减少雪花；部分遮挡噪点相对稳定并小幅波动；全遮光几乎全黑。尚无定量数据、20次切换或30分钟稳定性结果。
+- 是否保留/下一步：保留未降噪对照。只验证Edge分支Gaussian滤波，先对照原Sobel/Gaussian/Median合成模型，不改变Sensor/ISP画质；现象支持低照噪声梯度重叠，但不能排除其他硬件因素。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。

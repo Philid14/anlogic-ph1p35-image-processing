@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 module tb_edge_control_stream;
-    parameter WIDTH=64,HEIGHT=16;
+    parameter WIDTH=64,HEIGHT=16,DENOISE=0;
+    localparam DEPTH = DENOISE ? 11 : 7;
     reg clk=0;
     always #5 clk=~clk;
     reg rst_n=0,v=0,u=0,l=0,ready=0;
@@ -9,7 +10,7 @@ module tb_edge_control_stream;
     wire [95:0] od;
     wire ov,ou,ol,ir,pv,pu;
     wire [127:0] pd;
-    edge_control_stream #(.IMG_WIDTH(WIDTH),.IMG_HEIGHT(HEIGHT)) dut (
+    edge_control_stream #(.IMG_WIDTH(WIDTH),.IMG_HEIGHT(HEIGHT),.DENOISE_ENABLE(DENOISE)) dut (
         .clk(clk),.rst_n(rst_n),.requested_config(cfg),
         .I_data(data),.I_valid(v),.I_user(u),.I_last(l),.O_ready(ready),
         .O_data(od),.O_valid(ov),.O_user(ou),.O_last(ol),.I_ready(ir));
@@ -20,13 +21,13 @@ module tb_edge_control_stream;
     wire [127:0] id128;
     reg last128=0;
     always @(posedge clk) last128<=ol;
-    isp_top #(.EDGE_CONTROL_ENABLE(1)) integrated (
+    isp_top #(.EDGE_CONTROL_ENABLE(1),.DENOISE_ENABLE(DENOISE)) integrated (
         .axi4s_video_aclk(clk),.I_rst_n(rst_n),.I_edge_config(cfg),
         .I_tlast(1'b0),.I_tuser(1'b0),.I_tdata(40'b0),.I_tvalid(1'b0),
         .I_tdest(10'b0),.O_tready(ready),.I_tready(),
         .O_tdata(id128),.O_tvalid(iv128),.O_tuser(iu128),.O_tlast(il128));
-    reg [95:0] golden [0:6];
-    reg [6:0] ev=0,eu=0,el=0;
+    reg [95:0] golden [0:DEPTH-1];
+    reg [DEPTH-1:0] ev=0,eu=0,el=0;
     reg prev_user=0;
     integer inf,pf,rc,j,iv,iu,il,cycles=0,beats=0,words=0,expected_words;
     reg [95:0] din,expected;
@@ -40,14 +41,14 @@ module tb_edge_control_stream;
         begin
             @(negedge clk);v=tv;u=tu;l=tl;data=td;cfg=tc;ready=~ready;
             @(posedge clk);#1;
-            for(j=6;j>0;j=j-1) golden[j]=golden[j-1];golden[0]=ex;
-            ev={ev[5:0],tv};eu={eu[5:0],tu};el={el[5:0],tl};
-            if(ov!==ev[6] || ou!==eu[6] || ol!==el[6] || ir!==1'b1)
+            for(j=DEPTH-1;j>0;j=j-1) golden[j]=golden[j-1];golden[0]=ex;
+            ev={ev[DEPTH-2:0],tv};eu={eu[DEPTH-2:0],tu};el={el[DEPTH-2:0],tl};
+            if(ov!==ev[DEPTH-1] || ou!==eu[DEPTH-1] || ol!==el[DEPTH-1] || ir!==1'b1)
                 $fatal(1,"FAIL stream metadata cycle %0d",cycles);
-            if(ov && od!==golden[6])
-                $fatal(1,"FAIL stream pixel cycle %0d got %h expected %h",cycles,od,golden[6]);
+            if(ov && od!==golden[DEPTH-1])
+                $fatal(1,"FAIL stream pixel cycle %0d got %h expected %h",cycles,od,golden[DEPTH-1]);
             if(pu!==prev_user) $fatal(1,"FAIL pack SOF cycle %0d",cycles);
-            prev_user=eu[6];
+            prev_user=eu[DEPTH-1];
             if(ov) beats=beats+1;
             if(WIDTH==1280 && HEIGHT==720 &&
                (iv128!==pv || iu128!==pu || il128!==last128 || (pv && id128!==pd)))
@@ -66,7 +67,7 @@ module tb_edge_control_stream;
             || !$value$plusargs("WORDS=%d",expected_words)) $fatal(1,"FAIL missing vectors");
         inf=$fopen(input_path,"r");pf=$fopen(pack_path,"r");
         if(!inf || !pf) $fatal(1,"FAIL opening vectors");
-        for(j=0;j<7;j=j+1) golden[j]=0;
+        for(j=0;j<DEPTH;j=j+1) golden[j]=0;
         force integrated.awb_O_tdata=data;
         force integrated.awb_O_tvalid=v;
         force integrated.awb_O_tuser=u;
@@ -77,9 +78,9 @@ module tb_edge_control_stream;
             if(rc==6) step(iv!=0,iu!=0,il!=0,next_cfg,din,expected);
             else if(!$feof(inf)) $fatal(1,"FAIL malformed vector");
         end
-        repeat(12) step(0,0,0,cfg,0,0);
+        repeat(DEPTH+5) step(0,0,0,cfg,0,0);
         if(words!=expected_words) $fatal(1,"FAIL packed count %0d expected %0d",words,expected_words);
-        $display("PASS checkpoints_B_C_D stream width=%0d height=%0d cycles=%0d valid_beats=%0d packed_words=%0d",WIDTH,HEIGHT,cycles,beats,words);
+        $display("PASS checkpoints_B_C_D stream width=%0d height=%0d cycles=%0d valid_beats=%0d packed_words=%0d denoise=%0d depth=%0d",WIDTH,HEIGHT,cycles,beats,words,DENOISE,DEPTH);
         $finish;
     end
 endmodule

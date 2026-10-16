@@ -2,13 +2,14 @@
 // Stage 1 adaptation of the bundled edge_example edge_detect_96.v.
 // Keep its pair-averaged luminance, Sobel kernel and duplicated binary output.
 // 1280 output pixels represent 640 horizontal Sobel samples, not 1280 kernels.
-// Local changes: early SOF support, synchronous line RAM, five pipeline stages,
-// and explicit non-stalling stream semantics. See ALGORITHM_INTEGRATION_PLAN.md.
+// Five Sobel stages, optional four-stage paired-gray Gaussian front end,
+// early SOF and non-stalling semantics. See EDGE_DENOISE_RESEARCH.md.
 module edge_detect_96 #(
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
     parameter [13:0] EDGE_TH = 14'd80,
-    parameter integer RUNTIME_THRESHOLD = 0
+    parameter integer RUNTIME_THRESHOLD = 0,
+    parameter integer DENOISE_ENABLE = 0
 )(
     input I_clk,
     input I_rst_n,
@@ -42,6 +43,22 @@ module edge_detect_96 #(
     wire [8:0] pair_sum1 = {1'b0,gray(I_tdata[47:24])}
                          + {1'b0,gray(I_tdata[23:0])};
 
+    // Gaussian affects only paired gray samples, never the Original RGB.
+    wire [15:0] source_pair;
+    wire source_valid,source_user,source_last;
+    wire [7:0] source_threshold;
+    generate if (DENOISE_ENABLE) begin : g_gaussian
+        gaussian_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_gaussian (
+            .clk(I_clk),.rst_n(I_rst_n),.I_pair({pair_sum0[8:1],pair_sum1[8:1]}),
+            .I_valid(I_tvalid),.I_user(I_tuser),.I_last(I_tlast),.I_threshold(I_threshold),
+            .O_pair(source_pair),.O_valid(source_valid),.O_user(source_user),
+            .O_last(source_last),.O_threshold(source_threshold));
+    end else begin : g_unfiltered
+        assign source_pair={pair_sum0[8:1],pair_sum1[8:1]};
+        assign source_valid=I_tvalid;assign source_user=I_tuser;assign source_last=I_tlast;
+        assign source_threshold=I_threshold;
+    end endgenerate
+
     reg [4:0] valid_p, user_p, last_p;
     reg [7:0] threshold_p [0:3];
     integer th_stage;
@@ -53,10 +70,10 @@ module edge_detect_96 #(
             for (th_stage=0; th_stage<4; th_stage=th_stage+1)
                 threshold_p[th_stage] <= EDGE_TH[7:0];
         end else begin
-            valid_p <= {valid_p[3:0],I_tvalid};
-            user_p <= {user_p[3:0],I_tuser};
-            last_p <= {last_p[3:0],I_tlast};
-            threshold_p[0] <= I_threshold;
+            valid_p <= {valid_p[3:0],source_valid};
+            user_p <= {user_p[3:0],source_user};
+            last_p <= {last_p[3:0],source_last};
+            threshold_p[0] <= source_threshold;
             for (th_stage=1; th_stage<4; th_stage=th_stage+1)
                 threshold_p[th_stage] <= threshold_p[th_stage-1];
         end
@@ -69,18 +86,18 @@ module edge_detect_96 #(
     // resets counters when it arrives before the AWB delayed pixels.
     reg [10:0] x_grp, y_pos, x_s1, y_s1;
     reg [15:0] pair_s1;
-    wire [10:0] x_now = I_tuser ? 11'd0 : x_grp;
-    wire [10:0] y_now = I_tuser ? 11'd0 : y_pos;
+    wire [10:0] x_now = source_user ? 11'd0 : x_grp;
+    wire [10:0] y_now = source_user ? 11'd0 : y_pos;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             x_grp <= 0; y_pos <= 0;
             x_s1 <= 0; y_s1 <= 0; pair_s1 <= 0;
         end else begin
-            if (I_tuser) begin
+            if (source_user) begin
                 x_grp <= 0; y_pos <= 0;
             end
-            if (I_tvalid) begin
-                pair_s1 <= {pair_sum0[8:1],pair_sum1[8:1]};
+            if (source_valid) begin
+                pair_s1 <= source_pair;
                 x_s1 <= x_now;
                 y_s1 <= y_now;
                 if (x_now == LINE_GROUPS-1) begin
@@ -154,7 +171,7 @@ module edge_detect_96 #(
             gx0_s3 <= 0; gy0_s3 <= 0; gx1_s3 <= 0; gy1_s3 <= 0;
             window_s3 <= 0;
         end else begin
-            window_s3 <= valid_p[1] && (y_s2 >= 2) && (x_s2 != 0) && !user_p[1];
+            window_s3 <= valid_p[1] && (y_s2 >= (DENOISE_ENABLE ? 4 : 2)) && (x_s2 >= (DENOISE_ENABLE ? 2 : 1)) && !user_p[1];
             if (valid_p[1]) begin
                 gx0_s3 <= sobel_gx(top_prev2,top_s2[15:8],mid_prev2,mid_s2[15:8],bot_prev2,bot_s2[15:8]);
                 gy0_s3 <= sobel_gy(top_prev2,top_prev1,top_s2[15:8],bot_prev2,bot_prev1,bot_s2[15:8]);
