@@ -4,7 +4,7 @@
 > 修改 PROJECT_GOAL.md 中定义的目标或验收标准须提变更提案。  
 > 用户口头反馈记录为 `USER_REPORTED_ON_BOARD`，不等于硬件验证通过。
 
-最后更新：2026-10-12（Y2 软件预研）
+最后更新：2026-10-16（G6-L 延迟测量与 OSD 显示仿真通过）
 
 ---
 
@@ -32,7 +32,7 @@
 | **G3** | 卡通化与基础模式 | `SIM_PASS`（部分）/ `BUILD_PASS`（候选） | 见下方 G3 详情 |
 | **G4** | Sobel 实时流水线 | `IMPLEMENTED_UNVERIFIED` | Sobel 算法研究已有；RTL 待仿真 |
 | **G5** | YOLO-tiny 检测 | `PLANNED` / `PE_SIM_PASS`；Y2 软件候选 `FAIL` | 单个 INT8 PE RTL 仿真通过；Y1 模型直接部署 NO-GO，Y2 微型模型仅 128 输入匹配 2 个瓶子且误报严重；整网/硬件均未通过 |
-| **G6** | OSD + 外设联动 | `PLANNED` | 基础 OSD 模块存在于组员工程 |
+| **G6** | OSD + 外设联动 | `SIM_PASS`（延迟显示子项）/ `PLANNED`（其余） | 延迟测量与 OSD 显示：7 个 iverilog 用例通过，见 [证据](../evidence/goal-6/2026-10-16-latency-osd-sim.md)；Logo/检测框/语音仍 `PLANNED` |
 | **G7** | 优化与创新 | `PLANNED` | 待 G3–G6 稳定后 |
 | **G8** | 冻结 / 发布 / 答辩 | `PLANNED` | — |
 
@@ -153,3 +153,21 @@
   6. `06_ph1p35_vision_baseline` (**同款 PH1P35**, 3ccd79f)：平台与应用严格解耦、无乘法器 BT.601 Y、倒数乘法自适应二值化、双 BRAM Sobel、3位色阶卡通化与 Logo OSD（推荐 Goal 3/4 架构基线）。
 - `unknown`：本轮工作属于开源技术审计与资料索引建立，**不代表任何工业视觉算法或硬件功能已经实现或上板**。F1~F5 状态保持不变。
 - **下一步最值得验证的模块**：基于 05/06 的高时序架构思路，在 PC 端 Algorithm Lab 优先验证**“二值化 → 单目标极值 Bounding Box → HDMI 框叠加”**的纯流式算法效果，获得用户视觉验收（`VISUAL_APPROVED`）后再推进硬件 RTL。
+
+## 2026-10-16 延迟测量与 OSD 显示（G6-L）
+
+- `project`：新增自研 RTL `work/rtl/latency/latency_meter.v`（翻转跨域 + 单域时基 + 分数累加刻度，
+  无除法器）、`work/rtl/osd/text_overlay.v`（固定 3 拍延迟的字符叠加）、`work/rtl/osd/latency_osd.v`
+  （两个测量实例 + 格式化 FSM + 面板）；字符 ROM 与布局由 `scripts/gen_char_rom.py`、
+  `scripts/gen_osd_layout.py` 从公开领域字体与 Python 模型生成。
+- `project`：`work/tests/run_latency_sim.py --full` 的 7 个用例全部通过：测量值与周期值、粘滞错误位、
+  48 字节字符缓冲区、整帧输出像素哈希都与黄金模型逐位一致，含 1280×720 整帧回归（921 600 像素）。
+- `project`：软件预览 `work/models/latency_osd_preview.py` 可渲染面板 PNG（标准库实现，无需 NumPy）；
+  屏幕内容形如 `LAT-F  33.30MS / LAT-P   1.24MS / FRM 00012345 E0`。
+- `unknown`：TD 综合资源与 WNS、工程插入点、上板绝对延迟。状态为 `RTL_SIM_PASS`（Stage E），
+  未做 TD 构建（Stage F）与上板（Stage G），不得声明实时性或达标。
+- `unknown`：Algorithm Lab 插件 `work/algorithm_lab/plugins/latency_osd.py` 需要 NumPy，本次环境
+  无法安装（MinGW Python 不兼容 PyPI 轮子），插件本身未执行；已登记
+  `VISUAL_REVIEW_PENDING`，等待用户视觉确认。
+- `inferred`：若显示通路经过 DDR 帧缓存，LAT-F 至少为 1 帧（30 fps 约 33.3 ms），`<2 ms` 只能由
+  流式段的 LAT-P 满足；必须以真实工程与实测确认。

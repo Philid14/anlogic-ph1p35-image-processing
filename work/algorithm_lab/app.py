@@ -24,6 +24,7 @@ from plugins.sobel import SobelAlgorithm
 from plugins.cartoon import CartoonAlgorithm
 from plugins.fastestdet import FastestDetAlgorithm
 from plugins.yolo_reference import YoloReferenceAlgorithm
+from plugins.latency_osd import LatencyOsdAlgorithm
 
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
@@ -50,6 +51,7 @@ PLUGIN_INSTANCES: Dict[str, BaseAlgorithm] = {
     "sobel": SobelAlgorithm(),
     "threshold": ThresholdAlgorithm(),
     "grayscale": GrayscaleAlgorithm(),
+    "latency_osd": LatencyOsdAlgorithm(),
 }
 DETECTION_PLUGIN = FastestDetAlgorithm()
 QUALITY_DETECTION_PLUGIN = YoloReferenceAlgorithm()

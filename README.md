@@ -28,6 +28,7 @@
 
 ## 入口
 
+- [延迟测量与 OSD 显示（三人分工·延迟显示）](docs/experiments/2026-10-16-latency-display.md)：接口契约见 [docs/architecture/latency-osd-interface.md](docs/architecture/latency-osd-interface.md)
 - [项目执行准则](AGENTS.md)
 - [研究资料索引](docs/research/INDEX.md)
 - [赛题要求摘录](docs/research/competition/topic2-requirements.md)

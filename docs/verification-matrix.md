@@ -41,3 +41,17 @@
 | **实时包围盒与面积统计** | `color_detect_96.v` | `IMPLEMENTED_UNVERIFIED` | 动态统计 xmin/ymin/xmax/ymax 及面积 |
 | **形态学滤波 (开闭运算)**| `fallback/morphology/` | `PLANNED` | 规划消除孤立噪点 |
 | **工件尺寸公差判定** | `fallback/defect_eval/` | `PLANNED` | 判定合格/异常并输出控制信号 |
+
+---
+
+## 4. 延迟测量与 OSD 显示（2026-10-16 新增）
+
+| 功能模块 | 代码位置 | 验证级别 | 证据出处与说明 |
+|---|---|---|---|
+| **延迟测量（帧延迟 / 流水线延迟）** | `work/rtl/latency/latency_meter.v` | `SIM_PASS` | 4 个用例覆盖同钟稳态、突发溢出、空队列下溢、24 ns 跨钟；`work/output/latency-osd/*.log` |
+| **字符叠加面板（3 拍固定延迟）** | `work/rtl/osd/text_overlay.v` | `SIM_PASS` | 8192 像素 + 921 600 像素（720p）整帧哈希、首行逐像素、`de_out` 三拍延迟 |
+| **延迟格式化与顶层** | `work/rtl/osd/latency_osd.v` | `SIM_PASS` | 测量值、48 字节缓冲区、整帧哈希、`err_clr` 时序，见 `docs/evidence/goal-6/2026-10-16-latency-osd-sim.md` |
+| **字符 ROM（生成）** | `work/rtl/osd/char_rom.v` | `SIM_PASS` | 由公开领域字体生成；`--check` 保证与上游一致；模型自检断言位序 |
+| **软件黄金模型与预览** | `work/models/latency_osd_model.py`、`latency_osd_preview.py` | `SIM_PASS` | `--self-test` 通过；预览 PNG 使用标准库写出 |
+| **Algorithm Lab 插件** | `work/algorithm_lab/plugins/latency_osd.py` | `VISUAL_REVIEW_PENDING` | 需 NumPy，本环境未执行；等待用户视觉确认 |
+| **TD 综合 / 时序** | — | `BLOCKED` | 本环境无 TD；入口 `scripts/build-latency.py --td`（当前只做 iverilog 精细检查） |

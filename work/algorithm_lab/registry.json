@@ -194,5 +194,39 @@
     "hardware_model_path": null,
     "rtl_source_path": null,
     "notes": "Official COCO 80-class model, output filtered to 3 classes. Public diagnostics improved, not application acceptance or FPGA feasibility."
+  },
+  {
+    "algorithm_id": "latency_osd",
+    "display_name": "Latency OSD (延迟测量与显示)",
+    "category": "Overlay",
+    "status": "VISUAL_REVIEW_PENDING",
+    "source_reference": "work/models/latency_osd_model.py; char_rom generated from work/models/third_party/font8x8_basic.h (public domain)",
+    "license": "MIT (project code), public domain (font)",
+    "user_approved_version": null,
+    "software_model_path": "work/models/latency_osd_model.py",
+    "hardware_model_path": "work/algorithm_lab/plugins/latency_osd.py",
+    "rtl_source_path": "work/rtl/osd/latency_osd.v",
+    "testbench_path": "work/tests/tb_latency_osd.v",
+    "preview_path": "work/models/latency_osd_preview.py",
+    "recommended_params": {
+      "lat_frame_ms": "33.30",
+      "lat_pipe_ms": "1.24",
+      "scale_log2": "1",
+      "panel": "dim"
+    },
+    "hardware_resources_estimate": {
+      "multipliers": 0,
+      "dividers": 0,
+      "timestamp_queue_depth": 8,
+      "panel_characters": "16 x 3",
+      "text_overlay_latency_cycles": 3
+    },
+    "history": [
+      {
+        "timestamp": "2026-10-16",
+        "action": "RTL and golden model pass 7 iverilog cases; on-screen layout rendered by work/models/latency_osd_preview.py; waiting for user visual approval before any TD build",
+        "status": "VISUAL_REVIEW_PENDING"
+      }
+    ]
   }
 ]

@@ -11,6 +11,7 @@
 | 看时钟修复候选工程 | 运行 `pwsh -File .\scripts\open-td.ps1 -ClockFix`；改动只在独立工作副本中 |
 | 看本次构建结果与上板证据 | [构建摘要](../docs/build/goal-1-sc520-lab1/build-summary.md)、[实验记录](../docs/experiments/goal-1-baseline.md)、[上板记录](../docs/evidence/goal-1/2026-10-02-bringup.md) |
 | 查接口和算法定义 | [接口契约](../preboard/02-interface-contract.md)、[算法契约](../preboard/03-algorithm-contract.md) |
+| 做延迟测量与 OSD 显示（三人分工中「延迟显示」部分） | [接口契约](../docs/architecture/latency-osd-interface.md)、[实验记录](../docs/experiments/2026-10-16-latency-display.md)、[仿真证据](../docs/evidence/goal-6/2026-10-16-latency-osd-sim.md)；跑 `python work/tests/run_latency_sim.py`、看预览 `python work/models/latency_osd_preview.py` |
 
 在仓库根目录运行软件模型：
 

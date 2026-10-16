@@ -485,3 +485,18 @@
   status: cloned_audited
   accessed_at: 2026-10-13
   notes: "架构极其规范典范工程；同款PH1P35MDG324；将平台层(vendor_lab1_core)与应用处理层(vision_pipeline)严格解耦；pixel_algorithm.v实现无乘法器移位BT.601 Y灰度、自适应阈值二值化(用146/2^27倒数乘法代替除法器)、双BRAM行缓存Sobel、3位色阶量化+边缘融合卡通化；logo_overlay.v从ROM叠加安路Logo。该工程是目前见过的安路PH1P35架构质量最高、与本项目规范契合度最强的基准。"
+
+- id: font8x8_public_domain
+  title: dhepper/font8x8 — 公开领域 8x8 位图字体（用于延迟 OSD 字符 ROM）
+  url_or_path: https://github.com/dhepper/font8x8
+  rel_path: work/models/third_party/font8x8_basic.h
+  type: github
+  platform: platform_independent
+  related_goals: [6]
+  priority: medium
+  license: Public Domain
+  commit: master @ 2026-10-16 (font8x8_basic.h, sha256 49D8DF366296B203CA3211BC0672CF2A762135BF12710735B6292756B19DFFD5)
+  adapt_level: A
+  status: imported_generates_artefacts_verified
+  accessed_at: 2026-10-16
+  notes: "取 U+0020..U+007E 共 95 个 8x8 字形，脚本 scripts/gen_char_rom.py 同时生成 work/rtl/osd/char_rom.v 与 work/models/font8x8_public_domain.py，两者由同一上游推导；RTL 与软件预览的字形一致性由生成机制保证。位序 bit0=最左，模型自检已断言。"

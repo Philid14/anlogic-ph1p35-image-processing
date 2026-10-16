@@ -298,3 +298,24 @@ License: **Apache-2.0** ✅
     3. Sobel 与卡通化：双 BRAM 行缓存，3 位色彩量化截断 + 边缘黑色融合（`24'h101010`），流水线只有 2 级延迟，时序极其干净；
   - `logo_overlay.v`: 从片上 ROM 读取安路官方 Logo 并在 HDMI 画面右上角稳定叠加。
 - **移植价值**: 解决了本项目 Goal 3/4 的核心算子优化（无除法、无乘法器灰度、自适应阈值），应作为首选参考。
+
+---
+
+## 4. 延迟测量与 OSD 显示（2026-10-16，G6-L）
+
+| 仓库 | 适配等级 | 相关阶段 | License | 主要用途 |
+|---|---|---|---|---|
+| [dhepper/font8x8](https://github.com/dhepper/font8x8) | A | G6 | Public Domain（文件头声明，源自 IBM 公开领域 VGA 字体） | 8×8 位图字体表，用于生成 `work/rtl/osd/char_rom.v` 与 `work/models/font8x8_public_domain.py` |
+
+- **Commit**: 未固定分支（2026-10-16 取 `master` 的 `font8x8_basic.h`），上游文件原样保存在
+  `work/models/third_party/font8x8_basic.h`，SHA-256
+  `49D8DF366296B203CA3211BC0672CF2A762135BF12710735B6292756B19DFFD5`。
+- **用法**: 只取 U+0020–U+007E 共 95 个字形，每个字符 8 个行字节；`scripts/gen_char_rom.py`
+  把每 8 个字节打包成一个 64 位常量并按行做变量部分选择，生成 ROM 与 Python 表，二者由同一上游
+  推导，因此软件预览与 RTL 的字形必然一致。
+- **位序**: 字节 bit0 为最左像素（与上游渲染顺序一致），已由模型自检断言（`glyph_rows("A")[0] == 0x0C`）。
+- **未使用**: 本项目没有引入该仓库的其他文件，也没有移植其渲染/绘制代码。
+- **时基方案为自研**: 延迟测量没有采用第三方工程，方法（翻转跨域 + 单域时间基 + 分数累加刻度）
+  记录在 `docs/architecture/latency-osd-interface.md`。
+
+---
