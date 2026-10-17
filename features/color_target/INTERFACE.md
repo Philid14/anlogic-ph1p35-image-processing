@@ -133,13 +133,13 @@ MAIN 逐像素调用即可，不引入对齐负担。
 ## 5.1 文字标注接口（T3 的文字部分，`rtl/color_target_text_overlay.v`）
 
 对应赛题扩展要求(2) 的"文字说明"与高阶挑战项(2) 的"坐标叠加"。**逐像素、带时钟**（内部有一个
-只在每帧结果更新后跑约 66 拍的小状态机做十进制转换），区域与字形全部参数化。
+用 70 拍完成一组十进制转换的小状态机），区域与字形全部参数化。
 
 | 信号 | 方向 | 位宽 | 说明 |
 |---|---|---|---|
 | `clk` / `rst_n` | in | 1 | 与**显示侧**同域（HDMI 像素时钟），不是观察时钟——见 §10 第 4 条 |
 | `I_pixel_valid` / `I_x` / `I_y` | in | 1 / `XW` / `YW` | 当前显示坐标（与 `color_target_overlay` 同一约定） |
-| `I_update` | in | 1 | **可选**：结果更新脉冲（接 `O_result_ready`）。不接也能工作——值变化会自动触发转换 |
+| `I_update` | in | 1 | **可选**：与 `clk` 同域的更新脉冲；结果字段或状态/明暗变化也会自动触发，异步源需先原子 CDC |
 | `I_show` / `I_state` | in | 1 / 2 | `track.O_show` / `track.O_track_state`；`I_show` 只决定字形亮/暗，不决定是否覆盖 |
 | `I_count` / `I_center_x` / `I_center_y` | in | 20 / `XW` / `YW` | `track.O_out_count` / `O_out_center_x` / `O_out_center_y` |
 | `O_glyph_char` / `O_glyph_row` | out | 8 / 4 | **字形请求**：字符（ASCII）与该字形行（0..15） |
@@ -149,6 +149,13 @@ MAIN 逐像素调用即可，不引入对齐负担。
 参数：`XW`/`YW`、`ENABLE`(1)、`X0`(16)、`Y0`(600)、`SCALE`(1，只支持 1 或 2)、`LINE_CHARS`(14)、
 `TEXT_RGB`(白)、`DIM_RGB`(灰，`I_show=0` 时用)、`BG_RGB`(深灰)。区域尺寸 =
 `LINE_CHARS×16×SCALE` 宽 × `2×16×SCALE+2×SCALE` 高。
+
+**更新时间约定（2026-10-17 修复）**：空闲时对 `count/x/y/state/show` 整组快照；
+三轮转换只读快照，70 拍内将数字、状态和明暗同拍发布。转换期间保持上一组完整显示。
+忙时的新值在当前事务结束后自动处理，最新稳定值最多 140 拍可见；中间变化允许合并，
+本接口不承诺逐事件排队。复位丢弃当前事务与旧显示，回到零值/SEARCH/暗色。
+这保证的是同一拍的字段一致性，**不提供整显示帧的原子切换**：MAIN 仍需匹配帧身份，
+并在消隐期预留转换时间，或用显示侧适配层安排帧边界切换。
 
 画面内容（两行）：
 
@@ -299,9 +306,9 @@ MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读�
 | 1 | 观察点位置 | AWB 输出 `awb_O_tdata[95:0]` 即风格化之前：它进 `edge_control_stream` 才被二选一（`isp/isp_top.v:48,69,153`；`isp/edge_control_stream.v:49` `config_p[4][8] ? edge_data : original_p[4]`） | 取 `awb_O_tdata`（只读扇出，不串联、不加反压） | 若 MAIN 认为必须放在别处，本模块的输入宽度与 lane 约定要重评 |
 | 2 | `I_data` 的 lane 排列与字节序 | **与 §4.2 完全一致**，无需转换：`isp/data128_96/data128_96.v:16` 反序取 24 位；demosaic 每像素 `{8'b0,R,G,B}`（`isp/demosaic_4x_2_0/bilinear_interpolation.v:882`），故 lane0=[95:72]、每 lane {R,G,B}；同链路的消费端 `isp/edge_detect_96.v:36-43`、`edge_status_osd.v:107-111` 亦同 | 直接按 §4.2 接 | 无 |
 | 3 | **`sof` / `eof`（最重要的一条）** | `I_user` **就是 SOF**（`isp/uial2axis.v:56` `axis_tuser = vcnt==0 && hcnt==0 && tvalid`）；但 `I_last` **是行尾 EOL 不是帧尾**（`isp/uial2axis.v:55` `axis_tlast = hcnt == IMG_WIDTH_4X-1`；`isp_top.v:124` 注释亦写"行结束信号"）。**帧尾没有现成的流信号** | `I_sof ← I_user`；`I_eol ← I_last`；**`I_eof` 由 MAIN 生成**（最后一行最后一个有效拍，可由行计数 + vsync/计数器导出） | 若把 `I_last` 直接当 `I_eof`，每行都会"发布一次结果"——整帧统计会完全错。这是接入时最容易踩的一条 |
-| 4 | 结果的 CDC 归属 | 观察流在 **`S_csi_rx_clk`**（`design_top_wrapper.v:589` → `isp_top`，`isp/isp_top.v:9`），**不是** HDMI 像素时钟；显示侧在 `I_clk`(HDMI_PIXEL_CLK) | 结果每帧才更新一次，所以**不需要 FIFO**：一个窄握手（或 `O_result_ready` 单拍脉冲 + 2 级同步）就够；我倾向由 **MAIN 的适配层**实现并署名归属 | 若直接跨域采样宽计数器会取到不稳定值（协议 §4.4 明确禁止） |
+| 4 | 结果的 CDC 归属 | 观察流在 **`S_csi_rx_clk`**（`design_top_wrapper.v:589` → `isp_top`，`isp/isp_top.v:9`），**不是** HDMI 像素时钟；显示侧在 `I_clk`(HDMI_PIXEL_CLK) | 由 **MAIN 的适配层**实现原子请求/应答握手，源端保持整组数据至确认；是否需要 FIFO 由吞吐和保持能力决定。文字模块只接收适配后的同域字段 | 单拍脉冲直接过两级同步可能漏事件；字段分别同步不能保证整组一致，均不构成完整 CDC |
 | 5 | 显示叠加区域与共用字库 | 主线已有 `osd_char_lib.v`（字库，"frozen"）与 `edge_status_osd.v`（**参数化区域 X0/Y0**、含不用除法器的三位十进制分解）；`hdmi_mixer.v:900-905` 是逐像素合成点（显示坐标 `S_x_2d/S_y_2d`，`:556-559`），`:563` 那段组合逻辑是自然接入位置；主线状态框占 (800,16)+448×72 | 框/十字与文字块区域由 MAIN 分配；我**默认**文字块放左下 (16,600)+224×34（720p），SCALE=1。**字形借 MAIN 已有实例**（我的模块不实例化字库） | 区域只影响 `X0/Y0` 参数；若 MAIN 要求另放一份字库，实测代价参考：整份 `edge_status_osd`（**含字库**）248 LUT/234 reg |
-| 6 | 整机资源预算中给本模块的份额 | 现存 EDGE_CONTROL_V1：`#lut 18307 / 38189`（48%）、slice 利用率 68.84%（`artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/camera_to_dsi_display_gate.area`） | det+track+overlay 估 600–900 LUT，文字模块估 ~200 LUT，**合计约 2–3% 器件** | 预算不足时优先砍文字模块（`ENABLE=0`）或降 `SCALE` |
+| 6 | 整机资源预算中给本模块的份额 | 现存 EDGE_CONTROL_V1：`#lut 18307 / 38189`（48%）、slice 利用率 68.84%（`artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/camera_to_dsi_display_gate.area`） | 文字模块独立 gate 为 282 LUT/194 reg（见 `evidence/text_atomic_2026-10-17/VALIDATION.md`）；其余模块仍为估计，整机预算待 MAIN 确认 | 预算不足时 MAIN 可先关闭文字模块（`ENABLE=0`） |
 | 7 | 显示坐标约定 | `hdmi_mixer` 的 `S_x_2d/S_y_2d` 与 `S_video_data_2d` 对齐；mixer 有 `H_OFFSET/V_OFFSET` 参数 | 我假设 overlay 收到的 (x,y) **就是**显示坐标（与 `S_x_2d/S_y_2d` 同域同原点），**不需要**再减偏移 | 若需要减偏移，MAIN 在适配层处理；我的模块只认收到的坐标 |
 
 ### 10.1 接线示意（按默认假设）

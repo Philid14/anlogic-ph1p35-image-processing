@@ -25,12 +25,14 @@
 | `tb/tb_color_target.v` | 检测自检台；另带两条不依赖期望值的结构断言 |
 | `tb/tb_color_target_overlay.v` | 标注自检台（纯组合，无需时钟） |
 | `tb/tb_color_target_text_overlay.v` | 文字标注自检台；含"沉降-扫描"两段式激励（等十进制转换跑完再扫像素） |
+| `tb/tb_color_target_text_updates.v` | 逐拍读取公开字形端口，检查忙时更新和复位下的整组一致性 |
 | `tb/ct_text_font_stub.v` | 自检用的字形**桩**（不依赖主线任何文件） |
 | `tb/ct_text_font_real.v` | 把**主线共享字库** `osd_char_lib.v` 包成同一字形端口（只读引用，不改它） |
 | `run_color_classify.py` | 分类器自检驱动：**期望值按数学判据独立计算**，不经过模型 |
 | `run_color_target.py` | 检测自检驱动：生成激励 → 仿真 → 与模型逐行比对 |
 | `run_color_target_overlay.py` | 标注自检驱动 |
 | `run_color_target_text_overlay.py` | 文字标注自检驱动（可 `--font real` 用主线真字库逐位比对） |
+| `run_color_target_text_updates.py` | 文字更新动态回归；不复制 RTL 转换状态机，支持 `--rtl` 检查旧实现 |
 | `rtl/color_target_track.v` | 跟踪状态机与防抖（T4）：SEARCH / ACQ / TRACK / HOLD |
 | `model/ref_color_target_track.py` | 跟踪的逐帧参考模型 |
 | `tb/tb_color_target_track.v` | 跟踪自检台 |
@@ -56,12 +58,13 @@ python features/color_target/run_color_target.py            # 检测：23 个用
 python features/color_target/run_color_target.py --full     # 追加一个完整 1280x720 帧
 python features/color_target/run_color_target_overlay.py
 python features/color_target/run_color_target_text_overlay.py     # 文字标注（默认用主线真字库）
+python features/color_target/run_color_target_text_updates.py     # 忙时更新、复位和整组发布
 python features/color_target/run_color_target_track.py
 python features/color_target/run_color_target_chain.py
 python features/color_target/render_color_target_frames.py --out <目录>   # 渲染 10 帧 PNG
 ```
 
-（七个脚本用法相同：`--sim iverilog|modelsim|auto`、`--msim <路径>`。）
+（仿真脚本共用 `--sim iverilog|modelsim|auto`、`--msim <路径>`。）
 
 **仿真器怎么指**（七个脚本共用 `tools/simlib.py` 的查找逻辑）：
 
@@ -330,12 +333,12 @@ N003600 TRACK
    `I_glyph_bits` 三个端口**借** MAIN 已有的 `osd_char_lib` 实例，不复制也不改写。
    参考代价：整份 `edge_status_osd`（**含字库**）在主线综合报告里是 **248 LUT / 234 reg**。
 2. **必须在显示侧合成**：主线现有的 `edge_status_osd` 在 ISP→DDR 之前，因为它显示的是"配置值"
-   （帧首就知道）；而**目标检测结果要帧末才有**，塞不进本帧的像素流。显示侧反而有整整一帧的余量，
-   比框线那 1~2 像素的对齐宽松得多。
-3. **十进制不用除法器**：值每帧才变一次，用逐位双-dabble 折算，每帧 3 轮约 66 周期——
-   只有一个 24 位 BCD 移位寄存器 + 6 个 4 位加法器，比组合转换器（数百 LUT）省得多。
-   触发条件是"输入变化 **或** `I_update` 脉冲"，所以 MAIN 不接 `I_update` 也能工作
-   （用例 `no_update_pin` 专门覆盖这条路径）。
+   （帧首就知道）；而**目标检测结果要帧末才有**，塞不进本帧的像素流。MAIN 需要为显示侧转换
+   预留消隐时间，不能假定总有一整帧余量。
+3. **十进制不用除法器**：逐位双-dabble，每组 3 轮共 70 拍。开始时快照数字、状态和明暗，
+   最后一轮结束后整组发布；忙时保持旧显示，再处理最新稳定值（最多 140 拍）。
+   数字、状态或明暗变化均会自动触发，不要求接 `I_update`；中间变化允许合并。
+   此机制不替代 MAIN 的原子 CDC、帧身份匹配或显示帧边界适配（见 §9）。
 
 **最有价值的一条验证是用真字库逐位比对**：字形位的索引约定（`[15]` 最左、每行 16 位、共 16 行）
 是本模块与字库之间**唯一的隐式契约**，用桩测不出来——桩用什么约定，模块就跟着用什么约定，
@@ -413,16 +416,15 @@ N003600 TRACK
 - **每拍 4 像素的预算**：检测最长路径是"4 路分类（约 10 级）→ 4 路归约 → 60/16 位比较 →
   一个寄存器"，模块内部没有流水切割。**能否在观察时钟（主线是 `S_csi_rx_clk`）下收敛，
   必须由 MAIN 用真实综合/时序报告判定**，本角色不承诺频率。
-- 文字模块是唯一带小状态机的：每个结果更新后跑 3×22 个周期，**每帧一次**，
-  在帧率尺度上完全不影响吞吐。
+- 文字转换每组运行 70 拍，不对像素流施加反压；MAIN 需在消隐期或显示适配层安排发布时机。
 
-**要拿到"实际结果与最大工作频率依据"，只能由 MAIN 把这些模块加进 TD 输入列表后综合**
+**整机资源与最大工作频率依据仍需 MAIN 把这些模块加进 TD 输入列表后验证**
 （协议 §3：TD 输入清单归 MAIN，本角色不擅自改）。上面 4.1 的锚点可以当作量级参考，
-但不能替代本功能自己的综合报告。
+但不能替代整机综合报告。文字模块另有独立 gate 实测（§9），未跑布局布线。
 
-**这是估计，不是实测**。协议 §4.5 要求提供"实际结果"与"最大工作频率依据"，需要由 MAIN
+检测/跟踪等资源仍是估计。协议 §4.5 要求的整机实际结果与最大工作频率依据，需要由 MAIN
 把本模块加入 TD 工程后跑综合才能给出，本角色不擅自改 TD 工程输入列表（§3）。模块在
-59 MHz 观察时钟下为纯组合 + 单级寄存器，看起来余量充足，但**未经时序验证，不作承诺**。
+观察时钟下的收敛情况尚未做整机时序验证，不作频率承诺。
 
 ## 5. 已知限制
 
@@ -594,3 +596,25 @@ RTL 喂给新回归确认它确实会失败**（做法：只 `git stash` 掉 `rt
 
 **证据口径不变**：以上仍是独立仿真；`S_csi_rx_clk` 的真实频率、综合资源与时序、
 以及整机画面效果，都要 MAIN 接入后才能回答。
+
+## 9. 文字更新整组发布（2026-10-17）
+
+旧测试等待转换结束后才扫像素，漏掉了转换期间的输出：旧 RTL 分别发布 count、X、Y，
+状态和明暗直接跟随新输入；三轮转换还会重新读取不同时间的输入。实测会出现
+`N123456` 已更新、坐标仍为 `X0000 Y000`，并可能把忙时新来的坐标拼进旧 count。
+
+现在开始转换时快照 `count/x/y/state/show`，前两轮结果暂存，最后一轮结束后整组同拍发布。
+一组转换 70 拍，忙时先保留上一组完整显示，再处理最新稳定输入，最多 140 拍可见。
+中间更新允许合并；该模块没有事件队列，也不替代 MAIN 的原子 CDC、帧身份匹配或整帧切换。
+
+新增回归通过公开字形端口逐拍读完整两行，使用 Python 十进制格式化和输入快照集合检查一致性，
+不复制 RTL 双-dabble/FSM。覆盖各转换阶段到达新值、连续更新、仅状态/明暗变化、
+中途复位、饱和及停止更新后的收敛；`XW/YW=11/10` 与 `14/12` 共 **7962 拍通过**。
+将同一测试指向旧 RTL，能抓出 **4036 个不一致采样**，其中有 2926 个数字字段混合采样。
+既有真实字库回归 **28/28、307078 像素**及链路渲染 **192010 拍、768000 像素**均通过。
+
+另补 `tools/synth_text.tcl` 独立 gate 综合检查，使用 TD **6.2.168116**、
+PH1P35MDG324/-3、人工 10 ns 测试时钟；不改主线 TD 文件。
+旧版为 **232 LUT/148 reg**，修复后 **282 LUT/194 reg**，增量 **50 LUT/46 reg**，
+两者均 **0 ERAM/0 DSP**。这是文字模块的 gate 结果，未做布局布线或整机验证。
+复现命令、范围和原始 area 报告见 [`VALIDATION.md`](evidence/text_atomic_2026-10-17/VALIDATION.md)。

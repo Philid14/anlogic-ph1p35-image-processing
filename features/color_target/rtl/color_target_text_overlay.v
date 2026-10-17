@@ -21,12 +21,13 @@
 // 2) **必须接在显示侧合成，不能放在 ISP→DDR 之前**。
 //    主线现有的 `edge_status_osd` 在 ISP 流里（DDR 之前），因为它显示的是"配置值"，
 //    帧开始时就知道。而**目标检测结果要帧末才有**，塞不进本帧的像素流。
-//    好在显示侧有一整帧的余量，比框线那 1~2 像素的对齐宽松得多。
+//    MAIN 需在显示消隐期预留转换时间，不能假定总有一整帧余量。
 //
 // 3) **十进制转换不用除法器、也不用上百 LUT 的组合转换器**。
-//    值每帧才变一次，所以逐位双-dabble（double dabble）移位折算，每帧 3 轮、
-//    约 66 个周期就够了：一个 24 位 BCD 移位寄存器 + 6 个 4 位加法器。
-//    触发条件是"输入变化 **或** I_update 脉冲"，所以 MAIN 即使不接 I_update 也能工作。
+//    逐位双-dabble（double dabble）移位折算，3 轮共 70 个周期。
+//    开始时快照整组输入，三轮全部完成后一次发布数字、状态与明暗，避免混用两次结果。
+//    转换期间输入可更新；当前快照完成后自动处理最新稳定值（最多 140 拍）。
+//    中间更新允许合并，不是逐事件队列；MAIN 仍负责显示帧身份和帧边界锁存。
 //
 // 画面内容（两行；SCALE=1 时字符格 16x16）：
 //     RED Xnnnn Ynnn            ← 中心坐标（不是质心）
@@ -55,7 +56,7 @@ module color_target_text_overlay #(
     input      [YW-1:0] I_y,
 
     // ---- 来自 color_target_track 的稳定结果 ----
-    input               I_update,          // 可选：结果更新脉冲（接 detect 的 O_result_ready）
+    input               I_update,          // 可选：同 clk 域更新脉冲；跨域先由 MAIN 原子适配
     input               I_show,            // track.O_show
     input      [1:0]    I_state,           // track.O_track_state（0=SEARCH 1=ACQ 2=TRACK 3=HOLD）
     input      [19:0]   I_count,           // track.O_out_count
@@ -108,12 +109,6 @@ module color_target_text_overlay #(
     localparam [1:0] C_IDLE = 2'd0, C_LOAD = 2'd1, C_STEP = 2'd2, C_STORE = 2'd3;
     localparam integer STEPS = 20;                          // 20 位输入 -> 20 次移位
 
-    // 饱和（不是截断）：显示位数有限，超范围显示成最大可显示值，避免显示错误的数。
-    // 右侧的赋值靠"赋值位宽自动零扩展"，不写显式零扩展——那样在 XW>20 时会是负数重复次数。
-    wire [19:0] sat_c = (I_count    > 20'd999999) ? 20'd999999 : I_count;
-    wire [19:0] sat_x = (I_center_x > 20'd9999)   ? 20'd9999   : I_center_x;
-    wire [19:0] sat_y = (I_center_y > 20'd999)    ? 20'd999    : I_center_y;
-
     reg [1:0]  cst;            // 转换状态
     reg [1:0]  round;          // 0=count 1=x 2=y
     reg [4:0]  step;
@@ -122,20 +117,31 @@ module color_target_text_overlay #(
     reg [23:0] dig_c;          // count 的 6 位十进制
     reg [15:0] dig_x;          // x 的 4 位十进制
     reg [11:0] dig_y;          // y 的 3 位十进制
-    // 原始输入的影子寄存器：只在 I_update/值变化时才重新换算
+    reg [23:0] next_c;         // 尚未发布的前两轮结果
+    reg [15:0] next_x;
+    reg [1:0]  shown_state;
+    reg        shown_show;
+    // 整组输入快照：三轮不能重新读取正在更新的输入。
     reg [19:0]   raw_c;
     reg [XW-1:0] raw_x;
     reg [YW-1:0] raw_y;
+    reg [1:0]    raw_state;
+    reg          raw_show;
+
+    // 显示位数饱和；赋值自动零扩展，避免 XW/YW>20 时出现负数重复次数。
+    wire [19:0] sat_c = (raw_c > 20'd999999) ? 20'd999999 : raw_c;
+    wire [19:0] sat_x = (raw_x > 20'd9999)   ? 20'd9999   : raw_x;
+    wire [19:0] sat_y = (raw_y > 20'd999)    ? 20'd999    : raw_y;
 
     wire inputs_changed = (I_count    != raw_c) ||
                           (I_center_x != raw_x) ||
-                          (I_center_y != raw_y);
+                          (I_center_y != raw_y) ||
+                          (I_state    != raw_state) || (I_show != raw_show);
     wire start = (cst == C_IDLE) && (I_update || inputs_changed);
 
-    // 本轮要转换的值（从饱和后的输入取）
+    // 本轮要转换的值（只从本事务快照取）
     wire [19:0] conv_val = (round == 2'd0) ? sat_c :
-                           (round == 2'd1) ? {6'b0, sat_x} :
-                                             {10'b0, sat_y};
+                           (round == 2'd1) ? sat_x : sat_y;
 
     // 每个 BCD 位：≥5 则加 3（双-dabble 的修正步）
     reg [23:0] bcd_corr;
@@ -154,12 +160,16 @@ module color_target_text_overlay #(
             cst <= C_IDLE; round <= 2'd0; step <= 5'd0;
             bin <= 20'd0; bcd <= 24'd0;
             dig_c <= 24'd0; dig_x <= 16'd0; dig_y <= 12'd0;
+            next_c <= 24'd0; next_x <= 16'd0;
+            shown_state <= 2'd0; shown_show <= 1'b0;
             raw_c <= 20'd0; raw_x <= {XW{1'b0}}; raw_y <= {YW{1'b0}};
+            raw_state <= 2'd0; raw_show <= 1'b0;
         end else begin
             case (cst)
                 C_IDLE: begin
                     if (start) begin
                         raw_c <= I_count; raw_x <= I_center_x; raw_y <= I_center_y;
+                        raw_state <= I_state; raw_show <= I_show;
                         round <= 2'd0;
                         cst   <= C_LOAD;
                     end
@@ -181,9 +191,12 @@ module color_target_text_overlay #(
                 end
                 default: begin                  // C_STORE
                     case (round)
-                        2'd0: dig_c <= bcd;
-                        2'd1: dig_x <= bcd[15:0];
-                        default: dig_y <= bcd[11:0];
+                        2'd0: next_c <= bcd;
+                        2'd1: next_x <= bcd[15:0];
+                        default: begin
+                            dig_c <= next_c; dig_x <= next_x; dig_y <= bcd[11:0];
+                            shown_state <= raw_state; shown_show <= raw_show;
+                        end
                     endcase
                     if (round == 2'd2) begin
                         round <= 2'd0;
@@ -205,7 +218,7 @@ module color_target_text_overlay #(
 
     // 状态名（6 字符，右侧补空格）
     reg [47:0] name6;
-    always @* case (I_state)
+    always @* case (shown_state)
         2'd0:    name6 = "SEARCH";
         2'd1:    name6 = "ACQ   ";
         2'd2:    name6 = "TRACK ";
@@ -261,8 +274,8 @@ module color_target_text_overlay #(
     assign O_glyph_row  = grow;
 
     assign O_overlay_valid = I_pixel_valid && in_region;
-    // 文字块始终覆盖（底色），字形颜色按 I_show 分两档：有目标时亮、无目标时暗。
+    // 文字块始终覆盖；明暗与数字、状态一起发布，不直接读取新输入。
     // 这样现场能看到 SEARCH/ACQ/HOLD 的状态变化，而不是一片空白；
     // 想看"有目标才显示"的话，把整块使能接到 I_show 上即可（MAIN 侧改接线，不用改本模块）。
-    assign O_overlay_rgb   = gbit ? (I_show ? TEXT_RGB : DIM_RGB) : BG_RGB;
+    assign O_overlay_rgb   = gbit ? (shown_show ? TEXT_RGB : DIM_RGB) : BG_RGB;
 endmodule

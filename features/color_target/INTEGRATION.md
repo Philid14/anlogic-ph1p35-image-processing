@@ -16,6 +16,7 @@
 | 颜色检测（T1/T2） | `rtl/color_classify.v` + `rtl/color_target_detect.v` | `python features/color_target/run_color_target.py`（23/23，`--full` 24/24） |
 | 标注（T3） | `rtl/color_target_overlay.v` | `python features/color_target/run_color_target_overlay.py`（10/10 + 5 条夹取等价性） |
 | **文字标注（T3 文字部分）** | `rtl/color_target_text_overlay.v` | `python features/color_target/run_color_target_text_overlay.py`（28/28，307078 像素；默认用**主线真字库**逐位比对） |
+| 文字更新一致性 | 同上（全部使用现有端口） | `python features/color_target/run_color_target_text_updates.py`（7962 拍；忙时更新、复位、整组发布与最新值收敛） |
 | 跟踪与防抖（T4） | `rtl/color_target_track.v` | `python features/color_target/run_color_target_track.py`（21/21） |
 | 三级链路 | 检测 + 跟踪 + 两个标注 | `python features/color_target/run_color_target_chain.py`（396 拍逐拍比对） |
 | 链路渲染（验收素材） | 上述四者的组合，含文字层 | `python features/color_target/render_color_target_frames.py --out <目录>`（192010 拍 / 768000 像素逐像素比对，其中 76160 个被文字覆盖；输出 10 帧 PNG） |
@@ -41,13 +42,19 @@
    这是接入时最容易踩的一条。`I_eol` 接 `tlast`，`I_eof` 接由行计数/vsync 导出的帧尾。
 3. **track 接 detect 靠 `O_result_ready` 这一个 strobe**，其余字段同名直连。
 4. **跨时钟域**：观察流在 `S_csi_rx_clk`、显示在 HDMI 像素时钟。结果每帧只变一次，
-   **一个窄握手（或 2 级同步 + 单拍脉冲）就够，不需要 FIFO**；归属建议放 MAIN 的适配层。
+   应由 MAIN 的适配层原子传递结果：请求/应答握手期间源端保持整组数据，确认后才允许覆盖；
+   是否使用 FIFO 由吞吐和保持能力决定。**异步单拍脉冲直接过两级同步会有漏事件风险**，
+   字段分别过两级寄存器也不能保证整组一致。
    跨域后得到显示域的 `td_count/td_state/td_cx/td_cy/td_show`，再喂给两个标注模块。
 5. **两个标注模块并联**，各只出覆盖请求：
    `color_target_overlay`（框/十字）要两行接线 —— `I_result_valid = I_target_present = track.O_show`；
    `color_target_text_overlay`（文字）要 track 的结果字段 + **字形三根线**（接 MAIN 已有的
    `osd_char_lib` 实例，见 `INTERFACE.md` §5.1）。**合成优先级由 MAIN 的 mixer 定**
    （§4.5：Logo/主线状态 > 性能文字 > 框/十字 > 基础图像）。
+
+文字模块开始时快照数字、状态及明暗，70 拍内同拍发布；忙时更新允许合并，最新稳定值
+最多 140 拍可见。`I_update` 必须在显示域产生。MAIN 需为消隐期转换和显示帧身份预留适配；
+模块内部的整组发布不等于整帧原子切换。详见 `INTERFACE.md` §5.1。
 
 ## 3. 参数与建议初值
 
@@ -89,7 +96,8 @@ track 上，**本帧最后 1~2 个像素会用到刚发布的新结果，框会�
 ## 5. T3 的文字部分：本模块已提供哪些字段
 
 T3 的任务描述含"坐标的覆盖请求"，但**坐标文字需要字库，而 §4.5 规定字库与字体由 MAIN 统一维护、
-不得改写已有字库**。所以本模块只输出几何（框线 + 中心十字），文字由 MAIN 用它自己的字库渲染。
+不得改写已有字库**。几何覆盖由 `color_target_overlay` 输出，文字覆盖由
+`color_target_text_overlay` 请求 MAIN 的字形后输出；两者的区域与合成均由 MAIN 决定。
 MAIN 需要的数据本模块都已经给出，不必再算：
 
 | 想显示的内容 | 取自哪个信号 |
@@ -125,7 +133,9 @@ MAIN 需要的数据本模块都已经给出，不必再算：
 （`README.md` §6 缺陷①）。改成交叉乘积后每路多出十几 LUT6 量级的减法器，换来的是
 **位宽与 `W` 无关**——参数怎么调都不会溢出。这个代价落在上表 ±40% 的估计噪声之内。
 
-**这是估计，不是实测**，误差可能 ±40%。§4.5 要求的"实际结果"与"最大工作频率依据"必须由 MAIN
+以上检测/跟踪/几何资源仍是估计，误差可能 ±40%。文字模块已补独立 gate 综合：282 LUT、
+194 reg、0 ERAM/DSP（相对旧版 +50 LUT/+46 reg），见 `evidence/text_atomic_2026-10-17/VALIDATION.md`。
+这不是布局布线后或整机资源结果。§4.5 要求的整机结果与最大工作频率依据必须由 MAIN
 把模块加入 TD 工程后综合得到——本角色不擅自改 TD 输入清单（§3）。
 
 **延时**：像素通路 **0 拍**（detect 是并接观察，不串联）；结果在 `eof` 后 1 拍可用；track 与
