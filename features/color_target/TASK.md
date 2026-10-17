@@ -80,3 +80,4 @@ Interface version / 状态:
 | 13 | 交付物补齐：`DEMO_STEPS.md`（协议 §2.2 点名）、`INTERFACE.md` §10 改成"带证据与默认假设的一次性清单" | TARGET 已完成 / 待 Philid14 复审 |
 | 14 | **接入前的三件外部依赖**（都不是本角色能自造的）：`I_eof` 由 MAIN 从"行尾 EOL"推导；观察域→显示域的窄握手 CDC；显示叠加区域分配 | MAIN（`INTERFACE.md` §10 第 3、4、5 条） |
 | 15 | 文字转换忙时的混合结果修复：整组快照与同拍发布，动态回归 7962 拍通过；旧 RTL 同测失败；真实字库及渲染回归通过；独立 TD gate 综合 282 LUT/194 reg（+50/+46），详见 `evidence/text_atomic_2026-10-17/VALIDATION.md` | TARGET 完成独立修复 / 待负责人审查 |
+| 16 | 依用户要求完成下一步开源检索与方法比较：六仓库固定 SHA/许可/相关源码核查；10 路 CPU 掩膜对照共 880 评价；评价标准、反例和实验顺序见 `research/ROADMAP.md`。候选尚无新 RTL、真实视频、资源或时序结论 | TARGET 研究完成 / 实拍数据、目标选择语义与预算待 MAIN |

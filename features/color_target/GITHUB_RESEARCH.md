@@ -4,8 +4,11 @@
 本文件放在 `features/color_target/` 内——按协议 §3，共享的 `docs/GITHUB_REFERENCE_RESEARCH.md`
 由 MAIN 维护，队友不写。
 
-> ⚠️ **本轮方法与可信度声明（请勿省略）**
-> 本轮由**公开网页检索**完成，**没有**逐文件直读源码，因此：
+> **历史条目与本次核查范围**
+> §1–§4 为早期调研存档，当时由公开网页检索完成、没有逐文件直读源码，以下限制只适用于这些历史条目。
+> **2026-10-17 新核查见 §5**：已固定六个仓库的 commit，读取许可和列出的相关源码。
+> 本次后续方案以 §5 及 `research/ROADMAP.md` 为依据，不把早期未核实条目升级为已验证来源。
+> 对历史 §1–§4：
 > - **所有 commit SHA 均未核实**，链接只固定到仓库/文件页，不声称是某个 revision；
 > - **所有 License 状态均未核实**；
 > - 本轮的采用范围**只有设计思路**，**未复制任何第三方代码、参数或寄存器值**。
@@ -42,8 +45,9 @@ RGB/YCbCr 输入 → RGB→HSV 转换 → HUE 阈值分割 → 形态学去噪 �
 
 只采用了**思路**，实现全部独立完成：
 
-1. **用 HSV/hue 而不是 RGB 阈值**（依据 2.1/2.2/2.5）。直接原因是协议 §2.2 禁止为迁就
-   检测去改主线 AWB/曝光，而 hue 与亮度无关。
+1. **用 HSV/hue 而不是 RGB 阈值**（早期依据 2.1/2.2/2.5）。协议 §2.2 禁止为迁就检测
+   去改主线 AWB/曝光。补充数学边界：无量化/截断的统一通道增益可保持色相比值，
+   但低彩度噪声、饱和与 AWB 的不同通道增益会破坏这一条件，不能称为绝对光照不变。
 2. **包围框而不是质心作为中心输出**。公开资料两类都用（2.4 用框、2.1/2.3 用质心），
    而协议 §2.2 明确要求"包围框中心不是像素质心"并要区分，因此本模块只实现框中心，
    不计算质心。
@@ -57,3 +61,28 @@ RGB/YCbCr 输入 → RGB→HSV 转换 → HUE 阈值分割 → 形态学去噪 �
 - 2.6 的规模数字只能当量级参照；本项目的资源必须以 TD 真实综合报告为准（协议 §4.5）。
 - 若将来要**采用代码**：必须先补齐 commit 固定与 License 核实，并在本文件登记，
   再走协议 §5.2 的流程。当前没有任何待补的代码引用。
+
+## 5. 2026-10-17：固定版本、许可与源码核查
+
+研究基线：`172815e97587c19a63863c27c1c86bc8e85353bd`。
+逐文件 URL、blob SHA 和下载内容 SHA-256 见
+[`来源清单`](research/2026-10-17-source-manifest.json)。核查了许可文件及相关源码，未审计仓库全部依赖/权重。
+以下仅采用架构/方法启发；未复制第三方代码、参数表或寄存器配置进工程。
+
+| Repository / Owner | 固定 commit | 许可核查 | 读过的关键文件 | 参考判断与是否采用 |
+|---|---|---|---|---|
+| [Topi-ab/linkruncca](https://github.com/Topi-ab/linkruncca/tree/a84d236c6e67b3ca511d4dfaa3a11ff605f057de) | `a84d236c6e67b3ca511d4dfaa3a11ff605f057de` | `COPYING.txt`；README/RTL 标为 LGPL v3 或以后，GitHub 标识 LGPL-3.0 | `src/verilog/LinkRunCCA.v`、`equivalence_resolver.v`、`feature_accumulator.v` | 1PPC 单遍游程/等价统计架构；思路参考，未移植 |
+| [Xilinx/Vitis_Libraries](https://github.com/Xilinx/Vitis_Libraries/tree/3ab1ecd20cf338b3f8f2824fdfeee115f3398889) | `3ab1ecd20cf338b3f8f2824fdfeee115f3398889` | `vision/LICENSE.txt` Apache-2.0；所读头文件一致 | `vision/L1/include/imgproc/xf_erosion.hpp`、`xf_dilation.hpp` | 行窗口与打包像素边界处理；不能直接替换安路 RTL/IP |
+| [FoundationVision/ByteTrack](https://github.com/FoundationVision/ByteTrack/tree/d1bf0191adff59bc8fcfeaa0b33d3d1642552a99) | `d1bf0191adff59bc8fcfeaa0b33d3d1642552a99` | `LICENSE` MIT | `yolox/tracker/byte_tracker.py` | 强候选优先、低置信补救；提出本项目类比假设，非原算法 FPGA 移植 |
+| [noahcao/OC_SORT](https://github.com/noahcao/OC_SORT/tree/8462e7e729a93ccd3bd995c0a79a890336cb3a0b) | `8462e7e729a93ccd3bd995c0a79a890336cb3a0b` | `LICENSE` MIT | `trackers/ocsort_tracker/ocsort.py` | 历史观测辅助关联；仅列下一步帧结果层研究 |
+| [facebookresearch/EdgeTAM](https://github.com/facebookresearch/EdgeTAM/tree/7711e012a30a2402c4eaab637bdb00a521302c91) | `7711e012a30a2402c4eaab637bdb00a521302c91` | `LICENSE` Apache-2.0 | `sam2/modeling/sam2_base.py` | 跨帧记忆的启发；未装模型、未引入 NN 或整帧缓存 |
+| [yformer/EfficientTAM](https://github.com/yformer/EfficientTAM/tree/abcd061ebd3cc6e7527d152d75b890126aaa53f6) | `abcd061ebd3cc6e7527d152d75b890126aaa53f6` | `LICENSE` Apache-2.0 | `efficient_track_anything/modeling/efficienttam_base.py` | 轻量编码/记忆研究参照；无 PH1P35 部署或资源结论 |
+
+另外回读了两个出版方/会议原始资料：
+
+- [Real-Time FPGA Implementation of Parallel Connected Component Labelling for a 4K Video Stream](https://link.springer.com/article/10.1007/s11265-021-01636-4)，2021，DOI `10.1007/s11265-021-01636-4`，出版页标明 CC BY 4.0。关注 §4.4/§5.4 的合并冲突与暂停/消隐依赖，排除直接套用。
+- [Efficient Track Anything，ICCV 2025](https://openaccess.thecvf.com/content/ICCV2025/html/Xiong_Efficient_Track_Anything_ICCV_2025_paper.html)。用于核对正式版本；不把手机/GPU 指标外推为本 FPGA 性能。
+
+本次产物见 [`research/ROADMAP.md`](research/ROADMAP.md)：硬门槛、方法比较、创新假设与淘汰条件。
+另有独立 CPU 掩膜对照：22 模板×4 种子、10 方法、880 评价；保留了弱桥、细目标、冷启动歧义
+及粗网格失败。该模型尚未证明任何候选可用于 4PPC RTL 或真实视频，不改变生产默认配置。
