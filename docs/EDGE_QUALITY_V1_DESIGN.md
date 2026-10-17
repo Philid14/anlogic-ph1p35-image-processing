@@ -10,7 +10,9 @@ Sobel原S5在QUALITY路径中改为两采样点分类寄存，每点两位`{weak
 
 ## 每级两采样并行窗口
 
-每拍对应内部点n=2g、n+1。L1捕获两点标签/坐标；L2同步读row1旧上一行、row2旧前两行并写当前row1；下一拍将已寄存mid复制row2。row1/row2各320×4bit，单读/单写，AUTO推断、无数组复位。总四级10240逻辑bit，新增8个历史行；既有Gaussian/Sobel/NMS历史数据独立不改。
+每拍对应内部点n=2g、n+1。L1捕获两点标签/坐标；L2同步读旧历史字；L3仍选真正上一行中心并输出。R0两行各320×4bit，四层10240bit，但实际窄RAM映射代价偏高。优化版将四拍合成一字：row1为80×16bit保存完整weak/active，row2为80×8bit只存active；每层1920bit、四层**7680bit**，仍为8个历史行，AUTO推断、无数组复位。既有Gaussian/Sobel/NMS历史数据独立不改。
+
+同一旧word被连续读四次，x_group[1:0]选择本拍四位标签；row1在第4拍旧数据读出时写入已组装当前word，row2再晚一拍复制已寄存旧mid的8个active位，没有组合RAM→RAM路径。第三层top只选择两个active，不存不使用的weak。尾部不足4拍时以移位丢弃旧前缀并补0，64/68/72/76像素对应16/17/18/19拍覆盖所有尾数；正式1280为320拍，恰好80个word。SOF后前三拍覆盖pending旧值后才写完整字，短尾补0拒绝旧帧前缀。每拍吞吐及每层3拍完全不变。
 
 L3两个中心分别是前一拍mid低样本m1（位置n−1）和当前mid高样本（位置n）。top/bottom保留前两点active，mid保留前两点weak/active。同拍/跨拍各八邻居都被包含，输出weak等于中心weak，active为中心weak AND（中心active OR 八邻active）。宽度仅1bit布尔组合适合直接在L3寄存，不采用14bit选择器/比较级。
 

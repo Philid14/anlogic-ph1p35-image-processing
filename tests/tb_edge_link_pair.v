@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 module tb_edge_link_pair;
-    localparam W=64,H=24;
+    parameter W=64,H=24;
     reg clk=0;always #5 clk=~clk;
     reg rst_n=0,v=0,u=0,l=0;
     reg [3:0] data=0;
@@ -46,7 +46,7 @@ module tb_edge_link_pair;
             else if(!$feof(inf)) $fatal(1,"FAIL malformed stimulus");
         end
         repeat(16) step(0,0,0,0,0,0,0,0);
-        $display("PASS edge_link four independent spatial stage references beats=%0d sample_stage_checks=%0d cycles=%0d",beats,checks,cycles);
+        $display("PASS edge_link four independent spatial stage references width=%0d beats=%0d sample_stage_checks=%0d cycles=%0d",W,beats,checks,cycles);
         $finish;
     end
 endmodule

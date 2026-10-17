@@ -19,8 +19,8 @@ def frozen():
     assert '.QUALITY_ENABLE(1), .QUALITY_HOPS(4)' in top
 
 
-def unit_vectors(d):
-    h,w=24,32;rng=np.random.default_rng(407);cases=[]
+def unit_vectors(d,width=64):
+    h,w=24,width//2;rng=np.random.default_rng(407);cases=[]
     for state in (0,2,3):
         labels=np.full((h,w),state,dtype=np.uint8);cases.append(labels)
     for dy in (-1,0,1):
@@ -78,9 +78,12 @@ def main():
     sources=[HDL/'isp/edge_detect_96.v',HDL/'isp/gaussian_pair_3x3.v',HDL/'isp/nms_gradient_pair_3x3.v',HDL/'isp/edge_link_pair_3x3.v']
     with tempfile.TemporaryDirectory(prefix='quality-unit-') as tmp:
         d=Path(tmp);control.simulate(d,'tb_edge_quality_class',[ROOT/'tests/tb_edge_quality_class.v']+sources)
-        stim,beats=unit_vectors(d)
-        result=control.simulate(d,'tb_edge_link_pair',[ROOT/'tests/tb_edge_link_pair.v',sources[-1]],plus=[f'+STIM={stim.as_posix()}'])
-        assert f'beats={beats} ' in result
+        for width in (64,68,72,76):
+            # 16/17/18/19 beats per row cover every packed-word remainder.
+            stim,beats=unit_vectors(d,width)
+            result=control.simulate(d,'tb_edge_link_pair',[ROOT/'tests/tb_edge_link_pair.v',sources[-1]],
+                params=[f'-Ptb_edge_link_pair.W={width}'],plus=[f'+STIM={stim.as_posix()}'])
+            assert f'beats={beats} ' in result
     cases=[(64,32,0,False),(64,32,1,False),(1280,96,1,False)]
     if args.small:cases=cases[:2]
     if args.full:cases.append((1280,720,1,True))

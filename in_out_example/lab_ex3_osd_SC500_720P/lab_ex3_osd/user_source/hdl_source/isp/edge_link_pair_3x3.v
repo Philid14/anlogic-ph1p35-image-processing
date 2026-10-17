@@ -13,6 +13,7 @@ module edge_link_pair_3x3 #(
     output reg [3:0] O_labels,output O_valid,output O_user,output O_last
 );
     localparam GROUPS=IMG_WIDTH/4;
+    localparam WORDS=(GROUPS+3)/4;
     reg [2:0] valid_p,user_p,last_p;
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin valid_p<=0;user_p<=0;last_p<=0;end
@@ -38,18 +39,32 @@ module edge_link_pair_3x3 #(
             end
         end
     end
-    // L2: 320*4*2=2560 logical bits. Each row has one read and one write.
-    // AUTO inference; arrays are not reset. Border masking rejects stale rows.
-    reg [3:0] row1[0:GROUPS-1];
-    reg [3:0] row2[0:GROUPS-1];
-    reg [3:0] top_s2,mid_s2,bot_s2;
+    // L2: coalesce FOUR beats; store top-row ACTIVE bits only.
+    // 80*(16+8)=1920 logical bits/hop, versus R0's 320*4*2=2560.
+    // Read the old word four times; write row1 after its fourth read.
+    // Row2 copies registered old mid active bits one clock after that read.
+    reg [15:0] row1[0:WORDS-1];
+    reg [7:0] row2[0:WORDS-1];
+    reg [7:0] top_word_s2;
+    reg [15:0] mid_word_s2;
+    reg [11:0] pending;
+    reg [3:0] bot_s2;
     reg [10:0] x_s2,y_s2;
+    wire [3:0] mid_s2=(mid_word_s2 >> (4*(3-x_s2[1:0])));
+    wire [1:0] top_active=(top_word_s2 >> (2*(3-x_s2[1:0])));
+    wire [3:0] top_s2={1'b0,top_active[1],1'b0,top_active[0]};
+    // Shift away stale prefix bits for an incomplete final word (generic widths).
+    wire [15:0] assembled=(GROUPS%4==0) ? {pending,labels_s1} :
+        ({pending,labels_s1} << (4*(3-x_s1[1:0])));
     always @(posedge clk) begin
         if(valid_p[0]) begin
-            top_s2<=row2[x_s1];mid_s2<=row1[x_s1];bot_s2<=labels_s1;
-            row1[x_s1]<=labels_s1;
+            top_word_s2<=row2[x_s1[10:2]];mid_word_s2<=row1[x_s1[10:2]];bot_s2<=labels_s1;
+            pending<={pending[7:0],labels_s1};
+            if(x_s1[1:0]==3 || ((GROUPS%4!=0) && x_s1==GROUPS-1)) row1[x_s1[10:2]]<=assembled;
         end
-        if(valid_p[1]) row2[x_s2]<=mid_s2;
+        if(valid_p[1] && (x_s2[1:0]==3 || ((GROUPS%4!=0) && x_s2==GROUPS-1)))
+            row2[x_s2[10:2]]<={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
+                              mid_word_s2[6],mid_word_s2[4],mid_word_s2[2],mid_word_s2[0]};
     end
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin x_s2<=0;y_s2<=0;end
