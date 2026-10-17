@@ -183,7 +183,10 @@ def research():
     fig,axes=plt.subplots(len(pictures),6,figsize=(17,9),layout='constrained')
     for row,(name,values) in enumerate(pictures.items()):
         for col,value in enumerate(values):
-            axes[row,col].imshow(value,cmap='gray',vmin=0,vmax=255 if col==0 else 1)
+            # Match the actual HDMI geometry: each internal sample becomes
+            # two original-width pixels. Metrics remain on the internal grid.
+            shown=value if col==0 else np.repeat(value,2,axis=1)
+            axes[row,col].imshow(shown,cmap='gray',vmin=0,vmax=255 if col==0 else 1)
             axes[row,col].set_title(name+' / '+('RGB','NMS60','NMS40','2hop60','4hop60','full60')[col],fontsize=8);axes[row,col].axis('off')
     fig.suptitle('SYNTHETIC ONLY, common ROI and spatial offset compensated; full = software-only connectivity')
     fig.savefig(out/'comparison.png',dpi=125);plt.close(fig)

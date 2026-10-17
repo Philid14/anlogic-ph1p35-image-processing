@@ -192,6 +192,13 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：用户描述夜间弱光020/040/060/080四档实拍：020碎纹理密集且局部成片；040轮廓和纹理丰富但碎边多；060主要轮廓相对明显而弱细节减少；080较干净但丢弱边。不能将所有白纹理判断为噪声。未得到本轮可用ORIGIN RGB输入或30分钟结果，不补造定量结论。
 - 是否保留/下一步：保留未NMS对照，下一版只加二值化前NMS，研究双阈值仅限软件。PR #3尚未合并，不自动合并或改其分支，新增依赖分支codex/main/edge-nms-v1。
 
+### EDGE_NMS_V1 用户上板观察（2026-10-17，EDGE_QUALITY任务补录）
+
+- Version / Git Commit / Git Tag：EDGE_NMS_V1 / 归档712fbb33cfc5ba8436b96306e1fe443553aa6591，实际构建8ae2fd6 / edge-nms-v1-candidate；SHA256 `734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448`。历史归档文件/tag保持原样，本条只追加新反馈。
+- 修改假设/唯一主要变量/原值/新值：前轮在Gaussian+Sobel单门限前加入NMS；完整TD原结果LUT6 15206、FF15018、Slice16598、ERAM39、DSP9，Setup/Hold+0.101/+0.020ns。
+- Board Test Result：用户确认边缘明显变细，弱边仍易断裂；TH40眼镜/脸/头发轮廓较丰富但杂线多，TH60较干净同时缺真实轮廓，TH80大量弱边消失。本轮3张拍屏能观察到对应类型现象，但右侧OSD裁切，不能自行逐张认定TH数字或计算真实原图召回率。没有可用摄像头ORIGIN RGB，也未提供30分钟稳定性/溢出测量。
+- 是否保留/下一步：保留NMS作为准确可回退对照；EDGE_QUALITY只研究Edge内部质量，先模型比较再实现，Sensor/原图内容/外部链路冻结。待用户评价连续性与杂边的真实折中，不自动合并#3/#4。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
@@ -236,3 +243,11 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build Result：完整Synthesis→Physical Design→Timing Check→bitgen通过；LUT6 15206、FF 15018、Slice 16598 (78.23%)、ERAM 39、DSP 9；Setup/Hold +0.101/+0.020ns，TNS0/端点违例0，既有PHY-5060/5079保留无新增关键类型。新联合2264588拍/1698441字、NMS单元2564拍/4200中心、25方向、旧旁路1764876拍/1323657字及控制回归通过。首轮仅有声明顺序warning，修复后完整重建，无失败bit；原始证据保留。
 - Board Test Result：**待用户上板**。软件合成TH40直阶跃厚度4→1、模糊阶跃7→1且100%逐行覆盖；不等于真实场景测量。未发现真实ORIGIN RGB帧，未证明物理I2C/厂商PHY或长期整机稳定。
 - 是否保留/下一步：保留candidate及旧降噪对照；按EDGE_NMS_V1_BOARD_TEST同条件比较020/040/060/080，优先边缘变细且主要轮廓不过度断裂，纹理仍被检测不直接判失败。至少20次切换/30分钟，等待结果；不自行进入滞后硬件、AE或其他扩展。
+
+## EDGE_QUALITY_V1_R0 工程检查点（2026-10-17，未选为上板candidate）
+
+- Version / Git Commit / Git Tag：EDGE_QUALITY_V1_R0，构建acf7d444f19ae0dbb8a36a854edc7627f7f8b2ec；归档commit通过edge-quality-v1-r0-build^{commit}解析；分支codex/main/edge-quality-v1。
+- 假设/唯一变量/原值/新值：NMS后加入四跳强锚弱边连接，单阈值→high=TH/low=floor(TH/2)，总16→28拍；Sensor、原图内容及外部控制/链路冻结。
+- Bit SHA256：27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B；artifacts/bitstreams/EDGE_QUALITY_V1_R0/camera_to_dsi_display.bit。
+- Build Result：全流程成功、Setup/Hold+0.102/+0.020ns、TNS0；LUT6 16888/FF15402/Slice18263(86.08%)/ERAM39/DSP9。四层512DRAM LUT高于预算，Slice增量1665超过1400目标。
+- Board Test Result：未上板，不推荐烧录。是否保留/下一步：保留bit和全部证据，未选为最终candidate；仅优化等价缓存成对写入，重新验证和构建，不能把R0称作优化后版本。
