@@ -251,3 +251,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Bit SHA256：27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B；artifacts/bitstreams/EDGE_QUALITY_V1_R0/camera_to_dsi_display.bit。
 - Build Result：全流程成功、Setup/Hold+0.102/+0.020ns、TNS0；LUT6 16888/FF15402/Slice18263(86.08%)/ERAM39/DSP9。四层512DRAM LUT高于预算，Slice增量1665超过1400目标。
 - Board Test Result：未上板，不推荐烧录。是否保留/下一步：保留bit和全部证据，未选为最终candidate；仅优化等价缓存成对写入，重新验证和构建，不能把R0称作优化后版本。
+
+## EDGE_QUALITY_V1 candidate（2026-10-17，MAIN）
+
+- Version / Git Commit / Git Tag：EDGE_QUALITY_V1；实际构建源码`97858d51c7599a504a733b2302db797207c1ac0e`，归档commit通过`git rev-parse edge-quality-v1-candidate^{commit}`唯一解析；tag edge-quality-v1-candidate，分支codex/main/edge-quality-v1，base712fbb3，PR依赖codex/main/edge-nms-v1/#4/#3，等待Philid14审查。
+- 修改假设/唯一主要变量：在冻结Gaussian/Sobel/NMS后四跳8邻接强锚弱边传播。原值单TH逐点二值化/13拍Edge分支，新值high=TH/low=floor(TH/2)、最多4跳/25拍Edge，Original/config等量对齐；OSD+打包总16→28拍。最终逻辑行数组新增7680bit，实际DRAM增量+0LUT。Sensor/ISP画质、NMS/Gaussian、原图内容、按键/OSD/Logo/CNT、外部链路和时钟约束冻结。
+- Bit SHA-256：`629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5`；路径artifacts/bitstreams/EDGE_QUALITY_V1/camera_to_dsi_display.bit。
+- Build Result：完整Synthesis→Physical Design→Timing Check→bitgen成功；LUT6 16162、FF 15423、Slice 17894 (84.34%)、ERAM 47、DSP 9，Setup/Hold +0.009/+0.020ns、TNS0、端点违例0。既有关键类型保留、无新增关键类型；61项源码匹配、13旧bit加R0及旧归档不变。新联合2699276拍/2024457字、旧NMS回归2264588拍/1698441字、四层独立168500拍/1348000采样层、分类2892采样及旧控制单元通过。
+- Board Test Result：**待用户上板**。合成TH60平均轮廓召回67.28%→74.20%，平坦误检0.0043%→0.028%；没有真实ORIGIN帧，不等于实际眼镜/脸/文字质量改善已确认。TH40可能扩散噪声，零响应/无强锚弱边仍不能恢复，孤立强点仍保留。
+- 是否保留/下一步：保留candidate及原NMS对照，按EDGE_QUALITY_V1_BOARD_TEST同场景分别做同TH及近似相同完整度比较，40/50/60/70/80扫描、至少20次切换/30分钟。R0资源未达目标已保留、未作为最终candidate；首次测试夹具失败已修复，主动中断较宽地址回归后按最终源码统一重跑。停止等待实板，不自动改曝光/VTS、增跳数、换采样密度或合并PR。

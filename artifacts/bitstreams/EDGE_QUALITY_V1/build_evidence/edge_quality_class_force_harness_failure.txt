@@ -1,0 +1,23 @@
+PASS additional quality frozen files 1
+PASS frozen_main: 195 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+Traceback (most recent call last):
+  File "D:\anlogic_formal_project\tests\run_edge_quality_v1.py", line 114, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "D:\anlogic_formal_project\tests\run_edge_quality_v1.py", line 80, in main
+    d=Path(tmp);control.simulate(d,'tb_edge_quality_class',[ROOT/'tests/tb_edge_quality_class.v']+sources)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\anlogic_formal_project\tests\run_edge_control_v1.py", line 63, in simulate
+    raise AssertionError(run.stdout + run.stderr)
+AssertionError: FATAL: D:\anlogic_formal_project\tests\tb_edge_quality_class.v:28: FAIL strong/weak equality th10 j1
+       Time: 76000  Scope: tb_edge_quality_class
+

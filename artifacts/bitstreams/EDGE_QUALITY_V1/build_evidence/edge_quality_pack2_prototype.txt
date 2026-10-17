@@ -1,0 +1,35 @@
+PASS additional quality frozen files 1
+PASS frozen_main: 195 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS actual S5 classification all241 high thresholds, odd/even low floor, keep masking and14bit endpoints sample_checks=2892
+D:\anlogic_formal_project\tests\tb_edge_quality_class.v:34: $finish called at 14516000 (1ps)
+PASS edge_link four independent spatial stage references beats=6916 sample_stage_checks=55328 cycles=8062
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 80706000 (1ps)
+PASS edge_link four independent spatial stage references beats=7348 sample_stage_checks=58784 cycles=8494
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 85026000 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=32 cycles=35613 valid_beats=28676 packed_words=21507 denoise=1 nms=1 depth=15
+D:\anlogic_formal_project\tests\tb_edge_quality_stream.v:110: $finish called at 356216000 (1ps)
+PASS QUALITY=0 64x32 beats=28676 words=21507
+PASS checkpoints_B_C_D stream width=64 height=32 cycles=35625 valid_beats=28676 packed_words=21507 denoise=1 nms=1 depth=27
+D:\anlogic_formal_project\tests\tb_edge_quality_stream.v:110: $finish called at 356336000 (1ps)
+PASS QUALITY=1 64x32 beats=28676 words=21507
+PASS additional quality frozen files 1
+PASS frozen_main: 195 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS EDGE_QUALITY_V1 RTL; real-scene quality and board stability pending

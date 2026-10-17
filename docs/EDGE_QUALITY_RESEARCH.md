@@ -65,3 +65,7 @@ MAIN / TEAM_PROTOCOL_V1，人类确认来源为2026-10-17本轮EDGE_QUALITY_V1�
 源码acf7d444f19ae0dbb8a36a854edc7627f7f8b2ec；日志td_20261017_220454.log/td_20261017_220918.log。Synthesis/Physical/Timing/bitgen完整成功，退出0；LUT6 16888、FF15402、Slice18263(86.08%)、ERAM39、DSP9，Setup/Hold+0.102/+0.020ns、TNS0/违例0。未新增关键类型，但资源超过实现前目标，不作为最终上板candidate。
 
 bit SHA256 `27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B`，保存artifacts/bitstreams/EDGE_QUALITY_V1_R0；tag edge-quality-v1-r0-build唯一解析归档提交。未上板、不推荐烧录。后续只优化存储布局，算法、阈值和延迟不变，重新验证/完整构建。R0并非时序失败；资源未达目标的记录及bit均保留。
+
+## 实现后预算核对
+
+最终路由LUT6 16162、FF 15423、Slice 17894 (84.34%)、ERAM 47、DSP 9；Setup/Hold +0.009/+0.020ns。完整新/旧回归通过，细节见EDGE_QUALITY_V1_VERIFICATION.md及BUILD_INFO。模型只是合成证据，真实质量仍待上板。

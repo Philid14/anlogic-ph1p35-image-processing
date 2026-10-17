@@ -14,13 +14,15 @@ MAIN任务，基线712fbb33cfc5ba8436b96306e1fe443553aa6591。研究提交46c8f1
 ## 可复现入口
 
 ```text
-python -m pip install -r tests/requirements-edge-denoise.txt
+python -m pip install -r tests/requirements-edge-quality.txt
 python tests/edge_quality_model.py
 python tests/run_edge_quality_v1.py --full
 python tests/run_edge_nms_v1.py --full
 ```
 
 原始日志随candidate归档。新测试的golden由独立空间模型产生；每个完整帧230400拍/172800字，边界清黑不减少计数。实际厂商MIPI/AWB/DDR/HDMI PHY未进行全系统仿真。
+
+实际软件环境Python3.12.14、NumPy2.3.5、Matplotlib3.11.2、Pillow12.3.0；单独锁定本轮直接依赖，不改历史requirements。Pillow自带默认字体可能随版本变化，复现文字图和汇总指标时应使用锁定版本。Icarus执行RTL，TD6.2.168116执行正式构建。
 
 ## 开发失败及修正（保留事实）
 
@@ -61,3 +63,48 @@ bit SHA256 `27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B`，
 优化后独立窗口单元已通过64/68/72/76像素行宽，覆盖全部4种打包尾数；分别6916/7348/7780/8212拍、55328/58784/62240/65696采样层检查，共30256拍/242048采样层。分类2892采样和QUALITY0/1小尺寸整链通过。接下来重新完整RGB回归和TD。旧NMS完整回归的acf7d44检查点仍有效：此次只改QUALITY生成分支内的独立缓存模块，该模块未进入旧runner编译/旧默认路径；关闭QUALITY路径源码与R0完全相同，不把旧完整日志冒称为优化后重跑。
 
 随后将存储地址明确为clog2(WORDS)位（正式80word为7位），增加1280行宽逐层单元以覆盖全部80word及高端地址。61f7ebe较宽地址版本的完整回归在尚未完成宽幅用例时主动中断，保留日志，未判定功能失败、未生成bit；以最终源码重新统一执行完整回归，避免混合不同源码检查点。计数归纳保证x只在0..GROUPS−1，地址收窄不改变可达帧数据，最终仍以实际测试为证。
+
+## 最终源码97858d5的完整回归与映射核对
+
+实际源码`97858d51c7599a504a733b2302db797207c1ac0e`，完整runner退出0。联合RGB四组计数与上表完全相同，合计2699276拍/2024457字；四完整720p帧/实际ISP/打包通过。新增1280行宽单元138244拍/1105952采样层检查，连同四种尾数合计**168500拍/1348000采样层检查**；分类2892采样通过。由此对最终源码重新统一确认，不依赖中断的61f7ebe回归。
+
+最终源码完成全量独立模块、实际生产行宽及小尺寸整链后，综合与余下宽幅/720p回归并行；布局布线等待完整回归通过后开始。综合日志td_20261017_223119.log，无ERROR/声明顺序警告，四层AUTO实际映射8ERAM/0DRAM LUT，尚须看最终路由的整机资源。
+
+针对新ERAM同地址读写风险，另从该实际gate.db导出网表并逐个核对8个新缓存primitive：四个row1为单口READBEFOREWRITE，匹配RTL在最后一拍读旧字同时写新字；四个row2分离读写端口NORMAL，稳态读新word时写前一个word。中断帧边界即使发生同地址冲突，前14行/左28像素拒绝其数据。检查保存ERAM_MAPPING_CHECK.json和QUALITY_ERAM_MAPPING.v.txt，包含导出网表SHA与模式/连接摘录，不提交32MB完整网表。此项是网表配置核对，不冒称门级功能仿真或实际ERAM上板测试。
+
+## 最终TD结果补录（2026-10-17）
+
+实际构建源码`97858d51c7599a504a733b2302db797207c1ac0e`，研究检查点46c8f18；最终综合日志td_20261017_223119.log，物理/最终时序/bitgen日志td_20261017_224134.log。两个进程退出0、无ERROR、无新增声明顺序警告。源码提交后只修改文档，不修改硬件输入。
+
+| 路由后 | EDGE_NMS_V1 | EDGE_QUALITY_V1 | 增量 |
+|---|---:|---:|---:|
+| LUT6 |15206|16162|+956|
+| FF |15018|15423|+405|
+| Slice |16598 (78.23%)|17894 (84.34%)|+1296|
+| ERAM20K |39|47|+8|
+| DSP |9|9|+0|
+| Setup WNS(ns) |+0.101|+0.009| |
+| Hold WNS(ns) |+0.020|+0.020| |
+
+全设计DRAM LUT 1256（旧1256，增量+0），shifter LUT 176（旧168），F7MUX 112（旧112）。四个连接层级合计逻辑LUT 232、ripple 0、FF 390、ERAM 8、DSP 0、DRAM LUT 0、shifter 0、F7MUX 0。完整层级行保留：
+
+```text
+|        g_quality$g_hop[0]$u_link                                |edge_link_pair_3x3                             |60        |0       |94      |2       |0       |0        |0           |0       |0       |0       |0       |
+|        g_quality$g_hop[1]$u_link                                |edge_link_pair_3x3                             |59        |0       |103     |2       |0       |0        |0           |0       |0       |0       |0       |
+|        g_quality$g_hop[2]$u_link                                |edge_link_pair_3x3                             |58        |0       |98      |2       |0       |0        |0           |0       |0       |0       |0       |
+|        g_quality$g_hop[3]$u_link                                |edge_link_pair_3x3                             |55        |0       |95      |2       |0       |0        |0           |0       |0       |0       |0       |
+```
+
+R0完整两位标签数组10240bit、四层512 DRAM LUT；最终四拍打包、顶行只存active，逻辑容量7680bit、地址明确7位。实际RAM LUT必须按报告判断。R0路由LUT6 16888/FF15402/Slice18263(86.08%)，最终相对R0分别-726/+21/-369，四层DRAM变化-512。全设计增量还包括Original/配置12拍对齐及工具重映射，不能仅用四个模块的FF/LUT解释总增量。实现前预算保留在研究文档，不事后改成实测值。
+
+最差Setup在HDMI_PIXEL_CLK，Begin `u_hdmi_mixer/mult0_syn_59.clk (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })`，End `u_hdmi_mixer/O_hdmi_data_reg[15]_syn_2.id (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })`，Data Path Delay 12.952ns (cell 5.592ns (43%), net 7.360ns (57%))。Setup/Hold TNS0、违例端点0，STA覆盖96.11%；完整final_timing.rpt已归档，可核对所有时钟域。SDC/PLL/异步分组保持。既有PHY-5060混合扇出、PHY-5079局部时钟路由、旧RAM_STYLE AUTO和厂商加密DDR latch warning仍保留，无新增关键类型，不声称零warning。
+
+bit SHA256 `629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5`。全部61实际TD输入与实际源码提交匹配（仅Git文本换行归一）；13个NMS及以前旧bit和本轮R0共14个bit字节一致，全部历史BUILD_INFO/报告未改。SOURCE_MANIFEST、PREVIOUS_BITS_UNCHANGED、FINAL_CHECKS、实际settings、完整flow/STA及RTL原始输出随bit归档。R0时序通过但资源未达目标，bit/报告/tag完整保留；此前分类夹具失败及主动中断回归的原始输出明确标记并保留。用户Edge照片仅保存文件指纹/类型记录，不将其当RGB研究输入。
+
+最终candidate仅等待人类审查和实板验收，实际连续性/噪声折中未确认。合成对照支持受限收益：TH60召回提高、误检也提高；TH40可能沿噪声扩散，不能只宣传优点。公平测试需同门限及相近完整度两种口径，并核对原图/按键/OSD/视频长稳。停止本轮，不自动扩展下一版本。
+
+### 最终预算与时序裕量判断
+
+最终相对NMS LUT6+956、FF+405、Slice+1296，满足实现前约1200/1800/1400增量预算及约85%Slice目标。ERAM增加8块（39→47/108），以空余块RAM换取Slice资源；7680bit是逻辑数据容量，不能用它掩盖实际占用8个ERAM20K块。剩余3322Slice、61ERAM块，不能保证未来任意算法都能放入。
+
+Setup最差+0.009ns比NMS+0.101ns更紧，路径仍是冻结HDMI mixer；MIPI_RX_BYTE_CLK本域Setup+3.353ns。slow/fast setup/hold均检查通过、无端点违例，但不能把9ps余量描述为宽裕或把STA通过当作长期上板稳定。未为提高数字而修改冻结HDMI/PLL/SDC、降低视频规格或忽略违例。该限制列入候选审查和实板验收，先完成当前候选，不自行进入另一版HDMI优化。

@@ -1,0 +1,64 @@
+{
+  "source_commit": "97858d51c7599a504a733b2302db797207c1ac0e",
+  "exported_gate_netlist_sha256": "598fc106bdc1382fbbac9eca45747163c904d465e8482fe149d12ea8db2ac8e2",
+  "count": 8,
+  "records": [
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[0]$u_link/ramread0_syn_22_80x8",
+      "logical_depth": 80,
+      "logical_width": 8,
+      "write_mode_a": "NORMAL",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[0]$u_link/ramread1_syn_23_80x16",
+      "logical_depth": 80,
+      "logical_width": 16,
+      "write_mode_a": "READBEFOREWRITE",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[1]$u_link/ramread0_syn_22_80x8",
+      "logical_depth": 80,
+      "logical_width": 8,
+      "write_mode_a": "NORMAL",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[1]$u_link/ramread1_syn_23_80x16",
+      "logical_depth": 80,
+      "logical_width": 16,
+      "write_mode_a": "READBEFOREWRITE",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[2]$u_link/ramread0_syn_22_80x8",
+      "logical_depth": 80,
+      "logical_width": 8,
+      "write_mode_a": "NORMAL",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[2]$u_link/ramread1_syn_23_80x16",
+      "logical_depth": 80,
+      "logical_width": 16,
+      "write_mode_a": "READBEFOREWRITE",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[3]$u_link/ramread0_syn_22_80x8",
+      "logical_depth": 80,
+      "logical_width": 8,
+      "write_mode_a": "NORMAL",
+      "write_mode_b": "NORMAL"
+    },
+    {
+      "instance": "u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[3]$u_link/ramread1_syn_23_80x16",
+      "logical_depth": 80,
+      "logical_width": 16,
+      "write_mode_a": "READBEFOREWRITE",
+      "write_mode_b": "NORMAL"
+    }
+  ],
+  "result": "PASS: all4 row1 SP old-data reads explicitly READBEFOREWRITE; all4 row2 separate read/write ports NORMAL; not gate-level simulation"
+}
