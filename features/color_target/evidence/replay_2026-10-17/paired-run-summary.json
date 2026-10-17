@@ -1,0 +1,77 @@
+{
+  "schema": 1,
+  "manifests": [
+    {
+      "label": "primary",
+      "sha256": "f993180559f4e0b9046bb09fdd59ce32c6f7e83737f490c75e2e8ca9c91499a6"
+    }
+  ],
+  "camera_material_used": false,
+  "parameters": {
+    "target_class": 0,
+    "hue_half_width_deg": 30,
+    "c_min": 24,
+    "v_min": 32,
+    "min_count": 4
+  },
+  "quality_note": "Synthetic controls establish mechanism correctness only; camera policy reserved",
+  "declared_unique_rgb_frames": 23,
+  "results": [
+    {
+      "mode": "bypass-64x48",
+      "width": 64,
+      "height": 48,
+      "input_cycles": 76241,
+      "accepted_pixels": 193540,
+      "result_events": 62,
+      "track_events": 61,
+      "display_probes": 18276,
+      "legacy_results_compared": 59,
+      "cancelled_frames": 2,
+      "event_sha256": "aa0d18099c62e12d70ef9e36a4ae102bc8b71df4f0fb9cd62a0c998fb9bcf3db",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 64,
+          "annotated": 60,
+          "unknown": 4,
+          "evaluated_frames": 51,
+          "excluded_known_frames": 9,
+          "positive_frames": 44,
+          "negative_frames": 7,
+          "misses": 3,
+          "false_positives": 4,
+          "mean_positive_iou": 0.7985647638177931,
+          "center_l1_p95": 112
+        }
+      }
+    },
+    {
+      "mode": "support3-64x48",
+      "width": 64,
+      "height": 48,
+      "input_cycles": 76241,
+      "accepted_pixels": 193540,
+      "result_events": 61,
+      "track_events": 61,
+      "display_probes": 18276,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 3,
+      "event_sha256": "aa7a66b890450a74760a3483275fdacf50dca8e140d038caf6f0b419c2658925",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 64,
+          "annotated": 60,
+          "unknown": 4,
+          "evaluated_frames": 50,
+          "excluded_known_frames": 10,
+          "positive_frames": 43,
+          "negative_frames": 7,
+          "misses": 3,
+          "false_positives": 4,
+          "mean_positive_iou": 0.9186046511627907,
+          "center_l1_p95": 112
+        }
+      }
+    }
+  ]
+}

@@ -81,8 +81,18 @@ module color_classify #(
     // 原实现把 60/W 预先合并成 Q8 斜率，斜率随 W 变小而变大（W=10 时 255*1536 = 391680
     // 需要 19 位），却固定用 18 位承载，于是小半宽下乘积被截断、判据失效 ——
     // 例如 W=10、RGB=(255,200,0) 实际色相 47 度，却被误判为红色。
-    wire [13:0] hue_lhs = diff_abs * 60;
-    wire [13:0] hue_rhs = chroma * W_DEG[7:0];
+    // Spell out constant shifts/adds. TD 6.2 mapped the multiplication form
+    // to two DSPs per lane in the standalone RGB harness, despite constants.
+    wire [13:0] diff_wide = {6'b0,diff_abs};
+    wire [13:0] c_wide = {5'b0,chroma};
+    wire [13:0] hue_lhs = (diff_wide << 6) - (diff_wide << 2);
+    wire [13:0] c0 = W_DEG[0] ? c_wide : 14'b0;
+    wire [13:0] c1 = W_DEG[1] ? (c_wide << 1) : 14'b0;
+    wire [13:0] c2 = W_DEG[2] ? (c_wide << 2) : 14'b0;
+    wire [13:0] c3 = W_DEG[3] ? (c_wide << 3) : 14'b0;
+    wire [13:0] c4 = W_DEG[4] ? (c_wide << 4) : 14'b0;
+    wire [13:0] c5 = W_DEG[5] ? (c_wide << 5) : 14'b0;
+    wire [13:0] hue_rhs = ((c0+c1)+(c2+c3))+(c4+c5);
 
     assign O_hit = sel_max
                 && (hue_lhs <= hue_rhs)

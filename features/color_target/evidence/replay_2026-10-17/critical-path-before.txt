@@ -1,0 +1,18 @@
+Max Paths
+----------------------------------------------------------------------------------------------------
+Slack               : -3.157ns
+Begin Point         : dut/u_filter/O_pixel_valid_reg.clk (rising edge triggered by clock replay_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })
+End Point           : dut/u_stats/O_center_x_reg[10].d (rising edge triggered by clock replay_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })
+Check Type          : setup
+Process             : slow_125c
+Budget              : 10.000ns { replay_test_clk rising@10.000ns - replay_test_clk rising@0.000ns }
+Data Path Delay     : 13.093ns (cell 5.759ns (43%), net 7.334ns (57%))
+Clock Skew          : 0.000ns
+Logic Level         : 16 ( ADDER=10  LUT4=4  LUT3=1  LUT2=1 )
+Max Fanout          : 73
+Clock Uncertainty   : 0.000ns (sdc uncertainty: 0.000ns, default uncertainty: 0.000ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000
+port                                    0.000          0.000          pin: clk
