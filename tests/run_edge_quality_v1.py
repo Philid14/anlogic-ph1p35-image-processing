@@ -78,8 +78,8 @@ def main():
     sources=[HDL/'isp/edge_detect_96.v',HDL/'isp/gaussian_pair_3x3.v',HDL/'isp/nms_gradient_pair_3x3.v',HDL/'isp/edge_link_pair_3x3.v']
     with tempfile.TemporaryDirectory(prefix='quality-unit-') as tmp:
         d=Path(tmp);control.simulate(d,'tb_edge_quality_class',[ROOT/'tests/tb_edge_quality_class.v']+sources)
-        for width in (64,68,72,76):
-            # 16/17/18/19 beats per row cover every packed-word remainder.
+        for width in (64,68,72,76,1280):
+            # All packed-word remainders plus all80 actual production addresses.
             stim,beats=unit_vectors(d,width)
             result=control.simulate(d,'tb_edge_link_pair',[ROOT/'tests/tb_edge_link_pair.v',sources[-1]],
                 params=[f'-Ptb_edge_link_pair.W={width}'],plus=[f'+STIM={stim.as_posix()}'])

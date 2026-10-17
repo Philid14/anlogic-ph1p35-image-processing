@@ -14,6 +14,7 @@ module edge_link_pair_3x3 #(
 );
     localparam GROUPS=IMG_WIDTH/4;
     localparam WORDS=(GROUPS+3)/4;
+    localparam ADDR_BITS=(WORDS>1) ? $clog2(WORDS):1;
     reg [2:0] valid_p,user_p,last_p;
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin valid_p<=0;user_p<=0;last_p<=0;end
@@ -50,6 +51,8 @@ module edge_link_pair_3x3 #(
     reg [11:0] pending;
     reg [3:0] bot_s2;
     reg [10:0] x_s2,y_s2;
+    wire [ADDR_BITS-1:0] read_address=x_s1[ADDR_BITS+1:2];
+    wire [ADDR_BITS-1:0] copy_address=x_s2[ADDR_BITS+1:2];
     wire [3:0] mid_s2=(mid_word_s2 >> (4*(3-x_s2[1:0])));
     wire [1:0] top_active=(top_word_s2 >> (2*(3-x_s2[1:0])));
     wire [3:0] top_s2={1'b0,top_active[1],1'b0,top_active[0]};
@@ -58,12 +61,12 @@ module edge_link_pair_3x3 #(
         ({pending,labels_s1} << (4*(3-x_s1[1:0])));
     always @(posedge clk) begin
         if(valid_p[0]) begin
-            top_word_s2<=row2[x_s1[10:2]];mid_word_s2<=row1[x_s1[10:2]];bot_s2<=labels_s1;
+            top_word_s2<=row2[read_address];mid_word_s2<=row1[read_address];bot_s2<=labels_s1;
             pending<={pending[7:0],labels_s1};
-            if(x_s1[1:0]==3 || ((GROUPS%4!=0) && x_s1==GROUPS-1)) row1[x_s1[10:2]]<=assembled;
+            if(x_s1[1:0]==3 || ((GROUPS%4!=0) && x_s1==GROUPS-1)) row1[read_address]<=assembled;
         end
         if(valid_p[1] && (x_s2[1:0]==3 || ((GROUPS%4!=0) && x_s2==GROUPS-1)))
-            row2[x_s2[10:2]]<={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
+            row2[copy_address]<={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
                               mid_word_s2[6],mid_word_s2[4],mid_word_s2[2],mid_word_s2[0]};
     end
     always @(posedge clk or negedge rst_n) begin
