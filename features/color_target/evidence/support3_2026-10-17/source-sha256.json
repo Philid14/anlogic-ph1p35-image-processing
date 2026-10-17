@@ -1,0 +1,20 @@
+{
+  "source_normalized_lf": {
+    "rtl/color_target_support3.v": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+    "tb/tb_color_target_support3.v": "19561e8d2c7e130be233988e5f925c9426f6b9c7253457269bfd18b9ace8c07f",
+    "model/ref_color_target_support3.py": "ab11e205bd2eff969a11479be0c12b5d6ce33d62a7281070e2edde6ae507bb88",
+    "run_color_target_support3.py": "b3bbde0b2bd591b57f329cd16af9358e8c1b391ee04e43ae82e5942988db2577",
+    "tools/support3_synth_top.v": "4f48b11730ee71feab9bcb71c0de04fcdf11ce31cbeb9daf244f566af59a8fa7",
+    "tools/synth_support3.tcl": "408b3018c8a82fc7d3404941797e54281e3ee1e417173735356f8678be78abae"
+  },
+  "vendor_raw_bytes": {
+    "common/al_map_lut.v": "a8af44de361088c0bb66a58d5af9b8eb5aa6e9b8ca56992d6164a9f689c488f0",
+    "common/al_map_seq.v": "484d26a861f1243ab949873529c45dc2d545571af47a348249fa7b01b1500c50",
+    "common/al_phy_glbl.v": "c194f5335b54a6d707a8b633b8f4d3a171e52006337600f7433379b11fb3b2ff",
+    "ph1p/ph1p_phy_gsr.v": "787312a19b4007bef3b76986bce267966b2d04c1871290ce29905629e38f1524",
+    "ph1p/ph1p_phy_config_v2.v": "c1c2510f148eebbbc5e994e339d18a3a129329b43b7d74960374b17c198a61cb",
+    "ph1p/ph1p_phy_eram_v2.v": "231c1d717574b308531666c6db18c27900e54ef1eb00faa8f253d2d07b1a905e",
+    "ph1p/ph1p_phy_hd_pad.v": "99d5caf12fad27694aaf99270a6705ee6904ed27e5eccd20f2009e20ec4f9200",
+    "ph1p/ph1p_phy_hr_pad_v2.v": "68bca4ef00e4fce9a0d956ba18c4ac864d6f22ba1f3bcedd46204974c156cc10"
+  }
+}

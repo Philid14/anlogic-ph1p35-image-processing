@@ -16,6 +16,10 @@
 |---|---|
 | `rtl/color_classify.v` | 单像素颜色分类（HSV 扇区法，无除法器） |
 | `rtl/color_target_detect.v` | 检测顶层：4 路并行分类 + 帧内统计 + 帧末原子锁存 |
+| `rtl/color_target_support3.v` | 候选 A：默认旁路的独立 4PPC 二值中心支持过滤；未接入检测器 |
+| `SUPPORT3.md` | 原型接口、两行 RAM/无消隐帧尾结算、限制与复现 |
+| `model/ref_color_target_support3.py` | 不复制 RTL 调度器的帧集合 oracle |
+| `tb/tb_color_target_support3.v` / `run_color_target_support3.py` | 四个 lane 对齐的 512 邻域穷举、完整帧、默认旁路和原语网表自检 |
 | `rtl/color_target_overlay.v` | 标注模块（T3）：框线 + 中心十字的覆盖请求，纯组合、不加流水级 |
 | `rtl/color_target_text_overlay.v` | **文字标注**：坐标 + 像素数 + 状态的文字块（T3 的文字部分），区域参数化、不实例化字库 |
 | `model/ref_color_target.py` | 位精确 Python 参考模型（与检测 RTL 逐拍等价） |
@@ -59,6 +63,8 @@ python features/color_target/run_color_target.py --full     # 追加一个完整
 python features/color_target/run_color_target_overlay.py
 python features/color_target/run_color_target_text_overlay.py     # 文字标注（默认用主线真字库）
 python features/color_target/run_color_target_text_updates.py     # 忙时更新、复位和整组发布
+python features/color_target/run_color_target_support3.py         # 独立候选 A；不改变现有检测行为
+python features/color_target/run_color_target_support3.py --geometry 1280x720
 python features/color_target/run_color_target_track.py
 python features/color_target/run_color_target_chain.py
 python features/color_target/render_color_target_frames.py --out <目录>   # 渲染 10 帧 PNG

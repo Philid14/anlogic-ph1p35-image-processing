@@ -208,3 +208,10 @@ python features/color_target/research/compare_mask_routes.py --out <空输出目
 
 当前推荐是先执行 A 的数据验证，同时把 B 的两个未解决反例作为下一研究主线。
 接口确认属于 MAIN，不阻碍 TARGET 继续做独立数据模型与候选验证。
+
+### 2026-10-17 执行更新：候选 A
+
+已增加默认旁路的独立 `color_target_support3` RTL、集合 oracle、4PPC/帧尾自检与 TD 测试架，
+详见 [SUPPORT3.md](../SUPPORT3.md) 和 [验证记录](../evidence/support3_2026-10-17/VALIDATION.md)。
+它没有接入旧检测器或主线。可综合/持续吞吐证据不改变本报告关于细目标损失、
+噪团残留及真实 RGB 数据缺失的结论；A 仍不默认启用，B/C 未实现。
