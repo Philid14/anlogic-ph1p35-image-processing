@@ -585,7 +585,7 @@ assign S_raw_tuser  = S_axis_tuser;
 
 
 //ISP算法顶层模块
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1)) u_isp_top (
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_edge_config   (S_edge_received_config),
 .I_rst_n         (S_rst_n),

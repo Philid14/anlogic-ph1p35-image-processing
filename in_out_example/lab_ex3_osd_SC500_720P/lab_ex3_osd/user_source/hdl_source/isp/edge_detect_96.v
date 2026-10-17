@@ -3,14 +3,17 @@
 // Keep its pair-averaged luminance, Sobel kernel and duplicated binary output.
 // 1280 output pixels represent 640 horizontal Sobel samples, not 1280 kernels.
 // Five Sobel stages, optional four-stage Gaussian and four-stage gradient NMS.
-// Early SOF and non-stalling semantics. See EDGE_NMS_V1_DESIGN.md.
+// Optional QUALITY path adds four bounded boolean hops, three stages each.
+// Early SOF and non-stalling semantics. See EDGE_QUALITY_V1_DESIGN.md.
 module edge_detect_96 #(
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
     parameter [13:0] EDGE_TH = 14'd80,
     parameter integer RUNTIME_THRESHOLD = 0,
     parameter integer DENOISE_ENABLE = 0,
-    parameter integer NMS_ENABLE = 0
+    parameter integer NMS_ENABLE = 0,
+    parameter integer QUALITY_ENABLE = 0,
+    parameter integer QUALITY_HOPS = 4
 )(
     input I_clk,
     input I_rst_n,
@@ -21,7 +24,7 @@ module edge_detect_96 #(
     output I_tready,
     output O_tlast,
     output O_tuser,
-    output reg [95:0] O_tdata,
+    output [95:0] O_tdata,
     output O_tvalid,
     input O_tready,
     input [7:0] I_threshold
@@ -62,6 +65,9 @@ module edge_detect_96 #(
 
     reg [4:0] valid_p, user_p, last_p;
     reg nms_valid_d,nms_user_d,nms_last_d;
+    reg [95:0] legacy_rgb;
+    wire quality_valid,quality_user,quality_last;
+    wire [95:0] quality_rgb;
     reg [7:0] threshold_p [0:3];
     integer th_stage;
     always @(posedge I_clk or negedge I_rst_n) begin
@@ -80,9 +86,10 @@ module edge_detect_96 #(
                 threshold_p[th_stage] <= threshold_p[th_stage-1];
         end
     end
-    assign O_tvalid = NMS_ENABLE ? nms_valid_d : valid_p[4];
-    assign O_tuser = NMS_ENABLE ? nms_user_d : user_p[4];
-    assign O_tlast = NMS_ENABLE ? nms_last_d : last_p[4];
+    assign O_tvalid = (QUALITY_ENABLE && NMS_ENABLE) ? quality_valid : (NMS_ENABLE ? nms_valid_d : valid_p[4]);
+    assign O_tuser = (QUALITY_ENABLE && NMS_ENABLE) ? quality_user : (NMS_ENABLE ? nms_user_d : user_p[4]);
+    assign O_tlast = (QUALITY_ENABLE && NMS_ENABLE) ? quality_last : (NMS_ENABLE ? nms_last_d : last_p[4]);
+    assign O_tdata = (QUALITY_ENABLE && NMS_ENABLE) ? quality_rgb : legacy_rgb;
 
     // S1: one word per four RGB pixels. Count only valid beats; SOF also
     // resets counters when it arrives before the AWB delayed pixels.
@@ -235,12 +242,41 @@ module edge_detect_96 #(
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             mag0_s4 <= 0; mag1_s4 <= 0; window_s4 <= 0;
-            O_tdata <= 0;
+            legacy_rgb <= 0;
         end else begin
             mag0_s4 <= {1'b0,abs13(gx0_s3)} + {1'b0,abs13(gy0_s3)};
             mag1_s4 <= {1'b0,abs13(gx1_s3)} + {1'b0,abs13(gy1_s3)};
             window_s4 <= window_s3;
-            O_tdata <= (NMS_ENABLE ? nms_valid : valid_p[3]) ? {edge0,edge0,edge1,edge1} : 96'd0;
+            legacy_rgb <= (NMS_ENABLE ? nms_valid : valid_p[3]) ? {edge0,edge0,edge1,edge1} : 96'd0;
         end
     end
+    // Existing S5 becomes strong/weak classification for QUALITY only.
+    // THRESHOLD OSD is the high threshold; low=floor(high/2). No sensor writes.
+    generate if(QUALITY_ENABLE && NMS_ENABLE) begin : g_quality
+        reg [3:0] classified;
+        wire [3:0] labels[0:QUALITY_HOPS];
+        wire [QUALITY_HOPS:0] qv,qu,ql;
+        wire [13:0] low_threshold={1'b0,nms_threshold[13:1]};
+        always @(posedge I_clk or negedge I_rst_n) begin
+            if(!I_rst_n) classified<=0;
+            else classified<={nms_keep[1] && nms_magnitude[27:14]>=low_threshold,
+                              nms_keep[1] && nms_magnitude[27:14]>=nms_threshold,
+                              nms_keep[0] && nms_magnitude[13:0]>=low_threshold,
+                              nms_keep[0] && nms_magnitude[13:0]>=nms_threshold};
+        end
+        assign labels[0]=classified;assign qv[0]=nms_valid_d;
+        assign qu[0]=nms_user_d;assign ql[0]=nms_last_d;
+        genvar hop;
+        for(hop=0;hop<QUALITY_HOPS;hop=hop+1) begin : g_hop
+            edge_link_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+                .INPUT_BORDER((DENOISE_ENABLE ? 6:4)+2*hop)) u_link (
+                .clk(I_clk),.rst_n(I_rst_n),.I_labels(labels[hop]),
+                .I_valid(qv[hop]),.I_user(qu[hop]),.I_last(ql[hop]),
+                .O_labels(labels[hop+1]),.O_valid(qv[hop+1]),.O_user(qu[hop+1]),.O_last(ql[hop+1]));
+        end
+        assign quality_valid=qv[QUALITY_HOPS];assign quality_user=qu[QUALITY_HOPS];assign quality_last=ql[QUALITY_HOPS];
+        assign quality_rgb=quality_valid ? {{48{labels[QUALITY_HOPS][2]}},{48{labels[QUALITY_HOPS][0]}}}:96'd0;
+    end else begin : g_no_quality
+        assign quality_valid=0;assign quality_user=0;assign quality_last=0;assign quality_rgb=0;
+    end endgenerate
 endmodule

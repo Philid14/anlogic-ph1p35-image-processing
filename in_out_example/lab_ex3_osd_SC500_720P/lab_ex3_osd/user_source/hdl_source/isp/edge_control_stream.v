@@ -6,7 +6,9 @@ module edge_control_stream #(
     parameter integer IMG_HEIGHT = 720,
     parameter integer OSD_ENABLE = 1,
     parameter integer DENOISE_ENABLE = 0,
-    parameter integer NMS_ENABLE = 0
+    parameter integer NMS_ENABLE = 0,
+    parameter integer QUALITY_ENABLE = 0,
+    parameter integer QUALITY_HOPS = 4
 )(
     input clk, input rst_n,
     input [8:0] requested_config,
@@ -14,7 +16,8 @@ module edge_control_stream #(
     output [95:0] O_data, output O_valid, output O_user, output O_last,
     output I_ready, input O_ready
 );
-    localparam EDGE_STAGES = (DENOISE_ENABLE ? 9 : 5) + (NMS_ENABLE ? 4 : 0);
+    localparam EDGE_STAGES = (DENOISE_ENABLE ? 9 : 5) + (NMS_ENABLE ? 4 : 0)
+        + ((QUALITY_ENABLE && NMS_ENABLE) ? 3*QUALITY_HOPS : 0);
     reg [8:0] active_config;
     wire [8:0] beat_config = I_user ? requested_config : active_config;
     always @(posedge clk or negedge rst_n) begin
@@ -43,7 +46,7 @@ module edge_control_stream #(
     end
     wire [95:0] edge_data;
     edge_detect_96 #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
-                     .RUNTIME_THRESHOLD(1), .DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE)) u_edge (
+                     .RUNTIME_THRESHOLD(1), .DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS)) u_edge (
         .I_clk(clk), .I_rst_n(rst_n), .I_tdata(I_data), .I_tvalid(I_valid),
         .I_tuser(I_user), .I_tlast(I_last), .I_threshold(beat_config[7:0]),
         .I_tready(I_ready), .O_tready(O_ready), .O_tdata(edge_data),
