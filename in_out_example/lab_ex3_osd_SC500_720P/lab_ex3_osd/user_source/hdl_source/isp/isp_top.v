@@ -13,7 +13,7 @@ module isp_top #(
     parameter integer RELIABILITY_ENABLE = 0
 ) (
     input 			axi4s_video_aclk,
-    input [8:0] I_edge_config,
+    input [17:0] I_edge_config,
     input [31:0] I_fifo_event_counts,
     input 			I_rst_n			,
     input 			I_tlast			,

@@ -50,8 +50,12 @@ module edge_key_control #(
     parameter integer LONG_CYCLES = 16800000
 )(
     input clk, input rst_n, input [1:0] keys_n,
-    output reg [8:0] requested_config
+    output reg [17:0] requested_config
 );
+    localparam [1:0] MODE_ORIGIN = 2'b00;
+    localparam [1:0] MODE_GRAY   = 2'b01;
+    localparam [1:0] MODE_BINARY = 2'b10;
+    localparam [1:0] MODE_EDGE   = 2'b11;
     wire mode_press, threshold_short, threshold_long;
     edge_key_event #(.DEBOUNCE_CYCLES(DEBOUNCE_CYCLES), .LONG_CYCLES(LONG_CYCLES)) u_mode (
         .clk(clk), .rst_n(rst_n), .key_n(keys_n[0]),
@@ -62,15 +66,34 @@ module edge_key_control #(
         .press(), .short_release(threshold_short), .long_press(threshold_long)
     );
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) requested_config <= {1'b1,8'd80};
+        if (!rst_n) requested_config <= {MODE_EDGE,8'd80,8'd130};
         else begin
-            if (mode_press) requested_config[8] <= !requested_config[8];
-            if (threshold_short)
-                requested_config[7:0] <= (requested_config[7:0] > 8'd20)
-                    ? requested_config[7:0]-8'd10 : 8'd10;
-            else if (threshold_long)
-                requested_config[7:0] <= (requested_config[7:0] < 8'd240)
-                    ? requested_config[7:0]+8'd10 : 8'd250;
+            // K3 advances EDGE(11) -> ORIGIN(00) -> GRAY(01) -> BINARY(10).
+            // A two-bit increment wraps naturally and cannot enter an illegal mode.
+            if (mode_press) requested_config[17:16] <= requested_config[17:16] + 2'b01;
+            // K4 edits only the threshold belonging to the current mode.
+            // ORIGIN and GRAY ignore both short and long events.
+            if (threshold_short) begin
+                case (requested_config[17:16])
+                    MODE_BINARY:
+                        requested_config[7:0] <= (requested_config[7:0] > 8'd20)
+                            ? requested_config[7:0]-8'd10 : 8'd10;
+                    MODE_EDGE:
+                        requested_config[15:8] <= (requested_config[15:8] > 8'd20)
+                            ? requested_config[15:8]-8'd10 : 8'd10;
+                    default: ;
+                endcase
+            end else if (threshold_long) begin
+                case (requested_config[17:16])
+                    MODE_BINARY:
+                        requested_config[7:0] <= (requested_config[7:0] < 8'd240)
+                            ? requested_config[7:0]+8'd10 : 8'd250;
+                    MODE_EDGE:
+                        requested_config[15:8] <= (requested_config[15:8] < 8'd240)
+                            ? requested_config[15:8]+8'd10 : 8'd250;
+                    default: ;
+                endcase
+            end
         end
     end
 endmodule

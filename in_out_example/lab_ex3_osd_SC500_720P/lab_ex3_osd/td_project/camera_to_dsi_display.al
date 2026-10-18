@@ -339,6 +339,14 @@
                     <Attr Name="CompileOrder" Val="56"/>
                 </FileInfo>
             </File>
+            <File Path="../user_source/hdl_source/isp/rgb_effects_96.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="57"/>
+                </FileInfo>
+            </File>
             <File Path="../user_source/hdl_source/isp/gaussian_pair_3x3.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>

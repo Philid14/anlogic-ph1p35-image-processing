@@ -12,7 +12,7 @@ module edge_status_osd #(
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
-    input [8:0] I_config,
+    input [17:0] I_config,
     input [31:0] I_fifo_event_counts,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
@@ -55,7 +55,10 @@ module edge_status_osd #(
             decimal3={hundreds,tens,remainder[3:0]};
         end
     endfunction
-    wire [11:0] digits = decimal3(I_config[7:0]);
+    wire [1:0] mode = I_config[17:16];
+    wire [7:0] active_threshold = (mode==2'b10) ? I_config[7:0] : I_config[15:8];
+    wire threshold_applicable = (mode==2'b10) || (mode==2'b11);
+    wire [11:0] digits = decimal3(active_threshold);
     reg [31:0] fifo_frame;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)fifo_frame<=0;else if(I_user)fifo_frame<=I_fifo_event_counts;
@@ -80,12 +83,22 @@ module edge_status_osd #(
             case (char_column)
                 0: character="M"; 1: character="O"; 2: character="D";
                 3: character="E"; 4: character=":";
-                6: character=I_config[8] ? "E" : "O";
-                7: character=I_config[8] ? "D" : "R";
-                8: character=I_config[8] ? "G" : "I";
-                9: character=I_config[8] ? "E" : "G";
-                10: character=I_config[8] ? " " : "I";
-                11: character=I_config[8] ? " " : "N";
+                6: character=(mode==2'b00) ? "O" :
+                             (mode==2'b01) ? "G" :
+                             (mode==2'b10) ? "B" : "E";
+                7: character=(mode==2'b00) ? "R" :
+                             (mode==2'b01) ? "R" :
+                             (mode==2'b10) ? "I" : "D";
+                8: character=(mode==2'b00) ? "I" :
+                             (mode==2'b01) ? "A" :
+                             (mode==2'b10) ? "N" : "G";
+                9: character=(mode==2'b00) ? "G" :
+                             (mode==2'b01) ? "Y" :
+                             (mode==2'b10) ? "A" : "E";
+                10: character=(mode==2'b00) ? "I" :
+                              (mode==2'b10) ? "R" : " ";
+                11: character=(mode==2'b00) ? "N" :
+                              (mode==2'b10) ? "Y" : " ";
                 default: character=" ";
             endcase
         end else if (row1) begin
@@ -94,9 +107,9 @@ module edge_status_osd #(
                 3: character="E"; 4: character="S"; 5: character="H";
                 6: character="O"; 7: character="L"; 8: character="D";
                 9: character=":";
-                11: character=8'h30+{4'd0,digits[11:8]};
-                12: character=8'h30+{4'd0,digits[7:4]};
-                13: character=8'h30+{4'd0,digits[3:0]};
+                11: character=threshold_applicable ? 8'h30+{4'd0,digits[11:8]} : " ";
+                12: character=threshold_applicable ? 8'h30+{4'd0,digits[7:4]} : " ";
+                13: character=threshold_applicable ? 8'h30+{4'd0,digits[3:0]} : " ";
                 default: character=" ";
             endcase
         end
