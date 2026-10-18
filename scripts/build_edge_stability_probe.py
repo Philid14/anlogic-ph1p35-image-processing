@@ -39,7 +39,8 @@ def main():
         output=tmp/('probe_'+run+'_stdout.txt')
         print('START',run,commit,flush=True)
         with output.open('wb') as f:
-            result=subprocess.run([str(exe),str(script)],cwd=directory,stdin=subprocess.DEVNULL,stdout=f,stderr=subprocess.STDOUT)
+            # TD parses its argv as Tcl: backslash paths lose their separators.
+            result=subprocess.run([exe.as_posix(),script.as_posix()],cwd=directory,stdin=subprocess.DEVNULL,stdout=f,stderr=subprocess.STDOUT)
         text=output.read_text(errors='replace')
         assert result.returncode==0 and not re.search(r'\bERROR\s*:',text),(run,result.returncode)
         assert 'Flow Statistics' in text,run
