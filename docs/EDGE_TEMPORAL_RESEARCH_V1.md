@@ -40,6 +40,8 @@
 
 完整性失败、ROI内gain变化、未armed或burst中新sticky变化均拒绝进入比较。相同历史sticky不被伪报0，但已置位位无法发现再次同类事件，分析必须保留此限制。没有读回完整DDR数据或导出Bayer RAW；本轮采样是BLC/Demosaic后、AWB前的RGB和可校验的AWB后RGB。
 
+本地采集序号按实际AWB输出SOF编号，尚未接入Sensor的CSI短包帧号。重复RGB校验值不自动判丢帧，独立曝光身份仍有边界；不把HDMI重复刷新算新采集帧。
+
 ## AWB、Sobel、NMS、连接能回答什么
 
 已实板支持：固定源稳定、CRC正确、正常完整当前帧、观察期间异常计数不增。尚未实板量化：真实RGB逐帧数值、AWB gain/选样波动、梯度/峰位/强锚变化各自贡献。
@@ -60,13 +62,30 @@
 
 正式QUALITY已有47块ERAM，理论23块bit历史仍可能容纳，但Slice84.34%与Setup9ps不能忽略；诊断缓存不是正式算法成本，不能套用固定PROBE的资源下降。实际新诊断资源以BUILD_INFO最终路由为准。
 
+上述仅历史位数下界，不含运动状态、端口打包及空间/流水对齐缓存。尤其未NMS梯度与四跳输出的空间中心相差多个行/列，不能只对齐寄存器拍数；一帧梯度支持若进入RTL，必须另计行缓存并验证坐标。
+
 软件已准备current、majority3、有界一帧梯度支持比较；合成移动细线反例验证投票漏线、保持双线风险，**未据此选择真实视频最优算法**。没有真实ROI/独立轮廓与平坦标注时，完整度/背景误检/拖影填null；不以少白点或由同算法生成的“真值”得出画质改善。
 
 暂定下一正式版本的设计要求，而非授权实施：先复现真实RGB/增益/峰位变化；只针对主导不稳定级设计一个最小方案；历史按**完整有效采集帧**更新，坏帧/复位/配置改变清历史，不能用HDMI CNT或重复显示当新图；明确启动/运动释放和最大保留帧数。须在静态闪烁、原图像素单位位置距离、独立轮廓召回、平坦误检、运动拖影/响应，以及真实RGB全设计资源STA之间共同验收。
 
 ## 验证与尚待交付的证据
 
-见`EDGE_TEMPORAL_RESEARCH_V1_VERIFICATION.md`及`edge_temporal_evidence/`。完整源commit、bit/资源/STA由最终`artifacts/bitstreams/EDGE_TEMPORAL_RESEARCH_V1/BUILD_INFO.md`记录；未生成前不预填。
+见`EDGE_TEMPORAL_RESEARCH_V1_VERIFICATION.md`及`edge_temporal_evidence/`。最终真实RGB诊断bit已完成完整流程，实际TD源码`84299d42fb88842b837794bdf43b61a88f1e2049`，65项输入SHA匹配；最终PC解码器及文档以candidate归档提交为准。
+
+| 最终路由项目 | 结果 | 相对QUALITY净增 |
+|---|---:|---:|
+| LUT6 | 17431（82.16%） | +1269 |
+| FF | 17913（42.22%） | +2490 |
+| Slice | 18267（86.10%） | +373 / +1.76百分点 |
+| ERAM20K | 88/108 | +41（临时采样/页面缓存） |
+| DSP | 11/40 | +2（诊断控制） |
+| Setup WNS / Hold WNS | +0.019ns / +0.020ns | 无放宽SDC |
+| TNS / 违例端点 | Setup/Hold均0 | — |
+| STA coverage | 95.84%，Routed，slow/fast max/min | 不等于CDC完全覆盖 |
+
+最差Setup仍在HDMI mixer：mult0_syn_59.clk→O_hdmi_data_reg[12]_syn_2.imf，13级、12.942ns数据路径、13.333ns周期、slow_m40c，19ps裕量仍小。PHY-5060/PHY-5079既有关键类型保留，无新增关键类型。页面缓存修正后实际1 ERAM/157 FF；没有降低采样精度、容量或视频规格。
+
+Bit：`artifacts/bitstreams/EDGE_TEMPORAL_RESEARCH_V1/camera_to_dsi_display.bit`，1789539 bytes；SHA256 `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。tag `edge-temporal-research-v1-candidate`唯一解析包含bit的归档提交。BUILD_INFO保存源码/配置、资源、完整日志/时序与构建前17个bit不变证据；最终推送和Draft PR URL以交付消息为准，不提前宣称上传。
 
 Gray max_delay两组各18路径被clock_groups覆盖仍是独立风险；不改全局异步分组。后续应精确核对实际Gray寄存/同步端点，收窄例外并使max_delay/总线偏斜检查实际生效，完整STA及长稳验证。本轮不把建议写成修复完成。
 

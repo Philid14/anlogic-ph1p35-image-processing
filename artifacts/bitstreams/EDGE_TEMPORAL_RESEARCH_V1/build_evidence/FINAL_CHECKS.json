@@ -1,0 +1,23 @@
+{
+  "version": "EDGE_TEMPORAL_RESEARCH_V1",
+  "source_commit": "84299d42fb88842b837794bdf43b61a88f1e2049",
+  "baseline_commit": "7343cfeb1de049e0793e63524cae071e9ae5018a",
+  "bit_sha256": "5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D",
+  "bit_size": 1789539,
+  "lut": 17431,
+  "ff": 17913,
+  "slice": 18267,
+  "eram": 88,
+  "dsp": 11,
+  "setup_wns_ns": 0.019,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ps": 0,
+  "hold_tns_ps": 0,
+  "timing_passed": true,
+  "sta_coverage": "95.84%",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": []
+}

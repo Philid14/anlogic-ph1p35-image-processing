@@ -41,3 +41,7 @@ Python3.12.14、NumPy2.3.5、Pillow12.3.0、Matplotlib3.11.2、OpenCV4.13.0.92�
 ## TD与归档
 
 完整Synthesis→Physical Design→final Timing Check→bitgen由脚本执行，65项实际输入对齐源码commit，历史bit哈希前后比较。最终路由结果、warnings、Gray约束Ignored、bit SHA以同版本BUILD_INFO补录；时序失败只保留Rn检查点，不称candidate。
+
+最终源码84299d42fb88842b837794bdf43b61a88f1e2049于2026-10-18 17:00:46（Asia/Shanghai）完成bitgen。LUT17431/FF17913/Slice18267(86.10%)/ERAM88/DSP11；Setup+0.019ns、Hold+0.020ns、TNS及违例端点0，STA95.84%。最差仍HDMI mixer，不把正裕量当作旧抖动根因已修复。关键类型仍PHY-5060/PHY-5079无新增；Gray两组各18条仍Ignored by set_clock_groups。
+
+65项实际TD输入与源码一致，17个历史bit不变。最终PC解码器包括已知白框标定及手工四角入口，额外覆盖稀疏末页/全零/全一及邻接图形恢复；这些只改PC工具，不改变TD输入。候选bit SHA5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D。真实手机与ROI仍待上板，所有新数据测试是合成输入。

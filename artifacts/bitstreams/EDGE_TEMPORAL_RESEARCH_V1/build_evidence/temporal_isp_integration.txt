@@ -1,0 +1,3 @@
+PASS capture frames=2 ROI=128x32 id=2d2ac6b6 integration=1
+D:\anlogic_formal_project\tests\tb_temporal_capture.v:60: $finish called at 529406000 (1ps)
+PASS independent pre/gain/post CRC and actual pack quantity

@@ -7,7 +7,8 @@
     "downscale_720p": "bit exact, both CRCs passed",
     "sparse_final_page": "bit exact including extreme payload occupancy",
     "all_zero_payload": "bit exact including extreme payload occupancy",
-    "all_one_payload": "bit exact including extreme payload occupancy"
+    "all_one_payload": "bit exact including extreme payload occupancy",
+    "manual_quad_adjacent_graphic": "bit exact; same CRC gates"
   },
   "real_phone_test": false
 }

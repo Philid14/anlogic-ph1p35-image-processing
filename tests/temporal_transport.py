@@ -44,10 +44,26 @@ def render(blob):
     image[168:680,128:1152]=np.repeat(np.repeat(bits,8,0),8,1)[:,:,None]*255
     return image
 
-def decode_image(rgb):
+def decode_quad(gray,quad):
+    import cv2
+    target=np.array([[0,0],[1039,0],[1039,527],[0,527]],np.float32)
+    warp=cv2.warpPerspective(gray,cv2.getPerspectiveTransform(np.asarray(quad,np.float32),target),(1040,528))
+    tiles=warp[8:520,8:1032].reshape(64,8,128,8)
+    cells=np.median(tiles[:,2:6,:,2:6],axis=(1,3))
+    lo=float(np.percentile(cells,1));hi=float(np.median(warp[2:6,10:1030]))
+    if hi-lo<35:return None
+    blob=np.packbits(cells.ravel()>(lo+hi)/2).tobytes()
+    try:check_page(blob)
+    except ValueError:return None
+    return blob
+
+def decode_image(rgb,corners=None):
     # Optional dependency isolated to optical/video input. No unvalidated OCR.
     import cv2
     rgb=np.asarray(rgb);gray=rgb.min(axis=2).astype(np.uint8)
+    if corners is not None:
+        blob=decode_quad(gray,corners)
+        return [blob] if blob else []
     found=[]
     for threshold in (80,120,160,200):
         contours,_=cv2.findContours((gray>threshold).astype(np.uint8)*255,cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
@@ -58,18 +74,8 @@ def decode_image(rgb):
             if len(q)!=4 or not cv2.isContourConvex(q):continue
             p=q[:,0,:].astype(np.float32);s=p.sum(1);d=p[:,0]-p[:,1]
             quad=np.array([p[s.argmin()],p[d.argmax()],p[s.argmax()],p[d.argmin()]],np.float32)
-            target=np.array([[0,0],[1039,0],[1039,527],[0,527]],np.float32)
-            warp=cv2.warpPerspective(gray,cv2.getPerspectiveTransform(quad,target),(1040,528))
-            # Median centers reduce blur, ringing and single-pixel noise.
-            tiles=warp[8:520,8:1032].reshape(64,8,128,8)
-            cells=np.median(tiles[:,2:6,:,2:6],axis=(1,3))
-            # Calibrate white from the KNOWN frame, not payload percentiles:
-            # the padded final page may contain <10% white data cells.
-            lo=float(np.percentile(cells,1));hi=float(np.median(warp[2:6,10:1030]))
-            if hi-lo<35:continue
-            blob=np.packbits(cells.ravel()>(lo+hi)/2).tobytes()
-            try:check_page(blob)
-            except ValueError:continue
+            blob=decode_quad(gray,quad)
+            if blob is None:continue
             if blob not in found:found.append(blob)
         if found:break
     return found
@@ -115,7 +121,13 @@ def unpack_capture(words):
     return pre,post.astype(np.uint8),meta,g
 
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('input',type=Path);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--stride',type=int,default=3);a=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('input',type=Path);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--stride',type=int,default=3)
+    ap.add_argument('--corners',help='optional fixed-camera white outer frame TL,TR,BR,BL: x0,y0,x1,y1,x2,y2,x3,y3');a=ap.parse_args()
+    corners=None
+    if a.corners:
+        values=[float(x) for x in a.corners.split(',')]
+        if len(values)!=8:raise ValueError('corners needs eight coordinates')
+        corners=np.array(values,np.float32).reshape(4,2)
     assert a.stride>0;a.output.mkdir(parents=True,exist_ok=True);saved=a.output/'pages';saved.mkdir(exist_ok=True)
     import cv2
     if a.input.is_dir():sources=sorted(a.input.glob('*'));frames=(np.asarray(Image.open(f).convert('RGB')) for f in sources if f.suffix.lower() in ('.png','.jpg','.jpeg'))
@@ -133,7 +145,7 @@ def main():
         frames=video_frames()
     count=0
     for rgb in frames:
-        for blob in decode_image(rgb):
+        for blob in decode_image(rgb,corners):
             ident,index,_=check_page(blob);name=saved/f'{ident[1]:08x}_{index:04d}.bin'
             if name.exists() and name.read_bytes()!=blob:raise ValueError('conflicting page or mixed recording')
             if not name.exists():name.write_bytes(blob);count+=1;print('CRC-valid page',index,'/',ident[2],flush=True)

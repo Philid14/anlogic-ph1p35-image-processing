@@ -35,6 +35,9 @@ def main():
         assert t.decode_image(rgb)==[blobs[12]],name;results[name]='bit exact, both CRCs passed'
     for name,blob in (('sparse_final_page',blobs[-1]),('all_zero_payload',t.encode(np.zeros(24720,np.uint32),1)[0]),('all_one_payload',t.encode(np.full(24720,0xffffffff,np.uint32),2)[0])):
         assert t.decode_image(t.render(blob))==[blob],name;results[name]='bit exact including extreme payload occupancy'
+    adjacent=image.copy();adjacent[80:168,80:144]=255
+    assert t.decode_image(adjacent,[(120,160),(1159,160),(1159,687),(120,687)])==[blobs[12]]
+    results['manual_quad_adjacent_graphic']='bit exact; same CRC gates'
     # Overlay a bit change: the decoder must not return the corrupted page.
     bad=image.copy();bad[170:176,130:136]=255-bad[170:176,130:136]
     assert not t.decode_image(bad)

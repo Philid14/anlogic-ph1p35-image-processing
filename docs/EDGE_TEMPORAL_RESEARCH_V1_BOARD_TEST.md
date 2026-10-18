@@ -14,6 +14,8 @@
 
 第一次采样关注“能否无损导出”，不能凭编码图闪动评价Edge稳定性。页面切换、CNT和SEQ变化是预期；白色框需要完整入镜。
 
+本版预览是真实Edge，所以仍可能出现白线闪烁；CRC不再是固定图的6B6DB7D0，COUNT低16位（相邻同TH CRC改变）累加和FLAG bit24置位是预期，不直接判控制流故障。控制错误看ERR、COUNT高16位、IN/PACK/LINE及后续采样元数据。新诊断没有宣称修复抖动。
+
 ## 本机解码与分析
 
 在项目根目录，用独立Python环境安装`tests/requirements-edge-temporal.txt`，不要随意改现有工具运行时包版本。
@@ -25,6 +27,8 @@ python -X utf8 tests/temporal_roi_analysis.py 'D:/captures/static_glasses_decode
 ```
 
 每个通过CRC的页面会保存为pages/*.bin。缺页会明确报编号，不生成有效capture.npz；补录**相同冻结burst**后以同一output目录再运行，可保留已有页。不同复位/不同场景必须用新output目录。镜像、反光、过模糊或滚动快门可能无法识别；CRC拒绝错误而不修复错误。
+
+若自动定位被Logo、反光或其他白色图形干扰，固定手机机位后可传`--corners "x0,y0,x1,y1,x2,y2,x3,y3"`指定视频像素坐标中白框外沿左上/右上/右下/左下，所有页仍执行相同CRC检查。也可把原视频路径发来由我处理，不要求你先会手工定位。不要用HDMI1280×720坐标替代手机视频坐标。
 
 成功必须满足全部101页、header/payload CRC、完整burst及每帧原RGB CRC、实际gain重建后CRC、连续采集序号和输入/行/ROI/pack数量。未armed、ROI内gain变动或burst出现新FIFO sticky先报错，不进行算法排名。相同历史sticky仍会记录，不等于从未发生异常或能检测重复同类事件。
 

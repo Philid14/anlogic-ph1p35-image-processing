@@ -294,3 +294,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 用户确认固定PROBE白线完全不抖。截图TH80、CRC6B6DB7D0、IN00038400、PACK0002A300、LINE02D00140、GAP00360000、ERR0、COUNT00020000、FLAG7AFFFFF7；随后用户确认不同时间仅SEQ增加，其余不变。
 - 当前完整帧及固定输出正确，观察期间未新增被监测异常；累计2坏帧/历史写满等标志来源时间未确认，不将其写成已证明纯启动异常。没有真实RGB/AWB轨迹，不能断言AWB或Sensor贡献率。
 - 新分支codex/main/edge-temporal-research-v1，base7343cfe；独立ROI冻结与HDMI编码采样，真实RGB路径，正式AWB算法/传感器/时钟参数保持。软件先准备分级变化/反事实gain与运动反例，不接入时间算法。最终诊断构建和bit记录在本轮归档后补。
+
+## EDGE_TEMPORAL_RESEARCH_V1 candidate（2026-10-18，MAIN，独立采样诊断）
+
+- Version / Git / Tag：EDGE_TEMPORAL_RESEARCH_V1；分支codex/main/edge-temporal-research-v1；实际TD源码84299d42fb88842b837794bdf43b61a88f1e2049；归档通过edge-temporal-research-v1-candidate^{commit}唯一解析。Draft依赖#8→#7→#6→#4→#3，不自动合并。
+- 假设/主要变量：Edge从固定测试源恢复真实RGB，新增只读AWB tap、8×128×32 RGB888 ROI冻结和带CRC HDMI数字导出，以收取真实帧间证据；没有新增正式时间算法。原Sensor1990/VTS1000/HTS1600/Gain15.75×、BLC15/AWB正式运算、空间算法/按键/旧状态/Logo/CNT、PLL/SDC保持，25+2+1=28拍。
+- 构建前修正：0b06278页面RAM未按块存储实现，综合Slice估算143.5%，主动中断物理且未产生新bit，日志保留；仅将页面RAM改为明确单写端口+受支持bram属性，5页全部字对照不变。完整重建页面实际1 ERAM/157FF。
+- Bit：artifacts/bitstreams/EDGE_TEMPORAL_RESEARCH_V1/camera_to_dsi_display.bit；SHA256 `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。
+- Build Result：Synthesis→Physical Design→final Timing Check→bitgen全部完成。LUT17431、FF17913、Slice18267(86.10%)、ERAM88、DSP11；Setup/Hold +0.019/+0.020ns，TNS与违例0，STA95.84%；Gray覆盖缺口与既有关键warning保留，无新增关键类型。
+- Verification：旧AWB并行35840拍、OSD691200拍、8帧ROI独立RGB/实际gain/post CRC/周期时间戳、实际ISP边界/packer、页面单写口、光学7类正例与12负例、旧完整PROBE/QUALITY/控制回归通过。17旧bit保持。
+- Board Test Result：**待用户烧录并录制编码页面**。没有取得新真实ROI、gain轨迹或运动真值，不宣布滤波改善或AWB贡献率。暂不修改正式AWB、不直接集成投票/滞回。
+- 是否保留/下一步：保留全部源码/失败记录/候选归档，按BOARD_TEST收首份可解码静态burst，再比较各级及动态/固定gain反事实；用户反馈前停止，不继续下一正式版本。
