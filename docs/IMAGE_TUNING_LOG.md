@@ -260,3 +260,16 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build Result：完整Synthesis→Physical Design→Timing Check→bitgen成功；LUT6 16162、FF 15423、Slice 17894 (84.34%)、ERAM 47、DSP 9，Setup/Hold +0.009/+0.020ns、TNS0、端点违例0。既有关键类型保留、无新增关键类型；61项源码匹配、13旧bit加R0及旧归档不变。新联合2699276拍/2024457字、旧NMS回归2264588拍/1698441字、四层独立168500拍/1348000采样层、分类2892采样及旧控制单元通过。
 - Board Test Result：**待用户上板**。合成TH60平均轮廓召回67.28%→74.20%，平坦误检0.0043%→0.028%；没有真实ORIGIN帧，不等于实际眼镜/脸/文字质量改善已确认。TH40可能扩散噪声，零响应/无强锚弱边仍不能恢复，孤立强点仍保留。
 - 是否保留/下一步：保留candidate及原NMS对照，按EDGE_QUALITY_V1_BOARD_TEST同场景分别做同TH及近似相同完整度比较，40/50/60/70/80扫描、至少20次切换/30分钟。R0资源未达目标已保留、未作为最终candidate；首次测试夹具失败已修复，主动中断较宽地址回归后按最终源码统一重跑。停止等待实板，不自动改曝光/VTS、增跳数、换采样密度或合并PR。
+
+## EDGE_TEMPORAL_V1 candidate（2026-10-18，MAIN）
+
+- Version / Git：EDGE_TEMPORAL_V1；分支codex/main/edge-temporal-v1；实际TD源码7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8；candidate tag edge-temporal-v1-candidate（归档commit由tag唯一解析）；Draft PR#10→#6/#4/#3，不自动合并。准确QUALITY基线b64daf3，研究PR#9仅为证据来源，没有继承诊断缓存。
+- 修改假设 / 唯一主要算法变量：当前未抑制Sobel梯度仍≥TH/2时，最多保留一采集帧原始QUALITY边缘；不递归保存已保持结果。修改前为Gaussian/Sobel/NMS/四跳，修改后加单帧保持；高低门限、Sensor Exposure1990/VTS1000/HTS1600/Gain15.75×、BLC15/AWB_V2、K3/K4、原OSD/Logo/CNT、视频规格及PLL/SDC不变。
+- 独立可靠性观测：只读写FIFO.full计数，前600帧B/之后S；新增第三行十六进制历史计数。FIFO控制未改；没有实板计数反馈前，不宣称启动或稳态根因已定位。原Gray max_delay两组18路径仍Ignored，未改全局约束。
+- Bit：artifacts/bitstreams/EDGE_TEMPORAL_V1/camera_to_dsi_display.bit，1789539 bytes；SHA256 `14A36D98BC0A1547F84588087D796C14098AD4441CB30B5878D8F81CBADC95C4`。
+- Build Result：完整Synthesis→Physical Design→final Timing Check→bitgen PASS；LUT6 16119、FF15657、Slice17684（83.35%）、ERAM75、DSP9；Setup/Hold +0.133/+0.020ns，TNS0、违例0，STA96.05%，无新增关键warning类型。相对QUALITY全设计净增FF234/ERAM28，LUT−43/Slice−210/DSP0；重映射净值不能当算法负面积。新增2接收时钟周期，无新增整帧等待/空间偏移。
+- Verification：最终严格门禁5481周期单元、最终720p×2帧460800拍/345600打包字、10帧小尺寸及状态OSD、旧QUALITY/NMS与link尾数/1280地址回归、FIFO计数独立测试通过；R0正常算法核心另有720p×10帧对照。未进行新候选实板或门级/SDF验证。
+- 失败保留：R0时序通过但组合重复/缺EOL能误接纳历史，拒绝上板；归档EDGE_TEMPORAL_V1_R0、tag edge-temporal-v1-r0-build。最终仅增加逐行pending_eol资格检查并完整重建，不移动旧tag/bit。
+- 模型结果：TH60弱/强静态边缘翻转约下降49%/46%，参考轮廓容差召回保留，但线会增厚；8px/帧移动未像投票那样完全丢失。真实18:42 ROI TH40翻转16.6667%→14.8667%、平均边缘94.167→126.167，无真值不判定真实画质提升。
+- Board Test Result：**待用户烧录**；真实静态稳定、运动增厚/拖影、S计数稳态复发、30分钟及明暗变化均待测。
+- 是否保留 / 下一步：保留此candidate及R0全部证据，见EDGE_TEMPORAL_V1_REPORT/BOARD_TEST/DESIGN。先5/30/120秒B/S，再同TH旧新固定目标与移动/消失对照；S增加先阻断正式验收查FIFO。完成本轮即停止，不自动合并或开展下一版。

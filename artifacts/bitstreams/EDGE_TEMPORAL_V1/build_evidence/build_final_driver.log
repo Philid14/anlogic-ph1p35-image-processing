@@ -1,0 +1,8 @@
+Prepared syn_1: 64 source/IP/constraint entries
+Prepared phy_1: 64 source/IP/constraint entries
+START syn_1 7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8
+HISTORY RAM ROW |      g_temporal$u_hold                                          |edge_temporal_hold                             |129       |18      |78      |24      |0       |0        |0           |0       |0       |0       |0       |
+COMPLETE syn_1 exit 0
+START phy_1 7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8
+COMPLETE phy_1 exit 0
+COMPLETE TD; inspect final STA, resources and warnings before candidate

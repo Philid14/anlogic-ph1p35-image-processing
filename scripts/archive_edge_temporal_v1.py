@@ -10,8 +10,9 @@ sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--failed',action='store_true');parser.add_argument('--rejected-reason',default='');args=parser.parse_args()
-    version='EDGE_TEMPORAL_V1_R0' if args.failed else 'EDGE_TEMPORAL_V1'
+    parser=argparse.ArgumentParser();parser.add_argument('--failed',action='store_true');parser.add_argument('--checkpoint',default='R0');parser.add_argument('--rejected-reason',default='');args=parser.parse_args()
+    assert re.fullmatch(r'R\d+',args.checkpoint)
+    version='EDGE_TEMPORAL_V1_'+args.checkpoint if args.failed else 'EDGE_TEMPORAL_V1'
     snap=json.loads((TMP/'prebuild.json').read_text());start=datetime.fromisoformat(snap['time']).timestamp()
     for n,h in snap['files'].items():assert sha(ROOT/n)==h,n
     for n,h in snap['old_bits'].items():assert sha(ROOT/n)==h,n
@@ -47,7 +48,7 @@ def main():
     shutil.copy2(bit,dest/bit.name)
     for directory,n,target in [(syn,sl.name,'syn_'+sl.name),(phy,pl.name,'phy_'+pl.name),(syn,'gate.qor','syn_gate.qor'),(syn,'camera_to_dsi_display_gate.area','syn.area'),(syn,'settings.cfg','syn_settings.cfg'),(phy,'settings.cfg','phy_settings.cfg')]:shutil.copy2(directory/n,e/target)
     for n in ('route.qor','camera_to_dsi_display_phy.area','camera_to_dsi_display_phy.ts','final_timing.rpt','ignored_timing.rpt','camera_to_dsi_display_exception.timing','route_clock_utilization.txt'):shutil.copy2(phy/n,e/n)
-    for n in ('prebuild.json','final_flow.tcl','syn_1_stdout.txt','phy_1_stdout.txt','build_driver.log','build_resume.log','rtl_full.log','final_small.log','legacy_small.log','reliability_osd.log','rtl_results.json','scope_checks.json','balanced_eol_r0_failure.txt','balanced_eol.txt','balanced_eol_fixed_pass.txt','fixed_full.log','fixed_rtl_results.json'):
+    for n in ('prebuild.json','final_flow.tcl','syn_1_stdout.txt','phy_1_stdout.txt','build_driver.log','build_resume.log','build_final_driver.log','rtl_full.log','final_small.log','strict_small.log','legacy_small.log','reliability_osd.log','rtl_results.json','scope_checks.json','balanced_eol_r0_failure.txt','balanced_eol.txt','balanced_eol_fixed_pass.txt','fixed_full.log','fixed_rtl_results.json'):
         if (TMP/n).exists():shutil.copy2(TMP/n,e/n)
     (e/'FINAL_CHECKS.json').write_text(json.dumps(result,indent=2)+'\n')
     (e/'SOURCE_MANIFEST.json').write_text(json.dumps(dict(source_commit=snap['source_commit'],files=snap['files']),indent=2)+'\n')
@@ -62,7 +63,7 @@ def main():
 | Version / Role | {version} / MAIN |
 | Branch | codex/main/edge-temporal-v1 |
 | 实际TD输入源码commit | {snap['source_commit']} |
-| PHY恢复脚本commit | {snap.get('resume_driver_commit','not needed')}；仅修正面积行匹配，64项TD输入逐字节匹配原综合，无重新综合 |
+| PHY恢复脚本commit | {snap.get('resume_driver_commit','not needed；本版本完整重跑综合和PHY')} |
 | Git Tag | {tag}；解析tag^{{commit}}恢复包含bit的归档提交 |
 | 基线 / PR | QUALITY b64daf39af09980621adb1138df1674a8501ea09；Draft #10→#6→#4→#3，均不自动合并 |
 | Build Time | {bt} |
@@ -92,9 +93,9 @@ Sensor Exposure1990 half-lines/VTS1000/HTS1600/Gain15.75×、BLC15/AWB_V2/Origin
 
 ## 验证与风险
 
-完整720p×10采集帧2,304,000有效拍/1,728,000打包字逐字节对照通过；Original、帧内配置锁存、提前/同拍SOF、全生产历史地址及中心搬运覆盖。单元另测复位、短帧、缺EOL、超长帧、TH变更、支持撤销与非递归释放；旧QUALITY/NMS小尺寸及所有link尾数/1280宽地址回归通过。FIFO计数启动/稳态/重复/饱和/复位与实际OSD字形打包独立验证。
+共享算法核心R0完成720p×10采集帧2,304,000有效拍/1,728,000打包字逐字节对照；最终严格行尾门禁版另外完成720p×2帧460,800拍/345,600打包字（包含B/S字形），与实测固定源文件SHA匹配。Original/帧内配置锁存/提前与同拍SOF另由10帧小尺寸和1280×160测试覆盖；不把R0全部测试冒充最终门禁版测试。最终5481周期单元测试含复位、短帧、缺EOL、重复+缺失EOL总数相抵、超长帧、合法晚EOL、TH变更、支持撤销与非递归释放；旧QUALITY/NMS小尺寸及所有link尾数/1280宽地址回归通过。FIFO计数启动/稳态/重复/饱和/复位与实际OSD字形打包独立验证。
 
-综合已成功；驱动首次因查找实例面积行的辅助脚本错误停在综合之后，修正后验证全部TD输入不变及综合DB哈希，只恢复PHY，没有借此重编多个算法候选。原失败驱动日志保留。
+R0驱动首次因查找实例面积行的辅助脚本错误停在综合之后，修正后验证全部TD输入不变及综合DB哈希，仅恢复R0 PHY。最终严格行尾门禁版7aa6beb从源码完整重跑Synthesis与PHY，未复用R0综合结果。算法只选择一个，R0及功能修正证据均保留。
 
 STA通过不证明长期硬件稳定；既有FIFO Gray max_delay受clock groups覆盖的风险未修复、全局约束未改。S计数若增加，作为正式验收阻断项先查FIFO/DDR，不能用本算法掩盖。详见docs/EDGE_TEMPORAL_V1_DESIGN.md及最终报告/BOARD_TEST。
 

@@ -1,0 +1,457 @@
+{
+  "history_primitives": 24,
+  "support_primitives": 8,
+  "net_eram_delta": 28,
+  "primitive_configuration": [
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_101",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_107",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_113",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_119",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_125",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_131",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_137",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_143",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_149",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_151",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_153",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_23",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_29",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_35",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_41",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_47",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_53",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_59",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_65",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_71",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_77",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_83",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_89",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_temporal$u_hold/ramread0_syn_95",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "NORMAL"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[0]$g_support$u_center/ramread0_syn_24",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[0]$g_support$u_center/ramread0_syn_45",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[1]$g_support$u_center/ramread0_syn_24",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[1]$g_support$u_center/ramread0_syn_45",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[2]$g_support$u_center/ramread0_syn_24",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[2]$g_support$u_center/ramread0_syn_45",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[3]$g_support$u_center/ramread0_syn_24",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/u_edge/g_quality$g_hop[3]$g_support$u_center/ramread0_syn_45",
+      "mode": "DP20K",
+      "write_modes": [
+        [
+          "A",
+          "READBEFOREWRITE"
+        ],
+        [
+          "B",
+          "NORMAL"
+        ]
+      ]
+    }
+  ],
+  "gate_export_sha256": "de6ee38c90b1803fe3082292a4eed59db5195016541df8a8a6487f44d5b1e723",
+  "not_gate_or_SDF_simulation": true
+}

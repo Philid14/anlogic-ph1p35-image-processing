@@ -1,0 +1,10 @@
+PASS confidence centers width=64 cycles=2900
+D:\anlogic_formal_project\tests\tb_edge_center_pair_delay.v:21: $finish called at 29046000 (1ps)
+PASS confidence centers width=68 cycles=3044
+D:\anlogic_formal_project\tests\tb_edge_center_pair_delay.v:21: $finish called at 30486000 (1ps)
+PASS confidence centers width=72 cycles=3188
+D:\anlogic_formal_project\tests\tb_edge_center_pair_delay.v:21: $finish called at 31926000 (1ps)
+PASS confidence centers width=76 cycles=3476
+D:\anlogic_formal_project\tests\tb_edge_center_pair_delay.v:21: $finish called at 34806000 (1ps)
+PASS confidence centers width=1280 cycles=55460
+D:\anlogic_formal_project\tests\tb_edge_center_pair_delay.v:21: $finish called at 554646000 (1ps)
