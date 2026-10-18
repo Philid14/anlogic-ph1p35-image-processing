@@ -278,3 +278,13 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build Result：完整综合/物理/最终STA/bitgen完成，但Setup−0.051ns/TNS−0.454ns/15违例端点，Hold+0.020ns；LUT16076、FF16478、Slice17111(80.65%)、ERAM47、DSP9，STA96.00%。最差仍是HDMI mixer；两组各18条Gray约束仍Ignored。关键warning无新增类型。
 - Board Test Result：未上板，不推荐烧录，不签发candidate。保留全部bit/日志/报告及早期CLI失败、主动终止物理实现的记录。
 - 下一步：只减少诊断序号宽度及相关逻辑，验证回绕和原数据通路一致，再完整构建；不以降低像素时钟、改HDMI代码或放宽SDC换取通过。
+
+## EDGE_STABILITY_PROBE_V1 candidate（2026-10-18，MAIN，等待实板）
+
+- Version / Branch / Git Commit / Tag：EDGE_STABILITY_PROBE_V1；codex/main/edge-stability-probe-v1；实际构建源码`131afb0a745c62f119e1ae2f869788f45944f4a2`，归档commit通过`edge-stability-probe-v1-candidate^{commit}`唯一解析；依赖仍未合并PR #7/#6/#4/#3，不自动合并。
+- 修改假设/唯一变量：真实AWB后控制原样保留，Edge RGB由实时相机改为每帧固定数字图，并加只读完整性监测和OSD，验证抖动来自像素变化还是控制/算法/显示链路。ORIGIN仍实时相机。R0→最终只缩减诊断SEQ 32→16bit，面板仍显示8hex位；跨回绕验证通过。Sensor 1990 half-lines/VTS1000/HTS1600/Gain15.75×、BLC15/AWB、原算法/按键/旧OSD/Logo/CNT、PLL/SDC等保持。
+- Bit Path / SHA-256：`artifacts/bitstreams/EDGE_STABILITY_PROBE_V1/camera_to_dsi_display.bit`；`7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980`。
+- Build Result：完整Synthesis→Physical Design→final Timing Check→bitgen通过。LUT6 15415、FF 16334、Slice 16872/21216（79.52%）、ERAM47/DSP9；Setup/Hold +0.102/+0.020ns，TNS和违例端点均0，STA95.98%。最差仍HDMI mixer，Gray两组各18路径依旧被clock_groups忽略；无新增关键warning类型。资源下降包含固定输入的综合简化/全设计重映射，不能当成通用算法优化收益。
+- 数字验证：完整720p六帧1382400有效拍/1036800打包字；小尺寸联合与13帧回绕、boot arming/FIFO事件、气泡/截断/tlast/CRC异常、旧QUALITY关闭路径及控制回归通过。完整720p后最后修改的诊断启动/序号局部回归，详见VERIFICATION，不声称完整物理IP仿真或实板通过。
+- Board Test Result：**待用户上板，未测数据不填0**。TH80正常完整帧参考CRC6B6DB7D0、IN00038400/PACK0002A300/LINE02D00140；无事件且两FIFO已armed时FLAG00FFFFF7。实际SOF间隔实测；W或未armed不判正常。
+- 是否保留/下一步：保留candidate、负裕量R0、15个更早bit和全部tag/源码/失败记录。按BOARD_TEST先固定图对照并拍面板，分别以CRC变化/控制异常/仅显示变化决定后续排查，不直接加时间滤波。本轮停止等待反馈，未进入下一版本。

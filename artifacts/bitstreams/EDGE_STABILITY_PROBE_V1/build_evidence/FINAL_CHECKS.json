@@ -1,0 +1,31 @@
+{
+  "version": "EDGE_STABILITY_PROBE_V1",
+  "source_commit": "131afb0a745c62f119e1ae2f869788f45944f4a2",
+  "base_commit": "8b3b9853cb900ca2305872b4ad9e129274efdbdf",
+  "bit_sha256": "7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980",
+  "bit_size": 1789539,
+  "lut6": 15415,
+  "ff": 16334,
+  "slice": 16872,
+  "eram": 47,
+  "dsp": 9,
+  "setup_wns_ns": 0.102,
+  "hold_wns_ns": 0.02,
+  "sta_coverage": "95.98%",
+  "timing_passed": true,
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "syn_log": "td_20261018_120716.log",
+  "phy_log": "td_20261018_121137.log",
+  "probe_hierarchy": [
+    "|      g_probe$u_monitor                                          |probe_stream_monitor                           |295       |201     |712     |0       |0       |0        |0           |0       |0       |0       |0       |",
+    "|      g_probe$u_pattern                                          |probe_fixed_rgb                                |28        |0       |23      |0       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[0]$u_link                                |edge_link_pair_3x3                             |47        |0       |92      |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[1]$u_link                                |edge_link_pair_3x3                             |47        |0       |98      |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[3]$u_link                                |edge_link_pair_3x3                             |42        |0       |95      |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[2]$u_link                                |edge_link_pair_3x3                             |41        |0       |94      |2       |0       |0        |0           |0       |0       |0       |0       |"
+  ]
+}

@@ -43,7 +43,21 @@ Python3.12.14、NumPy2.3.5、Pillow12.3.0、Matplotlib3.11.2、Icarus12.0。
 7. 首次归档脚本未接受area字段的行首缩进，未成功创建归档目录；修正提取器后原样复制原始报告，未修改资源数字或RTL。
 8. R0之后仅将内部诊断SEQ从32bit缩为16bit、面板仍零扩展8位十六进制显示；其余观察字段与数据通路不变。增加3bit参数跨回绕13帧单元，再跑小尺寸联合验证。目的是减少诊断开销/物理干扰，不声称逻辑上修复了未改动的HDMI路径；须重新完整TD判断。
 
-## 证据局限
+## 最终候选构建（2026-10-18，Asia/Shanghai）
+
+源码`131afb0a745c62f119e1ae2f869788f45944f4a2`经完整Synthesis、Physical Design、final Timing Check、bitgen通过。最终路由LUT6 15415、FF 16334、Slice 16872/21216（79.52%）、ERAM20K 47/108、DSP 9/40；Setup +0.102ns、Hold +0.020ns，两个TNS均0、两个违例端点均0。STA coverage 95.98%，slow/fast及max/min均检查。
+
+最差Setup仍是HDMI_PIXEL_CLK：`u_hdmi_mixer/mult0_syn_59.clk → u_hdmi_mixer/O_hdmi_data_reg[20]_syn_2.id`，15级，周期13.333ns。MIPI域Setup +3.711ns、DDR user域+2.341ns。本轮未改HDMI逻辑、时钟、SDC，正裕量是本次物理实现的结果，不代表已经证明此前抖动由时序造成或已经修好。
+
+与QUALITY全设计相比LUT6 −747、FF +911、Slice −1022、ERAM/DSP均0增量。固定图输入可使综合常量传播，整体重映射也改变资源，因此这些净差不能作为通用实时RGB Edge算法的资源优化收益。
+
+关键warning类型仍PHY-5060/PHY-5079，无新增类型：I²C scl_clk及O_cam_24m混合时钟/数据扇出、局部时钟路由警告保留。两组Gray max_delay 14.700ns/13.033ns仍各18条被set_clock_groups忽略；STA覆盖问题未修复，不将通过报告等同完整CDC验证。
+
+最终bit `artifacts/bitstreams/EDGE_STABILITY_PROBE_V1/camera_to_dsi_display.bit`，1789539 bytes，SHA-256 `7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980`。归档包含63项输入manifest、构建前16份bit不变清单、完整原始日志/报告、关键warning和失败/中断记录。旧R0负裕量bit保留为失败检查点，最终candidate仅指本次正裕量版本。
+
+最后的16bit序号版本执行小尺寸联合测试与13帧跨回绕单元，启动屏蔽模块执行实际接线单元；完整720p六帧测试覆盖的是未变化的注入/算法/OSD/打包通路，不能声称所有物理IP或最后一版再次完整720p仿真通过。实板状态仍待用户烧录反馈。
+
+## 证据局限（最终适用）
 
 无真实AWB后控制采样、无真实连续RGB、未在本机烧录。没有厂商MIPI/DDR/HDMI PHY、带SDF门级或完整CDC MTBF仿真。新OSD和监测与用户上板现象无实测对应，全部结果是数字测试。
 新面板显示的历史CRC取两个二值代表位，不能替代全部RGB/DDR读回逐点比较；重复显示/丢帧没有session/frame身份，未实现端到端延迟统计。

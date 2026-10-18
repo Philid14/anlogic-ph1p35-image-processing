@@ -52,7 +52,7 @@ def main():
   (phy,'final_timing.rpt','final_timing.rpt'),(phy,'ignored_timing.rpt','ignored_timing.rpt'),(phy,'camera_to_dsi_display_exception.timing','camera_to_dsi_display_exception.timing'),
   (phy,'route_clock_utilization.txt','route_clock_utilization.txt'),(phy,'settings.cfg','phy_settings.cfg')]
  for directory,name,target in copies:shutil.copy2(directory/name,e/target)
- for name in ('probe_failed_cli_path.txt','probe_prebuild.json','probe_final_flow.tcl','probe_syn_1_stdout.txt','probe_phy_1_stdout.txt','probe_regression_final.txt','probe_bypass_controls.txt','probe_fifo_final.txt'):
+ for name in ('probe_failed_cli_path.txt','probe_prebuild.json','probe_final_flow.tcl','probe_syn_1_stdout.txt','probe_phy_1_stdout.txt','probe_regression_final.txt','probe_bypass_controls.txt','probe_fifo_final.txt','probe_after_boot_small.txt','probe_seq16_small.txt'):
   shutil.copy2(ROOT/'tmp'/name,e/name)
  shutil.copy2(ROOT/'tmp/probe_fifo_boot_final.txt',e/'probe_fifo_boot_final.txt')
  for f in (ROOT/'tmp/probe_aborted_boot_arming').glob('*'):
@@ -94,7 +94,7 @@ def main():
 
 只增加固定EDGE RGB源和旁路观察诊断。ORIGIN仍为真实摄像头RGB，AWB后的真实valid/提前SOF/tlast原样保留。
 Sensor初始化/Exposure1990 half-lines/VTS1000/HTS1600/Gain15.75×/BLC15/AWB_V2、Gaussian/Sobel/NMS/四跳、K3/K4/CDC、原状态OSD/安路Logo/CNT、MIPI/DDR/HDMI正式数据处理、PLL/SDC均冻结。
-增加FIFO事件只读输出、两级独立单调旗标CDC、DDR前诊断面板；不修打包器、不修Gray约束、不开发时间滤波。63项实际入口与构建提交一致，历史15份bit和既有归档不变。
+增加FIFO事件只读输出、两级独立单调旗标CDC、DDR前诊断面板；不修打包器、不修Gray约束、不开发时间滤波。63项实际入口与构建提交一致，构建前{len(snap['old_bits'])}份bit和既有归档不变。
 
 ## 实际可观察与局限
 

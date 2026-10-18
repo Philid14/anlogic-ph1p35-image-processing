@@ -1,0 +1,30 @@
+PASS probe frozen files 604 including algorithm/sensor/AWB/SDC/15 old bits/teammates
+PASS actual S5 classification all241 high thresholds, odd/even low floor, keep masking and14bit endpoints sample_checks=2892
+D:\anlogic_formal_project\tests\tb_edge_quality_class.v:34: $finish called at 14516000 (1ps)
+PASS edge_link four independent spatial stage references width=64 beats=6916 sample_stage_checks=55328 cycles=8062
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 80706000 (1ps)
+PASS edge_link four independent spatial stage references width=68 beats=7348 sample_stage_checks=58784 cycles=8494
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 85026000 (1ps)
+PASS edge_link four independent spatial stage references width=72 beats=7780 sample_stage_checks=62240 cycles=8926
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 89346000 (1ps)
+PASS edge_link four independent spatial stage references width=76 beats=8212 sample_stage_checks=65696 cycles=9382
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 93906000 (1ps)
+PASS edge_link four independent spatial stage references width=1280 beats=138244 sample_stage_checks=1105952 cycles=141814
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 1418226000 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=32 cycles=35613 valid_beats=28676 packed_words=21507 denoise=1 nms=1 depth=15
+D:\anlogic_formal_project\tests\tb_edge_quality_stream.v:110: $finish called at 356216000 (1ps)
+PASS QUALITY=0 64x32 beats=28676 words=21507
+PASS checkpoints_B_C_D stream width=64 height=32 cycles=35625 valid_beats=28676 packed_words=21507 denoise=1 nms=1 depth=27
+D:\anlogic_formal_project\tests\tb_edge_quality_stream.v:110: $finish called at 356336000 (1ps)
+PASS QUALITY=1 64x32 beats=28676 words=21507
+PASS EDGE_QUALITY_V1 RTL; real-scene quality and board stability pending
+PASS checkpoint_A keys: bounce, single mode, short/long exclusivity, 80/70/60/90/100, 10/250 saturation, CDC ACK
+D:\anlogic_formal_project\tests\tb_edge_control_keys.v:72: $finish called at 52800000 (1ps)
+PASS checkpoint_A mailbox: asynchronous clocks, 200 fast requests, exact atomic packet order, latest state, common reset recovery
+D:\anlogic_formal_project\tests\tb_edge_control_keys.v:119: $finish called at 2214000 (1ps)
+PASS checkpoint_A sensor: 116 initial writes, exposure1990 VTS1000 HTS1600 gain1f/3f, no writes after 50 key sequences
+D:\anlogic_formal_project\tests\tb_edge_control_sensor.v:35: $finish called at 977196000 (1ps)
+PASS checkpoint_D decimal: all 256 values, 010/080/100/200/250, correct carries
+D:\anlogic_formal_project\tests\tb_edge_control_decimal.v:18: $finish called at 0 (1ps)
+PASS probe frozen files 604 including algorithm/sensor/AWB/SDC/15 old bits/teammates
+PASS PROBE disabled regression and unchanged controls
