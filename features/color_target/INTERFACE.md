@@ -298,6 +298,10 @@ overlay 的参数见 §5 一节：`BOX_THICK >= 1`、`CROSS_THICK >= 1`、`CROSS
 
 ## 10. 待确认 / 需要 MAIN 提供（一次性清单）
 
+2026-10-18补查纠正：AWB的user是提前通知，不能直接作为本模块SOF。
+当前完整接口/异常/CDC/显示契约以 [MAIN_CONTRACT_DRAFT.md](integration/MAIN_CONTRACT_DRAFT.md)
+为待确认草案；下表第3项及示例已纠正，原始历史证据未覆盖。
+
 下面每一条都给出：**我在主线代码里查到的事实**（带证据）、**我的默认假设**、以及**假设不成立的影响**。
 MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读查证，未修改任何主线文件。
 
@@ -305,7 +309,7 @@ MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读�
 |---|---|---|---|---|
 | 1 | 观察点位置 | AWB 输出 `awb_O_tdata[95:0]` 即风格化之前：它进 `edge_control_stream` 才被二选一（`isp/isp_top.v:48,69,153`；`isp/edge_control_stream.v:49` `config_p[4][8] ? edge_data : original_p[4]`） | 取 `awb_O_tdata`（只读扇出，不串联、不加反压） | 若 MAIN 认为必须放在别处，本模块的输入宽度与 lane 约定要重评 |
 | 2 | `I_data` 的 lane 排列与字节序 | **与 §4.2 完全一致**，无需转换：`isp/data128_96/data128_96.v:16` 反序取 24 位；demosaic 每像素 `{8'b0,R,G,B}`（`isp/demosaic_4x_2_0/bilinear_interpolation.v:882`），故 lane0=[95:72]、每 lane {R,G,B}；同链路的消费端 `isp/edge_detect_96.v:36-43`、`edge_status_osd.v:107-111` 亦同 | 直接按 §4.2 接 | 无 |
-| 3 | **`sof` / `eof`（最重要的一条）** | `I_user` **就是 SOF**（`isp/uial2axis.v:56` `axis_tuser = vcnt==0 && hcnt==0 && tvalid`）；但 `I_last` **是行尾 EOL 不是帧尾**（`isp/uial2axis.v:55` `axis_tlast = hcnt == IMG_WIDTH_4X-1`；`isp_top.v:124` 注释亦写"行结束信号"）。**帧尾没有现成的流信号** | `I_sof ← I_user`；`I_eol ← I_last`；**`I_eof` 由 MAIN 生成**（最后一行最后一个有效拍，可由行计数 + vsync/计数器导出） | 若把 `I_last` 直接当 `I_eof`，每行都会"发布一次结果"——整帧统计会完全错。这是接入时最容易踩的一条 |
+| 3 | **规范化SOF/EOL/EOF** | RAW侧 `isp/uial2axis.v:55-56` 为有效拍SOF和EOL；但编译的根 `awb.v:303-307` 将user保留为提前通知，RGB/valid另有延迟，last由valid包络生成 | MAIN提供与AWB RGB实际对齐的独立SOF/坐标/EOL/EOF，保留主线原提前通知；不能直接接awb user | SOF错位会漏开帧；把EOL当EOF会逐行发布；行内valid空洞也需单独处理 |
 | 4 | 结果的 CDC 归属 | 观察流在 **`S_csi_rx_clk`**（`design_top_wrapper.v:589` → `isp_top`，`isp/isp_top.v:9`），**不是** HDMI 像素时钟；显示侧在 `I_clk`(HDMI_PIXEL_CLK) | 由 **MAIN 的适配层**实现原子请求/应答握手，源端保持整组数据至确认；是否需要 FIFO 由吞吐和保持能力决定。文字模块只接收适配后的同域字段 | 单拍脉冲直接过两级同步可能漏事件；字段分别同步不能保证整组一致，均不构成完整 CDC |
 | 5 | 显示叠加区域与共用字库 | 主线已有 `osd_char_lib.v`（字库，"frozen"）与 `edge_status_osd.v`（**参数化区域 X0/Y0**、含不用除法器的三位十进制分解）；`hdmi_mixer.v:900-905` 是逐像素合成点（显示坐标 `S_x_2d/S_y_2d`，`:556-559`），`:563` 那段组合逻辑是自然接入位置；主线状态框占 (800,16)+448×72 | 框/十字与文字块区域由 MAIN 分配；我**默认**文字块放左下 (16,600)+224×34（720p），SCALE=1。**字形借 MAIN 已有实例**（我的模块不实例化字库） | 区域只影响 `X0/Y0` 参数；若 MAIN 要求另放一份字库，实测代价参考：整份 `edge_status_osd`（**含字库**）248 LUT/234 reg |
 | 6 | 整机资源预算中给本模块的份额 | 现存 EDGE_CONTROL_V1：`#lut 18307 / 38189`（48%）、slice 利用率 68.84%（`artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/camera_to_dsi_display_gate.area`） | 文字模块独立 gate 为 282 LUT/194 reg（见 `evidence/text_atomic_2026-10-17/VALIDATION.md`）；其余模块仍为估计，整机预算待 MAIN 确认 | 预算不足时 MAIN 可先关闭文字模块（`ENABLE=0`） |
@@ -317,8 +321,8 @@ MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读�
 // 观察（S_csi_rx_clk 域，只读扇出，不串联像素）
 color_target_detect #(...) u_detect (
     .I_pixel_valid(awb_O_tvalid), .I_data(awb_O_tdata[95:0]),
-    .I_sof(awb_O_tuser),                 // = SOF，见第 3 条
-    .I_eol(awb_O_tlast),                 // = EOL
+    .I_sof(ct_pixel_sof),               // MAIN规范化；awb user是提前通知
+    .I_eol(ct_pixel_eol),               // MAIN核实与本拍像素对齐
     .I_eof(ct_frame_eof),                // ← MAIN 生成（第 3 条）
     ...);
 

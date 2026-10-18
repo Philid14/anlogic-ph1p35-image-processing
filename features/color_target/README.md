@@ -651,3 +651,25 @@ PH1P35MDG324/-3、人工 10 ns 测试时钟；不改主线 TD 文件。
 检测器含 720p 用例 25/25、既有链路 396 拍及 RGB 异常 EOF 检查通过。
 修复前后证据见 [EOF 验证](evidence/eof_close_2026-10-18/VALIDATION.md)。
 相机效果、最小目标与多个同色目标策略按用户要求保留，过滤仍默认关闭。
+
+## 12. 系统闭环审计与A1修复（2026-10-18，本地待审）
+
+本地隔离分支完成类别标签最小修复：非法TARGET_CLASS与分类判据统一回退红色。
+12组参数、四条结果路径硬期望通过；旧基线7组失败，修复只改变42个结果包的类别字段。
+分类/检测/链路及六尺寸两模式RGB完整回归通过，见
+[A1_VALIDATION.md](evidence/integration_audit_2026-10-18/A1_VALIDATION.md)。
+
+本轮还提供 [工程事实审计](integration/ENGINEERING_AUDIT.md)、
+[A2待批准方案](integration/TRACK_ADMISSION_PROPOSAL.md)、
+[MAIN接口草案](integration/MAIN_CONTRACT_DRAFT.md) 和 [故障矩阵](integration/FAULT_MATRIX.md)。
+审计纠正了AWB提前user不能直接作SOF的旧建议；真实帧身份、DDR代次、CDC/显示仍待MAIN。
+TRACK生产RTL未改，六个特征测试缺口保持OPEN；36条契约模型通过不表示整机实现。
+本轮未推送、未改MAIN、未综合/P&R/bit/板测。
+
+```text
+python features/color_target/run_target_class_contract.py --out <新目录>
+python features/color_target/run_target_class_contract.py --models-only --out <新目录>
+python features/color_target/run_track_admission_audit.py --out <新目录>
+python features/color_target/run_integration_contract.py --out <新目录>
+python features/color_target/tools/audit_integration_sources.py --out <新目录>
+```
