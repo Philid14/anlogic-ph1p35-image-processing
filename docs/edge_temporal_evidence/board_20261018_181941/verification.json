@@ -1,0 +1,16 @@
+{
+  "all_101_pages_crc_bounds_padding_checked": true,
+  "full_burst_and_eight_pre_post_crc_checked": true,
+  "video_quantities_and_fifo_arming_checked": true,
+  "npz_arrays_match_archived_page_reconstruction": true,
+  "all_101_pages_equal_previous_export": true,
+  "all_rgb_and_awb_metadata_equal_previous_capture": true,
+  "independent_new_capture_observed": false,
+  "analysis_executed_thresholds": [
+    40,
+    60,
+    80
+  ],
+  "true_edge_flicker_or_displacement_measurable": false,
+  "formal_rtl_or_bit_modified": false
+}

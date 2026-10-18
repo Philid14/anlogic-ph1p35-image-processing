@@ -1,0 +1,49 @@
+{
+  "new_video_name": "video_20261018_181941.mp4",
+  "new_video_sha256": "b84fa07ce2516c0532293117dfdd8448a694ee9fd6707e4aa2654262422c7323",
+  "reference_video_name": "video_20261018_174321.mp4",
+  "exact_page_matches": 101,
+  "arrays": {
+    "pre": {
+      "equal": true,
+      "shape": [
+        8,
+        32,
+        128,
+        3
+      ],
+      "changed_elements": 0,
+      "array_sha256": "6aff3f96fe8286232976bd1f399e7a8e9c210a229df9c3e315eb21f1502f7a6d"
+    },
+    "post": {
+      "equal": true,
+      "shape": [
+        8,
+        32,
+        128,
+        3
+      ],
+      "changed_elements": 0,
+      "array_sha256": "66e32aafe42a7854934a489c19914c5409eb2ae5e5d00d0d5c83222df53a23cb"
+    },
+    "meta": {
+      "equal": true,
+      "shape": [
+        8,
+        16
+      ],
+      "changed_elements": 0,
+      "array_sha256": "ebe71132752801a6ea6330f928ccb61b0c808e7fdb0ba92b4aac241d46825754"
+    },
+    "global_header": {
+      "equal": true,
+      "shape": [
+        16
+      ],
+      "changed_elements": 0,
+      "array_sha256": "e444a8a5dcb62a81debb716b4bf8449880f4cd22afe5b18d276ee1695dbe1fdd"
+    }
+  },
+  "new_independent_rgb_capture_observed": false,
+  "conclusion": "New recording, byte-identical exported capture; no new edge-containing ROI evidence"
+}

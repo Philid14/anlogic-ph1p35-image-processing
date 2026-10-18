@@ -1,0 +1,68 @@
+[
+  {
+    "number": 9,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-temporal-research-v1",
+    "head_sha": "2a18cabae6c4f6df20b9b689b5ad4a72d7e6becd",
+    "base": "codex/main/edge-stability-probe-v1",
+    "base_sha": "7343cfeb1de049e0793e63524cae071e9ae5018a",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/9"
+  },
+  {
+    "number": 8,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-stability-probe-v1",
+    "head_sha": "7343cfeb1de049e0793e63524cae071e9ae5018a",
+    "base": "codex/main/edge-stability-diag-v1",
+    "base_sha": "8b3b9853cb900ca2305872b4ad9e129274efdbdf",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/8"
+  },
+  {
+    "number": 7,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-stability-diag-v1",
+    "head_sha": "8b3b9853cb900ca2305872b4ad9e129274efdbdf",
+    "base": "codex/main/edge-quality-v1",
+    "base_sha": "b64daf39af09980621adb1138df1674a8501ea09",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/7"
+  },
+  {
+    "number": 6,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-quality-v1",
+    "head_sha": "b64daf39af09980621adb1138df1674a8501ea09",
+    "base": "codex/main/edge-nms-v1",
+    "base_sha": "712fbb33cfc5ba8436b96306e1fe443553aa6591",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/6"
+  },
+  {
+    "number": 4,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-nms-v1",
+    "head_sha": "712fbb33cfc5ba8436b96306e1fe443553aa6591",
+    "base": "codex/main/edge-denoise-v1",
+    "base_sha": "08ea909febf2dd0952e7221a0ce2bf34b24e3b44",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/4"
+  },
+  {
+    "number": 3,
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "head": "codex/main/edge-denoise-v1",
+    "head_sha": "08ea909febf2dd0952e7221a0ce2bf34b24e3b44",
+    "base": "main",
+    "base_sha": "c42168e26026425660f2a6f51eec76b04c85eea0",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/3"
+  }
+]

@@ -323,3 +323,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 模型评估：实际pre/post RGB相邻MAE1.91369/2.20299码值。R增益1.10004–1.10135、B1.28574–1.28709；首帧gain回放98304个post通道元素全部相同，动态微调不解释本ROI码值变化。实际ROI为平坦暗部，公共900点Gaussian+Sobel最大18，TH40/60/80各历史模型及已有软件时间proposal均无边缘，条件闪烁/位置为N/A，不声称质量提升或算法排名。传感器/照明/微动贡献未知。
 - PC验证/Build Result：新增实际post数组CRC重建检查及空edge条件指标null；有效capture、故意post损坏拒绝、空/非空指标回归通过。ZIP重新组装与NPZ全数组相同。未运行TD，未改正式RTL/ISP参数/PLL/SDC/历史归档，无新bit/tag。
 - 是否保留/下一步：完整数据、页面、CSV、源代码快照和图表保留于docs/edge_temporal_evidence/board_20261018_complete；详见EDGE_TEMPORAL_RESEARCH_V1_REAL_DATA_EVALUATION.md。旧数据无需再补页。先把真实纸边/眼镜框放入绿色ROI中央，再重新采样新burst、附位置照片与光源/静止性说明；不直接实现时间算法，等待人类审查及新数据。
+
+## EDGE_TEMPORAL_RESEARCH_V1 18:19录像核对（2026-10-18，MAIN）
+
+- 仍用原candidate/e3a6943，TD源码84299d42fb88842b837794bdf43b61a88f1e2049，bit SHA `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。开工HEAD2a18cab，分支codex/main/edge-temporal-research-v1，依赖Draft #9/#8/#7/#6/#4/#3均未合并。
+- 用户明确指定video_20261018_181941.mp4，56556090字节，SHA `B84FA07CE2516C0532293117DFDD8448A694EE9FD6707E4AA2654262422C7323`，121.745900秒。3653帧全扫描，3346帧返回合格包，101/101页，无缺页/冲突；所有capture CRC和IN/LINE/ROI/PACK/armed/sticky门槛通过。
+- 来源核对：本次使用独立空目录扫描，随后比较证明101个页面、pre/post/meta/global全部与17:43导出内容逐字节相同；不是新含边缘采样。流SHA仍54eef957e3732e0996c094c46cf24ca70ef6ea9d6ad358473eb0612ebe7606b9，NPZ SHA仍d50c47e6a099f234a18bfbde418b82991856ba8f708215251c46fcfd866d419a。未以32位identity相同单独下结论。
+- 重跑TH40/60/80：pre/post相邻RGB MAE1.91369048/2.20298549，Sobel幅值相邻MAE2.92126984/最大18；有效区仍无门限边缘，白线闪烁/位置/连接质量N/A。实际gain微调对该ROI RGB码值无额外影响；不能新增Sensor/频闪/微动/真实轮廓抖动归因证据。
+- Build/修改：本轮无TD、无新bit、无正式RTL或PC算法修改；旧归档保持。源码只读确认捕获8帧后done冻结，只有实际rst_n清除采样状态；录像不能确定现场哪一步操作是否生效，不宣称已发现RTL错误。
+- 保留/下一步：独立审计、数据逐字节比较与图表归档docs/edge_temporal_evidence/board_20261018_181941；报告EDGE_TEMPORAL_RESEARCH_V1_RECORDING_181941.md。优先确认重新PROGRAM_SRAM及预热定位，先核对一张新编码页，再录全圈；尚不具备EDGE_TEMPORAL_V1开发/发布证据条件，停止等待真正的新边缘数据。

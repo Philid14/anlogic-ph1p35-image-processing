@@ -1,0 +1,221 @@
+{
+  "frames": 8,
+  "roi_pixels": [
+    128,
+    32
+  ],
+  "evaluation_internal_samples": 900,
+  "threshold": 80,
+  "pre_rgb_mean_abs_delta": 1.9136904761904763,
+  "post_rgb_mean_abs_delta": 2.2029854910714284,
+  "gains_q16": [
+    [
+      72118,
+      84340
+    ],
+    [
+      72092,
+      84275
+    ],
+    [
+      72128,
+      84294
+    ],
+    [
+      72178,
+      84323
+    ],
+    [
+      72116,
+      84282
+    ],
+    [
+      72160,
+      84262
+    ],
+    [
+      72143,
+      84291
+    ],
+    [
+      72127,
+      84351
+    ]
+  ],
+  "awb_stats": [
+    [
+      15210083,
+      16737734,
+      13005938,
+      456872,
+      1639000
+    ],
+    [
+      15189514,
+      16709136,
+      12993756,
+      456808,
+      1639001
+    ],
+    [
+      15143663,
+      16666987,
+      12957929,
+      455667,
+      1639002
+    ],
+    [
+      15139538,
+      16673991,
+      12959027,
+      455686,
+      1639003
+    ],
+    [
+      15143303,
+      16663932,
+      12957440,
+      455206,
+      1639004
+    ],
+    [
+      15114245,
+      16642092,
+      12943627,
+      454529,
+      1639005
+    ],
+    [
+      15079841,
+      16600208,
+      12906551,
+      453385,
+      1639006
+    ],
+    [
+      15038204,
+      16550787,
+      12858896,
+      452563,
+      1639007
+    ]
+  ],
+  "same_current_input_previous_gain_mae": [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "capture_sof_intervals_mipi_cycles": [
+    629785,
+    629785,
+    629785,
+    629785,
+    629785,
+    629785,
+    629785
+  ],
+  "fixed_gain_reference_q16": [
+    72118,
+    84340
+  ],
+  "fixed_gain_is_proven_converged": false,
+  "fixed_gain_replay_metrics": {
+    "flip_per_union": null,
+    "flip_per_roi": 0.0,
+    "mean_edge_samples": 0.0,
+    "mean_nearest_position_distance_original_pixels": null,
+    "unmatched_beyond_4px_fraction": null,
+    "position_is_matching_proxy": true,
+    "contour_recall": null,
+    "flat_false_positive_fraction": null,
+    "ghost_outside_truth_band": null
+  },
+  "stages": {
+    "gray_pair": {
+      "changed_fraction": 0.763968253968254,
+      "mean_abs_delta": 1.3044444444444445
+    },
+    "gaussian": {
+      "changed_fraction": 0.5834920634920635,
+      "mean_abs_delta": 0.714920634920635
+    },
+    "sobel_magnitude": {
+      "changed_fraction": 0.7855555555555556,
+      "mean_abs_delta": 2.9212698412698415
+    },
+    "direction": {
+      "changed_fraction": 0.6944444444444444,
+      "mean_abs_delta": 1.2333333333333334
+    },
+    "nms_keep": {
+      "changed_fraction": 0.4585714285714286,
+      "mean_abs_delta": 0.4585714285714286
+    },
+    "nms_strong": {
+      "changed_fraction": 0.0,
+      "mean_abs_delta": 0.0
+    },
+    "nms_weak": {
+      "changed_fraction": 0.0,
+      "mean_abs_delta": 0.0
+    },
+    "four_hop": {
+      "changed_fraction": 0.0,
+      "mean_abs_delta": 0.0
+    }
+  },
+  "candidates": {
+    "current": {
+      "flip_per_union": null,
+      "flip_per_roi": 0.0,
+      "mean_edge_samples": 0.0,
+      "mean_nearest_position_distance_original_pixels": null,
+      "unmatched_beyond_4px_fraction": null,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    },
+    "majority3": {
+      "flip_per_union": null,
+      "flip_per_roi": 0.0,
+      "mean_edge_samples": 0.0,
+      "mean_nearest_position_distance_original_pixels": null,
+      "unmatched_beyond_4px_fraction": null,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    },
+    "one_frame_gradient_support": {
+      "flip_per_union": null,
+      "flip_per_roi": 0.0,
+      "mean_edge_samples": 0.0,
+      "mean_nearest_position_distance_original_pixels": null,
+      "unmatched_beyond_4px_fraction": null,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    }
+  },
+  "fifo_historical_sticky": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "fifo_repeat_event_detection_available": false,
+  "ground_truth_available": false,
+  "motion_response_verified": false,
+  "causal_contribution_percentages": null,
+  "ranking": "not selected: require scene labels, motion trials and repeated bursts"
+}
