@@ -85,7 +85,9 @@
 - SHA-256：`8C62195DA8A2F8748CE9D6CFD7D9703BCB81E6F6CDA09AEDF4BBB0DE0FE0BBE9`
 - Build evidence：[BUILD_INFO](../artifacts/bitstreams/EDGE_MULTI_MODE_V1/BUILD_INFO.md)
 - Candidate tag：`edge-multi-mode-v1-candidate`，在归档commit上创建
-- PR：Draft，base为`codex/main/edge-temporal-v1`；不自动合并，不修改旧candidate bit/tag
+- PR：[Draft #11](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/11)，base为`codex/main/edge-temporal-v1`；不自动合并，不修改旧candidate bit/tag
+- Remote：`origin` = `https://github.com/Philid14/anlogic-ph1p35-image-processing.git`；开发分支、R0 tag和candidate tag均已推送
+- Push Status：`codex/main/edge-multi-mode-v1`、`edge-multi-mode-v1-r0-build`、`edge-multi-mode-v1-candidate` 推送成功
 
 ## 7. 实板状态与回退
 

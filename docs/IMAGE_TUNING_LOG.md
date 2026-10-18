@@ -276,7 +276,7 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 
 ## EDGE_MULTI_MODE_V1 candidate（2026-10-18，MAIN）
 
-- Version / Git：EDGE_MULTI_MODE_V1；分支`codex/main/edge-multi-mode-v1`；实际TD源码`4ea67f194941c6717fc1d28889c687a4fb78533f`；candidate tag `edge-multi-mode-v1-candidate`；从EDGE_TEMPORAL_V1 `b47105f`起分支，Draft PR以`codex/main/edge-temporal-v1`为base，不自动合并。
+- Version / Git：EDGE_MULTI_MODE_V1；分支`codex/main/edge-multi-mode-v1`；实际TD源码`4ea67f194941c6717fc1d28889c687a4fb78533f`；candidate tag `edge-multi-mode-v1-candidate`；从EDGE_TEMPORAL_V1 `b47105f`起分支，Draft PR #11以`codex/main/edge-temporal-v1`为base，不自动合并。
 - 修改假设 / 唯一主要变量：在原有ORIGIN/EDGE基础上增加GRAY、BINARY及18位帧锁存配置；`Y=(77R+150G+29B+128)>>8`，BINARY按`Y>=T`输出纯黑白。新增分支与Edge共用27拍窗口，Edge历史在所有模式持续运行。Sensor Exposure1990/VTS1000/HTS1600/Gain15.75×、BLC15、AWB_V2、MIPI/DDR/HDMI、Logo/CNT、PLL/引脚/SDC不变。
 - 参数/控制：复位`EDGE/EDGE_TH=80/BINARY_TH=130`；K3为`EDGE→ORIGIN→GRAY→BINARY→EDGE`；K4短按-10、长按+10，ORIGIN/GRAY忽略，两个阈值独立保存，10..250饱和。配置整包跨24MHz→MIPI接收域，AWB提前SOF锁存，帧内不以新配置切换数据。
 - R0：移位加法实现LUT6 17040、FF15801、Slice18483、ERAM75、DSP9，Setup/Hold +0.002/+0.020ns；虽零违例但2ps裕量不足，拒绝上板，归档`EDGE_MULTI_MODE_V1_R0`及tag `edge-multi-mode-v1-r0-build`。
