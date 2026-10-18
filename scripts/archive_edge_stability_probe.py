@@ -27,7 +27,7 @@ def main():
   inputs=re.findall(r'<File Path="([^"]+)"',(run/'camera_to_dsi_display.prj').read_text())
   assert [(run/f).resolve().relative_to(ROOT).as_posix() for f in inputs]==list(snap['files'])
  area=(phy/'camera_to_dsi_display_phy.area').read_text()
- def av(name):return int(re.search(r'^'+re.escape(name)+r'\s+(\d+)',area,re.M)[1])
+ def av(name):return int(re.search(r'^\s*'+re.escape(name)+r'\s+(\d+)',area,re.M)[1])
  q=(phy/'route.qor').read_text()
  def qv(name):return int(re.search(re.escape(name)+r'\s*\|\s*(-?\d+)',q)[1])
  setup=qv('Setup WNS');hold=qv('Hold WNS');passed=setup>=0 and hold>=0 and qv('Setup TNS')==0 and qv('Hold TNS')==0 and qv('Num of violated S-EP')==qv('Num of violated H-EP')==0

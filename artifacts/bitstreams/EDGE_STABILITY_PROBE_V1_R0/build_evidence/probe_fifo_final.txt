@@ -1,0 +1,2 @@
+PASS actual video_in/out FIFO event taps, local sticky/reset; behavioral FIFO flags, no vendor PHY
+D:\anlogic_formal_project\tests\tb_probe_fifo_events.v:27: $finish called at 1340000 (1ps)

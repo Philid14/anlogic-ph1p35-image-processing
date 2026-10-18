@@ -269,3 +269,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build Result：未运行TD、未生成诊断bit；使用既有归档STA/资源，61项实际入口哈希一致、15份旧bit不变。新RTL实验在测试目录，详见`EDGE_STABILITY_DIAG_V1.md`及证据摘要；软件/仿真不能代替实板。
 - 已证实：相同输入受测各级确定；门限和峰位/锚点可放大微扰；固定AWB可收敛，选样边界可引起帧间增益变化；打包器非四拍边界气泡会丢未完成字节；FIFO最大延迟两组各18路径被clock_groups忽略。后两项是接口/覆盖风险，没有实板触发证据。
 - 是否保留/下一步：保留全部诊断及失败反例；不开发新优化算法、不改正式RTL、不自动合并。先测真实valid连续性/帧拍数与固定RGB真实控制，再采AWB轨迹/原始ROI并做收敛增益冻结对照。没有证据就不把9ps、AWB或Sensor噪声认定为唯一根因。
+
+## EDGE_STABILITY_PROBE_V1_R0（2026-10-18，MAIN，时序失败检查点）
+
+- 源码commit667eff7d13f868f34e846bf5a88666210e1a85e1；归档通过tag `edge-stability-probe-v1-r0-build`解析，分支codex/main/edge-stability-probe-v1，依赖PR #7/#6/#4/#3。
+- 实验目的/唯一变量：固定Edge RGB+真实AWB控制，新增只读行帧/pack/CRC/FIFO观察及DDR前面板；Sensor/ISP参数/原图/算法/按键/PLL/SDC不变。原63入口后续candidate只允许缩减诊断开销。
+- bit路径artifacts/bitstreams/EDGE_STABILITY_PROBE_V1_R0/camera_to_dsi_display.bit，SHA2257A329A76054B8B0DF3C69462E280CCCD8CBA121B1109A45230E7B3AD14514。
+- Build Result：完整综合/物理/最终STA/bitgen完成，但Setup−0.051ns/TNS−0.454ns/15违例端点，Hold+0.020ns；LUT16076、FF16478、Slice17111(80.65%)、ERAM47、DSP9，STA96.00%。最差仍是HDMI mixer；两组各18条Gray约束仍Ignored。关键warning无新增类型。
+- Board Test Result：未上板，不推荐烧录，不签发candidate。保留全部bit/日志/报告及早期CLI失败、主动终止物理实现的记录。
+- 下一步：只减少诊断序号宽度及相关逻辑，验证回绕和原数据通路一致，再完整构建；不以降低像素时钟、改HDMI代码或放宽SDC换取通过。
