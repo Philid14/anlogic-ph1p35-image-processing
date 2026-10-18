@@ -33,13 +33,13 @@ def distance_to(mask,max_pixels=4):
 
 def metrics(masks,roi,truth=None,flat=None):
     a=np.asarray(masks,bool);p=a[:-1];c=a[1:];union=(p|c)&roi;flip=(p^c)&roi
-    result=dict(flip_per_union=float(flip.sum()/max(1,union.sum())),flip_per_roi=float(flip.sum()/((len(a)-1)*roi.sum())),mean_edge_samples=float(a[:,roi].sum(1).mean()))
+    result=dict(flip_per_union=float(flip.sum()/union.sum()) if union.any() else None,flip_per_roi=float(flip.sum()/((len(a)-1)*roi.sum())),mean_edge_samples=float(a[:,roi].sum(1).mean()))
     distances=[];unmatched=total=0
     for prev,cur in zip(p,c):
         for before,after in ((prev,cur),(cur,prev)):
             ds=distance_to(before)[after&roi];distances.extend(ds.tolist());unmatched+=int((ds>4).sum());total+=len(ds)
     result.update(mean_nearest_position_distance_original_pixels=float(np.mean(distances)) if distances else None,
-                  unmatched_beyond_4px_fraction=unmatched/max(1,total),position_is_matching_proxy=True,
+                  unmatched_beyond_4px_fraction=unmatched/total if total else None,position_is_matching_proxy=True,
                   contour_recall=None,flat_false_positive_fraction=None,ghost_outside_truth_band=None)
     if truth is not None:
         gt=np.asarray(truth,bool)
@@ -85,16 +85,25 @@ def analyze(pre,post,meta,th=80,truth=None,flat=None):
         causal_contribution_percentages=None,ranking='not selected: require scene labels, motion trials and repeated bursts')
     return result
 
-def main():
-    ap=argparse.ArgumentParser();ap.add_argument('capture',type=Path);ap.add_argument('--threshold',type=int,default=80);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--labels',type=Path);a=ap.parse_args()
-    d=np.load(a.capture);pre,post,meta,g=(d[k] for k in ('pre','post','meta','global_header'))
+def load_validated_capture(path):
+    with np.load(path) as d:
+        pre,post,meta,g=(d[k] for k in ('pre','post','meta','global_header'))
+    if pre.dtype!=np.uint8 or post.dtype!=np.uint8:
+        raise ValueError('RGB arrays must be uint8')
     # Revalidate all original quantities/checksums through the same raw format;
     # reject files with changed arrays, not just files with an .npz extension.
     flat_words=[]
     vectors=[int.from_bytes(b,'big') for b in pre.reshape(-1,12)]
     for plane in range(3):flat_words.extend((x>>(32*plane))&0xffffffff for x in vectors)
     words=np.array(flat_words+meta.ravel().tolist()+g.tolist(),np.uint32)
-    transport.unpack_capture(words)
+    _,validated_post,_,_=transport.unpack_capture(words)
+    if not np.array_equal(post,validated_post):
+        raise ValueError('post array differs from CRC-validated AWB reconstruction')
+    return pre,post,meta,g
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('capture',type=Path);ap.add_argument('--threshold',type=int,default=80);ap.add_argument('--output',type=Path,required=True);ap.add_argument('--labels',type=Path);a=ap.parse_args()
+    pre,post,meta,g=load_validated_capture(a.capture)
     labels=np.load(a.labels) if a.labels else {}
     assert a.threshold in range(10,251,10)
     result=analyze(pre,post,meta,a.threshold,labels.get('truth'),labels.get('flat'))

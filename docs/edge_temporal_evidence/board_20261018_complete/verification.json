@@ -1,0 +1,18 @@
+{
+  "transport_pages": 101,
+  "missing_pages": [],
+  "all_packet_crc_and_padding_checked": true,
+  "burst_pre_crc_checked": true,
+  "per_frame_pre_and_actual_post_crc_checked": true,
+  "metadata_quantities_and_arming_checked": true,
+  "global_header_exact_geometry_checked": true,
+  "npz_matches_reconstruction_from_archived_pages": true,
+  "overlap_with_previous_85_pages_byte_identical": true,
+  "independent_bursts": 1,
+  "real_analysis_thresholds": [
+    40,
+    60,
+    80
+  ],
+  "formal_rtl_and_bit_modified": false
+}

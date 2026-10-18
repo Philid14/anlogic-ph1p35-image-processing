@@ -1,0 +1,6 @@
+{
+  "legacy_moving_line_proposals_and_metrics_unchanged": true,
+  "legacy_majority_moving_line_loss_still_detected": true,
+  "legacy_persistence_double_width_still_detected": true,
+  "no_real_motion_quality_claim": true
+}

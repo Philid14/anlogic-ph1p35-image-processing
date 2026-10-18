@@ -314,3 +314,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board/Decode Result：OpenCV及FFprobe均读出3544帧（容器标注3545，差1另行记录）。逐帧2641帧返回双CRC合格页，去重85/101页，identity897350F6，无合格重复页冲突；缺54–69（0起算）。边界599帧复查、临界画面手工透视仅恢复已有53，未补出缺页。约46–63秒编码框上沿及数据格被裁切；没有完整ROI/burst/post重建校验，不生成capture.npz，未运行temporal_roi_analysis.py。
 - Build Result：本轮未运行TD，既有构建结果不变。PC审计工具完整/缺页合成视频回归通过，不能冒充真实ROI恢复或实板算法验证。
 - 是否保留/下一步：有效页ZIP、逐帧时间戳、失败审计及补录步骤已保留于docs/edge_temporal_evidence/board_20261018_first_recording；详见EDGE_TEMPORAL_RESEARCH_V1_FIRST_DECODE.md。保持同一冻结burst补录、整框留边且手机固定；若复位则另录完整新burst，不混拼。不依据缺页数据研究AWB/Sobel/NMS/四跳的现场贡献。
+
+## EDGE_TEMPORAL_RESEARCH_V1 完整真实ROI与评估（2026-10-18，MAIN）
+
+- 版本仍为edge-temporal-research-v1-candidate/e3a6943，实际TD源码84299d42fb88842b837794bdf43b61a88f1e2049，bit SHA `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。分支codex/main/edge-temporal-research-v1，开工HEAD b865a24；#9→#8→#7→#6→#4→#3仍未合并Draft。
+- 来源/唯一研究变量：新增根录像video_20261018_174321.mp4（75491680字节，SHA `49D365D836F28095AE62D007E956BC1321A9DB8B6541260560B36F413B75070C`），补齐原冻结burst。3403帧全扫描，3331帧合格包，101/101页、旧缺54–69已齐，与旧85页全部相同；不是两次独立相机采样。word SHA54eef957e3732e0996c094c46cf24ca70ef6ea9d6ad358473eb0612ebe7606b9。
+- Board/Data Result：8帧SOF600–607，pre/post/burst CRC全通过；IN230400、LINE720×320、ROI1024、PACK172800、bubble/phase/line errors0，两FIFO均armed且sticky0，SOF间隔均629785个MIPI周期。未发现该窗口流异常，不泛化为长期或CDC风险消除。
+- 模型评估：实际pre/post RGB相邻MAE1.91369/2.20299码值。R增益1.10004–1.10135、B1.28574–1.28709；首帧gain回放98304个post通道元素全部相同，动态微调不解释本ROI码值变化。实际ROI为平坦暗部，公共900点Gaussian+Sobel最大18，TH40/60/80各历史模型及已有软件时间proposal均无边缘，条件闪烁/位置为N/A，不声称质量提升或算法排名。传感器/照明/微动贡献未知。
+- PC验证/Build Result：新增实际post数组CRC重建检查及空edge条件指标null；有效capture、故意post损坏拒绝、空/非空指标回归通过。ZIP重新组装与NPZ全数组相同。未运行TD，未改正式RTL/ISP参数/PLL/SDC/历史归档，无新bit/tag。
+- 是否保留/下一步：完整数据、页面、CSV、源代码快照和图表保留于docs/edge_temporal_evidence/board_20261018_complete；详见EDGE_TEMPORAL_RESEARCH_V1_REAL_DATA_EVALUATION.md。旧数据无需再补页。先把真实纸边/眼镜框放入绿色ROI中央，再重新采样新burst、附位置照片与光源/静止性说明；不直接实现时间算法，等待人类审查及新数据。
