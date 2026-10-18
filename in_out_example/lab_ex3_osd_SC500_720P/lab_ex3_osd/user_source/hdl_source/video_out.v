@@ -1,7 +1,7 @@
 
 
 
-module video_out (
+module video_out #(parameter PROBE_ENABLE=0)(
     input wire        I_rst_n,
 
     input wire        I_ddr_clk,
@@ -17,7 +17,9 @@ module video_out (
     input wire        I_dsi_clk,
     input wire        I_video_vsync,
     input wire        I_video_rd_en,  
-    output reg[23:0]  O_vdieo_data
+    output reg[23:0]  O_vdieo_data,
+    output wire      O_probe_underflow,
+    output wire      O_probe_armed
 );
 
     reg         S_fifo_rst;     
@@ -37,6 +39,21 @@ module video_out (
     reg[3:0]    S_fifo_rd_cnt_1d;     
     reg[127:0]  S_fifo_rd_data_1d;    
 	wire        S_fifo_emtpy;     
+
+    generate if(PROBE_ENABLE)begin:g_probe
+        reg previous_vs,sticky;reg[1:0] frames;
+        always @(posedge I_dsi_clk or negedge I_rst_n)begin
+            if(!I_rst_n)begin previous_vs<=0;frames<=0;sticky<=0;end
+            else begin
+                previous_vs<=I_video_vsync;
+                if(I_video_vsync&&!previous_vs&&frames!=3)frames<=frames+1'b1;
+                if(frames>=2 && S_fifo_rd_en && S_fifo_emtpy && !S_fifo_rst)sticky<=1;
+            end
+        end
+        assign O_probe_underflow=sticky;
+        assign O_probe_armed=frames>=2;
+    end else begin assign O_probe_underflow=0;assign O_probe_armed=0;end
+    endgenerate
 
 
 

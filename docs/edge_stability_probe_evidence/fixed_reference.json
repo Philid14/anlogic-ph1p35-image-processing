@@ -1,0 +1,109 @@
+{
+  "kind": "SOFTWARE ONLY; no measured hardware values",
+  "width": 1280,
+  "height": 720,
+  "crc_algorithm": "MSB-first poly04C11DB7 initFFFFFFFF no final xor, 2 bits per beat",
+  "thresholds": {
+    "10": {
+      "crc": "417312EE",
+      "white_pixels": 47554
+    },
+    "20": {
+      "crc": "417312EE",
+      "white_pixels": 47554
+    },
+    "30": {
+      "crc": "417312EE",
+      "white_pixels": 47554
+    },
+    "40": {
+      "crc": "417312EE",
+      "white_pixels": 47554
+    },
+    "50": {
+      "crc": "CE24F85D",
+      "white_pixels": 46540
+    },
+    "60": {
+      "crc": "2B018224",
+      "white_pixels": 46536
+    },
+    "70": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "80": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "90": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "100": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "110": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "120": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "130": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "140": {
+      "crc": "6B6DB7D0",
+      "white_pixels": 46518
+    },
+    "150": {
+      "crc": "977EB3E8",
+      "white_pixels": 14150
+    },
+    "160": {
+      "crc": "C939AFE9",
+      "white_pixels": 14004
+    },
+    "170": {
+      "crc": "0F24CDEF",
+      "white_pixels": 13768
+    },
+    "180": {
+      "crc": "0F24CDEF",
+      "white_pixels": 13768
+    },
+    "190": {
+      "crc": "E4783A60",
+      "white_pixels": 13708
+    },
+    "200": {
+      "crc": "E37EBD7F",
+      "white_pixels": 8778
+    },
+    "210": {
+      "crc": "2D093F4E",
+      "white_pixels": 8630
+    },
+    "220": {
+      "crc": "543A56F2",
+      "white_pixels": 8432
+    },
+    "230": {
+      "crc": "543A56F2",
+      "white_pixels": 8432
+    },
+    "240": {
+      "crc": "543A56F2",
+      "white_pixels": 8432
+    },
+    "250": {
+      "crc": "D23E5BEB",
+      "white_pixels": 7024
+    }
+  },
+  "panel_preview_lead": 60
+}

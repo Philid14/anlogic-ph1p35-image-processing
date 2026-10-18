@@ -585,9 +585,17 @@ assign S_raw_tuser  = S_axis_tuser;
 
 
 //ISP算法顶层模块
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4)) u_isp_top (
+wire probe_write_overflow,probe_read_underflow,probe_write_armed,probe_read_armed;
+(* async_reg="true" *)reg[1:0] probe_read_meta,probe_read_sync;
+always @(posedge S_csi_rx_clk or negedge S_rst_n)begin
+    if(!S_rst_n)begin probe_read_meta<=0;probe_read_sync<=0;end
+    else begin probe_read_meta<={probe_read_armed,probe_read_underflow};probe_read_sync<=probe_read_meta;end
+end
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),.PROBE_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_edge_config   (S_edge_received_config),
+.I_probe_fifo_sticky({probe_read_sync[0],probe_write_overflow}),
+.I_probe_fifo_armed({probe_read_sync[1],probe_write_armed}),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
 .I_tuser         (S_raw_tuser	),
@@ -603,7 +611,9 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
   );
 
 
-    video_in u_video_in(
+    video_in #(.PROBE_ENABLE(1)) u_video_in(
+        .O_probe_overflow(probe_write_overflow),
+        .O_probe_armed(probe_write_armed),
         .I_rst_n              (  S_rst_n             ),
 
         .I_camera_clk         ( S_csi_rx_clk          ),
@@ -638,7 +648,9 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
 
     assign S_video_out_rst_n = S_hdmi_rst_n;
 
-    video_out u_video_out(
+    video_out #(.PROBE_ENABLE(1)) u_video_out(
+        .O_probe_underflow(probe_read_underflow),
+        .O_probe_armed(probe_read_armed),
         .I_rst_n             ( S_video_out_rst_n    ),
         .I_ddr_clk           ( S_ddr_clk            ),
  

@@ -1,6 +1,6 @@
 
 
-module video_in (
+module video_in #(parameter PROBE_ENABLE=0)(
     input wire         I_rst_n,
 
     input wire         I_camera_clk,
@@ -19,7 +19,9 @@ module video_in (
     output reg         O_ddr_user_wr_en,
     output reg[24:0]   O_ddr_user_addr,
     output wire[127:0] O_ddr_user_wr_data,
-    input wire         I_ddr_user_ready
+    input wire         I_ddr_user_ready,
+    output wire        O_probe_overflow,
+    output wire        O_probe_armed
 );
 
     wire        S_fifo_rst;
@@ -36,6 +38,20 @@ module video_in (
     wire[127:0] S_fifo_rd_data; 
     reg         S_ddr_wr_valid;
     reg[9:0]    S_ddr_wr_cnt;
+    wire probe_full;
+    generate if(PROBE_ENABLE)begin:g_probe
+        reg armed,sticky;
+        always @(posedge I_camera_clk or negedge I_rst_n)begin
+            if(!I_rst_n)begin armed<=0;sticky<=0;end
+            else begin
+                if(I_camera_frame_start)armed<=1;
+                if(armed&&!S_fifo_rst&&I_camera_valid&&probe_full)sticky<=1;
+            end
+        end
+        assign O_probe_overflow=sticky;
+        assign O_probe_armed=armed;
+    end else begin assign O_probe_overflow=0;assign O_probe_armed=0;end
+    endgenerate
 
     localparam IMAGE_BASE_ADDR_0 = 25'd0;
     localparam IMAGE_BASE_ADDR_1 = 25'd7000000;
@@ -55,7 +71,7 @@ module video_in (
         .we         ( I_camera_valid     ),
         .di         ( I_camera_data      ),
         .afull      (),
-        .full_flag  (),
+        .full_flag  (probe_full),
         .wrusedw    (),
  
         .clkr       ( I_ddr_clk          ),

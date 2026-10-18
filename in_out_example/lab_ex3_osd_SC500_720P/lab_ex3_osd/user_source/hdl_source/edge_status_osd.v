@@ -7,11 +7,13 @@ module edge_status_osd #(
     parameter integer IMG_HEIGHT = 720,
     parameter integer ENABLE = 1,
     parameter integer X0 = 800,
-    parameter integer Y0 = 16
+    parameter integer Y0 = 16,
+    parameter integer PROBE_ENABLE = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     input [8:0] I_config,
+    input [319:0] I_probe_panel,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
 );
@@ -81,6 +83,45 @@ module edge_status_osd #(
             endcase
         end
     end
+    // Diagnostic extension reuses the SAME glyph lookup and two registers.
+    // Raw/capture measurements are explicitly historical, not same-frame ISP.
+    reg [319:0] probe_frame;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)probe_frame<=0;
+        else if(I_user)probe_frame<=I_probe_panel;
+    end
+    wire [12:0] px= pixel_x-13'd16;
+    wire [10:0] py= y_now-11'd352;
+    wire probe_hit=PROBE_ENABLE && pixel_x>=16 && pixel_x<528 && y_now>=352 && y_now<672;
+    wire [3:0] prow=py[8:5],pcol=px[8:5];
+    reg [63:0] caption;reg [31:0] word;reg [7:0] probe_char;
+    reg [3:0] nibble;
+    always @(*)begin
+        caption="        ";word=0;
+        case(prow)
+          1:begin caption="SEQ     ";word=probe_frame[287:256];end
+          2:begin caption="IN      ";word=probe_frame[255:224];end
+          3:begin caption="PACK    ";word=probe_frame[223:192];end
+          4:begin caption="CRC     ";word=probe_frame[191:160];end
+          5:begin caption="LINE    ";word=probe_frame[159:128];end
+          6:begin caption="GAP     ";word=probe_frame[127:96];end
+          7:begin caption="ERR     ";word=probe_frame[95:64];end
+          8:begin caption="COUNT   ";word=probe_frame[63:32];end
+          9:begin caption="FLAG    ";word=probe_frame[31:0];end
+        endcase
+        nibble=(word >> ((7-pcol[2:0])*4));
+        probe_char=pcol<8 ? (caption >> ((7-pcol[2:0])*8)) :
+            (nibble<10 ? 8'h30+{4'd0,nibble}:8'h41+{4'd0,nibble}-8'd10);
+        if(prow==0)begin
+          case(pcol)
+           0:probe_char="P";1:probe_char="R";2:probe_char="O";3:probe_char="B";4:probe_char="E";
+           6:probe_char="F";7:probe_char="I";8:probe_char="X";9:probe_char="E";10:probe_char="D";
+           12:probe_char="V";13:probe_char="1";
+           15:probe_char=probe_frame[0]?"V":"W";
+           default:probe_char=" ";
+          endcase
+        end
+    end
     reg [7:0] char_s1;
     reg [3:0] row_s1, col_s1;
     reg hit_s1, glyph_s1, valid_s1, user_s1, last_s1;
@@ -100,8 +141,9 @@ module edge_status_osd #(
                     x_group<=0; y<=(y_now==IMG_HEIGHT-1) ? 11'd0 : y_now+1'b1;
                 end else begin x_group<=x_now+1'b1; y<=y_now; end
             end
-            char_s1<=character; row_s1<=text_y[4:1]; col_s1<=local_x[4:1];
-            hit_s1<=box_hit; glyph_s1<=row0||row1;
+            char_s1<=probe_hit?probe_char:character;
+            row_s1<=probe_hit?py[4:1]:text_y[4:1]; col_s1<=probe_hit?px[4:1]:local_x[4:1];
+            hit_s1<=box_hit||probe_hit; glyph_s1<=probe_hit||row0||row1;
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin
