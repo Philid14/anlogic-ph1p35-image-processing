@@ -337,6 +337,13 @@ color_target_text_overlay #(...) u_text (.I_x(S_x_2d), .I_y(S_y_2d),
 需要 MAIN 额外提供而本角色**不能自造**的只有三样：**`I_eof` 的生成**、**跨域适配**、
 **区域分配**。其余都已在上面查证或已参数化。
 
+### 10.2 EOF 关闭语义修复（2026-10-18）
+
+原 `color_target_detect` 已在有效 EOF 关闭当前帧。后续 EOF 若没有新的有效 SOF，
+仍产生 ready 事件，但 valid/present/class/count/坐标均为零，不能作为新观测；
+无效结果中的身份沿用原接口行为，不作可信观测身份。下一有效 SOF 开始新帧。
+详见 `evidence/eof_close_2026-10-18/VALIDATION.md`。
+
 ## 11. 研究候选 A（2026-10-17，未接入）
 
 另有默认旁路的独立二值掩膜过滤原型 `color_target_support3`，见 [SUPPORT3.md](SUPPORT3.md)。

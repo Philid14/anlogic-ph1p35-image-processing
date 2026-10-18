@@ -218,6 +218,18 @@ def build_cases(p):
     f2 = make_frame(8, 2, rect, 7, 101)
     cases.append(("frame_id_propagation", f1 + idle(2) + f2, {}))
 
+    # A completed EOF must close the frame. A repeated EOF without SOF must
+    # never republish the previous count as a fresh valid result. Hard-coded
+    # independently of the reference model; recovery still starts a new frame.
+    good = make_frame(4, 1, lambda x, y: RED, 9, 199)
+    stray = make_frame(4, 1, lambda x, y: RED, 9, 199)
+    stray[0]["sof"] = 0
+    recovery = make_frame(4, 1, lambda x, y: RED, 9, 200)
+    cases.append(("stray_eof_after_complete_frame", good + stray + recovery, {},
+                  [[9,199,1,1,0,4,0,3,0,0,1,0],
+                   [9,199,0,0,0,0,0,0,0,0,0,0],
+                   [9,200,1,1,0,4,0,3,0,0,1,0]]))
+
     return cases
 
 
@@ -243,12 +255,17 @@ def main():
     simlib = _simlib()
     simlib.add_args(ap)
     ap.add_argument("--full", action="store_true")
+    ap.add_argument("--case", help="run one named regression")
+    ap.add_argument("--rtl", type=Path, help="alternate detector RTL for negative controls")
     args = ap.parse_args()
 
     model = load_model()
     cases = build_cases(DEFAULTS)
     if args.full:
         cases += extra_full_frame(DEFAULTS)
+    if args.case:
+        cases = [c for c in cases if c[0] == args.case]
+        if not cases: raise ValueError("Unknown case: " + args.case)
 
     total = passed = 0
     for case in cases:
@@ -270,7 +287,7 @@ def main():
                           C_MIN=p["c_min"], V_MIN=p["v_min"],
                           MIN_COUNT=p["min_count"], XW=p["xw"], YW=p["yw"])
             ok, out, err = simlib.simulate(
-                srcs=[RTL / "color_classify.v", RTL / "color_target_detect.v",
+                srcs=[RTL / "color_classify.v", args.rtl or RTL / "color_target_detect.v",
                       TB / "tb_color_target.v"],
                 tb_top="tb_color_target", params=params,
                 plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),

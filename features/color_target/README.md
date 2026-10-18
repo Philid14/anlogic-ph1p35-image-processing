@@ -61,7 +61,7 @@
 ```bash
 python features/color_target/run_color_classify.py          # 分类器：40 个参数组合 / 39079 像素
 python features/color_target/run_color_classify.py --locked-only   # 只跑 31 条手算锁定用例（最快）
-python features/color_target/run_color_target.py            # 检测：23 个用例
+python features/color_target/run_color_target.py            # 检测：24 个用例
 python features/color_target/run_color_target.py --full     # 追加一个完整 1280x720 帧
 python features/color_target/run_color_target_overlay.py
 python features/color_target/run_color_target_text_overlay.py     # 文字标注（默认用主线真字库）
@@ -128,7 +128,7 @@ python features/color_target/run_color_classify.py
 
 ### 2.1 检测（T2）自检
 
-最近一次结果：**23/23 通过**（`--full` 为 24/24），覆盖：
+最近一次结果：**24/24 通过**（`--full` 为 25/25），覆盖：
 
 | 用例 | 覆盖点 |
 |---|---|
@@ -149,6 +149,7 @@ python features/color_target/run_color_classify.py
 | `mincount_over_20bit_is_clamped` | `MIN_COUNT=2²⁰` 夹到 `2²⁰-1`（不夹会被 20 位截成 0，反变成"零命中也算存在"） |
 | `tiny_geometry_xw2_yw2` / `small_geometry_xw3_yw2` | `XW=2`/`YW=2` 与 `XW=3`/`YW=2` 的小几何 —— **旧实现在这里直接编译失败**（拍内 x0+k 的显式零扩展是负数重复次数） |
 | `frame_id_propagation` | 跨帧 `session/frame` 身份对应正确 |
+| `stray_eof_after_complete_frame` | EOF 关闭帧；后续缺 SOF 的 EOF 无效，下一正常单拍帧恢复 |
 | `full_1280x720` | 完整帧尺寸（`--full`） |
 
 `abort_then_single_beat_ok`、`single_beat_aborted_still_void` 与上面三条颜色门限用例的
@@ -637,3 +638,16 @@ PH1P35MDG324/-3、人工 10 ns 测试时钟；不改主线 TD 文件。
 以及 10 种候选在 88 份合成输入上的 880 次 CPU 对照。初步优先研究中心支持过滤与
 强弱两阶段候选关联，保留弱桥、快速位移和碎片目标的失败证据。
 这些是离线研究原型，未修改 RTL 或默认参数；目标选择语义和新接口仍需 MAIN 确认。
+
+## 11. RGB 回放与帧结束修复（2026-10-18）
+
+独立 RGB→可选过滤→统计→track→框/文字链已完成六尺寸、两模式回放，实际接收
+7760408 像素。分类数学等价优化消除了独立 gate 测试架中的 8 DSP；
+数据契约、逐帧评价、复位取消及待 MAIN 确认项见 [REPLAY.md](REPLAY.md)。
+完整结果归档在 [回放验证](evidence/replay_2026-10-17/VALIDATION.md)。
+
+随后负对照发现原检测器在 EOF 后仍保持帧打开，零散 EOF 会把上一帧 count=4
+错误地再发布为有效 count=8。现于 EOF 关闭帧，新增不依赖模型的硬编码回归；
+检测器含 720p 用例 25/25、既有链路 396 拍及 RGB 异常 EOF 检查通过。
+修复前后证据见 [EOF 验证](evidence/eof_close_2026-10-18/VALIDATION.md)。
+相机效果、最小目标与多个同色目标策略按用户要求保留，过滤仍默认关闭。

@@ -57,7 +57,7 @@ def query_points(w,h,box):
 def run_geometry(clips, mode, args, params):
     w,h=clips[0]["width"],clips[0]["height"]
     rng=random.Random(5501+w+h)
-    candidates,probes,records,legacy_results=[],{},[],{}
+    candidates,probes,records,legacy_results,legacy_orphans=[],{},[],{},[]
     label=f"{'support3' if mode else 'bypass'}-{w}x{h}"
     with tempfile.TemporaryDirectory(prefix="ct_replay_") as temp:
         temp=Path(temp); stim=Stimulus(temp/"stim.txt")
@@ -101,6 +101,7 @@ def run_geometry(clips, mode, args, params):
                     row["input_eof_cycle"]=eof_cycle
                     if not mode and fault not in ("id","eol","xy","orphan"):
                         legacy_results[eof_cycle]=legacy_gold
+                    if not mode and fault=="orphan": legacy_orphans.append(eof_cycle)
                 if fault=="reset_tail": stim.put(reset=True)
                 # First two frames run without any blanking; last frame in each
                 # burst is followed by a display replay after all conversions.
@@ -157,6 +158,8 @@ def run_geometry(clips, mode, args, params):
         assert set(got_p)==set(probes),(label,"probe cycles")
         for cycle,gold in legacy_results.items():
             assert list(map(int,got_l[cycle]))==[gold[k] for k in RESULT_KEYS],(label,cycle,"legacy bypass")
+        for cycle in legacy_orphans:
+            assert list(map(int,got_l[cycle][2:]))==[0]*10,(label,cycle,"legacy orphan EOF")
         protocol_error=False
         for cycle,item in sorted(expected_r.items()):
             begin=resets[bisect.bisect_right(resets,cycle)-1]

@@ -1,0 +1,3 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS bypass-64x48 cycles 76241 results 62 probes 18276
+PASS RGB replay: results, identities, cancellation, track, box and text

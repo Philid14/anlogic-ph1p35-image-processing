@@ -149,6 +149,9 @@ module color_target_detect #(
                 acc_xmin <= nxt_xmin; acc_xmax <= nxt_xmax;
                 acc_ymin <= nxt_ymin; acc_ymax <= nxt_ymax;
             end
+            // Publish uses pre-edge open_f/start_f, then closes the frame.
+            // A later EOF without SOF must not reuse the previous transaction.
+            if (pend_pub) open_f <= 1'b0;
         end
     end
 

@@ -144,5 +144,7 @@ def run(beats, p=None):
             aborted_f = True
         if valid:
             cnt, xmin, xmax, ymin, ymax = nxt_cnt, nxt_xmin, nxt_xmax, nxt_ymin, nxt_ymax
+        if pend:
+            open_f = False
 
     return published

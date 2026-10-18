@@ -53,7 +53,7 @@ Interface version / 状态:
           INTERFACE.md、INTEGRATION.md、README.md、GITHUB_RESEARCH.md、本文件。
   验收：run_color_classify.py 40/40 参数组合 / 39079 像素 + 8 条参数等价性
           （期望值按数学判据独立计算）；
-        run_color_target.py 23/23（--full 24/24）＋两条结构断言；
+        run_color_target.py 24/24（--full 25/25）＋两条结构断言；
         run_color_target_overlay.py 10/10 + 5 条夹取等价性；
         run_color_target_text_overlay.py 28/28 / 307078 像素（默认用主线真字库逐位比对）；
         run_color_target_track.py 21/21；
@@ -83,3 +83,4 @@ Interface version / 状态:
 | 16 | 依用户要求完成下一步开源检索与方法比较：六仓库固定 SHA/许可/相关源码核查；10 路 CPU 掩膜对照共 880 评价；评价标准、反例和实验顺序见 `research/ROADMAP.md`。研究提交 5041768 未改 RTL；后续候选 A 进度见 `SUPPORT3.md` | TARGET 研究完成 / 实拍数据、目标选择语义与预算待 MAIN |
 | 17 | 按用户批准的路线实现独立中心支持候选 A，默认旁路。六种小尺寸、512 邻域×4 lane、1280×720 的 17509752 像素及 1280×3 官方原语网表通过；原语仿真发现并修复同址读写的新旧数据差异。最终含观测架 335 LUT/465 reg/1 ERAM20K，未接入主线 | TARGET 独立验证完成 / 不默认启用；详见 `evidence/support3_2026-10-17/VALIDATION.md` |
 | 18 | RGB→可选过滤→统计→track→框/文字独立回放，六尺寸两模式实际接收7760408像素、179结果包、39928显示查询通过；原RTL旁路87结果一致。修正新统计串行关键路径，分类改等价移位加减消除8DSP，完整分类数学回归通过；数据契约17项检查，逐帧/配对工具及MAIN交接清单齐备 | 独立验证 / 相机素材及目标策略按用户要求保留；见 `REPLAY.md` |
+| 19 | 原检测器 EOF 后残留 open 状态修复；旧 RTL 被硬编码回归抓出重复有效 count=8，新版含720p检测25/25、既有链路396拍、RGB旁路异常EOF检查通过 | TARGET 修复完成 / 证据见 `evidence/eof_close_2026-10-18/VALIDATION.md` |
