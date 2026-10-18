@@ -1,6 +1,7 @@
 """Archive a passing EDGE_MULTI_MODE_V1 routed build without overwriting history."""
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
+import argparse
 import hashlib
 import json
 import re
@@ -9,11 +10,28 @@ import shutil
 ROOT = Path(__file__).resolve().parents[1]
 P = ROOT / "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project"
 TMP = ROOT / "tmp/edge_multi_mode_v1"
-VERSION = "EDGE_MULTI_MODE_V1"
 sha = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--checkpoint", default="")
+    parser.add_argument("--rejected-reason", default="")
+    args = parser.parse_args()
+    rejected = bool(args.checkpoint)
+    version = (
+        f"EDGE_MULTI_MODE_V1_{args.checkpoint}" if rejected else "EDGE_MULTI_MODE_V1"
+    )
+    tag = (
+        "edge-multi-mode-v1-r0-build"
+        if args.checkpoint == "R0"
+        else "edge-multi-mode-v1-candidate"
+    )
+    release = (
+        "REJECTED: " + args.rejected_reason
+        if rejected
+        else "candidate; board validation pending"
+    )
     snap = json.loads((TMP / "prebuild.json").read_text())
     start = datetime.fromisoformat(snap["time"]).timestamp()
     for name, digest in snap["files"].items():
@@ -59,7 +77,7 @@ def main():
             for name in ("Setup TNS", "Hold TNS", "Num of violated S-EP", "Num of violated H-EP")
         )
     )
-    assert passed, "STA failed; do not issue a candidate"
+    assert passed, "STA failed; do not archive as a passing build"
     timing = (phy / "final_timing.rpt").read_text(errors="replace")
     coverage = re.search(r"STA coverage\s*:\s*([^\n]+)", timing)[1].strip()
     critical = sorted(set(re.findall(r"(\w+-\d+) CRITICAL-WARNING", syn_text + phy_text)))
@@ -71,7 +89,7 @@ def main():
         set(critical) - set(re.findall(r"(\w+-\d+) CRITICAL-WARNING", previous_logs))
     )
     result = dict(
-        version=VERSION,
+        version=version,
         source_commit=snap["source_commit"],
         bit_sha256=sha(bit).upper(),
         bit_size=bit.stat().st_size,
@@ -92,15 +110,20 @@ def main():
         per_branch_alignment_cycles=27,
         osd_cycles=2,
         pack_cycles=1,
-        candidate_eligible=True,
-        board_test="pending; all visual modes, threshold persistence and 30-minute stability unverified",
+        candidate_eligible=not rejected,
+        release_decision=release,
+        board_test=(
+            "REJECTED; not for board testing"
+            if rejected
+            else "pending; all visual modes, threshold persistence and 30-minute stability unverified"
+        ),
     )
     result["delta_from_temporal"] = {
         name: result[name] - value
         for name, value in dict(lut=16119, ff=15657, slice=17684, eram=75, dsp=9).items()
     }
 
-    dest = ROOT / "artifacts/bitstreams" / VERSION
+    dest = ROOT / "artifacts/bitstreams" / version
     assert not dest.exists(), "never overwrite an archive"
     evidence = dest / "build_evidence"
     evidence.mkdir(parents=True)
@@ -154,22 +177,22 @@ def main():
     build_time = datetime.fromtimestamp(
         bit.stat().st_mtime, timezone(timedelta(hours=8))
     ).isoformat()
-    info = f"""# BUILD_INFO — {VERSION}
+    info = f"""# BUILD_INFO — {version}
 
 | 项目 | 实际值 |
 |---|---|
-| Version / Role | {VERSION} / MAIN |
+| Version / Role | {version} / MAIN |
 | Branch | codex/main/edge-multi-mode-v1 |
 | 实际TD输入源码commit | {snap['source_commit']} |
-| Git Tag | edge-multi-mode-v1-candidate |
+| Git Tag | {tag} |
 | 基线 / PR | EDGE_TEMPORAL_V1 b47105f；Draft PR 以 codex/main/edge-temporal-v1 为 base，不自动合并 |
 | Build Time | {build_time} |
 | Device / Top / TD | PH1P35MDG324 / design_top_wrapper / Tang Dynasty6.2.168116 |
 | 原始bit | {bit} |
-| 归档bit | artifacts/bitstreams/{VERSION}/{bit.name} |
+| 归档bit | artifacts/bitstreams/{version}/{bit.name} |
 | SHA-256 / bytes | {result['bit_sha256']} / {result['bit_size']} |
 | Build Result | Synthesis → Physical Design → final Timing Check → bitgen；PASS |
-| Release Decision | candidate; board validation pending |
+| Release Decision | {release} |
 | LUT6 | {result['lut']} / 21216 |
 | FF | {result['ff']} / 42432 |
 | Slice | {result['slice']} / 21216 ({100*result['slice']/21216:.2f}%) |
@@ -178,7 +201,7 @@ def main():
 | Setup TNS / Hold TNS | {result['setup_tns_ps']}ps / {result['hold_tns_ps']}ps |
 | STA coverage | {coverage} |
 | Critical warnings | {critical}；新增类型{new_critical}，原始上下文随附 |
-| Board Test Status | 待用户烧录；四模式、独立阈值保留、FIFO稳态、长期与光照变化验收均未完成 |
+| Board Test Status | {result['board_test']} |
 
 ## 数据与配置
 
