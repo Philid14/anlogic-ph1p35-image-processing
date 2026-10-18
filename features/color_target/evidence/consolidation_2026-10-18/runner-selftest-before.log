@@ -1,0 +1,13 @@
+...F..
+======================================================================
+FAIL: test_success_needs_exit_and_completion (__main__.FailureWitnesses.test_success_needs_exit_and_completion)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\tb\test_verification_runner.py", line 23, in test_success_needs_exit_and_completion
+    self.assertTrue(self.probe("print('DONE')")["passed"])
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.633s
+
+FAILED (failures=1)

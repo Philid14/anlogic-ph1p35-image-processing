@@ -1,0 +1,50 @@
+{
+  "a1_source_files": [
+    {
+      "path": "rtl/color_classify.v",
+      "match": true
+    },
+    {
+      "path": "rtl/color_target_detect.v",
+      "match": true
+    },
+    {
+      "path": "rtl/color_target_mask_stats.v",
+      "match": true
+    },
+    {
+      "path": "rtl/color_target_detect_stream.v",
+      "match": true
+    },
+    {
+      "path": "rtl/color_target_track.v",
+      "match": true
+    },
+    {
+      "path": "rtl/color_target_text_overlay.v",
+      "match": true
+    },
+    {
+      "path": "model/ref_color_target.py",
+      "match": true
+    },
+    {
+      "path": "model/ref_color_target_stream.py",
+      "match": true
+    },
+    {
+      "path": "run_target_class_contract.py",
+      "match": true
+    },
+    {
+      "path": "tb/tb_target_class_contract.v",
+      "match": true
+    }
+  ],
+  "main_td_entries": 58,
+  "main_td_missing": 0,
+  "target_entries": [],
+  "main_inputs_matching_history": 58,
+  "historical_main_input_count": 58,
+  "historical_bit_sha256": "05e05b153800e38982d7d1c2981a347b3616eafa6eaba91a43443468faf5dcf6"
+}

@@ -1,0 +1,11 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+DUPLICATE [2, 1, 1, 99] OPEN: duplicate frame confirms target; admission owner not implemented
+REORDER [2, 1, 1, 1] OPEN: decreasing identities accepted; ordering owner not implemented
+INVALID_RUN [2, 1, 1, 3] OPEN: no observation age mechanism; no approved timeout value
+SILENCE [2, 1, 1, 3] OPEN: no wall-clock expiry; 20 cycles are a fixture, not an approved limit
+SESSION_INVALID [2, 1, 1, 3] OPEN: session clear requires valid strobe; explicit epoch authority absent
+SESSION_VALID [1, 0, 2, 1] CHARACTERIZED control; not full integration proof
+OLD_SESSION_RETURN [1, 0, 1, 99] OPEN: retired session can re-enter through a valid result
+ABSENT_FIRST [3, 1, 1, 3] CHARACTERIZED control; not full integration proof
+ABSENT_SECOND [0, 0, 1, 3] CHARACTERIZED control; not full integration proof
+Trace matched: True Open gaps: 6

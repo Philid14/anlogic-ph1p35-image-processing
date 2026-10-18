@@ -1,0 +1,53 @@
+PASS 手算锁定用例自检 31 条（手算值 == 判据实现）
+      参数组合 40 个，待检像素 39079 个
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS  tc=0 w=0 cmin=24 vmin=32  pixels=1005
+PASS  tc=0 w=1 cmin=24 vmin=32  pixels=1003
+PASS  tc=0 w=2 cmin=24 vmin=32  pixels=1003
+PASS  tc=0 w=5 cmin=24 vmin=32  pixels=1003
+PASS  tc=0 w=10 cmin=0 vmin=0  pixels=1000
+PASS  tc=0 w=10 cmin=24 vmin=32  pixels=1006
+PASS  tc=0 w=10 cmin=64 vmin=64  pixels=1000
+PASS  tc=0 w=15 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=25 cmin=24 vmin=32  pixels=1003
+PASS  tc=0 w=30 cmin=-1 vmin=32  pixels=1001
+PASS  tc=0 w=30 cmin=0 vmin=32  pixels=1001
+PASS  tc=0 w=30 cmin=1 vmin=32  pixels=1000
+PASS  tc=0 w=30 cmin=24 vmin=-1  pixels=1001
+PASS  tc=0 w=30 cmin=24 vmin=0  pixels=1000
+PASS  tc=0 w=30 cmin=24 vmin=1  pixels=1000
+PASS  tc=0 w=30 cmin=24 vmin=32  pixels=1010
+PASS  tc=0 w=30 cmin=24 vmin=33  pixels=1001
+PASS  tc=0 w=30 cmin=24 vmin=255  pixels=1000
+PASS  tc=0 w=30 cmin=24 vmin=300  pixels=1001
+PASS  tc=0 w=30 cmin=25 vmin=32  pixels=1
+PASS  tc=0 w=30 cmin=255 vmin=32  pixels=1000
+PASS  tc=0 w=30 cmin=511 vmin=32  pixels=1000
+PASS  tc=0 w=30 cmin=512 vmin=32  pixels=1001
+PASS  tc=0 w=31 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=32 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=45 cmin=24 vmin=32  pixels=1003
+PASS  tc=0 w=47 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=48 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=59 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=60 cmin=24 vmin=32  pixels=1004
+PASS  tc=0 w=90 cmin=24 vmin=32  pixels=1003
+PASS  tc=1 w=10 cmin=24 vmin=32  pixels=1000
+PASS  tc=1 w=30 cmin=24 vmin=32  pixels=1001
+PASS  tc=1 w=60 cmin=24 vmin=32  pixels=1000
+PASS  tc=2 w=10 cmin=24 vmin=32  pixels=1000
+PASS  tc=2 w=30 cmin=24 vmin=32  pixels=1003
+PASS  tc=2 w=60 cmin=24 vmin=32  pixels=1000
+PASS  tc=3 w=10 cmin=24 vmin=32  pixels=1000
+PASS  tc=3 w=30 cmin=24 vmin=32  pixels=1001
+PASS  tc=7 w=30 cmin=24 vmin=32  pixels=1000
+PASS  等价性 (3, 30, 24, 32) == (0, 30, 24, 32)（共同 1000 像素）  TARGET_CLASS=3 应当与红(0)完全一致
+PASS  等价性 (3, 10, 24, 32) == (0, 10, 24, 32)（共同 1000 像素）  TARGET_CLASS=3 在小半宽下也应与红(0)一致
+PASS  等价性 (7, 30, 24, 32) == (0, 30, 24, 32)（共同 1000 像素）  TARGET_CLASS=7 应当与红(0)完全一致
+PASS  等价性 (0, 60, 24, 32) == (0, 90, 24, 32)（共同 1002 像素）  W=90 夹到 60，应与显式 60 完全一致
+PASS  等价性 (0, 30, 512, 32) == (0, 30, 511, 32)（共同 1000 像素）  C_MIN=512 夹到 511，应与显式 511 完全一致
+PASS  等价性 (0, 30, -1, 32) == (0, 30, 0, 32)（共同 1001 像素）  C_MIN=-1 夹到 0，应与显式 0 完全一致
+PASS  等价性 (0, 30, 24, 300) == (0, 30, 24, 255)（共同 1000 像素）  V_MIN=300 夹到 255，应与显式 255 完全一致
+PASS  等价性 (0, 30, 24, -1) == (0, 30, 24, 0)（共同 1000 像素）  V_MIN=-1 夹到 0，应与显式 0 完全一致
+
+40/40 参数组合通过，共 39079 像素逐点比对；等价性断言 8/8 通过  [sim=modelsim]

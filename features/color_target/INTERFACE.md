@@ -1,3 +1,5 @@
+> 当前验证入口：[VERIFICATION.md](VERIFICATION.md)。系统适配仍为草案，不能从示意代码推断 MAIN 已接入。
+
 # `features/color_target/` 接口说明
 
 | 项 | 值 |
@@ -7,7 +9,7 @@
 | 主线基线 SHA | `c42168e26026425660f2a6f51eec76b04c85eea0`（本地核对时的 `origin/main`） |
 | 接口状态 | **接口草案**（§4.1 状态机：接口草案 → 负责人确认 → 已实现 → 已接入） |
 | 对应赛题 | 扩展二、进阶二 |
-| 当前进度 | T1 + T2 的独立模块与自检完成；**未接入主线、未产生 bit、未上板** |
+| 当前进度 | T1–T4 独立模块、自检与 A1 修复完成；A2 身份/年龄仍开放；**未接入主线、未产生 bit、未上板** |
 
 > 本文件是**待 MAIN 确认的共同边界**。协议 §4.1 明确：目前主线没有可直接交付的统一
 > 采集/显示帧身份接口，因此本模块的全部验证都在**显式模拟输入**下完成，不代表整机或
@@ -54,14 +56,10 @@
 **观察点要求**：必须是可用于颜色判断的**彩色流**，位于边缘/区域填充等风格化输出**之前**（§4.2）。
 颜色校正（CCM/白平衡）变化会改变分类结果，即使端口不变也必须通知 TARGET 重新评估（§4.2）。
 
-> ⚠️ **`sof` 是强依赖，漏发会静默出错（复查时发现，需 MAIN 注意）**
-> 本模块用 `sof` 复位帧内累加器。若某一帧没有 `sof`：该帧的像素会**累加到上一帧的统计上**
-> （像素数与包围框同时错），而且结果**仍会被判为有效**、带上的是上一帧的身份——
-> 属于"不报错但结果错"的类型。
-> 协议 §4.2 要求 MAIN 把现有的"提前帧通知"转换成"首个有效拍"的 `sof`，请务必保证
-> **每帧有且只有一个 `sof`**。
-> 若 MAIN 希望这种情况**响亮地失败**（无 `sof` 的帧直接产出 `O_result_valid=0`），
-> TARGET 可以把内部 `open_f` 在发布后清零，是一处小改动，需要的话告知即可。
+**SOF 与恢复边界（更新至 A1/EOF 修复后）：** 每帧必须有且仅有一个与有效像素对齐的 SOF。
+原检测器已在 EOF 关闭帧；之后缺 SOF 的 EOF 会发布 ready 但 valid=0，不再重复上帧有效统计。
+它不检查完整固定光栅，也不能保证任意截断/提前 SOF 的系统恢复；独立流封装另有光栅检查及显式复位契约。
+缺失 EOF、非完整尾拍及 reset 取消须由 MAIN 按可信事务记账。详见 [系统草案](integration/MAIN_CONTRACT_DRAFT.md)。
 
 ## 3. 输出：检测结果（§4.3）
 
@@ -102,7 +100,7 @@
 | 项 | 值 |
 |---|---|
 | 像素通路延迟 | **0 拍**（并接观察，不串联像素） |
-| 结果产生延迟 | `eof` 那一拍之后 **1 拍** 出现 `O_result_ready`，结果同时有效 |
+| 结果产生延迟 | 原检测器在 EOF 采样沿后结果和 ready 可见；以该沿为 0，下游 track 在 +1 沿消费。流封装旁路 +1、过滤 +WIDTH/4+3，详见 REPLAY.md |
 | 统计口径 | 帧级；不含任何跨帧状态，无帧间滤波 |
 
 ## 5. 标注模块接口（T3，`rtl/color_target_overlay.v`）
@@ -114,7 +112,7 @@ MAIN 逐像素调用即可，不引入对齐负担。
 |---|---|---|---|
 | `I_pixel_valid` | in | 1 | 当前显示坐标有效 |
 | `I_x` / `I_y` | in | `XW` / `YW` | 当前显示坐标 |
-| `I_result_valid` / `I_target_present` | in | 1 / 1 | 直接来自 `color_target_detect` 的锁存结果 |
+| `I_result_valid` / `I_target_present` | in | 1 / 1 | MAIN 显示域中已匹配并整帧提交的字段 |
 | `I_xmin` `I_xmax` `I_ymin` `I_ymax` | in | `XW`/`XW`/`YW`/`YW` | 同上 |
 | `I_center_x` / `I_center_y` | in | `XW` / `YW` | 同上 |
 | `O_overlay_valid` | out | 1 | 该像素是否要被覆盖 |
@@ -140,8 +138,8 @@ MAIN 逐像素调用即可，不引入对齐负担。
 | `clk` / `rst_n` | in | 1 | 与**显示侧**同域（HDMI 像素时钟），不是观察时钟——见 §10 第 4 条 |
 | `I_pixel_valid` / `I_x` / `I_y` | in | 1 / `XW` / `YW` | 当前显示坐标（与 `color_target_overlay` 同一约定） |
 | `I_update` | in | 1 | **可选**：与 `clk` 同域的更新脉冲；结果字段或状态/明暗变化也会自动触发，异步源需先原子 CDC |
-| `I_show` / `I_state` | in | 1 / 2 | `track.O_show` / `track.O_track_state`；`I_show` 只决定字形亮/暗，不决定是否覆盖 |
-| `I_count` / `I_center_x` / `I_center_y` | in | 20 / `XW` / `YW` | `track.O_out_count` / `O_out_center_x` / `O_out_center_y` |
+| `I_show` / `I_state` | in | 1 / 2 | MAIN 提交的 show/state；`I_show` 只决定字形亮/暗，不决定是否覆盖 |
+| `I_count` / `I_center_x` / `I_center_y` | in | 20 / `XW` / `YW` | MAIN 提交的 count / center_x / center_y |
 | `O_glyph_char` / `O_glyph_row` | out | 8 / 4 | **字形请求**：字符（ASCII）与该字形行（0..15） |
 | `I_glyph_bits` | in | 16 | **字形点阵**，`[15]` 最左；由 MAIN 的 `osd_char_lib` 组合返回 |
 | `O_overlay_valid` / `O_overlay_rgb` | out | 1 / 24 | 覆盖请求（区域内一律覆盖：底色或字形色） |
@@ -190,7 +188,7 @@ Nnnnnnn SEARCH|ACQ|TRACK|HOLD
 | `I_ymin` `I_ymax` `I_center_y` | in | `YW` | 同上 |
 | `I_session_id` / `I_frame_id` | in | 32 / 32 | 同上 |
 | `O_track_state` | out | 2 | 0=SEARCH 1=ACQ 2=TRACK 3=HOLD（可直接送 MAIN 的 OSD 显示状态文字） |
-| `O_show` | out | 1 | 1 时才有可显示的框（TRACK 或 HOLD） |
+| `O_show` | out | 1 | 当前 TRACK/HOLD 候选显示状态；不含去重/年龄/显示帧匹配保证 |
 | `O_out_*`（count/坐标/身份） | out | 同输入 | HOLD 期间保持"上次被接受"的那一帧 |
 | `O_state_change` | out | 1 | 状态变化时的一拍脉冲 |
 
@@ -201,72 +199,41 @@ Nnnnnnn SEARCH|ACQ|TRACK|HOLD
 **门限对"TRACK 的首次丢失"同样生效**：`LOST_FRAMES=1` 时首次丢失就立刻隐藏
 （自检用例 `lost_frames_1_hides_on_first_miss`）。
 
-**接 overlay 的接线**（两行即可）：
+**语义与限制：** 有效无目标按既有丢失状态机处理；无效 strobe 被跳过，不能等同于目标消失。
+当前 RTL 只在有效结果中处理 session 变化；无效新 session 不清旧状态，旧 session 有效包可回切。
+重复/倒序身份不会被拒绝，无效帧列与停止输入不会使历史结果按时间失效。
+这些已由 9 个采样、6 个 OPEN_GAP 复现，不能以原 21/21 状态机回归将其关闭。
+[TRACK_ADMISSION_PROPOSAL.md](integration/TRACK_ADMISSION_PROPOSAL.md) 提出责任与不变量，尚未批准实现。
 
-```verilog
-overlay.I_result_valid   = track.O_show;
-overlay.I_target_present = track.O_show;
+`O_out_*` 保持上次被接受的身份和字段。TRACK 状态也可能保持旧观测，不能仅用状态区分“本帧实检”。
+MAIN 应按显示帧、观测身份、可信时间和已批准策略判断是否显示，并在显示边界整组提交；
+禁止将原 `O_show` 和异步变化的坐标直接接到正在扫描的框/文字上。
+
+## 7. 连接责任示意（不是现成 MAIN 适配器）
+
+同一观察域内可由 detect.O_result_ready 驱动 track.I_result_strobe；其他结果字段同组连接。
+现有链路测试验证这一级时序，但不验证生产 TRACK 的身份准入，也不实现跨域/DDR/显示选帧。
+
+```text
+规范化 RGB/坐标/标记/身份（MAIN）
+    → 选定检测路径（TARGET） → 身份准入/年龄策略（待批准）
+    → 原子结果跨域（MAIN，须证明容量和复位）
+    → 与 DDR 所选 frame_key/槽代次关联（MAIN）
+    → 文字准备完成 + 框/十字/字段一次显示提交（MAIN）
+    → 两个独立覆盖模块 → MAIN mixer
 ```
 
-**语义要点（§4.1 / §4.3）**：
-- **中止帧（`I_result_valid=0`）不评估**：跳过，不改变状态。§4.3 说检测模块丢弃中止帧结果，
-  但"丢一帧结果"不等于"目标消失"，当丢失处理会误判。
-- **会话变化强制清零**：新会话首帧按 SEARCH 重新判定，不把旧会话状态带过去（§4.1）。
-- **HOLD 期间不清零显示结果**：保持上一次被接受的那一帧的坐标与身份，避免框突然消失。
-- 需要 MAIN 注意：`O_out_session_id/frame_id` 是**上一次被接受**的那一帧身份，不是当前帧。
-  MAIN 若要判断"这个框是不是本帧的"，应比较该身份与当前帧身份。
-
-## 7. 三级接线参考（给 MAIN）
-
-数据通路：**`detect → track → overlay`**，其中 track 与 overlay 的连接只需两行：
-
-```verilog
-u_track u_track (
-    .clk(clk), .rst_n(rst_n),
-    .I_result_strobe  (u_detect.O_result_ready),
-    .I_result_valid   (u_detect.O_result_valid),
-    .I_target_present (u_detect.O_target_present),
-    .I_pixel_count    (u_detect.O_pixel_count),
-    .I_xmin (u_detect.O_xmin), .I_xmax (u_detect.O_xmax), .I_center_x (u_detect.O_center_x),
-    .I_ymin (u_detect.O_ymin), .I_ymax (u_detect.O_ymax), .I_center_y (u_detect.O_center_y),
-    .I_session_id (u_detect.O_res_session_id), .I_frame_id (u_detect.O_res_frame_id),
-    /* O_* 见 §6 */
-);
-
-u_overlay u_overlay (
-    .I_pixel_valid   (display_pixel_valid),   // 显示坐标有效
-    .I_x (display_x), .I_y (display_y),
-    .I_result_valid   (u_track.O_show),
-    .I_target_present (u_track.O_show),
-    .I_xmin (u_track.O_out_xmin), .I_xmax (u_track.O_out_xmax),
-    .I_center_x (u_track.O_out_center_x),
-    .I_ymin (u_track.O_out_ymin), .I_ymax (u_track.O_out_ymax),
-    .I_center_y (u_track.O_out_center_y),
-    /* O_overlay_valid / O_overlay_rgb 交 MAIN 的 mixer */
-);
-```
-
-**⚠️ 必须由 MAIN 处理的一件事：结果与显示帧的对齐。**
-已实测（`run_color_target_chain.py`，396 拍逐拍比对）的实际时序是：
-
-| 时刻 | 事件 |
-|---|---|
-| 本帧最后一个有效拍 | detect 收到 `eof` |
-| 该拍**之后 1 拍** | detect 发 `O_result_ready`，结果锁存 |
-| 同上那一拍 | track 消费结果 → `O_show` 与框坐标更新 |
-| 同上那一拍 | overlay 是纯组合的，**立刻**改用新结果 |
-
-也就是说，若把 overlay 直接接在 track 上，**本帧最后 1~2 个像素会用上刚发布的新结果**
-（框在这一帧末尾就跳了）。要完全避免，MAIN 需在**帧边界**把结果寄存一级再喂给 overlay
-——这正是协议 §4.3 要求的"读出时使用匹配结果；不能把上一帧的框悄悄标成当前帧检测结果"。
-
-本自检台按**现有直接接线**测量并如实记录该现象，没有替 MAIN 加适配层，免得掩盖真实接线行为。
+以输入 EOF 采样沿为 0：原检测器结果在该沿后可见，track 在 +1 沿更新；
+新流封装旁路结果 +1、track +2，过滤结果 +WIDTH/4+3、track 再 +1。
+直接组合 overlay 会立刻跟随所接字段，不保证活动扫描稳定。
+仅加一级帧边界寄存器可固定一帧的字段，但无法建立帧身份、修复槽复用或保证框文字同观测。
+具体承诺与服务时限见 [MAIN_CONTRACT_DRAFT.md](integration/MAIN_CONTRACT_DRAFT.md)。
 
 ## 8. 参数
 
 | 参数 | 默认 | 合法范围 | 含义 |
 |---|---|---|---|
-| `TARGET_CLASS` | 0 | 0 / 1 / 2 | 0=红 1=绿 2=蓝（并列最大时给低序号通道优先，分类互斥） |
+| `TARGET_CLASS` | 0 | 0 / 1 / 2 | 0=红 1=绿 2=蓝；其他配置回退红且结果标签 0（A1）；并列最大按低序号通道优先 |
 | `HUE_HALF_WIDTH_DEG` | 30 | **0..60** | hue 半宽（度）；30 即 hue 落在目标色 ±30° 内 |
 | `C_MIN` | 24 | **0..511** | 彩度 `max-min` 下限，兼滤白/灰与暗部噪声 |
 | `V_MIN` | 32 | **0..255** | 亮度 `max` 下限 |
@@ -277,7 +244,7 @@ overlay 的参数见 §5 一节：`BOX_THICK >= 1`、`CROSS_THICK >= 1`、`CROSS
 文字标注的参数见 §5.1：`ENABLE`、`X0`/`Y0`（区域，**由 MAIN 决定**）、`SCALE`(1 或 2)、
 `LINE_CHARS`、三个颜色。区域尺寸由它们算出，不是写死的。
 
-**合法范围都在编译期夹取**（常量折叠，不产生运行时逻辑），越界参数不会造成溢出、除零
+**数值门限在编译期夹取，类别使用上述回退规则**（常量折叠，不产生运行时逻辑），越界参数不会造成溢出、除零
 或"高位被悄悄丢掉"这类退化行为。判据用交叉乘积 `60·|d| ≤ W·C`，**位宽与 `W` 无关**，
 所以 `W` 取任何合法值都不会出现乘积截断；这条正是审查意见①的修复内容（`README.md` §6）。
 夹取与逐条对应关系见 `README.md` §7——那里也说明了为什么"碰巧对"不算对。
@@ -295,6 +262,8 @@ overlay 的参数见 §5 一节：`BOX_THICK >= 1`、`CROSS_THICK >= 1`、`CROSS
    需由 MAIN 按 §4.2 通知 TARGET 重新评估 `HUE_HALF_WIDTH_DEG`——**不得为了迁就检测
    去改主线 AWB/曝光**（§2.2）。
 5. **未接入主线、未上板**。当前只有模拟输入下的自检结果。
+6. **TRACK 未落实身份准入与时间年龄**。六个 OPEN_GAP 见本文 §6 和 A2 提案；不以状态或 O_show 单独证明新鲜度。
+7. **文字颜色名固定 RED**（rtl/color_target_text_overlay.v 的字符选择）。绿/蓝检测结果标签一致性不代表文字类别联动；非红演示需另行适配批准。
 
 ## 10. 待确认 / 需要 MAIN 提供（一次性清单）
 
@@ -312,7 +281,7 @@ MAIN 只需逐条"确认"或"纠正"，不必来回追问。证据都是只读�
 | 3 | **规范化SOF/EOL/EOF** | RAW侧 `isp/uial2axis.v:55-56` 为有效拍SOF和EOL；但编译的根 `awb.v:303-307` 将user保留为提前通知，RGB/valid另有延迟，last由valid包络生成 | MAIN提供与AWB RGB实际对齐的独立SOF/坐标/EOL/EOF，保留主线原提前通知；不能直接接awb user | SOF错位会漏开帧；把EOL当EOF会逐行发布；行内valid空洞也需单独处理 |
 | 4 | 结果的 CDC 归属 | 观察流在 **`S_csi_rx_clk`**（`design_top_wrapper.v:589` → `isp_top`，`isp/isp_top.v:9`），**不是** HDMI 像素时钟；显示侧在 `I_clk`(HDMI_PIXEL_CLK) | 由 **MAIN 的适配层**实现原子请求/应答握手，源端保持整组数据至确认；是否需要 FIFO 由吞吐和保持能力决定。文字模块只接收适配后的同域字段 | 单拍脉冲直接过两级同步可能漏事件；字段分别同步不能保证整组一致，均不构成完整 CDC |
 | 5 | 显示叠加区域与共用字库 | 主线已有 `osd_char_lib.v`（字库，"frozen"）与 `edge_status_osd.v`（**参数化区域 X0/Y0**、含不用除法器的三位十进制分解）；`hdmi_mixer.v:900-905` 是逐像素合成点（显示坐标 `S_x_2d/S_y_2d`，`:556-559`），`:563` 那段组合逻辑是自然接入位置；主线状态框占 (800,16)+448×72 | 框/十字与文字块区域由 MAIN 分配；我**默认**文字块放左下 (16,600)+224×34（720p），SCALE=1。**字形借 MAIN 已有实例**（我的模块不实例化字库） | 区域只影响 `X0/Y0` 参数；若 MAIN 要求另放一份字库，实测代价参考：整份 `edge_status_osd`（**含字库**）248 LUT/234 reg |
-| 6 | 整机资源预算中给本模块的份额 | 现存 EDGE_CONTROL_V1：`#lut 18307 / 38189`（48%）、slice 利用率 68.84%（`artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/camera_to_dsi_display_gate.area`） | 文字模块独立 gate 为 282 LUT/194 reg（见 `evidence/text_atomic_2026-10-17/VALIDATION.md`）；其余模块仍为估计，整机预算待 MAIN 确认 | 预算不足时 MAIN 可先关闭文字模块（`ENABLE=0`） |
+| 6 | 整机资源与时钟预算 | 历史 MAIN 完整 routed 结果未含 TARGET；独立 RGB gate 架含额外寄存器/选择器，不能作整机增量 | MAIN 提供真实顶层新资源、约束与 P&R；具体口径见 VERIFICATION.md §5 | 不能相加独立面积或用 gate WNS 推导整机 Fmax |
 | 7 | 显示坐标约定 | `hdmi_mixer` 的 `S_x_2d/S_y_2d` 与 `S_video_data_2d` 对齐；mixer 有 `H_OFFSET/V_OFFSET` 参数 | 我假设 overlay 收到的 (x,y) **就是**显示坐标（与 `S_x_2d/S_y_2d` 同域同原点），**不需要**再减偏移 | 若需要减偏移，MAIN 在适配层处理；我的模块只认收到的坐标 |
 
 ### 10.1 接线示意（按默认假设）
@@ -328,7 +297,7 @@ color_target_detect #(...) u_detect (
 
 color_target_track #(...) u_track (...);   // 同域，吃 detect 的 O_result_ready
 
-// 跨域（MAIN 的适配层，第 4 条）：把 track 的结果窄握手到显示域 → td_* 信号
+// MAIN 待实现：准入/年龄 → 整包 CDC（容量/epoch 证明）→ DDR帧关联 → 显示整组提交 td_*
 // 显示（HDMI 像素时钟域，在 hdmi_mixer 的逐像素合成处）
 color_target_overlay      #(...) u_box  (.I_x(S_x_2d), .I_y(S_y_2d), ...);
 color_target_text_overlay #(...) u_text (.I_x(S_x_2d), .I_y(S_y_2d),
@@ -338,8 +307,8 @@ color_target_text_overlay #(...) u_text (.I_x(S_x_2d), .I_y(S_y_2d),
 // 合成优先级（§4.5）：文字 > 框/十字 > 基础图像
 ```
 
-需要 MAIN 额外提供而本角色**不能自造**的只有三样：**`I_eof` 的生成**、**跨域适配**、
-**区域分配**。其余都已在上面查证或已参数化。
+MAIN 还须提供规范化完整帧事务、错误/取消、唯一身份与槽代次、原子 CDC 服务能力、
+框文字显示提交、区域和真实资源/时钟预算；这些尚未在主工程实现。详见 INTEGRATION.md。
 
 ### 10.2 EOF 关闭语义修复（2026-10-18）
 
