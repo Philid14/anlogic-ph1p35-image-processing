@@ -41,6 +41,7 @@ Python3.12.14、NumPy2.3.5、Pillow12.3.0、Matplotlib3.11.2、Icarus12.0。
 5. 源码faf3262已综合完成，物理实现过程中复核启动语义发现“只等两个HDMI vsync”不足以屏蔽Sensor初始化前的正常空读。主动停止该轮物理实现，未运行新bitgen（Runs bit仍为2026-10-17旧文件，不能归档冒充新bit）。旧源码commit、综合/部分物理stdout和prebuild信息保留。增加实际packed capture的连续三完整帧ready，经两级同步后再等两次HDMI vsync；独立actual capture_arm/FIFO单元验证未就绪多次刷新不误报、短帧重新等待、三完整帧armed和复位。只改变诊断启用时机，不门控视频请求。原完整720p数据通路测试仍对应未变化的注入/算法/OSD/packer；更改的启动模块另补单元和小尺寸联合回归，再重新完整TD。
 6. 源码667eff7完整生成R0 bit，但最终Setup−0.051ns/TNS−0.454ns/15端点违例，Hold+0.020ns。归档EDGE_STABILITY_PROBE_V1_R0，不作为candidate。最差HDMI_PIXEL_CLK路径mult0_syn_59→O_hdmi_data_reg[17]，slow_m40c，数据12.995ns/14级；MIPI域+3.120ns。LUT16076/FF16478/Slice17111(80.65%)/ERAM47/DSP9。说明新增诊断触发重新物理映射后旧HDMI裕量不稳，不能把它作为实板抖动原因已证实。保留全报告与bit，不放宽SDC，继续缩减纯诊断资源后再构建。
 7. 首次归档脚本未接受area字段的行首缩进，未成功创建归档目录；修正提取器后原样复制原始报告，未修改资源数字或RTL。
+8. R0之后仅将内部诊断SEQ从32bit缩为16bit、面板仍零扩展8位十六进制显示；其余观察字段与数据通路不变。增加3bit参数跨回绕13帧单元，再跑小尺寸联合验证。目的是减少诊断开销/物理干扰，不声称逻辑上修复了未改动的HDMI路径；须重新完整TD判断。
 
 ## 证据局限
 

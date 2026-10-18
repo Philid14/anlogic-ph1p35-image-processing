@@ -2,7 +2,7 @@
 // All observers share the MIPI byte clock. Separate SOF collectors preserve
 // delayed metadata. Atomic panel publishes the previously completed collectors,
 // normally two capture frames old; no combinational video/control feedback.
-module probe_stream_monitor #(parameter IMG_WIDTH=1280,IMG_HEIGHT=720)(
+module probe_stream_monitor #(parameter IMG_WIDTH=1280,IMG_HEIGHT=720,SEQ_BITS=16)(
  input clk,rst_n,iv,iu,il,ev,eu,pv,pu,
  input [95:0] edge_rgb,input [7:0] edge_threshold,
  input [1:0] fifo_sticky,
@@ -17,7 +17,7 @@ module probe_stream_monitor #(parameter IMG_WIDTH=1280,IMG_HEIGHT=720)(
  endfunction
  function[15:0] inc16;input[15:0]a;begin inc16=(&a)?a:a+1'b1;end endfunction
  reg seen_i,seen_e,seen_p,ready_i,ready_e,ready_p;
- reg[31:0] seq_i,seq_e,seq_p,si,se,sp;
+ reg[SEQ_BITS-1:0] seq_i,seq_e,seq_p,si,se,sp;
  reg[18:0] ic,ec,pc,isc,esc,psc;
  reg[9:0] line_beats,lines;
  reg[15:0] last_line,s_last_line,s_lines,lead,lead_hold,s_lead,bubbles,s_bubbles,line_errors,s_line_errors,phase_errors,s_phase_errors;
@@ -54,7 +54,7 @@ module probe_stream_monitor #(parameter IMG_WIDTH=1280,IMG_HEIGHT=720)(
     if(coherent)begin
      sticky<=sticky|events;
      if(bad_i||bad_p||esc!=BEATS)frame_bad<=inc16(frame_bad);
-     panel<={32'h50524231,si,{13'd0,isc},{13'd0,psc},edge_crc,
+     panel<={32'h50524231,{{(32-SEQ_BITS){1'b0}},si},{13'd0,isc},{13'd0,psc},edge_crc,
        s_lines,s_last_line,s_lead,s_bubbles,s_line_errors,s_phase_errors,
        ((bad_i||bad_p||esc!=BEATS)?inc16(frame_bad):frame_bad),changed,sticky|events,s_first_bad,1'b0,fifo_armed,1'b1};
     end else panel[0]<=0; // explicitly not a valid measurement, never 'normal zero'

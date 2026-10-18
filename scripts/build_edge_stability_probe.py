@@ -27,7 +27,7 @@ def main():
     snapshot=dict(source_commit=commit,time=datetime.now(timezone(timedelta(hours=8))).isoformat(),files=manifest,
         old_bits={f.relative_to(ROOT).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in (ROOT/'artifacts/bitstreams').glob('*/*.bit')},
         td_default_flow_sha256=hashlib.sha256(flow.read_bytes()).hexdigest())
-    assert len(snapshot['old_bits'])==15
+    assert len(snapshot['old_bits'])>=15 # preserve failed checkpoints as well
     (tmp/'probe_prebuild.json').write_text(json.dumps(snapshot,indent=2)+'\n',encoding='utf-8')
     prepare_td_runs.main()
     wrapper=tmp/'probe_final_flow.tcl'

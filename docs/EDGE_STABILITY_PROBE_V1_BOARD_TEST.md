@@ -31,6 +31,7 @@
 |FLAG|无事件且已armed/有效为00FFFFF7；FFFFF是无首气泡坐标的N/A标志|
 
 序列、模式和门限变化时不要跨配置比较CRC。其它门限参考`docs/edge_stability_probe_evidence/fixed_reference.json`。
+SEQ是16bit循环值，显示高4位十六进制数字为0000，FFFF→0000正常回绕；它不是规范化frame_id，不将回绕当丢帧。
 FLAG高字节含CRC改变/输入行帧/气泡/pack/phase/Edge计数/FIFO事件，详细位定义见DESIGN。FLAG是sticky，故障曾发生即保留；本页列正常期望不是本机已经量到的结果。
 计数结果是约两个采集帧前的历史样本、跟随该画面存入DDR；FIFO及COUNT是累计历史。SEQ不是HDMI CNT、不是延迟值。
 
