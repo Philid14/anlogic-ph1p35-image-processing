@@ -1,0 +1,301 @@
+{
+  "changed_result_packets": 42,
+  "only_changed_field": "cls",
+  "classifier_unchanged": true,
+  "deltas": [
+    {
+      "parameter": -3,
+      "path": "0",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -3,
+      "path": "1",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -3,
+      "path": "2",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -3,
+      "path": "3",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -3,
+      "path": "3",
+      "frame": 2,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -3,
+      "path": "3",
+      "frame": 3,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "0",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "1",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "2",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "3",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "3",
+      "frame": 2,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": -1,
+      "path": "3",
+      "frame": 3,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "0",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "1",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "2",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "3",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "3",
+      "frame": 2,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 3,
+      "path": "3",
+      "frame": 3,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "0",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "1",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "2",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "3",
+      "frame": 1,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "3",
+      "frame": 2,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 5,
+      "path": "3",
+      "frame": 3,
+      "old_class": 1,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "0",
+      "frame": 1,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "1",
+      "frame": 1,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "2",
+      "frame": 1,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "3",
+      "frame": 1,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "3",
+      "frame": 2,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 6,
+      "path": "3",
+      "frame": 3,
+      "old_class": 2,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "0",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "1",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "2",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "3",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "3",
+      "frame": 2,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 7,
+      "path": "3",
+      "frame": 3,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "0",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "1",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "2",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "3",
+      "frame": 1,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "3",
+      "frame": 2,
+      "old_class": 3,
+      "new_class": 0
+    },
+    {
+      "parameter": 2147483647,
+      "path": "3",
+      "frame": 3,
+      "old_class": 3,
+      "new_class": 0
+    }
+  ]
+}

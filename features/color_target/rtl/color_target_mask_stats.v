@@ -19,6 +19,8 @@ module color_target_mask_stats #(
     output reg [YW-1:0] O_ymin, O_ymax, O_center_y,
     output reg O_result_ready, output reg O_protocol_error
 );
+    localparam [1:0] CLASS_EFF=(TARGET_CLASS==1) ? 2'd1 :
+                                ((TARGET_CLASS==2) ? 2'd2 : 2'd0);
     localparam [XW-1:0] XMAX={XW{1'b1}};
     localparam [YW-1:0] YMAX={YW{1'b1}};
     localparam [19:0] LIMIT=(MIN_COUNT<1) ? 20'd1 :
@@ -89,7 +91,7 @@ module color_target_mask_stats #(
                     O_res_session_id<=(start || !opened) ? I_session_id : session_id;
                     O_res_frame_id<=(start || !opened) ? I_frame_id : frame_id;
                     O_result_valid<=good; O_target_present<=present;
-                    O_color_class<=present ? TARGET_CLASS[1:0] : 0;
+                    O_color_class<=present ? CLASS_EFF : 0;
                     O_pixel_count<=present ? next_count[19:0] : 0;
                     O_xmin<=present ? next_xmin : 0; O_xmax<=present ? next_xmax : 0;
                     O_ymin<=present ? next_ymin : 0; O_ymax<=present ? next_ymax : 0;

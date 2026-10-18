@@ -39,6 +39,10 @@ def clamp_min_count(v):
     return 1 if v < 1 else (1048575 if v > 1048575 else v)
 
 
+def effective_target_class(value):
+    return value if value in (1, 2) else 0
+
+
 def classify(r, g, b, p):
     """单像素分类，与 color_classify.v 等价。"""
     mx = max(r, g, b)
@@ -128,7 +132,7 @@ def run(beats, p=None):
                 session=(bt["session"] if start_f else cur_session),
                 frame=(bt["frame"] if start_f else cur_frame),
                 valid=int(eff_ok), present=int(present),
-                cls=(p["target_class"] if present else 0),
+                cls=(effective_target_class(p["target_class"]) if present else 0),
                 count=(nxt_cnt if present else 0),
                 xmin=(nxt_xmin if present else 0), xmax=(nxt_xmax if present else 0),
                 ymin=(nxt_ymin if present else 0), ymax=(nxt_ymax if present else 0),

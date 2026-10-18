@@ -1,5 +1,5 @@
 """Frame-level oracle for the experimental RGB replay path, no RTL pipeline."""
-from model.ref_color_target import DEFAULTS, classify, clamp_min_count
+from model.ref_color_target import DEFAULTS, classify, clamp_min_count, effective_target_class
 from model.ref_color_target_support3 import support3
 
 
@@ -15,7 +15,7 @@ def frame_result(rgb, width, height, session, frame, filtered=False, params=None
     kept = support3(hits) if filtered else hits
     present = not invalid and len(kept) >= clamp_min_count(p["min_count"])
     result = dict(session=session,frame=frame,valid=int(not invalid),present=int(present),
-                  cls=p["target_class"] & 3 if present else 0,
+                  cls=effective_target_class(p["target_class"]) if present else 0,
                   count=len(kept) if present else 0,xmin=0,xmax=0,ymin=0,ymax=0,cx=0,cy=0)
     if present:
         result.update(xmin=min(x for x,y in kept),xmax=max(x for x,y in kept),

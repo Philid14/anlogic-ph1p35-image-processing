@@ -1,0 +1,12 @@
+{
+  "base_sha": "b4565a152458d251d694d850a48058a325d66bfb",
+  "branch": "codex/target/a1-integration-audit",
+  "review_report_sha256": "f702a3b189a78f8cb894f1f790f68d066e772715cb82e3e44a4cf6861bfdfea9",
+  "pr2_head": "b4565a152458d251d694d850a48058a325d66bfb",
+  "pr2_state": "OPEN",
+  "pr2_autoMerge": null,
+  "pr2_reviews": [],
+  "canonical_D_head": "b4565a152458d251d694d850a48058a325d66bfb",
+  "canonical_D_clean": true,
+  "no_push_authorized": true
+}

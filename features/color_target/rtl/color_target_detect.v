@@ -53,6 +53,9 @@ module color_target_detect #(
     output reg [YW-1:0] O_ymin, O_ymax, O_center_y,
     output reg          O_result_ready  // 一拍脉冲：新结果已锁存
 );
+    // Same fallback as color_classify: only 1/2 select green/blue; all else red.
+    localparam [1:0] CLASS_EFF = (TARGET_CLASS == 1) ? 2'd1 :
+                                ((TARGET_CLASS == 2) ? 2'd2 : 2'd0);
     // ---------------- 逐像素分类：4 路并行 ----------------
     wire h0, h1, h2, h3;
     color_classify #(.TARGET_CLASS(TARGET_CLASS), .HUE_HALF_WIDTH_DEG(HUE_HALF_WIDTH_DEG),
@@ -203,7 +206,7 @@ module color_target_detect #(
                 O_res_frame_id   <= eff_frame;
                 O_result_valid   <= eff_ok;
                 O_target_present <= res_ok;
-                O_color_class    <= res_ok ? TARGET_CLASS[1:0] : 2'd0;
+                O_color_class    <= res_ok ? CLASS_EFF : 2'd0;
                 O_pixel_count    <= res_ok ? nxt_cnt    : 20'd0;
                 O_xmin           <= res_ok ? nxt_xmin   : {XW{1'b0}};
                 O_xmax           <= res_ok ? nxt_xmax   : {XW{1'b0}};
