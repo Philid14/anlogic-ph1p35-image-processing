@@ -1,7 +1,10 @@
 `timescale 1ns / 1ps
 // Four RGB888 pixels per beat -> display gray and thresholded binary.
 // AWB lane format is {R[23:16], G[15:8], B[7:0]} in every 24-bit lane.
-// Y = (77R + 150G + 29B + 128) >> 8, implemented with shift/add terms.
+// Y = (77R + 150G + 29B + 128) >> 8. Constant multipliers map to the
+// abundance of DSP blocks, leaving scarce slices for routing the fixed
+// DDR/HDMI design; an earlier shift/add R0 build used +921 LUT and had only
+// +0.002ns routed setup margin.
 module rgb_effects_96 (
     input [95:0] I_rgb,
     input [7:0] I_binary_threshold,
@@ -10,15 +13,10 @@ module rgb_effects_96 (
 );
     function [15:0] luma16;
         input [7:0] r, g, b;
-        reg [15:0] r_term, g_term, b_term;
         begin
-            r_term = {8'd0,r} + ({8'd0,r} << 2)
-                   + ({8'd0,r} << 3) + ({8'd0,r} << 6);
-            g_term = ({8'd0,g} << 1) + ({8'd0,g} << 2)
-                   + ({8'd0,g} << 4) + ({8'd0,g} << 7);
-            b_term = {8'd0,b} + ({8'd0,b} << 2)
-                   + ({8'd0,b} << 3) + ({8'd0,b} << 4);
-            luma16 = r_term + g_term + b_term + 16'd128;
+            luma16 = 16'd77 * {8'd0,r}
+                   + 16'd150 * {8'd0,g}
+                   + 16'd29 * {8'd0,b} + 16'd128;
         end
     endfunction
 
