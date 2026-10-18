@@ -63,7 +63,17 @@ python -X utf8 tests/temporal_roi_analysis.py 'D:/captures/static_glasses_decode
 
 反馈：bit SHA、场景说明、原视频路径、解码结果/缺页号、是否新异常；不需要把巨大编码视频提交GitHub，保留原文件及SHA即可。
 
-## 回滚
+## 18:42新采样反馈（2026-10-18）
+
+`video_20261018_184242.mp4`已独立全扫描3332帧，恢复**101/101页、全8帧及AWB元数据**，全部页面/重建CRC通过。identity为新的`6A23858A`，与旧`897350F6`不同，RGB全数组也已变化；本次重新采样确实产生新数据。
+
+新ROI变亮且出现TH40/60临界响应：pre/post RGB相邻MAE5.1392/5.8269，公共区域Gaussian+Sobel最大64，TH40四跳同坐标翻转率16.35%，但未辨认出清晰黑白分界，TH80为空。实际AWB变化有小幅影响，固定gain后仍不稳定。写侧FIFO历史sticky均1，发生时刻/重复事件未知，不能宣称视频流完全正常。
+
+用户补充：目标手持、尽量保持不动；未看见绿框，边界估计位于画面中间。不要把这批当作无运动的理想纸边或纯传感器噪声数据。完整结果与图见`EDGE_TEMPORAL_RESEARCH_V1_RECORDING_184242.md`。
+
+**下一步先核对预热期ROI与异常，再补长录像：** 固定相机和纸边，重新PROGRAM_SRAM后立即切ORIGIN，拍下编码出现前绿框穿过边界的整屏照片/短录像。ROI只有画宽45%–55%、画高47.78%–52.22%；编码出现后中央已被覆盖。若一直看不到框，先提供预热短录像用于核对，不要再盲录整轮。沿用既有bit、无参数改动；暂不开发正式时间算法。复核重置后写FIFO标志首次置位情况；既有sticky不能检测置位后的重复事件。
+
+## 回滚固件
 
 - 实时原算法：重新PROGRAM_SRAM烧录`artifacts/bitstreams/EDGE_QUALITY_V1/camera_to_dsi_display.bit`；SHA `629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5`。
 - 固定源对照：`artifacts/bitstreams/EDGE_STABILITY_PROBE_V1/camera_to_dsi_display.bit`；SHA `7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980`。

@@ -1,0 +1,20 @@
+{
+  "date_local": "2026-10-18",
+  "timezone": "Asia/Shanghai",
+  "role": "MAIN",
+  "video": "video_20261018_184242.mp4",
+  "bytes": 56326134,
+  "video_sha256": "8e60d262383c67da677e3553bcbfc1c6d2c7788114576d094ff0ce4e4eb9bb0c",
+  "base_commit": "6df1d5c0986499dae58d1f2aac94e64e6a96e396",
+  "candidate_tag": "edge-temporal-research-v1-candidate",
+  "candidate_commit": "e3a6943857116b0a037aa1776a94e4b9f3602180",
+  "build_source_commit": "84299d42fb88842b837794bdf43b61a88f1e2049",
+  "word_sha256": "2dbc226ed7ac34d31d874e1feb66c6d507841e99cb1e2732cc2420dc56d60be2",
+  "npz_sha256": "0fc080aa2550f9bb77a058bd15ea22d0fa2b8cb18482487518e77aa1601c526c",
+  "user_scene_observation": [
+    "target handheld, trying to hold still",
+    "green ROI was not seen; boundary believed near screen center"
+  ],
+  "optical_frames_not_used_as_rgb": true,
+  "raw_video_uploaded": false
+}

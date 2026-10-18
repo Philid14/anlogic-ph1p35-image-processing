@@ -29,6 +29,17 @@ def rgb_summary(images):
                 max_abs_delta=int(np.abs(delta).max()))
 
 
+def edge_presence(historical):
+    """Describe measured QUALITY masks; do not infer whether they are contours."""
+    present = [int(th) for th, models in historical.items()
+               if any(models['quality']['frame_edge_samples'])]
+    empty = [int(th) for th, models in historical.items()
+             if not any(models['quality']['frame_edge_samples'])]
+    return dict(quality_nonempty_thresholds=present, quality_empty_thresholds=empty,
+                conclusion=f'transport valid; QUALITY responses at {present}; empty at {empty}; '
+                           'contour representativeness and motion remain unverified; no algorithm ranking')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('capture', type=Path)
@@ -90,8 +101,7 @@ def main():
             actual_post_crc=[f'{x:08X}' for x in meta[:, 9]],
             unique_pre_crcs=len(set(meta[:, 8].tolist())), unique_post_crcs=len(set(meta[:, 9].tolist())),
             sof_intervals_mipi_cycles=((meta[1:, 15].astype(np.int64)-meta[:-1, 15]) % 2**32).tolist()),
-        historical_spatial_models=historical,
-        conclusion='transport valid; this low-contrast ROI has no edge samples at TH40/60/80; no temporal algorithm ranking')
+        historical_spatial_models=historical, **edge_presence(historical))
     (args.output/'evaluation.json').write_text(json.dumps(result, indent=2)+'\n', encoding='utf-8')
     with (args.output/'frame_metadata.csv').open('w', newline='', encoding='utf-8') as stream:
         writer = csv.writer(stream)
@@ -116,18 +126,19 @@ def main():
     fig, axes = plt.subplots(2, 2, figsize=(12, 7), layout='constrained')
     axes[0, 0].plot(meta[1:, 0], np.abs(np.diff(pre.astype(int), axis=0)).mean((1, 2, 3)), 'o-', label='pre AWB')
     axes[0, 0].plot(meta[1:, 0], np.abs(np.diff(post.astype(int), axis=0)).mean((1, 2, 3)), 'o-', label='post AWB')
-    axes[0, 0].set(title='Adjacent-frame RGB changes', ylabel='Mean absolute delta / 8-bit codes', ylim=(0, 3.5))
+    axes[0, 0].set(title='Adjacent-frame RGB changes', ylabel='Mean absolute delta / 8-bit codes', ylim=(0, None))
     axes[0, 0].legend()
     for channel, axis, label in [(0, axes[0, 1], 'R'), (1, axes[1, 0], 'B')]:
         axis.plot(meta[:, 0], gains[:, channel]/65536, 'o-')
         axis.set(title=f'Actual {label} AWB gain (small scale range)', ylabel='Multiplier')
         axis.ticklabel_format(style='plain', useOffset=False)
-    axes[1, 1].hist(fields['sobel_magnitude'][:, roi].ravel(), bins=np.arange(0, 83, 2), label='Gaussian + Sobel')
+    hist_max = max(82, int(fields['sobel_magnitude'][:, roi].max())+2)
+    axes[1, 1].hist(fields['sobel_magnitude'][:, roi].ravel(), bins=np.arange(0, hist_max+2, 2), label='Gaussian + Sobel')
     for value, name in [(20, 'low @ TH40'), (40, 'TH40'), (60, 'TH60'), (80, 'TH80')]:
         axes[1, 1].axvline(value, linestyle='--', linewidth=1, label=name)
     axes[1, 1].set(title='Valid-interior gradient distribution (8 frames)', xlabel='L1 magnitude', ylabel='Samples')
     axes[1, 1].legend(fontsize=8)
-    fig.suptitle('Validated real data: input variation exists; no eligible contours in this ROI')
+    fig.suptitle('Validated real ROI: measured RGB changes, AWB gains and gradient distribution')
     fig.savefig(args.output/'input_awb_gradient.png', dpi=140)
     plt.close(fig)
     print(json.dumps({k: result[k] for k in ('shape', 'evaluation_internal_samples', 'conclusion')}, indent=2))

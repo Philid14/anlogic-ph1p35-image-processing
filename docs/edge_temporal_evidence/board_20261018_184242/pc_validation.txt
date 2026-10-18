@@ -1,0 +1,7 @@
+{
+  "valid_capture_revalidated": true,
+  "damaged_post_rejected": true,
+  "empty_edges_not_reported_stable": true,
+  "stable_nonempty_edge_reference_passed": true
+}
+PASS: real empty/nonempty descriptions; fixed-edge zero flips; 2px displacement proxy; 8-connectivity

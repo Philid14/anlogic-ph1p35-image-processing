@@ -1,0 +1,23 @@
+{
+  "all_101_pages_crc_bounds_padding_checked": true,
+  "archive_reassembled_and_all_npz_arrays_equal": true,
+  "full_burst_and_eight_pre_post_crc_checked": true,
+  "video_quantities_and_fifo_arming_checked": true,
+  "fifo_sticky_all_frames": 1,
+  "fifo_clean_proven": false,
+  "changed_capture_compared_to_previous": true,
+  "center_alignment_exact_four_hop_and_partition_assertions_passed": true,
+  "corrupted_post_array_rejected": true,
+  "empty_and_stable_nonempty_metric_checks_passed": true,
+  "synthetic_static_and_known_2px_movement_diagnosis_passed": true,
+  "real_old_empty_new_nonempty_description_regression_passed": true,
+  "no_true_contour_or_motion_labels": true,
+  "no_formal_rtl_or_bit_changes": true,
+  "commands": [
+    "python -X utf8 tests/temporal_video_audit.py video_20261018_184242.mp4 --output tmp/fresh184242",
+    "python -X utf8 tests/temporal_capture_evaluation.py docs\\edge_temporal_evidence\\board_20261018_184242\\capture.npz --output tmp/eval184242",
+    "python -X utf8 tests/temporal_stage_diagnosis.py docs\\edge_temporal_evidence\\board_20261018_184242\\capture.npz --output tmp/stages184242",
+    "python -X utf8 tests/test_temporal_analysis_gates.py docs\\edge_temporal_evidence\\board_20261018_184242\\capture.npz",
+    "python -X utf8 tests/test_temporal_stage_diagnosis.py docs\\edge_temporal_evidence\\board_20261018_complete\\evaluation.json docs\\edge_temporal_evidence\\board_20261018_184242\\evaluation.json"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "temporal_transport.py": "fef84083b7397c648b10fef81fd79e7cd345e0625633f1525af814291580db4d",
+  "temporal_video_audit.py": "8b994b3ba3efcf2bd54cbfd5c5726bdcf227874df8c1e9e740231630c2d0cc90",
+  "temporal_roi_analysis.py": "bb8956b1e622fd169cc60349bb4aba1edee69703623020d8dacf8cb3920d10da",
+  "temporal_capture_evaluation.py": "af0ca6cbbe23761d56b5fdce077e1d075729c4984d96ef4205070d7214a491e4",
+  "temporal_stage_diagnosis.py": "468498f41d1060655c605eb65e097a85ce54c57ce5657ce1b3be63f88aa01381",
+  "test_temporal_stage_diagnosis.py": "e29eb2c2d15e5220d3a88353d12b55d67c0df95b84d7c50798decf31dddf5fa1",
+  "test_temporal_analysis_gates.py": "5e947659dcc4c491572590d467ca7ec87c25af17263252688f9bc96b7ed2a18e",
+  "edge_stability_model.py": "489ebbab41844e4c598dd21aad71791165dd9b72ce88218fb46a4a305d97df77",
+  "edge_denoise_model.py": "e013f15fb0b67a52a6d9e803552f309f82c55dfaca067273f96016e35c6653f3",
+  "edge_nms_model.py": "68b7cd4d5afa34faf36ffbdd95e67d0aff1ac37f7254d57184acf9eb7a36219a",
+  "edge_quality_model.py": "7ca8286af2d40a347d4227214c56f1a1b2c7e569ac3dca4f742f9205557f7ece",
+  "awb_v2_selection_model.py": "9c5bb637406f50f333b0126823255e696e817175a081b562b5ec04ab9d5163a0",
+  "requirements-edge-temporal.txt": "9300f6bc6f68873255df0f553a075f5f9fd9d713424ff61fdc5fe0919f501364"
+}

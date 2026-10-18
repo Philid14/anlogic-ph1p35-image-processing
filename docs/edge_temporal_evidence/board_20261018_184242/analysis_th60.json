@@ -1,0 +1,221 @@
+{
+  "frames": 8,
+  "roi_pixels": [
+    128,
+    32
+  ],
+  "evaluation_internal_samples": 900,
+  "threshold": 60,
+  "pre_rgb_mean_abs_delta": 5.139195033482143,
+  "post_rgb_mean_abs_delta": 5.826857793898809,
+  "gains_q16": [
+    [
+      74451,
+      86228
+    ],
+    [
+      74251,
+      86191
+    ],
+    [
+      74162,
+      86120
+    ],
+    [
+      74299,
+      86167
+    ],
+    [
+      74361,
+      86143
+    ],
+    [
+      74695,
+      86246
+    ],
+    [
+      74892,
+      86355
+    ],
+    [
+      75131,
+      86381
+    ]
+  ],
+  "awb_stats": [
+    [
+      6868771,
+      7803184,
+      5930656,
+      158954,
+      1770070
+    ],
+    [
+      6686063,
+      7575196,
+      5759855,
+      157496,
+      1770071
+    ],
+    [
+      6475511,
+      7327889,
+      5576368,
+      154478,
+      1770072
+    ],
+    [
+      6584463,
+      7464949,
+      5677599,
+      154647,
+      1770073
+    ],
+    [
+      6690852,
+      7591882,
+      5775751,
+      153586,
+      1770074
+    ],
+    [
+      7076928,
+      8066014,
+      6129102,
+      155799,
+      1770075
+    ],
+    [
+      7322293,
+      8367684,
+      6350311,
+      156035,
+      1770076
+    ],
+    [
+      7767259,
+      8904456,
+      6755616,
+      157538,
+      1770077
+    ]
+  ],
+  "same_current_input_previous_gain_mae": [
+    0.13883463541666666,
+    0.08935546875,
+    0.09285481770833333,
+    0.048665364583333336,
+    0.2623697916666667,
+    0.14176432291666666,
+    0.157958984375
+  ],
+  "capture_sof_intervals_mipi_cycles": [
+    629785,
+    629785,
+    629785,
+    629785,
+    629785,
+    629785,
+    629785
+  ],
+  "fixed_gain_reference_q16": [
+    74451,
+    86228
+  ],
+  "fixed_gain_is_proven_converged": false,
+  "fixed_gain_replay_metrics": {
+    "flip_per_union": 1.0,
+    "flip_per_roi": 0.012698412698412698,
+    "mean_edge_samples": 5.0,
+    "mean_nearest_position_distance_original_pixels": 5.0,
+    "unmatched_beyond_4px_fraction": 1.0,
+    "position_is_matching_proxy": true,
+    "contour_recall": null,
+    "flat_false_positive_fraction": null,
+    "ghost_outside_truth_band": null
+  },
+  "stages": {
+    "gray_pair": {
+      "changed_fraction": 0.909047619047619,
+      "mean_abs_delta": 3.52984126984127
+    },
+    "gaussian": {
+      "changed_fraction": 0.8658730158730159,
+      "mean_abs_delta": 2.270793650793651
+    },
+    "sobel_magnitude": {
+      "changed_fraction": 0.926984126984127,
+      "mean_abs_delta": 8.516190476190475
+    },
+    "direction": {
+      "changed_fraction": 0.6512698412698412,
+      "mean_abs_delta": 1.0542857142857143
+    },
+    "nms_keep": {
+      "changed_fraction": 0.423968253968254,
+      "mean_abs_delta": 0.423968253968254
+    },
+    "nms_strong": {
+      "changed_fraction": 0.0015873015873015873,
+      "mean_abs_delta": 0.0015873015873015873
+    },
+    "nms_weak": {
+      "changed_fraction": 0.13777777777777778,
+      "mean_abs_delta": 0.13777777777777778
+    },
+    "four_hop": {
+      "changed_fraction": 0.011428571428571429,
+      "mean_abs_delta": 0.011428571428571429
+    }
+  },
+  "candidates": {
+    "current": {
+      "flip_per_union": 1.0,
+      "flip_per_roi": 0.011428571428571429,
+      "mean_edge_samples": 4.5,
+      "mean_nearest_position_distance_original_pixels": 5.0,
+      "unmatched_beyond_4px_fraction": 1.0,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    },
+    "majority3": {
+      "flip_per_union": 1.0,
+      "flip_per_roi": 0.006666666666666667,
+      "mean_edge_samples": 2.625,
+      "mean_nearest_position_distance_original_pixels": 5.0,
+      "unmatched_beyond_4px_fraction": 1.0,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    },
+    "one_frame_gradient_support": {
+      "flip_per_union": 0.7209302325581395,
+      "flip_per_roi": 0.009841269841269842,
+      "mean_edge_samples": 6.875,
+      "mean_nearest_position_distance_original_pixels": 2.2,
+      "unmatched_beyond_4px_fraction": 0.32727272727272727,
+      "position_is_matching_proxy": true,
+      "contour_recall": null,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": null
+    }
+  },
+  "fifo_historical_sticky": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+  ],
+  "fifo_repeat_event_detection_available": false,
+  "ground_truth_available": false,
+  "motion_response_verified": false,
+  "causal_contribution_percentages": null,
+  "ranking": "not selected: require scene labels, motion trials and repeated bursts"
+}

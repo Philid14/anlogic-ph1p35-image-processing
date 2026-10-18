@@ -1,0 +1,18 @@
+{
+  "pre": {
+    "equal": false,
+    "changed_elements": 98304
+  },
+  "post": {
+    "equal": false,
+    "changed_elements": 98304
+  },
+  "meta": {
+    "equal": false,
+    "changed_elements": 80
+  },
+  "global_header": {
+    "equal": false,
+    "changed_elements": 1
+  }
+}

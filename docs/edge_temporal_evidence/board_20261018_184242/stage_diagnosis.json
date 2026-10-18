@@ -1,0 +1,719 @@
+{
+  "40": {
+    "threshold": 40,
+    "strong_samples": [
+      21,
+      31,
+      31,
+      23,
+      12,
+      13,
+      15,
+      14
+    ],
+    "weak_samples": [
+      204,
+      241,
+      240,
+      219,
+      215,
+      211,
+      206,
+      180
+    ],
+    "four_hop_samples": [
+      80,
+      104,
+      134,
+      113,
+      76,
+      73,
+      91,
+      78
+    ],
+    "strong_components": [
+      {
+        "count": 10,
+        "largest": 7,
+        "sizes": [
+          7,
+          4,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 11,
+        "largest": 6,
+        "sizes": [
+          6,
+          6,
+          4,
+          4,
+          3,
+          3,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 14,
+        "largest": 4,
+        "sizes": [
+          4,
+          4,
+          3,
+          3,
+          3,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 10,
+        "largest": 6,
+        "sizes": [
+          6,
+          4,
+          3,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 5,
+        "largest": 4,
+        "sizes": [
+          4,
+          3,
+          3,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 8,
+        "largest": 3,
+        "sizes": [
+          3,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 11,
+        "largest": 3,
+        "sizes": [
+          3,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 6,
+        "largest": 3,
+        "sizes": [
+          3,
+          3,
+          3,
+          2,
+          2,
+          1
+        ]
+      }
+    ],
+    "four_hop_components": [
+      {
+        "count": 9,
+        "largest": 17,
+        "sizes": [
+          17,
+          16,
+          15,
+          9,
+          8,
+          7,
+          5,
+          2,
+          1
+        ]
+      },
+      {
+        "count": 9,
+        "largest": 32,
+        "sizes": [
+          32,
+          27,
+          17,
+          10,
+          9,
+          6,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 15,
+        "largest": 16,
+        "sizes": [
+          16,
+          15,
+          15,
+          14,
+          14,
+          12,
+          10,
+          9,
+          9,
+          8,
+          7,
+          2,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 9,
+        "largest": 23,
+        "sizes": [
+          23,
+          21,
+          20,
+          20,
+          16,
+          5,
+          4,
+          3,
+          1
+        ]
+      },
+      {
+        "count": 11,
+        "largest": 26,
+        "sizes": [
+          26,
+          14,
+          10,
+          9,
+          7,
+          5,
+          1,
+          1,
+          1,
+          1,
+          1
+        ]
+      },
+      {
+        "count": 7,
+        "largest": 22,
+        "sizes": [
+          22,
+          12,
+          12,
+          11,
+          9,
+          4,
+          3
+        ]
+      },
+      {
+        "count": 7,
+        "largest": 19,
+        "sizes": [
+          19,
+          17,
+          16,
+          11,
+          10,
+          9,
+          9
+        ]
+      },
+      {
+        "count": 7,
+        "largest": 18,
+        "sizes": [
+          18,
+          16,
+          15,
+          10,
+          9,
+          5,
+          5
+        ]
+      }
+    ],
+    "nms_strong_flip_partition": {
+      "magnitude_threshold_only": 105,
+      "nms_keep_only": 7,
+      "both": 107
+    },
+    "finite_four_hop_dependency": [
+      {
+        "output_changed": 130,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 130
+      },
+      {
+        "output_changed": 150,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 150
+      },
+      {
+        "output_changed": 177,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 177
+      },
+      {
+        "output_changed": 157,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 157
+      },
+      {
+        "output_changed": 135,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 135
+      },
+      {
+        "output_changed": 134,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 134
+      },
+      {
+        "output_changed": 147,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 147
+      }
+    ],
+    "four_hop_changed_samples_near_other_frame_within_2px": 412,
+    "four_hop_changed_samples_without_nearby_2px_match": 618,
+    "symmetric_nearest_distance_bins_0_1_2_3_4_gt4": [
+      310,
+      186,
+      226,
+      72,
+      168,
+      378
+    ],
+    "physical_cause_percentages": null,
+    "true_contour_displacement": null,
+    "note": "clipped ROI topology and nearest-neighbor proxies; no labels, optical flow or physical cause attribution"
+  },
+  "60": {
+    "threshold": 60,
+    "strong_samples": [
+      0,
+      2,
+      1,
+      2,
+      0,
+      0,
+      0,
+      0
+    ],
+    "weak_samples": [
+      78,
+      103,
+      95,
+      86,
+      69,
+      74,
+      70,
+      64
+    ],
+    "four_hop_samples": [
+      0,
+      14,
+      6,
+      15,
+      0,
+      1,
+      0,
+      0
+    ],
+    "strong_components": [
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 1,
+        "largest": 2,
+        "sizes": [
+          2
+        ]
+      },
+      {
+        "count": 1,
+        "largest": 1,
+        "sizes": [
+          1
+        ]
+      },
+      {
+        "count": 1,
+        "largest": 2,
+        "sizes": [
+          2
+        ]
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      }
+    ],
+    "four_hop_components": [
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 2,
+        "largest": 8,
+        "sizes": [
+          8,
+          6
+        ]
+      },
+      {
+        "count": 1,
+        "largest": 6,
+        "sizes": [
+          6
+        ]
+      },
+      {
+        "count": 1,
+        "largest": 15,
+        "sizes": [
+          15
+        ]
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 1,
+        "largest": 1,
+        "sizes": [
+          1
+        ]
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      }
+    ],
+    "nms_strong_flip_partition": {
+      "magnitude_threshold_only": 9,
+      "nms_keep_only": 0,
+      "both": 1
+    },
+    "finite_four_hop_dependency": [
+      {
+        "output_changed": 14,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 14
+      },
+      {
+        "output_changed": 20,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 20
+      },
+      {
+        "output_changed": 21,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 21
+      },
+      {
+        "output_changed": 15,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 15
+      },
+      {
+        "output_changed": 1,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 1
+      },
+      {
+        "output_changed": 1,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 1
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      }
+    ],
+    "four_hop_changed_samples_near_other_frame_within_2px": 0,
+    "four_hop_changed_samples_without_nearby_2px_match": 72,
+    "symmetric_nearest_distance_bins_0_1_2_3_4_gt4": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      72
+    ],
+    "physical_cause_percentages": null,
+    "true_contour_displacement": null,
+    "note": "clipped ROI topology and nearest-neighbor proxies; no labels, optical flow or physical cause attribution"
+  },
+  "80": {
+    "threshold": 80,
+    "strong_samples": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "weak_samples": [
+      21,
+      31,
+      31,
+      23,
+      12,
+      13,
+      15,
+      14
+    ],
+    "four_hop_samples": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "strong_components": [
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      }
+    ],
+    "four_hop_components": [
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      },
+      {
+        "count": 0,
+        "largest": 0,
+        "sizes": []
+      }
+    ],
+    "nms_strong_flip_partition": {
+      "magnitude_threshold_only": 0,
+      "nms_keep_only": 0,
+      "both": 0
+    },
+    "finite_four_hop_dependency": [
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      },
+      {
+        "output_changed": 0,
+        "seed_change_near_only": 0,
+        "weak_change_near_only": 0,
+        "both_near": 0
+      }
+    ],
+    "four_hop_changed_samples_near_other_frame_within_2px": 0,
+    "four_hop_changed_samples_without_nearby_2px_match": 0,
+    "symmetric_nearest_distance_bins_0_1_2_3_4_gt4": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "physical_cause_percentages": null,
+    "true_contour_displacement": null,
+    "note": "clipped ROI topology and nearest-neighbor proxies; no labels, optical flow or physical cause attribution"
+  }
+}

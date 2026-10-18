@@ -332,3 +332,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 重跑TH40/60/80：pre/post相邻RGB MAE1.91369048/2.20298549，Sobel幅值相邻MAE2.92126984/最大18；有效区仍无门限边缘，白线闪烁/位置/连接质量N/A。实际gain微调对该ROI RGB码值无额外影响；不能新增Sensor/频闪/微动/真实轮廓抖动归因证据。
 - Build/修改：本轮无TD、无新bit、无正式RTL或PC算法修改；旧归档保持。源码只读确认捕获8帧后done冻结，只有实际rst_n清除采样状态；录像不能确定现场哪一步操作是否生效，不宣称已发现RTL错误。
 - 保留/下一步：独立审计、数据逐字节比较与图表归档docs/edge_temporal_evidence/board_20261018_181941；报告EDGE_TEMPORAL_RESEARCH_V1_RECORDING_181941.md。优先确认重新PROGRAM_SRAM及预热定位，先核对一张新编码页，再录全圈；尚不具备EDGE_TEMPORAL_V1开发/发布证据条件，停止等待真正的新边缘数据。
+
+## EDGE_TEMPORAL_RESEARCH_V1 18:42新采样分析（2026-10-18，MAIN）
+
+- 版本/参数不变：candidate tag edge-temporal-research-v1-candidate→e3a6943857116b0a037aa1776a94e4b9f3602180；TD源码84299d42fb88842b837794bdf43b61a88f1e2049；bit SHA `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。本轮仅PC数据诊断，未改正式RTL/ISP/SDC、未运行TD、无新bit/tag；既有Setup/Hold +0.019/+0.020ns未重新测量。
+- 分支codex/main/edge-temporal-research-v1，开工HEAD6df1d5c；沿用Draft PR#9，#9→#8→#7→#6→#4→#3仍未合并。
+- 真实输入：video_20261018_184242.mp4，56326134字节，SHA `8E60D262383C67DA677E3553BCBFC1C6D2C7788114576D094FF0CE4E4EB9BB0C`。3332帧全扫描，3286帧返回合格页，101/101，无缺页/冲突，全部header/payload/burst/8帧pre及实际gain重建post CRC通过；新identity6A23858A，pre/post与旧数据各98304个元素全部改变。
+- 视频数量：SOF600–607；IN230400、720×320、ROI1024、PACK172800及bubble/phase/line检查通过，两FIFO armed。但**写侧FIFO历史sticky均1**，触发时间及复发未知，不能宣称FIFO无异常；CRC正确的前DDR ROI不证明后级显示绝无问题。
+- 定量：pre/post RGB相邻MAE5.139195/5.826858；公共900点Sobel幅值MAE8.516190/最大64。TH40 NMS strong翻转219点，四跳1030点（全ROI16.3492%、条件86.9198%）；TH60为10→72点；TH80滤波链为空，条件指标N/A。NMS翻转可分105个仅幅值跨阈值、7个仅keep变、107个两者均变，不是物理根因百分比。
+- AWB实际gain有变化，固定首帧gain使TH40四跳155/7200点改变，但仍有86.176%条件翻转，不能把AWB视为唯一主因或宣布硬件冻结改善。用户确认目标手持且未见绿框；未辨认出真实黑白分界，不能把输入变化全部归Sensor噪声，也不能将邻近响应匹配当纸边位移。
+- 验证：完整原页ZIP重建与NPZ全数组一致；损坏post拒绝；空/稳定非空指标、静态边界与2px位移代理、8连通测试通过；实际模型中心对齐/四跳精确重放/变化分解和依赖断言通过。修复PC报告硬编码“全部无边缘”及图表旧量程，未改空间算法。
+- 保留/下一步：报告EDGE_TEMPORAL_RESEARCH_V1_RECORDING_184242.md，证据board_20261018_184242。先拍编码出现前的ORIGIN绿框及固定边界、复核写FIFO首次异常；再取得多burst及运动真值。当前足以支持局部临界判决/连接敏感性，尚不足选择和发布EDGE_TEMPORAL_V1；停止等待审查及实板反馈。

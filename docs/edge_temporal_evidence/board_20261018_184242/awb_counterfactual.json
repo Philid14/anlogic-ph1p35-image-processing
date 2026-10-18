@@ -1,0 +1,47 @@
+{
+  "40": {
+    "actual_vs_fixed_first_gain_differing_edge_samples": 155,
+    "fixed_first_gain_counts": [
+      80,
+      100,
+      127,
+      108,
+      77,
+      74,
+      70,
+      76
+    ],
+    "hardware_freeze": false,
+    "reference_proven_converged": false
+  },
+  "60": {
+    "actual_vs_fixed_first_gain_differing_edge_samples": 20,
+    "fixed_first_gain_counts": [
+      0,
+      22,
+      0,
+      17,
+      0,
+      1,
+      0,
+      0
+    ],
+    "hardware_freeze": false,
+    "reference_proven_converged": false
+  },
+  "80": {
+    "actual_vs_fixed_first_gain_differing_edge_samples": 0,
+    "fixed_first_gain_counts": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "hardware_freeze": false,
+    "reference_proven_converged": false
+  }
+}
