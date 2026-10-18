@@ -7,11 +7,13 @@ module edge_status_osd #(
     parameter integer IMG_HEIGHT = 720,
     parameter integer ENABLE = 1,
     parameter integer X0 = 800,
-    parameter integer Y0 = 16
+    parameter integer Y0 = 16,
+    parameter integer RELIABILITY_ENABLE = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     input [8:0] I_config,
+    input [31:0] I_fifo_event_counts,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
 );
@@ -22,11 +24,12 @@ module edge_status_osd #(
     wire [12:0] pixel_x = {x_now,2'b00};
     wire [12:0] local_x = pixel_x-X0;
     wire [10:0] local_y = y_now-Y0;
+    wire row2=RELIABILITY_ENABLE && local_y>=80 && local_y<112;
     wire box_hit = ENABLE && pixel_x >= X0 && pixel_x < X0+448
-                          && y_now >= Y0 && y_now < Y0+72;
+                          && y_now >= Y0 && (y_now < Y0+72 || row2);
     wire row0 = local_y < 32;
     wire row1 = local_y >= 40 && local_y < 72;
-    wire [10:0] text_y = row1 ? local_y-11'd40 : local_y;
+    wire [10:0] text_y = row2 ? local_y-11'd80 : (row1 ? local_y-11'd40 : local_y);
     wire [3:0] char_column = local_x[8:5];
 
     // All 0..255 values are defined; no hundreds truncation or division IP.
@@ -53,10 +56,27 @@ module edge_status_osd #(
         end
     endfunction
     wire [11:0] digits = decimal3(I_config[7:0]);
+    reg [31:0] fifo_frame;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)fifo_frame<=0;else if(I_user)fifo_frame<=I_fifo_event_counts;
+    end
+    function [7:0] hexchar;input[3:0] n;
+        begin hexchar=n<10 ? 8'h30+n : 8'h41+n-10;end
+    endfunction
     reg [7:0] character;
     always @(*) begin
         character=8'h20;
-        if (row0) begin
+        if(row2)begin
+            case(char_column)
+                0:character="B";1:character=":";
+                2:character=hexchar(fifo_frame[31:28]);3:character=hexchar(fifo_frame[27:24]);
+                4:character=hexchar(fifo_frame[23:20]);5:character=hexchar(fifo_frame[19:16]);
+                7:character="S";8:character=":";
+                9:character=hexchar(fifo_frame[15:12]);10:character=hexchar(fifo_frame[11:8]);
+                11:character=hexchar(fifo_frame[7:4]);12:character=hexchar(fifo_frame[3:0]);
+                default:character=" ";
+            endcase
+        end else if (row0) begin
             case (char_column)
                 0: character="M"; 1: character="O"; 2: character="D";
                 3: character="E"; 4: character=":";
@@ -101,7 +121,7 @@ module edge_status_osd #(
                 end else begin x_group<=x_now+1'b1; y<=y_now; end
             end
             char_s1<=character; row_s1<=text_y[4:1]; col_s1<=local_x[4:1];
-            hit_s1<=box_hit; glyph_s1<=row0||row1;
+            hit_s1<=box_hit; glyph_s1<=row0||row1||row2;
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin

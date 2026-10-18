@@ -19,7 +19,8 @@ module video_in (
     output reg         O_ddr_user_wr_en,
     output reg[24:0]   O_ddr_user_addr,
     output wire[127:0] O_ddr_user_wr_data,
-    input wire         I_ddr_user_ready
+    input wire         I_ddr_user_ready,
+    output wire [31:0] O_fifo_event_counts
 );
 
     wire        S_fifo_rst;
@@ -36,6 +37,10 @@ module video_in (
     wire[127:0] S_fifo_rd_data; 
     reg         S_ddr_wr_valid;
     reg[9:0]    S_ddr_wr_cnt;
+    wire monitor_full;
+    fifo_event_counter u_fifo_events(.clk(I_camera_clk),.rst_n(I_rst_n),
+        .sof(I_camera_frame_start),.fifo_reset(S_fifo_rst),
+        .write_valid(I_camera_valid),.full(monitor_full),.counts(O_fifo_event_counts));
 
     localparam IMAGE_BASE_ADDR_0 = 25'd0;
     localparam IMAGE_BASE_ADDR_1 = 25'd7000000;
@@ -55,7 +60,7 @@ module video_in (
         .we         ( I_camera_valid     ),
         .di         ( I_camera_data      ),
         .afull      (),
-        .full_flag  (),
+        .full_flag  ( monitor_full ),
         .wrusedw    (),
  
         .clkr       ( I_ddr_clk          ),

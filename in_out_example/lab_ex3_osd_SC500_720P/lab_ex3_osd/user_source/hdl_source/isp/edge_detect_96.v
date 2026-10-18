@@ -13,7 +13,8 @@ module edge_detect_96 #(
     parameter integer DENOISE_ENABLE = 0,
     parameter integer NMS_ENABLE = 0,
     parameter integer QUALITY_ENABLE = 0,
-    parameter integer QUALITY_HOPS = 4
+    parameter integer QUALITY_HOPS = 4,
+    parameter integer TEMPORAL_ENABLE = 0
 )(
     input I_clk,
     input I_rst_n,
@@ -27,7 +28,8 @@ module edge_detect_96 #(
     output [95:0] O_tdata,
     output O_tvalid,
     input O_tready,
-    input [7:0] I_threshold
+    input [7:0] I_threshold,
+    output [1:0] O_temporal_support
 );
     // The camera/packer chain has no backpressure protocol. Never discard a
     // valid camera beat because its existing downstream ready is undriven.
@@ -212,7 +214,8 @@ module edge_detect_96 #(
             else gradient_axis=(gx[12]==gy[12]) ? 2'd1:2'd3;
         end
     endfunction
-    wire [27:0] nms_magnitude;
+    wire [27:0] nms_magnitude,nms_center;
+    wire nms_center_valid;
     wire [1:0] nms_keep;
     wire nms_valid,nms_user,nms_last;
     wire [13:0] nms_threshold;
@@ -228,10 +231,10 @@ module edge_detect_96 #(
             .I_magnitude(window_s4 ? {mag0_s4,mag1_s4}:28'd0),.I_direction({dir0_s4,dir1_s4}),
             .I_valid(valid_p[3]),.I_user(user_p[3]),.I_last(last_p[3]),.I_threshold(comparison_threshold),
             .O_magnitude(nms_magnitude),.O_keep(nms_keep),.O_valid(nms_valid),.O_user(nms_user),
-            .O_last(nms_last),.O_threshold(nms_threshold),.O_debug_valid(),.O_center(),
+            .O_last(nms_last),.O_threshold(nms_threshold),.O_debug_valid(nms_center_valid),.O_center(nms_center),
             .O_direction(),.O_negative(),.O_positive());
     end else begin : g_no_nms
-        assign nms_magnitude=0;assign nms_keep=0;assign nms_valid=0;assign nms_user=0;assign nms_last=0;assign nms_threshold=0;
+        assign nms_center=0;assign nms_center_valid=0;assign nms_magnitude=0;assign nms_keep=0;assign nms_valid=0;assign nms_user=0;assign nms_last=0;assign nms_threshold=0;
     end endgenerate
     always @(posedge I_clk or negedge I_rst_n) begin
         if(!I_rst_n) begin nms_valid_d<=0;nms_user_d<=0;nms_last_d<=0;end
@@ -254,6 +257,15 @@ module edge_detect_96 #(
     // THRESHOLD OSD is the high threshold; low=floor(high/2). No sensor writes.
     generate if(QUALITY_ENABLE && NMS_ENABLE) begin : g_quality
         reg [3:0] classified;
+        reg [1:0] support_classified;
+        wire [1:0] support[0:QUALITY_HOPS];
+        always @(posedge I_clk or negedge I_rst_n)begin
+            if(!I_rst_n)support_classified<=0;
+            else support_classified<={nms_center_valid && nms_center[27:14]>=low_threshold,
+                                      nms_center_valid && nms_center[13:0]>=low_threshold};
+        end
+        assign support[0]=support_classified;
+        assign O_temporal_support=TEMPORAL_ENABLE ? support[QUALITY_HOPS]:2'd0;
         wire [3:0] labels[0:QUALITY_HOPS];
         wire [QUALITY_HOPS:0] qv,qu,ql;
         wire [13:0] low_threshold={1'b0,nms_threshold[13:1]};
@@ -268,6 +280,12 @@ module edge_detect_96 #(
         assign qu[0]=nms_user_d;assign ql[0]=nms_last_d;
         genvar hop;
         for(hop=0;hop<QUALITY_HOPS;hop=hop+1) begin : g_hop
+            if(TEMPORAL_ENABLE)begin:g_support
+                edge_center_pair_delay #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+                    .INPUT_BORDER((DENOISE_ENABLE ? 6:4)+2*hop)) u_center(
+                    .clk(I_clk),.rst_n(I_rst_n),.I_pair(support[hop]),
+                    .I_valid(qv[hop]),.I_user(qu[hop]),.I_last(ql[hop]),.O_pair(support[hop+1]));
+            end else begin:g_no_support assign support[hop+1]=0;end
             edge_link_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
                 .INPUT_BORDER((DENOISE_ENABLE ? 6:4)+2*hop)) u_link (
                 .clk(I_clk),.rst_n(I_rst_n),.I_labels(labels[hop]),
@@ -277,6 +295,7 @@ module edge_detect_96 #(
         assign quality_valid=qv[QUALITY_HOPS];assign quality_user=qu[QUALITY_HOPS];assign quality_last=ql[QUALITY_HOPS];
         assign quality_rgb=quality_valid ? {{48{labels[QUALITY_HOPS][2]}},{48{labels[QUALITY_HOPS][0]}}}:96'd0;
     end else begin : g_no_quality
+        assign O_temporal_support=0;
         assign quality_valid=0;assign quality_user=0;assign quality_last=0;assign quality_rgb=0;
     end endgenerate
 endmodule

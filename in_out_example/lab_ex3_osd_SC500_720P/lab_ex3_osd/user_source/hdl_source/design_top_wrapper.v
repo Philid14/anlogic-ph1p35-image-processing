@@ -585,8 +585,10 @@ assign S_raw_tuser  = S_axis_tuser;
 
 
 //ISP算法顶层模块
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4)) u_isp_top (
+wire [31:0] S_fifo_event_counts;
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
+.I_fifo_event_counts(S_fifo_event_counts),
 .I_edge_config   (S_edge_received_config),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
@@ -621,7 +623,8 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
         .O_ddr_user_wr_en     ( S_vi_ddr_wr_en        ),
         .O_ddr_user_addr      ( S_vi_ddr_wr_addr      ),
         .O_ddr_user_wr_data   ( S_vi_ddr_wr_data      ),
-        .I_ddr_user_ready     ( S_ddr_user_ready      )
+        .I_ddr_user_ready     ( S_ddr_user_ready      ),
+        .O_fifo_event_counts  ( S_fifo_event_counts )
     );
 
 
