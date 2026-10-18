@@ -288,3 +288,9 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 数字验证：完整720p六帧1382400有效拍/1036800打包字；小尺寸联合与13帧回绕、boot arming/FIFO事件、气泡/截断/tlast/CRC异常、旧QUALITY关闭路径及控制回归通过。完整720p后最后修改的诊断启动/序号局部回归，详见VERIFICATION，不声称完整物理IP仿真或实板通过。
 - Board Test Result：**待用户上板，未测数据不填0**。TH80正常完整帧参考CRC6B6DB7D0、IN00038400/PACK0002A300/LINE02D00140；无事件且两FIFO已armed时FLAG00FFFFF7。实际SOF间隔实测；W或未armed不判正常。
 - 是否保留/下一步：保留candidate、负裕量R0、15个更早bit和全部tag/源码/失败记录。按BOARD_TEST先固定图对照并拍面板，分别以CRC变化/控制异常/仅显示变化决定后续排查，不直接加时间滤波。本轮停止等待反馈，未进入下一版本。
+
+## PROBE真实上板反馈及TEMPORAL研究开工（2026-10-18，MAIN）
+
+- 用户确认固定PROBE白线完全不抖。截图TH80、CRC6B6DB7D0、IN00038400、PACK0002A300、LINE02D00140、GAP00360000、ERR0、COUNT00020000、FLAG7AFFFFF7；随后用户确认不同时间仅SEQ增加，其余不变。
+- 当前完整帧及固定输出正确，观察期间未新增被监测异常；累计2坏帧/历史写满等标志来源时间未确认，不将其写成已证明纯启动异常。没有真实RGB/AWB轨迹，不能断言AWB或Sensor贡献率。
+- 新分支codex/main/edge-temporal-research-v1，base7343cfe；独立ROI冻结与HDMI编码采样，真实RGB路径，正式AWB算法/传感器/时钟参数保持。软件先准备分级变化/反事实gain与运动反例，不接入时间算法。最终诊断构建和bit记录在本轮归档后补。

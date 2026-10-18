@@ -1,0 +1,13 @@
+{
+  "command": "python -X utf8 tests/run_edge_temporal_research.py --full --regression",
+  "exit_code": 0,
+  "probe_720p_valid_beats": 1382400,
+  "probe_720p_packed_words": 1036800,
+  "quality_small_cases": 2,
+  "quality_class_samples": 2892,
+  "link_stage_sample_checks": 1348000,
+  "controls": "keys/mailbox200requests/sensor116initial+50keySequences/decimal256 PASS",
+  "frozen_baseline_files": 673,
+  "old_bits": 17,
+  "physical_ip_simulation": false
+}

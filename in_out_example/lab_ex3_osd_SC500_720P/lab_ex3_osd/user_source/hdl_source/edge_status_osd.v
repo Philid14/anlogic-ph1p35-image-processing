@@ -8,12 +8,14 @@ module edge_status_osd #(
     parameter integer ENABLE = 1,
     parameter integer X0 = 800,
     parameter integer Y0 = 16,
-    parameter integer PROBE_ENABLE = 0
+    parameter integer PROBE_ENABLE = 0,
+    parameter integer TEMPORAL_ENABLE = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     input [8:0] I_config,
     input [319:0] I_probe_panel,
+    input [31:0] I_temporal_word,input I_temporal_show,output[7:0] O_temporal_addr,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
 );
@@ -92,7 +94,22 @@ module edge_status_osd #(
     end
     wire [12:0] px= pixel_x-13'd16;
     wire [10:0] py= y_now-11'd352;
-    wire probe_hit=PROBE_ENABLE && pixel_x>=16 && pixel_x<528 && y_now>=352 && y_now<672;
+    reg temporal_frame;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)temporal_frame<=0;else if(I_user)temporal_frame<=I_temporal_show;
+    end
+    wire probe_hit=PROBE_ENABLE && !(TEMPORAL_ENABLE && temporal_frame) && pixel_x>=16 && pixel_x<528 && y_now>=352 && y_now<672;
+    // 128x64 data cells, 8 pixels/cell; white 1-cell frame + black quiet zone.
+    wire[12:0] tx=pixel_x-13'd128;
+    wire[10:0] ty=y_now-11'd168;
+    assign O_temporal_addr={ty[8:3],tx[9:8]};
+    wire t_outer=TEMPORAL_ENABLE && temporal_frame && pixel_x>=112 && pixel_x<1168 && y_now>=152 && y_now<696;
+    wire t_border=pixel_x>=120 && pixel_x<1160 && y_now>=160 && y_now<688 &&
+                  (pixel_x<128 || pixel_x>=1152 || y_now<168 || y_now>=680);
+    wire t_body=pixel_x>=128 && pixel_x<1152 && y_now>=168 && y_now<680;
+    wire roi_border=TEMPORAL_ENABLE && !temporal_frame && pixel_x>=572 && pixel_x<708 && y_now>=340 && y_now<380 &&
+                    (pixel_x<576 || pixel_x>=704 || y_now<344 || y_now>=376);
+    reg t_hit_s1,t_border_s1,t_body_s1,roi_s1;reg[4:0] t_bit_s1;
     wire [3:0] prow=py[8:5],pcol=px[8:5];
     reg [63:0] caption;reg [31:0] word;reg [7:0] probe_char;
     reg [3:0] nibble;
@@ -120,6 +137,13 @@ module edge_status_osd #(
            15:probe_char=probe_frame[0]?"V":"W";
            default:probe_char=" ";
           endcase
+          if(TEMPORAL_ENABLE)begin
+            case(pcol)
+             0:probe_char="R";1:probe_char="E";2:probe_char="A";3:probe_char="L";4:probe_char=" ";
+             6:probe_char="R";7:probe_char="O";8:probe_char="I";9:probe_char=" ";10:probe_char=" ";
+             default:begin end
+            endcase
+          end
         end
     end
     reg [7:0] char_s1;
@@ -134,6 +158,7 @@ module edge_status_osd #(
             x_group<=0; y<=0; char_s1<=0; row_s1<=0; col_s1<=0;
             hit_s1<=0; glyph_s1<=0; valid_s1<=0; user_s1<=0; last_s1<=0;
             rgb_s1<=0; O_data<=0; O_valid<=0; O_user<=0; O_last<=0;
+            t_hit_s1<=0;t_border_s1<=0;t_body_s1<=0;roi_s1<=0;t_bit_s1<=0;
         end else begin
             if (I_user) begin x_group<=0; y<=0; end
             if (I_valid) begin
@@ -145,9 +170,13 @@ module edge_status_osd #(
             row_s1<=probe_hit?py[4:1]:text_y[4:1]; col_s1<=probe_hit?px[4:1]:local_x[4:1];
             hit_s1<=box_hit||probe_hit; glyph_s1<=probe_hit||row0||row1;
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
+            t_hit_s1<=t_outer;t_border_s1<=t_border;t_body_s1<=t_body;t_bit_s1<=5'd31-tx[7:3];roi_s1<=roi_border;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin
-                if (hit_s1)
+                if(t_hit_s1)
+                    O_data[95-lane*24 -:24]<=(t_border_s1 || (t_body_s1 && I_temporal_word[t_bit_s1]))?24'hffffff:24'h000000;
+                else if(roi_s1)O_data[95-lane*24 -:24]<=24'h00ff00;
+                else if (hit_s1)
                     O_data[95-lane*24 -:24] <= (glyph_s1 && glyph_bits[15-col_s1-(lane/2)])
                         ? 24'hffff00 : 24'h101010;
                 else O_data[95-lane*24 -:24] <= rgb_s1[95-lane*24 -:24];

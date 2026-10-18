@@ -9,7 +9,8 @@ module isp_top #(
     parameter integer NMS_ENABLE = 0,
     parameter integer QUALITY_ENABLE = 0,
     parameter integer QUALITY_HOPS = 4,
-    parameter integer PROBE_ENABLE = 0
+    parameter integer PROBE_ENABLE = 0,
+    parameter integer TEMPORAL_ENABLE = 0
 ) (
     input 			axi4s_video_aclk,
     input [8:0] I_edge_config,
@@ -61,6 +62,12 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire [127:0] awb_O_tdata_128;  //synthesis keep 
 
   wire [95:0] algorithm_data;
+  wire [95:0] diag_pre;
+  wire [39:0] diag_gain;
+  wire [143:0] diag_stats;
+  wire [7:0] temporal_addr;
+  wire [31:0] temporal_word;
+  wire temporal_show;
   wire algorithm_valid, algorithm_user, algorithm_last, algorithm_last_128;
   generate
   if (EDGE_CONTROL_ENABLE) begin : g_control
@@ -70,10 +77,11 @@ wire         m_aixs_tvalid;  //synthesis keep
           else last_128 <= algorithm_last;
       end
       assign algorithm_last_128 = last_128;
-      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS),.PROBE_ENABLE(PROBE_ENABLE)) u_control (
+      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS),.PROBE_ENABLE(PROBE_ENABLE),.TEMPORAL_ENABLE(TEMPORAL_ENABLE)) u_control (
           .clk(axi4s_video_aclk), .rst_n(I_rst_n),
           .requested_config(I_edge_config),
           .I_probe_pack_valid(awb_O_tvalid_128),.I_probe_pack_user(awb_O_tuser_128),.I_probe_fifo_sticky(I_probe_fifo_sticky),.I_probe_fifo_armed(I_probe_fifo_armed),
+          .I_temporal_word(temporal_word),.I_temporal_show(temporal_show),.O_temporal_addr(temporal_addr),
           .I_data(awb_O_tdata), .I_valid(awb_O_tvalid),
           .I_user(awb_O_tuser), .I_last(awb_O_tlast),
           .I_ready(awb_O_tready), .O_ready(O_tready),
@@ -105,6 +113,19 @@ wire         m_aixs_tvalid;  //synthesis keep
       assign algorithm_last_128 = awb_O_tlast;
   end
   endgenerate
+  generate if(TEMPORAL_ENABLE)begin:g_temporal
+      wire done;wire[31:0] first_frame,capture_id;wire[14:0] read_addr;wire[31:0] read_data;
+      temporal_roi_capture u_capture(
+          .clk(axi4s_video_aclk),.rst_n(I_rst_n),.v(awb_O_tvalid),.u(awb_O_tuser),.l(awb_O_tlast),
+          .pre_rgb(diag_pre),.post_rgb(awb_O_tdata),.gains(diag_gain),.stats(diag_stats),
+          .pv(awb_O_tvalid_128),.pu(awb_O_tuser_128),.fifo_sticky(I_probe_fifo_sticky),.fifo_armed(I_probe_fifo_armed),
+          .read_addr(read_addr),.read_data(read_data),.done(done),.first_frame(first_frame),.capture_id(capture_id));
+      temporal_packet u_packet(
+          .clk(axi4s_video_aclk),.rst_n(I_rst_n),.capture_done(done),.frame_u(algorithm_user),.first_frame(capture_id),
+          .source_addr(read_addr),.source_data(read_data),.display_addr(temporal_addr),.display_data(temporal_word),.show(temporal_show));
+  end else begin:g_no_temporal
+      assign temporal_word=0;assign temporal_show=0;
+  end endgenerate
   assign O_tdata  = awb_O_tdata_128;
   assign O_tlast  = algorithm_last_128;
   assign O_tuser  = awb_O_tuser_128    ;
@@ -160,7 +181,8 @@ awb #(
     .O_tuser (awb_O_tuser ),
     .O_tdata (awb_O_tdata ),
     .O_tvalid(awb_O_tvalid),
-    .O_tready(awb_O_tready)
+    .O_tready(awb_O_tready),
+    .O_diag_pre(diag_pre),.O_diag_gain(diag_gain),.O_diag_stats(diag_stats)
 );
 
     data_96bit_to_128bit u_data_96bit_to_128bit(

@@ -22,7 +22,11 @@ module awb #(
     output            O_tuser,
     output     [95:0] O_tdata,
     output            O_tvalid,
-    input             O_tready
+    input             O_tready,
+    // Read-only diagnostic taps, aligned to O_tvalid/O_tdata. No gain override.
+    output [95:0]     O_diag_pre,
+    output [39:0]     O_diag_gain,
+    output [143:0]    O_diag_stats
 );
     // Q4.16: 1.0 = 0x10000. Bound attenuation to preserve primary colors.
     localparam [19:0] GAIN_ONE  = 20'h10000;
@@ -271,6 +275,30 @@ module awb #(
     reg valid_d2, tuser_d2;
     reg [27:0] mult_r[0:3], mult_b[0:3];
     reg [7:0] green_d[0:3];
+    reg [95:0] diag_pre;
+    reg [39:0] diag_gain;
+    reg [20:0] diag_samples;
+    reg [15:0] diag_stats_seq;
+    reg diag_stats_valid;
+    always @(posedge I_clk or negedge I_rst_n) begin
+        if(!I_rst_n) begin
+            diag_pre<=0;diag_gain<=0;diag_samples<=0;
+            diag_stats_seq<=0;diag_stats_valid<=0;
+        end else begin
+            if(valid_d1) begin
+                diag_pre<=data_d1;
+                diag_gain<={gain_r,gain_b};
+            end
+            if(beat_tlast && !beat_tuser && line_count==IMG_HEIGHT-1) begin
+                diag_samples<=final_count;diag_stats_seq<=diag_stats_seq+1'b1;
+                diag_stats_valid<=(final_count>=MIN_SAMPLES)&&(final_r!=0)&&(final_g!=0)&&(final_b!=0);
+            end
+        end
+    end
+    assign O_diag_pre=diag_pre;
+    assign O_diag_gain=diag_gain;
+    // Last completed INPUT statistics, not statistics of the current ROI frame.
+    assign O_diag_stats={10'd0,diag_stats_valid,diag_stats_seq,diag_samples,frame_r,frame_g,frame_b};
     integer k;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin

@@ -129,3 +129,9 @@ GitHub连接实际检索`repo:opencv/opencv is:issue Canny flicker`，total_coun
 - 安路本地安装文档`D:/TD/doc/SWUG/SWUG200_Timing_Constraints_User_Guide.pdf`，2024.09，§3.14印刷页35/PDF物理页43。厂商版权，仅用于理解set_clock_groups不分析跨组路径；最终覆盖缺口以本项目归档exception.timing实际Ignored条目为证，不因阅读文档就擅改SDC。
 
 本轮诊断与实板待测范围见`EDGE_STABILITY_DIAG_V1.md`和`EDGE_STABILITY_DIAG_V1_BOARD_PLAN.md`。
+
+## 9. EDGE_TEMPORAL_RESEARCH_V1 数据导出参考（2026-10-18）
+
+- Repository/Owner：opencv/opencv；revision 4.13.0 tag object `2e1f8da65e4f9fa1a98423e6ac223187438a4db8` → commit `fe38fc608f6acb8b68953438a62305d8318f4fcd`；仓库LICENSE Apache-2.0。[固定版本](https://github.com/opencv/opencv/tree/fe38fc608f6acb8b68953438a62305d8318f4fcd)。参考API文档[透视变换](https://docs.opencv.org/4.13.0/da/d6e/tutorial_py_geometric_transformations.html)及[视频读取](https://docs.opencv.org/4.13.0/dd/d43/tutorial_py_video_display.html)，对应modules/imgproc/src/imgwarp.cpp、modules/videoio/src/cap.cpp。采用getPerspectiveTransform/warpPerspective/VideoCapture库API做编码位恢复，不复制教程代码、不将OpenCV Canny作为RTL金标准；编解码协议为本项目独立实现。Python绑定依赖opencv-python-headless4.13.0.92，未改安路IP。
+- 本地安路SWUG111(v1.0)2024.11，`D:/TD/doc/SWUG/SWUG111_Debug_Tools_User_Guide.pdf`，§2.2/§2.4、印刷页5–6/40/46：ChipWatcher深度128..65536、窗口触发、CSV导出。厂商版权，仅阅读能力边界，没有复制厂商RTL/生成IP。本工程未配置该通道，不把“手册有功能”写成硬件已可用；未验证跨帧数据限定/压缩采样，本轮根据用户无采集卡、可手机录像选择HDMI编码导出。
+- 网络搜索所得其他平台/分割模型deflicker仓库、普通论坛没有形成具体实现依据，未复制代码或采用其参数。时间算法不凭外部宣传选型；本轮准备独立软件反例及真实数据入口，待新ROI实板证据。

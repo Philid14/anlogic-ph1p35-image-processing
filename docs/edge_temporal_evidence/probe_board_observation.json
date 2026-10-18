@@ -1,0 +1,19 @@
+{
+  "kind": "user physical board observation; manual screenshot transcription",
+  "source_sha256": "9790a46f339687eb125485c27ba4d738e64b4f8f567de5d49307ed814c3fca8a",
+  "threshold": 80,
+  "SEQ": "0000B438",
+  "IN": "00038400",
+  "PACK": "0002A300",
+  "CRC": "6B6DB7D0",
+  "LINE": "02D00140",
+  "GAP": "00360000",
+  "ERR": "00000000",
+  "COUNT": "00020000",
+  "FLAG": "7AFFFFF7",
+  "user_followup": "Different observation times: only SEQ increases; all other fields unchanged. User declined more repeated photos.",
+  "elapsed_time_seconds": null,
+  "reset_time_known": false,
+  "raw_rgb_available": false,
+  "conclusion": "fixed output stable and matches reference; no observed increment; source/time of historical flags unresolved"
+}

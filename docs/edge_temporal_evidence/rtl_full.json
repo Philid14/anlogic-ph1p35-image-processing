@@ -1,0 +1,31 @@
+{
+  "summary": {
+    "64": {
+      "frames": 2,
+      "roi": [
+        16,
+        8
+      ],
+      "words": 240,
+      "pre_gain_post_crc": true,
+      "consecutive": true
+    },
+    "1280": {
+      "frames": 8,
+      "roi": [
+        128,
+        32
+      ],
+      "words": 24720,
+      "pre_gain_post_crc": true,
+      "consecutive": true
+    }
+  },
+  "logs": [
+    "PASS AWB baseline equality, exact pre/gain/post beats=35840; gains not frozen or reset\nD:\\anlogic_formal_project\\tests\\tb_awb_diag.v:38: $finish called at 478040000 (1ps)\n",
+    "PASS temporal OSD all pixels=691200, original outside diagnostic overlays, two-stage metadata\nD:\\anlogic_formal_project\\tests\\tb_temporal_osd.v:48: $finish called at 7002830000 (1ps)\n",
+    "PASS capture frames=2 ROI=16x8 id=ceb74051\nD:\\anlogic_formal_project\\tests\\tb_temporal_capture.v:42: $finish called at 39806000 (1ps)\n",
+    "PASS capture frames=8 ROI=128x32 id=7e4f1a43\nD:\\anlogic_formal_project\\tests\\tb_temporal_capture.v:42: $finish called at 23879786000 (1ps)\n",
+    "PASS packet pages=5 including rollover and final padding; SOF bank switching\nD:\\anlogic_formal_project\\tests\\tb_temporal_packet.v:22: $finish called at 182566000 (1ps)\n"
+  ]
+}

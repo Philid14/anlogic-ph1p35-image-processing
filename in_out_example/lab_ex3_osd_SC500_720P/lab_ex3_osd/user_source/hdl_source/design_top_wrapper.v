@@ -596,7 +596,7 @@ always @(posedge S_csi_rx_clk or negedge S_rst_n)begin
     if(!S_rst_n)begin probe_read_meta<=0;probe_read_sync<=0;end
     else begin probe_read_meta<={probe_read_armed,probe_read_underflow};probe_read_sync<=probe_read_meta;end
 end
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),.PROBE_ENABLE(1)) u_isp_top (
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),.PROBE_ENABLE(1),.TEMPORAL_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_edge_config   (S_edge_received_config),
 .I_probe_fifo_sticky({probe_read_sync[0],probe_write_overflow}),

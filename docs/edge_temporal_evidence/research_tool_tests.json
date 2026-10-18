@@ -1,0 +1,40 @@
+{
+  "moving_line_counterexample": {
+    "current": {
+      "flip_per_union": 1.0,
+      "flip_per_roi": 0.020833333333333332,
+      "mean_edge_samples": 8.0,
+      "mean_nearest_position_distance_original_pixels": 2.0,
+      "unmatched_beyond_4px_fraction": 0.0,
+      "position_is_matching_proxy": true,
+      "contour_recall": 1.0,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": 0.0
+    },
+    "majority3": {
+      "flip_per_union": 1.0,
+      "flip_per_roi": 0.004464285714285714,
+      "mean_edge_samples": 2.0,
+      "mean_nearest_position_distance_original_pixels": 3.0,
+      "unmatched_beyond_4px_fraction": 0.3333333333333333,
+      "position_is_matching_proxy": true,
+      "contour_recall": 0.25,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": 0.0
+    },
+    "one_frame_gradient_support": {
+      "flip_per_union": 0.65,
+      "flip_per_roi": 0.019345238095238096,
+      "mean_edge_samples": 15.0,
+      "mean_nearest_position_distance_original_pixels": 0.9629629629629629,
+      "unmatched_beyond_4px_fraction": 0.0,
+      "position_is_matching_proxy": true,
+      "contour_recall": 1.0,
+      "flat_false_positive_fraction": null,
+      "ghost_outside_truth_band": 0.0
+    }
+  },
+  "software_pipeline_validated": true,
+  "real_camera_data": false,
+  "selected_algorithm": null
+}

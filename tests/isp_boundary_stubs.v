@@ -22,6 +22,7 @@ module awb #(parameter IMG_HEIGHT=720, IMG_WIDTH=1280)(
     input [95:0] I_tdata,
     output I_tready,O_tlast,O_tuser,O_tvalid,
     output [95:0] O_tdata,
+    output [95:0] O_diag_pre,output[39:0] O_diag_gain,output[143:0] O_diag_stats,
     input O_tready
 );
     assign O_tdata=0;

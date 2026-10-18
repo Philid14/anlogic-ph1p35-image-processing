@@ -1,0 +1,22 @@
+{
+  "log": "PASS capture frames=8 ROI=128x32 id=7e4f1a43 integration=0\nD:\\anlogic_formal_project\\tests\\tb_temporal_capture.v:60: $finish called at 23879786000 (1ps)\n",
+  "frames": 8,
+  "roi": [
+    128,
+    32
+  ],
+  "words": 24720,
+  "capture_id": "7E4F1A43",
+  "sof_intervals": [
+    236325,
+    236325,
+    236325,
+    236325,
+    236325,
+    236325,
+    236325
+  ],
+  "pre_gain_post_crc": true,
+  "raw_word_sha256": "e5ffd382cf4452d9ad53c42522074b3761452ca09e8d23f87a9b1db0ac1464bd",
+  "real_sensor": false
+}
