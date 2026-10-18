@@ -1,0 +1,11 @@
+Prepared syn_1: 64 source/IP/constraint entries
+Prepared phy_1: 64 source/IP/constraint entries
+START syn_1 ab9081f906739090f431ae8f0dc7ede9e682eb64
+Traceback (most recent call last):
+  File "D:\anlogic_formal_project\scripts\build_edge_temporal_v1.py", line 59, in <module>
+    assert result.returncode==0 and not re.search(r'\bERROR\s*:',text),(run,result.returncode)
+                    ^^^^^^
+  File "D:\anlogic_formal_project\scripts\build_edge_temporal_v1.py", line 50, in main
+    for run,script in runs:
+                ^^^^^^^^^^^^
+StopIteration

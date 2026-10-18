@@ -1,0 +1,6 @@
+PASS temporal history cycles=3399
+D:\anlogic_formal_project\tests\tb_edge_temporal_hold.v:24: $finish called at 34036000 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=32 cycles=6369 valid_beats=5120 packed_words=3840 denoise=1 nms=1 depth=29
+D:\anlogic_formal_project\tmp\edge_temporal_v1\tb_edge_temporal_stream.v:110: $finish called at 63776000 (1ps)
+PASS checkpoints_B_C_D stream width=1280 height=720 cycles=2325899 valid_beats=2304000 packed_words=1728000 denoise=1 nms=1 depth=29
+D:\anlogic_formal_project\tmp\edge_temporal_v1\tb_edge_temporal_stream.v:110: $finish called at 23259076000 (1ps)
