@@ -38,6 +38,7 @@ Python3.12.14、NumPy2.3.5、Pillow12.3.0、Matplotlib3.11.2、Icarus12.0。
 2. 面板字段审查发现last_line需和其他input影子寄存器同帧锁存，已在完整集成验证前加入s_last_line，避免拿下一帧末行填入旧SEQ。正常与异常行数测试验证一致；没有以帧间跳动当作测量结果。
 3. FIFO未armed状态若只显示sticky=0会造成未测误解，完整候选前增加两路独立armed位及其实际接线/启动屏蔽测试。未armed不标正常。
 4. 首次TD CLI启动时Python的Windows反斜杠脚本路径被TD按Tcl转义，提示无法读取DefaultFlow；进程退出0但缺少Flow Statistics，构建守卫正确拒绝。统一传入正斜杠路径后重新完整运行。此前未真正综合、未生成bit，日志保留；不是RTL或时序失败。
+5. 源码faf3262已综合完成，物理实现过程中复核启动语义发现“只等两个HDMI vsync”不足以屏蔽Sensor初始化前的正常空读。主动停止该轮物理实现，未运行新bitgen（Runs bit仍为2026-10-17旧文件，不能归档冒充新bit）。旧源码commit、综合/部分物理stdout和prebuild信息保留。增加实际packed capture的连续三完整帧ready，经两级同步后再等两次HDMI vsync；独立actual capture_arm/FIFO单元验证未就绪多次刷新不误报、短帧重新等待、三完整帧armed和复位。只改变诊断启用时机，不门控视频请求。原完整720p数据通路测试仍对应未变化的注入/算法/OSD/packer；更改的启动模块另补单元和小尺寸联合回归，再重新完整TD。
 
 ## 证据局限
 

@@ -17,6 +17,7 @@ module video_out #(parameter PROBE_ENABLE=0)(
     input wire        I_dsi_clk,
     input wire        I_video_vsync,
     input wire        I_video_rd_en,  
+    input wire        I_probe_capture_ready,
     output reg[23:0]  O_vdieo_data,
     output wire      O_probe_underflow,
     output wire      O_probe_armed
@@ -42,16 +43,19 @@ module video_out #(parameter PROBE_ENABLE=0)(
 
     generate if(PROBE_ENABLE)begin:g_probe
         reg previous_vs,sticky;reg[1:0] frames;
+        (* async_reg="true" *)reg capture_meta,capture_sync;
         always @(posedge I_dsi_clk or negedge I_rst_n)begin
-            if(!I_rst_n)begin previous_vs<=0;frames<=0;sticky<=0;end
+            if(!I_rst_n)begin previous_vs<=0;frames<=0;sticky<=0;capture_meta<=0;capture_sync<=0;end
             else begin
+                capture_meta<=I_probe_capture_ready;capture_sync<=capture_meta;
                 previous_vs<=I_video_vsync;
-                if(I_video_vsync&&!previous_vs&&frames!=3)frames<=frames+1'b1;
+                if(!capture_sync)frames<=0;
+                else if(I_video_vsync&&!previous_vs&&frames!=3)frames<=frames+1'b1;
                 if(frames>=2 && S_fifo_rd_en && S_fifo_emtpy && !S_fifo_rst)sticky<=1;
             end
         end
         assign O_probe_underflow=sticky;
-        assign O_probe_armed=frames>=2;
+        assign O_probe_armed=capture_sync&&frames>=2;
     end else begin assign O_probe_underflow=0;assign O_probe_armed=0;end
     endgenerate
 

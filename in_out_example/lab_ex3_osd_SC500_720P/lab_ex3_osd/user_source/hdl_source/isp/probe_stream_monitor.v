@@ -98,3 +98,17 @@ module probe_stream_monitor #(parameter IMG_WIDTH=1280,IMG_HEIGHT=720)(
   end
  end
 endmodule
+
+// Observer boot gate only. Bad/incomplete frames restart the three-frame wait;
+// after arming, errors remain observable and do not disable the monitor.
+module probe_capture_arm #(parameter WORDS=172800)(input clk,rst_n,v,u,output ready);
+ reg[18:0] count;reg[1:0] complete;reg seen;
+ assign ready=complete==3;
+ always @(posedge clk or negedge rst_n)begin
+  if(!rst_n)begin count<=0;complete<=0;seen<=0;end
+  else if(u)begin
+   if(seen&&complete!=3)complete<=count==WORDS?complete+1'b1:2'd0;
+   seen<=1;count<=v?19'd1:19'd0;
+  end else if(v&&!(&count))count<=count+1'b1;
+ end
+endmodule

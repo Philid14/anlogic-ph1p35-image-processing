@@ -586,6 +586,11 @@ assign S_raw_tuser  = S_axis_tuser;
 
 //ISP算法顶层模块
 wire probe_write_overflow,probe_read_underflow,probe_write_armed,probe_read_armed;
+// Observer-only boot gate. Three complete packed captures must exist before
+// output-empty monitoring starts; no DDR/pixel request is gated by this state.
+wire probe_capture_ready;
+probe_capture_arm #(.WORDS(172800)) u_probe_capture_arm(.clk(S_csi_rx_clk),.rst_n(S_rst_n),
+    .v(S_ISP_O_tvalid),.u(S_ISP_O_tuser),.ready(probe_capture_ready));
 (* async_reg="true" *)reg[1:0] probe_read_meta,probe_read_sync;
 always @(posedge S_csi_rx_clk or negedge S_rst_n)begin
     if(!S_rst_n)begin probe_read_meta<=0;probe_read_sync<=0;end
@@ -651,6 +656,7 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
     video_out #(.PROBE_ENABLE(1)) u_video_out(
         .O_probe_underflow(probe_read_underflow),
         .O_probe_armed(probe_read_armed),
+        .I_probe_capture_ready(probe_capture_ready),
         .I_rst_n             ( S_video_out_rst_n    ),
         .I_ddr_clk           ( S_ddr_clk            ),
  

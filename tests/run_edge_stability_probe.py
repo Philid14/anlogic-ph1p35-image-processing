@@ -93,6 +93,7 @@ def main():
         d=Path(temp)
         logs.append(simulate(d,'tb_probe_monitor',[ROOT/'tests/tb_probe_monitor.v',HDL/'isp/probe_stream_monitor.v',HDL/'data_96bit_to_128bit.v']))
         logs.append(simulate(d,'tb_probe_fifo_events',[ROOT/'tests/tb_probe_fifo_events.v',HDL/'video_in.v',HDL/'video_out.v']))
+        logs.append(simulate(d,'tb_probe_capture_arm',[ROOT/'tests/tb_probe_fifo_events.v',HDL/'isp/probe_stream_monitor.v']))
     sources=[HDL/'isp'/n for n in ('edge_control_stream.v','edge_detect_96.v','gaussian_pair_3x3.v','nms_gradient_pair_3x3.v','edge_link_pair_3x3.v','probe_fixed_rgb.v','probe_stream_monitor.v')]
     sources += [HDL/n for n in ('edge_status_osd.v','osd_char_lib.v','data_96bit_to_128bit.v','isp/isp_top.v','isp/data128_96/data128_96.v')]+[ROOT/'tests/isp_boundary_stubs.v']
     cases=[(256,160)]

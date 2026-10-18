@@ -45,7 +45,7 @@
 2. 原Edge输出、状态及诊断OSD之前：实际二值输出和自身valid/user；每拍左右两独立二值采样各1bit做CRC32，统计有效拍数和相同相邻TH下的CRC变化。
 3. 原打包器输出：实际128bit valid/user，计整帧字数。**不修改打包器，不修补缺失片段。**
 4. video_in相机域FIFO：新增只读full_flag连线，对armed且非FIFO reset期间的valid&&full锁存写满事件。
-5. video_out HDMI域FIFO：原empty_flag与实际FIFO read enable；至少两次输出vsync后、非FIFO reset期间读空锁存。不得把消隐时empty当读空。
+5. video_out HDMI域FIFO：原empty_flag与实际FIFO read enable；先观察到连续三个完整172800字的采集帧，再跨域同步ready、再等两次输出vsync后，非FIFO reset期间读空锁存。不得把摄像头启动前的显示空帧或消隐empty当读空故障。
 6. HDMI域独立、单调的armed/sticky经两个目的触发器到MIPI域；不是传输多位帧身份/计数总线，不承担帧匹配。原DDR/FIFO读写逻辑完全不变。
 
 计数CRC只旁观，不施加ready反压，不改变像素数量。FIFO full/empty取自当前实际IP端口，不假设UART、网口或板载ILA已经可用。
@@ -65,6 +65,7 @@
 
 DDR前X16..527、Y352..671，16字符×10行，32×32字符（复用既有16×16字库2倍），黄色字/深灰底。原MODE/THRESHOLD区、Logo/CNT位置不动。
 所有数字**十六进制**。OSD随缓存像素一起显示，无新增显示侧宽总线CDC；不是读出帧身份确认。SEQ用于确认历史样本持续更新，不能当摄像头到HDMI延迟。
+`PROBE FIXED V1`是固定Edge实验固件标识；实际显示源以原MODE文字为准。MODE=ORIGIN时仍显示实时摄像头，CRC始终观察并行运行的固定Edge分支，**不是ORIGIN真实RGB的校验**，不能据此证明Sensor像素逐帧一致。
 
 | 行 | 字段 | 正常预期/解释 |
 |---|---|---|
@@ -94,7 +95,7 @@ FLAG位图（计数清零需重新PROGRAM_SRAM或真实系统复位，不修改K
 |23:14|该历史帧首气泡行号（按tlast计数）|
 |13:4|首气泡前已收集的行内拍数（不是原图像素坐标）|
 |3|保留0|
-|2|HDMI FIFO observer已armed（两次输出vsync后）|
+|2|HDMI FIFO observer已armed（三完整采集帧+同步ready后两次输出vsync）|
 |1|相机FIFO observer已armed（一次相机SOF后）|
 |0|历史三组测量序号一致、可读|
 
