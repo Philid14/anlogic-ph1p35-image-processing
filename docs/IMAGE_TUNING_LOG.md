@@ -273,3 +273,15 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 模型结果：TH60弱/强静态边缘翻转约下降49%/46%，参考轮廓容差召回保留，但线会增厚；8px/帧移动未像投票那样完全丢失。真实18:42 ROI TH40翻转16.6667%→14.8667%、平均边缘94.167→126.167，无真值不判定真实画质提升。
 - Board Test Result：**待用户烧录**；真实静态稳定、运动增厚/拖影、S计数稳态复发、30分钟及明暗变化均待测。
 - 是否保留 / 下一步：保留此candidate及R0全部证据，见EDGE_TEMPORAL_V1_REPORT/BOARD_TEST/DESIGN。先5/30/120秒B/S，再同TH旧新固定目标与移动/消失对照；S增加先阻断正式验收查FIFO。完成本轮即停止，不自动合并或开展下一版。
+
+## EDGE_MULTI_MODE_V1 candidate（2026-10-18，MAIN）
+
+- Version / Git：EDGE_MULTI_MODE_V1；分支`codex/main/edge-multi-mode-v1`；实际TD源码`4ea67f194941c6717fc1d28889c687a4fb78533f`；candidate tag `edge-multi-mode-v1-candidate`；从EDGE_TEMPORAL_V1 `b47105f`起分支，Draft PR以`codex/main/edge-temporal-v1`为base，不自动合并。
+- 修改假设 / 唯一主要变量：在原有ORIGIN/EDGE基础上增加GRAY、BINARY及18位帧锁存配置；`Y=(77R+150G+29B+128)>>8`，BINARY按`Y>=T`输出纯黑白。新增分支与Edge共用27拍窗口，Edge历史在所有模式持续运行。Sensor Exposure1990/VTS1000/HTS1600/Gain15.75×、BLC15、AWB_V2、MIPI/DDR/HDMI、Logo/CNT、PLL/引脚/SDC不变。
+- 参数/控制：复位`EDGE/EDGE_TH=80/BINARY_TH=130`；K3为`EDGE→ORIGIN→GRAY→BINARY→EDGE`；K4短按-10、长按+10，ORIGIN/GRAY忽略，两个阈值独立保存，10..250饱和。配置整包跨24MHz→MIPI接收域，AWB提前SOF锁存，帧内不以新配置切换数据。
+- R0：移位加法实现LUT6 17040、FF15801、Slice18483、ERAM75、DSP9，Setup/Hold +0.002/+0.020ns；虽零违例但2ps裕量不足，拒绝上板，归档`EDGE_MULTI_MODE_V1_R0`及tag `edge-multi-mode-v1-r0-build`。
+- 最终Bit：`artifacts/bitstreams/EDGE_MULTI_MODE_V1/camera_to_dsi_display.bit`，1789539 bytes；SHA256 `8C62195DA8A2F8748CE9D6CFD7D9703BCB81E6F6CDA09AEDF4BBB0DE0FE0BBE9`。
+- Build Result：完整Synthesis→Physical Design→final Timing Check→bitgen PASS；LUT6 16942、FF15809、Slice18319（86.35%）、ERAM75、DSP21；Setup/Hold +0.107/+0.020ns，TNS0、违例0，STA96.16%，无新增关键warning类型。相对TEMPORAL LUT+823/FF+152/Slice+635/ERAM0/DSP+12；亮度常数乘法映射DSP后，全设计较R0恢复105ps Setup裕量。
+- Verification：9288像素灰度/二值边界与随机对照、K3/K4/18位CDC、九帧混合四模式4608拍/3168字、完整720p×2帧460800拍/345600字逐字节通过；18个V1算法/ISP/DDR/HDMI/Logo/引脚/SDC文件SHA保持一致。
+- Board Test Result：**待用户烧录**。默认EDGE、四模式切换、GRAY灰阶、BINARY纯黑白、双阈值保留、OSD/Logo/CNT、B/S计数、30分钟及光照变化均待测。
+- 是否保留 / 下一步：保留最终candidate及R0全部证据。按`docs/EDGE_MULTI_MODE_V1_BOARD_TEST.md`验收；S计数增长先阻断正式验收并查FIFO/DDR。完成本轮即停止，不自动合并或开始下一阶段。
