@@ -1,0 +1,11 @@
+HISTORICAL edge-control-v1-candidate
+PASS deterministic stages W=64 H=64 D=0 N=0 Q=0 beats=7168 gradients=6510 cycles=9778
+C:\Users\Lenovo\AppData\Local\Temp\stability-history-554ogmwp\tb_edge_stability.v:68: $finish called at 97869000 (1ps)
+
+HISTORICAL edge-denoise-v1-candidate
+PASS deterministic stages W=64 H=64 D=1 N=0 Q=0 beats=7168 gradients=5880 cycles=9778
+C:\Users\Lenovo\AppData\Local\Temp\stability-history-snvz18yt\tb_edge_stability.v:68: $finish called at 97869000 (1ps)
+
+HISTORICAL edge-nms-v1-candidate
+PASS deterministic stages W=64 H=64 D=1 N=1 Q=0 beats=7168 gradients=5880 cycles=9778
+C:\Users\Lenovo\AppData\Local\Temp\stability-history-39c32mb8\tb_edge_stability.v:68: $finish called at 97869000 (1ps)

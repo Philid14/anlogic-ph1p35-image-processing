@@ -1,0 +1,24 @@
+Diagnostic full integration run, candidate RTL unchanged, 2026-10-18.
+Command: python -X utf8 tests/run_edge_stability_diag.py --full
+Initial diagnostic generator injected an extra invalid cycle immediately after
+the first valid beat of selected rows, while expecting lossless frame packing.
+
+The Edge/OSD 96-bit pixel and metadata checks passed up to the failure.
+The real packer comparison failed:
+FAIL pack word 521569
+got      000000000000ffffffffffff00000000
+expected 00000000000000000000000000000000
+Time 7051156000, tb_edge_quality_stream.step.
+
+Inspection: data_96bit_to_128bit resets S_cnt on EVERY invalid cycle. It supports
+contiguous valid runs with length divisible by four, not arbitrary valid bubbles.
+This is an interface-contract counterexample, not a proven board trigger.
+Actual signal_delay generates continuous output rows under its intended input.
+Do not relabel this as an algorithm error, a repaired RTL bug, or a passing test.
+
+Follow-up: tb_stability_packer_contract independently characterizes 8 input beats:
+continuous => 6 output words; bubble after beat1 => 5 words plus byte shift;
+bubble after beat4 => 6 identical words. No production source change.
+The final full integration vectors use continuous rows, matching this contract;
+arbitrary bubbles remain in the Edge-only stage tests. Board valid/run-length
+observation is required to determine whether the contract is violated in use.

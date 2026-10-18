@@ -111,3 +111,21 @@ SmartSens 官方 [SC500CS 产品简介](https://smartsens.oss-cn-beijing.aliyunc
 | `android_kernel_xiaomi_earth` / `LineageOS` | commit `d7851c271883170591db1ef71e1eff17b6ddacdb`；具体文件许可本轮未确认；[`drivers/misc/mediatek/imgsensor/src/common/v1/sc500cs_truly_front_mipi_raw/sc500cs_truly_front_mipi_raw.c`](https://github.com/LineageOS/android_kernel_xiaomi_earth/blob/d7851c271883170591db1ef71e1eff17b6ddacdb/drivers/misc/mediatek/imgsensor/src/common/v1/sc500cs_truly_front_mipi_raw/sc500cs_truly_front_mipi_raw.c) | `set_gain` 以 1/2/4/8× 粗档及细档 `0x20` 基准写 `3e08/09`，另有数字增益路径 | **采用模拟增益档位交叉验证**，不复制代码；数字增益路径不在本轮启用。 |
 
 本地 SC500CS Preliminary 数据手册 V1.8 的文本摘录见未纳入版本控制的研究材料；由于原 PDF 来源未在本仓库核验，仅作辅助，**不把其文字或表格逐项复制进本仓库**。本轮实际候选值 `0320/0f20/1f20` 由三个公开驱动的编码逻辑交叉支持，具体计算、工程接线、限制与上板判据见 `SC500CS_EXPOSURE_GAIN_AUDIT.md`。上述所有外部项目均非 HX1P35A 板级验证，也未替换安路的 MIPI/DDR/HDMI/PLL/IP。
+
+## 8. EDGE_STABILITY_DIAG_V1 外部诊断参考（2026-10-18）
+
+本轮仅采用实验设计/概念核对，无外部代码复制，不替换任何安路IP，不改变Sensor配置。
+
+| Repository / Owner | revision / License / 路径与URL | 参考内容 | 是否采用 / 范围 |
+|---|---|---|---|
+| opencv / opencv | 4.10.0 tag object `67f3511f2354ebfb5f98045ee6153345f632aadd`指向commit`71d3237a093b60a27601c20e9ee6c3e52154e8b1`；仓库LICENSE Apache-2.0，canny.cpp文件头保留Intel/Itseez许可（三条款BSD风格），不得忽略文件级声明；[modules/imgproc/src/canny.cpp](https://github.com/opencv/opencv/blob/71d3237a093b60a27601c20e9ee6c3e52154e8b1/modules/imgproc/src/canny.cpp)、[LICENSE](https://github.com/opencv/opencv/blob/71d3237a093b60a27601c20e9ee6c3e52154e8b1/LICENSE) | NMS严格/非严格邻居比较、强阈值、栈传播均在单幅图中；无上一帧记忆；L568等、L647–676、L910–930 | 采用“空间hysteresis不等于时间稳定”的检查思路；不复制、不替换本地算法、不以OpenCV输出作本工程位准确参考。固定版本便于复核，不声称最新。 |
+
+GitHub连接实际检索`repo:opencv/opencv is:issue Canny flicker`，total_count=0；这是有限查询结果，不是证明GitHub无同类问题或本地没有bug。一般论坛回答未作为根因证据。
+
+其他一手资料（非GitHub仓库，网页无固定commit；访问2026-10-18）：
+
+- John Canny，1986，IEEE PAMI 8(6):679–698，[原论文](https://cecas.clemson.edu/~stb/ece847/internal/classic_vision_papers/canny_pami1986.pdf)。版权论文，仅理解检测/定位与噪声折中，采用分测梯度幅值/峰位的实验思路；不复制代码或图表，不将论文当实板故障证据。
+- Basler官方[Balance White Auto](https://docs.baslerweb.com/balance-white-auto)、[Adjustment Damping](https://docs.baslerweb.com/balance-white-adjustment-damping)、[Auto Function Profile](https://docs.baslerweb.com/auto-function-profile)。厂商文档、未确认可复用代码许可；只采用连续/冻结AWB比率和稳定光源对照的诊断思路。不是SC500CS寄存器依据，不移植其AE或增益参数。
+- 安路本地安装文档`D:/TD/doc/SWUG/SWUG200_Timing_Constraints_User_Guide.pdf`，2024.09，§3.14印刷页35/PDF物理页43。厂商版权，仅用于理解set_clock_groups不分析跨组路径；最终覆盖缺口以本项目归档exception.timing实际Ignored条目为证，不因阅读文档就擅改SDC。
+
+本轮诊断与实板待测范围见`EDGE_STABILITY_DIAG_V1.md`和`EDGE_STABILITY_DIAG_V1_BOARD_PLAN.md`。

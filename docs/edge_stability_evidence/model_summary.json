@@ -1,0 +1,156 @@
+{
+  "input_kind": "SYNTHETIC ONLY, not measured camera statistics",
+  "seed": 20261018,
+  "frames_per_sequence": 12,
+  "metric_rows": 240,
+  "fixed_output_sha256": {
+    "blurred": {
+      "control": "a4405431b4c8026184fa9cd8436925218fdd336da2053a8418b86d5577a99ecf",
+      "denoise": "8d7621bb162ed1d07d969a57805fc525eb28c9cf82c4f4ae84e7056e8aad53d7",
+      "nms": "bf17dbf5c36cbaf62bbbc3b1f00e837a2c125e438abd13cfd992835f1e50fe82",
+      "quality": "ab0bd9308631032fbd5b28c1b55468f3941f81e404d20c4c91d142a5c4111c12"
+    },
+    "glasses_n8": {
+      "control": "71fa4bd2efdc858ccc0a7bfcea3bf836410bb4f77bd19bc9cb25e01ff627949f",
+      "denoise": "b26256667e3d303d559fe623e514cd192e8c0e8c2a0611a9e41bbb6f686ac126",
+      "nms": "f8d6fb2ec5b7dc92585d6f39f320ccb01056818e34a1e1197273ae7258dfea0c",
+      "quality": "52857e2398385a26f2ec4d33253153dc463e0c70c5225531d281c9fd3434edd1"
+    },
+    "paper_n8": {
+      "control": "025b93a8f8b4f5a9fe215b3321ad388198045042f9a72e70a56437777f47884b",
+      "denoise": "75f3d3871f846795ed1953cb3b0d0ef6c5017ef8e42a108a6f46356bdf8dd757",
+      "nms": "18268b64f53e319430eb7c7cfdb3ef3d052b7a105cfa6b978bc47c8fd2d9f8f0",
+      "quality": "3fb405079d5c5307c9257fb4db4370fdb88995f8136c1a6943b88ddee71be084"
+    },
+    "text_small_n8": {
+      "control": "f1aca5f9cdd6c65fdab2768cab3881c21c9deca201a2b3149f7e533e9102a5f8",
+      "denoise": "09b44611cdb597ed3e600e4f20ff7b4376b9cac8c8e9864fc1e68c11b29f7363",
+      "nms": "72bcdf8fc6cdc787921a0c0177ff823e748c2eb561f9c0578bba1ee27245684a",
+      "quality": "d6c9fd66729d38761e865d6d4661804ecc42929db25d2d9a7f37e70b4b0c1de5"
+    }
+  },
+  "threshold_crossing": {
+    "rgb_step": [
+      63,
+      64
+    ],
+    "threshold": 60,
+    "changed": 88,
+    "white": [
+      0,
+      88
+    ]
+  },
+  "nms_peak_switch": {
+    "input_delta": 1,
+    "changed": 32,
+    "rows": 16,
+    "columns": [
+      [
+        21
+      ],
+      [
+        22
+      ]
+    ],
+    "internal_displacement": 1,
+    "hdmi_horizontal_pixels": 2
+  },
+  "anchor_amplification": {
+    "input_changed": 1,
+    "weak_changed": 0,
+    "strong_changed": 1,
+    "output_changed": 9
+  },
+  "awb": {
+    "constant_stats_final_q16": [
+      76458,
+      70577
+    ],
+    "trajectory_q16": [
+      [
+        73728,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ],
+      [
+        76458,
+        70577
+      ]
+    ],
+    "one_lsb_selection_cases": [
+      {
+        "r": 65,
+        "gain_q16": [
+          73728,
+          65536
+        ],
+        "samples": 8192
+      },
+      {
+        "r": 64,
+        "gain_q16": [
+          65536,
+          65536
+        ],
+        "samples": 4096
+      }
+    ],
+    "board_gain_trace_available": false
+  }
+}

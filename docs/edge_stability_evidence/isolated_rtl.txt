@@ -1,0 +1,5 @@
+PASS NMS unit: cycles=2004 beats=1536 checked_samples=2640 full14bit/center_axis/four_neighbors/equal_platform/SOF/recovery
+D:\anlogic_formal_project\tests\tb_nms_gradient_pair.v:59: $finish called at 20126000 (1ps)
+
+PASS edge_link four independent spatial stage references width=64 beats=1536 sample_stage_checks=12288 cycles=2012
+D:\anlogic_formal_project\tests\tb_edge_link_pair.v:50: $finish called at 20206000 (1ps)

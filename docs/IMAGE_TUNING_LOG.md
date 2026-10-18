@@ -260,3 +260,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build Result：完整Synthesis→Physical Design→Timing Check→bitgen成功；LUT6 16162、FF 15423、Slice 17894 (84.34%)、ERAM 47、DSP 9，Setup/Hold +0.009/+0.020ns、TNS0、端点违例0。既有关键类型保留、无新增关键类型；61项源码匹配、13旧bit加R0及旧归档不变。新联合2699276拍/2024457字、旧NMS回归2264588拍/1698441字、四层独立168500拍/1348000采样层、分类2892采样及旧控制单元通过。
 - Board Test Result：**待用户上板**。合成TH60平均轮廓召回67.28%→74.20%，平坦误检0.0043%→0.028%；没有真实ORIGIN帧，不等于实际眼镜/脸/文字质量改善已确认。TH40可能扩散噪声，零响应/无强锚弱边仍不能恢复，孤立强点仍保留。
 - 是否保留/下一步：保留candidate及原NMS对照，按EDGE_QUALITY_V1_BOARD_TEST同场景分别做同TH及近似相同完整度比较，40/50/60/70/80扫描、至少20次切换/30分钟。R0资源未达目标已保留、未作为最终candidate；首次测试夹具失败已修复，主动中断较宽地址回归后按最终源码统一重跑。停止等待实板，不自动改曝光/VTS、增跳数、换采样密度或合并PR。
+
+## EDGE_STABILITY_DIAG_V1（2026-10-18，MAIN，诊断资料版本，无新bit）
+
+- 来源/基线：用户本轮实板反馈；QUALITY候选归档`b64daf39af09980621adb1138df1674a8501ea09`，bit SHA`629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5`。诊断分支`codex/main/edge-stability-diag-v1`；证据tag `edge-stability-diag-v1`对应本轮报告/测试提交，**不代表新的可烧录candidate**。
+- Board Test Result（新增用户观察，不改写历史归档）：CONTROL起即有白线出现/消失和小范围位置摆动，QUALITY更明显；强弱光、基本静止现实人脸/眼镜均存在；ORIGIN肉眼正常；Gaussian/NMS/连接改善空间效果但未解决时间稳定性。没有连续RGB、内部波形、精确重复帧/闪烁率和30分钟记录，不补造量化结论。
+- 假设/唯一研究变量：定位输入波动经过各级判定的影响；固定同图、±1码值、NMS峰位及强锚隔离、AWB选样敏感性、控制完整性。正式Sensor/ISP/Edge/SDC/按键参数修改前后均相同。
+- Build Result：未运行TD、未生成诊断bit；使用既有归档STA/资源，61项实际入口哈希一致、15份旧bit不变。新RTL实验在测试目录，详见`EDGE_STABILITY_DIAG_V1.md`及证据摘要；软件/仿真不能代替实板。
+- 已证实：相同输入受测各级确定；门限和峰位/锚点可放大微扰；固定AWB可收敛，选样边界可引起帧间增益变化；打包器非四拍边界气泡会丢未完成字节；FIFO最大延迟两组各18路径被clock_groups忽略。后两项是接口/覆盖风险，没有实板触发证据。
+- 是否保留/下一步：保留全部诊断及失败反例；不开发新优化算法、不改正式RTL、不自动合并。先测真实valid连续性/帧拍数与固定RGB真实控制，再采AWB轨迹/原始ROI并做收敛增益冻结对照。没有证据就不把9ps、AWB或Sensor噪声认定为唯一根因。
