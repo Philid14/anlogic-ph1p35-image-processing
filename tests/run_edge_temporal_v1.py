@@ -19,7 +19,7 @@ def causal_fields(rgb,th):
     return active,support
 
 
-def unit_test():
+def unit_test(hold_source=None):
     rng=np.random.default_rng(105);w,h=64,16;b=w*h//4;last=None;lastth=None
     p=OUT/'unit.txt';lines=[]
     def put(r=1,v=0,u=0,l=0,th=60,e=0,s=0,ex=0):lines.append(f'{r} {v} {u} {l} {th} {e} {s} {ex}\n')
@@ -46,6 +46,21 @@ def unit_test():
             for i in range(7):put(v=1,th=th,e=3,s=0,ex=3)
             last=None
     for _ in range(4):put()
+    # Balanced duplicate+missing EOL must not pass a total-count-only gate.
+    put(u=1)
+    for i in range(b):
+        put(v=1,l=int(i%(w//4)==w//4-1 and i!=2*(w//4)-1),e=3,s=0,ex=3)
+        if i==w//4-1:put(l=1)
+    put(u=1)
+    for i in range(b):put(v=1,l=int(i%(w//4)==w//4-1),e=0,s=3,ex=0)
+    # Legal late EOL, after the last valid beat, still produces trusted history.
+    put(u=1)
+    for i in range(b):
+        put(v=1,e=3,s=0,ex=3)
+        if i%(w//4)==w//4-1:put(l=1)
+    put(u=1)
+    for i in range(b):put(v=1,l=int(i%(w//4)==w//4-1),e=0,s=3,ex=3)
+    for _ in range(4):put()
     # Explicitly poison all history bits in a frame with one missing EOL;
     # next complete all-zero frame with support=3 must not use that memory.
     put(u=1)
@@ -59,16 +74,16 @@ def unit_test():
     for i in range(b):put(v=1,l=int(i%(w//4)==w//4-1),e=0,s=3,ex=0)
     for _ in range(4):put()
     p.write_text(''.join(lines))
-    return control.simulate(OUT,'tb_edge_temporal_hold',[ROOT/'tests/tb_edge_temporal_hold.v',HDL/'isp/edge_temporal_hold.v'],plus=[f'+STIM={p.as_posix()}'])
+    return control.simulate(OUT,'tb_edge_temporal_hold',[ROOT/'tests/tb_edge_temporal_hold.v',hold_source or HDL/'isp/edge_temporal_hold.v'],plus=[f'+STIM={p.as_posix()}'])
 
 
-def stream_test(w,h,reliability=0):
+def stream_test(w,h,reliability=0,frames=10,hold_source=None):
     import run_edge_quality_v1 as q
     rng=np.random.default_rng(271);x=np.indices((h,w))[1];prev=None;prevth=None;tag=f'{w}_{h}_{reliability}';stim=OUT/f'stream{tag}.txt';pack=OUT/f'pack{tag}.txt'
     beats=words=0;font=control.glyph_table()
     with stim.open('w') as sf,pack.open('w') as pf:
         def cycle(v=0,u=0,l=0,cfg=316,data=0,ex=b'\0'*12):sf.write(f'{v} {u} {l} {cfg:03x} {data:024x} {ex.hex()}\n')
-        for f in range(10):
+        for f in range(frames):
             mode=0 if f in (4,8) else 1;th=40 if f in (6,7) else 60;cfg=(mode<<8)|th
             gray=np.where(x>=w//2+(2 if f in (3,4,5) else 0),144,48)
             rgb=np.clip(np.repeat(gray[:,:,None],3,2)+rng.integers(-4,5,(h,w,3)),0,255).astype(np.uint8)
@@ -107,10 +122,10 @@ def stream_test(w,h,reliability=0):
         tb=tb.replace('.I_edge_config(cfg),','.I_edge_config(cfg),.I_fifo_event_counts(32\'h1234abcd),')
     p=OUT/'tb_edge_temporal_stream.v';p.write_text(tb)
     trace=q.nms.append_intermediate_traces(stim,w,h)
-    sources=[p,HDL/'isp/edge_control_stream.v',HDL/'isp/edge_detect_96.v',HDL/'isp/gaussian_pair_3x3.v',HDL/'isp/nms_gradient_pair_3x3.v',HDL/'isp/edge_link_pair_3x3.v',HDL/'isp/edge_center_pair_delay.v',HDL/'isp/edge_temporal_hold.v',HDL/'edge_status_osd.v',HDL/'osd_char_lib.v',HDL/'data_96bit_to_128bit.v',HDL/'isp/isp_top.v',HDL/'isp/data128_96/data128_96.v',ROOT/'tests/isp_boundary_stubs.v']
+    sources=[p,HDL/'isp/edge_control_stream.v',HDL/'isp/edge_detect_96.v',HDL/'isp/gaussian_pair_3x3.v',HDL/'isp/nms_gradient_pair_3x3.v',HDL/'isp/edge_link_pair_3x3.v',HDL/'isp/edge_center_pair_delay.v',hold_source or HDL/'isp/edge_temporal_hold.v',HDL/'edge_status_osd.v',HDL/'osd_char_lib.v',HDL/'data_96bit_to_128bit.v',HDL/'isp/isp_top.v',HDL/'isp/data128_96/data128_96.v',ROOT/'tests/isp_boundary_stubs.v']
     log=control.simulate(OUT,'tb_edge_temporal_stream',sources,[f'-Ptb_edge_temporal_stream.WIDTH={w}',f'-Ptb_edge_temporal_stream.HEIGHT={h}'],[f'+STIM={trace.as_posix()}',f'+PACK={pack.as_posix()}',f'+WORDS={words}'])
     assert f'valid_beats={beats} ' in log
-    return dict(width=w,height=h,reliability=reliability,frames=10,beats=beats,packed_words=words,log=log)
+    return dict(width=w,height=h,reliability=reliability,frames=frames,beats=beats,packed_words=words,log=log)
 
 
 if __name__=='__main__':
