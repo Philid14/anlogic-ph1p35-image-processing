@@ -1,0 +1,8 @@
+{
+  "synthetic_only": true,
+  "pages": 14,
+  "results": {
+    "complete": "complete_capture_validated",
+    "missing_page_2": "incomplete_or_invalid_do_not_analyze"
+  }
+}

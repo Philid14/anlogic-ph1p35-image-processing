@@ -1,0 +1,11 @@
+{
+  "path": "D:\\anlogic_formal_project\\video_20261018_171946.mp4",
+  "bytes": 65404067,
+  "sha256": "0c53f9b65b2b910e1eba180b7978d1bba9dba49aca0c72a067868291373fad7a",
+  "fps": 29.875729885945972,
+  "frames": 3545,
+  "width": 1920.0,
+  "height": 1080.0,
+  "duration": 118.65818888888889,
+  "cv2": "4.13.0"
+}

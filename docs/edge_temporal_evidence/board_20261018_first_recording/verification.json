@@ -1,0 +1,31 @@
+{
+  "status": "PASS evidence consistency; INCOMPLETE capture remains rejected",
+  "crc_valid_pages": 85,
+  "missing_pages": [
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69
+  ],
+  "ledger_frames": 3544,
+  "ledger_crc_valid_frames": 2641,
+  "conflicting_duplicates": 0,
+  "all_archived_page_sha256_checked": true,
+  "all_archived_packet_crcs_checked": true,
+  "scan_and_finalizer_and_decoder_source_snapshots_sha256_checked": true,
+  "raw_capture_created": false,
+  "real_temporal_analysis_run": false,
+  "formal_rtl_or_bit_modified": false
+}

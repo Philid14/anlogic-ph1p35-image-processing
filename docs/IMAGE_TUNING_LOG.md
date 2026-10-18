@@ -305,3 +305,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Verification：旧AWB并行35840拍、OSD691200拍、8帧ROI独立RGB/实际gain/post CRC/周期时间戳、实际ISP边界/packer、页面单写口、光学7类正例与12负例、旧完整PROBE/QUALITY/控制回归通过。17旧bit保持。
 - Board Test Result：**待用户烧录并录制编码页面**。没有取得新真实ROI、gain轨迹或运动真值，不宣布滤波改善或AWB贡献率。暂不修改正式AWB、不直接集成投票/滞回。
 - 是否保留/下一步：保留全部源码/失败记录/候选归档，按BOARD_TEST收首份可解码静态burst，再比较各级及动态/固定gain反事实；用户反馈前停止，不继续下一正式版本。
+
+## EDGE_TEMPORAL_RESEARCH_V1 首次手机录像解码（2026-10-18，MAIN）
+
+- 沿用candidate `edge-temporal-research-v1-candidate` / `e3a6943857116b0a037aa1776a94e4b9f3602180`，实际TD源码84299d42fb88842b837794bdf43b61a88f1e2049，bit SHA256 `5D01156E08E69DDAA51AB41A3E3C2DFB1BC8B60436E97FBAE6555754AE6EB27D`。本轮仅PC解码/证据记录，没有重新构建或修改正式RTL、ISP参数、约束、bit及历史归档。
+- 输入：根目录`video_20261018_171946.mp4`，65404067字节，SHA256 `0C53F9B65B2B910E1EBA180B7978D1BBA9DBA49ACA0C72A067868291373FAD7A`，1920×1080 HEVC，视频轨118.658189秒。原视频不提交Git。
+- 修改假设/主要研究变量：首次验证真实手机光学导出是否无损完整；正式参数修改前后相同。本次是传输恢复，未加入时间滤波或进行算法排名。
+- Board/Decode Result：OpenCV及FFprobe均读出3544帧（容器标注3545，差1另行记录）。逐帧2641帧返回双CRC合格页，去重85/101页，identity897350F6，无合格重复页冲突；缺54–69（0起算）。边界599帧复查、临界画面手工透视仅恢复已有53，未补出缺页。约46–63秒编码框上沿及数据格被裁切；没有完整ROI/burst/post重建校验，不生成capture.npz，未运行temporal_roi_analysis.py。
+- Build Result：本轮未运行TD，既有构建结果不变。PC审计工具完整/缺页合成视频回归通过，不能冒充真实ROI恢复或实板算法验证。
+- 是否保留/下一步：有效页ZIP、逐帧时间戳、失败审计及补录步骤已保留于docs/edge_temporal_evidence/board_20261018_first_recording；详见EDGE_TEMPORAL_RESEARCH_V1_FIRST_DECODE.md。保持同一冻结burst补录、整框留边且手机固定；若复位则另录完整新burst，不混拼。不依据缺页数据研究AWB/Sobel/NMS/四跳的现场贡献。
