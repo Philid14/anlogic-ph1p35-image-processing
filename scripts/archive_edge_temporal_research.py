@@ -90,7 +90,7 @@ Edge恢复真实AWB后RGB，原Gaussian/Sobel/NMS/四跳及Original/K3/K4/旧状
 65项TD实际输入与源码提交一致，构建前{len(snap['old_bits'])}份bit哈希不变。独立捕获/完整720p/实际ISP边界/按拍OSD、与旧AWB全输出并行对照、光学失真/负例、旧QUALITY/PROBE/按键/CDC/Sensor回归结果见docs/edge_temporal_evidence及研究报告。
 本版本使用真实RGB路径，不能套用固定PROBE的资源节省。相对QUALITY净增LUT {result['lut']-16162:+d}、FF {result['ff']-15423:+d}、Slice {result['slice']-17894:+d}、ERAM {result['eram']-47:+d}、DSP {result['dsp']-9:+d}，其中包含采样诊断，不代表正式滤波器开销。
 CRC可拒绝错误但不是纠错码；模糊/反光/滚动快门可导致缺页，只重录同一冻结burst补页，不拼接不同重置。ROI保留7内部横采样/7行halo后仅50×18点可用于完整四跳比较，8帧较短，需要多场景重复burst。AWB后图由真实pre RGB与实际gain位准确重建，并由实际post CRC校验，不声称采到Bayer RAW或完整全帧。
-统计seq与采集seq独立，时间戳不是TEAM同帧端到端延迟接口。FIFO历史sticky已置位后无法数重复事件；数量异常、未armed、帧内gain变化、CRC或新sticky变化必须先排查，不做算法排名。既有Gray max_delay覆盖风险未修复，实际Ignored见归档；STA通过不证明长期硬件稳定。
+统计seq与采集seq独立，时间戳不是TEAM同帧端到端延迟接口。FIFO历史sticky已置位后无法数重复事件；数量异常、未armed、ROI内gain变化、CRC或新sticky变化必须先排查，不做算法排名。既有Gray max_delay覆盖风险未修复，实际Ignored见归档；STA通过不证明长期硬件稳定。
 回滚重新PROGRAM_SRAM烧录EDGE_QUALITY_V1，SHA629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5；固定源对照使用EDGE_STABILITY_PROBE_V1，SHA7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980。
 '''
     (dest/'BUILD_INFO.md').write_text(text,encoding='utf8');print(json.dumps(result,indent=2));print('PASS fresh diagnostic archive; old bits unchanged')

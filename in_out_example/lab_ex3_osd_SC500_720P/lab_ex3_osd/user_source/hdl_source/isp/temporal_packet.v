@@ -7,7 +7,7 @@ module temporal_packet #(parameter TOTAL=24720,DWELL=60)(
  input[7:0] display_addr,output reg[31:0] display_data,output reg show
 );
  localparam PAYLOAD=247,PAGES=(TOTAL+PAYLOAD-1)/PAYLOAD;
- reg[31:0] pages[0:511];reg active_bank,build_bank;
+ (* ram_style="bram" *) reg[31:0] pages[0:511];reg active_bank,build_bank;
  reg[3:0] state;reg[7:0] wi;reg[1:0] byte_n;
  reg[15:0] page_n;reg[14:0] pointer;
  reg[31:0] word_hold,crc,payload_crc;
@@ -29,6 +29,12 @@ module temporal_packet #(parameter TOTAL=24720,DWELL=60)(
   endcase
  end
  always @(posedge clk)display_data<=pages[{active_bank,display_addr}];
+ // Exactly one write port, with no reset on memory. Separate state-dependent
+ // writes inside the resettable FSM did not infer block RAM in TD6.2.
+ wire page_we=(state==2)||(state==4)||(state==6);
+ wire[7:0] page_offset=(state==2)?wi+8'd8:(state==4)?wi:8'hff;
+ wire[31:0] page_data=(state==2)?data_word:(state==4)?header_word:crc;
+ always @(posedge clk)if(page_we)pages[{build_bank,page_offset}]<=page_data;
  // 0 wait, 1 RAM request, 2 consume, 3 payload CRC, 4 header, 5 header CRC,
  // 6 finish header, 7 ready/await SOF. No buffer is written while displayed.
  always @(posedge clk or negedge rst_n)begin
@@ -41,7 +47,6 @@ module temporal_packet #(parameter TOTAL=24720,DWELL=60)(
     0:if(capture_done)begin state<=1;wi<=0;pointer<=0;crc<=32'hffffffff;end
     1:state<=2;
     2:begin
-     pages[{build_bank,wi+8'd8}]<=data_word;
      word_hold<=data_word;byte_n<=0;state<=3;
     end
     3:begin
@@ -52,14 +57,14 @@ module temporal_packet #(parameter TOTAL=24720,DWELL=60)(
       else begin wi<=wi+1'b1;state<=1;end
      end else byte_n<=byte_n+1'b1;
     end
-    4:begin pages[{build_bank,wi}]<=header_word;word_hold<=header_word;byte_n<=0;state<=5;end
+    4:begin word_hold<=header_word;byte_n<=0;state<=5;end
     5:begin
      crc<=updated_crc;
      if(byte_n==3)begin
       if(wi==7)state<=6;else begin wi<=wi+1'b1;state<=4;end
      end else byte_n<=byte_n+1'b1;
     end
-    6:begin pages[{build_bank,8'hff}]<=crc;state<=7;end
+    6:state<=7;
     7:if(frame_u && (!show || dwell==DWELL-1))begin
      active_bank<=build_bank;build_bank<=active_bank;show<=1;dwell<=0;
      page_n<=page_n==PAGES-1?0:page_n+1'b1;

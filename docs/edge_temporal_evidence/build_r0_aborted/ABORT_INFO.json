@@ -1,0 +1,7 @@
+{
+  "source_commit": "0b06278d072ae673c9db92d212c4c7da8c25715b",
+  "reason": "page RAM multiwrite template failed block RAM inference: packet 8604FF/4096DRAM-LUT; synthesis slice estimate143.50%; abort before new bitgen",
+  "new_bit_generated": false,
+  "runs_bit_sha256": "7A78AFBC6126CDA8860E70241DA7AA934C68B0C98D1DB02E7FD2F7790A061980",
+  "runs_bit_mtime": 1792296926.948789
+}

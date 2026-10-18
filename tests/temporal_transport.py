@@ -63,7 +63,9 @@ def decode_image(rgb):
             # Median centers reduce blur, ringing and single-pixel noise.
             tiles=warp[8:520,8:1032].reshape(64,8,128,8)
             cells=np.median(tiles[:,2:6,:,2:6],axis=(1,3))
-            lo,hi=np.percentile(cells,(10,90))
+            # Calibrate white from the KNOWN frame, not payload percentiles:
+            # the padded final page may contain <10% white data cells.
+            lo=float(np.percentile(cells,1));hi=float(np.median(warp[2:6,10:1030]))
             if hi-lo<35:continue
             blob=np.packbits(cells.ravel()>(lo+hi)/2).tobytes()
             try:check_page(blob)

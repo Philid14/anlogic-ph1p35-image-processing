@@ -7,6 +7,7 @@
 - 分支从PROBE归档`7343cfeb1de049e0793e63524cae071e9ae5018a`建立：`codex/main/edge-temporal-research-v1`。
 - 开工核实PR #8仍为open Draft，head7343cfe、base为diag分支；依赖#8→#7→#6→#4→#3尚未合并。不假定main包含这些功能，不自动合并或改队友目录。
 - 用户明确：固定数字RGB在实板经过Gaussian/Sobel/NMS/四跳后完全不抖；真实输入仍抖。这支持真实像素微扰被空间判定放大，但不是AWB、传感器、照明或微位移贡献率的证据。
+- 固定PROBE也改变综合简化及物理布局，不能单凭它稳定就完全排除旧QUALITY的时序/CDC风险；真实RGB诊断须重新完整构建并检查数量。
 - 本轮截图人工读数：TH80、SEQ0000B438、IN00038400、PACK0002A300、CRC6B6DB7D0、LINE02D00140、GAP00360000、ERR00000000、COUNT00020000、FLAG7AFFFFF7。用户随后确认不同时间仅SEQ增加，其余不变，不再要求重复拍照。
 - FLAG7A高字节表示曾有写满、Edge拍数、非4拍段、pack和输入完整性事件；COUNT高16=2坏帧、低16=0相邻同TH CRC变化。当前帧正常且观察期间未见新计数，旧标志可能更早发生，但没有明确复位时刻，不能写成“已证明只有启动异常”。已置位的FIFO sticky也不能统计重复事件。
 - 新采样必须验证实际帧数量/ROI完整、连续采集SOF、前后RGB CRC、FIFO armed与新sticky变化；异常先定位流，不以滤波掩盖。旧累计标志原样保留。
@@ -35,9 +36,9 @@
 
 光学块有白色定位框/黑色静区，128×64数据单元，每格8×8输出像素。最后一页20个有效payload字、227字零填充。未实现纠错，反光/运动/滚动快门可能缺页，保留已校验页后补录同一冻结burst；不同重置不能混拼。内容CRC也有理论碰撞概率，不是密码学身份。
 
-元数据每帧16字：0采集序号；1/2 gain R/B；3/4/5上次完整统计R/G/B；6候选数；7低16统计序号、bit16统计有效、bit21:17为{帧内gain改变,两路armed,两路sticky}；8/9 pre/post CRC；10帧有效拍；11行数/末行长度；12bubble/行错误；13ROI拍数/phase；14pack字数；15 SOF的32bit MIPI周期时间戳。时间戳可取模相减，不是端到端延迟，也不使用HDMI重复刷新帧身份。
+元数据每帧16字：0采集序号；1/2 gain R/B；3/4/5上次完整统计R/G/B；6候选数；7低16统计序号、bit16统计有效、bit21:17为{ROI内gain改变,两路armed,两路sticky}；8/9 pre/post CRC；10帧有效拍；11行数/末行长度；12bubble/行错误；13ROI拍数/phase；14pack字数；15 SOF的32bit MIPI周期时间戳。时间戳可取模相减，不是端到端延迟，也不使用HDMI重复刷新帧身份。
 
-完整性失败、帧内gain变化、未armed或burst中新sticky变化均拒绝进入比较。相同历史sticky不被伪报0，但已置位位无法发现再次同类事件，分析必须保留此限制。没有读回完整DDR数据或导出Bayer RAW；本轮采样是BLC/Demosaic后、AWB前的RGB和可校验的AWB后RGB。
+完整性失败、ROI内gain变化、未armed或burst中新sticky变化均拒绝进入比较。相同历史sticky不被伪报0，但已置位位无法发现再次同类事件，分析必须保留此限制。没有读回完整DDR数据或导出Bayer RAW；本轮采样是BLC/Demosaic后、AWB前的RGB和可校验的AWB后RGB。
 
 ## AWB、Sobel、NMS、连接能回答什么
 

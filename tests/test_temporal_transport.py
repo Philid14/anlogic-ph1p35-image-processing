@@ -33,6 +33,8 @@ def main():
     cases['downscale_720p']=np.asarray(Image.fromarray(image).resize((1024,576),Image.Resampling.LANCZOS))
     for name,rgb in cases.items():
         assert t.decode_image(rgb)==[blobs[12]],name;results[name]='bit exact, both CRCs passed'
+    for name,blob in (('sparse_final_page',blobs[-1]),('all_zero_payload',t.encode(np.zeros(24720,np.uint32),1)[0]),('all_one_payload',t.encode(np.full(24720,0xffffffff,np.uint32),2)[0])):
+        assert t.decode_image(t.render(blob))==[blob],name;results[name]='bit exact including extreme payload occupancy'
     # Overlay a bit change: the decoder must not return the corrupted page.
     bad=image.copy();bad[170:176,130:136]=255-bad[170:176,130:136]
     assert not t.decode_image(bad)

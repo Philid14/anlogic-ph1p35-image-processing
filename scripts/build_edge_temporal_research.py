@@ -44,7 +44,12 @@ def main():
         text=output.read_text(errors='replace')
         assert result.returncode==0 and not re.search(r'\bERROR\s*:',text),(run,result.returncode)
         assert 'Flow Statistics' in text,run
-        if run=='syn_1':assert 'export_db camera_to_dsi_display_gate.db' in text
+        if run=='syn_1':
+            assert 'export_db camera_to_dsi_display_gate.db' in text
+            area=(directory/'camera_to_dsi_display_gate.area').read_text()
+            row=next(line for line in area.splitlines() if '|temporal_packet ' in line)
+            columns=[x.strip() for x in row.split('|')[1:-1]]
+            assert int(columns[5])>=1 and int(columns[4])<1500,'Page RAM inference failed; do not start PHY'
         else:assert 'BIT-1004 : Generate file camera_to_dsi_display.bit.' in text
         print('COMPLETE',run,'exit',result.returncode,flush=True)
     print('PASS TD full flow completed; inspect routed timing and archive before candidate declaration',flush=True)

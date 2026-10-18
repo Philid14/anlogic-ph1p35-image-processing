@@ -26,7 +26,7 @@ python -X utf8 tests/temporal_roi_analysis.py 'D:/captures/static_glasses_decode
 
 每个通过CRC的页面会保存为pages/*.bin。缺页会明确报编号，不生成有效capture.npz；补录**相同冻结burst**后以同一output目录再运行，可保留已有页。不同复位/不同场景必须用新output目录。镜像、反光、过模糊或滚动快门可能无法识别；CRC拒绝错误而不修复错误。
 
-成功必须满足全部101页、header/payload CRC、完整burst及每帧原RGB CRC、实际gain重建后CRC、连续采集序号和输入/行/ROI/pack数量。未armed、帧内gain变动或burst出现新FIFO sticky先报错，不进行算法排名。相同历史sticky仍会记录，不等于从未发生异常或能检测重复同类事件。
+成功必须满足全部101页、header/payload CRC、完整burst及每帧原RGB CRC、实际gain重建后CRC、连续采集序号和输入/行/ROI/pack数量。未armed、ROI内gain变动或burst出现新FIFO sticky先报错，不进行算法排名。相同历史sticky仍会记录，不等于从未发生异常或能检测重复同类事件。
 
 研究工具输出RGB差异、增益、统计、各级变化、候选静态指标；未标注真实轮廓/平坦区时完整度/误检/拖影为null，不会把缺失数据当0。首帧固定gain回放不是已收敛硬件冻结，真实AWB未改动。
 
