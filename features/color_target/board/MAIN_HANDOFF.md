@@ -6,20 +6,27 @@
 
 ## 1. 版本与队友新增内容
 
-2026-10-19同步核验的远端版本如下；这是一份固定快照，后续以 MAIN 选定的最新 SHA 为准。
+2026-10-20续跑后再次同步核验的远端版本如下；这是一份固定快照，后续以 MAIN 选定的最新 SHA 为准。
 
 | 工程线 | 分支与 HEAD | 与 TARGET 的关系 |
 |---|---|---|
 | main | `c42168e26026425660f2a6f51eec76b04c85eea0` | 尚未接入 TARGET |
-| 最新 STYLE，PR #12 | `codex/main/edge-style-fill-v1` / `532d3c62bbc8d0c60d5def5e5233b035f2a9699b` | 实际构建源 `042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；66项输入不含 TARGET/LATENCY |
+| 最新 STYLE V2，PR #13 | `codex/main/edge-style-fill-v2` / `89093f428878b918036c8a30a0d1afe7764946b8` | 实际构建源 `694559fd76676093e134229d435161ecb44ab00c`；66项输入不含 TARGET/LATENCY |
+| STYLE V1，PR #12 | `codex/main/edge-style-fill-v1` / `532d3c62bbc8d0c60d5def5e5233b035f2a9699b` | 实际构建源 `042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；V2的回退候选 |
 | 四模式，PR #11 | `codex/main/edge-multi-mode-v1` / `22690856d9a0c079485bedd916d9c8f7f116157b` | 实际构建源 `4ea67f194941c6717fc1d28889c687a4fb78533f`；可作为独立回退候选 |
 | LATENCY，PR #5 | `codex/latency/same-frame-association-v2` / `9e598f03b89f7e48692b6e09a28f152db9dbf957` | 另行维护，本包不修改；容量/事件语义问题见下方交付 |
 | TARGET，PR #2 | `codex/target/color-target-detect-v1` | 包含 `8f49444` guard、`e995866`联合验证及本轮工具/交接修订；完整最新 SHA 见 PR |
 
-不把另一工程线的顶层或 bit 混入。MAIN 根据实际风险、资源和板测选择 STYLE 或四模式基线，
-本包不替 MAIN 变更基线。两者都有完整历史构建，但不是接入 TARGET 后的资源/时序结果。
-STYLE 的 ERAM85/108、Slice17792/21216，四模式 ERAM75/108、Slice18319/21216；
-不能只看单个资源数字决定整机能否容纳 TARGET。两者既有 FIFO/Gray 约束风险仍需处理。
+V1→V2实际构建源的主工程差异已核对：仅 `isp/style_fill_96.v` 改动，AWB前后观察边界、
+其余ISP、DDR/HDMI、TD与SDC不变。V2保留5拍局部STYLE、27拍分支对齐；TARGET仍观察风格化前彩色流，
+不能从V2中性保护或描边后的像素调颜色阈值。V2 bit SHA实核对为
+`CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51`，1789539字节，仍不含TARGET。
+
+不把另一工程线的顶层或 bit 混入。MAIN 根据实际风险、资源和板测选择STYLE V2或四模式等基线，
+本包不替MAIN变更基线。这些候选都有完整历史构建，但不是接入TARGET后的资源/时序结果。
+STYLE V2的ERAM85/108、Slice18140/21216，四模式ERAM75/108、Slice18319/21216；
+不能只看单个资源数字决定整机能否容纳TARGET。既有FIFO/Gray约束风险仍需处理；
+V2还记录既有I²C时钟缓存跨区的物理warning，MAIN指南要求至少3次冷启动检查，不把STA通过当作已验收。
 
 ## 2. 建议首接路径及明确依赖
 

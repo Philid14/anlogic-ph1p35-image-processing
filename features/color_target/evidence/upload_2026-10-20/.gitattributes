@@ -1,0 +1,6 @@
+.gitattributes text eol=lf
+*.log -text -diff
+*.zip -text -diff
+*.json -text whitespace=cr-at-eol
+*.md text eol=lf
+REPORT.md -text whitespace=cr-at-eol
