@@ -1,0 +1,138 @@
+{
+  "source_commit": "694559fd76676093e134229d435161ecb44ab00c",
+  "export_sha256": "088bcf1a134ec3a41695c37a0a66c6590d0a805a905dce1b242129764a39f987",
+  "logical_storage_bits": 61440,
+  "mapped_eram": [
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread0_syn_107",
+      "bank": "odd",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread0_syn_23",
+      "bank": "odd",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread0_syn_44",
+      "bank": "odd",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread0_syn_65",
+      "bank": "odd",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread0_syn_86",
+      "bank": "odd",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread1_syn_107",
+      "bank": "even",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread1_syn_23",
+      "bank": "even",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread1_syn_44",
+      "bank": "even",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread1_syn_65",
+      "bank": "even",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    },
+    {
+      "instance": "\\u_isp_top/g_control$u_control/g_style_delayed$u_style/ramread1_syn_86",
+      "bank": "even",
+      "configuration": {
+        "DATA_WIDTH_A": "20",
+        "DATA_WIDTH_B": "20",
+        "MODE": "DP20K",
+        "REGMODE_A": "NOREG",
+        "REGMODE_B": "NOREG",
+        "WRITEMODE_A": "READBEFOREWRITE",
+        "WRITEMODE_B": "NORMAL"
+      }
+    }
+  ],
+  "method": "TD synthesis gate export; configuration inspection, NOT gate/SDF simulation"
+}

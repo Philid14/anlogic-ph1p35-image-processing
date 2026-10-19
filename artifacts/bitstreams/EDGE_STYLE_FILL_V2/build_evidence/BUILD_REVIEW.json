@@ -1,0 +1,82 @@
+{
+  "warning_counts_new": {
+    "PRJ-5611": 6,
+    "PHY-5060": 2,
+    "PHY-5016": 4,
+    "PHY-5088": 8,
+    "PHY-5079": 1,
+    "HDL-5007": 41,
+    "HDL-5373": 2,
+    "HDL-5323": 7,
+    "HDL-5317": 20,
+    "HDL-5314": 20,
+    "HDL-5369": 1,
+    "HDL-5001": 3,
+    "HDL-5106": 2,
+    "SYN-5065": 1,
+    "SYN-5013": 10,
+    "SYN-5025": 3,
+    "SYN-5011": 12,
+    "SYN-5041": 8
+  },
+  "warning_counts_baseline": {
+    "PRJ-5611": 6,
+    "PHY-5060": 2,
+    "PHY-5016": 4,
+    "PHY-5088": 6,
+    "PHY-5079": 1,
+    "HDL-5007": 41,
+    "HDL-5373": 2,
+    "HDL-5323": 7,
+    "HDL-5317": 20,
+    "HDL-5314": 20,
+    "HDL-5369": 1,
+    "HDL-5001": 2,
+    "HDL-5106": 2,
+    "SYN-5065": 1,
+    "SYN-5013": 10,
+    "SYN-5025": 3,
+    "SYN-5011": 12,
+    "SYN-5041": 8
+  },
+  "warning_count_delta": {
+    "HDL-5001": 1,
+    "PHY-5088": 2
+  },
+  "added_normalized_warning_contexts": [
+    "PHY-5088 WARNING: Clock_Analyzer: Detected 1 buffer(s) because their regions are different from their drivers. Run \"analyze_clock -detail\" for more infomation."
+  ],
+  "new_style_warning_contexts": [],
+  "critical_setup_path": {
+    "Slack": "0.100ns",
+    "Begin Point": "u_hdmi_mixer/mult0_syn_59.clk (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })",
+    "End Point": "u_hdmi_mixer/O_hdmi_data_reg[5]_syn_2.ia (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })"
+  },
+  "style_routed_area_row": "|      g_style_delayed$u_style                                    |style_fill_96                                  |570       |572     |785     |10      |0       |0        |0           |0       |0       |0       |0       |",
+  "sta_coverage_new": "96.14%",
+  "sta_coverage_baseline": "95.99%",
+  "gray_max_delay": {
+    "path_counts": [
+      18,
+      18
+    ],
+    "limits_ns": [
+      14.7,
+      13.033
+    ],
+    "ignored": [
+      18,
+      18
+    ],
+    "status": "existing unresolved risk"
+  },
+  "clock_region_warning": {
+    "buffer": "u_uicfgcs500/u_i2c/scl_clk_created_gclkinst",
+    "driver_region": "TOP",
+    "buffer_region": "BOTTOM",
+    "source": "analyze_clock -detail on final routed DB; clock_review.log",
+    "source_rtl_unchanged": true,
+    "board_cold_start_check": "required; do not treat clock region warning as resolved"
+  },
+  "note": "Whole-design resource delta includes TD remapping/packing. Gate RAM inspection is not SDF simulation. Hardware image quality and B/S remain unverified."
+}

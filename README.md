@@ -8,6 +8,16 @@
 工程基准、指标与验收要求的唯一权威文件是 [`AGENTS.md`](AGENTS.md)；
 原始赛题见 [`docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf`](docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf) 第 16–18 页。
 
+## EDGE_STYLE_FILL_V2 candidate
+
+根据V1实板彩斑、过重描边和细线损失反馈，仅优化STYLE：
+保守同色均值、9档共享明度/中性保护、亮度暗侧描边。原五模式与ISP参数保留，等待实板验收。
+
+- [归因、V1/V2对照及完整报告](docs/EDGE_STYLE_FILL_V2_REPORT.md)
+- [数学定义与实现边界](docs/EDGE_STYLE_FILL_V2_DESIGN.md)
+- [上板步骤与冷启动/稳定性验收](docs/EDGE_STYLE_FILL_V2_BOARD_TEST.md)
+- [bit与BUILD_INFO](artifacts/bitstreams/EDGE_STYLE_FILL_V2/BUILD_INFO.md)
+
 ## EDGE_STYLE_FILL_V1 candidate
 
 新增五模式中的 **STYLE：局部同色区域均值填色、64色块化与边界描黑**；

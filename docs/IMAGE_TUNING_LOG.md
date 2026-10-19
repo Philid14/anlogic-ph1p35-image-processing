@@ -294,3 +294,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Build：完整TD PASS；LUT16592 / FF16972 / Slice17792 / ERAM85 / DSP21；Setup/Hold +0.104/+0.020ns；TNS0、违例0。
 - 验证：合成几何/缺口/嵌套/运动/复位逐像素，完整720p五帧1152000拍/864000打包字；59个冻结TD输入及构建选项一致。证据见EDGE_STYLE_FILL_V1_REPORT.md。
 - Board Test：待用户上板；真实视觉、B/S稳态、30分钟/光照变化未验收。保留候选与全部历史；按BOARD_TEST检查，S增长阻断正式验收。完成candidate后停止。
+
+## EDGE_STYLE_FILL_V2 candidate（2026-10-19，MAIN）
+
+- 基线：V1/e17a1af，用户已上板，功能基本正常但有绿青斑/细线与星中心损失/过描黑/偏色/高光白化；本轮拍屏和数字卡证据见EDGE_STYLE_FILL_V2_DESIGN.md，无摄像头ORIGIN帧。
+- Git：codex/main/edge-style-fill-v2；实际TD源码`694559fd76676093e134229d435161ecb44ab00c`；tag edge-style-fill-v2-candidate；Draft PR依赖STYLE_V1/#12，不合并。
+- 唯一主要变量：STYLE渲染策略；V1独立4级RGB+极差黑边→V2保守均值+9档共享明度/中性保护+亮度暗侧描边。仅1个RTL文件变化，其余65个TD输入不变；原四模式/ISP/Sensor/按键/OSD/视频/PLL/SDC冻结。新增流水0拍、ERAM增量+0。
+- Bit：artifacts/bitstreams/EDGE_STYLE_FILL_V2/camera_to_dsi_display.bit；SHA `CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51`。
+- Build：完整TD PASS；LUT17170 / FF16814 / Slice18140 / ERAM85 / DSP21；Setup/Hold +0.100/+0.020ns；TNS0、违例0。
+- 模型/RTL：中性门限彩斑47.31%→0，数字星/亮线结构误差→0；这些不是实板改善率。5尺寸×63序列、完整720p五帧1152000拍/864000打包字通过。
+- Board：待用户上板；按BOARD_TEST比较ORIGIN/V1/V2；浅色去饱和/明度色带/输入饱和不可恢复等代价已记录。B/S稳态、30分钟/光照变化待验收，S增长阻断正式验收。
+- 保留候选与V1全部历史；停止本轮，不开发进阶五或队友目标检测。
