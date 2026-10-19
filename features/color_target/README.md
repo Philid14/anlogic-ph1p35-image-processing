@@ -17,6 +17,10 @@ MAIN接线、CDC/DDR/显示时序、生产年龄及整机验收仍未完成。
 
 ---
 
+本次上传/接入/板测请从 [MAIN_HANDOFF](board/MAIN_HANDOFF.md) 开始。
+包含guard与联合验证的新完整命令为 `run_verification.py --profile handoff --sim modelsim --msim <目录> --out <新目录>`。
+当前尚无含TARGET的整机bit，由MAIN队友接入后构建与上板。
+
 ## 1. 目录
 
 | 路径 | 内容 |

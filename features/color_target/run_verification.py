@@ -23,6 +23,7 @@ def execute(command, log, completion, timeout_sec):
     """Require successful process exit AND a terminal completion witness."""
     started = time.monotonic()
     env = dict(os.environ, PYTHONIOENCODING="utf-8", PYTHONDONTWRITEBYTECODE="1")
+    env["COLOR_TARGET_SIM_LOG_DIR"] = str(log.parent/(log.stem+"-tool-stages"))
     try:
         child = subprocess.run(command, cwd=ROOT, env=env, stdout=subprocess.PIPE,
                                stderr=subprocess.STDOUT, timeout=timeout_sec)
@@ -67,6 +68,22 @@ def inspect_report(name, directory):
                 "totals": {k: sum(row[k] for row in rows) for k in
                            ("input_cycles", "accepted_pixels", "result_events", "track_events",
                             "display_probes", "legacy_results_compared", "cancelled_frames")}}
+    if name == "frame_transactions":
+        assert report["passed"] and report["source_unchanged"]
+        assert len(report["cases"]) == 33 and all(x["passed"] for x in report["cases"])
+        return {"cases": 33, "scope": "TRANSACTION MODEL PROPOSAL ONLY"}
+    if name == "guard":
+        assert report["passed"] and report["source_unchanged"]
+        assert len(report["jobs"]) == 9 and all(x["passed"] for x in report["jobs"])
+        assert sum(x["details"]["checks"] for x in report["jobs"]) == 818
+        return {"jobs": 9, "checks": 818, "scope": "INDEPENDENT GUARD RTL ONLY"}
+    if name == "display_transactions":
+        assert report["passed"] and report["source_unchanged"]
+        rows = report["jobs"]
+        assert len(rows) == 6 and [x["mutation"] for x in rows] == list(range(6))
+        assert all(x["matched"] and x["tool_ok"] and x["complete"] and x["checks"] == 187 for x in rows)
+        assert rows[0]["failures"] == 0 and all(x["failures"] > 0 for x in rows[1:])
+        return {"checks": 187, "negative_controls": 5, "scope": "TEST-ONLY DISPLAY SCHEDULER; NO PHYSICAL CDC"}
     raise ValueError("unexpected report type: "+name)
 
 
@@ -88,7 +105,7 @@ def snapshot():
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--profile", choices=("models", "quick", "full"), default="quick")
+    ap.add_argument("--profile", choices=("models", "quick", "full", "handoff"), default="quick")
     ap.add_argument("--out", type=Path, required=True)
     ap.add_argument("--sim", choices=("auto", "modelsim", "iverilog"), default="auto")
     ap.add_argument("--msim")
@@ -96,6 +113,10 @@ def main():
     args = ap.parse_args()
     if args.timeout_sec <= 0:
         ap.error("--timeout-sec must be positive")
+    if args.profile == "handoff":
+        args.msim = args.msim or os.environ.get("COLOR_TARGET_MSIM")
+        if args.sim != "modelsim" or not args.msim:
+            ap.error("handoff requires --sim modelsim and --msim (or COLOR_TARGET_MSIM); display test is ModelSim-only")
     args.out = args.out.resolve()
     args.out.mkdir(parents=True, exist_ok=False)
     before = snapshot()
@@ -113,7 +134,7 @@ def main():
             ("text_updates", "run_color_target_text_updates.py", simulator, r"^PASS text updates: 7962 clocks, 0 violations$", False),
             ("legacy_chain", "run_color_target_chain.py", simulator, r"^PASS\s+chain\s+beats=396\b", False),
         ]
-    if args.profile == "full":
+    if args.profile in ("full", "handoff"):
         jobs += [
             ("classifier", "run_color_classify.py", simulator, r"^40/40 参数组合通过，共 39079 像素", False),
             ("detector", "run_color_target.py", simulator+["--full"], r"^25/25 用例通过", False),
@@ -121,6 +142,12 @@ def main():
             ("track_regression", "run_color_target_track.py", simulator, r"^21/21 用例通过", False),
             ("real_font", "run_color_target_text_overlay.py", simulator, r"^28/28 用例通过，共 307078 像素", False),
             ("rgb_replay", "run_color_target_replay.py", simulator+["--full"], r"^PASS RGB replay: results, identities, cancellation, track, box and text$", True),
+        ]
+    if args.profile == "handoff":
+        jobs += [
+            ("frame_transactions", "run_frame_transactions.py", [], r"^FRAME_TRANSACTIONS_COMPLETE cases=33 failed=0$", True),
+            ("guard", "run_track_guard_contract.py", simulator, r"^GUARD_CONTRACT_COMPLETE jobs=9 passed=9 source_unchanged=True$", True),
+            ("display_transactions", "run_display_transactions.py", ["--msim", args.msim], r"^DISPLAY_TRANSACTIONS_COMPLETE jobs=6 matched=6 source_unchanged=True$", True),
         ]
     checks = []
     for name, script, flags, completion, structured in jobs:
@@ -141,7 +168,8 @@ def main():
     unchanged = before == after
     passed = unchanged and all(c["passed"] for c in checks)
     gates = [
-        dict(name="A2 identity / age", status="OPEN", evidence="integration/TRACK_ADMISSION_PROPOSAL.md"),
+        dict(name="A2 standalone guard", status="PASS" if any(c["name"] == "guard" and c["passed"] for c in checks) else "NOT_CHECKED_THIS_RUN", evidence="integration/TRACK_GUARD_INTERFACE.md; not a display freshness proof"),
+        dict(name="Unwrapped legacy TRACK identity / age", status="OPEN", evidence="integration/TRACK_ADMISSION_PROPOSAL.md"),
         dict(name="MAIN normalization / CDC / DDR / atomic display", status="OPEN", evidence="integration/MAIN_CONTRACT_DRAFT.md"),
         dict(name="Integrated TARGET P&R and bit", status="NOT_RUN", evidence="No TARGET in current main TD entry"),
         dict(name="Real camera policy / thresholds", status="PENDING_MATERIAL", evidence="User reserved decision until real camera material"),

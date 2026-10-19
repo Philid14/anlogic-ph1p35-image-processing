@@ -1,11 +1,13 @@
-# TARGET 接入摘要（2026-10-18）
+# TARGET 接入摘要（2026-10-20更新）
 
 本页列出当前可交付内容和接入前置条件。完整端口见 [INTERFACE.md](INTERFACE.md)，
 系统责任见 [MAIN_CONTRACT_DRAFT.md](integration/MAIN_CONTRACT_DRAFT.md)，
 验证统一从 [VERIFICATION.md](VERIFICATION.md) 开始。
 
 当前为独立模块与模拟验证；MAIN 尚未接入 TARGET，没有包含本次修复的整机 bit 或板测。
-本页不是可直接复制到顶层的接线批准。生产 TRACK 身份/年龄缺口仍开放。
+本页不是可直接复制到顶层的接线批准。新增独立guard已完成；未包装的旧TRACK身份/年龄缺口仍开放。
+本轮用户确认“先上传TARGET，由MAIN队友接入”，请从新的
+[MAIN接入与上板交接入口](board/MAIN_HANDOFF.md) 开始；其中固定最新STYLE/四模式快照、显式RTL依赖与板测门。
 
 ## 1. 可供选择的检测路径
 
@@ -34,13 +36,15 @@
 4. **CDC。** 观察、DDR、显示不在同一域。整包握手或异步 FIFO 由 MAIN 实现，证明突发/服务率/最大停顿/容量，
    并覆盖任一端复位及在途请求。每帧一次的平均速率不足以证明单邮箱可用。满时动作须批准且计数。
 5. **显示提交。** 跨域后的结果按所选显示帧匹配，框、十字、文字、count、state 在边界一次提交且全帧稳定。
-   仅把“最新 track”寄存一级无法证明同帧。严格同帧或显式历史 HOLD 的策略、年龄上限仍待确认。
+   仅把“最新 track”寄存一级无法证明同帧。第一版已选严格同帧，不匹配整组隐藏；年龄上限仍待确认。
 
 ## 3. TRACK 与文字的当前限制
 
-TRACK 原功能回归 21/21；新增特征测试复现 6 项缺口：重复观测确认、乱序接受、无效帧列不老化、
+未包装的TRACK原功能回归21/21；特征测试复现6项缺口：重复观测确认、乱序接受、无效帧列不老化、
 停止输入不老化、无效新 session 不清旧状态、旧 session 有效包可回切。见
-[责任提案](integration/TRACK_ADMISSION_PROPOSAL.md)，尚未修改生产 TRACK。
+[责任提案](integration/TRACK_ADMISSION_PROPOSAL.md)，原生产TRACK未改。
+新增 [color_target_track_guard](integration/TRACK_GUARD_INTERFACE.md) 封装原TRACK，完成9配置818项硬检查；
+须由MAIN提供可信身份/时间/事务，两个生产年龄默认0会禁用；MAIN/CDC/严格同帧显示尚未接入。
 
 因此 O_show 与 TRACK 状态不是新鲜度证明；显示结果仍带上次被接受的身份，HOLD 不得改标当前帧。
 有效无目标、无效、观测超时分别处理；ACQ/LOST 不能代替真实时间年龄。
@@ -68,6 +72,8 @@ support3 保持关闭。实拍素材、最小目标与同色目标选择按用�
 
 ## 5. 推荐推进顺序
 
-先做现有完整视频的 [基线板测](board/OBSERVATION_GUIDE.md)，收集冻结/撕裂/明暗恢复及实拍资料；
-同时审阅 MAIN 契约与 A2 责任分配。获批后先规范化与身份闭环，再做 CDC/缓存/整组显示仿真，
-最后实际顶层 P&R、bit 归档和 TARGET 板测。每一步以可追溯输入和失败条件验收。
+按 [MAIN交接入口](board/MAIN_HANDOFF.md) 复现handoff独立回归，由MAIN选择已核实的视频基线，
+落实规范化、身份/取消/缓存租约、CDC和整组显示，完成真实适配器/多时钟顶层仿真、P&R和新bit归档，
+再按 [TARGET板测方法](board/TARGET_ACCEPTANCE.md) 验收。
+原 [EDGE_CONTROL基线板测](board/OBSERVATION_GUIDE.md) 仅适用于该历史bit；最新STYLE按其自己的主线指南操作。
+每一步以可追溯输入和失败条件验收。

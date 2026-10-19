@@ -19,6 +19,8 @@ ModelSim 的探测与调用逻辑，而且把 ModelSim 路径写死成作者本�
 """
 
 import os
+import json
+import re
 import shutil
 import subprocess
 import tempfile
@@ -101,23 +103,52 @@ def _env_with(root):
     return env
 
 
+def _run_tool(cmd, cwd, stage, env=None):
+    """Check every tool exit; optionally retain raw output outside temp workdirs."""
+    try:
+        process = subprocess.run(cmd, cwd=cwd, stdout=subprocess.PIPE,
+                                 stderr=subprocess.STDOUT, env=env)
+        raw, code = process.stdout, process.returncode
+        failure = None if code == 0 else "nonzero_exit"
+    except OSError as exc:
+        raw, code, failure = str(exc).encode("utf-8"), None, "launch_error"
+    output = raw.decode("utf-8", errors="replace")
+    if failure is None and re.search(
+            r"^(?:#\s*)?(?:FAIL\b|Error:|\*\*\s+(?:Error|Fatal):)", output, re.M):
+        failure = "error_marker"
+    archive = os.environ.get("COLOR_TARGET_SIM_LOG_DIR")
+    if archive:
+        root = Path(archive)
+        root.mkdir(parents=True, exist_ok=True)
+        record = Path(tempfile.mkdtemp(prefix=stage+"-", dir=root))
+        (record/"output.log").write_bytes(raw)
+        (record/"stage.json").write_text(json.dumps(dict(
+            stage=stage, command=[str(x) for x in cmd], cwd=str(cwd),
+            exit_code=code, failure=failure, passed=failure is None),
+            ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+    error = "" if failure is None else f"[{stage} failed: {failure}; exit={code}]\n{output}"
+    return failure is None, output, error
+
+
 def _build_iverilog(srcs, tb_top, params, vvp_path, cwd):
     iv = find_iverilog()[0]
     cmd = [iv, "-g2005", "-Wall", "-s", tb_top]
     for k, v in params.items():
         cmd.append(f"-P{tb_top}.{k}={v}")
     cmd += ["-o", str(vvp_path)] + [str(s) for s in srcs]
-    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
-    return None if r.returncode == 0 else f"[iverilog 编译失败]\n{r.stdout}\n{r.stderr}"
+    ok, _, error = _run_tool(cmd, cwd, "iverilog")
+    return None if ok else error
 
 
 def _build_modelsim(srcs, root, cwd):
     exe = lambda n: str(Path(root) / n)
     env = _env_with(root)
-    subprocess.run([exe("vlib.exe"), "work"], cwd=cwd, capture_output=True, text=True, env=env)
-    r = subprocess.run([exe("vlog.exe"), "-quiet", "-work", "work"] + [str(s) for s in srcs],
-                       cwd=cwd, capture_output=True, text=True, env=env)
-    return None if r.returncode == 0 else f"[vlog 失败]\n{r.stdout}\n{r.stderr}"
+    ok, _, error = _run_tool([exe("vlib.exe"), "work"], cwd, "vlib", env)
+    if not ok:
+        return error
+    ok, _, error = _run_tool([exe("vlog.exe"), "-quiet", "-work", "work"] +
+                             [str(s) for s in srcs], cwd, "vlog", env)
+    return None if ok else error
 
 
 def simulate(srcs, tb_top, params, plusargs, requested="auto", msim_root=None,
@@ -143,7 +174,7 @@ def simulate(srcs, tb_top, params, plusargs, requested="auto", msim_root=None,
         if err:
             return False, "", err
         cmd = [find_iverilog()[1], str(vvp)] + [f"+{k}={v}" for k, v in plusargs.items()]
-        r = subprocess.run(cmd, cwd=wd, capture_output=True, text=True)
+        return _run_tool(cmd, wd, "vvp")
     else:
         root = info[0]
         err = _build_modelsim(srcs, root, wd)
@@ -154,9 +185,8 @@ def simulate(srcs, tb_top, params, plusargs, requested="auto", msim_root=None,
         for k, v in params.items():
             cmd.append(f"-g{k}={v}")
         cmd += [f"work.{tb_top}"] + [f"+{k}={v}" for k, v in plusargs.items()]
-        cmd += ["-do", "run -all; quit -f"]
-        r = subprocess.run(cmd, cwd=wd, capture_output=True, text=True, env=_env_with(root))
-    return True, r.stdout + r.stderr, ""
+        cmd += ["-do", "onerror {quit -code 2}; run -all; quit -f -code 0"]
+        return _run_tool(cmd, wd, "vsim", _env_with(root))
 
 
 def make_workdir(prefix):

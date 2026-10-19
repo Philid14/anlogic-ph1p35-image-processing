@@ -1,5 +1,6 @@
 """Failure witnesses for the verification launcher; no FPGA claims."""
 import importlib.util
+import json
 from pathlib import Path
 import sys
 import tempfile
@@ -43,6 +44,27 @@ class FailureWitnesses(unittest.TestCase):
             got = runner.inspect_report("track_audit", path)
             self.assertEqual(got["open_gaps"], {"S": "OPEN"})
             self.assertIn("NOT REQUIREMENTS PASS", got["scope"])
+
+    def test_display_tool_failure_cannot_count_as_mutation_detection(self):
+        rows = [dict(mutation=i, matched=True, tool_ok=True, complete=True,
+                     checks=187, failures=0 if i == 0 else 1) for i in range(6)]
+        with tempfile.TemporaryDirectory(prefix="target_verify_display_") as directory:
+            path = Path(directory)
+            report = dict(passed=True, source_unchanged=True, jobs=rows)
+            (path/"summary.json").write_text(json.dumps(report), encoding="utf-8")
+            self.assertEqual(runner.inspect_report("display_transactions", path)["negative_controls"], 5)
+            rows[5]["tool_ok"] = False
+            (path/"summary.json").write_text(json.dumps(report), encoding="utf-8")
+            with self.assertRaises(AssertionError):
+                runner.inspect_report("display_transactions", path)
+
+    def test_incomplete_transaction_report_cannot_pass(self):
+        with tempfile.TemporaryDirectory(prefix="target_verify_transactions_") as directory:
+            path = Path(directory)
+            report = dict(passed=True, source_unchanged=True, cases=[dict(passed=True)]*32)
+            (path/"summary.json").write_text(json.dumps(report), encoding="utf-8")
+            with self.assertRaises(AssertionError):
+                runner.inspect_report("frame_transactions", path)
 
 
 if __name__ == "__main__":

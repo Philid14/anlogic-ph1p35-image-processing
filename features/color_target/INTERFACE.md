@@ -20,6 +20,10 @@
 
 ---
 
+2026-10-20交付增补：本文保留旧检测器端口说明；新guard使用独立
+[TRACK_GUARD_INTERFACE](integration/TRACK_GUARD_INTERFACE.md)，严格光栅首接建议和完整显式依赖见
+[MAIN_HANDOFF](board/MAIN_HANDOFF.md)。本轮用户确认上传TARGET、由MAIN队友接入；当前未进入TD/bit。
+
 ## 1. 模块与时钟
 
 | 项 | 值 |

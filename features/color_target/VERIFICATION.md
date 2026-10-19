@@ -1,4 +1,4 @@
-# TARGET 验证入口（2026-10-19增补）
+# TARGET 验证入口（2026-10-20上传整合）
 
 当前交付是独立模块、A1 修复和集成审查资料。MAIN 尚未接入 TARGET；本轮没有新整机 P&R、bit 或板测结论。
 `FILTER_ENABLE=0`，生产颜色门限不变。A2已获准实现独立guard并完成自检，见
@@ -15,7 +15,8 @@ python -B -X utf8 features/color_target/run_display_transactions.py --msim <Mode
 
 上述新runner独立保留结构化结果；RTL runner逐阶段记录vlib/vlog/vsim退出码和原始日志，
 负对照必须完成仿真并触发功能断言，工具失败不算抓到策略错误。
-旧统一入口的13项含义不变，不把新检查悄悄合并进历史计数。
+保留models/quick/full的3/7/13项含义，新增显式handoff档位16项，包含full加上述三个新runner。
+接入/版本/板测门从 [MAIN_HANDOFF](board/MAIN_HANDOFF.md) 阅读。
 
 ## 1. 先判断要验证什么
 
@@ -33,8 +34,11 @@ python -B -X utf8 features/color_target/run_display_transactions.py --msim <Mode
 **退出码 0 只表示所选独立检查完成；TRACK 特征吻合仍显示 MATCHED / OPEN。**
 非零退出、FAIL/Error 标记、缺少完成标记、结构化计数不全、超时或执行期间源码变化均失败。
 超时保存已捕获输出，不生成虚假的 PASS。每次必须使用新输出目录；拒绝覆盖旧证据。
-这里的退出码指 Python 子检查。既有 simlib 的 simulate 尚未逐层传播 vsim/vvp 非零退出码；
-当前另以完成标记、错误文本及数据比较把关，不能据此声称已记录每一个仿真器进程退出码。
+本轮修复公共simlib丢弃vlib及vsim/vvp退出码的问题，逐阶段校验退出码与错误文本。
+统一入口为每个子任务设置COLOR_TARGET_SIM_LOG_DIR，保留原始工具字节日志、argv、退出码和失败原因到
+对应 `*-tool-stages/`；guard/display自有runner继续保留各自阶段日志。
+独立调用旧runner时可显式设置该环境变量保留临时目录之外的工具日志；不设置也仍校验退出码。
+历史证据未改写：旧版本仅记录Python子检查退出码，不能反向宣称旧工具层已通过新的校验。
 
 ## 2. 可复制命令
 
@@ -55,11 +59,18 @@ $targetRun = Join-Path $env:TEMP ('target-verify-' + (Get-Date -Format 'yyyyMMdd
 # 以上加全分类、720p 检测、框、既有 TRACK、真实字库、六尺寸双模式 RGB：13 项
 & $targetPython -B -X utf8 -u features/color_target/run_verification.py --profile full --sim modelsim --msim $targetMsim --out ($targetRun + '-full')
 
+# 本次交接完整集：full + 33联合模型 + 818 guard硬检查 + 187显示硬检查/五负对照：16项
+& $targetPython -B -X utf8 -u features/color_target/run_verification.py --profile handoff --sim modelsim --msim $targetMsim --out ($targetRun + '-handoff')
+
+# 公共仿真工具边界：两后端正常、每阶段exit7/exit0+Error、启动失败与原始日志保存
+& $targetPython -B -X utf8 features/color_target/tb/test_simlib_failures.py
+
 # 验证入口本身：非零退出、无完成标记、FAIL+完成、超时及 OPEN 记账
 & $targetPython -B -X utf8 -u features/color_target/tb/test_verification_runner.py
 ```
 
-不要仅截取终端最后一行。交付 `REPORT.md`、`summary.json` 和相关失败日志；源码工作区不干净时，
+handoff目前需ModelSim及显式路径（或COLOR_TARGET_MSIM）；没有执行过真实Icarus仿真，不宣称双后端RTL通过。
+不要仅截取终端最后一行。交付 `REPORT.md`、`summary.json`、工具阶段JSON和相关失败日志；源码工作区不干净时，
 必须同时保留其中的文件哈希和状态，HEAD 单独不能代表实际受测文件。
 `--timeout-sec` 是单个子检查的上限，默认 1800 秒；调整它不能把已失败的检查改记通过。
 全量流程不重复单独 support3 官方原语网表及 PNG 渲染；修改这些路径时，另按
@@ -91,8 +102,8 @@ $targetRun = Join-Path $env:TEMP ('target-verify-' + (Get-Date -Format 'yyyyMMdd
 
 ## 4. 进入整机验证前的判定
 
-必须先确认 [MAIN 契约草案](integration/MAIN_CONTRACT_DRAFT.md) 与
-[A2 责任提案](integration/TRACK_ADMISSION_PROPOSAL.md)。重点是：
+独立guard已获准并实现，第一版严格同帧策略已选；仍须MAIN确认并实现
+[帧事务方案](integration/FRAME_TRANSACTIONS_V1.md) 和 [MAIN契约](integration/MAIN_CONTRACT_DRAFT.md)。重点是：
 
 1. 规范化 SOF/EOL/EOF、坐标与 RGB 同拍。AWB user 是提前通知，不能直接连 SOF；掉拍、尾拍不足 4 像素须有独立错误依据和取消动作。
 2. 唯一 `{session_id,frame_id}` 与 DDR 槽代次贯穿采集、完成、选帧、读预取到 HDMI。只加显示边界寄存器不能建立帧关联。
@@ -116,7 +127,10 @@ $targetRun = Join-Path $env:TEMP ('target-verify-' + (Get-Date -Format 'yyyyMMdd
 STA 覆盖率 96.14%，未包含 TARGET，板测仍待记录。LUT6 14724/21216、FF 14417、
 Slice 16473/21216、ERAM 39/108、DSP 9/40 是 routed 口径；不要混用 gate LUT 口径计算余量。
 
-目前适合做现有视频基线板测，同时继续完成接入契约。观察真实物体移动、模式/文字一致性、
+最新STYLE/四模式构建源及资源快照见 [MAIN交接入口](board/MAIN_HANDOFF.md)，均不含TARGET。
+本次独立完整回归及工具修复证据见 [上传验证记录](evidence/upload_2026-10-20/VALIDATION.md)。
+TARGET集成后按 [新板测方法](board/TARGET_ACCEPTANCE.md) 和 [新回报模板](board/TARGET_REPORT_TEMPLATE.md)，
+不混用旧两模式按键说明。目前可做所选视频基线板测，同时由MAIN完成接入。观察真实物体移动、模式/文字一致性、
 冻结/旧帧/撕裂、明暗恢复和长时间运行。CNT 是 HDMI 侧事件计数，递增不能证明相机更新。
 按 [模板](board/REPORT_TEMPLATE.md) 回报版本、操作、视频时间点、复现次数/分母和恢复方式。
 无统计仪器时写“未观察到异常”，丢帧/溢出/精确同帧或延迟仍填“未测”。
