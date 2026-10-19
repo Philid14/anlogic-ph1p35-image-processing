@@ -8,6 +8,16 @@
 工程基准、指标与验收要求的唯一权威文件是 [`AGENTS.md`](AGENTS.md)；
 原始赛题见 [`docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf`](docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf) 第 16–18 页。
 
+## EDGE_STYLE_FILL_V1 candidate
+
+新增五模式中的 **STYLE：局部同色区域均值填色、64色块化与边界描黑**；
+这是有界风格化，不是全局闭合轮廓/洞填充。原四模式保留，等待实板验收。
+
+- [设计与边界](docs/EDGE_STYLE_FILL_V1_DESIGN.md)
+- [构建、资源与验证报告](docs/EDGE_STYLE_FILL_V1_REPORT.md)
+- [上板步骤与失败判定](docs/EDGE_STYLE_FILL_V1_BOARD_TEST.md)
+- [bit与BUILD_INFO](artifacts/bitstreams/EDGE_STYLE_FILL_V1/BUILD_INFO.md)
+
 ## 目录结构
 
 | 路径 | 内容 |

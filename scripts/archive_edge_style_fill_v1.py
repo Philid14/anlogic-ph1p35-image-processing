@@ -33,6 +33,16 @@ def main():
         else "candidate; board validation pending"
     )
     snap = json.loads((TMP / "prebuild.json").read_text())
+    rtl = json.loads((TMP / "rtl_results.json").read_text())
+    assert any(x["width"] == 1280 and x["height"] == 720
+               and x["beats"] == 1152000 and x["packed_words"] == 864000
+               for x in rtl["streams"]), "full five-mode 720p regression required"
+    units = json.loads((TMP / "unit_results.json").read_text())
+    assert len(units) == 5 and all(x["frames"] >= 34 for x in units)
+    frozen = json.loads((TMP / "frozen_inputs.json").read_text())
+    assert len(frozen["frozen_td_inputs"]) == 59 and frozen["td_options_unchanged"]
+    mapping = json.loads((TMP / "RAM_MAPPING.json").read_text())
+    assert mapping["source_commit"] == snap["source_commit"] and len(mapping["mapped_eram"]) == 10
     start = datetime.fromisoformat(snap["time"]).timestamp()
     for name, digest in snap["files"].items():
         assert sha(ROOT / name) == digest, name
@@ -106,7 +116,7 @@ def main():
         sta_coverage=coverage,
         critical_warning_types=critical,
         new_critical_warning_types=new_critical,
-        additional_pipeline_cycles_from_temporal=0,
+        additional_pipeline_cycles_from_multi_mode=0,
         per_branch_alignment_cycles=27,
         osd_cycles=2,
         pack_cycles=1,
@@ -115,7 +125,7 @@ def main():
         board_test=(
             "REJECTED; not for board testing"
             if rejected
-            else "pending; all visual modes, threshold persistence and 30-minute stability unverified"
+            else "pending; STYLE appearance, five-mode switching, B/S and 30-minute stability unverified"
         ),
     )
     result["delta_from_multi_mode"] = {
@@ -156,6 +166,12 @@ def main():
         "rtl_results.json",
         "rtl_console.log",
         "unit_results.json",
+        "unit_console.log",
+        "model_console.log",
+        "frozen_inputs.json",
+        "RAM_MAPPING.json",
+        "gate_inspect.log",
+        "inspect_gate.tcl",
     ):
         if (TMP / name).exists():
             shutil.copy2(TMP / name, evidence / name)

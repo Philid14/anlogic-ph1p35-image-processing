@@ -41,9 +41,12 @@ def scenes(w=128, h=72):
     rng = np.random.default_rng(910)
     low = image(rect, (112, 117, 123), (105, 110, 116)).astype(np.int16)
     low = np.clip(low+rng.integers(-5, 6, low.shape), 0, 255).astype(np.uint8)
+    inner = (xx >= w//4+2) & (xx < 3*w//4-2) & (yy >= h//4+2) & (yy < 3*h//4-2)
+    ring = circle & ((xx-w//2)**2+(yy-h//2)**2 >= max(0,h//3-2)**2)
     return dict(rectangle=image(rect), circle=image(circle), gap=image(gap),
                 open_line=image(line), independent=image(multi), nested=nested,
-                border=image(border), small=image(small), low_noise=low)
+                border=image(border), small=image(small), low_noise=low,
+                hollow_rectangle=image(rect & ~inner), hollow_circle=image(ring))
 
 
 def research(out):
@@ -60,6 +63,12 @@ def research(out):
         report[name] = dict(flat_pixels=int(flat.sum()), outline_pixels=int(ink.sum()),
             changed_from_origin=int((rgb != result).any(2).sum()),
             changed_from_palette_only=int((point != result).any(2).sum()))
+        # Any constant 2x2 interior must be filled with exactly its own palette
+        # color, never a color propagated from another object or earlier row.
+        same = (rgb[1:,1:] == rgb[:-1,1:]).all(2) & (rgb[1:,1:] == rgb[1:,:-1]).all(2) & (rgb[1:,1:] == rgb[:-1,:-1]).all(2)
+        assert np.array_equal(result[1:,1:][same], point[1:,1:][same])
+        report[name]['constant_interior_pixels'] = int(same.sum())
+        report[name]['constant_interior_errors'] = 0
         for j, im in enumerate((rgb, point.astype(np.uint8), result)):
             sheet.paste(Image.fromarray(im), (j*128, i*90+18))
         draw.text((0, i*90), name+' | RGB / palette only / STYLE', fill='white')

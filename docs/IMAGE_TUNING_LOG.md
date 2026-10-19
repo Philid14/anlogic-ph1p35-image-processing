@@ -285,3 +285,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Verification：9288像素灰度/二值边界与随机对照、K3/K4/18位CDC、九帧混合四模式4608拍/3168字、完整720p×2帧460800拍/345600字逐字节通过；18个V1算法/ISP/DDR/HDMI/Logo/引脚/SDC文件SHA保持一致。
 - Board Test Result：**待用户烧录**。默认EDGE、四模式切换、GRAY灰阶、BINARY纯黑白、双阈值保留、OSD/Logo/CNT、B/S计数、30分钟及光照变化均待测。
 - 是否保留 / 下一步：保留最终candidate及R0全部证据。按`docs/EDGE_MULTI_MODE_V1_BOARD_TEST.md`验收；S计数增长先阻断正式验收并查FIFO/DDR。完成本轮即停止，不自动合并或开始下一阶段。
+
+## EDGE_STYLE_FILL_V1 candidate（2026-10-19，MAIN）
+
+- Branch/Source/Tag：codex/main/edge-style-fill-v1；实际TD源码`042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；edge-style-fill-v1-candidate。基线四模式ed55269，用户已反馈整体可接受；Draft PR依赖#11，不合并main。
+- 唯一主要变量：增加独立STYLE有界2×2同色均值/64色填色/RGB描黑；不是全物体或洞填充。原四模式算法、Sensor/ISP、Logo/CNT/B:S、DDR/HDMI、PLL/SDC不变。19位配置；K3加STYLE，K4旧阈值独立保留。
+- Bit：artifacts/bitstreams/EDGE_STYLE_FILL_V1/camera_to_dsi_display.bit；SHA `B4FBB61FABD6A510B26EEC6DAD4D950FF8A3D2B6F561753D5611B334274B336E`。
+- Build：完整TD PASS；LUT16592 / FF16972 / Slice17792 / ERAM85 / DSP21；Setup/Hold +0.104/+0.020ns；TNS0、违例0。
+- 验证：合成几何/缺口/嵌套/运动/复位逐像素，完整720p五帧1152000拍/864000打包字；59个冻结TD输入及构建选项一致。证据见EDGE_STYLE_FILL_V1_REPORT.md。
+- Board Test：待用户上板；真实视觉、B/S稳态、30分钟/光照变化未验收。保留候选与全部历史；按BOARD_TEST检查，S增长阻断正式验收。完成candidate后停止。

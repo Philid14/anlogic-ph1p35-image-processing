@@ -1,0 +1,21 @@
+{
+  "artifacts/bitstreams/AWB_V1/camera_to_dsi_display.bit": "6512b12c1f231ded42a7809766273ca58d677472ffb08bbe009b839512c729a3",
+  "artifacts/bitstreams/AWB_V2/camera_to_dsi_display.bit": "d6aa67bb303d661e9abeadcde456ab27f6828ca948d89029f89f23028d5aa111",
+  "artifacts/bitstreams/BASELINE_V0/camera_to_dsi_display.bit": "d42e4afc8cc6939230dab332eebe6e439297f1ea9fc57e6984152b60c673d668",
+  "artifacts/bitstreams/BLC_V1/camera_to_dsi_display.bit": "2b9e427dee8304106f5e75a686899d189e4b61eb3514a4ae33c51ea536fb133d",
+  "artifacts/bitstreams/EDGE_CONTROL_V1/camera_to_dsi_display.bit": "05e05b153800e38982d7d1c2981a347b3616eafa6eaba91a43443468faf5dcf6",
+  "artifacts/bitstreams/EDGE_DENOISE_V1/camera_to_dsi_display.bit": "224d4be2f53b807137e19d095dcf6132baa9cfc023c3c59bce17abde3332b84a",
+  "artifacts/bitstreams/EDGE_MULTI_MODE_V1/camera_to_dsi_display.bit": "8c62195da8a2f8748ce9d6cfd7d9703bcb81e6f6cda09aedf4bbb0de0fe0bbe9",
+  "artifacts/bitstreams/EDGE_MULTI_MODE_V1_R0/camera_to_dsi_display.bit": "7d176cc317914c73872db90d70b8892fb049192703e194805cd288353e52054f",
+  "artifacts/bitstreams/EDGE_NMS_V1/camera_to_dsi_display.bit": "734f5d97c429d086fbe8518514b8547cf0c2fbc485b44d35bd218f0f7fa2a448",
+  "artifacts/bitstreams/EDGE_QUALITY_V1/camera_to_dsi_display.bit": "629acaa828ef8151ded0261779ed8b91f0fa618eed66dd46c72d6e799adcc9d5",
+  "artifacts/bitstreams/EDGE_QUALITY_V1_R0/camera_to_dsi_display.bit": "27fdb0b07dd1ae9196164d209da54cf48e3867bd6f9357549aee3100ecd0126b",
+  "artifacts/bitstreams/EDGE_TEMPORAL_V1/camera_to_dsi_display.bit": "14a36d98bc0a1547f84588087d796c14098ad4441cb30b5878d8f81cbadc95c4",
+  "artifacts/bitstreams/EDGE_TEMPORAL_V1_R0/camera_to_dsi_display.bit": "f9ad71c7d33453461c1b47c56770edd77b75838dbcb7a74e686aeeef27c0a989",
+  "artifacts/bitstreams/EDGE_V1/camera_to_dsi_display.bit": "268eaee8830af99c6275eab45ac1c1cde231127b91dc3b4729754c6fd581d1d6",
+  "artifacts/bitstreams/GAIN_TEST_A/camera_to_dsi_display.bit": "dde2589cc0cd74e89d4198c4ad937ab946ff4d1dbc65241a1f425a7e3d551af6",
+  "artifacts/bitstreams/GAIN_TEST_B/camera_to_dsi_display.bit": "a34131c7f2e991f3c9c59627dadbe797cce7a33e4eb0a0f9a272a5bd9c8cb37e",
+  "artifacts/bitstreams/GAIN_TEST_C/camera_to_dsi_display.bit": "a7cdbfadf6e10fb68c0b79fe8786affba142d8f4509b48d449c4289ace32fc66",
+  "artifacts/bitstreams/GAIN_TEST_D/camera_to_dsi_display.bit": "78e20726747b65b7cc6b5a1149698824b0aa83157e6a8a4dd3bb5deaea00c80a",
+  "artifacts/bitstreams/GAIN_TEST_E/camera_to_dsi_display.bit": "ee477e5bac6d3a315408d2935f80d9dfd85240d45060ba6c434ac421bfe900e2"
+}
