@@ -53,56 +53,92 @@ module style_fill_96 #(
             end
         end
     end
-    function [3:0] mn;input[3:0]a,b;begin mn=(a<b)?a:b;end endfunction
-    function [3:0] mx;input[3:0]a,b;begin mx=(a>b)?a:b;end endfunction
-    genvar lane,channel;
+    // V2: shared-lightness palette, neutral protection and dark-side luma ink.
+    function [7:0] mn;input[7:0]a,b;begin mn=(a<b)?a:b;end endfunction
+    function [7:0] mx;input[7:0]a,b;begin mx=(a>b)?a:b;end endfunction
+    function [11:0] color_bins;input[23:0]p;
+        begin color_bins={p[23:20],p[15:12],p[7:4]};end
+    endfunction
+    function [7:0] luma;input[23:0]p;
+        begin luma={2'b0,p[23:18]}+{1'b0,p[15:9]}+{2'b0,p[7:2]};end
+    endfunction
+    function [23:0] mean4;input[23:0]a,b,c,d;
+        reg[9:0]s;integer k;
+        begin for(k=0;k<3;k=k+1)begin
+            s={2'b0,a[8*k +:8]}+{2'b0,b[8*k +:8]}+
+              {2'b0,c[8*k +:8]}+{2'b0,d[8*k +:8]}+10'd2;
+            mean4[8*k +:8]=s[9:2];
+        end end
+    endfunction
+    function [8:0] absdiff;input[8:0]a,b;
+        begin absdiff=(a>b)?a-b:b-a;end
+    endfunction
+    function [7:0] tone;input[7:0]l;
+        reg[8:0]r;
+        begin r={1'b0,l}+9'd16;tone=(l>=240)?8'd255:{r[7:5],5'b0};end
+    endfunction
+    function [7:0] shifted;input[7:0]c;input signed[8:0]delta;
+        reg signed[9:0]s;
+        begin
+            s=$signed({2'b00,c})+$signed({delta[8],delta});
+            if(s<0)shifted=0;else if(s>255)shifted=255;else shifted=s[7:0];
+        end
+    endfunction
+    genvar lane;
     generate for(lane=0;lane<4;lane=lane+1)begin:g_lane
-        wire[23:0] a=previous_row[95-24*lane -:24];
-        wire[23:0] c=current0[95-24*lane -:24];
-        wire[23:0] b,d;
+        wire[23:0] up=previous_row[95-24*lane -:24];
+        wire[23:0] cur=current0[95-24*lane -:24];
+        wire[23:0] ul,left;
         if(lane==0)begin:g_left
-            assign b=left_upper;assign d=left_current;
+            assign ul=left_upper;assign left=left_current;
         end else begin:g_inner
-            assign b=previous_row[119-24*lane -:24];
-            assign d=current0[119-24*lane -:24];
+            assign ul=previous_row[119-24*lane -:24];
+            assign left=current0[119-24*lane -:24];
         end
-        reg border1,border2,border3;
+        reg border1,border2;
         wire border=first_y0 || ((lane==0) && first_x0);
-        wire[2:0] flat_channel, ink_channel;
-        wire[23:0] palette;
-        for(channel=0;channel<3;channel=channel+1)begin:g_channel
-            wire[7:0] av=a[8*channel +:8],bv=b[8*channel +:8];
-            wire[7:0] cv=c[8*channel +:8],dv=d[8*channel +:8];
-            reg[3:0] minab1,mincd1,maxab1,maxcd1;
-            reg[8:0] sumab1,sumcd1;
-            reg[9:0] sum2;
-            reg[3:0] min2,max2,span3;
-            reg[1:0] point1,point2,point3,mean3;
-            always @(posedge clk or negedge rst_n)begin
-                if(!rst_n)begin
-                    minab1<=0;mincd1<=0;maxab1<=0;maxcd1<=0;
-                    sumab1<=0;sumcd1<=0;sum2<=0;min2<=0;max2<=0;
-                    span3<=0;point1<=0;point2<=0;point3<=0;mean3<=0;
-                end else begin
-                    minab1<=mn(av[7:4],bv[7:4]);mincd1<=mn(cv[7:4],dv[7:4]);
-                    maxab1<=mx(av[7:4],bv[7:4]);maxcd1<=mx(cv[7:4],dv[7:4]);
-                    sumab1<={1'b0,av}+{1'b0,bv};sumcd1<={1'b0,cv}+{1'b0,dv};
-                    sum2<={1'b0,sumab1}+{1'b0,sumcd1}+10'd2;
-                    min2<=mn(minab1,mincd1);max2<=mx(maxab1,maxcd1);
-                    span3<=max2-min2;mean3<=sum2[9:8];
-                    point1<=cv[7:6];point2<=point1;point3<=point2;
-                end
-            end
-            assign flat_channel[channel]=(span3<=2);
-            assign ink_channel[channel]=(span3>=4);
-            wire[1:0] q=(!border3 && (&flat_channel))?mean3:point3;
-            assign palette[channel*8 +:8]={q,q,q,q};
-        end
+        wire flat=(color_bins(ul)==color_bins(cur)) && (color_bins(up)==color_bins(cur)) && (color_bins(left)==color_bins(cur));
+        reg[23:0] base1,base2,base3;
+        reg[7:0] yul1,yu1,yl1,yc1,low2,high2,gray3;
+        reg[8:0] dx2,dy2;
+        reg dark2,ink3,neutral3;
+        reg signed[8:0] delta3;
+        wire[8:0] right_sum={1'b0,yu1}+{1'b0,yc1};
+        wire[8:0] left_sum={1'b0,yul1}+{1'b0,yl1};
+        wire[8:0] top_sum={1'b0,yul1}+{1'b0,yu1};
+        wire[8:0] bottom_sum={1'b0,yl1}+{1'b0,yc1};
+        wire[9:0] all_sum={1'b0,right_sum}+{1'b0,left_sum};
+        wire[8:0] light_sum={1'b0,low2}+{1'b0,high2}+9'd1;
+        wire[7:0] light=light_sum[8:1];
+        wire[7:0] quantized=tone(light);
         always @(posedge clk or negedge rst_n)begin
-            if(!rst_n)begin border1<=1;border2<=1;border3<=1;O_data[95-24*lane -:24]<=0;end
+            if(!rst_n)begin
+                border1<=1;border2<=1;base1<=0;base2<=0;base3<=0;
+                yul1<=0;yu1<=0;yl1<=0;yc1<=0;low2<=0;high2<=0;gray3<=0;
+                dx2<=0;dy2<=0;dark2<=0;ink3<=0;neutral3<=0;delta3<=0;
+                O_data[95-24*lane -:24]<=0;
+            end
             else begin
-                border1<=border;border2<=border1;border3<=border2;
-                O_data[95-24*lane -:24]<=(!border3 && (|ink_channel))?24'd0:palette;
+                // S1: flatten only a genuinely low-variation color window.
+                border1<=border;
+                base1<=(!border && flat)?mean4(ul,up,left,cur):cur;
+                yul1<=luma(ul);yu1<=luma(up);yl1<=luma(left);yc1<=luma(cur);
+                // S2: local luminance coherence and current-pixel polarity.
+                border2<=border1;base2<=base1;
+                low2<=mn(mn(base1[23:16],base1[15:8]),base1[7:0]);
+                high2<=mx(mx(base1[23:16],base1[15:8]),base1[7:0]);
+                dx2<=absdiff(right_sum,left_sum);dy2<=absdiff(bottom_sum,top_sum);
+                dark2<=({yc1,2'b00}<=all_sum);
+                // S3: one common offset, never three independent RGB levels.
+                base3<=base2;gray3<=quantized;
+                delta3<=$signed({1'b0,quantized})-$signed({1'b0,light});
+                neutral3<=((high2-low2)<=8'd12);
+                ink3<=!border2 && dark2 && ((dx2>=96)||(dy2>=96));
+                // S4: signed saturation. No cross-frame history is used.
+                if(ink3)O_data[95-24*lane -:24]<=0;
+                else if(neutral3)O_data[95-24*lane -:24]<={gray3,gray3,gray3};
+                else O_data[95-24*lane -:24]<=
+                    {shifted(base3[23:16],delta3),shifted(base3[15:8],delta3),shifted(base3[7:0],delta3)};
             end
         end
     end endgenerate
