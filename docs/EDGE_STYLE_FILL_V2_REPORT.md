@@ -152,3 +152,13 @@ B/S和30分钟、光照变化、五模式/Logo/CNT/HDMI仍待用户验收。
 - Remote/push/PR实际结果在交付状态附记中填写；Board Test：**待用户上板**。
 - V1回滚SHA `B4FBB61FABD6A510B26EEC6DAD4D950FF8A3D2B6F561753D5611B334274B336E`，历史源/bit/tag完整保留。
 - 完成候选即停止，不进入进阶五或其他功能。
+
+## Git交付状态
+
+- 实际TD源码：`694559fd76676093e134229d435161ecb44ab00c`。
+- 归档/candidate commit：`8d26c6eba95f07723b0f634efa82ed1424218975`；tag `edge-style-fill-v2-candidate`。
+- Draft PR：[ #13 ](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/13)，base为STYLE_V1分支，依赖#12；GitHub报告clean/mergeable，未合并。
+- Remote：`origin` → `https://github.com/Philid14/anlogic-ph1p35-image-processing.git`；分支与tag已实际push成功，远程tag剥离后指向上述归档commit。
+- 本次交付状态附记只改文档，不重建bit、不移动tag；等待Philid14审查最新文档tip与candidate。
+- 预推送检查通过：58个任务相关变更，只有1个正式RTL文件；无队友目录/用户录像/未跟踪参考资料/Runs临时库；文件大小、凭据模式扫描、66项TD输入/bit SHA/全部历史bit一致。
+- Git跟踪文件提交后干净；原有未跟踪资料与录像保留。Board Test：V2待用户上板，未宣称实板画质或冷启动/FIFO风险已验收。
