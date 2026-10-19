@@ -1,0 +1,14 @@
+[sim] 使用 iverilog：INJECTED（来源：independent witness）
+PASS TARGET_CLASS=-2147483648: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=-3: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=-1: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=0: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=1: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=2: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=3: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=4: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=5: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=6: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=7: classifier / legacy / bypass / support3 / direct stats
+PASS TARGET_CLASS=2147483647: classifier / legacy / bypass / support3 / direct stats
+12/12 parameter configurations; 4 result paths x 5 frames each

@@ -1,0 +1,5 @@
+{
+  "original_sources": 56,
+  "mismatches": [],
+  "note": "Original modules/tests unchanged; new guard has its own source hashes and new tests. Existing raw evidence not replaced."
+}

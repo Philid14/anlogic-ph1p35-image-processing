@@ -1,0 +1,38 @@
+Reading D:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet -gTIME_W=8 work.tb_color_target_track_guard -do "run -all; quit -f" 
+# Start time: 19:59:18 on Oct 19,2026
+# run -all
+# CASE no_implicit_session
+# CASE duplicate_reorder_and_payload
+# FAIL guard fresh after expiry re-acquires reason=1 retired=1 admitted=1 state=2 usable=1 box=101 obs=101
+# CASE independent_age_and_high_water
+# CASE invalid_cancel_and_absence
+# CASE no_target_never_refreshes_positive_age
+# CASE invalid_stream_timeout
+# CASE late_future_and_unavailable_identity
+# FAIL guard new session first positive starts fresh reason=1 retired=1 admitted=1 state=2 usable=1 box=1 obs=1
+# CASE explicit_session_authority
+# CASE accepted_latency_uses_capture_time
+# FAIL guard two empty epochs do not alias core reason=1 retired=1 admitted=1 state=2 usable=1 box=0 obs=0
+# CASE repeated_empty_epoch_barriers
+# CASE session_reuse_rejected
+# FAIL guard boundary data can be delivered after barrier reason=1 retired=1 admitted=1 state=2 usable=1 box=1 obs=1
+# CASE simultaneous_control_and_data
+# FAIL guard new controlled epoch recovers time loss reason=1 retired=1 admitted=1 state=2 usable=1 box=0 obs=0
+# CASE time_valid_loss_and_recovery
+# CASE clock_rollback
+# CASE clock_wrap
+# FAIL guard frame zero valid in new session reason=1 retired=1 admitted=1 state=2 usable=1 box=0 obs=0
+# CASE frame_id_wrap
+# CASE counter_saturation
+# CASE one_result_per_clock
+# FAIL guard fresh event simultaneous with expiry starts ACQ reason=1 retired=1 admitted=1 state=2 usable=1 box=3 obs=3
+# CASE simultaneous_expiry_and_fresh_result
+# GUARD_COMPLETE checks=398 failures=7
+# ** Note: $finish    : C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(212)
+#    Time: 4626 ns  Iteration: 0  Instance: /tb_color_target_track_guard
+# End time: 19:59:18 on Oct 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

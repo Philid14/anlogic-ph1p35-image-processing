@@ -1,0 +1,32 @@
+Reading D:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet -gTIME_W=8 work.tb_color_target_track_guard -do "run -all; quit -f" 
+# Start time: 19:59:19 on Oct 19,2026
+# run -all
+# CASE no_implicit_session
+# CASE duplicate_reorder_and_payload
+# CASE independent_age_and_high_water
+# CASE invalid_cancel_and_absence
+# FAIL guard target expiry preserves recent reliable absence reason=0 retired=0 admitted=0 state=0 usable=0 box=0 obs=0
+# CASE no_target_never_refreshes_positive_age
+# CASE invalid_stream_timeout
+# CASE late_future_and_unavailable_identity
+# CASE explicit_session_authority
+# CASE accepted_latency_uses_capture_time
+# CASE repeated_empty_epoch_barriers
+# CASE session_reuse_rejected
+# CASE simultaneous_control_and_data
+# CASE time_valid_loss_and_recovery
+# CASE clock_rollback
+# CASE clock_wrap
+# CASE frame_id_wrap
+# CASE counter_saturation
+# CASE one_result_per_clock
+# CASE simultaneous_expiry_and_fresh_result
+# GUARD_COMPLETE checks=398 failures=1
+# ** Note: $finish    : C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(212)
+#    Time: 4626 ns  Iteration: 0  Instance: /tb_color_target_track_guard
+# End time: 19:59:19 on Oct 19,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

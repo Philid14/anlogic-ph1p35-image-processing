@@ -1,0 +1,2 @@
+FAIL core_time8 tool_stage_failure
+GUARD_CONTRACT_COMPLETE jobs=1 passed=0 source_unchanged=True
