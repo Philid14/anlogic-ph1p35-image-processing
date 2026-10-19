@@ -340,6 +340,7 @@
                 </FileInfo>
             </File>
             <File Path="../user_source/hdl_source/isp/rgb_effects_96.v">
+            <File Path="../user_source/hdl_source/isp/style_fill_96.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>
                     <Attr Name="UsedInP&R" Val="true"/>

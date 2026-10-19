@@ -12,7 +12,7 @@ module edge_status_osd #(
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
-    input [17:0] I_config,
+    input [18:0] I_config,
     input [31:0] I_fifo_event_counts,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
@@ -55,9 +55,9 @@ module edge_status_osd #(
             decimal3={hundreds,tens,remainder[3:0]};
         end
     endfunction
-    wire [1:0] mode = I_config[17:16];
-    wire [7:0] active_threshold = (mode==2'b10) ? I_config[7:0] : I_config[15:8];
-    wire threshold_applicable = (mode==2'b10) || (mode==2'b11);
+    wire [2:0] mode = I_config[18:16];
+    wire [7:0] active_threshold = (mode==3'd2) ? I_config[7:0] : I_config[15:8];
+    wire threshold_applicable = (mode==3'd2) || (mode==3'd3);
     wire [11:0] digits = decimal3(active_threshold);
     reg [31:0] fifo_frame;
     always @(posedge clk or negedge rst_n)begin
@@ -83,22 +83,22 @@ module edge_status_osd #(
             case (char_column)
                 0: character="M"; 1: character="O"; 2: character="D";
                 3: character="E"; 4: character=":";
-                6: character=(mode==2'b00) ? "O" :
-                             (mode==2'b01) ? "G" :
-                             (mode==2'b10) ? "B" : "E";
-                7: character=(mode==2'b00) ? "R" :
-                             (mode==2'b01) ? "R" :
-                             (mode==2'b10) ? "I" : "D";
-                8: character=(mode==2'b00) ? "I" :
-                             (mode==2'b01) ? "A" :
-                             (mode==2'b10) ? "N" : "G";
-                9: character=(mode==2'b00) ? "G" :
-                             (mode==2'b01) ? "Y" :
-                             (mode==2'b10) ? "A" : "E";
-                10: character=(mode==2'b00) ? "I" :
-                              (mode==2'b10) ? "R" : " ";
-                11: character=(mode==2'b00) ? "N" :
-                              (mode==2'b10) ? "Y" : " ";
+                6: character=(mode==3'd4) ? "S" : (mode==3'd0) ? "O" :
+                             (mode==3'd1) ? "G" :
+                             (mode==3'd2) ? "B" : "E";
+                7: character=(mode==3'd4) ? "T" : (mode==3'd0) ? "R" :
+                             (mode==3'd1) ? "R" :
+                             (mode==3'd2) ? "I" : "D";
+                8: character=(mode==3'd4) ? "Y" : (mode==3'd0) ? "I" :
+                             (mode==3'd1) ? "A" :
+                             (mode==3'd2) ? "N" : "G";
+                9: character=(mode==3'd4) ? "L" : (mode==3'd0) ? "G" :
+                             (mode==3'd1) ? "Y" :
+                             (mode==3'd2) ? "A" : "E";
+                10: character=(mode==3'd4) ? "E" : (mode==3'd0) ? "I" :
+                              (mode==3'd2) ? "R" : " ";
+                11: character=(mode==3'd0) ? "N" :
+                              (mode==3'd2) ? "Y" : " ";
                 default: character=" ";
             endcase
         end else if (row1) begin

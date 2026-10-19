@@ -436,7 +436,7 @@ module design_top_wrapper (
   assign S_ae_req = 1'b0;
   assign S_ae = 16'd1990;
   assign S_ag = 16'd0; // unused while S_ae_req=0, not a sensor gain encoding
-  wire [17:0] S_edge_requested_config, S_edge_received_config;
+  wire [18:0] S_edge_requested_config, S_edge_received_config;
   edge_key_control u_edge_keys (
       .clk(S_24m_clk), .rst_n(S_rst_n), .keys_n(I_button),
       .requested_config(S_edge_requested_config)

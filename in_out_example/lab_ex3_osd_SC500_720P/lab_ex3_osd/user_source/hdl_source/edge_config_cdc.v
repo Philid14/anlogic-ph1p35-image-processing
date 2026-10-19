@@ -4,11 +4,11 @@
 // Requests during a transfer are coalesced to the latest complete config.
 module edge_config_cdc (
     input src_clk, input dst_clk, input rst_n,
-    input [17:0] requested_config,
-    output reg [17:0] received_config
+    input [18:0] requested_config,
+    output reg [18:0] received_config
 );
-    localparam [17:0] RESET_CONFIG = {2'b11,8'd80,8'd130};
-    reg [17:0] held_config;
+    localparam [18:0] RESET_CONFIG = {3'd3,8'd80,8'd130};
+    reg [18:0] held_config;
     reg req_toggle, ack_toggle;
     (* async_reg = "true" *) reg ack_meta, ack_sync;
     (* async_reg = "true" *) reg req_meta, req_sync, req_guard;

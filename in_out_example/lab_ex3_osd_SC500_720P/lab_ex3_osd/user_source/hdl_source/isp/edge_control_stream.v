@@ -1,5 +1,5 @@
 `timescale 1ns / 1ps
-// Runtime ORIGIN/GRAY/BINARY/EDGE with frame-latched structured configuration.
+// Runtime ORIGIN/GRAY/BINARY/EDGE/STYLE with frame-latched structured configuration.
 // SOF is the existing AWB early notification; it need not coincide with valid.
 // The complete Edge history pipeline always runs, including in non-Edge modes.
 module edge_control_stream #(
@@ -14,23 +14,24 @@ module edge_control_stream #(
     parameter integer RELIABILITY_ENABLE = 0
 )(
     input clk, input rst_n,
-    input [17:0] requested_config,
+    input [18:0] requested_config,
     input [31:0] I_fifo_event_counts,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     output [95:0] O_data, output O_valid, output O_user, output O_last,
     output I_ready, input O_ready
 );
-    localparam [1:0] MODE_ORIGIN = 2'b00;
-    localparam [1:0] MODE_GRAY   = 2'b01;
-    localparam [1:0] MODE_BINARY = 2'b10;
-    localparam [1:0] MODE_EDGE   = 2'b11;
-    localparam [17:0] RESET_CONFIG = {MODE_EDGE,8'd80,8'd130};
+    localparam [2:0] MODE_ORIGIN = 3'd0;
+    localparam [2:0] MODE_GRAY   = 3'd1;
+    localparam [2:0] MODE_BINARY = 3'd2;
+    localparam [2:0] MODE_EDGE   = 3'd3;
+    localparam [2:0] MODE_STYLE  = 3'd4;
+    localparam [18:0] RESET_CONFIG = {MODE_EDGE,8'd80,8'd130};
     localparam SPATIAL_STAGES = (DENOISE_ENABLE ? 9 : 5) + (NMS_ENABLE ? 4 : 0)
         + ((QUALITY_ENABLE && NMS_ENABLE) ? 3*QUALITY_HOPS : 0);
     localparam HOLD_ENABLE=TEMPORAL_ENABLE && QUALITY_ENABLE && NMS_ENABLE;
     localparam EDGE_STAGES=SPATIAL_STAGES+(HOLD_ENABLE?2:0);
-    reg [17:0] active_config;
-    wire [17:0] beat_config = I_user ? requested_config : active_config;
+    reg [18:0] active_config;
+    wire [18:0] beat_config = I_user ? requested_config : active_config;
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) active_config <= RESET_CONFIG;
         else if (I_user) active_config <= requested_config;
@@ -38,7 +39,7 @@ module edge_control_stream #(
     reg [95:0] original_p [0:EDGE_STAGES-1];
     reg [95:0] gray_p [0:EDGE_STAGES-1];
     reg [95:0] binary_p [0:EDGE_STAGES-1];
-    reg [17:0] config_p [0:EDGE_STAGES-1];
+    reg [18:0] config_p [0:EDGE_STAGES-1];
     reg [EDGE_STAGES-1:0] valid_p, user_p, last_p;
     integer i;
     wire [95:0] gray_now, binary_now;
@@ -86,14 +87,26 @@ module edge_control_stream #(
             .I_threshold(config_p[SPATIAL_STAGES-1][15:8]),.O_edge(bits_out),.O_valid(),.O_user(),.O_last());
         assign stable_edge_data={{48{bits_out[1]}},{48{bits_out[0]}}};
     end else begin:g_spatial assign stable_edge_data=edge_data;end endgenerate
+    // Compute STYLE near the end of the existing alignment window, reusing
+    // the ORIGIN delay instead of adding another 27x96-bit register chain.
+    wire [95:0] style_data;
+    generate if(EDGE_STAGES>5)begin:g_style_delayed
+        style_fill_96 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_style(
+            .clk(clk),.rst_n(rst_n),.I_data(original_p[EDGE_STAGES-6]),
+            .I_valid(valid_p[EDGE_STAGES-6]),.I_user(user_p[EDGE_STAGES-6]),.O_data(style_data));
+    end else begin:g_style_direct
+        style_fill_96 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_style(
+            .clk(clk),.rst_n(rst_n),.I_data(I_data),.I_valid(I_valid),.I_user(I_user),.O_data(style_data));
+    end endgenerate
     // Every branch is delayed by the same number of beats. Selection uses the
     // configuration already travelling with this exact pixel beat.
     reg [95:0] selected_data;
     always @(*) begin
-        case (config_p[EDGE_STAGES-1][17:16])
+        case (config_p[EDGE_STAGES-1][18:16])
             MODE_ORIGIN: selected_data = original_p[EDGE_STAGES-1];
             MODE_GRAY:   selected_data = gray_p[EDGE_STAGES-1];
             MODE_BINARY: selected_data = binary_p[EDGE_STAGES-1];
+            MODE_STYLE: selected_data = style_data;
             default:     selected_data = stable_edge_data;
         endcase
     end
