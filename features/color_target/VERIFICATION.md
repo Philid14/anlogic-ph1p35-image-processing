@@ -1,7 +1,21 @@
-# TARGET 验证入口（2026-10-18）
+# TARGET 验证入口（2026-10-19增补）
 
 当前交付是独立模块、A1 修复和集成审查资料。MAIN 尚未接入 TARGET；本轮没有新整机 P&R、bit 或板测结论。
-`FILTER_ENABLE=0`，生产颜色门限不变。A2 身份/年龄仍是提案，不能把模型通过写成生产问题已解决。
+`FILTER_ENABLE=0`，生产颜色门限不变。A2已获准实现独立guard并完成自检，见
+[guard接口](integration/TRACK_GUARD_INTERFACE.md)；旧track直接使用仍有六项缺口，MAIN/CDC/显示集成未完成。
+
+本轮新入口：[帧事务实施准备](integration/FRAME_TRANSACTIONS_V1.md)。在原36条契约之上，
+新增33条联合模型预期，并以实际生产guard、track、框/十字、文字完成14场景187硬检查，
+五个错误调度负对照均被抓。显示/传输调度在测试架中，不能据此声称MAIN已经具备这些接口。
+
+```text
+python -B -X utf8 features/color_target/run_frame_transactions.py --out <新的模型目录>
+python -B -X utf8 features/color_target/run_display_transactions.py --msim <ModelSim目录> --out <新的RTL目录>
+```
+
+上述新runner独立保留结构化结果；RTL runner逐阶段记录vlib/vlog/vsim退出码和原始日志，
+负对照必须完成仿真并触发功能断言，工具失败不算抓到策略错误。
+旧统一入口的13项含义不变，不把新检查悄悄合并进历史计数。
 
 ## 1. 先判断要验证什么
 
@@ -10,7 +24,7 @@
 | 工具与独立功能 | 下述统一入口，保留命令/退出码/日志/源码哈希 | 子进程成功、完成标记和结构化报告均满足；不代表主线完成 |
 | 当前缺陷 | TRACK 特征测试 | 复现 9 个采样及 6 个 OPEN_GAP；结果吻合只说明问题可复现 |
 | 拟议系统契约 | 36 条独立故障轨迹 | 输入、硬预期、不变量、失败条件见 JSON 与 [故障矩阵](integration/FAULT_MATRIX.md)；不证明真实 CDC/DDR |
-| 现有完整视频 | EDGE_CONTROL_V1 基线实板观察 | [观察指南](board/OBSERVATION_GUIDE.md)、[回报模板](board/REPORT_TEMPLATE.md)；该 bit 不含 TARGET |
+| 历史CONTROL视频对照 | EDGE_CONTROL_V1版本绑定观察 | [观察指南](board/OBSERVATION_GUIDE.md)、[回报模板](board/REPORT_TEMPLATE.md)；该 bit 不含 TARGET，不代表最新MAIN候选能力 |
 | TARGET 整机 | 待 MAIN 获批接入后执行 | 契约冻结→真实顶层仿真→P&R→归档 bit→板测；现在为 OPEN / NOT_RUN |
 
 `run_verification.py` 是已有自检的调度入口，不替代各测试的独立预期。

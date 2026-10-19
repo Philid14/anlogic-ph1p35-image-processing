@@ -9,7 +9,10 @@
 > 不得对外表述为"已整机完成"或"进阶二已完成"。
 
 当前入口：**[验证方法](VERIFICATION.md)**、[接入摘要](INTEGRATION.md)、
-[实板观察与回报](board/OBSERVATION_GUIDE.md)。A1 已修复，A2 六项身份/年龄缺口尚未关闭。
+[实板观察与回报](board/OBSERVATION_GUIDE.md)。A1已修复；A2新增经批准的
+[独立guard](integration/TRACK_GUARD_INTERFACE.md)，旧track未包装路径仍保留六项缺口。
+[帧事务实施准备](integration/FRAME_TRANSACTIONS_V1.md)提供联合模型、生产RTL联动和MAIN具体确认包；
+MAIN接线、CDC/DDR/显示时序、生产年龄及整机验收仍未完成。
 历史章节记录当时实验；当前集成状态与资源口径以验证入口及对应版本证据为准。
 
 ---

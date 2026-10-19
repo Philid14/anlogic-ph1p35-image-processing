@@ -1,0 +1,21 @@
+{
+  "command": [
+    "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\audit_build_source_manifest.py",
+    "--source-root",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\negative-command-source",
+    "--manifest",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\negative-command-manifest.json",
+    "--newline-search-limit",
+    "20",
+    "--out",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\source-proof-negative-01"
+  ],
+  "exit_code": 1,
+  "expected": "reject changed create_clock period even with EOL search",
+  "matched": true,
+  "log": "source-proof-negative-console.log"
+}
