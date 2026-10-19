@@ -36,6 +36,10 @@ def main():
     assert len(entries) == 66, len(entries)
     assert any(path.endswith("isp/rgb_effects_96.v") for path in entries)
     assert any(path.endswith("isp/style_fill_96.v") for path in entries)
+    for run, name in (("syn_1", "syn_settings.cfg"), ("phy_1", "phy_settings.cfg")):
+        current = P / "camera_to_dsi_display_Runs" / run / "settings.cfg"
+        baseline = ROOT / "artifacts/bitstreams/EDGE_MULTI_MODE_V1/build_evidence" / name
+        assert current.read_bytes() == baseline.read_bytes(), "TD options changed: " + run
     assert not any(
         "temporal_roi_capture" in path
         or "probe_" in path

@@ -194,7 +194,7 @@ module tb_edge_style_mailbox;
         repeat(80) @(negedge sc);
         if(received!==requested || delivered!=launched)
             $fatal(1,"FAIL mailbox reset recovery");
-        $display("PASS multi-mode mailbox: 200 fast atomic 18-bit packets, latest state, reset recovery");
+        $display("PASS five-mode mailbox: 200 fast atomic 19-bit packets, latest state, reset recovery");
         $finish;
     end
 endmodule
