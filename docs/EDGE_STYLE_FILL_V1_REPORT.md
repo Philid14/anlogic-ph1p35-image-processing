@@ -124,3 +124,13 @@ max-delay各18条仍全部被忽略。本轮不修改全局异步组，未排除
 - 回滚：`artifacts/bitstreams/EDGE_MULTI_MODE_V1/camera_to_dsi_display.bit`，
   SHA `8C62195DA8A2F8748CE9D6CFD7D9703BCB81E6F6CDA09AEDF4BBB0DE0FE0BBE9`。
 - Board Test：**等待用户上板**。到candidate为止，不自动合并，不进入下一功能。
+
+## Git交付状态
+
+- 归档/candidate commit：`e17a1af3e8e53b3e704f069db178d4b93f2a04cf`。
+- Draft PR：[ #12 ](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/12)，base为四模式分支，未合并；创建后GitHub报告mergeable=true、clean。
+- Remote：`origin` → `https://github.com/Philid14/anlogic-ph1p35-image-processing.git`。
+- 分支与candidate tag均已实际push成功，远程tag剥离后指向上述归档commit。
+- 实际TD输入仍为`042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；本次PR状态补充只改文档，不重建bit、不移动tag。
+- 预推送检查通过：61个任务相关变更，无队友目录、视频、未跟踪参考资料或Runs临时库；文件大小与凭据模式扫描通过；66项构建输入/bit SHA/历史bit一致。
+- Git跟踪文件在提交后干净；用户已有未跟踪原理图、参考目录和录像保留。等待Philid14对最新文档tip与candidate审查及上板反馈。
