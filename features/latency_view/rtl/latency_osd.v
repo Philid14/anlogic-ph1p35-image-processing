@@ -154,19 +154,25 @@ module latency_osd #(
         .lost_abort_count(lost_abort)
     );
 
+    reg [31:0] shown_lat_ticks, shown_age_ticks, shown_cap, shown_dsp;
+    reg [31:0] shown_frame;
+    reg [3:0]  shown_alarm;
+    reg        shown_lat_seen, shown_age_seen, shown_stats, shown_fps;
+    reg        shown_repeat;      // a repeat display happened before this frame
+
     assign dbg_lat_cycles  = lat_cycles;
-    assign dbg_lat_ticks   = lat_ticks;
+    assign dbg_lat_ticks   = shown_lat_ticks;
     assign dbg_age_cycles  = age_cycles;
-    assign dbg_age_ticks   = age_ticks;
-    assign dbg_cap_fps     = cap_fps;
-    assign dbg_dsp_fps     = dsp_fps;
+    assign dbg_age_ticks   = shown_age_ticks;
+    assign dbg_cap_fps     = shown_cap;
+    assign dbg_dsp_fps     = shown_dsp;
     assign dbg_cap_count   = cap_count;
     assign dbg_dsp_count   = dsp_count;
-    assign dbg_alarm       = alarm;
-    assign dbg_stats_valid = stats_valid;
-    assign dbg_lat_seen    = lat_seen;
-    assign dbg_age_seen    = age_seen;
-    assign dbg_fps_valid   = fps_valid;
+    assign dbg_alarm       = shown_alarm;
+    assign dbg_stats_valid = shown_stats;
+    assign dbg_lat_seen    = shown_lat_seen;
+    assign dbg_age_seen    = shown_age_seen;
+    assign dbg_fps_valid   = shown_fps;
 
     //------------------------------------------------------------------
     // frame counter and panel refresh trigger
@@ -174,31 +180,65 @@ module latency_osd #(
     reg vs_d;
     wire vs_fall = vs_d & ~vs;
 
+    // Atomic per-frame snapshot: the panel and the debug outputs always describe
+    // the same frame, and a mid-sequence event cannot mix two revisions.
+
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) vs_d <= 1'b0;
         else        vs_d <= vs;
+    end
+
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            shown_lat_ticks <= 32'd0;
+            shown_age_ticks <= 32'd0;
+            shown_cap       <= 32'd0;
+            shown_dsp       <= 32'd0;
+            shown_alarm     <= 4'd0;
+            shown_lat_seen  <= 1'b0;
+            shown_age_seen  <= 1'b0;
+            shown_stats     <= 1'b0;
+            shown_fps       <= 1'b0;
+            shown_repeat    <= 1'b0;
+        end else if (vs_fall) begin
+            shown_lat_ticks <= lat_ticks;
+            shown_age_ticks <= age_ticks;
+            shown_cap       <= cap_fps;
+            shown_dsp       <= dsp_fps;
+            shown_alarm     <= alarm;
+            shown_lat_seen  <= lat_seen;
+            shown_age_seen  <= age_seen;
+            shown_stats     <= stats_valid;
+            shown_fps       <= fps_valid;
+        end
     end
 
     reg  [31:0] frame_bcd;
     reg         carry;
     integer     nib;
 
+    reg [31:0] frame_next;
+
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
-            frame_bcd <= 32'd0;
+            frame_bcd   <= 32'd0;
+            shown_frame <= 32'd0;
         end else if (vs_fall) begin
+            frame_next = frame_bcd;
             carry = 1'b1;
             for (nib = 0; nib < 8; nib = nib + 1) begin
                 if (carry) begin
-                    if (frame_bcd[nib*4 +: 4] == 4'd9) begin
-                        frame_bcd[nib*4 +: 4] <= 4'd0;
+                    if (frame_next[nib*4 +: 4] == 4'd9) begin
+                        frame_next[nib*4 +: 4] = 4'd0;
                         carry = 1'b1;
                     end else begin
-                        frame_bcd[nib*4 +: 4] <= frame_bcd[nib*4 +: 4] + 4'd1;
+                        frame_next[nib*4 +: 4] = frame_next[nib*4 +: 4] + 4'd1;
                         carry = 1'b0;
                     end
                 end
             end
+            frame_bcd   <= frame_next;
+            shown_frame <= frame_next;
         end
     end
 
@@ -251,8 +291,10 @@ module latency_osd #(
     reg  [7:0] wr_char;
     reg  [3:0] wr_nib;
 
-    wire lat_ok = lat_seen;
-    wire age_ok = age_seen;
+    // while the association is not trustworthy the panel must not show a
+    // latency that looks valid (protocol: invalid association -> no statistics)
+    wire lat_ok = shown_lat_seen & shown_stats;
+    wire age_ok = shown_age_seen;
 
     always @(*) begin
         wr_char = 8'h20;
@@ -277,7 +319,7 @@ module latency_osd #(
                 end
             end
             S_WR_CAP, S_WR_DSP: begin
-                if (!fps_valid) begin
+                if (!shown_fps) begin
                     wr_char = (idx < 7'd2) ? 8'h20 : 8'h2D;
                 end else begin
                     case (idx)
@@ -294,11 +336,11 @@ module latency_osd #(
                 end
             end
             S_WR_FRM: begin
-                wr_nib  = frame_bcd[(7'd7 - idx) * 4 +: 4];
+                wr_nib  = shown_frame[(7'd7 - idx) * 4 +: 4];
                 wr_char = 8'h30 + {4'd0, wr_nib};
             end
             S_WR_ERR: begin
-                wr_char = 8'h30 + {4'd0, alarm};
+                wr_char = 8'h30 + {4'd0, shown_alarm};
             end
             default: wr_char = 8'h20;
         endcase
@@ -355,7 +397,7 @@ module latency_osd #(
                 S_IDLE: begin
                     if (vs_fall) begin
                         cv_sel <= 2'd0;
-                        cv_bin <= (lat_ticks > MAX_TICKS) ? CLAMP_TICKS : lat_ticks[16:0];
+                        cv_bin <= (shown_lat_ticks > MAX_TICKS) ? CLAMP_TICKS : shown_lat_ticks[16:0];
                         cv_bcd <= 20'd0;
                         cv_cnt <= 5'd0;
                         idx    <= 7'd0;
@@ -390,18 +432,25 @@ module latency_osd #(
                                     ? (OSD_LEN_MS - 7'd1) : (OSD_LEN_FPS - 7'd1))) begin
                             idx <= 7'd0;
                             case (state)
-                                S_WR_LAT: state <= S_WR_AGE;
+                                S_WR_LAT: begin
+                                    // convert the AGE field as well (b43284c..d8d74e8 skipped it)
+                                    cv_sel <= 2'd1;
+                                    cv_bin <= (shown_age_ticks > MAX_TICKS) ? CLAMP_TICKS : shown_age_ticks[16:0];
+                                    cv_bcd <= 20'd0;
+                                    cv_cnt <= 5'd0;
+                                    state  <= S_CONV;
+                                end
                                 S_WR_AGE: begin
                                     // next conversion: capture fps
                                     cv_sel <= 2'd2;
-                                    cv_bin <= (cap_fps > 32'd999) ? 17'd999 : cap_fps[16:0];
+                                    cv_bin <= (shown_cap > 32'd999) ? 17'd999 : shown_cap[16:0];
                                     cv_bcd <= 20'd0;
                                     cv_cnt <= 5'd0;
                                     state  <= S_CONV;
                                 end
                                 S_WR_CAP: begin
                                     cv_sel <= 2'd3;
-                                    cv_bin <= (dsp_fps > 32'd999) ? 17'd999 : dsp_fps[16:0];
+                                    cv_bin <= (shown_dsp > 32'd999) ? 17'd999 : shown_dsp[16:0];
                                     cv_bcd <= 20'd0;
                                     cv_cnt <= 5'd0;
                                     state  <= S_CONV;

@@ -278,6 +278,15 @@ module latency_meter #(
     wire sid_change  = cap_start && cur_sid_vld && (evt_sid != cur_sid);
     wire fid_wrap    = cap_start && cur_sid_vld && (evt_sid == cur_sid) && (evt_fid < last_fid);
 
+    // cap_too_fast is a pulse in the capture domain: synchronise it before use
+    reg ct_ff1, ct_ff2, ct_ff3;
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) {ct_ff1, ct_ff2, ct_ff3} <= 3'b000;
+        else        {ct_ff1, ct_ff2, ct_ff3} <= {cap_too_fast, ct_ff1, ct_ff2};
+    end
+    wire cap_too_fast_evt = ct_ff2 & ~ct_ff3;
+    wire event_too_fast    = cap_too_fast_evt | evt_gap_alarm;
+
     // one second window counters
     reg  [TICK_W-1:0] fps_base;
     reg  [CNT_W-1:0]  cap_win, dsp_win;
@@ -440,7 +449,7 @@ module latency_meter #(
                     if (dsp_rise)  dsp_win <= dsp_win + 1'b1;
                 end
 
-                if (cap_too_fast || evt_gap_alarm) alarm[2] <= 1'b1;
+                if (event_too_fast) alarm[2] <= 1'b1;
             end
         end
     end

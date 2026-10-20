@@ -29,6 +29,7 @@ module tb_latency_meter;
     parameter integer TB_CROSS          = 3;
     parameter integer TB_TICK_CROSS     = 1;
     parameter integer TB_FPS_WINDOW     = 100000;
+    parameter integer TB_MIN_GAP_SRC    = 2;
     parameter integer TB_MAX_EVENTS     = 64;
 
     reg clk     = 1'b0;
@@ -71,7 +72,7 @@ module tb_latency_meter;
         .CROSS_CYCLES   (TB_CROSS),
         .TICK_CROSS     (TB_TICK_CROSS),
         .FPS_WINDOW_TICKS (TB_FPS_WINDOW),
-        .MIN_GAP_SRC    (2),
+        .MIN_GAP_SRC    (TB_MIN_GAP_SRC),
         .MIN_GAP_DST    (3)
     ) dut (
         .clk_cap       (clk_cap),

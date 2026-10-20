@@ -22,6 +22,8 @@ module tb_latency_osd;
     parameter integer TB_FPS_WINDOW = 200;
     parameter integer TB_X0 = 8;
     parameter integer TB_Y0 = 4;
+    parameter integer TB_REPEAT = 1;   // drive a repeat display -> AGE digits
+    parameter integer TB_FAULT  = 0;   // drive an unmatched display -> stats invalid
 
     localparam integer FC = HT * VT;
 
@@ -98,6 +100,14 @@ module tb_latency_osd;
                     dsp_event <= 1'b1; dsp_sid <= 32'd1; dsp_fid <= f[31:0];
                 end
             end
+            // repeat display of frame 0 -> image age
+            if (TB_REPEAT != 0 && (cyc == 3 * FC - dsp_off + 50)) begin
+                dsp_event <= 1'b1; dsp_sid <= 32'd1; dsp_fid <= 32'd0;
+            end
+            // unmatched display -> association invalid, LAT must show "---.--"
+            if (TB_FAULT != 0 && (cyc == FRAMES * FC - dsp_off + 25)) begin
+                dsp_event <= 1'b1; dsp_sid <= 32'd1; dsp_fid <= 32'd9;
+            end
         end
     end
 
@@ -135,7 +145,7 @@ module tb_latency_osd;
         repeat (4) @(negedge clk);
         rst_n = 1'b1;
         // wait until the formatter is idle again after the last intended frame
-        while ((falls < FRAMES + 1) || (dut.state !== 4'd1)) @(posedge clk);
+        while ((falls < FRAMES + 2) || (dut.state !== 4'd1)) @(posedge clk);
         #20;
         $display("DBG lat_ticks=%0d age_ticks=%0d cap=%0d dsp=%0d alarm=%0d stats=%0d lat_seen=%0d age_seen=%0d fps_valid=%0d",
                  lat_at, age_at, cap_at, dsp_at, alarm_at, dbg_stats_valid, ls_at, as_at, fv_at);

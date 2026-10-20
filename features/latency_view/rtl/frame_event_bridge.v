@@ -66,7 +66,8 @@ module frame_event_bridge #(
             gap_cnt      <= 16'hFFFF;
             cap_too_fast <= 1'b0;
         end else begin
-            cap_d <= cap_event;
+            cap_d        <= cap_event;
+            cap_too_fast <= 1'b0;              // one cycle pulse, latched by the meter
             if (cap_rise && !gap_ok) begin
                 cap_too_fast <= 1'b1;          // dropped, gap counter restarts
                 gap_cnt      <= 16'd0;
@@ -152,11 +153,14 @@ module frame_event_bridge #(
         if (!rst_n) begin
             dsp_gap       <= 16'hFFFF;
             evt_gap_alarm <= 1'b0;
-        end else if (pop) begin
-            if (dsp_gap < MIN_GAP_DST[15:0]) evt_gap_alarm <= 1'b1;
-            dsp_gap <= 16'd0;
-        end else if (dsp_gap != 16'hFFFF) begin
-            dsp_gap <= dsp_gap + 16'd1;
+        end else begin
+            evt_gap_alarm <= 1'b0;             // one cycle pulse
+            if (pop) begin
+                if (dsp_gap < MIN_GAP_DST[15:0]) evt_gap_alarm <= 1'b1;
+                dsp_gap <= 16'd0;
+            end else if (dsp_gap != 16'hFFFF) begin
+                dsp_gap <= dsp_gap + 16'd1;
+            end
         end
     end
 

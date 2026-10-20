@@ -214,6 +214,14 @@ SCENARIOS = [
          counts=(2, 1, 0, 1),
          desc="same key captured twice: record replaced, alarm bit1"),
 
+    dict(name="s19_too_fast_alarm_clr", tol=0, min_gap_src=3,
+         events=[start(105, 1, 1), start(112, 1, 2), done(205, 1, 1),
+                 clr(405), start(505, 1, 2), done(605, 1, 2), dsp(655, 1, 2)],
+         lat=[(515, 655, 1, 2)],
+         alarm=0, stats=(1, 1), cnt=(2, 0, 0, 1), flags=(0, 0, 0),
+         counts=(2, 2, 0, 1),
+         desc="too-close start is dropped and alarm bit2 can be cleared by alarm_clr"),
+
     dict(name="s18_fid_wrap", tol=0,
          events=[start(105, 1, 10), done(155, 1, 10), start(305, 1, 1), done(355, 1, 1),
                  dsp(405, 1, 1)],
@@ -328,6 +336,7 @@ def run_case(case, iver):
            "-Ptb_latency_meter.TB_DEST_HALF=5.0",
            "-Ptb_latency_meter.TB_CAP_HALF=%s" % case.get("cap_half", 5.0),
            "-Ptb_latency_meter.TB_FPS_WINDOW=%d" % case.get("fps_window", 100000),
+           "-Ptb_latency_meter.TB_MIN_GAP_SRC=%d" % case.get("min_gap_src", 2),
            str(HERE / "tb_latency_meter.v"), str(RTL / "latency_meter.v"),
            str(RTL / "frame_event_bridge.v")]
     p = subprocess.run(cmd, capture_output=True, text=True, env=tool_env(iver))
