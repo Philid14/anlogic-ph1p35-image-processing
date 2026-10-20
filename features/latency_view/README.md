@@ -16,7 +16,7 @@
 |---|---|
 | `rtl/frame_event_bridge.v` | 上升沿事件（多拍高电平=1 次）、最小间隔、`{kind,sid,fid}` 异步 FIFO |
 | `rtl/latency_meter.v` | 同帧关联、首次显示统计、AGE、帧计数与帧率窗口、粘滞告警、`resync_req` |
-| `rtl/latency_osd.v` | 5 行面板：LAT / AGE / CAP fps / DSP fps / FRM+E |
+| `rtl/latency_osd.v` | 8 行面板：LAT / AVG / AGE / CAP fps / DSP fps / FRM+E / CNT / ALM |
 | `rtl/text_overlay.v` | 叠加；坐标由 `vs`/`hs` 重对齐 |
 | `rtl/char_rom.v`、`rtl/osd_layout.vh` | 生成物，勿手改 |
 | `model/latency_model.py` | 面板布局/格式/字形；`model/gen_osd_layout.py` 生成布局头 |
@@ -29,6 +29,8 @@
 python model/latency_model.py
 python model/gen_osd_layout.py --check
 python tests/run_latency_sim.py
-python tests/run_osd_sim.py
+python tests/run_osd_sim.py            # 小分辨率 normal + fault
+python tests/run_osd_sim.py --full     # 追加 1280x720 单帧回归
+python model/preview.py --out .build/preview.png   # 面板预览 PNG
 ```
 （`IVERILOG_BIN` 可指定 iverilog；否则尝试 `.tools/iverilog/bin` 与 PATH。）

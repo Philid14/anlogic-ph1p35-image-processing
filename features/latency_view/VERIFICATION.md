@@ -18,7 +18,8 @@ vvp align.vvp
 | 模型自检 | `latency_model self-test: PASS` |
 | 布局生成物 | `osd_layout.vh up to date` |
 | 19 场景 | **cases: 19, failed: 0 / RESULT: PASS** |
-| 面板内容 | **RESULT: PASS**（normal + fault 两种模式，80 字符与模型一致） |
+| 面板内容 | **RESULT: PASS**（normal + fault，128 字符与模型一致） |
+| 720p 全尺寸 | **PASS**（1280×720 单帧，8 行面板与模型一致） |
 | 坐标对齐 | `ALIGN_ERRORS 0` |
 
 ## 场景
@@ -56,6 +57,8 @@ vvp align.vvp
 | 3 | 关联失效时面板仍显示旧 LAT 数字 | 面板 `lat_ok = shown_lat_seen & shown_stats` | `run_osd_sim` fault=1 显示 `LAT ---.--MS` |
 | 4 | 面板与调试值非同一快照（CAP 字段偶发差 1） | 每帧 `vs_fall` 原子快照 `shown_*`，格式化与 DBG 共用 | `run_osd_sim` 两种模式均 PASS |
 | 5 | OSD 测试从未覆盖 AGE | 增加重复显示与故障模式 | `run_osd_sim`（2 模式） |
+| 6 | 720p 下 `vs_fall` 当拍读到上一帧快照（同沿竞争） | 增加 `S_SNAP` 一拍后再启动转换 | `run_osd_sim --full` |
+| 7 | 面板缺少平均延迟/首次显示计数/告警文字 | 8 行面板 + 64 拍串行除法器 + BCD 计数 + 告警词 | `run_osd_sim` 全部模式 |
 
 ## 未验证（如实标记）
 

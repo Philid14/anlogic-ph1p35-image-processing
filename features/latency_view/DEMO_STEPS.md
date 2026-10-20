@@ -13,4 +13,6 @@
    重点：`s2_skip`（A/B/C 只显示 C → 报 C 的延迟）、`s4_repeat`（只报 AGE）、
    `s6_overflow_recovery`（`alarm_clr` 不恢复统计）、`s13_incomplete`（未完成不计统计）。
 4. 坐标对齐：`ALIGN_ERRORS 0`。
-5. 口径：全部为**仿真**；未接主线、无 bit、未上板。
+5. 面板预览图：`python model/preview.py --out .build/preview.png`
+   生成 `.build/preview.png` 与 `.build/preview-panel.png`（8 行面板）。
+6. 口径：全部为**仿真**；未接主线、无 bit、未上板。

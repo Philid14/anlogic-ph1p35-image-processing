@@ -44,6 +44,8 @@ module tb_latency_osd;
     wire [7:0]  dbg_rdata;
     wire [31:0] dbg_lat_cycles, dbg_lat_ticks, dbg_age_cycles, dbg_age_ticks;
     wire [31:0] dbg_cap_fps, dbg_dsp_fps, dbg_cap_count, dbg_dsp_count;
+    wire [31:0] dbg_avg_ticks, dbg_stat_count;
+    wire [63:0] dbg_sum_ticks;
     wire [3:0]  dbg_alarm;
     wire        dbg_stats_valid, dbg_lat_seen, dbg_age_seen, dbg_fps_valid;
 
@@ -66,6 +68,7 @@ module tb_latency_osd;
         .dbg_age_cycles(dbg_age_cycles), .dbg_age_ticks(dbg_age_ticks),
         .dbg_cap_fps(dbg_cap_fps), .dbg_dsp_fps(dbg_dsp_fps),
         .dbg_cap_count(dbg_cap_count), .dbg_dsp_count(dbg_dsp_count),
+        .dbg_avg_ticks(dbg_avg_ticks), .dbg_stat_count(dbg_stat_count), .dbg_sum_ticks(dbg_sum_ticks),
         .dbg_alarm(dbg_alarm), .dbg_stats_valid(dbg_stats_valid),
         .dbg_lat_seen(dbg_lat_seen), .dbg_age_seen(dbg_age_seen), .dbg_fps_valid(dbg_fps_valid)
     );
@@ -147,10 +150,11 @@ module tb_latency_osd;
         // wait until the formatter is idle again after the last intended frame
         while ((falls < FRAMES + 2) || (dut.state !== 4'd1)) @(posedge clk);
         #20;
-        $display("DBG lat_ticks=%0d age_ticks=%0d cap=%0d dsp=%0d alarm=%0d stats=%0d lat_seen=%0d age_seen=%0d fps_valid=%0d",
-                 lat_at, age_at, cap_at, dsp_at, alarm_at, dbg_stats_valid, ls_at, as_at, fv_at);
+        $display("DBG lat_ticks=%0d avg_ticks=%0d age_ticks=%0d cap=%0d dsp=%0d alarm=%0d stats=%0d lat_seen=%0d age_seen=%0d fps_valid=%0d cnt=%0d sum_ticks=%0d",
+                 lat_at, dbg_avg_ticks, age_at, cap_at, dsp_at, alarm_at, dbg_stats_valid, ls_at, as_at, fv_at,
+                 dbg_stat_count, dbg_sum_ticks);
         $display("FRAME_BCD %08x", frame_at);
-        for (i = 0; i < 80; i = i + 1) begin
+        for (i = 0; i < 128; i = i + 1) begin
             dbg_raddr = i[6:0];
             #1;
             $display("CHAR %0d %0d", i, dbg_rdata);
@@ -160,7 +164,7 @@ module tb_latency_osd;
     end
 
     initial begin
-        #5000000;
+        #200000000;   // 20 M cycles: enough for one 1280x720 frame
         $display("TB_ERRORS=1 timeout");
         $finish;
     end

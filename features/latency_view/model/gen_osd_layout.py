@@ -33,14 +33,20 @@ def render() -> str:
     ]
     for name, value, comment in (
         ("OSD_FLD_LAT", m.FIELD_LAT, "row0 latency, 6 chars"),
-        ("OSD_FLD_AGE", m.FIELD_AGE, "row1 image age, 6 chars"),
-        ("OSD_FLD_CAP", m.FIELD_CAP, "row2 capture fps, 5 chars"),
-        ("OSD_FLD_DSP", m.FIELD_DSP, "row3 display fps, 5 chars"),
-        ("OSD_FLD_FRM", m.FIELD_FRM, "row4 frame counter, 8 chars"),
-        ("OSD_FLD_ERR", m.FIELD_ERR, "row4 alarm nibble, 1 char"),
+        ("OSD_FLD_AVG", m.FIELD_AVG, "row1 average latency, 6 chars"),
+        ("OSD_FLD_AGE", m.FIELD_AGE, "row2 image age, 6 chars"),
+        ("OSD_FLD_CAP", m.FIELD_CAP, "row3 capture fps, 5 chars"),
+        ("OSD_FLD_DSP", m.FIELD_DSP, "row4 display fps, 5 chars"),
+        ("OSD_FLD_FRM", m.FIELD_FRM, "row5 frame counter, 8 chars"),
+        ("OSD_FLD_ERR", m.FIELD_ERR, "row5 alarm nibble, 1 char"),
+        ("OSD_FLD_CNT", m.FIELD_CNT, "row6 first display count, 8 chars"),
+        ("OSD_FLD_ALM_NIB", m.FIELD_ALM_NIB, "row7 alarm nibble, 1 char"),
+        ("OSD_FLD_ALM_TXT", m.FIELD_ALM_TXT, "row7 alarm word, 8 chars"),
         ("OSD_LEN_MS", m.FIELD_LEN_MS, ""),
         ("OSD_LEN_FPS", m.FIELD_LEN_FPS, ""),
         ("OSD_LEN_FRM", m.FIELD_LEN_FRM, ""),
+        ("OSD_LEN_CNT", m.FIELD_LEN_CNT, ""),
+        ("OSD_LEN_ALM", m.FIELD_LEN_ALM, ""),
     ):
         lines.append("localparam [6:0] %s = 7'd%d;  // %s" % (name, value, comment))
     lines.append("")

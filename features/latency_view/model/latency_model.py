@@ -36,7 +36,7 @@ def clock_params(clk_hz: int) -> tuple[int, int, int]:
 
 
 OSD_COLS = 16
-OSD_ROWS = 5
+OSD_ROWS = 8
 OSD_CELL_PX = GLYPH_COLS          # 8
 OSD_SCALE_LOG2 = 1                # 2x -> 16x16 pixel cell
 OSD_X0 = 24
@@ -44,30 +44,46 @@ OSD_Y0 = 24
 
 _TEMPLATE_ROWS = (
     "LAT  ######MS   ",
+    "AVG  ######MS   ",
     "AGE  ######MS   ",
-    "CAP   #####FPS  ",
-    "DSP   #####FPS  ",
+    "CAP  #####FPS   ",
+    "DSP  #####FPS   ",
     "FRM ######## E# ",
+    "CNT ########    ",
+    "ALM # ########  ",
 )
 
 FIELD_LAT = 5
-FIELD_AGE = 21
-FIELD_CAP = 38
-FIELD_DSP = 54
-FIELD_FRM = 68
-FIELD_ERR = 78
+FIELD_AVG = 21
+FIELD_AGE = 37
+FIELD_CAP = 53
+FIELD_DSP = 69
+FIELD_FRM = 84
+FIELD_ERR = 94
+FIELD_CNT = 100
+FIELD_ALM_NIB = 116
+FIELD_ALM_TXT = 118
 FIELD_LEN_MS = 6
 FIELD_LEN_FPS = 5
 FIELD_LEN_FRM = 8
-FIELD_LEN_ERR = 1
+FIELD_LEN_CNT = 8
+FIELD_LEN_ALM = 8
 
 TEMPLATE = "".join(_TEMPLATE_ROWS)
-assert len(TEMPLATE) == OSD_COLS * OSD_ROWS == 80
+assert len(TEMPLATE) == OSD_COLS * OSD_ROWS == 128, len(TEMPLATE)
 
 ERR_UNMATCHED = 0b0001
 ERR_RECORD = 0b0010
 ERR_EVENT = 0b0100
 ERR_SESSION = 0b1000
+
+# priority order for the alarm word
+ALARM_WORDS = (
+    (ERR_UNMATCHED, "UNMATCH"),
+    (ERR_RECORD,    "OVERWR"),
+    (ERR_EVENT,     "TOOFAST"),
+    (ERR_SESSION,   "SESSION"),
+)
 
 
 def _digit(nibble: int) -> str:
@@ -104,7 +120,6 @@ def format_ms_field(ticks: int, valid: bool = True) -> str:
 
 
 def format_fps_field(value: int, valid: bool = True) -> str:
-    """Five characters, right aligned 0..999, or '  ---'."""
     if not valid:
         return "  ---"
     return ("%3d" % min(999, max(0, int(value)))).rjust(5)
@@ -114,22 +129,38 @@ def format_frame_field(frame_count: int) -> str:
     return "".join(_digit(d) for d in _decimal_digits(int(frame_count) % 100_000_000, 8))
 
 
+def format_count_field(count: int) -> str:
+    return format_frame_field(count)
+
+
 def format_err_field(err_nibble: int) -> str:
     return _digit(err_nibble)
 
 
-def char_buffer(lat_ticks: int, age_ticks: int, cap_fps: int, dsp_fps: int,
-                frame_count: int, err_nibble: int = 0, lat_valid: bool = True,
-                age_valid: bool = True, fps_valid: bool = True) -> str:
-    """Full 80 character panel exactly as latency_osd.v writes it."""
+def alarm_word(err_nibble: int) -> str:
+    for bit, word in ALARM_WORDS:
+        if err_nibble & bit:
+            return word
+    return "NONE"
+
+
+def char_buffer(lat_ticks: int, avg_ticks: int, age_ticks: int, cap_fps: int, dsp_fps: int,
+                frame_count: int, stat_count: int, err_nibble: int = 0,
+                lat_valid: bool = True, avg_valid: bool = True, age_valid: bool = True,
+                fps_valid: bool = True) -> str:
+    """Full 128 character panel exactly as latency_osd.v writes it."""
     buf = list(TEMPLATE)
     for start, text in (
         (FIELD_LAT, format_ms_field(lat_ticks, lat_valid)),
+        (FIELD_AVG, format_ms_field(avg_ticks, avg_valid)),
         (FIELD_AGE, format_ms_field(age_ticks, age_valid)),
         (FIELD_CAP, format_fps_field(cap_fps, fps_valid)),
         (FIELD_DSP, format_fps_field(dsp_fps, fps_valid)),
         (FIELD_FRM, format_frame_field(frame_count)),
         (FIELD_ERR, format_err_field(err_nibble)),
+        (FIELD_CNT, format_count_field(stat_count)),
+        (FIELD_ALM_NIB, format_err_field(err_nibble)),
+        (FIELD_ALM_TXT, alarm_word(err_nibble).ljust(8)),
     ):
         for offset, ch in enumerate(text):
             buf[start + offset] = ch
@@ -188,14 +219,20 @@ def self_test() -> int:
     assert format_fps_field(30) == "   30"
     assert format_fps_field(0, False) == "  ---"
     assert format_frame_field(12345) == "00012345"
-    buf = char_buffer(3330, 1240, 30, 60, 12345, 0)
-    assert len(buf) == 80
+    assert alarm_word(0) == "NONE"
+    assert alarm_word(1) == "UNMATCH"
+    assert alarm_word(4) == "TOOFAST"
+    buf = char_buffer(3330, 3400, 1240, 30, 60, 12345, 77, 0)
+    assert len(buf) == 128
     assert buf[FIELD_LAT:FIELD_LAT + 6] == " 33.30"
+    assert buf[FIELD_AVG:FIELD_AVG + 6] == " 34.00"
     assert buf[FIELD_AGE:FIELD_AGE + 6] == " 12.40"
     assert buf[FIELD_CAP:FIELD_CAP + 5] == "   30"
     assert buf[FIELD_DSP:FIELD_DSP + 5] == "   60"
     assert buf[FIELD_FRM:FIELD_FRM + 8] == "00012345"
     assert buf[FIELD_ERR] == "0"
+    assert buf[FIELD_CNT:FIELD_CNT + 8] == "00000077"
+    assert buf[FIELD_ALM_TXT:FIELD_ALM_TXT + 8] == "NONE    "
     assert glyph_rows("A")[0] == 0x0C
     assert glyph_pixel("A", 0, 2) == 1
     print("latency_model self-test: PASS")

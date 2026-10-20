@@ -93,6 +93,7 @@ module latency_meter #(
     output reg  [CNT_W-1:0]  unmatched_count,
     output reg  [CNT_W-1:0]  repeat_count,
     output reg  [63:0]       stat_sum_cycles,
+    output reg  [63:0]       stat_sum_ticks,   // sum of lat_ticks for the average
     output reg  [CNT_W-1:0]  cap_fps,          // captures in the last window
     output reg  [CNT_W-1:0]  dsp_fps,          // display events in the last window
     output reg               fps_valid,        // first window completed
@@ -318,6 +319,7 @@ module latency_meter #(
             dsp_count        <= {CNT_W{1'b0}};
             stat_count       <= {CNT_W{1'b0}};
             stat_sum_cycles  <= 64'd0;
+            stat_sum_ticks   <= 64'd0;
             unmatched_count  <= {CNT_W{1'b0}};
             repeat_count     <= {CNT_W{1'b0}};
             lost_done_count  <= {CNT_W{1'b0}};
@@ -412,6 +414,7 @@ module latency_meter #(
                     lat_seen       <= 1'b1;
                     used[hit_idx]  <= 1'b1;
                     stat_sum_cycles<= stat_sum_cycles + lat_cyc_nxt;
+                    stat_sum_ticks <= stat_sum_ticks + lat_tick_nxt;
                     stat_count     <= stat_count + 1'b1;
                     stats_valid    <= 1'b1;
                 end else if (commit_age) begin

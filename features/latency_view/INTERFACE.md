@@ -23,7 +23,7 @@
 ## 输出
 
 `lat_valid/lat_cycles/lat_ticks/lat_seen`（`lat_ticks` 单位 0.01 ms）、
-`age_*`（重复显示图像年龄）、`stat_count/stat_sum_cycles`、
+`age_*`（重复显示图像年龄）、`stat_count/stat_sum_cycles/stat_sum_ticks`（平均延迟 = sum/count，由读取方计算）、
 `cap_count/cap_done_count/cap_abort_count/dsp_count`、
 `cap_fps/dsp_fps/fps_valid`（窗口= `FPS_WINDOW_TICKS` 个 0.01 ms 刻度，默认 1 s）、
 `stats_valid`、`alarm[3:0]`：
@@ -54,6 +54,13 @@
 | 会话切换/帧号回绕 | 清空旧会话 | bit3，`stats_valid=0` |
 | `alarm_clr` | 仅清告警，不恢复统计 | — |
 | `resync_req` + 干净配对 | 统计重新有效 | — |
+
+## 面板（latency_osd）
+
+8 行 × 16 字符：`LAT`（最近一次首次显示）、`AVG`（自 resync 以来平均，RTL 内 64 拍串行除法器计算）、
+`AGE`（最近重复显示图像年龄）、`CAP fps` / `DSP fps`（窗口计数）、`FRM` + 告警半字节、
+`CNT`（首次显示次数）、`ALM`（告警半字节 + 文字：UNMATCH / OVERWR / TOOFAST / SESSION / NONE）。
+面板与调试输出共用 `vs_fall` 原子快照，`stats_valid=0` 时 LAT/AVG 显示 `---.--`。
 
 ## 待 MAIN 确认
 
