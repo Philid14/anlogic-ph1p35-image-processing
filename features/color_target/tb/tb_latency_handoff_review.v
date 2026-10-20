@@ -12,7 +12,7 @@ module tb_latency_handoff_review;
     reg [31:0] bs = 1, bf = 0;
     wire bt, bv, bg;
     wire [65:0] bd;
-    frame_event_bridge bridge(.clk_cap(src), .rst_cap_n(srst),
+    frame_event_bridge #(.SID_W(32), .FID_W(32), .DEPTH_LOG2(4)) bridge(.clk_cap(src), .rst_cap_n(srst),
         .cap_event(be), .cap_kind(bk), .cap_sid(bs), .cap_fid(bf),
         .cap_too_fast(bt), .clk(dst), .rst_n(drst), .evt_ready(br),
         .evt_data(bd), .evt_valid(bv), .evt_gap_alarm(bg));
@@ -44,13 +44,28 @@ module tb_latency_handoff_review;
     integer next_fid = 1, offered = 0, i, saved;
     integer source_drop_toggles = 0;
     reg previous_mt = 0;
+    integer bridge_drop_toggles = 0, source_cycle = 0;
+    integer previous_offer_cycle = -1, minimum_offer_gap = 65535;
+    reg previous_bt = 0, previous_be = 0;
     reg check_sequence = 0;
+    always @(posedge src) if (srst) begin
+        source_cycle = source_cycle + 1;
+        if (be && !previous_be) begin
+            if (previous_offer_cycle >= 0 &&
+                source_cycle-previous_offer_cycle < minimum_offer_gap)
+                minimum_offer_gap = source_cycle-previous_offer_cycle;
+            previous_offer_cycle = source_cycle;
+        end
+        previous_be = be;
+    end
     always @(negedge src) if (srst) begin
         if (mt !== previous_mt) begin
             source_drop_toggles = source_drop_toggles + 1;
             $display("SOURCE_DROP_TOGGLE value=%0d",mt);
         end
         previous_mt = mt;
+        if (bt !== previous_bt) bridge_drop_toggles = bridge_drop_toggles + 1;
+        previous_bt = bt;
     end
     always @(posedge dst) if (drst) begin
         if (bg) bridge_alarm_seen = 1;
@@ -87,7 +102,9 @@ module tb_latency_handoff_review;
         begin
             @(negedge src); be=1; bf=fid; offered=offered+1;
             @(negedge src); be=0;
-            repeat(4) @(negedge src);
+            // Next invocation adds its own leading edge: 1 high + 3 low +
+            // that leading edge gives exactly five cycles between rises.
+            repeat(3) @(negedge src);
         end
     endtask
     task msend;
@@ -157,15 +174,14 @@ module tb_latency_handoff_review;
             check_sequence=1;
             for(i=1;i<=20;i=i+1) bsend(i);
             check(1,"offered_twenty_legal_gap_events",offered,20);
-            check(1,"no_source_gap_violation",bt,0);
+            check(1,"source_input_gap_is_five_cycles",minimum_offer_gap,5);
             wait_dst(8);
             sparse_drain(24);
-            check(1,"first_sixteen_arrive_in_order",sequence_errors,0);
-            check(1,"fifo_capacity_observed",delivered,16);
-            $display("OBS offered=%0d delivered=%0d source_alarm=%0d destination_alarm=%0d",
-                offered,delivered,bt,bridge_alarm_seen);
+            check(1,"delivered_payloads_arrive_in_order",sequence_errors,0);
+            $display("OBS offered=%0d delivered=%0d source_loss_transitions=%0d destination_alarm=%0d",
+                offered,delivered,bridge_drop_toggles,bridge_alarm_seen);
             check(0,"all_events_delivered_or_loss_visible",
-                ((delivered==offered) || bt || bridge_alarm_seen),1);
+                ((delivered==offered) || (bridge_drop_toggles>0) || bridge_alarm_seen),1);
         end
         3: begin
             // Stop safely on the low phase: two rejected rises happen entirely
@@ -227,6 +243,20 @@ module tb_latency_handoff_review;
             check(1,"queued_old_events_have_arrived",caps,1);
             display_frame(1,7);
             check(0,"table_resync_alone_cannot_certify_epoch_barrier",count,0);
+        end
+        8: begin
+            // Positive control: the existing toggle path does convey a single
+            // pending error. Two-error failure is not just a dead monitor.
+            @(negedge dst); dst_run=0;
+            @(negedge src); me=1; mk=0; ms=1; mf=1;
+            @(negedge src); me=0;
+            @(negedge src); me=1; mf=2;
+            @(negedge src); me=0;
+            repeat(4) @(negedge src);
+            check(1,"exactly_one_source_drop_toggle",source_drop_toggles,1);
+            dst_run=1; wait_dst(20);
+            check(1,"single_error_control_keeps_accepted_event",caps,1);
+            check(0,"single_pending_error_is_visible",meter_alarm_seen,1);
         end
         default: begin check(1,"known_case",CASE_ID,0); end
         endcase

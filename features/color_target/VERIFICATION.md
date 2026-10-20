@@ -1,10 +1,11 @@
 # TARGET 验证入口（2026-10-20上传整合）
 
-2026-10-20追加：对队友LATENCY固定531ef61的8项独立接口审查见
-[复审与责任链](integration/LATENCY_REVIEW_531ef61.md)。新入口
-`run_latency_handoff_review.py --revision <40位SHA> --msim <目录> --out <新目录>`
-只读取两份Git源码；当前2项控制通过、6场景有7条安全要求失败，退出1。
-该审查不并入原handoff16，不把成功形成反例写成功能PASS；无物理CDC/整机P&R结论。
+2026-10-21自检：LATENCY固定531ef61的新独立审查为9场景33检查；3项控制通过，
+2项模块可靠性要求失败，另有1项待定策略及3项MAIN适配依赖。旧8/31及间隔描述更正见
+[自检报告](integration/SELF_REVIEW_2026-10-21.md)，原始证据保留。
+`run_latency_handoff_review.py --revision <40位SHA> --gate <component或integration> --msim <目录> --out <新目录>`
+只读取两份Git源码，默认integration；两种门当前都退出1，组件门不认证MAIN。
+本审查不并入原handoff16；无物理CDC/整机P&R结论，具体退出与OPEN口径见报告。
 
 当前交付是独立模块、A1 修复和集成审查资料。MAIN 尚未接入 TARGET；本轮没有新整机 P&R、bit 或板测结论。
 `FILTER_ENABLE=0`，生产颜色门限不变。A2已获准实现独立guard并完成自检，见

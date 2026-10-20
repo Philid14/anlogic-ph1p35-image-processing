@@ -19,9 +19,10 @@
 
 2026-10-20后续复审：原生fetch因网络失败；收口时GitHub API已复核main/STYLE V2/LATENCY的远端HEAD与表一致，
 回执见 `evidence/latency_handoff_2026-10-20/remote-verified.json`（相对本功能目录）。不将其称作原生fetch成功。
-对固定531ef61已完成8项独立接口场景，2项控制通过、6项场景的7条安全要求失败；
-重点是FIFO满时静默丢失、偶数次错误toggle抵消，以及恢复/权威会话/单侧reset/排空边界。
-这是新增审查证据，不覆盖原handoff16，也没有修改任何生产RTL。
+对固定531ef61的历史8/31已于2026-10-21自检修正，当前9场景33检查：3控制通过、2项模块可靠性要求失败，
+另有1项待定恢复策略与3项MAIN适配依赖；见[自检报告](../integration/SELF_REVIEW_2026-10-21.md)。
+FIFO满时静默丢失与两次错误toggle抵消反例均仍成立；策略/适配缺项不统一算作RTL bug。
+先推进TARGET最小闭环，LATENCY可靠性并行收口；不覆盖原handoff16，没有修改任何生产RTL。
 MAIN接LATENCY前须处理或明确这些依赖；TARGET guard不会自动保护LATENCY的独立事件入口。
 
 V1→V2实际构建源的主工程差异已核对：仅 `isp/style_fill_96.v` 改动，AWB前后观察边界、

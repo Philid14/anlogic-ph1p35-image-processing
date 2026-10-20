@@ -1,0 +1,350 @@
+{
+  "archive_sha256": "24260a65cf00cc0cfb9bc6e4f33b094ab5fb586dab40e261b94e53b9099fb09f",
+  "members": [
+    {
+      "path": "before-parser-probes.json",
+      "bytes": 381,
+      "sha256": "0f372886758358e99df09b9a6799107b83adfa56c3aa08cdef258b24deee3e01"
+    },
+    {
+      "path": "after-probes.json",
+      "bytes": 1418,
+      "sha256": "09d645005205c45eba83c8977ca904cfc81a3f5e17115c7d2d837856e8b6facd"
+    },
+    {
+      "path": "original-stimulus-gaps.json",
+      "bytes": 881,
+      "sha256": "4cd4754990f941cac6959bbd6918b2caf917a79b261b815f002ff8339a307d40"
+    },
+    {
+      "path": "changed_gold_to_match_wrong_value.log",
+      "bytes": 1619,
+      "sha256": "319f7030a82b0029b48c1cffd3123ddd2e6c4af60a963d8dbc3d4513d7effaa5"
+    },
+    {
+      "path": "nonbinary_pass_flag.log",
+      "bytes": 1619,
+      "sha256": "4bcbbe475ce9dea88763e986dda3e9ab818934786cb67ed431baa0ca3b44fe01"
+    },
+    {
+      "path": "changed_requirement_into_setup.log",
+      "bytes": 1619,
+      "sha256": "136d39902f6c5a13fe8014b9f714901e2546989e4e58384e8b2efe631b7636c8"
+    },
+    {
+      "path": "original-full-input.vcd",
+      "bytes": 768,
+      "sha256": "01630ba0c000d1338d9bc80e06a2164e4d6d3e84acd7b788fd09134de7863005"
+    },
+    {
+      "path": "corrected-full-input.vcd",
+      "bytes": 763,
+      "sha256": "f5f186d601661a706cfd7576caa9683e0c45a52b2e7d723862475a4b2e316d8a"
+    },
+    {
+      "path": "original-vcd-tool.log",
+      "bytes": 2441,
+      "sha256": "a84a895eca2f2e5cf6768704f21dafaa59532973f216613cd236357295cf38a5"
+    },
+    {
+      "path": "corrected-vcd-tool.log",
+      "bytes": 2360,
+      "sha256": "4836520a972707e936a6e964774dfff37c60452f6549af42966f529b23ca98c8"
+    },
+    {
+      "path": "probe_original.py",
+      "bytes": 2892,
+      "sha256": "254172ac963cce09c45230ebf0e6cf3ad5e54b981a13966db35d52d152ec3b0b"
+    },
+    {
+      "path": "probe_corrected.py",
+      "bytes": 2019,
+      "sha256": "a6e7f11dd41d8c3c60090fa0da7d22364162a434dbc60d2dd8935f6c0b96b250"
+    },
+    {
+      "path": "parser-tests.log",
+      "bytes": 114,
+      "sha256": "7fa2c3f39772ba088198b95aa567e627f67c3902377d56005c27e26c62e660a9"
+    },
+    {
+      "path": "rtl-01/bridge_full_loss/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/bridge_full_loss/vlog.log",
+      "bytes": 784,
+      "sha256": "13206fee6702abd22bd199f1bcd02c4221e1b499c732d899672f2b2f1e4fe4b1"
+    },
+    {
+      "path": "rtl-01/bridge_full_loss/vsim.log",
+      "bytes": 2129,
+      "sha256": "45064513ab089417e96f0c7088bb757ed1ba692f137d841cd27b3faf6a47892f"
+    },
+    {
+      "path": "rtl-01/destination_only_reset/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/destination_only_reset/vlog.log",
+      "bytes": 784,
+      "sha256": "7bc4b8610a247fc7d4c3320284efaf75142390c74d84300226a888233830b77d"
+    },
+    {
+      "path": "rtl-01/destination_only_reset/vsim.log",
+      "bytes": 1483,
+      "sha256": "9d79cfdcc0ba64b396878865229cd58ba522e9551720f362aa4a0d7efcf2bf6d"
+    },
+    {
+      "path": "rtl-01/even_error_toggle_alias/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/even_error_toggle_alias/vlog.log",
+      "bytes": 784,
+      "sha256": "eded3934fd8274ccb52adfb3ff2bce587c87304a65a126d14433e96adb1e574b"
+    },
+    {
+      "path": "rtl-01/even_error_toggle_alias/vsim.log",
+      "bytes": 1619,
+      "sha256": "5d430c4dfe8ff30f780a9276f7c382fb4d7b3d319c33b2415b0a5d1db10dbfae"
+    },
+    {
+      "path": "rtl-01/normal_and_repeat/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/normal_and_repeat/vlog.log",
+      "bytes": 784,
+      "sha256": "b12d978f08747a65d0cc434a7377d9965847b21a4ed5cd18720d2461e2f9a462"
+    },
+    {
+      "path": "rtl-01/normal_and_repeat/vsim.log",
+      "bytes": 1586,
+      "sha256": "6e5743fcc42d7f6cfc794f23a7180bec668a6e7981eb9092e1dbeab50dd9866d"
+    },
+    {
+      "path": "rtl-01/overflow_requires_resync/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/overflow_requires_resync/vlog.log",
+      "bytes": 784,
+      "sha256": "e6c56bf237b8206f6329a52f8b5b51558690c0fe17adf87860827b1bc827ca25"
+    },
+    {
+      "path": "rtl-01/overflow_requires_resync/vsim.log",
+      "bytes": 1653,
+      "sha256": "c95e75b57aff2384ec37fb7ed80c2d75c36cbd1e796b8806aeb6d88b90fd1656"
+    },
+    {
+      "path": "rtl-01/resync_inflight/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/resync_inflight/vlog.log",
+      "bytes": 784,
+      "sha256": "9522d69d4637dd7e5892c76b63aa3a1739fee6774627450cf5ce817542fc7879"
+    },
+    {
+      "path": "rtl-01/resync_inflight/vsim.log",
+      "bytes": 1407,
+      "sha256": "23e13ad7f839f296e51442b3c0b9a9dc17717bb273fa4c4347880855f453d8d7"
+    },
+    {
+      "path": "rtl-01/resync_statistics_window/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/resync_statistics_window/vlog.log",
+      "bytes": 784,
+      "sha256": "db19226e7f3f90bbd6dbcf0d5f0d8a0491795d0cb8ebab73a57ee91569ce0d9c"
+    },
+    {
+      "path": "rtl-01/resync_statistics_window/vsim.log",
+      "bytes": 1648,
+      "sha256": "d5be545edc9c34cdadebbabeb40658ea5343d630ed259cc31d0894104e7f9b98"
+    },
+    {
+      "path": "rtl-01/retired_session_replay/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/retired_session_replay/vlog.log",
+      "bytes": 784,
+      "sha256": "6c732e4829c1b0c4f78206e7035c11d9e45b1f74a9130ac7fa21030af724b1be"
+    },
+    {
+      "path": "rtl-01/retired_session_replay/vsim.log",
+      "bytes": 1395,
+      "sha256": "46a646d47bef6927cf92086b18f64733218f781f442a4f9a10e54216a14eb544"
+    },
+    {
+      "path": "rtl-01/single_error_toggle_visible/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-01/single_error_toggle_visible/vlog.log",
+      "bytes": 784,
+      "sha256": "c37a2dd18793ecc6bc0e45cf7156a2f61c512a826b71bce7eb65a02d8c30fbad"
+    },
+    {
+      "path": "rtl-01/single_error_toggle_visible/vsim.log",
+      "bytes": 1512,
+      "sha256": "f1d0ca739621f5cba4dd62d053b4d81baa316a70bba1e30dd54718b53c345389"
+    },
+    {
+      "path": "rtl-01/summary.json",
+      "bytes": 27706,
+      "sha256": "4af9bcb56e1f53442ce78948df4b6a4e99f1df9b02ee8dab32ec715ac0235300"
+    },
+    {
+      "path": "rtl-02-component/bridge_full_loss/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/bridge_full_loss/vlog.log",
+      "bytes": 814,
+      "sha256": "7c4dc97a546e00bf116052947f91cf9535e453fc3f56248f5c6dd0cd0025a01b"
+    },
+    {
+      "path": "rtl-02-component/bridge_full_loss/vsim.log",
+      "bytes": 2159,
+      "sha256": "27fc38e4ccb22555f85570402f1e2031e60d4db3f15bd54abe3bd8e1ab84503e"
+    },
+    {
+      "path": "rtl-02-component/destination_only_reset/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/destination_only_reset/vlog.log",
+      "bytes": 814,
+      "sha256": "e3854b54902f28d8b30f4380def1d18424a030d7dc4ad21b34f3599ea6b3c1c4"
+    },
+    {
+      "path": "rtl-02-component/destination_only_reset/vsim.log",
+      "bytes": 1513,
+      "sha256": "f16370bd9a80ce3314cc05ca9d1eaa8ac0afb5e4978b42ad9d699506de6eb314"
+    },
+    {
+      "path": "rtl-02-component/even_error_toggle_alias/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/even_error_toggle_alias/vlog.log",
+      "bytes": 814,
+      "sha256": "97eff4cb83dbceaab4b7f78416b80b8d80a26c2968328f9f39900b86b94c0092"
+    },
+    {
+      "path": "rtl-02-component/even_error_toggle_alias/vsim.log",
+      "bytes": 1649,
+      "sha256": "c7cbc811c4d561f2fef0bedbc52f380ef42110feb4c7ba722b32db6d40712760"
+    },
+    {
+      "path": "rtl-02-component/normal_and_repeat/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/normal_and_repeat/vlog.log",
+      "bytes": 814,
+      "sha256": "c80d3e8a98284baa42f3ad8247de9b57b442d3f02e90db8b51e4e3cf343cbe36"
+    },
+    {
+      "path": "rtl-02-component/normal_and_repeat/vsim.log",
+      "bytes": 1616,
+      "sha256": "f98b05179ec19ffad4ba0c1787a58c6cf020e1937ecc3aaacbdf752176a295a3"
+    },
+    {
+      "path": "rtl-02-component/overflow_requires_resync/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/overflow_requires_resync/vlog.log",
+      "bytes": 814,
+      "sha256": "1f57697dd5eeeed8f6a4d2a7bfa876dba463a39d36e2f5ac2bdd7d8f999fd5b4"
+    },
+    {
+      "path": "rtl-02-component/overflow_requires_resync/vsim.log",
+      "bytes": 1683,
+      "sha256": "3b47ddc7baa32c9ed63fec0c0fd94361cc0875157d092fc453b9bd7835d78dc7"
+    },
+    {
+      "path": "rtl-02-component/resync_inflight/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/resync_inflight/vlog.log",
+      "bytes": 814,
+      "sha256": "f6dd2e6575efac340c7362f69f3187ffa7180438f9012e65b099163b34c9ecd3"
+    },
+    {
+      "path": "rtl-02-component/resync_inflight/vsim.log",
+      "bytes": 1437,
+      "sha256": "c692e5be6a4622342da4a7c8d6e0057dc36ecce9083bb755ccb475159f2bc14a"
+    },
+    {
+      "path": "rtl-02-component/resync_statistics_window/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/resync_statistics_window/vlog.log",
+      "bytes": 814,
+      "sha256": "51459c9b06dc71d898bddd62c15254f5663186664f4d78a4d204c18d8e04eb0a"
+    },
+    {
+      "path": "rtl-02-component/resync_statistics_window/vsim.log",
+      "bytes": 1678,
+      "sha256": "6723678ae8227552bcb12b2b0f3df32c43cfc4e3fc478ebbcfdef9bad2da06b3"
+    },
+    {
+      "path": "rtl-02-component/retired_session_replay/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/retired_session_replay/vlog.log",
+      "bytes": 814,
+      "sha256": "52427dc9105ed47b985aa10bb5691c03863aed2c321915eb69afacfc2a85c6ac"
+    },
+    {
+      "path": "rtl-02-component/retired_session_replay/vsim.log",
+      "bytes": 1425,
+      "sha256": "4570b865eecbc1b355f6f5d73365decd0e6574b9129007179a966f6f719153a6"
+    },
+    {
+      "path": "rtl-02-component/single_error_toggle_visible/vlib.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "rtl-02-component/single_error_toggle_visible/vlog.log",
+      "bytes": 814,
+      "sha256": "77adddb9e580a36207c83b4590698de7f3444dfb80401258d7296fea551e9307"
+    },
+    {
+      "path": "rtl-02-component/single_error_toggle_visible/vsim.log",
+      "bytes": 1542,
+      "sha256": "70bdb4621f1eeaf2b92de2cd22ba38199a487b747a4baaff08eb40cb77dd0627"
+    },
+    {
+      "path": "rtl-02-component/summary.json",
+      "bytes": 28244,
+      "sha256": "35c3bb753b74c06d0175e2f73227a695c743d49996978a28cc610c0ddc5a92c3"
+    }
+  ]
+}
