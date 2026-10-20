@@ -14,10 +14,11 @@
 | 最新 STYLE V2，PR #13 | `codex/main/edge-style-fill-v2` / `89093f428878b918036c8a30a0d1afe7764946b8` | 实际构建源 `694559fd76676093e134229d435161ecb44ab00c`；66项输入不含 TARGET/LATENCY |
 | STYLE V1，PR #12 | `codex/main/edge-style-fill-v1` / `532d3c62bbc8d0c60d5def5e5233b035f2a9699b` | 实际构建源 `042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；V2的回退候选 |
 | 四模式，PR #11 | `codex/main/edge-multi-mode-v1` / `22690856d9a0c079485bedd916d9c8f7f116157b` | 实际构建源 `4ea67f194941c6717fc1d28889c687a4fb78533f`；可作为独立回退候选 |
-| LATENCY，PR #5 | `codex/latency/same-frame-association-v2` / `531ef616dd53efa200e16b3839319f18b4c48d72` | 上次成功fetch的快照；32/32身份/完整事件/统计清零已推进，本包不改其源码；[独立复审与未决项](../integration/LATENCY_REVIEW_531ef61.md) |
+| LATENCY，PR #5 | `codex/latency/same-frame-association-v2` / `531ef616dd53efa200e16b3839319f18b4c48d72` | 本轮收口经GitHub API复核HEAD；32/32身份/完整事件/统计清零已推进，本包不改其源码；[独立复审与未决项](../integration/LATENCY_REVIEW_531ef61.md) |
 | TARGET，PR #2 | `codex/target/color-target-detect-v1` | 包含 `8f49444` guard、`e995866`联合验证及本轮工具/交接修订；完整最新 SHA 见 PR |
 
-2026-10-20后续复审：新fetch因网络失败，不能保证此表是此刻远端最新状态。
+2026-10-20后续复审：原生fetch因网络失败；收口时GitHub API已复核main/STYLE V2/LATENCY的远端HEAD与表一致，
+回执见 `evidence/latency_handoff_2026-10-20/remote-verified.json`（相对本功能目录）。不将其称作原生fetch成功。
 对固定531ef61已完成8项独立接口场景，2项控制通过、6项场景的7条安全要求失败；
 重点是FIFO满时静默丢失、偶数次错误toggle抵消，以及恢复/权威会话/单侧reset/排空边界。
 这是新增审查证据，不覆盖原handoff16，也没有修改任何生产RTL。

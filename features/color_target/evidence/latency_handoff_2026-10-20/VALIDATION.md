@@ -56,5 +56,6 @@ rtl-02增加公开toggle变化次数前提，rtl-03补强Git commit校验与异�
 初版证据整理包也保留在仓库外 `outputs/latency-handoff-review-2026-10-20/package-02`。
 
 共享接口仍需人类/MAIN/LATENCY确认恢复策略、权威会话、时基、服务与排空条件。
-最新远端网络校验及上传情况以本轮最终Git回执为准；baseline.json保留审查开始时的真实失败尝试，
-不据缓存remote ref冒称已经完成本轮网络同步。
+原生Git fetch/push连接失败；收口时GitHub API已读取远端main/STYLE V2/LATENCY，HEAD均与受审快照相同，
+回执在remote-verified.json。baseline.json保留审查开始时的真实失败尝试，不反向重写历史。
+上传情况以最终Git对象/分支/PR读回回执为准；API版本复核不等于原生fetch成功。

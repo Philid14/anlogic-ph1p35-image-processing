@@ -1,0 +1,20 @@
+{
+  "verified_utc": "2026-10-20T16:03:31.061143+00:00",
+  "method": "GitHub REST API via existing gh authentication",
+  "refs": {
+    "main": "c42168e26026425660f2a6f51eec76b04c85eea0",
+    "codex/main/edge-style-fill-v2": "89093f428878b918036c8a30a0d1afe7764946b8",
+    "codex/latency/same-frame-association-v2": "531ef616dd53efa200e16b3839319f18b4c48d72",
+    "codex/target/color-target-detect-v1": "a715061546db72232d23876146b457355a4a4695"
+  },
+  "pr2": {
+    "head": "a715061546db72232d23876146b457355a4a4695",
+    "state": "open",
+    "draft": false,
+    "requested_reviewers": [
+      "Philid14"
+    ],
+    "auto_merge": null
+  },
+  "note": "Remote HEAD readback; no new native Git fetch, no merge, no source changes"
+}

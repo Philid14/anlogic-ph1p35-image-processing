@@ -2,7 +2,8 @@
 
 日期：2026-10-20。TARGET 分支基线 `a715061`，LATENCY 固定为
 `531ef616dd53efa200e16b3839319f18b4c48d72`，MAIN/STYLE V2 分别为 `c42168e` / `89093f4`。
-本轮新 fetch 的正常权限网络尝试均失败；以上是上一轮成功 fetch 的固定快照，不承诺远端此后没有新提交。
+本轮原生 Git fetch 网络尝试失败；收口时改用 GitHub API 读取远端 HEAD，确认上述三个分支均未变化，
+回执见 `evidence/latency_handoff_2026-10-20/remote-verified.json`。不将API核验写作原生fetch成功。
 未修改 MAIN、LATENCY 或 TARGET 生产 RTL。结果是独立接口审查，不是整机接入、物理 CDC 或板测。
 
 ## 1. 新版确实推进的部分
