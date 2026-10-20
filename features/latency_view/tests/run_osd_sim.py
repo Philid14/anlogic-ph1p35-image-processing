@@ -90,6 +90,14 @@ def run_mode(iver, fault, full=False):
             if got != ord(exp):
                 fails.append("panel[%d] rtl=%d(%r) model=%d(%r)" % (i, got, chr(got), ord(exp), exp))
                 break
+    # the RTL serial divider must match integer division of the recorded sum
+    if stat_cnt > 0:
+        expected_avg = sum_ticks // stat_cnt
+        if avg_ticks != expected_avg:
+            fails.append("avg_ticks=%d expected sum/count=%d" % (avg_ticks, expected_avg))
+    elif avg_ticks != 0:
+        fails.append("avg_ticks=%d expected 0 for empty window" % avg_ticks)
+
     # fault mode must invalidate the statistics, normal mode must be valid
     expected_stats = 0 if fault else 1
     if stats != expected_stats:

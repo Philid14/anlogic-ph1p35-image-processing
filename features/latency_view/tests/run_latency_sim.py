@@ -214,6 +214,15 @@ SCENARIOS = [
          counts=(2, 1, 0, 1),
          desc="same key captured twice: record replaced, alarm bit1"),
 
+    dict(name="s20_resync_stats_reset", tol=0, sum_check=False,
+         events=[start(105, 1, 1), done(155, 1, 1), dsp(205, 1, 1),
+                 dsp(305, 1, 9), resync(405),
+                 start(505, 1, 1), done(555, 1, 1), dsp(605, 1, 1)],
+         lat=[(115, 205, 1, 1), (515, 605, 1, 1)],
+         alarm=1, stats=(1, 1), cnt=(1, 1, 0, 1), flags=(0, 0, 0),
+         counts=(2, 2, 0, 3), stats_sum=10,
+         desc="resync restarts the statistic window (count/sum cleared)"),
+
     dict(name="s19_too_fast_alarm_clr", tol=0, min_gap_src=3,
          events=[start(105, 1, 1), start(112, 1, 2), done(205, 1, 1),
                  clr(405), start(505, 1, 2), done(605, 1, 2), dsp(655, 1, 2)],
@@ -320,7 +329,10 @@ def check(case, rec):
         for i, label in enumerate(labels):
             if got[i] != expected[i]:
                 fails.append("%s.%s=%d expected=%d" % (key, label, got[i], expected[i]))
-    if rec.get("stats") and case.get("lat"):
+    if rec.get("stats") and case.get("stats_sum") is not None:
+        if rec["stats"][2] != case["stats_sum"]:
+            fails.append("stat_sum=%d expected=%d" % (rec["stats"][2], case["stats_sum"]))
+    elif rec.get("stats") and case.get("lat") and case.get("sum_check", True):
         if abs(rec["stats"][2] - sum(x["cycles"] for x in rec["lat"])) > 0:
             fails.append("stat_sum=%d != sum(LAT)" % rec["stats"][2])
     return fails

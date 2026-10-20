@@ -237,6 +237,8 @@ module latency_osd #(
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             count_bcd <= 32'd0;
+        end else if (resync_req) begin
+            count_bcd <= 32'd0;          // resync restarts the counted window
         end else if (lat_valid) begin
             count_next = count_bcd;
             carry_c = 1'b1;

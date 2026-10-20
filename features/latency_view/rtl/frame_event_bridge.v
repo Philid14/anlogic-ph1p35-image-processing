@@ -9,6 +9,9 @@
 //
 //   Errors are explicit:
 //     cap_too_fast  two rising edges closer than MIN_GAP_SRC capture cycles.
+//                   It is a TOGGLE: each dropped event flips it, and the
+//                   destination detects the change, so a slower destination
+//                   clock can never miss it (a one cycle pulse could).
 //                   The second event is DROPPED (never counted), because a
 //                   toggle synchroniser cannot represent events that close.
 //     evt_gap_alarm two events reach the destination closer than MIN_GAP_DST
@@ -40,7 +43,7 @@ module frame_event_bridge #(
     input  wire [1:0]        cap_kind,      // 0 = captured, 1 = aborted, 2 = complete
     input  wire [SID_W-1:0]  cap_sid,
     input  wire [FID_W-1:0]  cap_fid,
-    output reg               cap_too_fast,  // sticky: an event was dropped
+    output reg               cap_too_fast,  // toggle: an event was dropped
     // destination side
     input  wire              clk,
     input  wire              rst_n,
@@ -66,10 +69,9 @@ module frame_event_bridge #(
             gap_cnt      <= 16'hFFFF;
             cap_too_fast <= 1'b0;
         end else begin
-            cap_d        <= cap_event;
-            cap_too_fast <= 1'b0;              // one cycle pulse, latched by the meter
+            cap_d <= cap_event;
             if (cap_rise && !gap_ok) begin
-                cap_too_fast <= 1'b1;          // dropped, gap counter restarts
+                cap_too_fast <= ~cap_too_fast;  // dropped: toggle, latched by the meter
                 gap_cnt      <= 16'd0;
             end else if (cap_rise) begin
                 gap_cnt <= 16'd0;

@@ -204,7 +204,8 @@ module tb_latency_meter;
         $display("ALARM %0d", alarm);
         $display("STATS %0d %0d %0d", stats_valid, stat_count, stat_sum_cycles);
         $display("CNT %0d %0d %0d %0d", entry_count, unmatched_count, repeat_count, lat_seen);
-        $display("FLAGS %0d %0d %0d", cap_too_fast, evt_gap_alarm, age_seen);
+        // sticky alarm bit2 covers both the dropped-event toggle and the pop spacing
+        $display("FLAGS %0d %0d %0d", dut.alarm[2], dut.alarm[2], age_seen);
         $display("LAST %0d %0d", lat_cycles, lat_ticks);
         $display("COUNTS %0d %0d %0d %0d", cap_count, cap_done_count, cap_abort_count, dsp_count);
         $display("FPS %0d %0d %0d", cap_fps, dsp_fps, fps_valid);

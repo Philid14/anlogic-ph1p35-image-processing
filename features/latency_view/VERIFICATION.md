@@ -17,8 +17,8 @@ vvp align.vvp
 |---|---|
 | 模型自检 | `latency_model self-test: PASS` |
 | 布局生成物 | `osd_layout.vh up to date` |
-| 19 场景 | **cases: 19, failed: 0 / RESULT: PASS** |
-| 面板内容 | **RESULT: PASS**（normal + fault，128 字符与模型一致） |
+| 20 场景 | **cases: 20, failed: 0 / RESULT: PASS** |
+| 面板内容 | **RESULT: PASS**（normal + fault，128 字符与模型一致；AVG 与 sum/count 独立比对） |
 | 720p 全尺寸 | **PASS**（1280×720 单帧，8 行面板与模型一致） |
 | 坐标对齐 | `ALIGN_ERRORS 0` |
 
@@ -45,6 +45,7 @@ vvp align.vvp
 | s17_recapture | 同键重采集：原地替换 + bit1 |
 | s18_fid_wrap | 帧号回绕无新会话：清表 + bit3 |
 | s19_too_fast_alarm_clr | 过密事件被丢弃，`alarm_clr` 后 bit2 不再复置 |
+| s20_resync_stats_reset | `resync_req` 清零 count/sum，平均与 CNT 从新窗口重算 |
 
 真值由测试台打印的**实际事件时刻**计算；同钟容差 0 拍，跨钟 ±1 拍。
 
@@ -59,6 +60,9 @@ vvp align.vvp
 | 5 | OSD 测试从未覆盖 AGE | 增加重复显示与故障模式 | `run_osd_sim`（2 模式） |
 | 6 | 720p 下 `vs_fall` 当拍读到上一帧快照（同沿竞争） | 增加 `S_SNAP` 一拍后再启动转换 | `run_osd_sim --full` |
 | 7 | 面板缺少平均延迟/首次显示计数/告警文字 | 8 行面板 + 64 拍串行除法器 + BCD 计数 + 告警词 | `run_osd_sim` 全部模式 |
+| 8 | AVG 只用 RTL 自身输出比对 | 运行器用 `sum_ticks // count` 独立校验 | `run_osd_sim` |
+| 9 | `resync_req` 未清零统计窗口 | meter 清 count/sum，OSD 清 CNT | `s20_resync_stats_reset` |
+| 10 | `cap_too_fast` 单拍脉冲在慢目标时钟下可能漏采 | 改为 toggle + 目标域 XOR 边沿检测 | `s19` + 文档 |
 
 ## 未验证（如实标记）
 

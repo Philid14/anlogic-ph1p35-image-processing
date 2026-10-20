@@ -22,7 +22,8 @@
 //
 // Error recovery (review item 3.1)
 //   alarm_clr  only clears the sticky alarm bits.
-//   resync_req flushes the association table and forces stats_valid = 0; the
+//   resync_req flushes the association table, restarts the statistic window
+//   (count/sum cleared) and forces stats_valid = 0; the
 //   statistic becomes valid again only after a fresh complete capture that is
 //   then displayed for the first time.
 //
@@ -285,7 +286,7 @@ module latency_meter #(
         if (!rst_n) {ct_ff1, ct_ff2, ct_ff3} <= 3'b000;
         else        {ct_ff1, ct_ff2, ct_ff3} <= {cap_too_fast, ct_ff1, ct_ff2};
     end
-    wire cap_too_fast_evt = ct_ff2 & ~ct_ff3;
+    wire cap_too_fast_evt = ct_ff2 ^ ct_ff3;   // toggle changed = one error
     wire event_too_fast    = cap_too_fast_evt | evt_gap_alarm;
 
     // one second window counters
@@ -351,6 +352,10 @@ module latency_meter #(
                 age_seen    <= 1'b0;
                 cur_sid_vld <= 1'b0;
                 victim_ptr  <= {ENTRY_LOG2{1'b0}};
+                // statistics restart after a resynchronisation
+                stat_count      <= {CNT_W{1'b0}};
+                stat_sum_cycles <= 64'd0;
+                stat_sum_ticks  <= 64'd0;
             end else begin
                 // ---- session / frame id wrap ----
                 if (cap_start && (sid_change || fid_wrap)) begin
