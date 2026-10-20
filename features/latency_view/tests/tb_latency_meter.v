@@ -28,6 +28,7 @@ module tb_latency_meter;
     parameter integer TB_TICK_MOD       = 100000;
     parameter integer TB_CROSS          = 3;
     parameter integer TB_TICK_CROSS     = 1;
+    parameter integer TB_FPS_WINDOW     = 100000;
     parameter integer TB_MAX_EVENTS     = 64;
 
     reg clk     = 1'b0;
@@ -39,7 +40,8 @@ module tb_latency_meter;
 
     reg rst_n = 1'b0, rst_cap_n = 1'b0;
 
-    reg        cap_event = 1'b0, cap_kind = 1'b0;
+    reg        cap_event = 1'b0;
+    reg [1:0]  cap_kind = 2'd0;
     reg [7:0]  cap_sid = 8'd0;
     reg [15:0] cap_fid = 16'd0;
     reg        dsp_event = 1'b0;
@@ -50,6 +52,9 @@ module tb_latency_meter;
     wire        cap_too_fast, evt_gap_alarm, lat_valid, lat_seen, age_valid, age_seen;
     wire        stats_valid;
     wire [31:0] lat_cycles, age_cycles, stat_count, unmatched_count, repeat_count, entry_count;
+    wire [31:0] cap_count, cap_done_count, cap_abort_count, dsp_count, lost_done_count, lost_abort_count;
+    wire [31:0] cap_fps, dsp_fps;
+    wire        fps_valid;
     wire [31:0] lat_ticks;
     wire [3:0]  alarm;
     wire [63:0] stat_sum_cycles;
@@ -65,6 +70,7 @@ module tb_latency_meter;
         .TICK_MOD       (TB_TICK_MOD),
         .CROSS_CYCLES   (TB_CROSS),
         .TICK_CROSS     (TB_TICK_CROSS),
+        .FPS_WINDOW_TICKS (TB_FPS_WINDOW),
         .MIN_GAP_SRC    (2),
         .MIN_GAP_DST    (3)
     ) dut (
@@ -96,6 +102,15 @@ module tb_latency_meter;
         .unmatched_count (unmatched_count),
         .repeat_count  (repeat_count),
         .entry_count   (entry_count),
+        .lost_done_count (lost_done_count),
+        .lost_abort_count (lost_abort_count),
+        .cap_count     (cap_count),
+        .cap_done_count (cap_done_count),
+        .cap_abort_count (cap_abort_count),
+        .dsp_count     (dsp_count),
+        .cap_fps       (cap_fps),
+        .dsp_fps       (dsp_fps),
+        .fps_valid     (fps_valid),
         .evt_gap_alarm (evt_gap_alarm)
     );
 
@@ -148,7 +163,7 @@ module tb_latency_meter;
             case (ev_kind[i])
                 1: begin  // capture, one capture clock cycle
                     @(posedge clk_cap); #1;
-                    cap_sid = ev_a[i][7:0]; cap_fid = ev_b[i][15:0]; cap_kind = ev_c[i][0];
+                    cap_sid = ev_a[i][7:0]; cap_fid = ev_b[i][15:0]; cap_kind = ev_c[i][1:0];
                     cap_event = 1'b1;
                     // the next capture edge is the instant the design samples the
                     // event, so that edge is the physical event time of record
@@ -173,7 +188,7 @@ module tb_latency_meter;
                 end
                 5: begin  // multi cycle LEVEL, exactly one event expected
                     @(posedge clk_cap); #1;
-                    cap_sid = ev_a[i][7:0]; cap_fid = ev_b[i][15:0]; cap_kind = ev_c[i][0];
+                    cap_sid = ev_a[i][7:0]; cap_fid = ev_b[i][15:0]; cap_kind = ev_c[i][1:0];
                     cap_event = 1'b1;
                     @(posedge clk_cap);
                     $display("EVT CAP %0.1f %0d %0d %0d LEVEL %0d", $realtime, ev_a[i], ev_b[i], ev_c[i], ev_d[i]);
@@ -190,6 +205,9 @@ module tb_latency_meter;
         $display("CNT %0d %0d %0d %0d", entry_count, unmatched_count, repeat_count, lat_seen);
         $display("FLAGS %0d %0d %0d", cap_too_fast, evt_gap_alarm, age_seen);
         $display("LAST %0d %0d", lat_cycles, lat_ticks);
+        $display("COUNTS %0d %0d %0d %0d", cap_count, cap_done_count, cap_abort_count, dsp_count);
+        $display("FPS %0d %0d %0d", cap_fps, dsp_fps, fps_valid);
+        $display("LOST %0d %0d", lost_done_count, lost_abort_count);
         $display("TB_ERRORS=0");
         $finish;
     end

@@ -27,8 +27,8 @@
 `timescale 1ns/1ps
 
 module frame_event_bridge #(
-    parameter integer SID_W       = 8,
-    parameter integer FID_W       = 16,
+    parameter integer SID_W       = 32,
+    parameter integer FID_W       = 32,
     parameter integer DEPTH_LOG2  = 4,
     parameter integer MIN_GAP_SRC = 2,
     parameter integer MIN_GAP_DST = 3
@@ -37,7 +37,7 @@ module frame_event_bridge #(
     input  wire              clk_cap,
     input  wire              rst_cap_n,
     input  wire              cap_event,     // level or pulse; rising edge = 1 event
-    input  wire              cap_kind,      // 0 = frame captured, 1 = frame aborted
+    input  wire [1:0]        cap_kind,      // 0 = captured, 1 = aborted, 2 = complete
     input  wire [SID_W-1:0]  cap_sid,
     input  wire [FID_W-1:0]  cap_fid,
     output reg               cap_too_fast,  // sticky: an event was dropped
@@ -45,11 +45,11 @@ module frame_event_bridge #(
     input  wire              clk,
     input  wire              rst_n,
     input  wire              evt_ready,     // consumer accepts a pop this cycle
-    output wire [SID_W+FID_W:0] evt_data,   // {kind, sid, fid}
+    output wire [SID_W+FID_W+1:0] evt_data,   // {kind, sid, fid}
     output wire              evt_valid,     // FIFO not empty
     output reg               evt_gap_alarm  // sticky: pops too close together
 );
-    localparam integer W   = SID_W + FID_W + 1;
+    localparam integer W   = SID_W + FID_W + 2;
     localparam integer DEP = (1 << DEPTH_LOG2);
 
     //------------------------------------------------------------------
