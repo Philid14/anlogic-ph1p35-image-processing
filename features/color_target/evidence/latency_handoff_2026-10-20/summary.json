@@ -1,0 +1,693 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-20T15:55:28.574870+00:00",
+  "target_head": "a715061546db72232d23876146b457355a4a4695",
+  "latency_revision": "531ef616dd53efa200e16b3839319f18b4c48d72",
+  "latency_sources": [
+    {
+      "path": "features/latency_view/rtl/frame_event_bridge.v",
+      "git_blob": "bb48fcfc2c5f254948134202df15713be521d1a2",
+      "sha256": "ef148d205cc6e25d11c51d8a97a1cbc4ba97a46eeb118624293a3b8fea6a509c"
+    },
+    {
+      "path": "features/latency_view/rtl/latency_meter.v",
+      "git_blob": "0b8f03d557cf47fe7086517c0be98633beee4ea1",
+      "sha256": "4f3abedff6abcb003b350d7a0154c02a8483b4d16309c3dbaa4962f16894a0cb"
+    }
+  ],
+  "snapshot_sha256": {
+    "frame_event_bridge.v": "ef148d205cc6e25d11c51d8a97a1cbc4ba97a46eeb118624293a3b8fea6a509c",
+    "latency_meter.v": "4f3abedff6abcb003b350d7a0154c02a8483b4d16309c3dbaa4962f16894a0cb",
+    "run_latency_handoff_review.py": "e1f0f3a60d5d6c318d47d234fd480211ee540492c7a94e5ef800dc2e4ca8bb2c",
+    "run_track_guard_contract.py": "ad64e9d62000674d23bb9ba706493493822c4ee24111fc20375f1ccebb1808e7",
+    "tb_latency_handoff_review.v": "3610694b5cde5a5f7806d63af951627be3fa3f826503bc115e96885e4bb904a5"
+  },
+  "source_unchanged": true,
+  "scope": "Independent integration requirements; no MAIN adapter, physical CDC, P&R, bit or board proof",
+  "fixture_clock_period_ns": {
+    "source": 10,
+    "destination": 14
+  },
+  "jobs": [
+    {
+      "name": "normal_and_repeat",
+      "case_id": 0,
+      "evidence_valid": true,
+      "requirements_satisfied": true,
+      "setup_failures": 0,
+      "requirement_failures": 0,
+      "checks": [
+        {
+          "setup": true,
+          "name": "normal_complete_first_display",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "normal_stats_valid",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "repeat_not_new_observation",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "repeat_reports_age",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "normal_no_alarm",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\normal_and_repeat",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\normal_and_repeat",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=0",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\normal_and_repeat",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "resync_statistics_window",
+      "case_id": 1,
+      "evidence_valid": true,
+      "requirements_satisfied": true,
+      "setup_failures": 0,
+      "requirement_failures": 0,
+      "checks": [
+        {
+          "setup": true,
+          "name": "prior_window_exists",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "resync_count_zero",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "resync_sum_zero",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "resync_invalid_until_clean_pair",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "new_window_one_pair",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "new_window_valid",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_statistics_window",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_statistics_window",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=1",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_statistics_window",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "bridge_full_loss",
+      "case_id": 2,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 1,
+      "checks": [
+        {
+          "setup": true,
+          "name": "offered_twenty_legal_gap_events",
+          "expected": 20,
+          "actual": 20,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "no_source_gap_violation",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "first_sixteen_arrive_in_order",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "fifo_capacity_observed",
+          "expected": 16,
+          "actual": 16,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "all_events_delivered_or_loss_visible",
+          "expected": 1,
+          "actual": 0,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\bridge_full_loss",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\bridge_full_loss",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=2",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\bridge_full_loss",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "even_error_toggle_alias",
+      "case_id": 3,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 1,
+      "checks": [
+        {
+          "setup": true,
+          "name": "exactly_two_source_drop_toggles",
+          "expected": 2,
+          "actual": 2,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "two_drops_restore_toggle_to_initial_value",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "one_accepted_event_survives",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "two_dropped_events_are_visible",
+          "expected": 1,
+          "actual": 0,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\even_error_toggle_alias",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\even_error_toggle_alias",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=3",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\even_error_toggle_alias",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "overflow_requires_resync",
+      "case_id": 4,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 2,
+      "checks": [
+        {
+          "setup": true,
+          "name": "pending_table_overflow_alarm",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "overflow_makes_stats_invalid",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": true,
+          "name": "clear_alarm_does_not_itself_restore_stats",
+          "expected": 0,
+          "actual": 0,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "overflow_cannot_recover_without_resync",
+          "expected": 0,
+          "actual": 1,
+          "passed": false
+        },
+        {
+          "setup": false,
+          "name": "overflow_window_rejects_new_statistic",
+          "expected": 0,
+          "actual": 1,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\overflow_requires_resync",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\overflow_requires_resync",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=4",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\overflow_requires_resync",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "retired_session_replay",
+      "case_id": 5,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 1,
+      "checks": [
+        {
+          "setup": true,
+          "name": "new_session_pair_accepted",
+          "expected": 2,
+          "actual": 2,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "retired_session_cannot_reopen_from_data",
+          "expected": 0,
+          "actual": 1,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\retired_session_replay",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\retired_session_replay",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=5",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\retired_session_replay",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "destination_only_reset",
+      "case_id": 6,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 1,
+      "checks": [
+        {
+          "setup": true,
+          "name": "one_event_delivered_before_destination_reset",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "one_sided_reset_must_not_replay_retired_payload",
+          "expected": 1,
+          "actual": 2,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\destination_only_reset",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\destination_only_reset",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=6",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\destination_only_reset",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    },
+    {
+      "name": "resync_inflight",
+      "case_id": 7,
+      "evidence_valid": true,
+      "requirements_satisfied": false,
+      "setup_failures": 0,
+      "requirement_failures": 1,
+      "checks": [
+        {
+          "setup": true,
+          "name": "queued_old_events_have_arrived",
+          "expected": 1,
+          "actual": 1,
+          "passed": true
+        },
+        {
+          "setup": false,
+          "name": "table_resync_alone_cannot_certify_epoch_barrier",
+          "expected": 0,
+          "actual": 1,
+          "passed": false
+        }
+      ],
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_inflight",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\frame_event_bridge.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\latency_meter.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\source-snapshot\\tb_latency_handoff_review.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_inflight",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_latency_handoff_review",
+            "-GCASE_ID=7",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latency-handoff-review-2026-10-20\\rtl-03\\resync_inflight",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ]
+    }
+  ],
+  "evidence_valid": true,
+  "requirements_satisfied": false,
+  "integration_ready": false
+}
