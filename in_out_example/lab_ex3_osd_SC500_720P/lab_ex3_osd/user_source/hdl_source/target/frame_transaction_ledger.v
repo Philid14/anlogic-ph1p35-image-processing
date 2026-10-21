@@ -36,8 +36,10 @@ module frame_transaction_ledger #(
 );
     reg [3:0] complete, leased, annotation_valid;
     reg [31:0] frames[0:3], generations[0:3];
-    reg [63:0] ticks[0:3];
-    reg [ANNOT_W-1:0] annotations[0:3];
+    // Validity/state bits reset; payload RAM never does. Synchronous selection
+    // is its only read port. This avoids resetting thousands of metadata FFs.
+    reg [63:0] ticks[0:3] /* fehdl force_ram=1, ram_style="bram_fast" */;
+    reg [ANNOT_W-1:0] annotations[0:3] /* fehdl force_ram=1, ram_style="bram_fast" */;
     reg active, bad, have_raster, draining;
     reg [17:0] word_count;
     reg [31:0] high_water;
@@ -99,7 +101,7 @@ module frame_transaction_ledger #(
             scan_annotation_valid<=0; scan_annotation<=0;
             drop_count<=0; cancel_count<=0; result_reject_count<=0;
             for(j=0;j<4;j=j+1) begin
-                frames[j]<=0; generations[j]<=0; ticks[j]<=0; annotations[j]<=0;
+                frames[j]<=0; generations[j]<=0;
             end
         end else begin
             allocated<=0; dropped<=0; committed<=0; cancelled<=0;
