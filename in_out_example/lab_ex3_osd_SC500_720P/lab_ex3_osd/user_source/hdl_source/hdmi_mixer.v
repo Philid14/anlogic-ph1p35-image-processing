@@ -475,9 +475,12 @@ module hdmi_mixer #(
 
     assign O_video_rd_en = I_video_de;
 
-    anlogic_logo_rom u_anlogic_logo_rom(
-        .I_addr  ( S_logo_addr  ),
-        .O_pixel ( S_logo_pixel )
+    // Lossless two-read ROM prefetch. S_x/S_y lead S_x_2d/S_y_2d by
+    // exactly two clocks, so Logo pixels retain their original output cycle.
+    wire [14:0] logo_prefetch_address = (S_x<160 && S_y<160) ?
+        S_y*15'd160+S_x : 15'd0;
+    target_logo_palette u_logo_palette(
+        .clk(I_clk), .address(logo_prefetch_address), .pixel(S_logo_pixel)
     );
 
     osd_char_lib u_osd_char_lib(

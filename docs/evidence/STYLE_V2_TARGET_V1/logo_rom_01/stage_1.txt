@@ -1,0 +1,2 @@
+PASS LOGO_EQUIVALENCE rom_addresses=32768 mixer_cycles=1237512
+D:\anlogic_formal_project\tests\tb_target_logo_equivalence.sv:61: $finish called at 12702900000 (1ps)
