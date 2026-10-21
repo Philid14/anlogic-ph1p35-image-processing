@@ -1,0 +1,65 @@
+{
+  "scope": "Synthesis fixture wiring only; existing production guard contracts not rerun",
+  "simulator": "modelsim",
+  "source_hashes": {
+    "rtl\\color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "rtl\\color_target_track_guard.v": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+    "tools\\guard_synth_top.v": "f700f85a49e1ef1a9b4012a9cd5b936d41a50b0bde42223dd014f9cb5f6ab2d4",
+    "tb\\tb_guard_synth_fixture.v": "96585a249e17309f48b4928c924e94ed3b6680822c7c69ee0232ee0089fc598d",
+    "run_guard_fixture.py": "bfb7bbb3c2abaae3fb1883ddac18291241d8e4c578951372cf4cd508a124630d",
+    "run_track_guard_contract.py": "61eae1c94b26b47127cc6b58479ddf0a79bd70a0fd6abc0ff42bb26e04613eb0",
+    "tools\\simlib.py": "5fb6a71c3578f5eb2ab1708c9863f6e71a0a2fda8d44e977d744f3a14e40b465"
+  },
+  "source_unchanged": true,
+  "stages": [
+    {
+      "command": [
+        "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+        "work"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\guard_fixture_86pqn3gn",
+      "exit_code": 0,
+      "failure": null,
+      "passed": true,
+      "log": "vlib.log"
+    },
+    {
+      "command": [
+        "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+        "-quiet",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\guard_synth_top.v",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_guard_synth_fixture.v"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\guard_fixture_86pqn3gn",
+      "exit_code": 0,
+      "failure": null,
+      "passed": true,
+      "log": "vlog.log"
+    },
+    {
+      "command": [
+        "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+        "-c",
+        "-quiet",
+        "work.tb_guard_synth_fixture",
+        "-do",
+        "run -all; quit -f"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\guard_fixture_86pqn3gn",
+      "exit_code": 0,
+      "failure": null,
+      "passed": true,
+      "log": "vsim.log"
+    }
+  ],
+  "complete": [
+    [
+      "6",
+      "0"
+    ]
+  ],
+  "passed": true,
+  "integration_verified": false
+}

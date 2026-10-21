@@ -1,7 +1,7 @@
 # TARGET 独立 TRACK guard：接口与验证
 
 版本：`TRACK_GUARD_V1`。基线：4ec3d35；用户于2026-10-19明确确认“按推荐方案实施 TARGET 独立 guard，MAIN另行确认”。
-状态：**TARGET独立RTL已实现并自检；未加入TD、未接MAIN、没有新P&R/bit/板测。**
+状态：**TARGET独立RTL已实现并自检；2026-10-21完成独立gate测量，未加入主工程TD、未接MAIN、没有新P&R/bit/板测。**
 新模块 `../rtl/color_target_track_guard.v` 封装原 `color_target_track.v`；原track/detect/text/support3和MAIN文件未改。
 旧TRACK直接使用时的六个OPEN缺口仍存在。本guard通过不能据此宣称原模块、CDC或整机已修复。
 
@@ -118,7 +118,8 @@ python -B -X utf8 -u features/color_target/run_track_guard_contract.py --sim mod
 
 - MAIN实际SOF/EOF、取消账本、时间来源、跨域原子性/容量/复位及DDR槽代次/扫描租约。
 - 图文同一观测的commit实现、真实显示帧选择、历史最大年龄/可靠超时的生产值。
-- 新guard的综合资源、时序、整机P&R、bit和实板；本轮不外推既有gate或EDGE_CONTROL路由结果。
+- 已补新guard的[独立gate资源/时序测量与配置预检](GUARD_RESOURCE_PREFLIGHT_2026-10-21.md)；
+  仍缺实际MAIN参数展开、真实时钟预算、整机P&R、bit和实板，不能外推独立gate或EDGE_CONTROL结果。
 - EDGE_CONTROL_V1新增控制和至少30分钟板测仍未找到完成反馈；历史BLC/AWB/增益/EDGE的用户反馈已经索引，不要求全部重做。
 
 实现与失败日志见 [本轮验证记录](../evidence/track_guard_2026-10-19/VALIDATION.md)。

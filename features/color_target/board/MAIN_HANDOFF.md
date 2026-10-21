@@ -4,6 +4,11 @@
 本交付只修改 `features/color_target/`，沿原 PR #2 更新；不合并 main，不修改 MAIN/LATENCY。
 **独立模块可供审查接入；尚无包含 TARGET 的整机 bit，当前不能用旧视频 bit 验收目标框。**
 
+2026-10-21本轮提交前正常Git fetch发现LATENCY已更新为
+`d47b883c581f12a3c18518a8403c0f213f9e6efe`（75 MHz接口约定、排队等）。
+下表及旧独立复审固定针对531ef61；不得把旧反例直接当新版结论。新版尚未在TARGET侧重跑审查，
+该分支的75 MHz声明也不自动等于TARGET时基/实际接线已确认。main、STYLE V2、TARGET远端未变。
+
 ## 1. 版本与队友新增内容
 
 2026-10-20续跑后再次同步核验的远端版本如下；这是一份固定快照，后续以 MAIN 选定的最新 SHA 为准。
@@ -110,7 +115,11 @@ MAIN完成接线后，先复用故障矩阵验证真实适配器，再跑实际�
 
 实际 SOURCE_MANIFEST 必须包含本轮选用的TARGET模块及MAIN新适配器；
 报告资源/Setup WNS/Hold WNS/未约束及Ignored路径、时钟、工具版本和仍在的warning。
-本交付未重新综合guard，也没有整机增量资源或整机时序结论。
+2026-10-21已补[guard独立gate测量及配置声明预检](../integration/GUARD_RESOURCE_PREFLIGHT_2026-10-21.md)：
+有效64位测试架1132 LUT/1471 reg/0 ERAM/0 DSP，人工10ns下SWNS/HWNS=+1.494/+0.502ns。
+资源含测试架、coverage73.51%；没有整机增量资源或整机时序结论。
+接入前用`tools/check_target_config.py`检查声明与TARGET源；模板`integration/TARGET_CONFIG_PENDING.json`
+仍有5项未决值，预期退出2。合法声明也不能替代实际参数展开/CDC/公共mask验证。
 
 上板按 [TARGET验收方法](TARGET_ACCEPTANCE.md) 和 [TARGET回报模板](TARGET_REPORT_TEMPLATE.md)。
 原 [EDGE_CONTROL观察指南](OBSERVATION_GUIDE.md) 保留为历史版本专用，不适用于STYLE五模式按键。
