@@ -1,0 +1,14 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 21:45:58 on Oct 21,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_eq_msim_05/hdmi_mixer_reference.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_logo_palette.v 
+-- Compiling module tb_target_logo_equivalence
+-- Compiling module hdmi_mixer_reference
+-- Compiling module hdmi_mixer
+-- Compiling module anlogic_logo_rom
+-- Compiling module osd_char_lib
+-- Compiling module target_logo_palette
+
+Top level modules:
+	tb_target_logo_equivalence
+End time: 21:45:59 on Oct 21,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

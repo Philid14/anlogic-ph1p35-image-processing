@@ -1,5 +1,5 @@
 `timescale 1ns/1ps
-module tb_frame_transaction_ledger;
+module tb_frame_transaction_ledger #(parameter integer FRAME_WORDS=4, ANNOT_W=112);
     reg clk=0; always #5 clk=~clk;
     reg rst_n=0, barrier=0, io_drained=0;
     reg [31:0] next_session=1;
@@ -13,17 +13,17 @@ module tb_frame_transaction_ledger;
     wire committed,cancelled; wire [31:0] terminal_frame;
     reg result_strobe=0; reg [31:0] result_session=1,result_frame=0;
     reg [1:0] result_slot=0; reg [31:0] result_generation=0;
-    reg [111:0] result_annotation=112'h123456789;
+    reg [ANNOT_W-1:0] result_annotation=112'h123456789;
     wire result_accepted,result_rejected;
     reg select_scan=0,release_scan=0;
     wire scan_selected,scan_valid; wire [1:0] scan_slot;
     wire [31:0] scan_generation,scan_session,scan_frame;
     wire [63:0] scan_capture_tick; wire scan_annotation_valid;
-    wire [111:0] scan_annotation;
+    wire [ANNOT_W-1:0] scan_annotation;
     wire [15:0] drop_count,cancel_count,result_reject_count;
     wire [3:0] complete_slots,leased_slots;
     wire write_active,barrier_pending;
-    frame_transaction_ledger #(.WORDS(4)) dut(.*);
+    frame_transaction_ledger #(.WORDS(FRAME_WORDS),.ANNOT_W(ANNOT_W)) dut(.*);
     integer checks=0;
     task check(input bit condition,input string label);
         begin checks=checks+1; if(!condition) begin
@@ -42,7 +42,7 @@ module tb_frame_transaction_ledger;
         integer n;
         begin accepted_slot=write_slot; accepted_generation=write_generation;
             write_accept=1;
-            for(n=0;n<4;n=n+1) begin accepted_offset=n; step; end
+            for(n=0;n<FRAME_WORDS;n=n+1) begin accepted_offset=n; step; end
             write_accept=0;
         end
     endtask
@@ -120,5 +120,5 @@ module tb_frame_transaction_ledger;
         check(drop_count==6 && cancel_count==4 && result_reject_count==3,"separate exact diagnostics");
         $display("PASS FRAME_LEDGER checks=%0d",checks); $finish;
     end
-    initial begin #100000; $fatal(1,"timeout"); end
+    initial begin #(100000+FRAME_WORDS*100); $fatal(1,"timeout"); end
 endmodule

@@ -1,14 +1,14 @@
 `timescale 1ns/1ps
-module tb_frame_bundle_cdc;
+module tb_frame_bundle_cdc #(parameter integer WIDTH=256);
     reg src_clk=0,dst_clk=0,src_rst_n=0,dst_rst_n=0;
     always #7 src_clk=~src_clk;
     reg run_dst=1;
     always begin #5; if(run_dst) dst_clk=~dst_clk; end
-    reg send=0; reg [255:0] payload=0;
+    reg send=0; reg [WIDTH-1:0] payload=0;
     wire ready,overflow,receive,src_online,dst_online;
-    wire [15:0] overflow_count; wire [255:0] received_payload;
-    frame_bundle_cdc #(.WIDTH(256)) dut(.*);
-    integer checks=0, received=0; reg [255:0] expected;
+    wire [15:0] overflow_count; wire [WIDTH-1:0] received_payload;
+    frame_bundle_cdc #(.WIDTH(WIDTH)) dut(.*);
+    integer checks=0, received=0; reg [WIDTH-1:0] expected;
     task check(input bit value,input string label);
         begin checks=checks+1; if(!value) begin $display("FAIL %s",label); $fatal(1); end end
     endtask
@@ -22,11 +22,13 @@ module tb_frame_bundle_cdc;
         received=received+1;
         check(received_payload===expected,"entire bus atomic without torn words");
     end
-    integer k, saved;
+    integer k, saved, bit_index;
     initial begin
         #2; source_step; src_rst_n=1; dst_rst_n=1; wait_ready;
         for(k=0;k<40;k=k+1) begin
-            payload={8{32'h01020304 ^ (k*32'h10203040)}}; expected=payload;
+            for(bit_index=0;bit_index<WIDTH;bit_index=bit_index+1)
+                payload[bit_index]=((32'h01020304 ^ (k*32'h10203040)) >> (bit_index%32))&1;
+            expected=payload;
             send=1; source_step; send=0;
             // Changing live input immediately must not affect held payload.
             payload=~payload;

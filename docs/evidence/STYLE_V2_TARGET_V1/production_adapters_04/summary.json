@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "scope": "MAIN adapters only; no DDR/whole-system certification",
+  "jobs": [
+    {
+      "name": "frame_transaction_ledger",
+      "passed": true,
+      "checks": 41,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-Ptb_frame_transaction_ledger.FRAME_WORDS=172800",
+            "-Ptb_frame_transaction_ledger.ANNOT_W=152",
+            "-s",
+            "tb_frame_transaction_ledger",
+            "-o",
+            "tmp\\style_v2_target_v1\\production_adapters_04\\frame_transaction_ledger.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_frame_transaction_ledger.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_transaction_ledger.v"
+          ],
+          "exit_code": 0,
+          "log": "frame_transaction_ledger_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\production_adapters_04\\frame_transaction_ledger.vvp"
+          ],
+          "exit_code": 0,
+          "log": "frame_transaction_ledger_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_frame_transaction_ledger.sv": "518988437e3439e23463c073134c1322ff1a4724f69644755d1446bc231c5380",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_transaction_ledger.v": "56f47bec5d545ebdd9ba1780ed294da3b494c300921caf4275def2f60529a8b2"
+      }
+    },
+    {
+      "name": "frame_bundle_cdc",
+      "passed": true,
+      "checks": 93,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-Ptb_frame_bundle_cdc.WIDTH=506",
+            "-s",
+            "tb_frame_bundle_cdc",
+            "-o",
+            "tmp\\style_v2_target_v1\\production_adapters_04\\frame_bundle_cdc.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_frame_bundle_cdc.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\production_adapters_04\\frame_bundle_cdc.vvp"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_frame_bundle_cdc.sv": "50a540b09e77fab009d3fc1d9348bc424fae267fad3ac1cc01f84f49435bf250",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v": "155607d043fe4498076c71ab5eb317bd1a4df2f0b82fb354de3cf21596ccbcf3"
+      }
+    }
+  ]
+}

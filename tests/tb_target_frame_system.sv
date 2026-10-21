@@ -149,6 +149,8 @@ module tb_target_frame_system;
         if(mixed_de) begin
             if(selected_source>=0 && !(output_x<160 && output_y<160) &&
                !(output_x>=375 && output_x<575 && output_y>=120 && output_y<144)) begin
+                if(mixed_rgb!==pixel(selected_source,output_x,output_y))
+                    $display("PIXEL_MISMATCH x=%0d y=%0d selected_source=%0d got=%h expected=%h read_rgb=%h",output_x,output_y,selected_source,mixed_rgb,pixel(selected_source,output_x,output_y),display_rgb);
                 check(mixed_rgb===pixel(selected_source,output_x,output_y),"actual HDMI pixel matches selected acquisition frame and coordinate");
                 output_checks=output_checks+1;
             end
