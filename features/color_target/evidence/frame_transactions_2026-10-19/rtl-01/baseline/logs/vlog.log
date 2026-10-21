@@ -1,0 +1,13 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 22:03:30 on Oct 19,2026
+vlog -sv -work work C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\rtl\color_target_track.v C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\rtl\color_target_track_guard.v C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\rtl\color_target_overlay.v C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\rtl\color_target_text_overlay.v C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic\features\color_target\tb\tb_display_transactions.v 
+-- Compiling module color_target_track
+-- Compiling module color_target_track_guard
+-- Compiling module color_target_overlay
+-- Compiling module color_target_text_overlay
+-- Compiling module tb_display_transactions
+
+Top level modules:
+	tb_display_transactions
+End time: 22:03:31 on Oct 19,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

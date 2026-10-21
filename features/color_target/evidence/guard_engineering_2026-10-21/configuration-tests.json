@@ -1,0 +1,1440 @@
+{
+  "scope": "Tool/configuration tests and declared fixtures; NOT real integration settings",
+  "cases": [
+    {
+      "name": "pending",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\pending.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\pending"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "matched": true,
+      "summary": {
+        "configuration_status": "UNKNOWN",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "UNKNOWN",
+            "detail": "requires MAIN decision/measurement"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "UNKNOWN",
+            "detail": "requires MAIN decision/measurement"
+          },
+          {
+            "name": "tick_hz",
+            "status": "UNKNOWN",
+            "detail": "requires MAIN decision/measurement"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "UNKNOWN",
+            "detail": "requires MAIN decision/measurement"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "UNKNOWN",
+            "detail": "requires MAIN decision/measurement"
+          }
+        ],
+        "declared_budget": null,
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": false,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": null,
+          "max_reliable_age_ticks": null,
+          "tick_hz": null,
+          "max_capture_to_display_start_ticks": null,
+          "max_scan_ticks": null
+        },
+        "schema": 1,
+        "config_sha256": "6b2ddd8a4317a63d68d4d23c04a812b70fff6e456ba3353f9f6a9f904e95d1ac",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 2
+      }
+    },
+    {
+      "name": "fixture_declared",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\fixture_declared.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\fixture_declared"
+      ],
+      "expected_exit": 0,
+      "actual_exit": 0,
+      "matched": true,
+      "summary": {
+        "configuration_status": "PASS",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "tick_hz",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "declared_full_scan_budget",
+            "status": "PASS",
+            "detail": "declared worst-case scan fits both ages"
+          }
+        ],
+        "declared_budget": {
+          "capture_to_scan_end_ticks": 300,
+          "fits_both_limits": true
+        },
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": false,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": 1000003,
+          "max_reliable_age_ticks": 2000003,
+          "tick_hz": 100000000,
+          "max_capture_to_display_start_ticks": 100,
+          "max_scan_ticks": 200
+        },
+        "schema": 1,
+        "config_sha256": "6b14e8a4a72bc62ec6db0750871541813664fe6cc72e29177e9044919a5d445e",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "fixture_integration_unverified",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\fixture_integration_unverified.fixture.json",
+        "--gate",
+        "integration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\fixture_integration_unverified"
+      ],
+      "expected_exit": 2,
+      "actual_exit": 2,
+      "matched": true,
+      "summary": {
+        "configuration_status": "PASS",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "tick_hz",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "declared_full_scan_budget",
+            "status": "PASS",
+            "detail": "declared worst-case scan fits both ages"
+          }
+        ],
+        "declared_budget": {
+          "capture_to_scan_end_ticks": 300,
+          "fits_both_limits": true
+        },
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": false,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": 1000003,
+          "max_reliable_age_ticks": 2000003,
+          "tick_hz": 100000000,
+          "max_capture_to_display_start_ticks": 100,
+          "max_scan_ticks": 200
+        },
+        "schema": 1,
+        "config_sha256": "6b14e8a4a72bc62ec6db0750871541813664fe6cc72e29177e9044919a5d445e",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "integration",
+        "exit_code": 2
+      }
+    },
+    {
+      "name": "zero_age",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\zero_age.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\zero_age"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "matched": true,
+      "summary": {
+        "configuration_status": "FAIL",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "FAIL",
+            "detail": "outside 1..18446744073709551615"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "tick_hz",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          }
+        ],
+        "declared_budget": null,
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": false,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": 0,
+          "max_reliable_age_ticks": 2000003,
+          "tick_hz": 100000000,
+          "max_capture_to_display_start_ticks": 100,
+          "max_scan_ticks": 200
+        },
+        "schema": 1,
+        "config_sha256": "edbbd914e082a4574b75b65c791f2f06c6ee05978297b95394a63a249be547d0",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 1
+      }
+    },
+    {
+      "name": "boolean_age",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\boolean_age.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\boolean_age"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "matched": true,
+      "summary": {
+        "configuration_status": "FAIL",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "FAIL",
+            "detail": "must be an integer; booleans/floats/strings are rejected"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "tick_hz",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          }
+        ],
+        "declared_budget": null,
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": false,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": true,
+          "max_reliable_age_ticks": 2000003,
+          "tick_hz": 100000000,
+          "max_capture_to_display_start_ticks": 100,
+          "max_scan_ticks": 200
+        },
+        "schema": 1,
+        "config_sha256": "77077f3eb517dd85660dbad8d72eeeb576a395923d68f6ff81eb53862e371147",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 1
+      }
+    },
+    {
+      "name": "filter_enabled",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\filter_enabled.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\filter_enabled"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "matched": true,
+      "summary": {
+        "configuration_status": "FAIL",
+        "checks": [
+          {
+            "name": "schema",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "time_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "counter_w",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "xw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "yw",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "width",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "height",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "ppc",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "pixel_format",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "lane_order",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "filter_enable",
+            "status": "FAIL",
+            "detail": "current delivery contract requires False"
+          },
+          {
+            "name": "display_policy",
+            "status": "PASS",
+            "detail": "matches current delivery contract"
+          },
+          {
+            "name": "acq_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "lost_frames",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_target_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_reliable_age_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "tick_hz",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_capture_to_display_start_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "max_scan_ticks",
+            "status": "PASS",
+            "detail": "explicit in-range declaration"
+          },
+          {
+            "name": "declared_full_scan_budget",
+            "status": "PASS",
+            "detail": "declared worst-case scan fits both ages"
+          }
+        ],
+        "declared_budget": {
+          "capture_to_scan_end_ticks": 300,
+          "fits_both_limits": true
+        },
+        "declaration_only": true,
+        "elaborated_parameters_verified": false,
+        "integration_verified": false,
+        "unverified_obligations": [
+          "Parameters must be checked against the actual elaborated MAIN instance",
+          "Actual clock/timebase and transferred timestamps must match the declaration",
+          "SOF/EOL/EOF, complete/cancel and DDR generation/read lease must be verified",
+          "CDC whole-packet service/reset/epoch behavior must pass actual adapter tests",
+          "Box/cross/text/count/state must use one committed observation and common final mask",
+          "Display watchdog must expire annotations even if the observation clock stops",
+          "New whole-system P&R and version-bound bit/board acceptance remain required"
+        ],
+        "configuration": {
+          "schema": 1,
+          "time_w": 64,
+          "counter_w": 16,
+          "xw": 11,
+          "yw": 10,
+          "width": 1280,
+          "height": 720,
+          "ppc": 4,
+          "pixel_format": "RGB888",
+          "lane_order": "MSB_FIRST",
+          "filter_enable": true,
+          "display_policy": "STRICT_SAME_FRAME",
+          "acq_frames": 3,
+          "lost_frames": 15,
+          "max_target_age_ticks": 1000003,
+          "max_reliable_age_ticks": 2000003,
+          "tick_hz": 100000000,
+          "max_capture_to_display_start_ticks": 100,
+          "max_scan_ticks": 200
+        },
+        "schema": 1,
+        "config_sha256": "272e9f46f99f18d05f858c93a4baf93c82cf03c7f636e29c21f4008a6e4d56af",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 1
+      }
+    },
+    {
+      "name": "duplicate_key",
+      "command": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_target_config.py",
+        "--config",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\duplicate_key.fixture.json",
+        "--gate",
+        "configuration",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\checks-02\\duplicate_key"
+      ],
+      "expected_exit": 1,
+      "actual_exit": 1,
+      "matched": true,
+      "summary": {
+        "configuration_status": "FAIL",
+        "error": "duplicate configuration key: schema",
+        "integration_verified": false,
+        "schema": 1,
+        "config_sha256": "02c92951e3ed1f90abf905e1cfd5d3295316fb82149a08e8356b2c6c5bc1873a",
+        "source_binding": {
+          "scope": "TARGET delivery RTL only; not MAIN sources/build/bit binding",
+          "manifest_sha256": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+          "files": [
+            {
+              "path": "features/color_target/rtl/color_classify.v",
+              "expected_sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect.v",
+              "expected_sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_detect_stream.v",
+              "expected_sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_mask_stats.v",
+              "expected_sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_overlay.v",
+              "expected_sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_support3.v",
+              "expected_sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_text_overlay.v",
+              "expected_sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track.v",
+              "expected_sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+              "matched": true
+            },
+            {
+              "path": "features/color_target/rtl/color_target_track_guard.v",
+              "expected_sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+              "matched": true
+            }
+          ],
+          "matched": true
+        },
+        "gate": "configuration",
+        "exit_code": 1
+      }
+    }
+  ],
+  "unit_command": [
+    "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\test_guard_engineering.py"
+  ],
+  "unit_exit": 0,
+  "code_sha256": {
+    "features\\color_target\\tools\\check_target_config.py": "c256d9fa67a0dcad0a790c395869a2c60946b427c83fbb6d8b507c85b03a25d8",
+    "features\\color_target\\tb\\test_guard_engineering.py": "c09fd806fd7ca98a278345e995ccabd3d24b95f959255d3de2692e5543e7a59f",
+    "features\\color_target\\run_guard_synthesis.py": "62b75bebc11560810e70f4b267f95cae3c605a89bd48b755daba7d2ef81d1143"
+  },
+  "matched": true
+}

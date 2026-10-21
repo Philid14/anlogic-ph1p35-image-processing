@@ -1,0 +1,65 @@
+{
+  "branch": "codex/target/color-target-detect-v1",
+  "target_head": "a715061546db72232d23876146b457355a4a4695",
+  "source_status": " M features/color_target/VERIFICATION.md\n M features/color_target/board/MAIN_HANDOFF.md\n M features/color_target/integration/LATENCY_RELIABILITY_REQUEST.md\n?? features/color_target/evidence/latency_handoff_2026-10-20/\n?? features/color_target/integration/LATENCY_REVIEW_531ef61.md\n?? features/color_target/run_latency_handoff_review.py\n?? features/color_target/tb/tb_latency_handoff_review.v\n?? features/color_target/tb/test_latency_review_evidence.py\n",
+  "latency_revision": "531ef616dd53efa200e16b3839319f18b4c48d72",
+  "main_revision": "c42168e26026425660f2a6f51eec76b04c85eea0",
+  "style_v2_revision": "89093f428878b918036c8a30a0d1afe7764946b8",
+  "fetch_attempts": [
+    "sandbox: schannel SEC_E_NO_CREDENTIALS",
+    "normal permissions: Recv failure: Connection was reset",
+    "normal permissions: Failed to connect to github.com:443"
+  ],
+  "latest_remote_revalidated": false,
+  "production_rtl": [
+    {
+      "path": "features/color_target/rtl/color_classify.v",
+      "sha256_lf": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_detect.v",
+      "sha256_lf": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_detect_stream.v",
+      "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_mask_stats.v",
+      "sha256_lf": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_overlay.v",
+      "sha256_lf": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_support3.v",
+      "sha256_lf": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_text_overlay.v",
+      "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_track.v",
+      "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "unchanged": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_track_guard.v",
+      "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "unchanged": true
+    }
+  ],
+  "td_synthesis": "NOT_RUN",
+  "place_and_route": "NOT_RUN",
+  "bit": null,
+  "board_test": "NOT_RUN"
+}

@@ -1,0 +1,846 @@
+{
+  "kind": "STATIC SOURCE EVIDENCE; no synthesis/CDC/board validation",
+  "head": "b4565a152458d251d694d850a48058a325d66bfb",
+  "branch": "codex/target/a1-integration-audit",
+  "files": {
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v": {
+      "sha256_lf": "b68869c02c1628dcc8d58907b186b1022fcf50023da18413eb1b78e4589747ff",
+      "lines": 803,
+      "hits": [
+        48,
+        202,
+        205,
+        206,
+        212,
+        213,
+        219,
+        220,
+        226,
+        227,
+        233,
+        234,
+        240,
+        241,
+        247,
+        248,
+        254,
+        255,
+        261,
+        262,
+        268,
+        269,
+        275,
+        276,
+        282,
+        283,
+        316,
+        317,
+        323,
+        324,
+        330,
+        331,
+        337,
+        338,
+        441,
+        445,
+        454,
+        472,
+        514,
+        528,
+        550,
+        588,
+        591,
+        606,
+        607,
+        613,
+        641,
+        665,
+        693,
+        753
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/uial2axis.v": {
+      "sha256_lf": "83eaab604fc9c1272d32f9a4df8619569159c4536c3d0aa5be6674a41d46910a",
+      "lines": 84,
+      "hits": [
+        55,
+        56
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v": {
+      "sha256_lf": "1d0dd586df3ce56f3486a65be8f90af48eba1e847b7bd30af311a27e4854f004",
+      "lines": 315,
+      "hits": [
+        236,
+        280,
+        291,
+        303,
+        306,
+        307
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v": {
+      "sha256_lf": "56a7f0af970f0e21f3e476a06b953a58144d7cf635ca9b9725c935b4bcdbd3c5",
+      "lines": 178,
+      "hits": [
+        48,
+        57,
+        65,
+        66,
+        81,
+        93,
+        97,
+        101,
+        143
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data128_96/data128_96.v": {
+      "sha256_lf": "cc2d537ea84ab8e918e033031caa734538067e7861adf2a551123cdf67dbc17e",
+      "lines": 19,
+      "hits": [
+        16,
+        17
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/bilinear_interpolation.v": {
+      "sha256_lf": "11ff09d716a4df50a62c90d7996f9173570597767630124cf1770f6973a623e0",
+      "lines": 912,
+      "hits": [
+        882,
+        883,
+        884,
+        885
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v": {
+      "sha256_lf": "1ee5025909e31b0052abc70df1627e4d5fd10f93e19c230e6d45d0403b09748b",
+      "lines": 57,
+      "hits": [
+        3,
+        27,
+        36,
+        49,
+        52
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v": {
+      "sha256_lf": "f072e0c200a7f8d46e22a954624a2a03affda9ef63bb328276759a643bc450b3",
+      "lines": 205,
+      "hits": [
+        10,
+        17,
+        32,
+        98,
+        105,
+        108,
+        111,
+        112,
+        114,
+        117,
+        123,
+        126,
+        129,
+        130,
+        131,
+        132,
+        133,
+        137,
+        180,
+        182,
+        189,
+        191
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v": {
+      "sha256_lf": "f522f6a0a0ef099686e4dabee9a29d98b1fe62374801accb881865289ddadd2d",
+      "lines": 201,
+      "hits": [
+        7,
+        10,
+        17,
+        31,
+        49,
+        55,
+        58,
+        62,
+        71,
+        87,
+        101,
+        114,
+        118,
+        120,
+        140,
+        147,
+        157,
+        168,
+        174
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v": {
+      "sha256_lf": "e0b3fa961da8bd91d58175ad57eec38e90cc9295215c854154bc0bf2f2f987c7",
+      "lines": 909,
+      "hits": [
+        25,
+        35,
+        39,
+        551,
+        557,
+        615,
+        617,
+        627,
+        629,
+        830,
+        845,
+        850,
+        852,
+        854,
+        856,
+        858,
+        860,
+        862,
+        864,
+        867,
+        873,
+        874,
+        875,
+        876,
+        877,
+        878,
+        882,
+        888,
+        890,
+        892,
+        894,
+        897,
+        902,
+        904
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/data_96bit_to_128bit.v": {
+      "sha256_lf": "6220a9968205ff59e9a5f64525f782a695dfcb44828e999d0fc7809f918f915f",
+      "lines": 79,
+      "hits": [
+        27,
+        33,
+        35,
+        45,
+        50,
+        55,
+        60,
+        65,
+        72
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al": {
+      "sha256_lf": "d40fb6b2f589f81debadbf3ef8fb82066d6c90fff422ae1d38bfd1c5f4ab8376",
+      "lines": 530,
+      "hits": [
+        2,
+        54,
+        412,
+        494,
+        498,
+        512,
+        518
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc": {
+      "sha256_lf": "adcb8f9b759e3b1f0baea3979734393ebce8b6e66d21aa9c812ce66d9c75c1eb",
+      "lines": 17,
+      "hits": [
+        1,
+        2,
+        6,
+        7,
+        8,
+        9,
+        11,
+        14
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/Design.xml": {
+      "sha256_lf": "c8648ef67c1075ea56304f527552a3b8eb02431d9b048b0ff3b532ccdd2f4cec",
+      "lines": 432,
+      "hits": [
+        26,
+        33,
+        44,
+        46,
+        363
+      ]
+    },
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v": {
+      "sha256_lf": "5da885ee8c633d629321c8189c1873ead3548a8620517c373c5e00372fecd815",
+      "lines": 124,
+      "hits": [
+        61,
+        83
+      ]
+    },
+    "features/color_target/rtl/color_target_detect_stream.v": {
+      "sha256_lf": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+      "lines": 68,
+      "hits": [
+        7,
+        35,
+        37,
+        39,
+        41,
+        42,
+        51,
+        58
+      ]
+    },
+    "features/color_target/rtl/color_target_track.v": {
+      "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "lines": 166,
+      "hits": [
+        60,
+        81,
+        82,
+        85,
+        86,
+        87,
+        106,
+        142,
+        144,
+        156
+      ]
+    },
+    "features/color_target/rtl/color_target_text_overlay.v": {
+      "sha256_lf": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+      "lines": 281,
+      "hits": [
+        140,
+        171,
+        197
+      ]
+    },
+    "scripts/prepare_td_runs.py": {
+      "sha256_lf": "e19fc309cfb7b72a7ab3472257a7781284263e41828fafcfb4652a6d9e9c3c27",
+      "lines": 35,
+      "hits": [
+        3,
+        5,
+        19,
+        30
+      ]
+    },
+    "artifacts/bitstreams/EDGE_CONTROL_V1/BUILD_INFO.md": {
+      "sha256_lf": "952b00c9f4629d0e7bef39299e2df6f872427c89d4855ef4d6e982a1581a4cc3",
+      "lines": 52,
+      "hits": [
+        6,
+        19,
+        22,
+        26,
+        42
+      ]
+    },
+    "artifacts/bitstreams/EDGE_CONTROL_V1/build_evidence/final_timing_summary.txt": {
+      "sha256_lf": "539793d83d1766954131212404945a161d018f71ca64d53cd86a5d34b2bef113",
+      "lines": 81,
+      "hits": [
+        8,
+        27,
+        28,
+        37,
+        38,
+        39,
+        40
+      ]
+    }
+  },
+  "al_entries": [
+    {
+      "path": "../user_source/hdl_source/design_top_wrapper.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/video_in.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/video_out.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mc_to_user_interface.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/signal_delay.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/awb.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/csi_unpacket_2lane.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/isp_top.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/raw10_unpacket_2lane.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/uial2axis.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/bilinear_interpolation.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/demosaic.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/mipi_to_raw_converter.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/raw_matrix_3x3_buffer.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/data128_96/data128_96.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/data96_128/data96_128.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uics500_cfg/SC500GainTbl.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uics500_cfg/uicfgcs500_720p.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uics500_cfg/uics500reg_720p60.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uics500_cfg/uics500regAE.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uics500_cfg/uii2c.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/uiisp_beta/ae_set.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/hdmi_tx.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/hdmi_1_4b_transmitter_core_wrapper.enc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/hdmi_phy_warpper.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/lane_lvds_10_1.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/vtc/uivtc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/hdmi_mixer.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/I2S_receiver.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/audio_arc_calculate.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/key_remove_shakes.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/anlogic_logo_rom.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/osd_char_lib.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/edge_detect_96.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/edge_key_control.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/edge_config_cdc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/edge_control_stream.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/edge_status_osd.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/mipi_dphy_rx_ph1p_mipiio_wrapper.sv",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/ph1p_mipiio_rx_wrapper.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/byte_aligner.enc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/byte_aligner_wrapper.enc.sv",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/channel_aligner.enc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/channel_aligner_wrapper.enc.sv",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/mipi_dphy_rx/hs_detect.enc.v",
+      "exists": true
+    },
+    {
+      "path": "../user_source/constraints_source/pin.adc",
+      "exists": true
+    },
+    {
+      "path": "camera_to_dsi_display.sdc",
+      "exists": true
+    },
+    {
+      "path": "../user_source/ip_source/PLL/PLL.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/ip_source/w128_d512_fifo/w128_d512_fifo.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/ip_source/w155_d512_fifo/w155_d512_fifo.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/ip_source/blk_mem_gen_awb_delay_signal/blk_mem_gen_awb_delay_signal.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/ip_source/divider/divider.ipc",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/ph1p35_ddr/ddr2/ddr2.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/blk_mem_gen_zhenghe.xml",
+      "exists": true
+    },
+    {
+      "path": "../user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/blk_mem_gen_demosaic.xml",
+      "exists": true
+    }
+  ],
+  "target_entries": [],
+  "identity_symbol_search": {
+    "scope": [
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v"
+    ],
+    "pattern": "session_id|frame_id|generation_id|slot_generation",
+    "hits": {
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v": [],
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v": [],
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v": [],
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v": [],
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v": [],
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v": []
+    }
+  },
+  "historical_main_input_comparison": {
+    "source_commit": "dff499a75cf0a348aaf2167548b4fe34bf4a78a9",
+    "method": "LF-normalized git object versus current files; not a fresh build",
+    "files": [
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/csi_unpacket_2lane.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/raw10_unpacket_2lane.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/uial2axis.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/bilinear_interpolation.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/demosaic.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/mipi_to_raw_converter.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/raw_matrix_3x3_buffer.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data128_96/data128_96.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data96_128/data96_128.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/SC500GainTbl.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uicfgcs500_720p.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uics500reg_720p60.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uics500regAE.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uii2c.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uiisp_beta/ae_set.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_tx.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_1_4b_transmitter_core_wrapper.enc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_phy_warpper.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/lane_lvds_10_1.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vtc/uivtc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/I2S_receiver.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/audio_arc_calculate.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/key_remove_shakes.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_detect_96.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_config_cdc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_status_osd.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/mipi_dphy_rx_ph1p_mipiio_wrapper.sv",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/ph1p_mipiio_rx_wrapper.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/byte_aligner.enc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/byte_aligner_wrapper.enc.sv",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/channel_aligner.enc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/channel_aligner_wrapper.enc.sv",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/hs_detect.enc.v",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/constraints_source/pin.adc",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/PLL.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/blk_mem_gen_awb_delay_signal.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider.ipc",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/ddr2.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/blk_mem_gen_zhenghe.xml",
+        "same_lf": true
+      },
+      {
+        "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/blk_mem_gen_demosaic.xml",
+        "same_lf": true
+      }
+    ]
+  }
+}

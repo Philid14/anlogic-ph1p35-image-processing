@@ -1,0 +1,63 @@
+{
+  "kind": "INJECTED SUBPROCESS EXIT WITNESS; not an actual simulator failure or hardware run",
+  "source_head": "4ec3d35a5cd08cc2d64fe03aa403be16fd696706",
+  "source_sha256_lf": {
+    "features/color_target/tools/simlib.py": "6742d80e18f9963f6490d4a611c022546726c7d56bf4395a3668ada239da7055",
+    "features/color_target/run_target_class_contract.py": "81dc5b80f05e527c2a073f60f27abad9ee7a1c0520f7b6ea9477a839df17a1bb",
+    "features/color_target/run_verification.py": "9e6a36cb164b11994cde9e3306e064939892aa7aba4a4b12369532c9e8348ba6"
+  },
+  "results": [
+    {
+      "mode": "success",
+      "independent_expected_pass": true,
+      "observed_pass": true,
+      "mismatch": false,
+      "python_child_exit": 0,
+      "failure": null,
+      "class_cases_passed": 12,
+      "class_cases_total": 12,
+      "injected_runtime_exit": 0,
+      "simlib_ok_values": [
+        true
+      ],
+      "structured_report": {
+        "parameter_configurations": 12
+      }
+    },
+    {
+      "mode": "silent_nonzero",
+      "independent_expected_pass": false,
+      "observed_pass": true,
+      "mismatch": true,
+      "python_child_exit": 0,
+      "failure": null,
+      "class_cases_passed": 12,
+      "class_cases_total": 12,
+      "injected_runtime_exit": 7,
+      "simlib_ok_values": [
+        true
+      ],
+      "structured_report": {
+        "parameter_configurations": 12
+      }
+    },
+    {
+      "mode": "text_error",
+      "independent_expected_pass": false,
+      "observed_pass": false,
+      "mismatch": false,
+      "python_child_exit": 1,
+      "failure": "nonzero_exit",
+      "class_cases_passed": 0,
+      "class_cases_total": 12,
+      "injected_runtime_exit": 7,
+      "simlib_ok_values": [
+        true
+      ],
+      "structured_report": null
+    }
+  ],
+  "defect_reproduced": true,
+  "conclusion": "OPEN: simulator nonzero can be lost below a successful Python child, despite exact data and completion checks",
+  "production_changes": []
+}

@@ -1,0 +1,7 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS  chain  beats=396  [sim=modelsim]
+      拍   0: track_state=0 show=0
+      拍 130: track_state=1 show=0
+      拍 262: track_state=2 show=1
+      拍 328: track_state=3 show=1
+      拍 394: track_state=2 show=1

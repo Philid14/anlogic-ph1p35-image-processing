@@ -1,0 +1,128 @@
+{
+  "kind": "CURRENT RTL CHARACTERIZATION, NOT REQUIREMENTS PASS",
+  "observed": {
+    "DUPLICATE": [
+      2,
+      1,
+      1,
+      99
+    ],
+    "REORDER": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "INVALID_RUN": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SILENCE": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SESSION_INVALID": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SESSION_VALID": [
+      1,
+      0,
+      2,
+      1
+    ],
+    "OLD_SESSION_RETURN": [
+      1,
+      0,
+      1,
+      99
+    ],
+    "ABSENT_FIRST": [
+      3,
+      1,
+      1,
+      3
+    ],
+    "ABSENT_SECOND": [
+      0,
+      0,
+      1,
+      3
+    ]
+  },
+  "characterized": {
+    "DUPLICATE": [
+      2,
+      1,
+      1,
+      99
+    ],
+    "REORDER": [
+      2,
+      1,
+      1,
+      1
+    ],
+    "INVALID_RUN": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SILENCE": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SESSION_INVALID": [
+      2,
+      1,
+      1,
+      3
+    ],
+    "SESSION_VALID": [
+      1,
+      0,
+      2,
+      1
+    ],
+    "OLD_SESSION_RETURN": [
+      1,
+      0,
+      1,
+      99
+    ],
+    "ABSENT_FIRST": [
+      3,
+      1,
+      1,
+      3
+    ],
+    "ABSENT_SECOND": [
+      0,
+      0,
+      1,
+      3
+    ]
+  },
+  "open_gaps": {
+    "DUPLICATE": "OPEN: duplicate frame confirms target; admission owner not implemented",
+    "REORDER": "OPEN: decreasing identities accepted; ordering owner not implemented",
+    "INVALID_RUN": "OPEN: no observation age mechanism; no approved timeout value",
+    "SILENCE": "OPEN: no wall-clock expiry; 20 cycles are a fixture, not an approved limit",
+    "SESSION_INVALID": "OPEN: session clear requires valid strobe; explicit epoch authority absent",
+    "OLD_SESSION_RETURN": "OPEN: retired session can re-enter through a valid result"
+  },
+  "source_sha256_lf": {
+    "color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "tb_track_admission_audit.v": "86a96ff7340ded692ed3382ab6335c4926f5cb5c04e6171f83cca7056f676275"
+  },
+  "trace_matched": true
+}

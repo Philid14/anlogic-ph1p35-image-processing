@@ -1,0 +1,17 @@
+{
+  "netlist_geometry": [
+    1280,
+    3
+  ],
+  "sdf": false,
+  "vendor_models": true,
+  "transcript_sha256": "ce1b3812e0ba7c4a5efca5e1787bb2ec913cff1ed52a440411919e21f7b22577",
+  "warnings_by_code": {
+    "3017": 142,
+    "3722": 2805,
+    "3016": 29
+  },
+  "pass_lines": [
+    "# PASS support3 cycles=28263"
+  ]
+}

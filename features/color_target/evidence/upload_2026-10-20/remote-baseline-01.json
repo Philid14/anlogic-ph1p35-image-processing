@@ -1,0 +1,29 @@
+{
+  "main": "c42168e26026425660f2a6f51eec76b04c85eea0",
+  "candidates": [
+    {
+      "branch": "codex/main/edge-style-fill-v1",
+      "head": "532d3c62bbc8d0c60d5def5e5233b035f2a9699b",
+      "version": "EDGE_STYLE_FILL_V1",
+      "build_source": "042345cb0e92a1cc5ea0a74fed1be352cf338f2c",
+      "bit_path": "artifacts/bitstreams/EDGE_STYLE_FILL_V1/camera_to_dsi_display.bit",
+      "bit_sha256": "b4fbb61fabd6a510b26eec6dad4d950ff8a3d2b6f561753d5611b334274b336e",
+      "bit_bytes": 1789539,
+      "target_in_td": false,
+      "latency_in_td": false
+    },
+    {
+      "branch": "codex/main/edge-multi-mode-v1",
+      "head": "22690856d9a0c079485bedd916d9c8f7f116157b",
+      "version": "EDGE_MULTI_MODE_V1",
+      "build_source": "4ea67f194941c6717fc1d28889c687a4fb78533f",
+      "bit_path": "artifacts/bitstreams/EDGE_MULTI_MODE_V1/camera_to_dsi_display.bit",
+      "bit_sha256": "8c62195da8a2f8748ce9d6cfd7d9703bcb81e6f6cda09aedf4bbb0de0fe0bbe9",
+      "bit_bytes": 1789539,
+      "target_in_td": false,
+      "latency_in_td": false
+    }
+  ],
+  "latency_head": "9e598f03b89f7e48692b6e09a28f152db9dbf957",
+  "scope": "Read-only fixed remote snapshot and archived bit byte checks; no new build or board test"
+}

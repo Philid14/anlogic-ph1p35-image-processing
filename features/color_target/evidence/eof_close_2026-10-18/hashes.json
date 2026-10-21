@@ -1,0 +1,15 @@
+{
+  "algorithm": "SHA-256",
+  "baseline_commit": "5565545efb4365e192c372e5e8024332e2745fcf",
+  "files": {
+    "features\\color_target\\rtl\\color_target_detect.v": "776ff2fba613fbd742ad72c447ae1a6611095d98d93d8de7714afd59b43370d4",
+    "features\\color_target\\model\\ref_color_target.py": "08a2932449c8c68c7cb502ed353c6c1d86182446d3864255e3ba203cb2e793c9",
+    "features\\color_target\\run_color_target.py": "98d653e0220be1559965e2129c7e3a8b4665689ce671fad3cded71ae796c3054",
+    "features\\color_target\\run_color_target_replay.py": "5ddd03574f9ccd9562f664c0a4ada1179f583c28e8f134e210c1f1b5b6aadb59",
+    "before-negative.txt": "b80e2dd6b04da1b234eceb5f0c19dbb2f639fb3ea3249b30fc7c114341a3ab73",
+    "chain-after.txt": "32685ede9a43ba868a127fd1c2a18dc4ea914a914cfcb4210e01c4f6f4fb26f5",
+    "detector-after.txt": "cf72ca78799bc6944b35db3ae6f7f534abadd4d9c891a7268151d5e732f95811",
+    "replay-after.txt": "304cf31a520666dcd6e41f6738776d7723ba8bc8ccc50db78a22e1084246a2aa",
+    "replay-summary.json": "3ecb85b8df3fb8b65f175b0b27030815e4688d0cb0b3d4b6fec8dc9d3802d09a"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "command": [
+    "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "features/color_target/tb/test_latency_review_evidence.py"
+  ],
+  "exit_code": 0,
+  "scope": "4 evidence-parser tests; not RTL",
+  "source_sha256": "a52f6aca08aa20d396a7378621e0441f4febff26ebfa779162b7cdb307e662ba"
+}

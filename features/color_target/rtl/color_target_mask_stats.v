@@ -1,0 +1,104 @@
+`timescale 1ns / 1ps
+// Fixed-raster mask statistics for the independent replay path.
+// EOF closes the transaction. Orphan EOF, identity/geometry mismatch and count
+// overflow publish invalid, zero-valued results. Abort is sticky between SOFs.
+module color_target_mask_stats #(
+    parameter integer WIDTH=1280, HEIGHT=720, XW=11, YW=10,
+    parameter integer MIN_COUNT=64, TARGET_CLASS=0
+)(
+    input clk, input rst_n,
+    input I_pixel_valid, input [3:0] I_mask,
+    input [XW-1:0] I_x0, input [YW-1:0] I_y,
+    input I_sof, input I_eol, input I_eof,
+    input [31:0] I_session_id, input [31:0] I_frame_id,
+    input I_frame_abort,
+    output reg [31:0] O_res_session_id, output reg [31:0] O_res_frame_id,
+    output reg O_result_valid, output reg O_target_present,
+    output reg [1:0] O_color_class, output reg [19:0] O_pixel_count,
+    output reg [XW-1:0] O_xmin, O_xmax, O_center_x,
+    output reg [YW-1:0] O_ymin, O_ymax, O_center_y,
+    output reg O_result_ready, output reg O_protocol_error
+);
+    localparam [1:0] CLASS_EFF=(TARGET_CLASS==1) ? 2'd1 :
+                                ((TARGET_CLASS==2) ? 2'd2 : 2'd0);
+    localparam [XW-1:0] XMAX={XW{1'b1}};
+    localparam [YW-1:0] YMAX={YW{1'b1}};
+    localparam [19:0] LIMIT=(MIN_COUNT<1) ? 20'd1 :
+                              ((MIN_COUNT>1048575) ? 20'hfffff : MIN_COUNT);
+    reg opened, bad_f;
+    reg [31:0] session_id, frame_id;
+    reg [19:0] count;
+    reg [XW-1:0] xmin, xmax, expected_x;
+    reg [YW-1:0] ymin, ymax, expected_y;
+    wire start=I_pixel_valid && I_sof;
+    wire active=opened || start;
+    wire [XW-1:0] at_x=start ? 0 : expected_x;
+    wire [YW-1:0] at_y=start ? 0 : expected_y;
+    wire last_col=(at_x==WIDTH-4);
+    wire last_frame=last_col && (at_y==HEIGHT-1);
+    wire geom_bad=(I_x0!=at_x) || (I_y!=at_y) ||
+                  (I_eol!=last_col) || (I_eof!=last_frame);
+    wire id_bad=!start && ((I_session_id!=session_id) || (I_frame_id!=frame_id));
+    wire protocol_bad=!active || geom_bad || id_bad;
+    wire [2:0] hits={2'b0,I_mask[3]}+{2'b0,I_mask[2]}+
+                    {2'b0,I_mask[1]}+{2'b0,I_mask[0]};
+    wire [20:0] next_count={1'b0,(start ? 20'b0 : count)}+hits;
+    wire bad=(start ? 1'b0 : bad_f) || I_frame_abort || protocol_bad || next_count[20];
+    wire good=active && !bad;
+    wire present=good && (next_count>=LIMIT);
+    // Valid fixed-raster beats are aligned to four pixels. Priority encoders
+    // find the first/last hit, avoiding four serial compare/mux accumulations.
+    // Misaligned x is already a poisoned frame, whose published fields are 0.
+    wire [1:0] first_lane=I_mask[3] ? 0 : (I_mask[2] ? 1 : (I_mask[1] ? 2 : 3));
+    wire [1:0] last_lane=I_mask[0] ? 3 : (I_mask[1] ? 2 : (I_mask[2] ? 1 : 0));
+    wire [XW-1:0] hit_xmin=((I_x0>>2)<<2) | first_lane;
+    wire [XW-1:0] hit_xmax=((I_x0>>2)<<2) | last_lane;
+    wire [XW-1:0] base_xmin=start ? XMAX : xmin;
+    wire [XW-1:0] base_xmax=start ? 0 : xmax;
+    wire [YW-1:0] base_ymin=start ? YMAX : ymin;
+    wire [YW-1:0] base_ymax=start ? 0 : ymax;
+    wire [XW-1:0] next_xmin=(|I_mask) && (hit_xmin<base_xmin) ? hit_xmin : base_xmin;
+    wire [XW-1:0] next_xmax=(|I_mask) && (hit_xmax>base_xmax) ? hit_xmax : base_xmax;
+    wire [YW-1:0] next_ymin=(|I_mask) && (I_y<base_ymin) ? I_y : base_ymin;
+    wire [YW-1:0] next_ymax=(|I_mask) && (I_y>base_ymax) ? I_y : base_ymax;
+    wire [XW:0] xsum={1'b0,next_xmin}+{1'b0,next_xmax};
+    wire [YW:0] ysum={1'b0,next_ymin}+{1'b0,next_ymax};
+    always @(posedge clk or negedge rst_n) begin
+        if (!rst_n) begin
+            opened<=0; bad_f<=0; session_id<=0; frame_id<=0;
+            count<=0; xmin<=XMAX; xmax<=0; ymin<=YMAX; ymax<=0;
+            expected_x<=0; expected_y<=0;
+            O_result_ready<=0; O_result_valid<=0; O_target_present<=0;
+            O_res_session_id<=0; O_res_frame_id<=0;
+            O_color_class<=0; O_pixel_count<=0;
+            O_xmin<=0; O_xmax<=0; O_center_x<=0;
+            O_ymin<=0; O_ymax<=0; O_center_y<=0; O_protocol_error<=0;
+        end else begin
+            O_result_ready<=I_pixel_valid && I_eof;
+            if (I_frame_abort && opened) bad_f<=1;
+            if (I_pixel_valid) begin
+                if (protocol_bad) O_protocol_error<=1;
+                if (start) begin session_id<=I_session_id; frame_id<=I_frame_id; end
+                if (active) begin
+                    count<=next_count[19:0]; bad_f<=bad;
+                    xmin<=next_xmin; xmax<=next_xmax; ymin<=next_ymin; ymax<=next_ymax;
+                    opened<=!I_eof;
+                    expected_x<=last_col ? 0 : at_x+4;
+                    expected_y<=last_frame ? 0 : (last_col ? at_y+1'b1 : at_y);
+                end
+                if (I_eof) begin
+                    opened<=0;
+                    O_res_session_id<=(start || !opened) ? I_session_id : session_id;
+                    O_res_frame_id<=(start || !opened) ? I_frame_id : frame_id;
+                    O_result_valid<=good; O_target_present<=present;
+                    O_color_class<=present ? CLASS_EFF : 0;
+                    O_pixel_count<=present ? next_count[19:0] : 0;
+                    O_xmin<=present ? next_xmin : 0; O_xmax<=present ? next_xmax : 0;
+                    O_ymin<=present ? next_ymin : 0; O_ymax<=present ? next_ymax : 0;
+                    O_center_x<=present ? xsum[XW:1] : 0;
+                    O_center_y<=present ? ysum[YW:1] : 0;
+                end
+            end
+        end
+    end
+endmodule

@@ -1,0 +1,77 @@
+{
+  "parser_rejection_probes": [
+    {
+      "name": "changed_gold_to_match_wrong_value",
+      "evidence_rejected": true
+    },
+    {
+      "name": "changed_requirement_into_setup",
+      "evidence_rejected": true
+    },
+    {
+      "name": "nonbinary_pass_flag",
+      "evidence_rejected": true
+    }
+  ],
+  "corrected_rise_times": [
+    150000,
+    200000,
+    250000,
+    300000,
+    350000,
+    400000,
+    450000,
+    500000,
+    550000,
+    600000,
+    650000,
+    700000,
+    750000,
+    800000,
+    850000,
+    900000,
+    950000,
+    1000000,
+    1050000,
+    1100000
+  ],
+  "corrected_gaps_ps": [
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000,
+    50000
+  ],
+  "gates": {
+    "component": {
+      "evidence_valid": true,
+      "component_contract_satisfied": false,
+      "requirements_satisfied": false,
+      "selected_gate": "component",
+      "selected_gate_satisfied": false,
+      "integration_ready": false
+    },
+    "integration": {
+      "evidence_valid": true,
+      "component_contract_satisfied": false,
+      "requirements_satisfied": false,
+      "selected_gate": "integration",
+      "selected_gate_satisfied": false,
+      "integration_ready": false
+    }
+  }
+}

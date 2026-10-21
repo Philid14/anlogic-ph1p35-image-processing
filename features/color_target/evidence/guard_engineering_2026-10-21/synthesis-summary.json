@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-21T09:34:53.322696+00:00",
+  "scope": "Standalone guard+TRACK gate estimates including fixture; no P&R/Fmax/bit/board proof",
+  "head": "d247788b9b64114f57d21397ca37e9e0b30f29ee",
+  "branch": "codex/target/color-target-detect-v1",
+  "worktree": "?? features/color_target/integration/TARGET_CONFIG_PENDING.json\n?? features/color_target/run_guard_synthesis.py\n?? features/color_target/tools/check_target_config.py\n?? features/color_target/tools/guard_synth_top.v\n?? features/color_target/tools/synth_guard.tcl\n",
+  "source_hashes": {
+    "features/color_target/rtl/color_target_track.v": {
+      "sha256": "a0ad7ba300e5898c8edc4b209332a1c7105380369d68bbc4891bcd6e5e975457",
+      "sha256_lf": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4"
+    },
+    "features/color_target/rtl/color_target_track_guard.v": {
+      "sha256": "29a9933ee2f8b404f9eed4358b40a1e5b3524311562db127fe652f70e7852196",
+      "sha256_lf": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3"
+    },
+    "features/color_target/tools/guard_synth_top.v": {
+      "sha256": "f700f85a49e1ef1a9b4012a9cd5b936d41a50b0bde42223dd014f9cb5f6ab2d4",
+      "sha256_lf": "f700f85a49e1ef1a9b4012a9cd5b936d41a50b0bde42223dd014f9cb5f6ab2d4"
+    },
+    "features/color_target/tools/synth_guard.tcl": {
+      "sha256": "78e73fc208dc00f784d24af072e2d0a3fe196783ce302d6782ce9164a93c489a",
+      "sha256_lf": "78e73fc208dc00f784d24af072e2d0a3fe196783ce302d6782ce9164a93c489a"
+    },
+    "features/color_target/run_guard_synthesis.py": {
+      "sha256": "62b75bebc11560810e70f4b267f95cae3c605a89bd48b755daba7d2ef81d1143",
+      "sha256_lf": "62b75bebc11560810e70f4b267f95cae3c605a89bd48b755daba7d2ef81d1143"
+    }
+  },
+  "source_unchanged": true,
+  "profiles": [
+    {
+      "name": "active64",
+      "time_w": 64,
+      "counter_w": 16,
+      "enabled": 1,
+      "experimental_target_age_ticks": 1000003,
+      "experimental_reliable_age_ticks": 2000003,
+      "period_ns": 10.0,
+      "command": [
+        "D:\\Anlogic\\TD\\bin\\td_commands_prompt.exe",
+        "C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tools/synth_guard.tcl"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\gate-03\\active64",
+      "exit_code": 0,
+      "failure": null,
+      "warnings": [
+        "SYN-6021 CRITICAL-WARNING: 77 out of 77 logical ports has no user assigned specific location constraint."
+      ],
+      "measurement": {
+        "top_level": {
+          "lut": 1132,
+          "reg": 1471,
+          "eram": 0,
+          "dsp": 0,
+          "slice": 1113
+        },
+        "hierarchy": [
+          {
+            "instance": "top",
+            "module": "guard_synth_top",
+            "logic_lut": 586,
+            "ripple": 341,
+            "seq": 1471,
+            "eram": 0,
+            "dsp": 0
+          },
+          {
+            "instance": "u_guard",
+            "module": "color_target_track_guard",
+            "logic_lut": 244,
+            "ripple": 341,
+            "seq": 581,
+            "eram": 0,
+            "dsp": 0
+          },
+          {
+            "instance": "u_track",
+            "module": "color_target_track",
+            "logic_lut": 53,
+            "ripple": 0,
+            "seq": 101,
+            "eram": 0,
+            "dsp": 0
+          }
+        ],
+        "SWNS_ns": 1.494,
+        "HWNS_ns": 0.502,
+        "sta_coverage_percent": 73.51,
+        "first_setup_path": {
+          "begin": "sample_reg[221].clk (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "end": "u_guard/u_track/acq_cnt_reg[4].d (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "logic_levels": "8 ( LUT6=3  LUT2=2  ADDER=2  LUT3=1 )"
+        },
+        "experimental_gate_timing_met": true
+      },
+      "evidence_valid": true,
+      "reports": {
+        "gate.qor": {
+          "sha256": "db5a3fc9b09bbf322c3a83775f1ff9071dbbf4155ab122663f3a7d8ea190e9f4",
+          "sha256_lf": "ced8dfa1c7c85b8440c2a88320ddb80031b87de714d476d4a7055d37fe546bd5"
+        },
+        "guard_gate.area": {
+          "sha256": "d99b99956a78d1c1c921b8235e2476ae1e9ea576233df333ce6f90c8567f5453",
+          "sha256_lf": "05cf88c62d02652a4ef09d849cdc97d339196142700e6e1726c1839f313df147"
+        },
+        "guard_gate.ts": {
+          "sha256": "17a81c66f389a8cc3371dabbdc8a74e5c5edf3927436a6577fc923692ddc0b37",
+          "sha256_lf": "90c7b3157a9added4a7b45f3b63bd531753d0ce0ace10347b2fbb9734f80efc3"
+        },
+        "guard_rtl.area": {
+          "sha256": "dfb1f8ff7dd7d7d28fbbc0f07288611bef684d6c0305acd80605d4b7946de52b",
+          "sha256_lf": "3573b51868382f602527876c3521cab0853b4f5265948759078d040ca8aa16c7"
+        },
+        "guard_summary.txt": {
+          "sha256": "06868fe1878e24573368256e0aeebc01d7f999851505f043f4a5ffbed4c8b6ad",
+          "sha256_lf": "f8ec4b2aba14be061f76c96b98a74e7e9bc81d0b28b10e7ad8af0cf7b28f5c07"
+        },
+        "guard_test.sdc": {
+          "sha256": "bc0bd4b6d408a2acb090d4bde81d252b1519b2b24cbd59bb6f8be66e29e0e9ac",
+          "sha256_lf": "72063552df2ba83094cce53c4ef598d09530945cf5941c1b4077af0bbc72ddc8"
+        },
+        "synthesis.log": {
+          "sha256": "931aa2071fe00433551949ecc4f7e0f782242abee4d3ab1f299bc9ed6e8940d3",
+          "sha256_lf": "700f7d6088d6d1679eae2cd7f5a37b2509f01cfb12e37f7f3a6772277a2a0190"
+        },
+        "td_20261021_173436.log": {
+          "sha256": "f9c575e5b3e73c51aeeb4343a939a7a878b5a0cd760bc7223b4cd5f73c1f61db",
+          "sha256_lf": "b0624a9d624856c710f9df9076d0457f23d703469e2c03b1455855dcc84c08bb"
+        },
+        "td_20261021_173436.logw": {
+          "sha256": "52d6ca7440cf4ed8f774e547b0127fd979bfafa893a21d6cbc5e762619904f19",
+          "sha256_lf": "887688c02778adba0637756d61453c439420c655d9c41f7a5f11466e2a3a576f"
+        }
+      }
+    },
+    {
+      "name": "active32",
+      "time_w": 32,
+      "counter_w": 16,
+      "enabled": 1,
+      "experimental_target_age_ticks": 1000003,
+      "experimental_reliable_age_ticks": 2000003,
+      "period_ns": 10.0,
+      "command": [
+        "D:\\Anlogic\\TD\\bin\\td_commands_prompt.exe",
+        "C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tools/synth_guard.tcl"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\gate-03\\active32",
+      "exit_code": 0,
+      "failure": null,
+      "warnings": [
+        "SYN-6021 CRITICAL-WARNING: 77 out of 77 logical ports has no user assigned specific location constraint."
+      ],
+      "measurement": {
+        "top_level": {
+          "lut": 936,
+          "reg": 1247,
+          "eram": 0,
+          "dsp": 0,
+          "slice": 927
+        },
+        "hierarchy": [
+          {
+            "instance": "top",
+            "module": "guard_synth_top",
+            "logic_lut": 526,
+            "ripple": 241,
+            "seq": 1247,
+            "eram": 0,
+            "dsp": 0
+          },
+          {
+            "instance": "u_guard",
+            "module": "color_target_track_guard",
+            "logic_lut": 204,
+            "ripple": 241,
+            "seq": 485,
+            "eram": 0,
+            "dsp": 0
+          },
+          {
+            "instance": "u_track",
+            "module": "color_target_track",
+            "logic_lut": 54,
+            "ripple": 0,
+            "seq": 101,
+            "eram": 0,
+            "dsp": 0
+          }
+        ],
+        "SWNS_ns": 1.644,
+        "HWNS_ns": 0.502,
+        "sta_coverage_percent": 72.72,
+        "first_setup_path": {
+          "begin": "u_guard/reliable_tick_reg[0].clk (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "end": "output_sample_reg[144].d (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "logic_levels": "7 ( LUT2=2  ADDER=2  unknown=1  LUT4=1  LUT3=1 )"
+        },
+        "experimental_gate_timing_met": true
+      },
+      "evidence_valid": true,
+      "reports": {
+        "gate.qor": {
+          "sha256": "085563589ec10e1a6a5073bc238830db5973d03f1aee50edb7a323fe8dd38734",
+          "sha256_lf": "b27871c3b828f1ec581b7ac5415f1f1ba777048aabf1fe7f24045984977a7a6c"
+        },
+        "guard_gate.area": {
+          "sha256": "e77fb5d15ef748aadcf221ad6fab110fb60c84657edaf25252a03bad2d4ab432",
+          "sha256_lf": "1cb2f7602b70f247cf30882ac66d62a1e0dd4fabe17ca83cdf0246fa11fe6b56"
+        },
+        "guard_gate.ts": {
+          "sha256": "38b1a300c6286bae425e51026f82133ed5676a9b67d5b556e9cfdd8fa05bd409",
+          "sha256_lf": "2fc80badb9c7b07654b574542edea14e1fe5487231e0dc717fb97ad667276403"
+        },
+        "guard_rtl.area": {
+          "sha256": "b2478fc5a4840d6eed910a7df040d2ca93fb0abbd158b5614ed7d5bd415aadce",
+          "sha256_lf": "4336fc0c7d05ec8fdc4fd3a0b8e62c480dfc698494015e9191150423f4057269"
+        },
+        "guard_summary.txt": {
+          "sha256": "f29a6eefa48ae008d5e0cab913c4887e9877d2fa7a5bc468f3fd27ab74842129",
+          "sha256_lf": "7fb217c8c98db7c23cbc51396cb14635f9ceceab48b46aad0e42a1517afb23d1"
+        },
+        "guard_test.sdc": {
+          "sha256": "bc0bd4b6d408a2acb090d4bde81d252b1519b2b24cbd59bb6f8be66e29e0e9ac",
+          "sha256_lf": "72063552df2ba83094cce53c4ef598d09530945cf5941c1b4077af0bbc72ddc8"
+        },
+        "synthesis.log": {
+          "sha256": "42f78821f25bc269b76c7e51888457723f674a4b1d7ae924406177870b2ab499",
+          "sha256_lf": "eb99dcbe48016eb19a5f7f0cc1d4000e10e6f63e4d4fdba0026520956fb552d2"
+        },
+        "td_20261021_173444.log": {
+          "sha256": "ff94016e5a3a1c3e9523059c86c0e2ab77f13d09290d70aa96ddec8dbfd1956b",
+          "sha256_lf": "176e9a89c67c138b9446c6acb0061717f9d41e02c8ae9b034643ddc426e14bd6"
+        },
+        "td_20261021_173444.logw": {
+          "sha256": "e2eb43ceb83a19b986aa4b4ca849f744ccce9e88b758432d758583cb032612cd",
+          "sha256_lf": "3d3c407db0f906cee0a81fb319732cd55aeb9465d43e1056074bb23579b8ec2e"
+        }
+      }
+    },
+    {
+      "name": "disabled64",
+      "time_w": 64,
+      "counter_w": 16,
+      "enabled": 0,
+      "experimental_target_age_ticks": 0,
+      "experimental_reliable_age_ticks": 0,
+      "period_ns": 10.0,
+      "command": [
+        "D:\\Anlogic\\TD\\bin\\td_commands_prompt.exe",
+        "C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tools/synth_guard.tcl"
+      ],
+      "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\guard-budget-2026-10-21\\gate-03\\disabled64",
+      "exit_code": 0,
+      "failure": null,
+      "warnings": [
+        "SYN-6021 CRITICAL-WARNING: 47 out of 47 logical ports has no user assigned specific location constraint."
+      ],
+      "measurement": {
+        "top_level": {
+          "lut": 10,
+          "reg": 7,
+          "eram": 0,
+          "dsp": 0,
+          "slice": 7
+        },
+        "hierarchy": [
+          {
+            "instance": "top",
+            "module": "guard_synth_top",
+            "logic_lut": 7,
+            "ripple": 0,
+            "seq": 7,
+            "eram": 0,
+            "dsp": 0
+          },
+          {
+            "instance": "u_guard",
+            "module": "color_target_track_guard",
+            "logic_lut": 1,
+            "ripple": 0,
+            "seq": 2,
+            "eram": 0,
+            "dsp": 0
+          }
+        ],
+        "SWNS_ns": 8.578,
+        "HWNS_ns": 0.502,
+        "sta_coverage_percent": 61.51,
+        "first_setup_path": {
+          "begin": "sample_reg[4].clk (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "end": "u_guard/O_event_strobe_reg.d (rising edge triggered by clock guard_test_clk  { rise@0.000000ns  fall@5.000000ns  period=10.000000 })",
+          "logic_levels": "1 ( LUT2=1 )"
+        },
+        "experimental_gate_timing_met": true
+      },
+      "evidence_valid": true,
+      "reports": {
+        "gate.qor": {
+          "sha256": "356ede8e525a8659db1fec2d889373f588f60a6a39c36d18e65c828a14df2b43",
+          "sha256_lf": "0865fbf851b73b4d04df09f374a59fd51abb38b28797dad26aa8d986a664a3bd"
+        },
+        "guard_gate.area": {
+          "sha256": "10b41fd7501ad092295fa40302e7c82788217cdb436a3b2b573f5b3c51ebb87d",
+          "sha256_lf": "f3ac1253e5c0bf34e4e1089c5bec1dd0f4f0c5fc363b8439d40951b339b2a3f7"
+        },
+        "guard_gate.ts": {
+          "sha256": "83199f5a134390f662bbcdaee225cdb3f232563a5a43656dddb7121e58b2cb16",
+          "sha256_lf": "c8ba45ab521502c4cd085501caed5226037e098f0ba7a9c096127188ed8cc6e0"
+        },
+        "guard_rtl.area": {
+          "sha256": "747e0aa00a2e723c2e3d3c6be64da8a35cd38e279c3e48bc818f1914d0c641c2",
+          "sha256_lf": "6a4b649083f6a518e089985b65ff55a9d3d5c75137a33d364f43baecd8c36df4"
+        },
+        "guard_summary.txt": {
+          "sha256": "2cefec77577fadfcefbf287bd11bbbc685fa4502692bdb5c2a48668c22e143ed",
+          "sha256_lf": "94d7f66e8f017153b2d5ca3f423e8ee6a90d223e93b3151cc27523422c44dbba"
+        },
+        "guard_test.sdc": {
+          "sha256": "bc0bd4b6d408a2acb090d4bde81d252b1519b2b24cbd59bb6f8be66e29e0e9ac",
+          "sha256_lf": "72063552df2ba83094cce53c4ef598d09530945cf5941c1b4077af0bbc72ddc8"
+        },
+        "synthesis.log": {
+          "sha256": "ec3c65e38d34b6c97f0cd6f12dbdedd0b4f3c6b43c506c6b904e83ddc2db85e1",
+          "sha256_lf": "395f1b8225c2cc3e27e185f62a3d1ac82ff03de4bfa6f6eeca49fc2b222ffd83"
+        },
+        "td_20261021_173450.log": {
+          "sha256": "821649b26a733efb3f30a153083e17d0420367aac0380e6acfc281b634c3e4ea",
+          "sha256_lf": "ff5cb3bb44f4d9ea049624d6e5c2a3048cd2e47e437ed9bd0e3494287fc6d245"
+        },
+        "td_20261021_173450.logw": {
+          "sha256": "2271fd3f20b3a3ebe972d832eebee7e606b47818a23478828f4e4f980badbfea",
+          "sha256_lf": "f6821e358bba920a32ca9668e267d612fe74df3a8d890cebd0b1aa5ebc6761d3"
+        }
+      }
+    }
+  ],
+  "evidence_valid": true,
+  "production_limits_confirmed": false,
+  "integration_ready": false,
+  "io_timing": "Top fixture I/O and async reset are not board-constrained; registered guard boundaries use the synthetic clock"
+}

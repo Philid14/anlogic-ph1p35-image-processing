@@ -1,0 +1,28 @@
+{
+  "branch": "origin/codex/main/edge-style-fill-v2",
+  "head": "89093f428878b918036c8a30a0d1afe7764946b8",
+  "pr": 13,
+  "build_source": "694559fd76676093e134229d435161ecb44ab00c",
+  "compared_build_source": "042345cb0e92a1cc5ea0a74fed1be352cf338f2c",
+  "actual_project_changes": [
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v"
+  ],
+  "observation_isp_ddr_hdmi_td_sdc_unchanged_vs_v1": true,
+  "target_in_td": false,
+  "latency_in_td": false,
+  "bit_path": "artifacts/bitstreams/EDGE_STYLE_FILL_V2/camera_to_dsi_display.bit",
+  "bit_bytes": 1789539,
+  "bit_sha256": "cfb7435648ed50310f053afe138702f2094b0061b6a7dd68b3b064b6b3d88f51",
+  "routed_resources_reported": {
+    "lut6": 17170,
+    "ff": 16814,
+    "slice": 18140,
+    "eram20k": 85,
+    "dsp": 21,
+    "setup_wns_ns": 0.1,
+    "hold_wns_ns": 0.02,
+    "sta_coverage_percent": 96.14
+  },
+  "warning_limits": "Historical FIFO/Gray risk remains; existing I2C clock buffer cross-region warning requires cold starts per MAIN report",
+  "scope": "Read-only Git project delta and bit hash verification; existing MAIN report metrics, not new TARGET P&R/board proof"
+}

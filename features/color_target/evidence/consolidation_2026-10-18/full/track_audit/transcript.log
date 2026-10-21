@@ -1,0 +1,40 @@
+Reading D:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet work.tb_track_admission_audit -do "run -all; quit -f" 
+# Start time: 13:22:56 on Oct 18,2026
+# ** Warning: (vsim-3017) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Too few port connections. Expected 26, found 18.
+# 
+#         Region: /tb_track_admission_audit/dut
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_xmin'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_xmax'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_center_x'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_ymin'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_ymax'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_out_center_y'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(10): [TFMPC] - Missing connection for port 'O_state_change'.
+# 
+# run -all
+# S DUPLICATE 2 1 1 99
+# S REORDER 2 1 1 1
+# S INVALID_RUN 2 1 1 3
+# S SILENCE 2 1 1 3
+# S SESSION_INVALID 2 1 1 3
+# S SESSION_VALID 1 0 2 1
+# S OLD_SESSION_RETURN 1 0 1 99
+# S ABSENT_FIRST 3 1 1 3
+# S ABSENT_SECOND 0 0 1 3
+# TRACK_AUDIT_COMPLETE
+# ** Note: $finish    : C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_track_admission_audit.v(40)
+#    Time: 1531 ns  Iteration: 0  Instance: /tb_track_admission_audit
+# End time: 13:22:56 on Oct 18,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 9

@@ -1,0 +1,51 @@
+{
+  "vcd_timescale_header": "$date\n\tWed Oct 21 00:16:04 2026\n$end\n$version\n\tModelSim Version 10.3c\n$end\n$timescale\n\t1ps\n$end\n\n$scope module tb_latency_handoff_review $end\n$var reg 1 ! be $end\n$upscope $end\n",
+  "rise_times": [
+    150000,
+    210000,
+    270000,
+    330000,
+    390000,
+    450000,
+    510000,
+    570000,
+    630000,
+    690000,
+    750000,
+    810000,
+    870000,
+    930000,
+    990000,
+    1050000,
+    1110000,
+    1170000,
+    1230000,
+    1290000
+  ],
+  "gaps": [
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000,
+    60000
+  ],
+  "documented_source_period_ns": 10,
+  "documented_gap_cycles": 5,
+  "observed_gap_vcd_units": [
+    60000
+  ]
+}

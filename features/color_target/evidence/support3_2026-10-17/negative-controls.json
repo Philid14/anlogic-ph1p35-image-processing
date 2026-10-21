@@ -1,0 +1,14 @@
+{
+  "threshold": {
+    "expected_failure": true,
+    "assertion": "(4, 1, 5, 1, (15, 0, 0, 1, 1, 1, 17, 4294967294), (6, 0, 0, 1, 1, 1, 17, 4294967294, False))"
+  },
+  "identity": {
+    "expected_failure": true,
+    "assertion": "(4, 1, 6, 2, (0, 0, 0, 1, 1, 1, 18, 4294967295), (0, 0, 0, 1, 1, 1, 17, 4294967295, False))"
+  },
+  "tail": {
+    "expected_failure": true,
+    "assertion": "(4, 1, 'reset lost output', 0)"
+  }
+}

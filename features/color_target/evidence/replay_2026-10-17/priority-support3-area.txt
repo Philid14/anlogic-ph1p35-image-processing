@@ -1,0 +1,60 @@
+standard
+***Report Model: replay_synth_top Device: PH1P35MDG324***
+
+Design Statistics
+#IO                        74   out of    160   46.25%
+  #input                   42
+  #output                  32
+  #inout                    0
+#lut                     1093
+  #lut1                     3
+  #lut2                   118
+  #lut3                   243
+  #lut4                   176
+  #lut5                    91
+  #lut6                   462
+#reg                      950
+  #slice reg              950   out of  42432    2.24%
+  #pad reg                  0
+
+Utilization Statistics
+#slice*                   870   out of  21216    4.10%
+  #used ram                 0
+    #dram lut               0
+    #shifter lut            0
+  #used logic             870
+    #with luts*           668
+    #with adder           135
+    #reg only*             67
+#f7mux                      0   out of  10608    0.00%
+#f8mux                      0   out of   5304    0.00%
+#eram                       1   out of    108    0.93%
+  #eram20k                  1
+  #fifo20k                  0
+#dsp                        8   out of     40   20.00%
+#ddr_byte                   0   out of     12    0.00%
+#mipi_tx                    0   out of      2    0.00%
+#mipi_rx                    0   out of      2    0.00%
+#pad                       74   out of    160   46.25%
+#pll                        0   out of      6    0.00%
+#gclk                       0   out of     32    0.00%
+#lclk                       0   out of     12    0.00%
+#sclk                       0   out of     48    0.00%
+#mlclk                      0   out of      6    0.00%
+#ioclk                      0   out of     18    0.00%
+
+* Note! The LUT and Slice count after Optimize-Gate is not the final value, Run Optimize-place for a more realistic count.
+
+Report Hierarchy Area:
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|Instance                     |Module                     |logic lut |ripple  |seq     |eram    |dsp     |dram lut |shifter lut |f7mux   |f8mux   |pll     |ddr     |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|top                          |replay_synth_top           |668       |135     |950     |1       |8       |0        |0           |0       |0       |0       |0       |
+|  dut                        |color_target_detect_stream |618       |135     |765     |1       |8       |0        |0           |0       |0       |0       |0       |
+|    g_classify[0]$u_classify |color_classify             |47        |24      |0       |0       |2       |0        |0           |0       |0       |0       |0       |
+|    g_classify[1]$u_classify |color_classify             |47        |24      |0       |0       |2       |0        |0           |0       |0       |0       |0       |
+|    g_classify[2]$u_classify |color_classify             |47        |24      |0       |0       |2       |0        |0           |0       |0       |0       |0       |
+|    g_classify[3]$u_classify |color_classify             |47        |24      |0       |0       |2       |0        |0           |0       |0       |0       |0       |
+|    u_filter                 |color_target_support3      |218       |0       |465     |1       |0       |0        |0           |0       |0       |0       |0       |
+|    u_stats                  |color_target_mask_stats    |211       |39      |298     |0       |0       |0        |0           |0       |0       |0       |0       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------+
