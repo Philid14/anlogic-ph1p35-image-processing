@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 import re
 import subprocess
+import time
 import prepare_td_runs
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -67,18 +68,24 @@ def main():
     script=dest/'flow.tcl'
     script.write_text('source {'+flow.as_posix()+'}\n'+
         ('report_timing_summary -file final_timing.rpt -ep_num 10 -path_num 1\n'
-         'report_timing_ignored -file ignored_timing.rpt\n' if args.full else '')+'exit\n')
+         'report_timing_ignored -file ignored_timing.rpt\n' if args.full else '')+
+         'puts "STYLE_TARGET_FLOW_COMPLETE"\nexit\n')
     stages=[]
     for stage in (['syn_1','phy_1'] if args.full else ['syn_1']):
         cwd=PROJECT/'camera_to_dsi_display_Runs'/stage
         stop=cwd/'.stop.f'
         if stop.exists():stop.unlink()
+        started=time.time()
         with (dest/(stage+'_stdout.txt')).open('wb') as log:
-            r=subprocess.run([str(td/'bin/td_commands_prompt.exe'),str(script)],cwd=cwd,
+            r=subprocess.run([(td/'bin/td_commands_prompt.exe').as_posix(),script.as_posix()],cwd=cwd,
                 stdout=log,stderr=subprocess.STDOUT,stdin=subprocess.DEVNULL)
         stages.append(dict(stage=stage,exit_code=r.returncode))
         (dest/'stages.json').write_text(json.dumps(stages,indent=2)+'\n')
         assert r.returncode==0,(stage,r.returncode)
+        output=(dest/(stage+'_stdout.txt')).read_text(errors='replace')
+        assert 'STYLE_TARGET_FLOW_COMPLETE' in output,'TD exited without executing the requested flow'
+        db=cwd/('camera_to_dsi_display_gate.db' if stage=='syn_1' else 'camera_to_dsi_display_pr.db')
+        assert db.is_file() and db.stat().st_mtime>=started,'Missing/stale implementation database'
         print('COMPLETE',stage,'source',before['source_commit'],flush=True)
     assert snapshot()==before,'Source or historical bit changed during build'
     print('FULL_FLOW_COMPLETE' if args.full else 'SYNTHESIS_PREFLIGHT_ONLY_NO_BIT',flush=True)
