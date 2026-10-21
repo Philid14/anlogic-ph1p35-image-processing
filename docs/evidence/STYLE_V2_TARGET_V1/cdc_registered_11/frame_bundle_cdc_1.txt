@@ -1,0 +1,2 @@
+PASS FRAME_CDC checks=93 receives=41
+D:\anlogic_formal_project\tests\tb_frame_bundle_cdc.sv:69: $finish called at 5012000 (1ps)

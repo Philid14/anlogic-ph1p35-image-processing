@@ -35,7 +35,7 @@ module target_frame_system(
     wire [32:0] camera_control;
     wire camera_control_receive,camera_control_ready;
     reg [31:0] camera_session; reg camera_ready;
-    frame_bundle_cdc #(.WIDTH(33)) u_control(
+    frame_bundle_cdc #(.WIDTH(33),.PULSE_PAYLOAD(1)) u_control(
         .src_clk(ddr_clk),.src_rst_n(metadata_rst_n),.dst_clk(csi_clk),.dst_rst_n(metadata_rst_n),
         .send(camera_control_ready),.payload({ledger_ready && recovery==0,ledger_session}),
         .ready(camera_control_ready),.overflow(),.overflow_count(),.receive(camera_control_receive),
@@ -81,7 +81,7 @@ module target_frame_system(
 
     wire begin_receive,begin_ready,begin_overflow;
     wire [127:0] begin_payload;
-    frame_bundle_cdc #(.WIDTH(128)) u_begin(
+    frame_bundle_cdc #(.WIDTH(128),.PULSE_PAYLOAD(1)) u_begin(
         .src_clk(csi_clk),.src_rst_n(metadata_rst_n),.dst_clk(ddr_clk),.dst_rst_n(metadata_rst_n),
         .send(capture_start),.payload({capture_session,capture_frame,capture_time}),
         .ready(begin_ready),.overflow(begin_overflow),.overflow_count(),.receive(begin_receive),
@@ -94,7 +94,7 @@ module target_frame_system(
     reg reply_pending;
     wire grant_receive,grant_ready,grant_overflow;
     wire [98:0] grant;
-    frame_bundle_cdc #(.WIDTH(99)) u_grant(
+    frame_bundle_cdc #(.WIDTH(99),.PULSE_PAYLOAD(1)) u_grant(
         .src_clk(ddr_clk),.src_rst_n(metadata_rst_n),.dst_clk(csi_clk),.dst_rst_n(metadata_rst_n),
         .send(reply_pending),.payload({allocated,requested_capture[127:64],write_slot,write_generation}),
         .ready(grant_ready),.overflow(grant_overflow),.overflow_count(),.receive(grant_receive),
@@ -157,7 +157,7 @@ module target_frame_system(
         else if(capture_start) terminal_sent<=0;
         else if(terminal_send) terminal_sent<=1;
     end
-    frame_bundle_cdc #(.WIDTH(186)) u_terminal(
+    frame_bundle_cdc #(.WIDTH(186),.PULSE_PAYLOAD(1)) u_terminal(
         .src_clk(csi_clk),.src_rst_n(metadata_rst_n),.dst_clk(ddr_clk),.dst_rst_n(metadata_rst_n),
         .send(terminal_send),.payload({terminal_good,capture_session,capture_frame,granted_slot,granted_generation,detected}),
         .ready(terminal_ready),.overflow(terminal_overflow),.overflow_count(),.receive(terminal_receive),
@@ -311,7 +311,7 @@ module target_frame_system(
         else display_recovery_sync<={display_recovery_sync[1:0],recovery!=0};
     end
     assign display_metadata_online=metadata_transport_online && !display_recovery_sync[2];
-    frame_bundle_cdc #(.WIDTH(506)) u_display(
+    frame_bundle_cdc #(.WIDTH(506),.PULSE_PAYLOAD(1)) u_display(
         .src_clk(ddr_clk),.src_rst_n(metadata_rst_n),.dst_clk(hdmi_clk),.dst_rst_n(metadata_rst_n),
         .send(scan_selected),.payload({gd,gr,gw,gi,gv,gc,gs,gt,go,dropped_frames,cancelled_frames,metadata_faults,
             scan_slot,scan_generation,scan_session,scan_frame,scan_capture_time,masked_annotation}),

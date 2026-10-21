@@ -1,0 +1,2 @@
+D:\anlogic_formal_project\tmp\style_v2_target_v1\cdc_pulse_bad_ack\frame_bundle_cdc.v:6: warning: timescale for frame_bundle_cdc inherited from another file.
+D:\anlogic_formal_project\tests\tb_frame_bundle_cdc.sv:1: ...: The inherited timescale is here.

@@ -1,30 +1,45 @@
 `timescale 1ns/1ps
-module tb_frame_bundle_cdc #(parameter integer WIDTH=256);
+module tb_frame_bundle_cdc #(parameter integer WIDTH=256, PULSE_PAYLOAD=0, SRC_HALF=7, DST_HALF=5);
     reg src_clk=0,dst_clk=0,src_rst_n=0,dst_rst_n=0;
-    always #7 src_clk=~src_clk;
+    always #(SRC_HALF) src_clk=~src_clk;
     reg run_dst=1;
-    always begin #5; if(run_dst) dst_clk=~dst_clk; end
+    always begin #(DST_HALF); if(run_dst) dst_clk=~dst_clk; end
     reg send=0; reg [WIDTH-1:0] payload=0;
     wire ready,overflow,receive,src_online,dst_online;
     wire [15:0] overflow_count; wire [WIDTH-1:0] received_payload;
-    frame_bundle_cdc #(.WIDTH(WIDTH)) dut(.*);
+    frame_bundle_cdc #(.WIDTH(WIDTH),.PULSE_PAYLOAD(PULSE_PAYLOAD)) dut(.*);
     integer checks=0, received=0; reg [WIDTH-1:0] expected;
+    wire both_reset_n=src_rst_n && dst_rst_n;
+    reg [WIDTH-1:0] expected_queue[0:127];
+    integer scheduled=0,consumed=0;
+    always @(posedge src_clk or negedge both_reset_n) begin
+        if(!both_reset_n) scheduled=0;
+        else if(send && ready) begin
+            expected_queue[scheduled]=payload;scheduled=scheduled+1;
+        end
+    end
     task check(input bit value,input string label);
         begin checks=checks+1; if(!value) begin $display("FAIL %s",label); $fatal(1); end end
     endtask
-    task source_step; begin @(posedge src_clk); #1; @(negedge src_clk); end endtask
+    task source_step; begin @(posedge src_clk); #0.1; @(negedge src_clk); end endtask
     task wait_ready;
         integer n;
-        begin n=0; while(!ready && n<100) begin source_step; n=n+1; end
+        begin n=0; while(!ready && n<1000) begin source_step; n=n+1; end
             check(ready,"bounded online/ack service"); end
     endtask
-    always @(posedge dst_clk) if(receive) begin
-        received=received+1;
-        check(received_payload===expected,"entire bus atomic without torn words");
+    always @(posedge dst_clk or negedge both_reset_n) begin
+        if(!both_reset_n) consumed=0;
+        else if(receive) begin
+            received=received+1;
+            check(consumed<scheduled && received_payload===expected_queue[consumed],"accepted-source queue preserves whole bus and transaction order");
+            consumed=consumed+1;
+        end
     end
     integer k, saved, bit_index;
     initial begin
-        #2; source_step; src_rst_n=1; dst_rst_n=1; wait_ready;
+        // Both clock domains must observe the initial reset even in the
+        // intentionally extreme 1ns/23ns half-period experiment.
+        #(4*DST_HALF+4*SRC_HALF); source_step; src_rst_n=1; dst_rst_n=1; wait_ready;
         for(k=0;k<40;k=k+1) begin
             for(bit_index=0;bit_index<WIDTH;bit_index=bit_index+1)
                 payload[bit_index]=((32'h01020304 ^ (k*32'h10203040)) >> (bit_index%32))&1;

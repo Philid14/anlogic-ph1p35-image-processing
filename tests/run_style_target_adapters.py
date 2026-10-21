@@ -22,17 +22,23 @@ def main():
     ap=argparse.ArgumentParser(); ap.add_argument('--out',type=Path,required=True)
     ap.add_argument('--jobs',nargs='+',choices=list(JOBS),default=list(JOBS))
     ap.add_argument('--production-widths',action='store_true',help='172800 accepted words, 152-bit annotation, 506-bit CDC')
+    ap.add_argument('--cdc-source',type=Path,help='Explicit isolated CDC experimental source')
+    ap.add_argument('--pulse-payload',action='store_true')
+    ap.add_argument('--cdc-fast-source',action='store_true')
     a=ap.parse_args(); a.out.mkdir(parents=True,exist_ok=False)
     rows=[]
     for name,(files,extra,marker) in JOBS.items():
         if name not in a.jobs:continue
         sources=[ROOT/'tests'/('tb_'+name+'.sv')]+[HDL/'target'/s for s in files]+extra
+        if name=='frame_bundle_cdc' and a.cdc_source:sources[1]=a.cdc_source.resolve()
         before={str(p.relative_to(ROOT)):hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
         executable=a.out/(name+'.vvp')
         params=[]
         if a.production_widths and name=='frame_transaction_ledger':
             params=['-Ptb_frame_transaction_ledger.FRAME_WORDS=172800','-Ptb_frame_transaction_ledger.ANNOT_W=152']
         if a.production_widths and name=='frame_bundle_cdc':params=['-Ptb_frame_bundle_cdc.WIDTH=506']
+        if name=='frame_bundle_cdc' and a.pulse_payload:params+=['-Ptb_frame_bundle_cdc.PULSE_PAYLOAD=1']
+        if name=='frame_bundle_cdc' and a.cdc_fast_source:params+=['-Ptb_frame_bundle_cdc.SRC_HALF=1','-Ptb_frame_bundle_cdc.DST_HALF=23']
         commands=[['C:/iverilog/bin/iverilog.exe','-g2012','-Wall',*params,'-s','tb_'+name,'-o',str(executable),*map(str,sources)],
                   ['C:/iverilog/bin/vvp.exe',str(executable)]]
         stages=[]

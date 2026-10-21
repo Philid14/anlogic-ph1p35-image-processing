@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "scope": "MAIN adapters only; no DDR/whole-system certification",
+  "jobs": [
+    {
+      "name": "frame_bundle_cdc",
+      "passed": true,
+      "checks": 93,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-Ptb_frame_bundle_cdc.WIDTH=506",
+            "-s",
+            "tb_frame_bundle_cdc",
+            "-o",
+            "tmp\\style_v2_target_v1\\cdc_production_registered_11\\frame_bundle_cdc.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_frame_bundle_cdc.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\cdc_production_registered_11\\frame_bundle_cdc.vvp"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_frame_bundle_cdc.sv": "71afdf9fea704c0b9d25d2def027f37217fb7b389628003f161286c7ed5a7dbf",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v": "abc74812b98eabeecb18889e31981909091c22609b1f44b388bf474084609e38"
+      }
+    }
+  ]
+}
