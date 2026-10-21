@@ -1,0 +1,40 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 20:52:45 on Oct 21,2026
+vlog -sv -work work D:/anlogic_formal_project/tests/tb_target_frame_system.sv D:/anlogic_formal_project/tests/tb_target_progress.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_bundle_cdc.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_timebase.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_transaction_ledger.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/mipi_packet_monitor.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_display_commit.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_frame_system.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_observer_adapter.v D:/anlogic_formal_project/features/color_target/rtl/color_classify.v D:/anlogic_formal_project/features/color_target/rtl/color_target_detect.v D:/anlogic_formal_project/features/color_target/rtl/color_target_detect_stream.v D:/anlogic_formal_project/features/color_target/rtl/color_target_mask_stats.v D:/anlogic_formal_project/features/color_target/rtl/color_target_overlay.v D:/anlogic_formal_project/features/color_target/rtl/color_target_support3.v D:/anlogic_formal_project/features/color_target/rtl/color_target_text_overlay.v D:/anlogic_formal_project/features/color_target/rtl/color_target_track.v D:/anlogic_formal_project/features/color_target/rtl/color_target_track_guard.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/data_96bit_to_128bit.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/fifo_event_counter.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vtc/uivtc.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.v 
+-- Compiling module tb_target_frame_system
+-- Compiling module tb_target_progress
+-- Compiling module frame_bundle_cdc
+-- Compiling module frame_timebase
+-- Compiling module frame_transaction_ledger
+-- Compiling module mipi_packet_monitor
+-- Compiling module target_display_commit
+-- Compiling module target_frame_system
+** Error: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_frame_system.v(235): (vlog-2730) Undefined variable: 'guard_retired'.
+-- Compiling module target_observer_adapter
+-- Compiling module color_classify
+-- Compiling module color_target_detect
+-- Compiling module color_target_detect_stream
+-- Compiling module color_target_mask_stats
+-- Compiling module color_target_overlay
+-- Compiling module color_target_support3
+-- Compiling module color_target_text_overlay
+-- Compiling module color_target_track
+-- Compiling module color_target_track_guard
+-- Compiling module video_in
+-- Compiling module video_out
+-- Compiling module mc_to_user_interface
+-- Compiling module data_96bit_to_128bit
+-- Compiling module fifo_event_counter
+-- Compiling module uivtc
+-- Compiling module hdmi_mixer
+-- Compiling module osd_char_lib
+-- Compiling module anlogic_logo_rom
+-- Compiling module soft_fifo_al_4057d6b76aa6
+-- Compiling module fifo_cross_domain_addr_process_al_4057d6b76aa6
+-- Compiling module ram_infer_4057d6b76aa6
+-- Compiling module w128_d512_fifo
+-- Compiling module soft_fifo_al_f58e8b3e1f3d
+-- Compiling module ram_infer_f58e8b3e1f3d
+-- Compiling module w155_d512_fifo
+End time: 20:52:46 on Oct 21,2026, Elapsed time: 0:00:01
+Errors: 1, Warnings: 0

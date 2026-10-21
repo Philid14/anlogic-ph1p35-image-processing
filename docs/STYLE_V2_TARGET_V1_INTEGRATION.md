@@ -91,3 +91,11 @@ Slice估算23153/21216(109.13%)，ERAM85/108、DSP21/40。
 
 `syn_preflight_01`是工具调用失败：Windows反斜杠脚本路径被TD解释为转义，进程退出0但未运行流程。
 已保留原始输出并修正为POSIX路径；构建运行器现在还要求显式流程完成标记和新生成数据库，不能只凭退出0。
+
+## 本轮收口状态
+
+第二组整体SYN为gate估算22754 Slice、89 ERAM、21 DSP；随后真实布局打包为21825 Slice，
+被PHY-9053容量门拒绝，超过21216上限609。route/bitgen未执行，未创建candidate tag，也没有新上板bit。
+实际整体FIFO/HDMI联合回归未完成；不将独立组件检查或固定TARGET回归换算为整机通过。
+本轮以资源门失败的WIP检查点收口。最终结论、原始证据和最小后续方案见
+`docs/STYLE_V2_TARGET_V1_RESOURCE_REPORT.md`，不继续本轮算法或STYLE画质开发。

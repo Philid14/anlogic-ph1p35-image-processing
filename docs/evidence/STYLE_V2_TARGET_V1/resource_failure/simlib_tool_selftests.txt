@@ -1,0 +1,11 @@
+test_both_backends_success (__main__.ToolFailureWitnesses.test_both_backends_success) ... ok
+test_error_marker_at_exit_zero (__main__.ToolFailureWitnesses.test_error_marker_at_exit_zero) ... ok
+test_launch_failure_is_not_success (__main__.ToolFailureWitnesses.test_launch_failure_is_not_success) ... ok
+test_nonzero_at_every_stage_even_with_completion (__main__.ToolFailureWitnesses.test_nonzero_at_every_stage_even_with_completion) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.341s
+
+OK
+[sim] 使用 modelsim：C:\Users\Lenovo\AppData\Local\Temp\target_tool_witness_waf9i8fn（来源：test fixture）
+[sim] 使用 iverilog：C:\Users\Lenovo\AppData\Local\Temp\target_tool_witness_4_1gavv4（来源：test fixture）

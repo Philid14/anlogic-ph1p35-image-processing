@@ -4,10 +4,13 @@ import json
 from pathlib import Path
 import shutil
 import zipfile
+import argparse
 
 ROOT=Path(__file__).resolve().parents[1]
 DEST=ROOT/'docs/evidence/STYLE_V2_TARGET_V1'
-HANDOFF=Path('C:/Users/Lenovo/.codex/worktrees/target-fixed-verification/anlogic_formal_project/tmp/target_handoff_02')
+parser=argparse.ArgumentParser()
+parser.add_argument('--handoff',type=Path,required=True)
+HANDOFF=parser.parse_args().handoff.resolve()
 DEST.mkdir(parents=True,exist_ok=True)
 r=json.loads((HANDOFF/'summary.json').read_text())
 assert r['checks_status']=='PASS' and r['source_unchanged_during_run']

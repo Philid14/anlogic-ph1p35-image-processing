@@ -220,6 +220,7 @@ module target_frame_system(
     reg [63:0] result_wait_start;
     reg result_cancelled;
     reg transaction_owned;
+    wire guard_retired;
     wire terminal_match=terminal[184:153]==current_session && terminal[152:121]==current_frame &&
         terminal[120:119]==write_slot && terminal[118:87]==write_generation;
     wire capture_timeout=write_active && ddr_tick>=current_capture_time &&
@@ -244,7 +245,7 @@ module target_frame_system(
             end
         end
     end
-    wire guard_ready,guard_admitted,guard_retired,guard_usable;
+    wire guard_ready,guard_admitted,guard_usable;
     wire [1:0] guard_state,guard_class;
     wire [31:0] box_session,box_frame,guard_obs_session,guard_obs_frame;
     wire [63:0] box_time;

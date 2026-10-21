@@ -1,0 +1,55 @@
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_bundle_cdc.v:6: warning: timescale for frame_bundle_cdc inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_timebase.v:5: warning: timescale for frame_timebase inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:5: warning: timescale for frame_transaction_ledger inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\mipi_packet_monitor.v:5: warning: timescale for mipi_packet_monitor inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\target_display_commit.v:5: warning: timescale for target_display_commit inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\target_frame_system.v:4: warning: timescale for target_frame_system inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\target_observer_adapter.v:5: warning: timescale for target_observer_adapter inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_progress.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\video_in.v:3: warning: timescale for video_in inherited from another file.
+D:\anlogic_formal_project\features\color_target\rtl\color_target_track_guard.v:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\video_out.v:4: warning: timescale for video_out inherited from another file.
+D:\anlogic_formal_project\features\color_target\rtl\color_target_track_guard.v:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\mc_to_user_interface.v:3: warning: timescale for mc_to_user_interface inherited from another file.
+D:\anlogic_formal_project\features\color_target\rtl\color_target_track_guard.v:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\data_96bit_to_128bit.v:3: warning: timescale for data_96bit_to_128bit inherited from another file.
+D:\anlogic_formal_project\features\color_target\rtl\color_target_track_guard.v:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\hdmi_mixer.v:1: warning: timescale for hdmi_mixer inherited from another file.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\vtc\uivtc.v:40: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\osd_char_lib.v:1: warning: timescale for osd_char_lib inherited from another file.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\vtc\uivtc.v:40: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\anlogic_logo_rom.v:1: warning: timescale for anlogic_logo_rom inherited from another file.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\vtc\uivtc.v:40: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Port 11 (ceb) of ram_infer_4057d6b76aa6 expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221:        : Pruning 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Instantiating module ram_infer_4057d6b76aa6 with dangling input port 14 (dib) floating.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Port 15 (addrb) of ram_infer_4057d6b76aa6 expects 9 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221:        : Pruning 23 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Port 11 (ceb) of ram_infer_4057d6b76aa6 expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221:        : Pruning 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Instantiating module ram_infer_4057d6b76aa6 with dangling input port 14 (dib) floating.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221: warning: Port 15 (addrb) of ram_infer_4057d6b76aa6 expects 9 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w128_d512_fifo\soft_fifo_al_4057d6b76aa6.v:221:        : Pruning 23 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:64: warning: @* is sensitive to all 4 words in array 'frames'.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:65: warning: @* is sensitive to all 4 words in array 'frames'.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:71: warning: @* is sensitive to all 4 words in array 'generations'.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Port 3 (cea) of ram_infer_f58e8b3e1f3d expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201:        : Pruning (signed) 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Port 4 (ocea) of ram_infer_f58e8b3e1f3d expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201:        : Pruning (signed) 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Port 11 (ceb) of ram_infer_f58e8b3e1f3d expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201:        : Pruning 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Port 13 (web) of ram_infer_f58e8b3e1f3d expects 1 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201:        : Pruning (signed) 31 high bits of the expression.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Instantiating module ram_infer_f58e8b3e1f3d with dangling input port 14 (dib) floating.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201: warning: Port 15 (addrb) of ram_infer_f58e8b3e1f3d expects 9 bits, got 32.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\ip_source\w155_d512_fifo\soft_fifo_al_f58e8b3e1f3d.v:201:        : Pruning 23 high bits of the expression.
+D:\anlogic_formal_project\tests\tb_target_frame_system.sv:57: warning: Instantiating module hdmi_mixer with dangling input port 15 (I_target_glyph_request) floating.
+D:\anlogic_formal_project\tests\tb_target_frame_system.sv:57: warning: Instantiating module hdmi_mixer with dangling input port 16 (I_target_glyph_char) floating.
+D:\anlogic_formal_project\tests\tb_target_frame_system.sv:57: warning: Instantiating module hdmi_mixer with dangling input port 17 (I_target_glyph_row) floating.

@@ -2,6 +2,7 @@
 import hashlib
 import json
 import subprocess
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,10 +39,13 @@ def audit():
     digest = hashlib.sha256(bit.read_bytes()).hexdigest().upper()
     assert digest == 'CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51'
     assert git('merge-base', BASE, 'HEAD').decode().strip() == BASE
+    al=ROOT/'in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al'
+    active=re.findall(r'<File Path="([^"]+)"',al.read_text(encoding='utf-8'))
+    active_target=[p for p in active if '/features/color_target/rtl/' in p]
     return dict(schema=1, role='MAIN', target_source=TARGET, main_base=BASE,
                 target_production_source=delivery['rtl_source_commit'],
                 target_production_files=len(delivery['files']), files=records,
-                rollback_bit_sha256=digest, production_td_target_count=0,
+                rollback_bit_sha256=digest, production_td_target_count=len(active_target),
                 integration_verified=False, board_test='NOT_RUN')
 
 

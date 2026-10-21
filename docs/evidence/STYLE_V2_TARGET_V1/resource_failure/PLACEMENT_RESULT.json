@@ -1,0 +1,20 @@
+{
+  "gate_source_commit": "0342a0bc4a1040f92c1d6a2a118409debb8a3c8d",
+  "gate_database_sha256": "2d18d1be9fb315e757bef162eb3005de3eab6db60d3a510e1aa83c2ff2b76ccf",
+  "placement": "FAILED_PHY_9053",
+  "physical_slice_after_packing": 21825,
+  "device_slice_limit": 21216,
+  "slice_excess": 609,
+  "route": "NOT_RUN",
+  "routed_setup_wns": null,
+  "routed_hold_wns": null,
+  "bit": "NOT_GENERATED",
+  "candidate_tag": "NOT_CREATED",
+  "board": "NOT_RUN",
+  "synthesis_timing": {
+    "setup_wns_ns": -1.724,
+    "hold_wns_ns": 0.114,
+    "confidence": "Synthesized",
+    "sta_coverage_percent": 94.34
+  }
+}

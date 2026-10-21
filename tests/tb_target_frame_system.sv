@@ -4,9 +4,11 @@
 // RAW and post-AWB stimuli share one synthetic scene, not a sensor/ISP model.
 module tb_target_frame_system;
     reg csi_clk=0,ddr_clk=0,hdmi_clk=0,rst_n=0;
-    always #8 csi_clk=~csi_clk;
-    always #5 ddr_clk=~ddr_clk;
-    always #7 hdmi_clk=~hdmi_clk;
+    // Nominal clocks from the actual synthesized clock summary. The previous
+    // incomplete run used 62.5/100/71.429 MHz; it is not nominal-clock evidence.
+    always #8.334 csi_clk=~csi_clk;
+    always #7.5 ddr_clk=~ddr_clk;
+    always #6.6665 hdmi_clk=~hdmi_clk;
     reg raw_valid=0,raw_sof=0,raw_eol=0,native_frame_end=0;
     reg awb_user=0,awb_valid=0,awb_last=0;
     reg [95:0] awb_rgb=0;

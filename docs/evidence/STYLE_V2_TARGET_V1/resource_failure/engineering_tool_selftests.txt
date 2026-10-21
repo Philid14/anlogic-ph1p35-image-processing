@@ -1,0 +1,20 @@
+test_budget_overflow_warns_hide_without_changing_limits (__main__.ConfigWitnesses.test_budget_overflow_warns_hide_without_changing_limits) ... ok
+test_duplicate_key_and_non_json_number_rejected (__main__.ConfigWitnesses.test_duplicate_key_and_non_json_number_rejected) ... ok
+test_largest_unsigned_age_accepted (__main__.ConfigWitnesses.test_largest_unsigned_age_accepted) ... ok
+test_modified_rtl_cannot_match_delivery (__main__.ConfigWitnesses.test_modified_rtl_cannot_match_delivery) ... ok
+test_pending_is_unknown (__main__.ConfigWitnesses.test_pending_is_unknown) ... ok
+test_unknown_key_rejected (__main__.ConfigWitnesses.test_unknown_key_rejected) ... ok
+test_valid_declaration_never_proves_integration (__main__.ConfigWitnesses.test_valid_declaration_never_proves_integration) ... ok
+test_wrong_lanes_filter_width_and_clamped_counts_rejected (__main__.ConfigWitnesses.test_wrong_lanes_filter_width_and_clamped_counts_rejected) ... ok
+test_zero_negative_overflow_and_wrong_types_rejected (__main__.ConfigWitnesses.test_zero_negative_overflow_and_wrong_types_rejected) ... ok
+test_complete_report_parses_native_hierarchy_units (__main__.SynthesisWitnesses.test_complete_report_parses_native_hierarchy_units) ... ok
+test_disabled_slice_spelling_is_accepted (__main__.SynthesisWitnesses.test_disabled_slice_spelling_is_accepted) ... ok
+test_missing_duplicate_or_wrong_completion_rejected (__main__.SynthesisWitnesses.test_missing_duplicate_or_wrong_completion_rejected) ... ok
+test_missing_timing_and_duplicate_area_rejected (__main__.SynthesisWitnesses.test_missing_timing_and_duplicate_area_rejected) ... ok
+test_negative_slack_is_evidence_not_timing_pass (__main__.SynthesisWitnesses.test_negative_slack_is_evidence_not_timing_pass) ... ok
+test_optimized_away_track_rejected_for_active_configuration (__main__.SynthesisWitnesses.test_optimized_away_track_rejected_for_active_configuration) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.123s
+
+OK

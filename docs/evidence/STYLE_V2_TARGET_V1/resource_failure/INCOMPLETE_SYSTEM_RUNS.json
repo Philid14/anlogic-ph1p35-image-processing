@@ -1,0 +1,30 @@
+[
+  {
+    "run": "system_01",
+    "status": "INTERRUPTED_NOT_COMPLETED",
+    "last_reported_simulation_ns": null,
+    "passed": false,
+    "explanation": "Raw attempts retained. The final integration gate is not passed."
+  },
+  {
+    "run": "system_02",
+    "status": "INTERRUPTED_NOT_COMPLETED",
+    "last_reported_simulation_ns": null,
+    "passed": false,
+    "explanation": "Raw attempts retained. The final integration gate is not passed."
+  },
+  {
+    "run": "system_msim_01",
+    "status": "COMPILE_FAILED_DECLARATION_ORDER_FIXED",
+    "last_reported_simulation_ns": null,
+    "passed": false,
+    "explanation": "Raw attempts retained. The final integration gate is not passed."
+  },
+  {
+    "run": "system_msim_02",
+    "status": "INTERRUPTED_NOT_COMPLETED",
+    "last_reported_simulation_ns": 18000000,
+    "passed": false,
+    "explanation": "Raw attempts retained. The final integration gate is not passed."
+  }
+]

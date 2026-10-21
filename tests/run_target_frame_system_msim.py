@@ -1,0 +1,46 @@
+"""ModelSim execution of actual MAIN multi-clock integration bench."""
+import argparse
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import time
+ROOT=Path(__file__).resolve().parents[1]
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True)
+    ap.add_argument('--msim',type=Path,required=True)
+    a=ap.parse_args();a.out=a.out.resolve();a.out.mkdir(exist_ok=False,parents=True)
+    MSIM=a.msim.resolve()
+    assert all((MSIM/name).is_file() for name in ('vlib.exe','vlog.exe','vsim.exe'))
+    h=ROOT/'in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source';ip=h.parent/'ip_source'
+    files=[ROOT/'tests/tb_target_frame_system.sv',ROOT/'tests/tb_target_progress.sv',
+        *sorted((h/'target').glob('*.v')),*sorted((ROOT/'features/color_target/rtl').glob('*.v')),
+        *[h/p for p in ('video_in.v','video_out.v','mc_to_user_interface.v','data_96bit_to_128bit.v',
+            'isp/fifo_event_counter.v','vtc/uivtc.v','hdmi_mixer.v','osd_char_lib.v','anlogic_logo_rom.v')]]
+    for folder in ('w128_d512_fifo','w155_d512_fifo'):files+=sorted((ip/folder).glob('*.v'))
+    hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    (a.out/'SOURCE_MANIFEST.json').write_text(json.dumps(hashes,indent=2)+'\n')
+    cmds=[[(MSIM/'vlib.exe').as_posix(),'work'],
+        [(MSIM/'vlog.exe').as_posix(),'-sv','-work','work',*[p.as_posix() for p in files]],
+        [(MSIM/'vsim.exe').as_posix(),'-c','-quiet','-lib','work','tb_target_frame_system','tb_target_progress',
+            '-do','onerror {quit -code 2}; run -all; quit -f -code 0']]
+    stages=[]
+    for i,cmd in enumerate(cmds):
+        started=time.monotonic()
+        with (a.out/f'stage_{i}.txt').open('wb') as log:
+            r=subprocess.run(cmd,cwd=a.out,stdout=log,stderr=subprocess.STDOUT,timeout=900)
+        stages.append(dict(argv=cmd,exit_code=r.returncode,elapsed=time.monotonic()-started))
+        (a.out/'stages.json').write_text(json.dumps(stages,indent=2)+'\n')
+        text=(a.out/f'stage_{i}.txt').read_text(errors='replace')
+        assert r.returncode==0 and '** Error:' not in text and '** Fatal:' not in text, (i,a.out)
+        print('COMPLETE stage',i,'seconds',round(time.monotonic()-started,2),flush=True)
+    final=(a.out/'stage_2.txt').read_text(errors='replace')
+    same=hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    passed=same and 'PASS TARGET_FRAME_SYSTEM' in final and 'FAIL' not in final
+    (a.out/'summary.json').write_text(json.dumps(dict(passed=passed,source_unchanged=same,
+        scope='Actual MAIN digital adapter/FIFO/packer/HDMI bench; synthetic RAW/post-AWB and modeled DDR; no physical or board proof'),indent=2)+'\n')
+    assert passed,a.out
+    print(final[-1400:])
+
+if __name__=='__main__':main()
