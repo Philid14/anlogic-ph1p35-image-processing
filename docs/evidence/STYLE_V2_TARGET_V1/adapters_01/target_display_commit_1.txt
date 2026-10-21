@@ -1,0 +1,2 @@
+PASS DISPLAY_COMMIT checks=2380564
+D:\anlogic_formal_project\tests\tb_target_display_commit.sv:108: $finish called at 11902570000 (1ps)

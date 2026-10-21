@@ -1,7 +1,7 @@
 
 
 
-module video_out (
+module video_out #(parameter integer TRANSACTIONAL=0)(
     input wire        I_rst_n,
 
     input wire        I_ddr_clk,
@@ -17,7 +17,15 @@ module video_out (
     input wire        I_dsi_clk,
     input wire        I_video_vsync,
     input wire        I_video_rd_en,  
-    output reg[23:0]  O_vdieo_data
+    output reg[23:0]  O_vdieo_data,
+    input wire I_scan_commit,
+    input wire I_allow_read,
+    input wire I_transaction_flush,
+    output wire O_scan_request,
+    output wire O_read_pipeline_idle,
+    output wire [17:0] O_requested_words,
+    output wire [18:0] O_outstanding_reads,
+    output reg O_scan_underflow
 );
 
     reg         S_fifo_rst;     
@@ -37,6 +45,13 @@ module video_out (
     reg[3:0]    S_fifo_rd_cnt_1d;     
     reg[127:0]  S_fifo_rd_data_1d;    
 	wire        S_fifo_emtpy;     
+    reg [17:0] requested_words;
+    reg [18:0] outstanding_reads;
+    wire frame_reset=TRANSACTIONAL ? I_scan_commit : S_video_frame_start;
+    assign O_scan_request=S_video_frame_start;
+    assign O_requested_words=requested_words;
+    assign O_outstanding_reads=outstanding_reads;
+    assign O_read_pipeline_idle=!S_ddr_rd_valid && !S_ddr_rd_trig && outstanding_reads==0;
 
 
 
@@ -59,7 +74,7 @@ module video_out (
         if(!I_rst_n)
             S_fifo_rst <= 1'b0;
         else
-            if(S_video_frame_start)
+            if(frame_reset || (TRANSACTIONAL && I_transaction_flush))
                 S_fifo_rst <= 1'b1;
             else if(S_fifo_rst_cnt == 'd10)
                 S_fifo_rst <= 1'b0;
@@ -69,7 +84,9 @@ module video_out (
 
 
     always @(posedge I_ddr_clk) begin
-        if(S_fifo_rst)
+        if(TRANSACTIONAL && I_transaction_flush)
+            S_fifo_rst_cnt<=0;
+        else if(S_fifo_rst)
             S_fifo_rst_cnt <= S_fifo_rst_cnt + 'd1;
         else
             S_fifo_rst_cnt <= 'd0;
@@ -79,7 +96,8 @@ module video_out (
         这里需要注意fifo的剩余空间一定要大于将要写入的长度，因为ddr读出的时候会有至少40个时钟周期的延时，
         例如每次从ddr读出240个长度的数据，那么fifo的剩余空间最少要设为280，否则会引起fifo写满丢失数据。
     */
-    assign S_ddr_rd_trig = (('d511 - S_fifo_wr_num) >= 'd300) && (!I_video_in_wr_busy) && (!S_ddr_rd_valid) && (!S_fifo_rst) && I_rst_n ? 1'b1 : 1'b0;
+    assign S_ddr_rd_trig = (('d511 - S_fifo_wr_num) >= 'd300) && (!I_video_in_wr_busy) && (!S_ddr_rd_valid) && (!S_fifo_rst) && I_rst_n &&
+        (!TRANSACTIONAL || (I_allow_read && !I_scan_commit && !I_transaction_flush && requested_words<18'd172800)) ? 1'b1 : 1'b0;
 
     /*
         fifo的深度是512，实际的深度是510，因此需要注意每次读出的长度避免为256，否则连续两次写入会引起fifo写满，丢失数据
@@ -115,7 +133,7 @@ module video_out (
         if(!I_rst_n)
             O_ddr_user_addr <= 'd0;
         else
-            if(S_video_frame_start)
+            if(frame_reset)
                 begin
                     case(I_video_out_rp)
                         'd0: O_ddr_user_addr <= IMAGE_BASE_ADDR_0;
@@ -128,6 +146,30 @@ module video_out (
                 O_ddr_user_addr <= O_ddr_user_addr + 'd8;
             else    
                 O_ddr_user_addr <= O_ddr_user_addr;
+    end
+
+    always @(posedge I_ddr_clk or negedge I_rst_n) begin
+        if(!I_rst_n) begin requested_words<=0; outstanding_reads<=0; end
+        else begin
+            if(TRANSACTIONAL && (I_scan_commit || I_transaction_flush)) requested_words<=0;
+            else if(O_ddr_user_rd_en && requested_words<18'd172800) requested_words<=requested_words+1'b1;
+            case({O_ddr_user_rd_en,I_ddr_user_rd_valid})
+                2'b10: outstanding_reads<=outstanding_reads+1'b1;
+                2'b01: if(outstanding_reads!=0) outstanding_reads<=outstanding_reads-1'b1;
+                default: outstanding_reads<=outstanding_reads;
+            endcase
+        end
+    end
+
+    // This flag belongs to the actual consuming pixel clock, not DDR prefetch.
+    reg pixel_vsync_d;
+    always @(posedge I_dsi_clk or negedge I_rst_n) begin
+        if(!I_rst_n) begin O_scan_underflow<=0; pixel_vsync_d<=0; end
+        else begin
+            pixel_vsync_d<=I_video_vsync;
+            if(I_video_vsync && !pixel_vsync_d) O_scan_underflow<=0;
+            else if(S_fifo_rd_en && S_fifo_emtpy) O_scan_underflow<=1;
+        end
     end
 
     

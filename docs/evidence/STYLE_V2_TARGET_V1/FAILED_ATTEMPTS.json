@@ -1,0 +1,114 @@
+{
+  "first_handoff": {
+    "checks_status": "FAIL",
+    "source_unchanged": false,
+    "checks": [
+      {
+        "name": "class_models",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "contract",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "data_contract",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "class_rtl",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "track_audit",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "text_updates",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "legacy_chain",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "classifier",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "detector",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "geometry",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "track_regression",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "real_font",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "rgb_replay",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "frame_transactions",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "guard",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      },
+      {
+        "name": "display_transactions",
+        "passed": true,
+        "exit_code": 0,
+        "failure": null
+      }
+    ],
+    "explanation": "Whole-worktree snapshot changed while MAIN adapter files were added. Not a passing total gate. Fixed checkout rerun retained separately."
+  },
+  "ledger_first_attempt": {
+    "status": "FAIL",
+    "check": 41,
+    "explanation": "Test expected 7 drops, independently enumerated stimulus has 6. Corrected expectation; RTL behavior unchanged for this correction."
+  },
+  "integration_ready": false,
+  "main_system_fault_matrix": "NOT_RUN",
+  "physical_cdc": "NOT_RUN",
+  "board_test": "NOT_RUN"
+}

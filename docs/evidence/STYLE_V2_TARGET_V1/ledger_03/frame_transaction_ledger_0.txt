@@ -1,0 +1,5 @@
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:5: warning: timescale for frame_transaction_ledger inherited from another file.
+D:\anlogic_formal_project\tests\tb_frame_transaction_ledger.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:62: warning: @* is sensitive to all 4 words in array 'frames'.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:63: warning: @* is sensitive to all 4 words in array 'frames'.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_transaction_ledger.v:69: warning: @* is sensitive to all 4 words in array 'generations'.

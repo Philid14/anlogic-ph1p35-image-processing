@@ -1,0 +1,148 @@
+{
+  "passed": true,
+  "scope": "MAIN adapters only; no DDR/whole-system certification",
+  "jobs": [
+    {
+      "name": "frame_transaction_ledger",
+      "passed": true,
+      "checks": 41,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-s",
+            "tb_frame_transaction_ledger",
+            "-o",
+            "tmp\\style_v2_target_v1\\adapters_01\\frame_transaction_ledger.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_frame_transaction_ledger.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_transaction_ledger.v"
+          ],
+          "exit_code": 0,
+          "log": "frame_transaction_ledger_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\adapters_01\\frame_transaction_ledger.vvp"
+          ],
+          "exit_code": 0,
+          "log": "frame_transaction_ledger_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_frame_transaction_ledger.sv": "becc3ff46a9d7d322c178f5045963f6f0133dde14ca6f47d97b93285a71cfbab",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_transaction_ledger.v": "ca5921a2394aa166c60c23d03ccdbb48e1c2042fb40f60d0e5903ba5b9e701a0"
+      }
+    },
+    {
+      "name": "frame_bundle_cdc",
+      "passed": true,
+      "checks": 93,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-s",
+            "tb_frame_bundle_cdc",
+            "-o",
+            "tmp\\style_v2_target_v1\\adapters_01\\frame_bundle_cdc.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_frame_bundle_cdc.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\adapters_01\\frame_bundle_cdc.vvp"
+          ],
+          "exit_code": 0,
+          "log": "frame_bundle_cdc_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_frame_bundle_cdc.sv": "23ab9d19c48cc2c76b386577344a49788c56e619edf7e07419aa2bfdae65a3a9",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v": "155607d043fe4498076c71ab5eb317bd1a4df2f0b82fb354de3cf21596ccbcf3"
+      }
+    },
+    {
+      "name": "target_observer_adapter",
+      "passed": true,
+      "checks": 145,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-s",
+            "tb_target_observer_adapter",
+            "-o",
+            "tmp\\style_v2_target_v1\\adapters_01\\target_observer_adapter.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_target_observer_adapter.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_observer_adapter.v"
+          ],
+          "exit_code": 0,
+          "log": "target_observer_adapter_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\adapters_01\\target_observer_adapter.vvp"
+          ],
+          "exit_code": 0,
+          "log": "target_observer_adapter_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_target_observer_adapter.sv": "5643ea0cb518da5aa238b79d0049b07c1204cc6520fca783070ca86acef6c855",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_observer_adapter.v": "a1b4f6e28d98135246756911abfba835be508d5f454263b00fae1b65f35fe8ff"
+      }
+    },
+    {
+      "name": "target_display_commit",
+      "passed": true,
+      "checks": 2380564,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-s",
+            "tb_target_display_commit",
+            "-o",
+            "tmp\\style_v2_target_v1\\adapters_01\\target_display_commit.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_target_display_commit.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_display_commit.v",
+            "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_overlay.v",
+            "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v"
+          ],
+          "exit_code": 0,
+          "log": "target_display_commit_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\adapters_01\\target_display_commit.vvp"
+          ],
+          "exit_code": 0,
+          "log": "target_display_commit_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_target_display_commit.sv": "21898228a3698baa8bb0c56377c4cf3de541ec3684dd227118adb541ac667f1d",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_display_commit.v": "ef6b609dacbd5ba1edca7fcdb5e1efecd669ee7594cb3de04324af0e22aa81cf",
+        "features\\color_target\\rtl\\color_target_overlay.v": "b8253d68fff5f3b12513cf1406d2450575ddb840899652cb8d2f8ec59ce264fc",
+        "features\\color_target\\rtl\\color_target_text_overlay.v": "b89d4b65bb27deb0fe63606601b53483296d147ff0378667ed6a9cabf6690aa9",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v": "80269dee8af301d175a0b8ba0b0305149852916a3ed81082349bebc27feac311"
+      }
+    }
+  ]
+}

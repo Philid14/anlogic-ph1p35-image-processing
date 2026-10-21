@@ -26,7 +26,10 @@ module isp_top #(
     output 			O_tlast			,
     output 			O_tuser			,
     output 			O_tvalid		,
-    output 			I_tready
+    output 			I_tready,
+    // Read-only TARGET tap; all existing algorithm inputs/latency stay intact.
+    output [95:0] O_observer_rgb,
+    output O_observer_valid, O_observer_user, O_observer_last
 );
  
 wire         m_aixs_tvalid;  //synthesis keep 
@@ -55,6 +58,10 @@ wire         m_aixs_tvalid;  //synthesis keep
   wire [ 95:0] awb_O_tdata;  //synthesis keep 
   wire         awb_O_tvalid;  //synthesis keep 
   wire         awb_O_tready;  //synthesis keep 
+  assign O_observer_rgb=awb_O_tdata;
+  assign O_observer_valid=awb_O_tvalid;
+  assign O_observer_user=awb_O_tuser;
+  assign O_observer_last=awb_O_tlast;
 
   wire         awb_O_tuser_128;  //synthesis keep 
   wire         awb_O_tvalid_128;  //synthesis keep 

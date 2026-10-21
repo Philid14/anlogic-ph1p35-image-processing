@@ -1,6 +1,6 @@
 
 
-module video_in (
+module video_in #(parameter integer TRANSACTIONAL=0)(
     input wire         I_rst_n,
 
     input wire         I_camera_clk,
@@ -20,7 +20,15 @@ module video_in (
     output reg[24:0]   O_ddr_user_addr,
     output wire[127:0] O_ddr_user_wr_data,
     input wire         I_ddr_user_ready,
-    output wire [31:0] O_fifo_event_counts
+    output wire [31:0] O_fifo_event_counts,
+    // MAIN transaction controller ports; unused in the frozen legacy path.
+    input wire I_transaction_start,
+    input wire [1:0] I_transaction_slot,
+    input wire I_camera_write_enable,
+    input wire I_transaction_flush,
+    output wire O_write_pipeline_idle,
+    output wire O_camera_full,
+    output wire [17:0] O_issued_words
 );
 
     wire        S_fifo_rst;
@@ -38,9 +46,15 @@ module video_in (
     reg         S_ddr_wr_valid;
     reg[9:0]    S_ddr_wr_cnt;
     wire monitor_full;
+    wire monitor_empty;
+    reg [17:0] issued_words;
+    wire camera_we=I_camera_valid && (!TRANSACTIONAL || I_camera_write_enable);
+    assign O_camera_full=monitor_full;
+    assign O_issued_words=issued_words;
+    assign O_write_pipeline_idle=!S_ddr_wr_valid && !O_ddr_user_wr_en;
     fifo_event_counter u_fifo_events(.clk(I_camera_clk),.rst_n(I_rst_n),
         .sof(I_camera_frame_start),.fifo_reset(S_fifo_rst),
-        .write_valid(I_camera_valid),.full(monitor_full),.counts(O_fifo_event_counts));
+        .write_valid(camera_we),.full(monitor_full),.counts(O_fifo_event_counts));
 
     localparam IMAGE_BASE_ADDR_0 = 25'd0;
     localparam IMAGE_BASE_ADDR_1 = 25'd7000000;
@@ -48,7 +62,7 @@ module video_in (
     localparam IMAGE_BASE_ADDR_3 = 25'd21000000;
 
 
-    assign S_fifo_rst = S_camera_frame_start_extend_3d;
+    assign S_fifo_rst = TRANSACTIONAL ? (!I_rst_n || I_transaction_flush) : S_camera_frame_start_extend_3d;
 
     // 以完整DDR写突发的占用标志仲裁，避免连续视频写入长期阻塞读通道。
     assign O_video_in_wr_busy = S_ddr_wr_valid;
@@ -57,7 +71,7 @@ module video_in (
         .rst        ( S_fifo_rst         ),   
 
         .clkw       ( I_camera_clk       ),     
-        .we         ( I_camera_valid     ),
+        .we         ( camera_we          ),
         .di         ( I_camera_data      ),
         .afull      (),
         .full_flag  ( monitor_full ),
@@ -68,7 +82,7 @@ module video_in (
         .dout       ( O_ddr_user_wr_data ),  
         .rdusedw    ( S_fifo_rd_num      ),
         .valid      (), 
-        .empty_flag (),
+        .empty_flag (monitor_empty),
         .aempty     ()
     );
 
@@ -151,7 +165,8 @@ module video_in (
         else
             if(S_ddr_wr_valid && I_ddr_user_ready && S_ddr_wr_cnt == 'd239)
                 S_ddr_wr_valid <= 1'b0;
-            else if(S_fifo_rd_num >= 'd240 && (!I_video_out_rd_busy) && (!S_fifo_rst))
+            else if(S_fifo_rd_num >= 'd240 && (!I_video_out_rd_busy) && (!S_fifo_rst) &&
+                    (!TRANSACTIONAL || issued_words<18'd172800))
                 S_ddr_wr_valid <= 1'b1;
             else
                 S_ddr_wr_valid <= S_ddr_wr_valid;
@@ -175,6 +190,12 @@ module video_in (
         O_ddr_user_wr_en <= S_fifo_rd_en;
     end
 
+    always @(posedge I_ddr_clk or negedge I_rst_n) begin
+        if(!I_rst_n) issued_words<=0;
+        else if(TRANSACTIONAL && (I_transaction_start || I_transaction_flush)) issued_words<=0;
+        else if(S_fifo_rd_en && issued_words<18'd172800) issued_words<=issued_words+1'b1;
+    end
+
 	/*
 		如果前一帧图像有误少行了，那么地址回退为之前的，覆盖有问题的那帧图像
 	*/
@@ -182,7 +203,16 @@ module video_in (
         if(!I_rst_n)
             O_ddr_user_addr <= 1'b0;
         else
-            if(S_frame_start && (!I_mipi_rx_error))
+            if(TRANSACTIONAL && I_transaction_start)
+                begin
+                    case(I_transaction_slot)
+                        0: O_ddr_user_addr<=IMAGE_BASE_ADDR_0;
+                        1: O_ddr_user_addr<=IMAGE_BASE_ADDR_1;
+                        2: O_ddr_user_addr<=IMAGE_BASE_ADDR_2;
+                        3: O_ddr_user_addr<=IMAGE_BASE_ADDR_3;
+                    endcase
+                end
+            else if(!TRANSACTIONAL && S_frame_start && (!I_mipi_rx_error))
                 begin
                     case(S_video_in_wp)
                         'd0: O_ddr_user_addr <= IMAGE_BASE_ADDR_0;
@@ -191,7 +221,7 @@ module video_in (
                         'd3: O_ddr_user_addr <= IMAGE_BASE_ADDR_3;
                     endcase
                 end
-			else if(S_frame_start && I_mipi_rx_error)
+			else if(!TRANSACTIONAL && S_frame_start && I_mipi_rx_error)
 				begin
                 	case(S_video_in_wp)
                         'd0: O_ddr_user_addr <= IMAGE_BASE_ADDR_3;

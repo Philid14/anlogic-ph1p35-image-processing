@@ -1,0 +1,2 @@
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\frame_bundle_cdc.v:6: warning: timescale for frame_bundle_cdc inherited from another file.
+D:\anlogic_formal_project\tests\tb_frame_bundle_cdc.sv:1: ...: The inherited timescale is here.

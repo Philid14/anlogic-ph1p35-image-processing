@@ -1,0 +1,513 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-21T12:15:30.188037+00:00",
+  "profile": "handoff",
+  "checks_status": "PASS",
+  "integration_ready": false,
+  "exit_semantics": "0 = selected independent checks completed; open gates remain",
+  "source": {
+    "head": "18f521e953357cf2a724b4565334c60fcdae776c",
+    "branch": "",
+    "worktree": "",
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "source_sha256_lf": {
+      "features/color_target/model/frame_transactions.py": "e79fe9fc1711e12979938a15aebb1b42c8cbd49a0b1461ecbe53ffc72134b57b",
+      "features/color_target/model/integration_contract.py": "1fba1fc6ac614a045dd67ffe90be10e1d3da1e7c688d5b20b79f7084891e3c04",
+      "features/color_target/model/ref_color_target.py": "77d8ce6c15da22af2270d211a51c33e408a9009b34a37e9febd89b6d4bc0369c",
+      "features/color_target/model/ref_color_target_chain.py": "4eacffa51ba3d43d5dab9a8abb58018b7aa72b50d7a0127db2367d59dd6b3885",
+      "features/color_target/model/ref_color_target_overlay.py": "b94dcdc1aacc8f7e43dc4b099a561e3ca34c3a22851a8f989622127cee6b0e3b",
+      "features/color_target/model/ref_color_target_stream.py": "389670984a4bd1bd6844bf543fc971721b25c1b783da0b345ac73451c0c2b4c6",
+      "features/color_target/model/ref_color_target_support3.py": "ab11e205bd2eff969a11479be0c12b5d6ce33d62a7281070e2edde6ae507bb88",
+      "features/color_target/model/ref_color_target_text.py": "567999bf04e070b12f8fe50bdaf29b4c543b2f9a8f870d86f04e7c71c208a2fd",
+      "features/color_target/model/ref_color_target_track.py": "208b7c22e1bd741237c7936a2158411e6e28e02e79058103fd93d27056fb6580",
+      "features/color_target/model/replay_data.py": "fb96f83a19195b112e272bfd7a28d2881532a94f17aed9ed8ffe0b95747557d7",
+      "features/color_target/render_color_target_frames.py": "30332d8ea64ffc9685e28e9b67c600f9fb4d939af8ae169c5db4a9a3b8863872",
+      "features/color_target/rtl/color_classify.v": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+      "features/color_target/rtl/color_target_detect.v": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+      "features/color_target/rtl/color_target_detect_stream.v": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+      "features/color_target/rtl/color_target_mask_stats.v": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+      "features/color_target/rtl/color_target_overlay.v": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+      "features/color_target/rtl/color_target_support3.v": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+      "features/color_target/rtl/color_target_text_overlay.v": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+      "features/color_target/rtl/color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "features/color_target/rtl/color_target_track_guard.v": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "features/color_target/run_color_classify.py": "eec212ba529b71e30dbeca2975a30aee741028f7adfbb8f7458eba2870d0425e",
+      "features/color_target/run_color_target.py": "dfe0ea16e39b152c892cac7b7af91b774686e8bf81bc7d280a74ce26aa6308a5",
+      "features/color_target/run_color_target_chain.py": "fcc6f07e8f2b0daf6a4d2bf36a5058d7a38a89bc52cac61143ecc3144b266c48",
+      "features/color_target/run_color_target_overlay.py": "707ed1d9c74250b078c0e432f210f8893d2337acf6003ce7a6707a19a1ee3131",
+      "features/color_target/run_color_target_replay.py": "5ddd03574f9ccd9562f664c0a4ada1179f583c28e8f134e210c1f1b5b6aadb59",
+      "features/color_target/run_color_target_support3.py": "b3bbde0b2bd591b57f329cd16af9358e8c1b391ee04e43ae82e5942988db2577",
+      "features/color_target/run_color_target_text_overlay.py": "3324c7f807713a33514881abc5d989c09615f5f795982a8c3d2c12868219acf7",
+      "features/color_target/run_color_target_text_updates.py": "62797b016df9486a6d03a0978bc91c89799de80be6bc3598321af0392edec667",
+      "features/color_target/run_color_target_track.py": "d36b3a2358719a09f199450722a80995d68624d6e3452aec8ca71a0da5b07877",
+      "features/color_target/run_display_transactions.py": "4a230b06c11adbbe397d8034ba0c5fd76e6bea2f2cbaa3b870cc62a2a611cd59",
+      "features/color_target/run_frame_transactions.py": "41675cf27086d1bd074a1c35ba9019d4372776ccc09380421cd6b7c8e4b69f8b",
+      "features/color_target/run_guard_fixture.py": "bfb7bbb3c2abaae3fb1883ddac18291241d8e4c578951372cf4cd508a124630d",
+      "features/color_target/run_guard_synthesis.py": "62b75bebc11560810e70f4b267f95cae3c605a89bd48b755daba7d2ef81d1143",
+      "features/color_target/run_integration_contract.py": "b183c649d8119980db58250cdaf55fe322b38c9222497079dae693b4d7b4d8f9",
+      "features/color_target/run_latency_handoff_review.py": "3281e419ef25d69f2519b96c51d320979c69f6da943a9e3d1f9748a2a1e20954",
+      "features/color_target/run_replay_data_checks.py": "16564310edf988ec5aaf0ad3ca916ae29cbfded5c61264c4cb4ec7e9e1082dff",
+      "features/color_target/run_target_class_contract.py": "81dc5b80f05e527c2a073f60f27abad9ee7a1c0520f7b6ea9477a839df17a1bb",
+      "features/color_target/run_track_admission_audit.py": "e8f6d3230d0d3e33b7af7e6a22b46efcdd2dff62520f5d66e3456c54805053eb",
+      "features/color_target/run_track_guard_contract.py": "61eae1c94b26b47127cc6b58479ddf0a79bd70a0fd6abc0ff42bb26e04613eb0",
+      "features/color_target/run_verification.py": "f30978ec8c4de9305805a5e095d62dee8e672defd5436a890a2cd970816a8d1d",
+      "features/color_target/tb/ct_text_font_real.v": "c6865bcbab952abc19f81c2fe7a582cec060303791c21769bb141434bdb7e1a6",
+      "features/color_target/tb/ct_text_font_stub.v": "97fad069774d414116fbce8fe7e36a9799d41f2548ff14bd77f2d35d9ab5afea",
+      "features/color_target/tb/tb_color_classify.v": "b2e292082544f4aecfd5b9164d397563c998c95221c8a685aa0e0a9c4812e7fa",
+      "features/color_target/tb/tb_color_target.v": "28996ebef1a066311a36db5801b012d8a025886b5f1ca28c3d440fee658fcc28",
+      "features/color_target/tb/tb_color_target_chain.v": "20a4334cb70420c5749281523fe565f9a570ff62ae9957ad77f060392ee18d82",
+      "features/color_target/tb/tb_color_target_chain_render.v": "c025e4b764f25f722bd9733ae2ba0cb60e0211b28c4c4fd43bb5eb13d1457f36",
+      "features/color_target/tb/tb_color_target_overlay.v": "995dbb786de0ec03670566fa3581ea65ed4d511077552426df9ea4a643535a34",
+      "features/color_target/tb/tb_color_target_replay.v": "642fb38415ca74e404a97da8b2ba57c2ae9abab1816850e0b80cdf5104c0f414",
+      "features/color_target/tb/tb_color_target_support3.v": "19561e8d2c7e130be233988e5f925c9426f6b9c7253457269bfd18b9ace8c07f",
+      "features/color_target/tb/tb_color_target_text_overlay.v": "a0fe09c0f8309bb9668079bab625f4e6796d45a635c1eb2bbb9040ab30a2ac25",
+      "features/color_target/tb/tb_color_target_text_updates.v": "e0febded499332d37af196f6458e30ab5cf7dfa72f51be01bed25a1267420cdf",
+      "features/color_target/tb/tb_color_target_track.v": "f377a44258a73f4573f02a660367ee9a1092ccfece58c1aaab69a92f73d4d9fe",
+      "features/color_target/tb/tb_color_target_track_guard.v": "8d29872c4ae25504629b8eb608bdec8c11bd87247547fc0091c11c8f9aa8025a",
+      "features/color_target/tb/tb_display_transactions.v": "39ee2161a0981f75596718fa6d7e9a372e5a19db2798384beac9b41270b85d5c",
+      "features/color_target/tb/tb_guard_synth_fixture.v": "96585a249e17309f48b4928c924e94ed3b6680822c7c69ee0232ee0089fc598d",
+      "features/color_target/tb/tb_latency_handoff_review.v": "6852e4200c016883c20c26febfdbf21a3723f8bc20637a66f64559a1218ad338",
+      "features/color_target/tb/tb_target_class_contract.v": "85eacd7e6995a5cd6ebf74a78657be1843d893908e3bcb50529039e651a3d310",
+      "features/color_target/tb/tb_track_admission_audit.v": "86a96ff7340ded692ed3382ab6335c4926f5cb5c04e6171f83cca7056f676275",
+      "features/color_target/tb/test_guard_engineering.py": "c09fd806fd7ca98a278345e995ccabd3d24b95f959255d3de2692e5543e7a59f",
+      "features/color_target/tb/test_latency_review_evidence.py": "f53dfa14dc8a1f5e125e5c0867f26d5b04f71779888022ce4a02399016396d68",
+      "features/color_target/tb/test_simlib_failures.py": "5c2e64f0e0cbbf1c4ce34ac78c02e958c715cb7626b89a07a996ffdd188b7ce6",
+      "features/color_target/tb/test_verification_runner.py": "49e1a7fa123e53bd211ce88a06a4720ba930fe987184b4927feed49edecd9146",
+      "features/color_target/tools/audit_build_source_manifest.py": "f13431441242c3b9cb7590ef3713843b697d305d2ba43a32349c32ecb7e7a118",
+      "features/color_target/tools/audit_integration_sources.py": "f54007fb9d33e944e4c8f4ba935661ba68806698141fa73578c93ead36b1f2cf",
+      "features/color_target/tools/check_target_config.py": "c256d9fa67a0dcad0a790c395869a2c60946b427c83fbb6d8b507c85b03a25d8",
+      "features/color_target/tools/guard_synth_top.v": "f700f85a49e1ef1a9b4012a9cd5b936d41a50b0bde42223dd014f9cb5f6ab2d4",
+      "features/color_target/tools/make_replay_controls.py": "07e7eacec6d8e5e3448493b8fb2720ce81d9926447ee587ba0355b95724ba0c9",
+      "features/color_target/tools/replay_synth_top.v": "d68e5807dcd3e2a04245c19eeb58c3088571972ef9304f3135683aa7c416e156",
+      "features/color_target/tools/simlib.py": "5fb6a71c3578f5eb2ab1708c9863f6e71a0a2fda8d44e977d744f3a14e40b465",
+      "features/color_target/tools/support3_synth_top.v": "4f48b11730ee71feab9bcb71c0de04fcdf11ce31cbeb9daf244f566af59a8fa7",
+      "features/color_target/tools/synth_guard.tcl": "78e73fc208dc00f784d24af072e2d0a3fe196783ce302d6782ce9164a93c489a",
+      "features/color_target/tools/synth_replay.tcl": "3d8ee61cc5f03429c46e3605446f8d834b5f8cafe024dd13b3d1c50ed091735a",
+      "features/color_target/tools/synth_support3.tcl": "408b3018c8a82fc7d3404941797e54281e3ee1e417173735356f8678be78abae",
+      "features/color_target/tools/synth_text.tcl": "cf9276cf9c08104dd13e2db2689a71fc22eaeccb707356403a248e19b9aa503c",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "951e0a89e686d60876bfbb86eb0a7b229708953be4df62c27a62de53df8b049a"
+    }
+  },
+  "source_unchanged_during_run": true,
+  "checks": [
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_target_class_contract.py",
+        "--models-only",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\class_models"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.125,
+      "log": "class_models.log",
+      "passed": true,
+      "failure": null,
+      "name": "class_models",
+      "kind": "CHECK",
+      "details": {
+        "parameter_configurations": 12
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_integration_contract.py",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\contract"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.14,
+      "log": "contract.log",
+      "passed": true,
+      "failure": null,
+      "name": "contract",
+      "kind": "CHECK",
+      "details": {
+        "traces": 36,
+        "scope": "PROPOSED MODEL ONLY"
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_replay_data_checks.py"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.125,
+      "log": "data_contract.log",
+      "passed": true,
+      "failure": null,
+      "name": "data_contract",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_target_class_contract.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\class_rtl"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 13.75,
+      "log": "class_rtl.log",
+      "passed": true,
+      "failure": null,
+      "name": "class_rtl",
+      "kind": "CHECK",
+      "details": {
+        "parameter_configurations": 12
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_track_admission_audit.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\track_audit"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.281,
+      "log": "track_audit.log",
+      "passed": true,
+      "failure": null,
+      "name": "track_audit",
+      "kind": "CHARACTERIZATION",
+      "details": {
+        "samples": 9,
+        "open_gaps": {
+          "DUPLICATE": "OPEN: duplicate frame confirms target; admission owner not implemented",
+          "REORDER": "OPEN: decreasing identities accepted; ordering owner not implemented",
+          "INVALID_RUN": "OPEN: no observation age mechanism; no approved timeout value",
+          "SILENCE": "OPEN: no wall-clock expiry; 20 cycles are a fixture, not an approved limit",
+          "SESSION_INVALID": "OPEN: session clear requires valid strobe; explicit epoch authority absent",
+          "OLD_SESSION_RETURN": "OPEN: retired session can re-enter through a valid result"
+        },
+        "scope": "CURRENT RTL CHARACTERIZATION, NOT REQUIREMENTS PASS"
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_text_updates.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 2.891,
+      "log": "text_updates.log",
+      "passed": true,
+      "failure": null,
+      "name": "text_updates",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_chain.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 1.25,
+      "log": "legacy_chain.log",
+      "passed": true,
+      "failure": null,
+      "name": "legacy_chain",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_classify.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 42.968,
+      "log": "classifier.log",
+      "passed": true,
+      "failure": null,
+      "name": "classifier",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--full"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 32.422,
+      "log": "detector.log",
+      "passed": true,
+      "failure": null,
+      "name": "detector",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_overlay.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 26.578,
+      "log": "geometry.log",
+      "passed": true,
+      "failure": null,
+      "name": "geometry",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_track.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 23.578,
+      "log": "track_regression.log",
+      "passed": true,
+      "failure": null,
+      "name": "track_regression",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_text_overlay.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 36.704,
+      "log": "real_font.log",
+      "passed": true,
+      "failure": null,
+      "name": "real_font",
+      "kind": "CHECK"
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_color_target_replay.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--full",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\rgb_replay"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 81.265,
+      "log": "rgb_replay.log",
+      "passed": true,
+      "failure": null,
+      "name": "rgb_replay",
+      "kind": "CHECK",
+      "details": {
+        "runs": 12,
+        "camera_material_used": false,
+        "totals": {
+          "input_cycles": 2013324,
+          "accepted_pixels": 7760408,
+          "result_events": 179,
+          "track_events": 178,
+          "display_probes": 39928,
+          "legacy_results_compared": 87,
+          "cancelled_frames": 5
+        }
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_frame_transactions.py",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\frame_transactions"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.203,
+      "log": "frame_transactions.log",
+      "passed": true,
+      "failure": null,
+      "name": "frame_transactions",
+      "kind": "CHECK",
+      "details": {
+        "cases": 33,
+        "scope": "TRANSACTION MODEL PROPOSAL ONLY"
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_track_guard_contract.py",
+        "--sim",
+        "modelsim",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\guard"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 9.656,
+      "log": "guard.log",
+      "passed": true,
+      "failure": null,
+      "name": "guard",
+      "kind": "CHECK",
+      "details": {
+        "jobs": 9,
+        "checks": 818,
+        "scope": "INDEPENDENT GUARD RTL ONLY"
+      }
+    },
+    {
+      "command": [
+        "C:\\Users\\Lenovo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "-u",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\features\\color_target\\run_display_transactions.py",
+        "--msim",
+        "D:/modelsim/modelsim_ase/win32aloem",
+        "--out",
+        "C:\\Users\\Lenovo\\.codex\\worktrees\\target-fixed-verification\\anlogic_formal_project\\tmp\\target_handoff_02\\display_transactions"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 7.89,
+      "log": "display_transactions.log",
+      "passed": true,
+      "failure": null,
+      "name": "display_transactions",
+      "kind": "CHECK",
+      "details": {
+        "checks": 187,
+        "negative_controls": 5,
+        "scope": "TEST-ONLY DISPLAY SCHEDULER; NO PHYSICAL CDC"
+      }
+    }
+  ],
+  "gates": [
+    {
+      "name": "A2 standalone guard",
+      "status": "PASS",
+      "evidence": "integration/TRACK_GUARD_INTERFACE.md; not a display freshness proof"
+    },
+    {
+      "name": "Unwrapped legacy TRACK identity / age",
+      "status": "OPEN",
+      "evidence": "integration/TRACK_ADMISSION_PROPOSAL.md"
+    },
+    {
+      "name": "MAIN normalization / CDC / DDR / atomic display",
+      "status": "OPEN",
+      "evidence": "integration/MAIN_CONTRACT_DRAFT.md"
+    },
+    {
+      "name": "Integrated TARGET P&R and bit",
+      "status": "NOT_RUN",
+      "evidence": "No TARGET in current main TD entry"
+    },
+    {
+      "name": "Real camera policy / thresholds",
+      "status": "PENDING_MATERIAL",
+      "evidence": "User reserved decision until real camera material"
+    },
+    {
+      "name": "Board acceptance",
+      "status": "NOT_RUN",
+      "evidence": "board/OBSERVATION_GUIDE.md"
+    }
+  ]
+}

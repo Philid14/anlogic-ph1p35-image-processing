@@ -1,0 +1,2 @@
+PASS FRAME_LEDGER checks=41
+D:\anlogic_formal_project\tests\tb_frame_transaction_ledger.sv:121: $finish called at 590000 (1ps)

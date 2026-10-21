@@ -3,7 +3,8 @@ module hdmi_mixer #(
     parameter V_OFFSET = 60,
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
-    parameter integer DEBUG_MODE = 0
+    parameter integer DEBUG_MODE = 0,
+    parameter integer TARGET_FONT_ENABLE = 0
 )(
     input wire        I_clk,
     input wire        I_rst_n,
@@ -22,7 +23,11 @@ module hdmi_mixer #(
     output reg        O_hdmi_vsync,
     output reg        O_hdmi_hsync,
     output reg        O_hdmi_de,
-    output reg[23:0]  O_hdmi_data
+    output reg[23:0]  O_hdmi_data,
+    input wire I_target_glyph_request,
+    input wire [7:0] I_target_glyph_char,
+    input wire [3:0] I_target_glyph_row,
+    output wire [15:0] O_target_glyph_bits
 );
 
     reg        S_video_vsync_1d;
@@ -476,10 +481,11 @@ module hdmi_mixer #(
     );
 
     osd_char_lib u_osd_char_lib(
-        .I_char     ( S_pf_char     ),
-        .I_row      ( S_pf_row      ),
+        .I_char     ( TARGET_FONT_ENABLE && I_target_glyph_request ? I_target_glyph_char : S_pf_char ),
+        .I_row      ( TARGET_FONT_ENABLE && I_target_glyph_request ? I_target_glyph_row : S_pf_row ),
         .O_row_bits ( S_pf_row_bits )
     );
+    assign O_target_glyph_bits=S_pf_row_bits;
 
     always @(posedge I_clk or negedge I_rst_n) begin
         if(!I_rst_n) begin

@@ -1,6 +1,9 @@
 
 
-module design_top_wrapper (
+module design_top_wrapper #(
+    parameter integer TARGET_ENABLE=1,
+    parameter integer TARGET_OVERLAY_ENABLE=1
+)(
     input wire        I_sys_clk,
     input wire        I_rst_n,
       
@@ -586,6 +589,16 @@ assign S_raw_tuser  = S_axis_tuser;
 
 //ISP算法顶层模块
 wire [31:0] S_fifo_event_counts;
+wire [95:0] S_target_rgb;
+wire S_target_valid,S_target_user,S_target_last;
+wire [63:0] S_target_tick;
+wire S_target_metadata_receive,S_target_metadata_online,S_target_scan_fault;
+wire [505:0] S_target_metadata;
+wire [15:0] S_target_drops,S_target_cancels,S_target_faults;
+wire S_target_packet_error;
+mipi_packet_monitor u_target_packet_monitor(
+    .clk(S_csi_rx_clk),.rst_n(S_rst_n),.hs_valid(S_hs_rx_valid),.hs_data(S_hs_rx_data),
+    .error_pulse(S_target_packet_error),.error_count());
 isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_fifo_event_counts(S_fifo_event_counts),
@@ -601,10 +614,41 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
 .O_tlast         (S_ISP_O_tlast ),
 .O_tuser         (S_ISP_O_tuser ),
 .O_tvalid        (S_ISP_O_tvalid),
+.O_observer_rgb  (S_target_rgb),
+.O_observer_valid(S_target_valid),
+.O_observer_user (S_target_user),
+.O_observer_last (S_target_last),
 .I_tready        ()
   );
 
 
+generate if(TARGET_ENABLE) begin:g_target_system
+    target_frame_system u_system(
+        .rst_n(S_rst_n),.csi_clk(S_csi_rx_clk),.ddr_clk(S_ddr_clk),.hdmi_clk(S_hdmi_pixel_clk),
+        .calib_ready(S_init_calib_complete),.raw_valid(S_raw_tvalid),.raw_sof(S_raw_tuser),
+        .raw_eol(S_raw_tlast),.native_frame_end(S_raw10_frame_end),.packet_error(S_target_packet_error || S_lane_error_any),
+        .awb_user(S_target_user),.awb_valid(S_target_valid),.awb_last(S_target_last),.awb_rgb(S_target_rgb),
+        .packed_user(S_ISP_O_tuser),.packed_valid(S_ISP_O_tvalid),.packed_rgb(S_ISP_O_tdata),
+        .user_ready(S_ddr_user_ready),.user_read_valid(S_ddr_user_rd_valid),.user_read_data(S_ddr_user_rd_data),
+        .mc_write_accept(S_mc_app_en && S_mc_app_cmd==0 && S_mc_app_wdf_wren),.mc_write_address(S_mc_app_addr),
+        .user_write_enable(S_ddr_user_wr_en),.user_read_enable(S_ddr_user_rd_en),.user_address(S_ddr_user_addr),
+        .user_write_data(S_ddr_user_wr_data),.display_vsync(S_video_out_vsync),.display_read_enable(S_hdmi_window_rd_en),
+        .display_rgb(S_video_rd_data),.fifo_counts(S_fifo_event_counts),.display_tick(S_target_tick),
+        .display_metadata_receive(S_target_metadata_receive),.display_metadata(S_target_metadata),
+        .display_metadata_online(S_target_metadata_online),.display_scan_fault(S_target_scan_fault),
+        .dropped_frames(S_target_drops),.cancelled_frames(S_target_cancels),.metadata_faults(S_target_faults));
+    assign S_vi_ddr_wr_en=S_ddr_user_wr_en;
+    assign S_vi_ddr_wr_addr=S_ddr_user_addr;
+    assign S_vi_ddr_wr_data=S_ddr_user_wr_data;
+    assign S_vo_ddr_rd_en=S_ddr_user_rd_en;
+    assign S_vo_ddr_rd_addr=S_ddr_user_addr;
+end else begin:g_legacy_video
+    assign S_target_tick=0;
+    assign S_target_metadata_receive=0;
+    assign S_target_metadata=0;
+    assign S_target_metadata_online=0;
+    assign S_target_scan_fault=0;
+    assign S_target_drops=0; assign S_target_cancels=0; assign S_target_faults=0;
     video_in u_video_in(
         .I_rst_n              (  S_rst_n             ),
 
@@ -639,8 +683,6 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
     assign S_ddr_user_wr_data  = S_vi_ddr_wr_data;
 
 
-    assign S_video_out_rst_n = S_hdmi_rst_n;
-
     video_out u_video_out(
         .I_rst_n             ( S_video_out_rst_n    ),
         .I_ddr_clk           ( S_ddr_clk            ),
@@ -662,6 +704,9 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
     );
 
 
+
+end endgenerate
+    assign S_video_out_rst_n = S_hdmi_rst_n;
 
     mc_to_user_interface u_mc_to_user_interface(
         .I_clk                   ( S_ddr_clk               ),
@@ -747,12 +792,19 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
         .O_vtc_last    ( S_hdmi_last      )
     );
 
+    wire [23:0] S_target_base_rgb;
+    wire S_target_base_vs,S_target_base_hs,S_target_base_de;
+    wire [7:0] S_target_glyph_char;
+    wire [3:0] S_target_glyph_row;
+    wire [15:0] S_target_glyph_bits;
+    wire S_target_glyph_request;
     hdmi_mixer #(
         .H_OFFSET   ( 0    ),
         .V_OFFSET   ( 0    ),
         .IMG_WIDTH  ( 1280 ),
         .IMG_HEIGHT ( 720  ),
-        .DEBUG_MODE ( 0    )
+        .DEBUG_MODE ( 0    ),
+        .TARGET_FONT_ENABLE(TARGET_ENABLE)
     )u_hdmi_mixer(
         .I_clk           ( S_hdmi_pixel_clk   ),
         .I_rst_n         ( S_hdmi_rst_n       ),
@@ -764,11 +816,39 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
         .I_debug_status  ( S_hdmi_debug_status),
         .O_video_rd_en   ( S_hdmi_window_rd_en),
         .I_video_rd_data ( S_video_rd_data    ),
-        .O_hdmi_vsync    ( S_hdmi_out_vsync   ),
-        .O_hdmi_hsync    ( S_hdmi_out_hsync   ),
-        .O_hdmi_de       ( S_hdmi_out_de      ),
-        .O_hdmi_data     ( S_hdmi_out_data    )
+        .I_target_glyph_request(S_target_glyph_request),
+        .I_target_glyph_char(S_target_glyph_char),.I_target_glyph_row(S_target_glyph_row),
+        .O_target_glyph_bits(S_target_glyph_bits),
+        .O_hdmi_vsync    ( S_target_base_vs   ),
+        .O_hdmi_hsync    ( S_target_base_hs   ),
+        .O_hdmi_de       ( S_target_base_de   ),
+        .O_hdmi_data     ( S_target_base_rgb  )
     );
+
+    generate if(TARGET_ENABLE) begin:g_target_display
+        reg vs_previous;
+        always @(posedge S_hdmi_pixel_clk or negedge S_hdmi_rst_n) begin
+            if(!S_hdmi_rst_n) vs_previous<=0;
+            else vs_previous<=S_target_base_vs;
+        end
+        target_display_commit #(.ENABLE(TARGET_OVERLAY_ENABLE)) u_commit(
+            .clk(S_hdmi_pixel_clk),.rst_n(S_hdmi_rst_n),.now_tick(S_target_tick),
+            .metadata_receive(S_target_metadata_receive),.metadata(S_target_metadata),
+            .metadata_online(S_target_metadata_online),.scan_fault(S_target_scan_fault),
+            .video_rgb(S_target_base_rgb),.video_de(S_target_base_de),
+            .video_hs(S_target_base_hs),.video_vs(S_target_base_vs),
+            .blanking_start(vs_previous && !S_target_base_vs),
+            .out_rgb(S_hdmi_out_data),.out_de(S_hdmi_out_de),.out_hs(S_hdmi_out_hsync),.out_vs(S_hdmi_out_vsync),
+            .glyph_char(S_target_glyph_char),.glyph_row(S_target_glyph_row),.glyph_bits(S_target_glyph_bits),
+            .glyph_request(S_target_glyph_request),.display_enable(),.pixel_session(),.pixel_frame(),
+            .pixel_slot(),.pixel_generation(),.first_pixel(),.hidden_count(),.late_count());
+    end else begin:g_target_bypass
+        assign S_hdmi_out_data=S_target_base_rgb;
+        assign S_hdmi_out_de=S_target_base_de;
+        assign S_hdmi_out_hsync=S_target_base_hs;
+        assign S_hdmi_out_vsync=S_target_base_vs;
+        assign S_target_glyph_char=0; assign S_target_glyph_row=0; assign S_target_glyph_request=0;
+    end endgenerate
 
     hdmi_tx u_hdmi_tx(
         .I_pixel_clk        ( S_hdmi_pixel_clk  ),

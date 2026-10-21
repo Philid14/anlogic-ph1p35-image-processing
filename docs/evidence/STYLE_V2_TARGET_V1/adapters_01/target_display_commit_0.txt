@@ -1,0 +1,4 @@
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\target_display_commit.v:5: warning: timescale for target_display_commit inherited from another file.
+D:\anlogic_formal_project\tests\tb_target_display_commit.sv:1: ...: The inherited timescale is here.
+D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\osd_char_lib.v:1: warning: timescale for osd_char_lib inherited from another file.
+D:\anlogic_formal_project\features\color_target\rtl\color_target_text_overlay.v:1: ...: The inherited timescale is here.

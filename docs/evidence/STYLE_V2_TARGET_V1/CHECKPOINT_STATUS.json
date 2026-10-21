@@ -1,0 +1,9 @@
+{
+  "target_independent_checks": "PASS",
+  "main_adapter_checks": "PASS within individual stated scope",
+  "full_main_system": "NOT_RUN",
+  "p_and_r": "NOT_RUN",
+  "bit": "NOT_GENERATED",
+  "board": "NOT_RUN",
+  "archive_sha256": "cd78f1e4fa5b89de2809d186a70416b8f1cbcb091fa169aa24883c45c96c3065"
+}

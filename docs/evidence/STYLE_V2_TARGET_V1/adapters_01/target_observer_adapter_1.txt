@@ -1,0 +1,2 @@
+PASS OBSERVER_ADAPTER checks=145
+D:\anlogic_formal_project\tests\tb_target_observer_adapter.sv:74: $finish called at 1120000 (1ps)
