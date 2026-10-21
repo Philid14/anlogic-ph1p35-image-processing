@@ -798,6 +798,20 @@ end endgenerate
     wire [3:0] S_target_glyph_row;
     wire [15:0] S_target_glyph_bits;
     wire S_target_glyph_request;
+    wire S_mixer_vs,S_mixer_hs,S_mixer_de,S_mixer_user,S_mixer_last;
+    wire S_mixer_read_request;
+    generate if(TARGET_ENABLE) begin:g_target_read_alignment
+        video_read_controls u_align(
+            .clk(S_hdmi_pixel_clk),.rst_n(S_hdmi_rst_n),
+            .vs(S_hdmi_vsync),.hs(S_hdmi_hsync),.de(S_hdmi_de),
+            .user(S_hdmi_user),.last(S_hdmi_last),.read_enable(S_hdmi_window_rd_en),
+            .aligned_vs(S_mixer_vs),.aligned_hs(S_mixer_hs),.aligned_de(S_mixer_de),
+            .aligned_user(S_mixer_user),.aligned_last(S_mixer_last));
+    end else begin:g_legacy_read_alignment
+        assign {S_mixer_vs,S_mixer_hs,S_mixer_de,S_mixer_user,S_mixer_last}=
+            {S_hdmi_vsync,S_hdmi_hsync,S_hdmi_de,S_hdmi_user,S_hdmi_last};
+        assign S_hdmi_window_rd_en=S_mixer_read_request;
+    end endgenerate
     hdmi_mixer #(
         .H_OFFSET   ( 0    ),
         .V_OFFSET   ( 0    ),
@@ -808,13 +822,13 @@ end endgenerate
     )u_hdmi_mixer(
         .I_clk           ( S_hdmi_pixel_clk   ),
         .I_rst_n         ( S_hdmi_rst_n       ),
-        .I_video_vsync   ( S_hdmi_vsync       ),
-        .I_video_hsync   ( S_hdmi_hsync       ),
-        .I_video_de      ( S_hdmi_de          ),
-        .I_video_user    ( S_hdmi_user        ),
-        .I_video_last    ( S_hdmi_last        ),
+        .I_video_vsync   ( S_mixer_vs         ),
+        .I_video_hsync   ( S_mixer_hs         ),
+        .I_video_de      ( S_mixer_de         ),
+        .I_video_user    ( S_mixer_user       ),
+        .I_video_last    ( S_mixer_last       ),
         .I_debug_status  ( S_hdmi_debug_status),
-        .O_video_rd_en   ( S_hdmi_window_rd_en),
+        .O_video_rd_en   ( S_mixer_read_request),
         .I_video_rd_data ( S_video_rd_data    ),
         .I_target_glyph_request(S_target_glyph_request),
         .I_target_glyph_char(S_target_glyph_char),.I_target_glyph_row(S_target_glyph_row),

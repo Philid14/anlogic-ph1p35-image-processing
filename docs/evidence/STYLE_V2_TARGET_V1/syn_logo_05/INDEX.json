@@ -1,0 +1,41 @@
+{
+  "kind": "SYNTHESIS_PREFLIGHT_ONLY",
+  "source_commit": "2f3ae5755077bca4c71570aa0fc050dd9e4d473a",
+  "p_and_r": "NOT_RUN",
+  "bit": "NOT_GENERATED",
+  "board": "NOT_RUN",
+  "files": [
+    {
+      "name": "SOURCE_MANIFEST.json",
+      "sha256": "731a70d109ba56f66486ba85b0a6cde7c671e4724db7363998109f99f9099ed0"
+    },
+    {
+      "name": "stages.json",
+      "sha256": "25bb6da48bcd5a16934adf611fb49ba84c1a680613c11a0e1b5b14b0e13b5dd5"
+    },
+    {
+      "name": "flow.tcl",
+      "sha256": "2da5e7c412d5e6208761deab5f1908caf79834d76094cef23563bd5ec82f5568"
+    },
+    {
+      "name": "syn_1_stdout.txt",
+      "sha256": "2cd2f80af9a033d07093579d6149259f725a6a4650cbdf5dcb2d4a7a381c35b3"
+    },
+    {
+      "name": "camera_to_dsi_display_gate.area",
+      "sha256": "90b1265f81960cc4a579e502fa83ddbe825681ed028788ee480e07330603a73f"
+    },
+    {
+      "name": "camera_to_dsi_display_rtl.area",
+      "sha256": "ac6bd394cbcf0bde1bf461fbebc3abe35f478d2c722ef2c821eaa09bb7a06862"
+    },
+    {
+      "name": "gate.qor",
+      "sha256": "340e8fa3a889b1a508e40f15cfe2aa4ec3af26ac7aa4276d0cd7bf5837ff99ab"
+    },
+    {
+      "name": "camera_to_dsi_display_gate.ts",
+      "sha256": "7d18997ce2ca7517c3b465318f4eda94ad94a2c7776920402eff80e280b17a83"
+    }
+  ]
+}

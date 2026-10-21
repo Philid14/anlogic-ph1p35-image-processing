@@ -1,0 +1,51 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_video_read_controls -do "run -all; quit -f -code 0" 
+# Start time: 07:41:04 on Oct 22,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Too few port connections. Expected 22, found 14.
+# 
+#         Region: /tb_video_read_controls/reader
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_video_out_rd_busy'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_ddr_user_rd_en'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_ddr_user_addr'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_scan_request'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_read_pipeline_idle'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_requested_words'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_outstanding_reads'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(16): [TFMPC] - Missing connection for port 'O_scan_underflow'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_video_read_controls/reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_video_read_controls/reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_video_read_controls/reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(23): [TFMPC] - Too few port connections. Expected 18, found 16.
+# 
+#         Region: /tb_video_read_controls/mixer
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(23): [TFMPC] - Missing connection for port 'O_video_rd_en'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_video_read_controls.sv(23): [TFMPC] - Missing connection for port 'O_target_glyph_bits'.
+# 
+# run -all
+# PASS VIDEO_READ_CONTROLS pixels=1280 checked=1120
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_video_read_controls.sv(65)
+#    Time: 22827808 ps  Iteration: 1  Instance: /tb_video_read_controls
+# End time: 07:41:04 on Oct 22,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 17

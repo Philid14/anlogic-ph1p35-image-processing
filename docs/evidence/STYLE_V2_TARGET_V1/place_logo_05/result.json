@@ -1,0 +1,10 @@
+{
+  "source_commit": "2f3ae5755077bca4c71570aa0fc050dd9e4d473a",
+  "gate_sha256": "a70fb8ea27ddf46fa8d45797f2396ddb0f67ba4dcb9c9ea6da762acc6f7d2738",
+  "exit_code": 1,
+  "placement_passed": false,
+  "packed_slices": 21279,
+  "capacity_error": 21279,
+  "route": "NOT_RUN",
+  "bit": "NOT_GENERATED"
+}

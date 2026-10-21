@@ -56,9 +56,13 @@ module tb_target_frame_system;
         .V_ActiveSize(720),.V_FrameSize(750),.V_SyncStart(725),.V_SyncEnd(730)) vtc(
         .I_vtc_rstn(rst_n),.I_vtc_clk(hdmi_clk),.O_vtc_vs(vtvs),.O_vtc_hs(vths),.O_vtc_de_valid(vtde),.O_vtc_user(vtuser),.O_vtc_last(vtlast));
     wire [23:0] mixed_rgb; wire mixed_de,mixed_hs,mixed_vs;
+    wire av,ah,ad,au,al;
+    video_read_controls alignment(.clk(hdmi_clk),.rst_n(rst_n),
+        .vs(vtvs),.hs(vths),.de(vtde),.user(vtuser),.last(vtlast),.read_enable(rd_en),
+        .aligned_vs(av),.aligned_hs(ah),.aligned_de(ad),.aligned_user(au),.aligned_last(al));
     hdmi_mixer #(.H_OFFSET(0),.V_OFFSET(0)) mixer(
-        .I_clk(hdmi_clk),.I_rst_n(rst_n),.I_video_vsync(vtvs),.I_video_hsync(vths),.I_video_de(vtde),
-        .I_video_user(vtuser),.I_video_last(vtlast),.I_debug_status(4'd0),.O_video_rd_en(rd_en),.I_video_rd_data(display_rgb),
+        .I_clk(hdmi_clk),.I_rst_n(rst_n),.I_video_vsync(av),.I_video_hsync(ah),.I_video_de(ad),
+        .I_video_user(au),.I_video_last(al),.I_debug_status(4'd0),.I_video_rd_data(display_rgb),
         .O_hdmi_vsync(mixed_vs),.O_hdmi_hsync(mixed_hs),.O_hdmi_de(mixed_de),.O_hdmi_data(mixed_rgb));
     reg [127:0] memory[0:691199];
     integer slot_source[0:3]; integer key_source[0:63];
