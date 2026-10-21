@@ -49,8 +49,8 @@ module latency_meter #(
     parameter integer ENTRY_LOG2    = 3,      // 8 association records
     parameter integer CNT_W         = 32,
     parameter integer TICK_W        = 32,
-    parameter integer TICK_BASE     = 742,    // cycles per 10 us tick (integer part)
-    parameter integer TICK_REMAINDER= 50000,  // fraction out of TICK_MOD
+    parameter integer TICK_BASE     = 750,    // 75 MHz / 100000 (MAIN-confirmed config)
+    parameter integer TICK_REMAINDER= 0,      // fraction out of TICK_MOD
     parameter integer TICK_MOD      = 100000,
     parameter integer CROSS_CYCLES  = 3,      // CDC + pop latency compensation, cycles
     parameter integer TICK_CROSS    = 0,      // same compensation expressed in ticks
@@ -102,16 +102,18 @@ module latency_meter #(
     output wire [CNT_W-1:0]  entry_count,
     output wire              evt_gap_alarm,
     output reg  [CNT_W-1:0]  lost_done_count,
-    output reg  [CNT_W-1:0]  lost_abort_count
+    output reg  [CNT_W-1:0]  lost_abort_count,
+    output reg  [CNT_W-1:0]  queued_count     // samples excluded because the FIFO queued them
 );
     localparam integer ENT = (1 << ENTRY_LOG2);
 
     //------------------------------------------------------------------
     // 1. capture event crossing
     //------------------------------------------------------------------
-    wire [SID_W+FID_W+1:0] evt_data;
+    wire [SID_W+FID_W+2:0] evt_data;
     wire                   evt_valid;
     wire                   pop = evt_valid;
+    wire                   evt_queued = evt_data[SID_W+FID_W+2];
     wire [1:0]             evt_kind = evt_data[SID_W+FID_W+1:SID_W+FID_W];
     wire [SID_W-1:0]       evt_sid  = evt_data[FID_W +: SID_W];
     wire [FID_W-1:0]       evt_fid  = evt_data[FID_W-1:0];
@@ -176,6 +178,7 @@ module latency_meter #(
     reg                vld  [0:ENT-1];
     reg                done [0:ENT-1];   // frame completed (kind 2 seen)
     reg                used [0:ENT-1];   // displayed at least once
+    reg                eq   [0:ENT-1];   // event was queued in the CDC FIFO
     reg [SID_W-1:0]    esid [0:ENT-1];
     reg [FID_W-1:0]    efid [0:ENT-1];
     reg [CNT_W-1:0]    ecyc [0:ENT-1];
@@ -325,6 +328,7 @@ module latency_meter #(
             repeat_count     <= {CNT_W{1'b0}};
             lost_done_count  <= {CNT_W{1'b0}};
             lost_abort_count <= {CNT_W{1'b0}};
+            queued_count     <= {CNT_W{1'b0}};
             cap_fps          <= {CNT_W{1'b0}};
             dsp_fps          <= {CNT_W{1'b0}};
             fps_valid        <= 1'b0;
@@ -345,7 +349,7 @@ module latency_meter #(
 
             if (resync_req) begin
                 for (i = 0; i < ENT; i = i + 1) begin
-                    vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
+                    vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
                 end
                 stats_valid <= 1'b0;
                 lat_seen    <= 1'b0;
@@ -360,13 +364,13 @@ module latency_meter #(
                 // ---- session / frame id wrap ----
                 if (cap_start && (sid_change || fid_wrap)) begin
                     for (i = 0; i < ENT; i = i + 1) begin
-                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
+                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
                     end
                     stats_valid <= 1'b0;
                     alarm[3]    <= 1'b1;
                 end else if (dsp_rise && cur_sid_vld && (dsp_sid != cur_sid)) begin
                     for (i = 0; i < ENT; i = i + 1) begin
-                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
+                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
                     end
                     stats_valid <= 1'b0;
                     alarm[3]    <= 1'b1;
@@ -384,6 +388,7 @@ module latency_meter #(
                     vld[wr_idx]   <= 1'b1;
                     done[wr_idx]  <= 1'b0;
                     used[wr_idx]  <= 1'b0;
+                    eq[wr_idx]    <= evt_queued;
                     esid[wr_idx]  <= evt_sid;
                     efid[wr_idx]  <= evt_fid;
                     ecyc[wr_idx]  <= cyc_cnt;
@@ -413,21 +418,35 @@ module latency_meter #(
 
                 // ---- display event ----
                 if (commit_lat) begin
-                    lat_valid      <= 1'b1;
-                    lat_cycles     <= lat_cyc_nxt;
-                    lat_ticks      <= lat_tick_nxt;
-                    lat_seen       <= 1'b1;
-                    used[hit_idx]  <= 1'b1;
-                    stat_sum_cycles<= stat_sum_cycles + lat_cyc_nxt;
-                    stat_sum_ticks <= stat_sum_ticks + lat_tick_nxt;
-                    stat_count     <= stat_count + 1'b1;
-                    stats_valid    <= 1'b1;
+                    used[hit_idx] <= 1'b1;
+                    if (eq[hit_idx]) begin
+                        // queued sample: the extra FIFO delay is unknown, so the
+                        // reading is excluded (MAIN reply 2026-10-21)
+                        queued_count <= queued_count + 1'b1;
+                        alarm[2]     <= 1'b1;
+                        stats_valid  <= 1'b0;
+                    end else begin
+                        lat_valid      <= 1'b1;
+                        lat_cycles     <= lat_cyc_nxt;
+                        lat_ticks      <= lat_tick_nxt;
+                        lat_seen       <= 1'b1;
+                        stat_sum_cycles<= stat_sum_cycles + lat_cyc_nxt;
+                        stat_sum_ticks <= stat_sum_ticks + lat_tick_nxt;
+                        stat_count     <= stat_count + 1'b1;
+                        stats_valid    <= 1'b1;
+                    end
                 end else if (commit_age) begin
-                    age_valid    <= 1'b1;
-                    age_cycles   <= age_cyc_nxt;
-                    age_ticks    <= age_tick_nxt;
-                    age_seen     <= 1'b1;
-                    repeat_count <= repeat_count + 1'b1;
+                    used[hit_idx] <= 1'b1;
+                    if (eq[hit_idx]) begin
+                        queued_count <= queued_count + 1'b1;
+                        alarm[2]     <= 1'b1;
+                    end else begin
+                        age_valid    <= 1'b1;
+                        age_cycles   <= age_cyc_nxt;
+                        age_ticks    <= age_tick_nxt;
+                        age_seen     <= 1'b1;
+                        repeat_count <= repeat_count + 1'b1;
+                    end
                 end else if (bad_display) begin
                     unmatched_count <= unmatched_count + 1'b1;
                     alarm[0]        <= 1'b1;

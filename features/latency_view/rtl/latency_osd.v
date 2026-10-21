@@ -25,8 +25,8 @@
 `include "osd_layout.vh"
 
 module latency_osd #(
-    parameter integer TICK_BASE         = 742,
-    parameter integer TICK_REMAINDER    = 50000,
+    parameter integer TICK_BASE         = 750,
+    parameter integer TICK_REMAINDER    = 0,
     parameter integer TICK_MOD          = 100000,
     parameter integer FPS_WINDOW_TICKS  = 100000,
     parameter integer CROSS_CYCLES      = 3,
@@ -37,7 +37,7 @@ module latency_osd #(
     parameter integer H_ACTIVE   = 1280,
     parameter integer V_ACTIVE   = 720,
     parameter integer X0         = 24,
-    parameter integer Y0         = 24,
+    parameter integer Y0         = 192,   // below the 160x160 Anlogic logo
     parameter integer SCALE_LOG2 = 1,
     parameter integer PANEL_EN   = 1,
     parameter integer BG_DIM     = 1,

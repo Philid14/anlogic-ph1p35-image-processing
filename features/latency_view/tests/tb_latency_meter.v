@@ -55,6 +55,7 @@ module tb_latency_meter;
     wire [31:0] lat_cycles, age_cycles, stat_count, unmatched_count, repeat_count, entry_count;
     wire [31:0] cap_count, cap_done_count, cap_abort_count, dsp_count, lost_done_count, lost_abort_count;
     wire [31:0] cap_fps, dsp_fps;
+    wire [31:0] queued_count;
     wire        fps_valid;
     wire [31:0] lat_ticks;
     wire [3:0]  alarm;
@@ -112,6 +113,7 @@ module tb_latency_meter;
         .cap_fps       (cap_fps),
         .dsp_fps       (dsp_fps),
         .fps_valid     (fps_valid),
+        .queued_count  (queued_count),
         .evt_gap_alarm (evt_gap_alarm)
     );
 
@@ -210,6 +212,7 @@ module tb_latency_meter;
         $display("COUNTS %0d %0d %0d %0d", cap_count, cap_done_count, cap_abort_count, dsp_count);
         $display("FPS %0d %0d %0d", cap_fps, dsp_fps, fps_valid);
         $display("LOST %0d %0d", lost_done_count, lost_abort_count);
+        $display("QUEUED %0d", queued_count);
         $display("TB_ERRORS=0");
         $finish;
     end

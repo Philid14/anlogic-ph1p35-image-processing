@@ -214,6 +214,15 @@ SCENARIOS = [
          counts=(2, 1, 0, 1),
          desc="same key captured twice: record replaced, alarm bit1"),
 
+    dict(name="s21_queued_sample", tol=0, min_gap_src=1,
+         events=[start(105, 1, 1), start(115, 1, 2), start(125, 1, 3),
+                 done(205, 1, 1), done(215, 1, 2), done(225, 1, 3),
+                 dsp(305, 1, 1), dsp(405, 1, 2), dsp(505, 1, 3)],
+         lat=[(115, 305, 1, 1), (215, 405, 1, 2)],
+         alarm=4, stats=(0, 2), cnt=(3, 0, 0, 1), flags=(1, 1, 0),
+         counts=(3, 3, 0, 3), queued=(1,),
+         desc="third rapid capture is queued and excluded from the statistic"),
+
     dict(name="s20_resync_stats_reset", tol=0, sum_check=False,
          events=[start(105, 1, 1), done(155, 1, 1), dsp(205, 1, 1),
                  dsp(305, 1, 9), resync(405),
@@ -263,7 +272,7 @@ def parse(text):
             out["age"].append(dict(cycles=int(m.group(1)), t=float(m.group(2))))
             continue
         for tag, key in (("ALARM", "alarm"), ("STATS", "stats"), ("CNT", "cnt"), ("FLAGS", "flags"),
-                         ("COUNTS", "counts"), ("FPS", "fps"), ("LOST", "lost")):
+                         ("COUNTS", "counts"), ("FPS", "fps"), ("LOST", "lost"), ("QUEUED", "queued")):
             m = re.match(r"^%s ([0-9 ]+)$" % tag, line)
             if m:
                 out[key] = [int(x) for x in m.group(1).split()]

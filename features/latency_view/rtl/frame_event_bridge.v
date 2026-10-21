@@ -26,6 +26,11 @@
 //   Data crosses through a classic gray pointer asynchronous FIFO (depth
 //   2**DEPTH_LOG2). Only the payload that the destination actually pops is
 //   forwarded, so no event can be invented or duplicated by the crossing.
+//
+//   Queueing: the payload carries ``queued`` = "the FIFO was not empty when
+//   this event was written". A queued event has an unknown extra delay, which a
+//   fixed CROSS_CYCLES cannot remove; latency_meter excludes such samples from
+//   the statistic and flags alarm[2] instead (MAIN interface reply 2026-10-21).
 //======================================================================
 `timescale 1ns/1ps
 
@@ -48,11 +53,11 @@ module frame_event_bridge #(
     input  wire              clk,
     input  wire              rst_n,
     input  wire              evt_ready,     // consumer accepts a pop this cycle
-    output wire [SID_W+FID_W+1:0] evt_data,   // {kind, sid, fid}
+    output wire [SID_W+FID_W+2:0] evt_data,   // {queued, kind, sid, fid}
     output wire              evt_valid,     // FIFO not empty
     output reg               evt_gap_alarm  // sticky: pops too close together
 );
-    localparam integer W   = SID_W + FID_W + 2;
+    localparam integer W   = SID_W + FID_W + 3;
     localparam integer DEP = (1 << DEPTH_LOG2);
 
     //------------------------------------------------------------------
@@ -94,6 +99,24 @@ module frame_event_bridge #(
                             wq2_rgray[DEPTH_LOG2-2:0]});
     wire empty = (rgray == rq2_wgray);
 
+    // gray -> binary (the synchronised pointer is gray coded; comparing it to
+    // the binary write pointer directly was the bug found in self-review)
+    function [DEPTH_LOG2:0] gray2bin;
+        input [DEPTH_LOG2:0] g;
+        integer k;
+        begin
+            gray2bin[DEPTH_LOG2] = g[DEPTH_LOG2];
+            for (k = DEPTH_LOG2 - 1; k >= 0; k = k - 1)
+                gray2bin[k] = gray2bin[k + 1] ^ g[k];
+        end
+    endfunction
+
+    wire [DEPTH_LOG2:0] rbin_sync = gray2bin(wq2_rgray);
+    wire [DEPTH_LOG2:0] occ_w     = wbin - rbin_sync;
+    // One entry is normally in flight (the reader needs 2-3 cycles to see the
+    // write pointer). Only an occupancy of two or more means an event had to
+    // wait behind another one, which is the queueing we must invalidate.
+    wire                wr_queued = (occ_w > {{DEPTH_LOG2{1'b0}}, 1'b1});
     wire [DEPTH_LOG2:0] wbin_nxt = wbin + {{DEPTH_LOG2{1'b0}}, (cap_rise & gap_ok & ~full)};
     wire [DEPTH_LOG2:0] rbin_nxt = rbin + {{DEPTH_LOG2{1'b0}}, (evt_valid & evt_ready)};
     wire [DEPTH_LOG2:0] wgray_nxt = (wbin_nxt >> 1) ^ wbin_nxt;
@@ -110,7 +133,7 @@ module frame_event_bridge #(
             wbin  <= wbin_nxt;
             wgray <= wgray_nxt;
             if (cap_rise & gap_ok & ~full)
-                mem[wbin[DEPTH_LOG2-1:0]] <= {cap_kind, cap_sid, cap_fid};
+                mem[wbin[DEPTH_LOG2-1:0]] <= {wr_queued, cap_kind, cap_sid, cap_fid};
         end
     end
 

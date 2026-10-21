@@ -22,6 +22,8 @@ MAX_TICKS = 99999             # 5 digits -> 999.99 ms
 
 # (clk_hz, tick_base, tick_remainder, tick_mod); TICK_BASE = clk/100000
 CLOCK_PRESETS = {
+    # MAIN interface reply 2026-10-21: the generated PLL runs at 75 MHz
+    "75MHz":    (75_000_000, 750, 0, 100000),
     "74.25MHz": (74_250_000, 742, 50000, 100000),
     "148.5MHz": (148_500_000, 1485, 0, 100000),
     "27MHz":    (27_000_000, 270, 0, 100000),
@@ -40,7 +42,7 @@ OSD_ROWS = 8
 OSD_CELL_PX = GLYPH_COLS          # 8
 OSD_SCALE_LOG2 = 1                # 2x -> 16x16 pixel cell
 OSD_X0 = 24
-OSD_Y0 = 24
+OSD_Y0 = 192                  # below the 160x160 Anlogic logo (MAIN reply)
 
 _TEMPLATE_ROWS = (
     "LAT  ######MS   ",
