@@ -1,0 +1,32 @@
+standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+IO Statistics
+#IO                        41
+  #input                   16
+  #output                  25
+  #inout                    0
+
+Gate Statistics
+#Basic gates               37
+  #and                      1
+  #nand                     0
+  #or                       0
+  #nor                      0
+  #xor                      0
+  #xnor                     0
+  #buf                      0
+  #not                      1
+  #bufif1                   0
+  #MX21                     0
+  #FADD                     0
+  #DFF                     35
+  #LATCH                    0
+#MACRO_ADD                  3
+
+Report Hierarchy Area:
++------------------------------------------------------+
+|Instance |Module              |gates  |seq    |macros |
++------------------------------------------------------+
+|top      |target_logo_palette |2      |35     |3      |
++------------------------------------------------------+

@@ -1,0 +1,334 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/TD/bin/td_commands_prompt.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     Lenovo
+   Run Date =   Thu Oct 22 09:14:54 2026
+
+   Run on =     PHILID
+============================================================
+RUN-1002 : start command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3"
+ARC-1001 : Device Initialization.
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :           OPTION          |          IO           |   SETTING   
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :   non_jtag_persist(none)  |        35 IOs         |    gpio    
+ARC-1001 :            jtag           |  P13/P15/L14/R13/T13  |  dedicate  
+ARC-1001 : ----------------------------------------------------------------
+RUN-1003 : finish command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3" in  1.350781s wall, 1.171875s user + 0.015625s system = 1.187500s CPU (87.9%)
+
+RUN-1004 : used memory is 329 MB, reserved memory is 320 MB, peak memory is 329 MB
+RUN-1002 : start command "analyze -file D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v"
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 :     Parameters    |   Settings   |  Default Values  |  Note  
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 :    enable_seed    |     off      |       off        |        
+RUN-1001 :    hfn_to_clock   |  1000000000  |    1000000000    |        
+RUN-1001 :      message      |   standard   |     standard     |        
+RUN-1001 :    qor_monitor    |      on      |        on        |        
+RUN-1001 :   speedup_effort  |      0       |        0         |        
+RUN-1001 :    syn_ip_flow    |     off      |       off        |        
+RUN-1001 :       thread      |     auto     |       auto       |        
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v
+RUN-1002 : start command "elaborate -top target_logo_palette"
+HDL-1007 : elaborate module target_logo_palette in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(2)
+HDL-1007 : extracting RAM for identifier 'index_rom' in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(4)
+HDL-1007 : extracting RAM for identifier 'palette_rom' in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(5)
+HDL-5314 WARNING: net 'index_rom' does not have a driver in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(4)
+HDL-5314 WARNING: net 'palette_rom' does not have a driver in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(5)
+HDL-1200 : Current top model is target_logo_palette
+HDL-1100 : Inferred 2 RAMs.
+RUN-1003 : finish command "elaborate -top target_logo_palette" in  20.694089s wall, 20.484375s user + 0.093750s system = 20.578125s CPU (99.4%)
+
+RUN-1004 : used memory is 333 MB, reserved memory is 320 MB, peak memory is 333 MB
+RUN-1002 : start command "optimize_rtl"
+RUN-1001 : Open license file D:/TD/license/Anlogic.lic
+SYN-1001 : Stage 1 | Optimize RTL
+SYN-1001 : Stage 1.1 | Check Design Sanity
+SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.002226s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 333, reserved = 320, peak = 333;
+
+SYN-1079 : finish stage Check Design Sanity. Total instances: 90, Total nets: 204.
+
+SYN-1001 : Stage 1.2 | Initialize Design
+SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.003080s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (507.3%); Memory(MB): used = 334, reserved = 320, peak = 334;
+
+SYN-1079 : finish stage Initialize Design. Total instances: 58, Total nets: 172.
+
+SYN-1001 : Stage 1.3 | Flatten Module
+SYN-1011 : Flatten model target_logo_palette
+SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.000156s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 334, reserved = 320, peak = 334;
+
+SYN-1079 : finish stage Flatten Module. Total instances: 58, Total nets: 172.
+
+SYN-1001 : Stage 1.4 | Uniform Instance
+SYN-5025 WARNING: Using 0 for all undriven pins and nets
+SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.000310s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 334, reserved = 320, peak = 334;
+
+SYN-1079 : finish stage Uniform Instance. Total instances: 58, Total nets: 171.
+
+SYN-1001 : Stage 1.5 | Optimize Design
+SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.064862s wall, 0.062500s user + 0.000000s system = 0.062500s CPU (96.4%); Memory(MB): used = 336, reserved = 320, peak = 336;
+
+SYN-1079 : finish stage Optimize Design. Total instances: 90, Total nets: 145.
+
+SYN-1001 : Stage 1.6 | Optimize Iteratively
+SYN-1014 : Optimize round 1
+SYN-1001 : Optimize 2 less-than instances
+SYN-1015 : Optimize round 1, 14 better
+SYN-1014 : Optimize round 2
+SYN-1015 : Optimize round 2, 0 better
+SYN-1014 : Optimize round 1
+SYN-1015 : Optimize round 1, 0 better
+SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 0.089019s wall, 0.078125s user + 0.000000s system = 0.078125s CPU (87.8%); Memory(MB): used = 303, reserved = 297, peak = 336;
+
+SYN-1079 : finish stage Optimize Iteratively. Total instances: 89, Total nets: 144.
+
+SYN-1001 : Stage 1.7 | Check Design
+SYN-1001 : End Stage 1.7 | Check Design; Time: 0.000040s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 303, reserved = 297, peak = 336;
+
+SYN-1079 : finish stage Check Design. Total instances: 89, Total nets: 144.
+
+SYN-1001 : End Stage 1 | Optimize RTL; Time: 0.160164s wall, 0.156250s user + 0.000000s system = 0.156250s CPU (97.6%); Memory(MB): used = 303, reserved = 297, peak = 336;
+
+SYN-1079 : finish stage Optimize RTL. Total instances: 89, Total nets: 144.
+
+RUN-1002 : start command "report_area -file logo_rtl.area"
+RUN-1001 : standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+IO Statistics
+#IO                        41
+  #input                   16
+  #output                  25
+  #inout                    0
+
+Gate Statistics
+#Basic gates               37
+  #and                      1
+  #nand                     0
+  #or                       0
+  #nor                      0
+  #xor                      0
+  #xnor                     0
+  #buf                      0
+  #not                      1
+  #bufif1                   0
+  #MX21                     0
+  #FADD                     0
+  #DFF                     35
+  #LATCH                    0
+#MACRO_ADD                  3
+
+RUN-1002 : start command "optimize_gate -packarea logo_gate.area"
+RUN-1001 : Open license file D:/TD/license/Anlogic.lic
+SYN-1001 : Stage 2 | Optimize Gate
+SYN-1001 : Stage 2.1 | Map Reg
+SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.000758s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 303, reserved = 297, peak = 336;
+
+SYN-1079 : finish stage Map Reg. Total instances: 89, Total nets: 144.
+
+SYN-1001 : Stage 2.2 | Map IO
+SYN-2001 : Map 41 IOs to PADs of model 'target_logo_palette'
+SYN-6021 CRITICAL-WARNING: 41 out of 41 logical ports has no user assigned specific location constraint.
+                           This may affect performance or in some cases cause damage to the device!
+                           Bitgen will abort. If insist on bitgen with risk, please 'set_param bitgen unconstr_io on' to avoid bitgen error.
+                           No ADC ports: address[14:0], clk, pixel[24:0].
+                           No ADC ports will be assigned to random location as below:
+                           address[14]:R3, address[13]:P3, address[12]:H1, address[11]:J1, address[10]:K1, address[9]:K2, address[8]:L2, address[7]:L3, address[6]:J3, address[5]:K3, 
+                           address[4]:M4, address[3]:N4, address[2]:M1, address[1]:M2, address[0]:N1, clk:K5, pixel[24]:P1, pixel[23]:R1, pixel[22]:R2, pixel[21]:N3, 
+                           pixel[20]:N2, pixel[19]:P4, pixel[18]:P5, pixel[17]:T4, pixel[16]:T3, pixel[15]:R5, pixel[14]:P6, pixel[13]:M5, pixel[12]:L4, pixel[11]:T2, 
+                           pixel[10]:U2, pixel[9]:U1, pixel[8]:V1, pixel[7]:J14, pixel[6]:J13, pixel[5]:K17, pixel[4]:H17, pixel[3]:J16, pixel[2]:G16, pixel[1]:E18, 
+                           pixel[0]:D18.
+SYN-1001 : End Stage 2.2 | Map IO; Time: 0.237507s wall, 0.203125s user + 0.015625s system = 0.218750s CPU (92.1%); Memory(MB): used = 305, reserved = 298, peak = 336;
+
+SYN-1001 : Stage 2.3 | Map Macro
+RUN-1002 : start command "update_pll_param -module target_logo_palette"
+SYN-2501 : Processed 0 LOGIC_BUF instances.
+SYN-5105 WARNING: Failed infer ram instance "ramread0_syn_7" in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(203) as bram because output data have no register and read address have no register. Implement the ram with registers.
+SYN-5105 WARNING: Failed infer ram instance "ramread1_syn_7" in D:/anlogic_formal_project/tmp/style_v2_target_v1/logo_mapping_isolated_14/retain_read_registers/target_logo_palette.v(201) as bram because output data have no register and read address have no register. Implement the ram with registers.
+SYN-2571 : Optimize after map_dsp, round 1
+SYN-2571 : Optimize after map_dsp, round 1, 0 better
+SYN-1001 : Optimize 1 adders
+SYN-2501 : Optimize round 1
+SYN-2501 : Optimize round 1, 0 better
+SYN-2501 : Optimize round 1
+SYN-2501 : Optimize round 1, 0 better
+SYN-2501 : Map 3 macro adder(s)
+SYN-1019 : Optimized 566 mux instances.
+SYN-1016 : Merged 3152 instances.
+SYN-1001 : End Stage 2.3 | Map Macro; Time: 10.356384s wall, 10.234375s user + 0.078125s system = 10.312500s CPU (99.6%); Memory(MB): used = 832, reserved = 823, peak = 833;
+
+SYN-1079 : finish stage Map Macro. Total instances: 5595, Total nets: 5616.
+
+SYN-1001 : Stage 2.4 | Map Gate
+SYN-2581 : Mapping with K=6, #lut = 1924 (5.63), #lev = 5 (4.21), #crit_level = 0
+SYN-2551 : Post LUT mapping optimization.
+SYN-2581 : Mapping with K=6, #lut = 1914 (5.63), #lev = 5 (4.21), #crit_level = 0
+SYN-3001 : Logic optimization opt = 0.47 sec, map = 0.37 sec, post map opt = 4.47 sec.
+SYN-1001 : End Stage 2.4 | Map Gate; Time: 5.716074s wall, 5.687500s user + 0.015625s system = 5.703125s CPU (99.8%); Memory(MB): used = 831, reserved = 822, peak = 833;
+
+SYN-1001 : Packing model "target_logo_palette" ...
+SYN-1001 : Stage 2.5 | Pack Gate
+SYN-4010 : Pack lib has 43 rtl pack models with 26 top pack blocks
+SYN-1014 : Optimize round 1
+SYN-1015 : Optimize round 1, 0 better
+SYN-4002 : Packing 35 DFF/LATCH to SEQ ...
+RUN-1002 : start command "start_timer"
+RUN-1002 : start command "end_timer"
+SYN-4009 : Pack 0 carry chain into lslice
+SYN-1001 : End Stage 2.5 | Pack Gate; Time: 0.055076s wall, 0.046875s user + 0.000000s system = 0.046875s CPU (85.1%); Memory(MB): used = 831, reserved = 822, peak = 833;
+
+RUN-1002 : start command "report_qor -step gate -file gate.qor"
+RUN-1002 : start command "start_timer"
+-----------------------------------------------------------
+| QoR metrics               |         value               |
+-----------------------------------------------------------
+| Timing                    |                             |
+|     Setup WNS             |        14427                |
+|     Setup TNS             |            0                |
+|     Num of violated S-EP  |            0                |
+|     Hold WNS              |         1439                |
+|     Hold TNS              |            0                |
+|     Num of violated H-EP  |            0                |
+-----------------------------------------------------------
+| Utilization               |                             |
+|     #registers            |           35                |
+|     #luts                 |         1914                |
+|     #lut1                 |            0                |
+|     #lut1(~A)             |            0                |
+|     #slices               |            0                |
+|     slices percentage     |        0.00%                |
+|     #RAMs                 |            0                |
+|     #DSPs                 |            0                |
+|     #f7mux                |        0.00%                |
+|     #MACROs               |            0                |
+|     #insts in MACRO       |            0                |
+-----------------------------------------------------------
+| kept_net                  |                             |
+|     #syn_keep             |           35                |
+|     #keep_hier            |            0                |
+|     #dont_touch           |            0                |
+|     #mark_debug           |            0                |
+|     #max_fanout_keep      |            0                |
+|     #async_reg            |            0                |
+-----------------------------------------------------------
+| Top 10% datanet fanout#   |       383.40                |
+| dff(single fanout)->dff   |            0                |
+| dff(single fanout)->dram  |            0                |
+-----------------------------------------------------------
+| Over-quota path num*      |                             |
+|     Total                 |            0                |
+-----------------------------------------------------------
+| Rent**                    |                             |
+-----------------------------------------------------------
+Note*: Over-quota path shows the over-path-level-threshold path number of each clock.
+       The clock will not be shown if no path is with path level over the threshold.
+       The threshold is defined as worst path_margin / 800ps.
+Note**: Rent shows the rent exponent value of the modules whose rent value exceeds the threshold.
+        Only modules under top are reported, and the threshold is defined as 0.7.
+
+Logic Level Distribution
+-------------------------------------------------------
+  Clock        |  Period            |  3  |  4   |  5
+-------------------------------------------------------
+  DeriveClock  |  20.000ns (50MHz)  |  2  |  14  |  9
+-------------------------------------------------------
+Note: The table count the worst 100000 paths, each endpoint count only one time.(25 paths analyzed)
+
+Hierarchical Rent Exponent Report
++---------------------------------------------------------------------+
+|Inst     |Model               |Rent     |Cell     |Pin     |Term     |
++---------------------------------------------------------------------+
+|top      |target_logo_palette |-0.10    |2035     |12939   |3        |
++---------------------------------------------------------------------+
+Note: Cell represents total number of cells inside module; Pin represents total number of pins
+      which have net connection inside module; Term represents total number of PIs and POs of module.
+      Rent represents the relationship between number of terms and number of cells in module.
+      A module with higher rent corresponds to highly connected logic and strong connectivity with others.
+Report gate stage QoR done.
+
+RUN-1002 : start command "report_area -file logo_gate.area"
+SYN-4034 : The count of slices with lut is 0.
+SYN-4035 : The count of slices with lut+ripple is 0.
+RUN-1001 : standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+Design Statistics
+#IO                        41   out of    160   25.62%
+  #input                   16
+  #output                  25
+  #inout                    0
+#lut                     1914
+  #lut1                     0
+  #lut2                    23
+  #lut3                    57
+  #lut4                   105
+  #lut5                   238
+  #lut6                  1491
+#reg                       35
+  #slice reg               35   out of  42432    0.08%
+  #pad reg                  0
+
+Utilization Statistics
+#slice                   1714   out of  21216    8.08%
+  #used ram                 0
+    #dram lut               0
+    #shifter lut            0
+  #used logic            1714
+    #with luts           1711
+    #with adder             0
+    #reg only               3
+#f7mux                      0   out of  10608    0.00%
+#f8mux                      0   out of   5304    0.00%
+#eram                       0   out of    108    0.00%
+  #eram20k                  0
+  #fifo20k                  0
+#dsp                        0   out of     40    0.00%
+#ddr_byte                   0   out of     12    0.00%
+#mipi_tx                    0   out of      2    0.00%
+#mipi_rx                    0   out of      2    0.00%
+#pad                       41   out of    160   25.62%
+#pll                        0   out of      6    0.00%
+#gclk                       0   out of     32    0.00%
+#lclk                       0   out of     12    0.00%
+#sclk                       0   out of     48    0.00%
+#mlclk                      0   out of      6    0.00%
+#ioclk                      0   out of     18    0.00%
+
+* Note! The LUT and Slice count after Optimize-Gate is not the final value, Run Optimize-place for a more realistic count.
+
+SYN-1001 : End Stage 2 | Optimize Gate; Time: 16.471602s wall, 16.281250s user + 0.109375s system = 16.390625s CPU (99.5%); Memory(MB): used = 831, reserved = 822, peak = 833;
+
+RUN-1003 : finish command "optimize_gate -packarea logo_gate.area" in  16.479622s wall, 16.281250s user + 0.109375s system = 16.390625s CPU (99.5%)
+
+RUN-1004 : used memory is 831 MB, reserved memory is 822 MB, peak memory is 833 MB
+RUN-1002 : start command "export_db logo_gate.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+ISOLATED_ROM_SYN_COMPLETE_NO_BOARD_TIMING_NO_BIT

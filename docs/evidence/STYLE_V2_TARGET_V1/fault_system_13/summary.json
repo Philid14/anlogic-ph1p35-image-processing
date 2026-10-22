@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_unchanged": true,
+  "bench": "tests/tb_target_frame_system_faults.sv",
+  "pass_marker": "PASS TARGET_FAULT_SYSTEM",
+  "scope": "Actual MAIN digital adapter/FIFO/packer/HDMI bench; synthetic RAW/post-AWB and modeled DDR; no physical or board proof"
+}

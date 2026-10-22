@@ -74,6 +74,9 @@ exit
         sub=evidence/folder.name;sub.mkdir()
         for name in names:shutil.copy2(folder/name,sub/name)
     shutil.copy2(a.verification,evidence/'FINAL_VERIFICATION.json')
+    for run,name in (('syn_1','syn_settings.cfg'),('phy_1','phy_settings.cfg')):
+        shutil.copy2(PROJECT/'camera_to_dsi_display_Runs'/run/'settings.cfg',evidence/name)
+    shutil.copy2(place/'result.json',evidence/'PLACEMENT_RESULT.json')
     info=dict(version='STYLE_V2_TARGET_V1',source_commit=frozen['source_commit'],verification_commit=before['source_commit'],
         tag='style-v2-target-v1-candidate',bit_sha256=sha(bit),route_db_sha256=sha(route/'route.db'),
         synthesis=a.synthesis,placement=a.placement,route=a.route,resources=counts,

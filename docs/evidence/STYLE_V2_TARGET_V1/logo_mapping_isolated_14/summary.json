@@ -1,0 +1,26 @@
+{
+  "scope": "Isolated ROM gate mapping only. No whole-system place/route or board timing.",
+  "results": [
+    {
+      "variant": "current",
+      "source_sha256": "7ce0bf12032029252f0541258c27bd1e6defee2a2c49df9c5c04fa119329b8b6",
+      "standalone_gate": {
+        "slice": 1456,
+        "lut": 1753,
+        "reg": 0,
+        "eram": 2
+      }
+    },
+    {
+      "variant": "retain_read_registers",
+      "source_sha256": "430f11b3bb0e962e4753890934df2328e4c688d6f95efabc89ba071e29d37eae",
+      "standalone_gate": {
+        "slice": 1714,
+        "lut": 1914,
+        "reg": 35,
+        "eram": 0
+      }
+    }
+  ],
+  "decision": "REJECT_KEEP_VARIANT: added 258 estimated standalone slices and lost two ERAM; no production RTL changed"
+}

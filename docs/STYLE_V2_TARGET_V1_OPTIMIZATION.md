@@ -187,3 +187,14 @@ fault_system_12的高16位溢出检查通过，但最后要求packet_error引起
 实际observer的external_error只标记当前RAW/RGB无效，epoch_fault用于重叠/身份等故障；两者应分别检查。
 保留fault_fixture_failure_12及准确源码。fault_system_13增加32ms时100us的公开calib_ready失效，
 保留26ms MC暂停300us与42.5ms packet_error，分别验证坏帧取消与全局epoch排空恢复，生产RTL保持不变。
+
+
+fault_system_13完整90ms通过：29904827项检查，6次完整提交，3次故障后的完整提交，2次坏帧取消、1次校准epoch恢复，FIFO计数00010000（启动600帧内注入溢出1帧）。
+结束时recovery=0、pending_writes=0，全部实际写接受已排空。此为故意注入、合成RAW/post-AWB和有界DDR模型证据，不能等同实板长期无溢出。
+该测试准确绑定b769b5e的33项实际输入，包含原安路FIFO/MC、MAIN台账/guard/reader，未使用强制私有状态替代真实握手。
+
+
+路由拥塞仍较高，额外进行一次隔离ROM映射判别，未改正式RTL：
+current独立gate为1456估算Slice、1753LUT、0FF、2ERAM；对index/pixel增加keep后为1714/1914/35/0。
+保留读寄存器反而增加258个独立gate Slice并丢失2ERAM，明确拒绝该变体，不进入整机综合。
+两份准确源码、TD脚本和原始area/stdout保存logo_mapping_isolated_14；没有把独立映射数字当作整机物理收益。
