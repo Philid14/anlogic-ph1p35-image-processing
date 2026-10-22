@@ -1,0 +1,58 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_target_display_pipeline -do "run -all; quit -f -code 0" 
+# Start time: 08:13:37 on Oct 22,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Too few port connections. Expected 28, found 19.
+# 
+#         Region: /tb_target_display_pipeline/old_dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'glyph_request'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'display_enable'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'pixel_session'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'pixel_frame'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'pixel_slot'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'pixel_generation'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'first_pixel'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'hidden_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(16): [TFMPC] - Missing connection for port 'late_count'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Too few port connections. Expected 28, found 17.
+# 
+#         Region: /tb_target_display_pipeline/off_dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'glyph_char'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'glyph_row'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'glyph_request'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'display_enable'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'pixel_session'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'pixel_frame'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'pixel_slot'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'pixel_generation'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'first_pixel'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'hidden_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(22): [TFMPC] - Missing connection for port 'late_count'.
+# 
+# run -all
+# PASS DISPLAY_PIPELINE checks=2475309 full_raster_cycles=1237500
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv(73)
+#    Time: 16506971974 ps  Iteration: 1  Instance: /tb_target_display_pipeline
+# End time: 08:13:56 on Oct 22,2026, Elapsed time: 0:00:19
+# Errors: 0, Warnings: 22

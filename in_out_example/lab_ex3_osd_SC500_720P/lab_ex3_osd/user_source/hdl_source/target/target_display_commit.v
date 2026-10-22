@@ -4,6 +4,7 @@
 // This adapter never samples live guard output during a scan.
 module target_display_commit #(
     parameter integer ENABLE=1,
+    parameter integer PIPELINE_GLYPH=0,
     parameter [63:0] MAX_AGE_TICKS=64'd100000,
     parameter [63:0] MAX_SCAN_TICKS=64'd16501
 )(
@@ -40,6 +41,8 @@ module target_display_commit #(
     wire [10:0] xmin=prepared[62:52],xmax=prepared[51:41],cx=prepared[40:30];
     wire [9:0] ymin=prepared[29:20],ymax=prepared[19:10],cy=prepared[9:0];
     wire first_now=video_de && !scan_started;
+    reg first_d;
+    wire first_commit=PIPELINE_GLYPH ? first_d : first_now;
     // y increments on the preceding line's end; x resets on each DE fall.
     wire [10:0] px=x;
     wire [9:0] py=y;
@@ -47,8 +50,8 @@ module target_display_commit #(
         prepare_wait>=8'd142 && usable && session==box_session && frame==box_frame &&
         now_tick>=captured && now_tick-captured<=MAX_AGE_TICKS-MAX_SCAN_TICKS;
     wire in_scan_budget=now_tick>=scan_start_tick && now_tick-scan_start_tick<=MAX_SCAN_TICKS;
-    wire whole_mask=(first_now ? ready_annotation : display_enable) &&
-        metadata_online && !scan_fault && (first_now || in_scan_budget);
+    wire whole_mask=(first_commit ? ready_annotation : display_enable) &&
+        metadata_online && !scan_fault && (first_commit || in_scan_budget);
     wire protected_region=(px<160 && py<160) ||
         (px>=375 && px<575 && py>=120 && py<144) ||
         (px>=800 && px<1248 && py>=16 && py<128);
@@ -120,8 +123,8 @@ module target_display_commit #(
             end
         end
     end
-    assign glyph_char=diagnostic_region ? diagnostic_char : text_char;
-    assign glyph_row=diagnostic_region ? (py-680)&15 : text_row;
+    wire [7:0] request_char=diagnostic_region ? diagnostic_char : text_char;
+    wire [3:0] request_row=diagnostic_region ? (py-680)&15 : text_row;
     color_target_overlay u_box(
         .I_pixel_valid(video_de),.I_x(px),.I_y(py),
         .I_result_valid(1'b1),.I_target_present(1'b1),
@@ -131,19 +134,65 @@ module target_display_commit #(
         .clk(clk),.rst_n(rst_n),.I_pixel_valid(video_de),.I_x(px),.I_y(py),
         .I_update(1'b0),.I_show(usable),.I_state(state),.I_count(count),
         .I_center_x(cx),.I_center_y(cy),.O_glyph_char(text_char),.O_glyph_row(text_row),
-        .I_glyph_bits(glyph_bits),.O_overlay_valid(text_valid),.O_overlay_rgb(text_rgb));
-    assign glyph_request=(video_de && py>=640 && py<674 && px>=24 && px<248) || diagnostic_region;
+        .I_glyph_bits(PIPELINE_GLYPH ? 16'hffff : glyph_bits),.O_overlay_valid(text_valid),.O_overlay_rgb(text_rgb));
+    wire request_valid=(video_de && py>=640 && py<674 && px>=24 && px<248) || diagnostic_region;
+    generate if(PIPELINE_GLYPH) begin:g_glyph_pipeline
+        reg [7:0] char_d;
+        reg [3:0] row_d,column_d;
+        reg request_d,stage_de,stage_hs,stage_vs,diagnostic_d,protected_d;
+        reg geometry_d,text_d;
+        reg [23:0] base_d,geometry_rgb_d,text_foreground_d;
+        assign glyph_char=char_d;
+        assign glyph_row=row_d;
+        assign glyph_request=request_d;
+        always @(posedge clk or negedge rst_n) begin
+            if(!rst_n) begin
+                char_d<=0;row_d<=0;column_d<=0;request_d<=0;first_d<=0;
+                stage_de<=0;stage_hs<=0;stage_vs<=0;diagnostic_d<=0;protected_d<=0;
+                geometry_d<=0;text_d<=0;base_d<=0;geometry_rgb_d<=0;text_foreground_d<=0;
+                out_rgb<=0;out_de<=0;out_hs<=0;out_vs<=0;
+            end else begin
+                // Request and the corresponding pixel context are registered
+                // together. The shared combinational font is the next stage.
+                char_d<=request_char;row_d<=request_row;request_d<=request_valid;
+                column_d<=(px-24)&15;first_d<=first_now;
+                stage_de<=video_de;stage_hs<=video_hs;stage_vs<=video_vs;base_d<=video_rgb;
+                diagnostic_d<=ENABLE && have_prepared && diagnostic_region;
+                protected_d<=protected_region;
+                geometry_d<=geometry_valid;geometry_rgb_d<=geometry_rgb;
+                text_d<=text_valid;text_foreground_d<=text_rgb;
+                out_de<=stage_de;out_hs<=stage_hs;out_vs<=stage_vs;
+                if(diagnostic_d) out_rgb<=glyph_bits[15-column_d] ? 24'hfff200 : 24'h101010;
+                else if(stage_de && whole_mask && !protected_d && text_d)
+                    out_rgb<=glyph_bits[15-column_d] ? text_foreground_d : 24'h101010;
+                else if(stage_de && whole_mask && !protected_d && geometry_d) out_rgb<=geometry_rgb_d;
+                else out_rgb<=base_d;
+            end
+        end
+    end else begin:g_original_composition
+        assign glyph_char=request_char;
+        assign glyph_row=request_row;
+        assign glyph_request=request_valid;
+        always @(posedge clk or negedge rst_n) begin
+            if(!rst_n) begin out_rgb<=0;out_de<=0;out_hs<=0;out_vs<=0;end
+            else begin
+                out_de<=video_de;out_hs<=video_hs;out_vs<=video_vs;
+                if(ENABLE && have_prepared && diagnostic_region) out_rgb<=glyph_bits[15-((px-24)&15)] ? 24'hfff200 : 24'h101010;
+                else if(video_de && whole_mask && !protected_region && text_valid) out_rgb<=text_rgb;
+                else if(video_de && whole_mask && !protected_region && geometry_valid) out_rgb<=geometry_rgb;
+                else out_rgb<=video_rgb;
+            end
+        end
+    end endgenerate
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin
             prepared<=0; have_prepared<=0; prepare_wait<=0;
             accepting<=0; scan_started<=0; x<=0; y<=0; de_d<=0;
             scan_start_tick<=0; display_enable<=0;
-            out_rgb<=0; out_de<=0; out_hs<=0; out_vs<=0;
             pixel_session<=0; pixel_frame<=0; pixel_slot<=0; pixel_generation<=0;
             first_pixel<=0; hidden_count<=0; late_count<=0;
         end else begin
-            out_de<=video_de; out_hs<=video_hs; out_vs<=video_vs;
-            de_d<=video_de; first_pixel<=first_now;
+            de_d<=video_de; first_pixel<=first_commit;
             if(blanking_start) begin
                 accepting<=1; have_prepared<=0; prepare_wait<=0;
                 scan_started<=0; display_enable<=0; x<=0; y<=0;
@@ -153,19 +202,16 @@ module target_display_commit #(
                     prepared<=metadata; have_prepared<=1; prepare_wait<=0;
                 end else if(!(&late_count)) late_count<=late_count+1'b1;
             end else if(have_prepared && prepare_wait<142) prepare_wait<=prepare_wait+1'b1;
-            if(first_now) begin
-                accepting<=0; scan_started<=1; scan_start_tick<=now_tick;
+            if(first_now) begin accepting<=0;scan_started<=1;end
+            if(first_commit) begin
+                scan_start_tick<=now_tick;
                 display_enable<=ready_annotation;
                 pixel_session<=session; pixel_frame<=frame; pixel_slot<=slot; pixel_generation<=generation;
                 if(!ready_annotation && !(&hidden_count)) hidden_count<=hidden_count+1'b1;
             end
             if(video_de) x<=x+1'b1;
             if(de_d && !video_de) begin x<=0; y<=y+1'b1; end
-            if(!metadata_online || scan_fault || (scan_started && !in_scan_budget)) display_enable<=0;
-            if(ENABLE && have_prepared && diagnostic_region) out_rgb<=glyph_bits[15-((px-24)&15)] ? 24'hfff200 : 24'h101010;
-            else if(video_de && whole_mask && !protected_region && text_valid) out_rgb<=text_rgb;
-            else if(video_de && whole_mask && !protected_region && geometry_valid) out_rgb<=geometry_rgb;
-            else out_rgb<=video_rgb;
+            if(!metadata_online || scan_fault || (scan_started && !first_commit && !in_scan_budget)) display_enable<=0;
         end
     end
 endmodule

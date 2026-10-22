@@ -845,7 +845,7 @@ end endgenerate
             if(!S_hdmi_rst_n) vs_previous<=0;
             else vs_previous<=S_target_base_vs;
         end
-        target_display_commit #(.ENABLE(TARGET_OVERLAY_ENABLE)) u_commit(
+        target_display_commit #(.ENABLE(TARGET_OVERLAY_ENABLE),.PIPELINE_GLYPH(1)) u_commit(
             .clk(S_hdmi_pixel_clk),.rst_n(S_hdmi_rst_n),.now_tick(S_target_tick),
             .metadata_receive(S_target_metadata_receive),.metadata(S_target_metadata),
             .metadata_online(S_target_metadata_online),.scan_fault(S_target_scan_fault),

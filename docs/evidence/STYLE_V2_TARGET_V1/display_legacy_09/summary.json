@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "scope": "MAIN adapters only; no DDR/whole-system certification",
+  "jobs": [
+    {
+      "name": "target_display_commit",
+      "passed": true,
+      "checks": 2380564,
+      "stages": [
+        {
+          "argv": [
+            "C:/iverilog/bin/iverilog.exe",
+            "-g2012",
+            "-Wall",
+            "-s",
+            "tb_target_display_commit",
+            "-o",
+            "tmp\\style_v2_target_v1\\display_legacy_09\\target_display_commit.vvp",
+            "D:\\anlogic_formal_project\\tests\\tb_target_display_commit.sv",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_display_commit.v",
+            "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_overlay.v",
+            "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v"
+          ],
+          "exit_code": 0,
+          "log": "target_display_commit_0.txt"
+        },
+        {
+          "argv": [
+            "C:/iverilog/bin/vvp.exe",
+            "tmp\\style_v2_target_v1\\display_legacy_09\\target_display_commit.vvp"
+          ],
+          "exit_code": 0,
+          "log": "target_display_commit_1.txt"
+        }
+      ],
+      "source_sha256": {
+        "tests\\tb_target_display_commit.sv": "21898228a3698baa8bb0c56377c4cf3de541ec3684dd227118adb541ac667f1d",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_display_commit.v": "256508c671c72dca9efcf909b09b4caa014be8c2c1ea35a1997d91e3ba05adee",
+        "features\\color_target\\rtl\\color_target_overlay.v": "b8253d68fff5f3b12513cf1406d2450575ddb840899652cb8d2f8ec59ce264fc",
+        "features\\color_target\\rtl\\color_target_text_overlay.v": "b89d4b65bb27deb0fe63606601b53483296d147ff0378667ed6a9cabf6690aa9",
+        "in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v": "80269dee8af301d175a0b8ba0b0305149852916a3ed81082349bebc27feac311"
+      }
+    }
+  ]
+}
