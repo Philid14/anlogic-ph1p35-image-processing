@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import subprocess
 import time
+from style_target_sim_inputs import prepare_logo_inputs,manifest_name
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
@@ -21,11 +22,12 @@ def main():
         *[h/p for p in ('video_in.v','video_out.v','mc_to_user_interface.v','data_96bit_to_128bit.v',
             'isp/fifo_event_counter.v','vtc/uivtc.v','hdmi_mixer.v','osd_char_lib.v','anlogic_logo_rom.v')]]
     for folder in ('w128_d512_fifo','w155_d512_fifo'):files+=sorted((ip/folder).glob('*.v'))
-    hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    models,data,tops=prepare_logo_inputs(a.out);files+=models
+    hashes={manifest_name(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     (a.out/'SOURCE_MANIFEST.json').write_text(json.dumps(hashes,indent=2)+'\n')
     cmds=[[(MSIM/'vlib.exe').as_posix(),'work'],
         [(MSIM/'vlog.exe').as_posix(),'-sv','-work','work',*[p.as_posix() for p in files]],
-        [(MSIM/'vsim.exe').as_posix(),'-c','-quiet','-lib','work','tb_target_frame_system','tb_target_progress',
+        [(MSIM/'vsim.exe').as_posix(),'-c','-quiet','-lib','work','tb_target_frame_system','tb_target_progress',*tops,
             '-do','onerror {quit -code 2}; run -all; quit -f -code 0']]
     stages=[]
     for i,cmd in enumerate(cmds):
@@ -38,7 +40,7 @@ def main():
         assert r.returncode==0 and '** Error:' not in text and '** Fatal:' not in text, (i,a.out)
         print('COMPLETE stage',i,'seconds',round(time.monotonic()-started,2),flush=True)
     final=(a.out/'stage_2.txt').read_text(errors='replace')
-    same=hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    same=hashes=={manifest_name(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     passed=same and a.pass_marker in final and 'FAIL' not in final
     (a.out/'summary.json').write_text(json.dumps(dict(passed=passed,source_unchanged=same,
         bench=a.bench.as_posix(),pass_marker=a.pass_marker,

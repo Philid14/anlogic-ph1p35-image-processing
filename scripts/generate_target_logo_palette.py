@@ -2,8 +2,9 @@
 
 The original sparse combinational case remains the reference. Two synchronous
 ROM reads are prefetched at the undelayed mixer coordinate, matching its existing
-two coordinate registers. Generated RTL uses explicit initial values so TD and
-simulation do not depend on a working-directory-relative memory file.
+two coordinate registers. The default explicitly maps official ERAM; tracked
+initialization files are copied to each TD/simulation run and hashed as inputs.
+--inferred regenerates the earlier inline-constant experiment for comparison.
 """
 from pathlib import Path
 import re
@@ -12,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 HDL = ROOT / 'in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source'
 
 
-def generate():
+def generate_inferred():
     source = (HDL / 'anlogic_logo_rom.v').read_text()
     pixels = {int(a): int(v, 16) for a, v in re.findall(
         r"15'd(\d+): O_pixel = 25'h([0-9a-fA-F]+)", source)}
@@ -50,5 +51,37 @@ def generate():
     print('Generated', path.name, 'colors', len(palette), '32768 content checks PASS')
 
 
+def generate():
+    source=(HDL/'anlogic_logo_rom.v').read_text()
+    pixels={int(a):int(v,16) for a,v in re.findall(r"15'd(\d+): O_pixel = 25'h([0-9a-fA-F]+)",source)}
+    palette=[0]+sorted(set(pixels.values()));lookup={v:i for i,v in enumerate(palette)}
+    assert len(pixels)==6387 and len(palette)==580 and pixels.get(5440,0)==0
+    project=HDL.parents[1]/'td_project'
+    indices=[lookup.get(pixels.get(a+5440,0),0) for a in range(16384)]
+    colors=palette+[0]*(1024-len(palette))
+    (project/'style_logo_index.dath').write_text(''.join(f'{v:03x}\n' for v in indices))
+    (project/'style_logo_palette.dath').write_text(''.join(f'{v:07x}\n' for v in colors))
+    lines=['// Generated lossless Logo. Official UG1310 PH1P_LOGIC_ERAM, pp13-17.',
+           '// Two synchronous reads, same cycles as the inferred implementation.',
+           '// prepare_td_runs.py copies the tracked .dath inputs to each TD run.',
+           'module target_logo_palette(input clk,input [14:0] address,output wire [24:0] pixel);',
+           "wire [13:0] rom_address=(address>=15'd5440 && address<15'd20480) ? address-15'd5440 : 14'd0;",
+           'wire [9:0] index;']
+    for name,w,aw,depth,address,data in [('index',10,14,16384,'rom_address','index'),('palette',25,10,1024,'index','pixel')]:
+        lines += [f'PH1P_LOGIC_ERAM #(.DATA_WIDTH_A({w}),.DATA_WIDTH_B({w}),.ADDR_WIDTH_A({aw}),.ADDR_WIDTH_B({aw}),',
+            f'.DATA_DEPTH_A({depth}),.DATA_DEPTH_B({depth}),.MODE("SP"),.REGMODE_A("NOREG"),.REGMODE_B("NOREG"),',
+            f'.INIT_FILE("style_logo_{name}.dath"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_{name}(',
+            f".clka(clk),.cea(1'b1),.ocea(1'b1),.addra({address}),.dia({w}'d0),.wea(1'b0),.rsta(1'b0),.bea(1'b1),.doa({data}),",
+            f".clkb(clk),.ceb(1'b0),.oceb(1'b0),.addrb({aw}'d0),.dib({w}'d0),.web(1'b0),.rstb(1'b0),.beb(1'b0),.dob(),",
+            ".ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());"]
+    lines+=['endmodule',''];(HDL/'target/target_logo_palette.v').write_text('\n'.join(lines))
+    for a in range(32768):
+        index=indices[a-5440] if 5440<=a<20480 else indices[0]
+        assert colors[index]==pixels.get(a,0)
+    print('Explicit ERAM Logo generated; 32768 content checks PASS; tracked init files',project)
+
 if __name__ == '__main__':
-    generate()
+    import argparse
+    ap=argparse.ArgumentParser();ap.add_argument('--inferred',action='store_true');args=ap.parse_args()
+    if args.inferred:generate_inferred()
+    else:generate()

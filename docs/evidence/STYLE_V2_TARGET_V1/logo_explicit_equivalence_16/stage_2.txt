@@ -1,0 +1,34 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_target_logo_equivalence PH1P_PHY_GSR -do "run -all; quit -f -code 0" 
+# Start time: 13:19:55 on Oct 22,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(14): [TFMPC] - Too few port connections. Expected 18, found 16.
+# 
+#         Region: /tb_target_logo_equivalence/old_mixer
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(14): [TFMPC] - Missing connection for port 'O_video_rd_en'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(14): [TFMPC] - Missing connection for port 'O_target_glyph_bits'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(20): [TFMPC] - Too few port connections. Expected 18, found 16.
+# 
+#         Region: /tb_target_logo_equivalence/new_mixer
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(20): [TFMPC] - Missing connection for port 'O_video_rd_en'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(20): [TFMPC] - Missing connection for port 'O_target_glyph_bits'.
+# 
+# run -all
+# incase
+# 
+# incase
+# 
+# incase
+# 
+# incase
+# 
+# PASS LOGO_EQUIVALENCE rom_addresses=32768 mixer_cycles=1237512
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_target_logo_equivalence.sv(61)
+#    Time: 12702900 ns  Iteration: 1  Instance: /tb_target_logo_equivalence
+# End time: 13:20:28 on Oct 22,2026, Elapsed time: 0:00:33
+# Errors: 0, Warnings: 6

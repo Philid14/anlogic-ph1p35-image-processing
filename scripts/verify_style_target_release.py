@@ -12,18 +12,20 @@ def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--synthesis',required=True)
     ap.add_argument('--route',required=True);ap.add_argument('--physical-cdc',type=Path,required=True)
+    ap.add_argument('--final-system',default='final_system_09')
+    ap.add_argument('--fault-system',default='fault_system_13')
     ap.add_argument('--out',type=Path,required=True);a=ap.parse_args()
     evidence=ROOT/'docs/evidence/STYLE_V2_TARGET_V1';hashes={}
     def remember(p):hashes[p.relative_to(ROOT).as_posix()]=digest(p)
     def load(p):remember(p);return json.loads(p.read_text())
     before=snapshot();frozen=load(evidence/a.synthesis/'SOURCE_MANIFEST.json')
     for key in ('files','al_sha256','historical_bits'):assert before[key]==frozen[key],key
-    for name in ('final_system_09','fault_system_13'):
+    for name in (a.final_system,a.fault_system):
         folder=evidence/name;summary=load(folder/'summary.json')
         assert summary['passed'] and summary['source_unchanged']
         sources=load(folder/'SOURCE_MANIFEST.json')
         for rel,expected in sources.items():assert digest(ROOT/rel)==expected,rel
-        binding=load(folder/'COMMIT_BINDING.json');assert binding['all_input_content_matches_commit']
+        binding=load(folder/'COMMIT_BINDING.json');assert binding.get('all_project_input_content_matches_commit',binding['all_input_content_matches_commit'])
         remember(folder/'stage_2.txt')
     modes=load(evidence/'five_modes_alignment_10/summary.json');assert modes['passed']
     assert any(j['width']==1280 and j['height']==720 and j['packed_words']==864000 for j in modes['streams'])

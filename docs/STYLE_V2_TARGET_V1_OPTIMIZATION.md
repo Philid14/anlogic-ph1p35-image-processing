@@ -198,3 +198,22 @@ fault_system_13完整90ms通过：29904827项检查，6次完整提交，3次故
 current独立gate为1456估算Slice、1753LUT、0FF、2ERAM；对index/pixel增加keep后为1714/1914/35/0。
 保留读寄存器反而增加258个独立gate Slice并丢失2ERAM，明确拒绝该变体，不进入整机综合。
 两份准确源码、TD脚本和原始area/stdout保存logo_mapping_isolated_14；没有把独立映射数字当作整机物理收益。
+
+
+## 11. 长时间路由未收敛与明确ERAM映射
+
+2026-10-22 13:17：route10运行约4.4小时CPU后，迭代29仍有2091个overused edge（over2092），近期在约2000附近反复，净长增长到1.09672e7。
+保留完整flow/stdout并核对命令行后终止PID34112，状态ENGINEERING_ABORT_NO_CONVERGENCE，不宣称工具已证明不可布线。
+未完成route/STA/bitgen，没有candidate/tag；证据route_alignment_10_aborted。
+
+下一项仅针对MAIN Logo映射：官方本机UG1310_1.2第13-17页规定PH1P_LOGIC_ERAM可例化、支持初始化文件，适用PH1P35MDG324。
+用两个逻辑ROM原语（16384×10索引、1024×25调色板）明确映射，物理共10ERAM，保持原有两次同步读、像素及透明度。
+独立实测gate21估算Slice/28LUT/2FF/10ERAM，对原独立1456/1753/0/2显著降低；不是整机物理承诺。
+第一隔离SYN同时指定INIT_FILE和FILL_ALL产生warning，随后仅保留完整初始化文件，FILL_ALL=NONE；全部空间都显式填0。
+官方加密模型首次仿真缺PH1P_PHY_GSR顶层，失败已保留；加入官方GSR模型及顶层后，32768地址和1237512完整光栅周期逐拍通过。
+正式相对文件名版本logo_production_equivalence_17再独立通过，使用真实官方模型，不以自写行为stub替代原语。
+
+新增两份tracked .dath存于td_project；prepare_td_runs与仿真runner复制到各自工作目录，运行前后校验。
+TD仍83项工程条目，另2份实际初始化输入列入SOURCE_MANIFEST，总85项；旧60输入继续冻结。
+厂商仿真库不复制入仓库，只记录安装路径和SHA256；原语定义由TD原生器件库提供。
+仅Logo存储实现改变；五模式算法、Sensor、AWB、TARGET生产RTL、时钟、ADC/SDC均不变，整机SYN/P&R及联合回归将重测。

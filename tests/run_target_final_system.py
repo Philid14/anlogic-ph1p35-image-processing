@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import subprocess
 import time
+from style_target_sim_inputs import prepare_logo_inputs,manifest_name
 ROOT=Path(__file__).resolve().parents[1]
 
 def main():
@@ -22,14 +23,15 @@ def main():
     for folder in ('w128_d512_fifo','w155_d512_fifo'):files+=sorted((ip/folder).glob('*.v'))
     if a.display_source:
         files=[a.display_source.resolve() if p==h/'target/target_display_commit.v' else p for p in files]
+    models,data,tops=prepare_logo_inputs(a.out);files+=models
     from run_edge_control_v1 import glyph_table
     font=glyph_table();font_file=a.out/'reference_font.hex'
     font_file.write_text(''.join(f'{font.get(c,{}).get(row,0):04x}\n' for c in range(256) for row in range(16)))
-    hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    hashes={manifest_name(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     (a.out/'SOURCE_MANIFEST.json').write_text(json.dumps(hashes,indent=2)+'\n')
     cmds=[[(MSIM/'vlib.exe').as_posix(),'work'],
         [(MSIM/'vlog.exe').as_posix(),'-sv','-work','work',*[p.as_posix() for p in files]],
-        [(MSIM/'vsim.exe').as_posix(),'-c','-quiet','-lib','work','tb_target_frame_system','tb_target_progress','+FONT='+font_file.as_posix(),
+        [(MSIM/'vsim.exe').as_posix(),'-c','-quiet','-lib','work','tb_target_frame_system','tb_target_progress',*tops,'+FONT='+font_file.as_posix(),
             '-do','onerror {quit -code 2}; run -all; quit -f -code 0']]
     stages=[]
     for i,cmd in enumerate(cmds):
@@ -42,7 +44,7 @@ def main():
         assert r.returncode==0 and '** Error:' not in text and '** Fatal:' not in text, (i,a.out)
         print('COMPLETE stage',i,'seconds',round(time.monotonic()-started,2),flush=True)
     final=(a.out/'stage_2.txt').read_text(errors='replace')
-    same=hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
+    same=hashes=={manifest_name(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     passed=same and 'PASS TARGET_FINAL_SYSTEM' in final and 'FAIL' not in final
     (a.out/'summary.json').write_text(json.dumps(dict(passed=passed,source_unchanged=same,
         display_experiment_override=bool(a.display_source),reference_font_sha256=hashlib.sha256(font_file.read_bytes()).hexdigest(),

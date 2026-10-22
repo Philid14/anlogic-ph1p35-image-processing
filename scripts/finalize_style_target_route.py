@@ -5,7 +5,7 @@ before bitgen. Never reroute an audit database or substitute a stale Runs bit.
 """
 import argparse, datetime, hashlib, json, re, shutil, subprocess, time
 from pathlib import Path
-from build_style_v2_target_v1 import ROOT, PROJECT, snapshot
+from build_style_v2_target_v1 import ROOT, PROJECT, snapshot, verify_run_initializers, INIT_NAMES
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -20,6 +20,7 @@ def main():
     syn=tmp/a.synthesis; place=tmp/a.placement; route=tmp/a.route
     frozen=json.loads((syn/'SOURCE_MANIFEST.json').read_text())
     before=snapshot()
+    verify_run_initializers()
     for key in ('files','al_sha256','historical_bits'):
         assert before[key]==frozen[key], 'Actual TD inputs changed: '+key
     placed=json.loads((place/'result.json').read_text())
@@ -70,6 +71,7 @@ exit
     assert rc==0 and 'VERIFIED_ROUTE_BITGEN_COMPLETE' in (route/'bitgen_stdout.txt').read_text(errors='replace')
     assert bit.is_file() and bit.stat().st_size>100000 and bit.stat().st_mtime>=started
     assert snapshot()==before,'Source changed during bitgen'
+    verify_run_initializers()
     dest.mkdir(); evidence=dest/'build_evidence'; evidence.mkdir()
     shutil.copy2(bit,dest/bit.name)
     for folder,names in ((syn,['SOURCE_MANIFEST.json','stages.json','flow.tcl','syn_1_stdout.txt']),
@@ -80,6 +82,8 @@ exit
     for run,name in (('syn_1','syn_settings.cfg'),('phy_1','phy_settings.cfg')):
         shutil.copy2(PROJECT/'camera_to_dsi_display_Runs'/run/'settings.cfg',evidence/name)
     shutil.copy2(place/'result.json',evidence/'PLACEMENT_RESULT.json')
+    for name in INIT_NAMES:
+        if (PROJECT/name).is_file():shutil.copy2(PROJECT/name,evidence/name)
     info=dict(version='STYLE_V2_TARGET_V1',source_commit=frozen['source_commit'],verification_commit=before['source_commit'],
         tag='style-v2-target-v1-candidate',bit_sha256=sha(bit),route_db_sha256=sha(route/'route.db'),
         synthesis=a.synthesis,placement=a.placement,route=a.route,resources=counts,
