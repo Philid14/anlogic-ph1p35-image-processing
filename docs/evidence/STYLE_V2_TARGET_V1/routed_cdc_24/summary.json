@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "database_sha256": "9a4d9b04ada337c6142db88d054cf76c316f640297abb809b03f6e2a0dcfd248",
+  "implementation_sdc_sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+  "bound_ns": 40,
+  "minimum_registered_bundle_wait_ns": 66.665,
+  "minimum_pulse_bundle_wait_ns": 79.998,
+  "wns_ns": 25.799,
+  "tns_ns": 0.0,
+  "total_endpoints": 1706,
+  "analyzed_endpoints": 1706,
+  "max_reported_data_delay_ns": 14.137,
+  "gray_pointer_bits": 36,
+  "gray_bound_ns": 13.033,
+  "gray_wns_ns": 3.232,
+  "gray_endpoints": 305,
+  "gray_max_reported_data_delay_ns": 9.737,
+  "mailbox_families": [
+    "u_begin/",
+    "u_control/",
+    "u_display/",
+    "u_grant/",
+    "u_terminal/",
+    "u_time/u_time_csi/",
+    "u_time/u_time_ddr/"
+  ],
+  "scope": "As-built routed bundles and Gray paths; does not repair implementation-SDC coverage or prove synchronizer MTBF, board or PHY behavior"
+}

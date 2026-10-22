@@ -240,3 +240,12 @@ SYN20真实源码 `7c7e5ee7d6c52260bcf557d9dabd4014f84e2687`：20514估算Slice�
 source3溢出、source4中断及source5错误均未完整提交，读租约未被写覆盖；不靠force内部状态构造测试。
 原fault13/19的32ms校准失效位于帧间空闲，保留原证据，不能用它替代新active-epoch证明。
 这些仍是实际数字RTL和有界DDR模型，不代表真实Sensor/MIPI/DDR PHY及长期实板验证。
+
+## 13. 最终路由与物理CDC
+
+route20完成，最终19952 Slice /18063 LUT6 /21649FF /99ERAM /21DSP，保留1264 Slice；对最初21825少1873。
+最终Setup+0.165ns、Hold+0.020ns、TNS0。HDMI mixer最差路径12.927ns；原TARGET字库跨模块组合路径已拆开。
+独立Routed CDC审查24覆盖7类邮箱1706端点、40ns界限最差+25.799ns；逻辑网络选择避免物理双FF命名遗漏，36位Gray均覆盖，额外同域扇出共305端点在13.033ns界限最差+3.232ns。
+22/23的覆盖断言失败保留；没有降低门限或删路径，没有修改正式SDC/实现数据库。
+旧相机/I2C布线告警、全局async对原Gray约束覆盖缺口仍记录，见CDC_REVIEW；本次as-built物理检查不替代未来约束修复或实板。
+全部功能门通过后从原route.db生成bit并归档，不复用Runs旧bit。

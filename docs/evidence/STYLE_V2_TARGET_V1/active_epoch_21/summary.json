@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_unchanged": true,
+  "bench": "tests/tb_target_frame_system_active_epoch.sv",
+  "pass_marker": "PASS TARGET_ACTIVE_EPOCH",
+  "scope": "Actual MAIN digital adapter/FIFO/packer/HDMI bench; synthetic RAW/post-AWB and modeled DDR; no physical or board proof"
+}

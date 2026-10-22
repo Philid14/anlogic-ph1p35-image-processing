@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "source_unchanged": true,
+  "display_experiment_override": false,
+  "reference_font_sha256": "1e3c10e9d7ea97a0784cf2934818d1d6712371f28940683a0dc1e7e1e49aaafb",
+  "scope": "Actual MAIN/FIFO/packer/MC/guard/leased read/shared font/final HDMI incl geometry/text/diagnostics; synthetic RAW/post-AWB and bounded DDR model; no physical or board proof"
+}
