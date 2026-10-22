@@ -161,3 +161,29 @@ SYN10首次调用在进入TD前被全工作区clean检查阻止：并行研究�
 该研究文档不属于本轮提交，不覆盖、不暂存、不推送。构建器仍要求代码/工程/配置已提交，
 逐个TD输入与源码commit匹配并在构建后复核；只允许无关docs保持未提交，不把它们当作构建输入。
 此次没有执行综合、没有新的数据库或资源数字，后续重新固定构建脚本commit后再运行。
+
+
+## 10. SYN10/物理布局及故障夹具复核
+
+SYN10实际源码 `4a1e08b8c7af0eccef92f8a05f738d096eb6baca`：gate21520 Slice、21947FF、91ERAM/21DSP，综合Setup/Hold为+0.049/+0.114ns。
+实际pack20931、完成place20940 Slice、19368 LUT6、21673FF；低于容量276 Slice，累计对原21825减少885。
+SYN09未单独place，不能将该物理差额全部归给对齐存储；对已测SYN08/place21102，当前累计再少162 Slice。
+完整720p五模式独立模型重跑已通过：1152000有效拍、864000打包字，K3/K4/配置CDC兼容，证据five_modes_alignment_10。
+
+复核实际顶层：MAIN事务控制、MC命令FIFO和DDR控制器均使用S_rst_n，来自PLL lock；
+没有“CSI/HDMI单侧复位清台账而MC命令队列继续运行”的独立接线。邮箱单侧复位仍由独立CDC测试覆盖。
+新增真实MAIN/FIFO/MC故障联合夹具，通过MC ready暂停300us制造源frame3溢出，并向frame5注入packet_error。
+持续检查实际issued-accepted等于pending_writes、写接受不覆盖读租约、epoch flush前物理排空、每次完整提交严格172800接受字。
+首次夹具运行到100ms及6次完整提交，最后错误地检查FIFO计数低16位；该监控前600帧累积在高16位。
+原失败源码按manifest哈希恢复归档fault_fixture_failure_11，非RTL通过；修正检查高16位后另跑fault_system_12，未改生产RTL。
+
+布线正在针对同一SYN10/place10数据库执行，未生成bit。面积余量仅1.30%，仍存在严重布线拥塞风险，不预报通过。
+物理CDC先在旧place08数据库验证审查流程：独立副本移除全局async屏蔽，审查SDC显式加入40ns datapath bound，
+7类邮箱/1638端点全覆盖，最差数据路径10.225ns、界限裕量29.711ns；这是Placed证据，不能替代最终Routed审查。
+正式SDC、时钟、IP、引脚均未更改；审查数据库禁止export/实现/bitgen，避免把audit约束带回正式构建。
+
+
+fault_system_12的高16位溢出检查通过，但最后要求packet_error引起全局metadata_fault的夹具预期错误。
+实际observer的external_error只标记当前RAW/RGB无效，epoch_fault用于重叠/身份等故障；两者应分别检查。
+保留fault_fixture_failure_12及准确源码。fault_system_13增加32ms时100us的公开calib_ready失效，
+保留26ms MC暂停300us与42.5ms packet_error，分别验证坏帧取消与全局epoch排空恢复，生产RTL保持不变。

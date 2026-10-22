@@ -1,0 +1,2 @@
+PASS multi-mode stream width=64 height=32 cycles=6829 valid_beats=5632 packed_words=3872 reliability=1
+D:\anlogic_formal_project\tests\tb_edge_style_stream.v:113: $finish called at 68376000 (1ps)

@@ -1,0 +1,163 @@
+[
+  {
+    "name": "rgb",
+    "stage": 0,
+    "argv": [
+      "C:/iverilog/bin/iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb_edge_multi_mode_rgb",
+      "-o",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\rgb\\test.vvp",
+      "D:\\anlogic_formal_project\\tests\\tb_edge_multi_mode_rgb.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\rgb_effects_96.v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "rgb",
+    "stage": 1,
+    "argv": [
+      "C:/iverilog/bin/vvp.exe",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\rgb\\test.vvp",
+      "+STIM=D:/anlogic_formal_project/tmp/style_v2_target_v1/five_modes_alignment_10/rgb_vectors.txt"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "keys",
+    "stage": 0,
+    "argv": [
+      "C:/iverilog/bin/iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb_edge_style_keys",
+      "-o",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\keys\\test.vvp",
+      "D:\\anlogic_formal_project\\tests\\tb_edge_style_keys.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_key_control.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_config_cdc.v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "keys",
+    "stage": 1,
+    "argv": [
+      "C:/iverilog/bin/vvp.exe",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\keys\\test.vvp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "config_cdc",
+    "stage": 0,
+    "argv": [
+      "C:/iverilog/bin/iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb_edge_style_mailbox",
+      "-o",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\config_cdc\\test.vvp",
+      "D:\\anlogic_formal_project\\tests\\tb_edge_style_keys.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_key_control.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_config_cdc.v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "config_cdc",
+    "stage": 1,
+    "argv": [
+      "C:/iverilog/bin/vvp.exe",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\config_cdc\\test.vvp"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "stream_64",
+    "stage": 0,
+    "argv": [
+      "C:/iverilog/bin/iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb_edge_style_stream",
+      "-Ptb_edge_style_stream.WIDTH=64",
+      "-Ptb_edge_style_stream.HEIGHT=32",
+      "-o",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\stream_64\\test.vvp",
+      "D:\\anlogic_formal_project\\tests\\tb_edge_style_stream.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_control_stream.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\rgb_effects_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\style_fill_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_detect_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\gaussian_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\nms_gradient_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_link_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_center_pair_delay.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_temporal_hold.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_status_osd.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\data_96bit_to_128bit.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\isp_top.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\data128_96\\data128_96.v",
+      "D:\\anlogic_formal_project\\tests\\isp_boundary_stubs.v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "stream_64",
+    "stage": 1,
+    "argv": [
+      "C:/iverilog/bin/vvp.exe",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\stream_64\\test.vvp",
+      "+STIM=D:/anlogic_formal_project/tmp/style_v2_target_v1/five_modes_alignment_10/vectors_64/stim.txt",
+      "+PACK=D:/anlogic_formal_project/tmp/style_v2_target_v1/five_modes_alignment_10/vectors_64/pack.txt",
+      "+WORDS=3872"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "stream_1280",
+    "stage": 0,
+    "argv": [
+      "C:/iverilog/bin/iverilog.exe",
+      "-g2012",
+      "-s",
+      "tb_edge_style_stream",
+      "-Ptb_edge_style_stream.WIDTH=1280",
+      "-Ptb_edge_style_stream.HEIGHT=720",
+      "-o",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\stream_1280\\test.vvp",
+      "D:\\anlogic_formal_project\\tests\\tb_edge_style_stream.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_control_stream.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\rgb_effects_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\style_fill_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_detect_96.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\gaussian_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\nms_gradient_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_link_pair_3x3.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_center_pair_delay.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\edge_temporal_hold.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\edge_status_osd.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\data_96bit_to_128bit.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\isp_top.v",
+      "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\data128_96\\data128_96.v",
+      "D:\\anlogic_formal_project\\tests\\isp_boundary_stubs.v"
+    ],
+    "exit_code": 0
+  },
+  {
+    "name": "stream_1280",
+    "stage": 1,
+    "argv": [
+      "C:/iverilog/bin/vvp.exe",
+      "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\five_modes_alignment_10\\stream_1280\\test.vvp",
+      "+STIM=D:/anlogic_formal_project/tmp/style_v2_target_v1/five_modes_alignment_10/vectors_1280/stim.txt",
+      "+PACK=D:/anlogic_formal_project/tmp/style_v2_target_v1/five_modes_alignment_10/vectors_1280/pack.txt",
+      "+WORDS=864000"
+    ],
+    "exit_code": 0
+  }
+]

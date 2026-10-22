@@ -10,11 +10,13 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--out',type=Path,required=True)
     ap.add_argument('--msim',type=Path,required=True)
+    ap.add_argument('--bench',type=Path,default=ROOT/'tests/tb_target_frame_system.sv')
+    ap.add_argument('--pass-marker',default='PASS TARGET_FRAME_SYSTEM')
     a=ap.parse_args();a.out=a.out.resolve();a.out.mkdir(exist_ok=False,parents=True)
     MSIM=a.msim.resolve()
     assert all((MSIM/name).is_file() for name in ('vlib.exe','vlog.exe','vsim.exe'))
     h=ROOT/'in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source';ip=h.parent/'ip_source'
-    files=[ROOT/'tests/tb_target_frame_system.sv',ROOT/'tests/tb_target_progress.sv',
+    files=[a.bench.resolve(),ROOT/'tests/tb_target_progress.sv',
         *sorted((h/'target').glob('*.v')),*sorted((ROOT/'features/color_target/rtl').glob('*.v')),
         *[h/p for p in ('video_in.v','video_out.v','mc_to_user_interface.v','data_96bit_to_128bit.v',
             'isp/fifo_event_counter.v','vtc/uivtc.v','hdmi_mixer.v','osd_char_lib.v','anlogic_logo_rom.v')]]
@@ -37,8 +39,9 @@ def main():
         print('COMPLETE stage',i,'seconds',round(time.monotonic()-started,2),flush=True)
     final=(a.out/'stage_2.txt').read_text(errors='replace')
     same=hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
-    passed=same and 'PASS TARGET_FRAME_SYSTEM' in final and 'FAIL' not in final
+    passed=same and a.pass_marker in final and 'FAIL' not in final
     (a.out/'summary.json').write_text(json.dumps(dict(passed=passed,source_unchanged=same,
+        bench=a.bench.as_posix(),pass_marker=a.pass_marker,
         scope='Actual MAIN digital adapter/FIFO/packer/HDMI bench; synthetic RAW/post-AWB and modeled DDR; no physical or board proof'),indent=2)+'\n')
     assert passed,a.out
     print(final[-1400:])

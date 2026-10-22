@@ -1,0 +1,68 @@
+[
+  {
+    "argv": [
+      "D:/modelsim/modelsim_ase/win32aloem/vlib.exe",
+      "work"
+    ],
+    "exit_code": 0,
+    "elapsed": 0.06300000000010186
+  },
+  {
+    "argv": [
+      "D:/modelsim/modelsim_ase/win32aloem/vlog.exe",
+      "-sv",
+      "-work",
+      "work",
+      "D:/anlogic_formal_project/tests/tb_target_frame_system_faults.sv",
+      "D:/anlogic_formal_project/tests/tb_target_progress.sv",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_bundle_cdc.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_timebase.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_transaction_ledger.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/mipi_packet_monitor.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_display_commit.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_frame_system.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_logo_palette.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_observer_adapter.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/video_read_controls.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_classify.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_detect.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_detect_stream.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_mask_stats.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_overlay.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_support3.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_text_overlay.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_track.v",
+      "D:/anlogic_formal_project/features/color_target/rtl/color_target_track_guard.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/data_96bit_to_128bit.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/fifo_event_counter.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vtc/uivtc.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v",
+      "D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.v"
+    ],
+    "exit_code": 0,
+    "elapsed": 0.2960000000002765
+  },
+  {
+    "argv": [
+      "D:/modelsim/modelsim_ase/win32aloem/vsim.exe",
+      "-c",
+      "-quiet",
+      "-lib",
+      "work",
+      "tb_target_frame_system",
+      "tb_target_progress",
+      "-do",
+      "onerror {quit -code 2}; run -all; quit -f -code 0"
+    ],
+    "exit_code": 0,
+    "elapsed": 356.76600000000053
+  }
+]

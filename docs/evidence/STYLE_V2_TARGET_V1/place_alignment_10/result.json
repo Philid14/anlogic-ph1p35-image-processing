@@ -1,0 +1,13 @@
+{
+  "source_commit": "4a1e08b8c7af0eccef92f8a05f738d096eb6baca",
+  "gate_sha256": "32676d9e6b0b88c9781db1786921a4530d0548d67c9110c8108309bb225bb6d5",
+  "exit_code": 0,
+  "placement_passed": true,
+  "packed_slices": 20931,
+  "final_placement_slices": 20940,
+  "final_placement_lut6": 19368,
+  "final_placement_ff": 21673,
+  "capacity_error": null,
+  "route": "NOT_RUN",
+  "bit": "NOT_GENERATED"
+}

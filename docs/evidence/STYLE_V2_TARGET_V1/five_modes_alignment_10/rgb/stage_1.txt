@@ -1,0 +1,2 @@
+PASS rgb gray/binary beats=2322 pixels=9288
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_rgb.v:40: $finish called at 2322000 (1ps)
