@@ -1,0 +1,5 @@
+# Reproducible intermediate meshes/CSG; keep authored sources and checked PNGs/log.
+previews/*.csg
+previews/*.stl
+previews/*.echo
+*_concept.stl

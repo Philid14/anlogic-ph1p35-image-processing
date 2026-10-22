@@ -1,0 +1,23 @@
+FRAME_CONCEPT_V1 — geometry validation; not structural/optical validation
+Defaults are assumptions. Sources: frame_concept.scad + included modules.
+PASS --version
+PASS -D "scene=\"color\"" -o "previews/color.csg" frame_concept.scad
+PASS -D "scene=\"measure\"" -o "previews/measure.csg" frame_concept.scad
+PASS -D "scene=\"calibration\"" -o "previews/calibration.csg" frame_concept.scad
+PASS -D "part=\"camera_plate\"" -o "previews/camera_plate.stl" frame_concept.scad
+PASS -D "part=\"board_tray\"" -o "previews/board_tray.stl" frame_concept.scad
+PASS -D "part=\"monitor_plate\"" -o "previews/monitor_plate.stl" frame_concept.scad
+PASS -D "part=\"light_bracket\"" -o "previews/light_bracket.stl" frame_concept.scad
+PASS -p presets.json -P color_open -D "show_fov=false" -o "previews/color_open.png" --imgsize=1600,1100 --camera=1200,-2400,2300,160,0,300 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -p presets.json -P measure_open -D "show_fov=false" -o "previews/measure_open.png" --imgsize=1600,1100 --camera=1200,-2400,2300,160,0,300 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -p presets.json -P calibration_open -D "show_fov=false" -o "previews/calibration_open.png" --imgsize=1600,1100 --camera=1200,-2400,2300,160,0,300 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -p presets.json -P enclosed -D "show_fov=false" -o "previews/enclosed.png" --imgsize=1600,1100 --camera=1200,-2400,2300,160,0,300 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -D "scene=\"measure\"" -D "show_fov=false" -D "show_cables=false" -o previews/measure_top.png --imgsize=1400,1000 --camera=0,0,1600,0,0,0 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -D "part=\"worktop\"" -D "scene=\"color\"" -o "previews/color_layout.png" --imgsize=1400,1000 --camera=0,0,800,0,0,0 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -D "part=\"worktop\"" -D "scene=\"measure\"" -o "previews/measure_layout.png" --imgsize=1400,1000 --camera=0,0,800,0,0,0 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -D "part=\"optics\"" -D "show_fov=false" -o previews/optics.png --imgsize=1400,1100 --camera=1000,-1500,700,0,0,300 --projection=o --viewall --autocenter --colorscheme=Tomorrow frame_concept.scad
+PASS -D "camera_h=350" -o previews/height_350.csg frame_concept.scad
+PASS -D "light_count=1" -o previews/one_light.csg frame_concept.scad
+PASS expected assertion: -D "camera_h=100" -o previews/invalid.echo frame_concept.scad
+Manual visual inspection required: open all PNGs, check attachment/clearance/layout.
+Manufacturing, loads, electrical integrity and measurement accuracy: NOT VERIFIED.
