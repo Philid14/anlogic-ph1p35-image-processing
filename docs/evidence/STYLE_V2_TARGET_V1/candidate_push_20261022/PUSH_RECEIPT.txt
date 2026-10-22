@@ -1,0 +1,3 @@
+To https://github.com/Philid14/anlogic-ph1p35-image-processing.git
+   7c7e5ee..24dbb6b  HEAD -> codex/main/style-v2-target-v1
+ * [new tag]         style-v2-target-v1-candidate -> style-v2-target-v1-candidate

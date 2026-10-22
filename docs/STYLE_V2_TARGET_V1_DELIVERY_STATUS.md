@@ -7,11 +7,12 @@
 - Version：STYLE_V2_TARGET_V1。
 - Branch：`codex/main/style-v2-target-v1`。
 - 实际TD源码commit：`7c7e5ee7d6c52260bcf557d9dabd4014f84e2687`；其后验收/归档提交不改变85项TD输入。
+- Candidate归档commit：`24dbb6b7611c3f71aa90021807b27dfd3e425500`（tag固定指向此提交）；后续仅补推送回执，不移动tag。
 - 验证commit：`a745b073abca71f48d397bedbd578c55b84fdf89`。
 - Candidate tag：`style-v2-target-v1-candidate`；归档commit由该tag唯一恢复，已有tag不移动。
 - Draft PR：[PR #14](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/14)，base=`codex/main/edge-style-fill-v2` /89093f4，依赖PR13；保持Draft、不合并。
 - Remote：origin=`https://github.com/Philid14/anlogic-ph1p35-image-processing.git`，API核实Private。
-- Push Status：待candidate提交及tag推送；未将本行当作已上传证明，成功回执另记。
+- Push Status：**SUCCESS**；candidate归档提交及tag已push，远程refs逐项核实；回执见`docs/evidence/STYLE_V2_TARGET_V1/candidate_push_20261022/`。
 - Git Status：本任务变更单独暂存；无关研究文档、用户参考工程/PDF/录像/进度文件保持原样未提交。
 - Bit：[camera_to_dsi_display.bit](../artifacts/bitstreams/STYLE_V2_TARGET_V1/camera_to_dsi_display.bit)，1789539 bytes。
 - SHA256：`2172E53406AF5D67BD2A167C8935F6C9870CC0AC6E79382217F13024DF7888FF`。

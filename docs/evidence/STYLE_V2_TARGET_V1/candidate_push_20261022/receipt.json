@@ -1,0 +1,11 @@
+{
+  "candidate_archive_commit": "24dbb6b7611c3f71aa90021807b27dfd3e425500",
+  "actual_td_source": "7c7e5ee7d6c52260bcf557d9dabd4014f84e2687",
+  "tag": "style-v2-target-v1-candidate",
+  "tag_target": "24dbb6b7611c3f71aa90021807b27dfd3e425500",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "push_exit_code": 0,
+  "remote_branch_and_tag_verified": true,
+  "private_api_verified": true,
+  "board_test": "NOT_RUN"
+}
