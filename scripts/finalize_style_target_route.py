@@ -34,6 +34,9 @@ def main():
     # physical CDC report generated on a separate database with audit-only SDC.
     for rel,expected in verification['evidence_sha256'].items():
         assert sha(ROOT/rel)==expected, rel
+    cdc=json.loads((ROOT/verification['physical_cdc_summary']).read_text())
+    assert cdc['passed'] and cdc['database_sha256']==sha(route/'route.db')
+    assert cdc['implementation_sdc_sha256']==sha(PROJECT/'camera_to_dsi_display.sdc')
     timing=(route/'route.ts').read_text()
     sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
     assert sw>=0 and hw>=0 and st==0 and ht==0, timing
