@@ -5,7 +5,7 @@ before bitgen. Never reroute an audit database or substitute a stale Runs bit.
 """
 import argparse, datetime, hashlib, json, re, shutil, subprocess, time
 from pathlib import Path
-from build_style_v2_target_v1 import ROOT, PROJECT, snapshot, verify_run_initializers, INIT_NAMES
+from build_style_v2_target_v1 import ROOT, PROJECT, snapshot, verify_run_initializers, INIT_NAMES, INIT_DIR
 
 def sha(p): return hashlib.sha256(p.read_bytes()).hexdigest()
 
@@ -83,7 +83,7 @@ exit
         shutil.copy2(PROJECT/'camera_to_dsi_display_Runs'/run/'settings.cfg',evidence/name)
     shutil.copy2(place/'result.json',evidence/'PLACEMENT_RESULT.json')
     for name in INIT_NAMES:
-        if (PROJECT/name).is_file():shutil.copy2(PROJECT/name,evidence/name)
+        if (INIT_DIR/name).is_file():shutil.copy2(INIT_DIR/name,evidence/name)
     info=dict(version='STYLE_V2_TARGET_V1',source_commit=frozen['source_commit'],verification_commit=before['source_commit'],
         tag='style-v2-target-v1-candidate',bit_sha256=sha(bit),route_db_sha256=sha(route/'route.db'),
         synthesis=a.synthesis,placement=a.placement,route=a.route,resources=counts,

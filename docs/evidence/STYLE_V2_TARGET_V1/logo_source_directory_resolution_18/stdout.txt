@@ -1,0 +1,330 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/TD/bin/td_commands_prompt.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     Lenovo
+   Run Date =   Thu Oct 22 13:28:54 2026
+
+   Run on =     PHILID
+============================================================
+RUN-1002 : start command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3"
+ARC-1001 : Device Initialization.
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :           OPTION          |          IO           |   SETTING   
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :   non_jtag_persist(none)  |        35 IOs         |    gpio    
+ARC-1001 :            jtag           |  P13/P15/L14/R13/T13  |  dedicate  
+ARC-1001 : ----------------------------------------------------------------
+RUN-1003 : finish command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3" in  1.648300s wall, 1.171875s user + 0.046875s system = 1.218750s CPU (73.9%)
+
+RUN-1004 : used memory is 323 MB, reserved memory is 320 MB, peak memory is 323 MB
+RUN-1002 : start command "analyze -file D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_logo_palette.v"
+RUN-1002 : start command "commit_param -step design"
+RUN-1001 : Print Global Property
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 :     Parameters    |   Settings   |  Default Values  |  Note  
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 :    enable_seed    |     off      |       off        |        
+RUN-1001 :    hfn_to_clock   |  1000000000  |    1000000000    |        
+RUN-1001 :      message      |   standard   |     standard     |        
+RUN-1001 :    qor_monitor    |      on      |        on        |        
+RUN-1001 :   speedup_effort  |      0       |        0         |        
+RUN-1001 :    syn_ip_flow    |     off      |       off        |        
+RUN-1001 :       thread      |     auto     |       auto       |        
+RUN-1001 : -------------------------------------------------------------
+RUN-1001 : Print Design Property
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :       Parameters       |  Settings  |  Default Values  |  Note  
+RUN-1001 : ----------------------------------------------------------------
+RUN-1001 :   default_reg_initial  |    auto    |       auto       |        
+RUN-1001 :    hdl_warning_level   |   normal   |      normal      |        
+RUN-1001 : ----------------------------------------------------------------
+HDL-1007 : analyze verilog file D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_logo_palette.v
+RUN-1002 : start command "elaborate -top target_logo_palette"
+HDL-1007 : elaborate module target_logo_palette in D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_logo_palette.v(4)
+HDL-1007 : elaborate module PH1P_LOGIC_ERAM(DATA_WIDTH_A=10,DATA_WIDTH_B=10,ADDR_WIDTH_A=14,ADDR_WIDTH_B=14,DATA_DEPTH_A=16384,DATA_DEPTH_B=16384,MODE="SP",FORCE_KEEP="ON",INIT_FILE="style_logo_index.dath") in D:\TD\arch/ph1p_macro.v(22)
+HDL-1007 : elaborate module PH1P_LOGIC_ERAM(DATA_WIDTH_A=25,DATA_WIDTH_B=25,ADDR_WIDTH_B=10,DATA_DEPTH_A=1024,DATA_DEPTH_B=1024,MODE="SP",FORCE_KEEP="ON",INIT_FILE="style_logo_palette.dath") in D:\TD\arch/ph1p_macro.v(22)
+HDL-1200 : Current top model is target_logo_palette
+HDL-1100 : Inferred 0 RAMs.
+RUN-1002 : start command "optimize_rtl"
+RUN-1001 : Open license file D:/TD/license/Anlogic.lic
+SYN-1001 : Stage 1 | Optimize RTL
+SYN-1001 : Stage 1.1 | Check Design Sanity
+SYN-1001 : End Stage 1.1 | Check Design Sanity; Time: 0.002197s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 328, reserved = 320, peak = 328;
+
+SYN-1079 : finish stage Check Design Sanity. Total instances: 23, Total nets: 100.
+
+SYN-1001 : Stage 1.2 | Initialize Design
+SYN-1001 : End Stage 1.2 | Initialize Design; Time: 0.001650s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 329, reserved = 320, peak = 329;
+
+SYN-1079 : finish stage Initialize Design. Total instances: 9, Total nets: 85.
+
+SYN-1001 : Stage 1.3 | Flatten Module
+SYN-1011 : Flatten model target_logo_palette
+SYN-1001 : End Stage 1.3 | Flatten Module; Time: 0.000165s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 329, reserved = 320, peak = 329;
+
+SYN-1079 : finish stage Flatten Module. Total instances: 9, Total nets: 85.
+
+SYN-1001 : Stage 1.4 | Uniform Instance
+SYN-1001 : End Stage 1.4 | Uniform Instance; Time: 0.000208s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 329, reserved = 320, peak = 329;
+
+SYN-1079 : finish stage Uniform Instance. Total instances: 9, Total nets: 85.
+
+SYN-1001 : Stage 1.5 | Optimize Design
+SYN-1001 : End Stage 1.5 | Optimize Design; Time: 0.065157s wall, 0.062500s user + 0.000000s system = 0.062500s CPU (95.9%); Memory(MB): used = 331, reserved = 320, peak = 331;
+
+SYN-1079 : finish stage Optimize Design. Total instances: 23, Total nets: 78.
+
+SYN-1001 : Stage 1.6 | Optimize Iteratively
+SYN-1014 : Optimize round 1
+SYN-1001 : Optimize 2 less-than instances
+SYN-1015 : Optimize round 1, 2 better
+SYN-1014 : Optimize round 2
+SYN-1015 : Optimize round 2, 0 better
+SYN-1014 : Optimize round 1
+SYN-1015 : Optimize round 1, 0 better
+SYN-1001 : End Stage 1.6 | Optimize Iteratively; Time: 0.086517s wall, 0.093750s user + 0.000000s system = 0.093750s CPU (108.4%); Memory(MB): used = 332, reserved = 320, peak = 332;
+
+SYN-1079 : finish stage Optimize Iteratively. Total instances: 23, Total nets: 78.
+
+SYN-1001 : Stage 1.7 | Check Design
+SYN-1001 : End Stage 1.7 | Check Design; Time: 0.000036s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 332, reserved = 320, peak = 332;
+
+SYN-1079 : finish stage Check Design. Total instances: 23, Total nets: 78.
+
+SYN-1001 : End Stage 1 | Optimize RTL; Time: 0.156414s wall, 0.156250s user + 0.000000s system = 0.156250s CPU (99.9%); Memory(MB): used = 332, reserved = 320, peak = 332;
+
+SYN-1079 : finish stage Optimize RTL. Total instances: 23, Total nets: 78.
+
+RUN-1002 : start command "report_area -file logo_rtl.area"
+RUN-1001 : standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+IO Statistics
+#IO                        41
+  #input                   16
+  #output                  25
+  #inout                    0
+
+Gate Statistics
+#Basic gates                2
+  #and                      1
+  #nand                     0
+  #or                       0
+  #nor                      0
+  #xor                      0
+  #xnor                     0
+  #buf                      0
+  #not                      1
+  #bufif1                   0
+  #MX21                     0
+  #FADD                     0
+  #DFF                      0
+  #LATCH                    0
+#MACRO_ADD                  3
+#MACRO_MUX                 14
+#MACRO_OTHERS               2
+
+RUN-1002 : start command "optimize_gate -packarea logo_gate.area"
+RUN-1001 : Open license file D:/TD/license/Anlogic.lic
+SYN-1001 : Stage 2 | Optimize Gate
+SYN-1001 : Stage 2.1 | Map Reg
+SYN-1001 : End Stage 2.1 | Map Reg; Time: 0.000236s wall, 0.000000s user + 0.000000s system = 0.000000s CPU (n/a%); Memory(MB): used = 332, reserved = 320, peak = 332;
+
+SYN-1079 : finish stage Map Reg. Total instances: 23, Total nets: 78.
+
+SYN-1001 : Stage 2.2 | Map IO
+SYN-2001 : Map 41 IOs to PADs of model 'target_logo_palette'
+SYN-6021 CRITICAL-WARNING: 41 out of 41 logical ports has no user assigned specific location constraint.
+                           This may affect performance or in some cases cause damage to the device!
+                           Bitgen will abort. If insist on bitgen with risk, please 'set_param bitgen unconstr_io on' to avoid bitgen error.
+                           No ADC ports: address[14:0], clk, pixel[24:0].
+                           No ADC ports will be assigned to random location as below:
+                           address[14]:H2, address[13]:T12, address[12]:C12, address[11]:A12, address[10]:B12, address[9]:A8, address[8]:A7, address[7]:E8, address[6]:D8, address[5]:D9, 
+                           address[4]:C9, address[3]:C11, address[2]:B11, address[1]:E7, address[0]:E6, clk:B6, pixel[24]:B7, pixel[23]:E5, pixel[22]:D5, pixel[21]:A9, 
+                           pixel[20]:B9, pixel[19]:C7, pixel[18]:C8, pixel[17]:A10, pixel[16]:B10, pixel[15]:A4, pixel[14]:B4, pixel[13]:E11, pixel[12]:D11, pixel[11]:D10, 
+                           pixel[10]:E10, pixel[9]:C6, pixel[8]:D6, pixel[7]:A5, pixel[6]:B5, pixel[5]:J14, pixel[4]:J13, pixel[3]:K17, pixel[2]:H17, pixel[1]:J16, 
+                           pixel[0]:G16.
+SYN-1001 : End Stage 2.2 | Map IO; Time: 0.212713s wall, 0.203125s user + 0.000000s system = 0.203125s CPU (95.5%); Memory(MB): used = 332, reserved = 320, peak = 332;
+
+SYN-1001 : Stage 2.3 | Map Macro
+RUN-1002 : start command "update_pll_param -module target_logo_palette"
+SYN-2501 : Processed 0 LOGIC_BUF instances.
+SYN-2541 : Reading BRAM "u_index" init file "D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\style_logo_index.dath"
+SYN-2542 : Parsing MIF init file
+SYN-2541 : Reading BRAM "u_palette" init file "D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\user_source\hdl_source\target\style_logo_palette.dath"
+SYN-2542 : Parsing MIF init file
+SYN-2571 : Optimize after map_dsp, round 1
+SYN-2571 : Optimize after map_dsp, round 1, 0 better
+SYN-1001 : Throwback 2 control mux instances
+SYN-1001 : Optimize 1 adders
+SYN-2501 : Optimize round 1
+SYN-2501 : Optimize round 1, 1 better
+SYN-2501 : Optimize round 2
+SYN-2501 : Optimize round 2, 0 better
+SYN-2501 : Optimize round 1
+SYN-2501 : Optimize round 1, 0 better
+SYN-2501 : Map 3 macro adder(s)
+SYN-1016 : Merged 12 instances.
+SYN-1001 : End Stage 2.3 | Map Macro; Time: 0.086301s wall, 0.078125s user + 0.000000s system = 0.078125s CPU (90.5%); Memory(MB): used = 333, reserved = 320, peak = 333;
+
+SYN-1079 : finish stage Map Macro. Total instances: 138, Total nets: 214.
+
+SYN-1001 : Stage 2.4 | Map Gate
+SYN-2581 : Mapping with K=6, #lut = 28 (5.29), #lev = 2 (1.46), #crit_level = 0
+SYN-2551 : Post LUT mapping optimization.
+SYN-2581 : Mapping with K=6, #lut = 28 (5.29), #lev = 2 (1.46), #crit_level = 0
+SYN-3001 : Logic optimization opt = 0.08 sec, map = 0.00 sec, post map opt = 0.05 sec.
+SYN-1001 : End Stage 2.4 | Map Gate; Time: 0.131408s wall, 0.125000s user + 0.000000s system = 0.125000s CPU (95.1%); Memory(MB): used = 335, reserved = 320, peak = 335;
+
+SYN-1001 : Packing model "target_logo_palette" ...
+SYN-1001 : Stage 2.5 | Pack Gate
+SYN-4010 : Pack lib has 43 rtl pack models with 26 top pack blocks
+SYN-1014 : Optimize round 1
+SYN-1015 : Optimize round 1, 0 better
+SYN-4002 : Packing 2 DFF/LATCH to SEQ ...
+RUN-1002 : start command "start_timer"
+RUN-1002 : start command "end_timer"
+SYN-4009 : Pack 0 carry chain into lslice
+SYN-1001 : End Stage 2.5 | Pack Gate; Time: 0.008530s wall, 0.015625s user + 0.000000s system = 0.015625s CPU (183.2%); Memory(MB): used = 335, reserved = 320, peak = 335;
+
+RUN-1002 : start command "report_qor -step gate -file gate.qor"
+RUN-1002 : start command "start_timer"
+-----------------------------------------------------------
+| QoR metrics               |         value               |
+-----------------------------------------------------------
+| Timing                    |                             |
+|     Setup WNS             |        17139                |
+|     Setup TNS             |            0                |
+|     Num of violated S-EP  |            0                |
+|     Hold WNS              |         1257                |
+|     Hold TNS              |            0                |
+|     Num of violated H-EP  |            0                |
+-----------------------------------------------------------
+| Utilization               |                             |
+|     #registers            |            2                |
+|     #luts                 |           28                |
+|     #lut1                 |            0                |
+|     #lut1(~A)             |            0                |
+|     #slices               |            0                |
+|     slices percentage     |        0.00%                |
+|     #RAMs                 |           10                |
+|     #DSPs                 |            0                |
+|     #f7mux                |        0.00%                |
+|     #MACROs               |            0                |
+|     #insts in MACRO       |            0                |
+-----------------------------------------------------------
+| kept_net                  |                             |
+|     #syn_keep             |            0                |
+|     #keep_hier            |            0                |
+|     #dont_touch           |            0                |
+|     #mark_debug           |            0                |
+|     #max_fanout_keep      |            0                |
+|     #async_reg            |            0                |
+-----------------------------------------------------------
+| Top 10% datanet fanout#   |        14.00                |
+| dff(single fanout)->dff   |            0                |
+| dff(single fanout)->dram  |            0                |
+-----------------------------------------------------------
+| Over-quota path num*      |                             |
+|     Total                 |            0                |
+-----------------------------------------------------------
+| Rent**                    |                             |
+-----------------------------------------------------------
+Note*: Over-quota path shows the over-path-level-threshold path number of each clock.
+       The clock will not be shown if no path is with path level over the threshold.
+       The threshold is defined as worst path_margin / 800ps.
+Note**: Rent shows the rent exponent value of the modules whose rent value exceeds the threshold.
+        Only modules under top are reported, and the threshold is defined as 0.7.
+
+Logic Level Distribution
+-------------------------------------------
+  Clock        |  Period            |  2
+-------------------------------------------
+  DeriveClock  |  20.000ns (50MHz)  |  20
+-------------------------------------------
+Note: The table count the worst 100000 paths, each endpoint count only one time.(20 paths analyzed)
+
+Hierarchical Rent Exponent Report
++--------------------------------------------------------+
+|Inst     |Model  |Rent     |Cell     |Pin     |Term     |
++--------------------------------------------------------+
++--------------------------------------------------------+
+Note: Cell represents total number of cells inside module; Pin represents total number of pins
+      which have net connection inside module; Term represents total number of PIs and POs of module.
+      Rent represents the relationship between number of terms and number of cells in module.
+      A module with higher rent corresponds to highly connected logic and strong connectivity with others.
+Report gate stage QoR done.
+
+RUN-1002 : start command "report_area -file logo_gate.area"
+SYN-4034 : The count of slices with lut is 0.
+SYN-4035 : The count of slices with lut+ripple is 0.
+RUN-1001 : standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+Design Statistics
+#IO                        41   out of    160   25.62%
+  #input                   16
+  #output                  25
+  #inout                    0
+#lut                       28
+  #lut1                     0
+  #lut2                     0
+  #lut3                     1
+  #lut4                     4
+  #lut5                     9
+  #lut6                    14
+#reg                        2
+  #slice reg                2   out of  42432    0.00%
+  #pad reg                  0
+
+Utilization Statistics
+#slice                     21   out of  21216    0.10%
+  #used ram                 0
+    #dram lut               0
+    #shifter lut            0
+  #used logic              21
+    #with luts             21
+    #with adder             0
+    #reg only               0
+#f7mux                      0   out of  10608    0.00%
+#f8mux                      0   out of   5304    0.00%
+#eram                      10   out of    108    9.26%
+  #eram20k                 10
+  #fifo20k                  0
+#dsp                        0   out of     40    0.00%
+#ddr_byte                   0   out of     12    0.00%
+#mipi_tx                    0   out of      2    0.00%
+#mipi_rx                    0   out of      2    0.00%
+#pad                       41   out of    160   25.62%
+#pll                        0   out of      6    0.00%
+#gclk                       0   out of     32    0.00%
+#lclk                       0   out of     12    0.00%
+#sclk                       0   out of     48    0.00%
+#mlclk                      0   out of      6    0.00%
+#ioclk                      0   out of     18    0.00%
+
+* Note! The LUT and Slice count after Optimize-Gate is not the final value, Run Optimize-place for a more realistic count.
+
+SYN-1001 : End Stage 2 | Optimize Gate; Time: 0.454204s wall, 0.437500s user + 0.000000s system = 0.437500s CPU (96.3%); Memory(MB): used = 336, reserved = 320, peak = 336;
+
+RUN-1002 : start command "export_db logo_gate.db"
+RUN-1001 : Exported flow parameters
+RUN-1001 : Exported /
+RUN-1001 : Exported libs
+RUN-1001 : Exported entities
+RUN-1001 : Exported ports
+RUN-1001 : Exported pins
+RUN-1001 : Exported instances
+RUN-1001 : Exported nets
+RUN-1001 : Exported buses
+RUN-1001 : Exported models
+RUN-1001 : Exported packer
+RUN-1001 : Exported congestions
+RUN-1001 : Exported violations
+RUN-1001 : Exported ATMR Setting
+RUN-1001 : Exported IO constraints
+RUN-1001 : Exported Inst constraints
+RUN-1001 : Exported ChipWatcher
+EXPLICIT_ROM_SYN_COMPLETE_NO_BIT

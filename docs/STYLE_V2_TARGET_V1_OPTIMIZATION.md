@@ -217,3 +217,10 @@ current独立gate为1456估算Slice、1753LUT、0FF、2ERAM；对index/pixel增�
 TD仍83项工程条目，另2份实际初始化输入列入SOURCE_MANIFEST，总85项；旧60输入继续冻结。
 厂商仿真库不复制入仓库，只记录安装路径和SHA256；原语定义由TD原生器件库提供。
 仅Logo存储实现改变；五模式算法、Sensor、AWB、TARGET生产RTL、时钟、ADC/SDC均不变，整机SYN/P&R及联合回归将重测。
+
+
+正式SYN18在RTL sanity处因INIT_FILE解析失败停止，完整标志检查将其判为失败，没有归档Runs中的旧gate面积。
+TD按RTL源文件目录查找裸文件名，而非当前run/project目录。将同字节的两份初始化数据放到target/源码旁后，
+隔离实测再次得到21估算Slice/10ERAM，且不再有INIT_FILE/FILL_ALL组合告警。
+canonical初始化现在位于target/；td_project保留完全一致的生成镜像以兼容已开始的仿真，builder逐字核对两份并记录镜像关系。
+本次没有改RTL或初始化数值，因此正在执行的真实官方模型联合测试输入字节不变；源码旁的实际TD输入85项将绑定新的提交。

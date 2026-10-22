@@ -20,11 +20,13 @@ BASE='89093f428878b918036c8a30a0d1afe7764946b8'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 ALLOWED={HDL+p for p in ('design_top_wrapper.v','video_in.v','video_out.v','isp/isp_top.v','hdmi_mixer.v','isp/edge_control_stream.v')}
 INIT_NAMES=('style_logo_index.dath','style_logo_palette.dath')
+INIT_DIR=ROOT/HDL/'target'
 
 def verify_run_initializers():
     for name in INIT_NAMES:
-        original=PROJECT/name
+        original=INIT_DIR/name
         if original.exists():
+            assert original.read_bytes()==(PROJECT/name).read_bytes(), 'Initialization mirror mismatch: '+name
             for run in ('syn_1','phy_1'):
                 assert original.read_bytes()==(PROJECT/'camera_to_dsi_display_Runs'/run/name).read_bytes(),name
 
@@ -60,17 +62,22 @@ def snapshot():
     for run,name in [('syn_1','syn_settings.cfg'),('phy_1','phy_settings.cfg')]:
         settings=PROJECT/'camera_to_dsi_display_Runs'/run/'settings.cfg'
         assert settings.read_bytes()==(ROOT/'artifacts/bitstreams/EDGE_STYLE_FILL_V2/build_evidence'/name).read_bytes()
-    implicit=[]
+    implicit=[];mirrors={}
     for name in INIT_NAMES:
-        p=PROJECT/name
+        p=INIT_DIR/name
         if p.exists():
             rel=p.relative_to(ROOT).as_posix();raw=p.read_bytes();saved=git('show',head+':'+rel)
             assert raw.replace(b'\r\n',b'\n')==saved.replace(b'\r\n',b'\n'),rel
             files[rel]=dict(sha256=hashlib.sha256(raw).hexdigest(),git_blob=git('rev-parse',head+':'+rel).decode().strip())
             implicit.append(rel)
+            mirror=PROJECT/name;mr=mirror.relative_to(ROOT).as_posix()
+            assert mirror.read_bytes()==raw,mr
+            assert mirror.read_bytes().replace(b'\r\n',b'\n')==git('show',head+':'+mr).replace(b'\r\n',b'\n'),mr
+            mirrors[mr]=dict(sha256=hashlib.sha256(raw).hexdigest(),canonical=rel)
     assert len(implicit) in (0,2),'Both ROM initialization files are required'
     return dict(source_commit=head,files=files,frozen_inputs=frozen,
         project_entry_count=len(entries),implicit_initialization_files=implicit,
+        initialization_mirrors=mirrors,
         al_sha256=hashlib.sha256(al.read_bytes()).hexdigest(),
         historical_bits={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest()
             for p in (ROOT/'artifacts/bitstreams').glob('*/*.bit')})

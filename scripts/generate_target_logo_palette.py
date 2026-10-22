@@ -61,6 +61,10 @@ def generate():
     colors=palette+[0]*(1024-len(palette))
     (project/'style_logo_index.dath').write_text(''.join(f'{v:03x}\n' for v in indices))
     (project/'style_logo_palette.dath').write_text(''.join(f'{v:07x}\n' for v in colors))
+    # TD resolves INIT_FILE beside the RTL source. Keep identical project-level
+    # mirrors for existing diagnostic scripts; the builder hashes both sets.
+    for name in ('style_logo_index.dath','style_logo_palette.dath'):
+        (HDL/'target'/name).write_bytes((project/name).read_bytes())
     lines=['// Generated lossless Logo. Official UG1310 PH1P_LOGIC_ERAM, pp13-17.',
            '// Two synchronous reads, same cycles as the inferred implementation.',
            '// prepare_td_runs.py copies the tracked .dath inputs to each TD run.',

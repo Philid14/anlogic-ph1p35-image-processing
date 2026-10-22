@@ -1,0 +1,53 @@
+standard
+***Report Model: target_logo_palette Device: PH1P35MDG324***
+
+Design Statistics
+#IO                        41   out of    160   25.62%
+  #input                   16
+  #output                  25
+  #inout                    0
+#lut                       28
+  #lut1                     0
+  #lut2                     0
+  #lut3                     1
+  #lut4                     4
+  #lut5                     9
+  #lut6                    14
+#reg                        2
+  #slice reg                2   out of  42432    0.00%
+  #pad reg                  0
+
+Utilization Statistics
+#slice                     21   out of  21216    0.10%
+  #used ram                 0
+    #dram lut               0
+    #shifter lut            0
+  #used logic              21
+    #with luts             21
+    #with adder             0
+    #reg only               0
+#f7mux                      0   out of  10608    0.00%
+#f8mux                      0   out of   5304    0.00%
+#eram                      10   out of    108    9.26%
+  #eram20k                 10
+  #fifo20k                  0
+#dsp                        0   out of     40    0.00%
+#ddr_byte                   0   out of     12    0.00%
+#mipi_tx                    0   out of      2    0.00%
+#mipi_rx                    0   out of      2    0.00%
+#pad                       41   out of    160   25.62%
+#pll                        0   out of      6    0.00%
+#gclk                       0   out of     32    0.00%
+#lclk                       0   out of     12    0.00%
+#sclk                       0   out of     48    0.00%
+#mlclk                      0   out of      6    0.00%
+#ioclk                      0   out of     18    0.00%
+
+* Note! The LUT and Slice count after Optimize-Gate is not the final value, Run Optimize-place for a more realistic count.
+
+Report Hierarchy Area:
++----------------------------------------------------------------------------------------------------------------------------------------+
+|Instance |Module              |logic lut |ripple  |seq     |eram    |dsp     |dram lut |shifter lut |f7mux   |f8mux   |pll     |ddr     |
++----------------------------------------------------------------------------------------------------------------------------------------+
+|top      |target_logo_palette |21        |0       |2       |10      |0       |0        |0           |0       |0       |0       |0       |
++----------------------------------------------------------------------------------------------------------------------------------------+

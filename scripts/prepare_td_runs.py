@@ -30,8 +30,10 @@ def main():
         prepared = re.sub(r"    <Project_Settings>.*?</Project_Settings>\s*", "", prepared, flags=re.S)
         (directory / f"{NAME}.prj").write_text(prepared, encoding="utf-8")
         for name in ('style_logo_index.dath','style_logo_palette.dath'):
-            if (PROJECT/name).is_file():
-                shutil.copy2(PROJECT/name,directory/name)
+            canonical=PROJECT.parent/'user_source/hdl_source/target'/name
+            if canonical.is_file():
+                assert canonical.read_bytes()==(PROJECT/name).read_bytes(),name
+                shutil.copy2(canonical,directory/name)
         print(f"Prepared {run}: {len(re.findall('<File Path=', prepared))} source/IP/constraint entries")
 
 

@@ -10,7 +10,7 @@ def prepare_logo_inputs(out,logo=None,vendor=None):
     if 'PH1P_LOGIC_ERAM' not in logo.read_text():return [],[],[]
     data=[]
     for name in ('style_logo_index.dath','style_logo_palette.dath'):
-        source=PROJECT/name
+        source=HDL/'target'/name
         if source.exists():shutil.copy2(source,out/name);data.append(source)
     model=vendor or Path(os.environ.get('TD_HOME','D:/TD'))/'sim_release/ph1p/ph1p_logic_eram.v'
     models=[model.resolve(),model.resolve().with_name('ph1p_phy_gsr.v')]
