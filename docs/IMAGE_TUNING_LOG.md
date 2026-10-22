@@ -305,3 +305,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 模型/RTL：中性门限彩斑47.31%→0，数字星/亮线结构误差→0；这些不是实板改善率。5尺寸×63序列、完整720p五帧1152000拍/864000打包字通过。
 - Board：待用户上板；按BOARD_TEST比较ORIGIN/V1/V2；浅色去饱和/明度色带/输入饱和不可恢复等代价已记录。B/S稳态、30分钟/光照变化待验收，S增长阻断正式验收。
 - 保留候选与V1全部历史；停止本轮，不开发进阶五或队友目标检测。
+
+## STYLE_V2_TARGET_V1 candidate（2026-10-22，MAIN）
+
+- Branch/source/tag：codex/main/style-v2-target-v1；实际TD源码`7c7e5ee7d6c52260bcf557d9dabd4014f84e2687`；style-v2-target-v1-candidate（归档commit由tag恢复）；Draft PR14→13，未合并。
+- 修改假设/主要变量：STYLE V2+固定TARGET的MAIN接入/资源与显示流水架构；不改视觉算法、Sensor/ISP、720p、PLL/SDC。无损Logo映射、消费后ACK邮箱、台账索引、共享字库流水、固定延迟存储；实际发现读RGB控制错2拍，单独最小对齐修复及负对照保留。
+- 修改前/后：最初实际21825超609→最终19952，少1873，余1264；原综合Setup−1.724ns不能与最终Routed混为同阶段。原TARGET算法来源49641eef完全不改。
+- Bit：artifacts/bitstreams/STYLE_V2_TARGET_V1/camera_to_dsi_display.bit；SHA256 `2172E53406AF5D67BD2A167C8935F6C9870CC0AC6E79382217F13024DF7888FF`。
+- Build Result：完整SYN20→place20→route20→final STA→bitgen PASS；LUT6 18063/FF21649/Slice19952/ERAM99/DSP21；Setup/Hold +0.165/+0.020ns，TNS0。
+- 验证：原生官方ERAM/GSR、FIFO/MC、720p最终HDMI52405117检查，故障29904827与活动epoch24648825检查；五模式/K3/K4/Logo/CNT、独立TARGET、原子CDC/租约/年龄及负对照通过。35项联合项目源码+2外部官方模型逐项绑定；85项TD输入/60旧输入冻结。
+- CDC：7类邮箱1706端点40ns界限通过，36位Gray及额外扇出305端点13.033ns通过；原SDC覆盖缺口与相机/I2C布线旧warning保留，非长期硬件证明。
+- Board Test Result：NOT_RUN；是否保留：保留candidate及全部失败/历史归档；下一步：3次冷启动/红目标出现移动消失/五模式/明暗变化/30分钟B:S增量，稳态S增长阻断。完成后停止，不合并、不集成LATENCY或进阶五。

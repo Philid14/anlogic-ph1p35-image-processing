@@ -1,0 +1,23 @@
+{
+  "version": "STYLE_V2_TARGET_V1",
+  "source_commit": "7c7e5ee7d6c52260bcf557d9dabd4014f84e2687",
+  "verification_commit": "a745b073abca71f48d397bedbd578c55b84fdf89",
+  "tag": "style-v2-target-v1-candidate",
+  "bit_sha256": "2172e53406af5d67bd2a167c8935f6c9870cc0ac6e79382217f13024df7888ff",
+  "route_db_sha256": "9a4d9b04ada337c6142db88d054cf76c316f640297abb809b03f6e2a0dcfd248",
+  "synthesis": "syn_explicit_logo_20",
+  "placement": "place_explicit_logo_20",
+  "route": "route_explicit_logo_20",
+  "resources": {
+    "slice": 19952,
+    "lut6": 18063,
+    "reg": 21649,
+    "eram": 99,
+    "dsp": 21
+  },
+  "setup_wns": 0.165,
+  "hold_wns": 0.02,
+  "setup_tns": 0.0,
+  "hold_tns": 0.0,
+  "board_test": "NOT_RUN"
+}

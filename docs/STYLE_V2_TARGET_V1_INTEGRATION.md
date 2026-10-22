@@ -99,3 +99,14 @@ Slice估算23153/21216(109.13%)，ERAM85/108、DSP21/40。
 实际整体FIFO/HDMI联合回归未完成；不将独立组件检查或固定TARGET回归换算为整机通过。
 本轮以资源门失败的WIP检查点收口。最终结论、原始证据和最小后续方案见
 `docs/STYLE_V2_TARGET_V1_RESOURCE_REPORT.md`，不继续本轮算法或STYLE画质开发。
+
+## 2026-10-22 最终优化接线补记
+
+MAIN角色，准确STYLE V2依赖89093f4、TARGET固定49641eef，PR14继续以PR13分支为base。
+无损Logo字典采用官方PH1P_LOGIC_ERAM显式映射；canonical .dath在target RTL同目录，td_project镜像、Runs拷贝由builder逐字校验。
+video_out真实像素读延迟2拍，只在TARGET事务分支把VS/HS/DE/user/last延迟2拍对齐；原DE仍发原生FIFO读。
+共享字形请求流水增加最终统一RGB/DE/HS/VS一拍，最终首像素年龄判断在实际输出沿，整组标注失效隐藏。
+7类邮箱中5类脉冲消费直接采源保持包、消费后ACK；64位公共时间连续读取邮箱保持目的寄存器。
+台账以latest索引替代4路32位最大值网络；64位时基、16位诊断、slot/generation、取消/租约/物理排空全部保留。
+ISP仅对固定延迟payload存储去复位并加观察tap warm屏蔽；所有图像算法、参数和分支延迟不变。
+最终路由与联合回归通过，不能替代实板；详细数据及失败尝试见OPTIMIZATION、VERIFICATION、CDC_REVIEW、BOARD_TEST。
