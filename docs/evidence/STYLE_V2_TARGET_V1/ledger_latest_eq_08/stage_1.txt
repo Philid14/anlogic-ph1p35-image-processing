@@ -1,0 +1,2 @@
+PASS LEDGER_EQUIVALENCE checks=41 cycles=691242
+D:\anlogic_formal_project\tmp\style_v2_target_v1\ledger_latest_eq_08\tb.sv:151: $finish called at 6912430000 (1ps)

@@ -45,9 +45,17 @@ module frame_transaction_ledger #(
     reg [31:0] high_water;
     reg have_high_water;
     integer i, j;
-    reg free_found, newest_found;
-    reg [1:0] free_slot, newest_slot;
-    reg [31:0] newest_frame;
+    reg free_found;
+    // fresh_start retires strictly increasing frame IDs, and there is only
+    // one active writer. Therefore each successful commit is newer than every
+    // existing complete frame. Allocation never overwrites this fallback;
+    // barriers clear it. Keep the winning index instead of rebuilding a
+    // four-way 32-bit maximum/selection network every clock.
+    reg latest_valid;
+    reg [1:0] latest_slot;
+    wire newest_found=latest_valid && complete[latest_slot];
+    reg [1:0] free_slot;
+    wire [1:0] newest_slot=latest_slot;
     assign complete_slots=complete;
     assign leased_slots=leased;
     assign write_active=active;
@@ -59,12 +67,6 @@ module frame_transaction_ledger #(
     // Keep the current latest complete frame as a fallback. Four slots allow
     // one read lease, one last-complete fallback and one writer concurrently.
     always @* begin
-        newest_found=0; newest_slot=0; newest_frame=0;
-        for(i=0;i<4;i=i+1) begin
-            if(complete[i] && (!newest_found || frames[i]>newest_frame)) begin
-                newest_found=1; newest_slot=i; newest_frame=frames[i];
-            end
-        end
         free_found=0; free_slot=0;
         for(i=0;i<4;i=i+1) begin
             if(!free_found && !leased[i] && (!active || write_slot!=i) &&
@@ -90,7 +92,7 @@ module frame_transaction_ledger #(
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin
             ready<=0; session_id<=0; draining<=1;
-            complete<=0; leased<=0; annotation_valid<=0;
+            complete<=0; leased<=0; annotation_valid<=0; latest_valid<=0; latest_slot<=0;
             active<=0; bad<=0; have_raster<=0; word_count<=0;
             high_water<=0; have_high_water<=0;
             allocated<=0; dropped<=0; write_slot<=0; write_generation<=0;
@@ -107,13 +109,13 @@ module frame_transaction_ledger #(
             allocated<=0; dropped<=0; committed<=0; cancelled<=0;
             result_accepted<=0; result_rejected<=0; scan_selected<=0;
             if(barrier) begin
-                ready<=0; draining<=1; complete<=0; annotation_valid<=0;
+                ready<=0; draining<=1; complete<=0; annotation_valid<=0; latest_valid<=0;
                 scan_annotation_valid<=0;
                 // Do not release leases or erase active I/O at this point.
             end else if(draining) begin
                 if(io_drained && next_session!=0 && next_session>session_id) begin
                     ready<=1; draining<=0; session_id<=next_session;
-                    complete<=0; leased<=0; annotation_valid<=0;
+                    complete<=0; leased<=0; annotation_valid<=0; latest_valid<=0; latest_slot<=0;
                     scan_valid<=0; scan_annotation_valid<=0;
                     active<=0; bad<=0; word_count<=0; have_raster<=0;
                     have_high_water<=0;
@@ -150,6 +152,7 @@ module frame_transaction_ledger #(
                     if(write_accept && accepted_match && word_count<WORDS) word_count<=word_count+1'b1;
                     if(!bad && !error_now && raster_complete && enough_words) begin
                         committed<=1; complete[write_slot]<=1; active<=0;
+                        latest_valid<=1; latest_slot<=write_slot;
                         terminal_frame<=frames[write_slot];
                     end else if((bad || error_now) && io_drained) begin
                         cancelled<=1; active<=0; complete[write_slot]<=0;

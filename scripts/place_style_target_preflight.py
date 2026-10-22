@@ -32,8 +32,13 @@ exit
     packed=re.findall(r'(\d+) mslices, (\d+) lslices, \d+ pads',text)
     failure=re.search(r"Design's slice number = (\d+), exceeds the limit (\d+)",text)
     good=r.returncode==0 and 'PLACEMENT_COMPLETE_NO_ROUTE_NO_BIT' in text and (out/'place.db').is_file()
+    area=(out/'place.area').read_text(errors='replace') if (out/'place.area').is_file() else ''
+    def count(name):
+        m=re.search(r'^#'+name+r'\s+(\d+)',area,re.M)
+        return int(m[1]) if m else None
     result=dict(source_commit=manifest['source_commit'],gate_sha256=sha,exit_code=r.returncode,placement_passed=good,
         packed_slices=sum(map(int,packed[-1])) if packed else None,
+        final_placement_slices=count('slice'),final_placement_lut6=count('lut6'),final_placement_ff=count('reg'),
         capacity_error=int(failure[1]) if failure else None,route='NOT_RUN',bit='NOT_GENERATED')
     (out/'result.json').write_text(json.dumps(result,indent=2)+'\n')
     dest=ROOT/'docs/evidence/STYLE_V2_TARGET_V1'/a.attempt;dest.mkdir(exist_ok=False)

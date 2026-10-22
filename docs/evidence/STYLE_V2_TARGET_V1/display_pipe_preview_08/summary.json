@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "reference_commit": "4cc38ed",
+  "source_sha256": {
+    "D:\\anlogic_formal_project\\tests\\tb_target_display_pipeline.sv": "458f279b50117580cb090f4aa7834969830c832bb0a9a1a82d6e703c0645bdcc",
+    "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\display_pipe_preview\\target_display_commit.v": "256508c671c72dca9efcf909b09b4caa014be8c2c1ea35a1997d91e3ba05adee",
+    "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\display_pipe_08\\target_display_commit_reference.v": "03a9f8f9958311395d996561eecd142264cda6857b97c3d3e498d0082fe557bf",
+    "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\osd_char_lib.v": "80269dee8af301d175a0b8ba0b0305149852916a3ed81082349bebc27feac311",
+    "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_overlay.v": "b8253d68fff5f3b12513cf1406d2450575ddb840899652cb8d2f8ec59ce264fc",
+    "D:\\anlogic_formal_project\\features\\color_target\\rtl\\color_target_text_overlay.v": "b89d4b65bb27deb0fe63606601b53483296d147ff0378667ed6a9cabf6690aa9"
+  }
+}

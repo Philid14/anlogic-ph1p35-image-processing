@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "reference_commit": "4cc38ed",
+  "words": 172800,
+  "source_sha256": {
+    "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\ledger_latest_eq_08\\tb.sv": "d970568d859a5359318df67fb1bb614ba32e5084092a63ea87f69072c2ad9798",
+    "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\ledger_latest_eq_08\\ledger_reference.v": "74c8009f660c6010336fa864979f49da8fa00daa29bd7a8955ada0dc400ae574",
+    "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1\\ledger_latest_preview\\frame_transaction_ledger.v": "5e556d71d9521bb8d53eb27031886b480dd022bc7bc64c6acba58c24e5282e4b"
+  }
+}
