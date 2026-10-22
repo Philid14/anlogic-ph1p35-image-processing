@@ -62,6 +62,9 @@ exit
     assert gm and float(gm[1])>=0 and float(gm[2])==0 and int(gm[3])==0
     assert int(gm[4])==int(gm[5]) and 36<=int(gm[4])<2000,'Incomplete FIFO pointer coverage'
     assert 'Budget              : 13.033ns' in gray
+    for owner in ('u_writer','u_reader'):
+        assert re.search(r'Begin Point\s+:\s+[^\n]*/'+owner+r'/[^\n]*primary_addr_gray',gray),owner
+        assert re.search(r'End Point\s+:\s+[^\n]*/'+owner+r'/[^\n]*sync_r1',gray),owner
     result=dict(passed=True,database_sha256=hashlib.sha256(database.read_bytes()).hexdigest(),
         implementation_sdc_sha256=hashlib.sha256(original).hexdigest(),bound_ns=40,
         minimum_registered_bundle_wait_ns=5*13.333,minimum_pulse_bundle_wait_ns=6*13.333,
