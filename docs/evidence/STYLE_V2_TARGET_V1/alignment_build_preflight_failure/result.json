@@ -1,0 +1,9 @@
+{
+  "passed": false,
+  "source_commit": "2f813b0",
+  "failure": "Before TD: repository-wide clean check encountered unrelated dirty research prose",
+  "dirty_path": "docs/GITHUB_REFERENCE_RESEARCH.md",
+  "synthesis_executed": false,
+  "new_database": false,
+  "resource_measurement": null
+}

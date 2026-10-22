@@ -25,7 +25,12 @@ def git(*a):return subprocess.check_output(['git',*a],cwd=ROOT)
 
 
 def snapshot():
-    assert not git('diff','HEAD','--name-only').strip(), 'Commit tracked changes before building'
+    dirty=git('diff','HEAD','--name-only').decode('utf-8').splitlines()
+    # Other MAIN research may edit prose concurrently. Never stage or overwrite
+    # it here. Every actual TD input is independently compared to HEAD below;
+    # non-document code/configuration still must be committed before a build.
+    assert all(p.startswith('docs/') for p in dirty), 'Commit tracked code/config changes before building'
+    if dirty:print('Uncommitted documents excluded from build inputs:',', '.join(dirty),flush=True)
     head=git('rev-parse','HEAD').decode().strip()
     al=PROJECT/'camera_to_dsi_display.al'
     entries=re.findall(r'<File Path="([^"]+)"',al.read_text(encoding='utf-8'))
