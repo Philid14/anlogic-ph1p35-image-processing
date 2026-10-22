@@ -47,29 +47,32 @@ module edge_control_stream #(
         .I_rgb(I_data), .I_binary_threshold(beat_config[7:0]),
         .O_gray(gray_now), .O_binary(binary_now)
     );
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) begin
-            valid_p <= 0; user_p <= 0; last_p <= 0;
-            for (i=0; i<EDGE_STAGES; i=i+1) begin
-                original_p[i] <= 0; gray_p[i] <= 0; binary_p[i] <= 0;
-                config_p[i] <= RESET_CONFIG;
-            end
-        end else begin
-            original_p[0] <= I_data;
-            gray_p[0] <= gray_now;
-            binary_p[0] <= binary_now;
-            config_p[0] <= beat_config;
-            for (i=1; i<EDGE_STAGES; i=i+1) begin
-                original_p[i] <= original_p[i-1];
-                gray_p[i] <= gray_p[i-1];
-                binary_p[i] <= binary_p[i-1];
-                config_p[i] <= config_p[i-1];
-            end
-            valid_p <= {valid_p[EDGE_STAGES-2:0],I_valid};
-            user_p <= {user_p[EDGE_STAGES-2:0],I_user};
-            last_p <= {last_p[EDGE_STAGES-2:0],I_last};
+    // Payload storage has no reset, allowing fixed-depth shift RAM mapping.
+    // Qualification recreates every old reset value at each observable tap.
+    localparam integer WARM_W=$clog2(EDGE_STAGES+1);
+    reg [WARM_W-1:0] warm_count;
+    always @(posedge clk) begin
+        original_p[0]<=I_data;gray_p[0]<=gray_now;binary_p[0]<=binary_now;
+        config_p[0]<=beat_config;
+        for(i=1;i<EDGE_STAGES;i=i+1) begin
+            original_p[i]<=original_p[i-1];gray_p[i]<=gray_p[i-1];
+            binary_p[i]<=binary_p[i-1];config_p[i]<=config_p[i-1];
         end
     end
+    always @(posedge clk or negedge rst_n) begin
+        if(!rst_n) begin valid_p<=0;user_p<=0;last_p<=0;warm_count<=0;end
+        else begin
+            if(warm_count<EDGE_STAGES)warm_count<=warm_count+1'b1;
+            valid_p<={valid_p[EDGE_STAGES-2:0],I_valid};
+            user_p<={user_p[EDGE_STAGES-2:0],I_user};
+            last_p<={last_p[EDGE_STAGES-2:0],I_last};
+        end
+    end
+    wire [95:0] aligned_original=warm_count>=EDGE_STAGES ? original_p[EDGE_STAGES-1] : 96'd0;
+    wire [95:0] aligned_gray=warm_count>=EDGE_STAGES ? gray_p[EDGE_STAGES-1] : 96'd0;
+    wire [95:0] aligned_binary=warm_count>=EDGE_STAGES ? binary_p[EDGE_STAGES-1] : 96'd0;
+    wire [18:0] aligned_config=warm_count>=EDGE_STAGES ? config_p[EDGE_STAGES-1] : RESET_CONFIG;
+    wire [18:0] spatial_config=warm_count>=SPATIAL_STAGES ? config_p[SPATIAL_STAGES-1] : RESET_CONFIG;
     wire [95:0] edge_data,stable_edge_data;
     wire [1:0] edge_support;
     edge_detect_96 #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
@@ -84,7 +87,7 @@ module edge_control_stream #(
         edge_temporal_hold #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_hold(
             .clk(clk),.rst_n(rst_n),.I_edge({edge_data[95],edge_data[47]}),.I_support(edge_support),
             .I_valid(valid_p[SPATIAL_STAGES-1]),.I_user(user_p[SPATIAL_STAGES-1]),.I_last(last_p[SPATIAL_STAGES-1]),
-            .I_threshold(config_p[SPATIAL_STAGES-1][15:8]),.O_edge(bits_out),.O_valid(),.O_user(),.O_last());
+            .I_threshold(spatial_config[15:8]),.O_edge(bits_out),.O_valid(),.O_user(),.O_last());
         assign stable_edge_data={{48{bits_out[1]}},{48{bits_out[0]}}};
     end else begin:g_spatial assign stable_edge_data=edge_data;end endgenerate
     // Compute STYLE near the end of the existing alignment window, reusing
@@ -92,7 +95,7 @@ module edge_control_stream #(
     wire [95:0] style_data;
     generate if(EDGE_STAGES>5)begin:g_style_delayed
         style_fill_96 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_style(
-            .clk(clk),.rst_n(rst_n),.I_data(original_p[EDGE_STAGES-6]),
+            .clk(clk),.rst_n(rst_n),.I_data(warm_count>=EDGE_STAGES-5 ? original_p[EDGE_STAGES-6] : 96'd0),
             .I_valid(valid_p[EDGE_STAGES-6]),.I_user(user_p[EDGE_STAGES-6]),.O_data(style_data));
     end else begin:g_style_direct
         style_fill_96 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_style(
@@ -102,10 +105,10 @@ module edge_control_stream #(
     // configuration already travelling with this exact pixel beat.
     reg [95:0] selected_data;
     always @(*) begin
-        case (config_p[EDGE_STAGES-1][18:16])
-            MODE_ORIGIN: selected_data = original_p[EDGE_STAGES-1];
-            MODE_GRAY:   selected_data = gray_p[EDGE_STAGES-1];
-            MODE_BINARY: selected_data = binary_p[EDGE_STAGES-1];
+        case (aligned_config[18:16])
+            MODE_ORIGIN: selected_data = aligned_original;
+            MODE_GRAY:   selected_data = aligned_gray;
+            MODE_BINARY: selected_data = aligned_binary;
             MODE_STYLE: selected_data = style_data;
             default:     selected_data = stable_edge_data;
         endcase
@@ -114,7 +117,7 @@ module edge_control_stream #(
                      .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE)) u_status (
         .clk(clk), .rst_n(rst_n), .I_data(selected_data),
         .I_valid(valid_p[EDGE_STAGES-1]), .I_user(user_p[EDGE_STAGES-1]), .I_last(last_p[EDGE_STAGES-1]),
-        .I_config(config_p[EDGE_STAGES-1]), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
+        .I_config(aligned_config), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
         .O_user(O_user), .O_last(O_last)
     );
 endmodule

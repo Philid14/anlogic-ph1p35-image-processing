@@ -1,0 +1,2 @@
+FATAL: D:\anlogic_formal_project\tests\tb_alignment_storage.sv:27: alignment differs f=11 y=4 beat=13 check=2798 new=16386a4cf4d29faa5644001d old=000000000000000000000000
+       Time: 27976000  Scope: tb_alignment_storage.cycle

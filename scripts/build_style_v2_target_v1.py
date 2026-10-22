@@ -18,7 +18,7 @@ PROJECT=ROOT/'in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project'
 OUT=ROOT/'tmp/style_v2_target_v1'
 BASE='89093f428878b918036c8a30a0d1afe7764946b8'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
-ALLOWED={HDL+p for p in ('design_top_wrapper.v','video_in.v','video_out.v','isp/isp_top.v','hdmi_mixer.v')}
+ALLOWED={HDL+p for p in ('design_top_wrapper.v','video_in.v','video_out.v','isp/isp_top.v','hdmi_mixer.v','isp/edge_control_stream.v')}
 
 
 def git(*a):return subprocess.check_output(['git',*a],cwd=ROOT)
@@ -41,7 +41,7 @@ def snapshot():
             assert data.replace(b'\r\n',b'\n')==git('show',BASE+':'+rel).replace(b'\r\n',b'\n'),rel
             frozen.append(rel)
         files[rel]=dict(sha256=hashlib.sha256(data).hexdigest(),git_blob=git('rev-parse',head+':'+rel).decode().strip())
-    assert len(frozen)==61,len(frozen)
+    assert len(frozen)==60,len(frozen)
     target=[p for p in files if p.startswith('features/color_target/rtl/')]
     assert len(target)==8 and not any(p.endswith('color_target_detect.v') for p in target)
     for run,name in [('syn_1','syn_settings.cfg'),('phy_1','phy_settings.cfg')]:

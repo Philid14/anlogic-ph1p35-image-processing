@@ -1,0 +1,22 @@
+"""Bind exact simulation input hashes to a commit, allowing only newline changes."""
+from pathlib import Path
+import argparse,hashlib,json,subprocess,zipfile
+ROOT=Path(__file__).resolve().parents[1]
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--directory',type=Path,required=True);ap.add_argument('--commit',required=True);a=ap.parse_args()
+    folder=a.directory.resolve();manifest=json.loads((folder/'SOURCE_MANIFEST.json').read_text());mapped={};mixed={}
+    commit=subprocess.check_output(['git','rev-parse',a.commit],cwd=ROOT).decode().strip()
+    for rel,sha in manifest.items():
+        blob=subprocess.check_output(['git','show',commit+':'+rel],cwd=ROOT);lf=blob.replace(b'\r\n',b'\n')
+        for mode,raw in [('git_blob',blob),('LF',lf),('CRLF',lf.replace(b'\n',b'\r\n'))]:
+            if hashlib.sha256(raw).hexdigest()==sha:mapped[rel]=mode;break
+        if rel not in mapped:
+            raw=(ROOT/rel).read_bytes()
+            assert hashlib.sha256(raw).hexdigest()==sha and raw.replace(b'\r\n',b'\n')==lf,rel
+            mapped[rel]='manifest-matching mixed newlines; normalized content equals Git';mixed[rel]=raw
+    if mixed:
+        with zipfile.ZipFile(folder/'EXACT_MIXED_NEWLINE_INPUTS.zip','w',zipfile.ZIP_DEFLATED) as z:
+            for rel,raw in mixed.items():z.writestr(rel,raw)
+    (folder/'COMMIT_BINDING.json').write_text(json.dumps(dict(source_commit=commit,all_input_content_matches_commit=True,newline_representations=mapped),indent=2)+'\n')
+    print('Bound',len(mapped),'inputs to',commit)
+if __name__=='__main__':main()

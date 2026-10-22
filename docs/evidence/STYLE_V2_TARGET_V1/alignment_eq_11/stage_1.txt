@@ -1,0 +1,2 @@
+PASS ALIGNMENT_STORAGE checks=6158 width=68 height=9
+D:\anlogic_formal_project\tests\tb_alignment_storage.sv:54: $finish called at 61580000 (1ps)

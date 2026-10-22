@@ -1,7 +1,8 @@
 """Current ISP/packer five-mode regression; historical frozen gates stay intact.
 
 This reuses the independent STYLE V2 pixel model, not its obsolete whole-video
-hash assumptions. The 61 unchanged TD inputs are checked against actual V2.
+hash assumptions. The 60 unchanged TD inputs are checked against actual V2;
+the sixth permitted file is the separately equivalence-tested alignment store.
 Actual transactional DDR/display verification is a separate named test suite.
 """
 import argparse,hashlib,json,re,subprocess
@@ -16,14 +17,14 @@ def main():
     assert a.icarus or a.msim
     a.out=a.out.resolve();a.out.mkdir(parents=True,exist_ok=False)
     old=json.loads((ROOT/'artifacts/bitstreams/EDGE_STYLE_FILL_V2/build_evidence/SOURCE_MANIFEST.json').read_text())['files']
-    allowed={str((HDL/p).relative_to(ROOT)).replace('\\','/') for p in ('design_top_wrapper.v','video_in.v','video_out.v','isp/isp_top.v','hdmi_mixer.v')}
+    allowed={str((HDL/p).relative_to(ROOT)).replace('\\','/') for p in ('design_top_wrapper.v','video_in.v','video_out.v','isp/isp_top.v','hdmi_mixer.v','isp/edge_control_stream.v')}
     frozen={}
     for rel in old:
         if rel in allowed:continue
         data=(ROOT/rel).read_bytes();reference=subprocess.check_output(['git','show',BASE+':'+rel],cwd=ROOT)
         assert data.replace(b'\r\n',b'\n')==reference.replace(b'\r\n',b'\n'),rel
         frozen[rel]=hashlib.sha256(data).hexdigest()
-    assert len(frozen)==61
+    assert len(frozen)==60
     stages=[];source_hashes={}
     def simulate(name,top,files,params=(),plus=()):
         out=a.out/name;out.mkdir()
