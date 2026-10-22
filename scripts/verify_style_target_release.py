@@ -14,13 +14,14 @@ def main():
     ap.add_argument('--route',required=True);ap.add_argument('--physical-cdc',type=Path,required=True)
     ap.add_argument('--final-system',default='final_system_09')
     ap.add_argument('--fault-system',default='fault_system_13')
+    ap.add_argument('--active-epoch',required=True,help='Actual queued writes plus live read lease at epoch fault')
     ap.add_argument('--out',type=Path,required=True);a=ap.parse_args()
     evidence=ROOT/'docs/evidence/STYLE_V2_TARGET_V1';hashes={}
     def remember(p):hashes[p.relative_to(ROOT).as_posix()]=digest(p)
     def load(p):remember(p);return json.loads(p.read_text())
     before=snapshot();frozen=load(evidence/a.synthesis/'SOURCE_MANIFEST.json')
     for key in ('files','al_sha256','historical_bits'):assert before[key]==frozen[key],key
-    for name in (a.final_system,a.fault_system):
+    for name in (a.final_system,a.fault_system,a.active_epoch):
         folder=evidence/name;summary=load(folder/'summary.json')
         assert summary['passed'] and summary['source_unchanged']
         sources=load(folder/'SOURCE_MANIFEST.json')

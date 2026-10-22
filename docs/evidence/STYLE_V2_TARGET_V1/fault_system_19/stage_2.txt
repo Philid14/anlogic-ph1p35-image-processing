@@ -1,0 +1,159 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet -lib work tb_target_frame_system tb_target_progress PH1P_PHY_GSR -do "onerror {quit -code 2}; run -all; quit -f -code 0" 
+# Start time: 13:26:45 on Oct 22,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_target_frame_system/dut/u_writer/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_target_frame_system/dut/u_writer/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_target_frame_system/dut/u_writer/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_target_frame_system/dut/u_reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_target_frame_system/dut/u_reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_target_frame_system/dut/u_reader/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'cea'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(222).
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'ocea'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(223).
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(230).
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'web'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(232).
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(234).
+# 
+#         Region: /tb_target_frame_system/command_fifo/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Missing connection for port 'dib'.
+# 
+# onerror {quit -code 2}
+#  Warning: onerror command for use within macro
+#  run -all
+# SIM_PROGRESS_NS 1000000
+# SIM_PROGRESS_NS 2000000
+# SIM_PROGRESS_NS 3000000
+# SIM_PROGRESS_NS 4000000
+# SIM_PROGRESS_NS 5000000
+# SIM_PROGRESS_NS 6000000
+# SIM_PROGRESS_NS 7000000
+# SIM_PROGRESS_NS 8000000
+# SIM_PROGRESS_NS 9000000
+# SIM_PROGRESS_NS 10000000
+# SIM_PROGRESS_NS 11000000
+# SIM_PROGRESS_NS 12000000
+# SIM_PROGRESS_NS 13000000
+# SIM_PROGRESS_NS 14000000
+# SIM_PROGRESS_NS 15000000
+# SIM_PROGRESS_NS 16000000
+# SIM_PROGRESS_NS 17000000
+# SIM_PROGRESS_NS 18000000
+# SIM_PROGRESS_NS 19000000
+# SIM_PROGRESS_NS 20000000
+# SIM_PROGRESS_NS 21000000
+# SIM_PROGRESS_NS 22000000
+# COMMIT 1 source=2 tick=22685
+# SIM_PROGRESS_NS 23000000
+# SIM_PROGRESS_NS 24000000
+# SIM_PROGRESS_NS 25000000
+# SIM_PROGRESS_NS 26000000
+# SIM_PROGRESS_NS 27000000
+# SIM_PROGRESS_NS 28000000
+# SIM_PROGRESS_NS 29000000
+# SIM_PROGRESS_NS 30000000
+# SIM_PROGRESS_NS 31000000
+# SIM_PROGRESS_NS 32000000
+# SIM_PROGRESS_NS 33000000
+# SIM_PROGRESS_NS 34000000
+# SIM_PROGRESS_NS 35000000
+# SIM_PROGRESS_NS 36000000
+# SIM_PROGRESS_NS 37000000
+# SIM_PROGRESS_NS 38000000
+# SIM_PROGRESS_NS 39000000
+# COMMIT 2 source=4 tick=39352
+# SIM_PROGRESS_NS 40000000
+# SIM_PROGRESS_NS 41000000
+# SIM_PROGRESS_NS 42000000
+# SIM_PROGRESS_NS 43000000
+# SIM_PROGRESS_NS 44000000
+# SIM_PROGRESS_NS 45000000
+# SIM_PROGRESS_NS 46000000
+# SIM_PROGRESS_NS 47000000
+# SIM_PROGRESS_NS 48000000
+# SIM_PROGRESS_NS 49000000
+# SIM_PROGRESS_NS 50000000
+# SIM_PROGRESS_NS 51000000
+# SIM_PROGRESS_NS 52000000
+# SIM_PROGRESS_NS 53000000
+# SIM_PROGRESS_NS 54000000
+# SIM_PROGRESS_NS 55000000
+# SIM_PROGRESS_NS 56000000
+# COMMIT 3 source=6 tick=56022
+# SIM_PROGRESS_NS 57000000
+# SIM_PROGRESS_NS 58000000
+# SIM_PROGRESS_NS 59000000
+# SIM_PROGRESS_NS 60000000
+# SIM_PROGRESS_NS 61000000
+# SIM_PROGRESS_NS 62000000
+# SIM_PROGRESS_NS 63000000
+# SIM_PROGRESS_NS 64000000
+# COMMIT 4 source=7 tick=64353
+# SIM_PROGRESS_NS 65000000
+# SIM_PROGRESS_NS 66000000
+# SIM_PROGRESS_NS 67000000
+# SIM_PROGRESS_NS 68000000
+# SIM_PROGRESS_NS 69000000
+# SIM_PROGRESS_NS 70000000
+# SIM_PROGRESS_NS 71000000
+# SIM_PROGRESS_NS 72000000
+# COMMIT 5 source=8 tick=72687
+# SIM_PROGRESS_NS 73000000
+# SIM_PROGRESS_NS 74000000
+# SIM_PROGRESS_NS 75000000
+# SIM_PROGRESS_NS 76000000
+# SIM_PROGRESS_NS 77000000
+# SIM_PROGRESS_NS 78000000
+# SIM_PROGRESS_NS 79000000
+# SIM_PROGRESS_NS 80000000
+# SIM_PROGRESS_NS 81000000
+# COMMIT 6 source=9 tick=81020
+# SIM_PROGRESS_NS 82000000
+# SIM_PROGRESS_NS 83000000
+# SIM_PROGRESS_NS 84000000
+# SIM_PROGRESS_NS 85000000
+# SIM_PROGRESS_NS 86000000
+# SIM_PROGRESS_NS 87000000
+# SIM_PROGRESS_NS 88000000
+# SIM_PROGRESS_NS 89000000
+# SIM_PROGRESS_NS 90000000
+# FINAL_FAULT_COUNTS cancels=2 faults=1 fifo=00010000 recovery=0 pending=0
+# PASS TARGET_FAULT_SYSTEM checks=29904827 commits=6 recovered=3 cancels=2 faults=1 fifo=00010000
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_target_frame_system_faults.sv(161)
+#    Time: 90000040 ns  Iteration: 0  Instance: /tb_target_frame_system
+# End time: 13:32:30 on Oct 22,2026, Elapsed time: 0:05:45
+# Errors: 0, Warnings: 18

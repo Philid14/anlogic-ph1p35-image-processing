@@ -224,3 +224,19 @@ TD按RTL源文件目录查找裸文件名，而非当前run/project目录。将�
 隔离实测再次得到21估算Slice/10ERAM，且不再有INIT_FILE/FILL_ALL组合告警。
 canonical初始化现在位于target/；td_project保留完全一致的生成镜像以兼容已开始的仿真，builder逐字核对两份并记录镜像关系。
 本次没有改RTL或初始化数值，因此正在执行的真实官方模型联合测试输入字节不变；源码旁的实际TD输入85项将绑定新的提交。
+
+
+## 12. 明确ERAM整机实测与最终功能结果
+
+SYN20真实源码 `7c7e5ee7d6c52260bcf557d9dabd4014f84e2687`：20514估算Slice、24255原生LUT、21949FF、99ERAM、21DSP，SYN Setup/Hold +0.125/+0.114ns。
+相对SYN10少1006估算Slice、1857原生LUT，ERAM多8；不能直接用独立ROM1456→21差额当整机物理节省。
+实际pack19947；完成place19952 Slice、18063 LUT6、21649FF、99ERAM/21DSP。
+对前一place20940再少988 Slice，对最初21825累计少1873，余1264（5.96%）；完整route仍待完成。
+
+正式相同RTL+真实官方ERAM/GSR模型的 final_system_18 完整210ms再次通过：52405117检查、1382400写、1859040读、8完整提交、6可见/1无目标/3过期扫描。
+故障重跑fault_system_19再次得到29904827检查、2取消/1epoch/3后续提交，全部写排空。
+为补上“epoch发生时确有物理在途写与正在扫描的读租约”边界，新增独立active_epoch_21：
+在source4实际pending=1、leased=1时注入校准失效；24648825检查、5完整提交、3故障后提交、1取消、1epoch，通过结束写排空。
+source3溢出、source4中断及source5错误均未完整提交，读租约未被写覆盖；不靠force内部状态构造测试。
+原fault13/19的32ms校准失效位于帧间空闲，保留原证据，不能用它替代新active-epoch证明。
+这些仍是实际数字RTL和有界DDR模型，不代表真实Sensor/MIPI/DDR PHY及长期实板验证。
