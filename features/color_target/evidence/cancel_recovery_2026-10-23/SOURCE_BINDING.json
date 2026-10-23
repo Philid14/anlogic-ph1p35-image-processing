@@ -1,0 +1,19 @@
+{
+  "base_target_commit": "49641eefc8bab37de3cd1b9d7f95a0051a0f0d1e",
+  "main_revision": "5cbb1de3814a842067ee1ffd41df3d75bbf0de26",
+  "latency_revision": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47",
+  "scope": "Independent tests and host tools only; production RTL unchanged",
+  "source_sha256": {
+    "features/color_target/board/RECORD_CHECKER.md": "752b8e727a43929a5fca0706308d6f70384dab6e4d8c50bd12b09333c15eac25",
+    "features/color_target/integration/CANCEL_RECOVERY_REVIEW_2026-10-23.md": "0990ad4ad842dbbdc56e36d1915fb751aad06e7baf668df38d750200de932611",
+    "features/color_target/tb/tb_cancel_recovery_probe.svh": "473efabe732b0abd11eb0b7418a50c858a698b118755216b184b7a8c8d452194",
+    "features/color_target/tb/tb_latency_review_v2.sv": "1275887625e06fa66b2229f1645baaf27ce23fdd43c171de7a4c78bd65014488",
+    "features/color_target/tb/test_board_run_checks.py": "d2f979a2d64c9739cb2f2e6ed1fbe2e997487393a5e9a732ce7601d3976be352",
+    "features/color_target/tb/test_candidate_replay_preflight.py": "1fa3bf095088122601c7afd94708f2b1cd49ca85b92365579e355c7a56ca1d92",
+    "features/color_target/tools/check_board_run.py": "ecacc0c7fec235fde8f03b06a146497b24223457a53a1d062691201922c06c01",
+    "features/color_target/tools/prepare_candidate_replay.py": "23edf69abde3fd2ac17d644658d3d476e1ca78e42aab116382276e0caa6176be",
+    "features/color_target/tools/run_cancel_recovery_review.py": "7ff156fab2a89bd7198048ffa7c10cf0be742b6edae56fd92d01cca5a29621f8",
+    "features/color_target/tools/run_latency_review_v2.py": "048982020b857aa99f35678eeb8d00a7134719099a04a7a32b8767f2cfc99acc",
+    "features/color_target/tools/export_pinned_main.py": "d2740627336587c952d9dbdb82098e1cee1e7f2fc38faa776953ad6212dcb014"
+  }
+}

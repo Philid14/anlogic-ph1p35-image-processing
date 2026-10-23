@@ -1,0 +1,341 @@
+{
+  "assessment": "REVIEW_REQUIRED",
+  "production_snapshot_unchanged": true,
+  "snapshot_files": 452,
+  "main_revision": "5cbb1de3814a842067ee1ffd41df3d75bbf0de26",
+  "latency_revision": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47",
+  "warm_trace": {
+    "limited_invariants_passed": true,
+    "assessment": "REVIEW_REQUIRED",
+    "source_unchanged": true,
+    "candidate_commit": "5cbb1de3814a842067ee1ffd41df3d75bbf0de26",
+    "stages": [
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+          "work"
+        ],
+        "exit_code": 0,
+        "tool_ok": true,
+        "elapsed_seconds": 0.046999999998661224
+      },
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+          "-sv",
+          "-work",
+          "work",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\warm-01\\tb_cancel_recovery.sv",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_frame_system.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_bundle_cdc.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_timebase.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\target_observer_adapter.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\target\\frame_transaction_ledger.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_classify.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_detect.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_detect_stream.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_mask_stats.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_overlay.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_support3.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_text_overlay.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_track.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\features\\color_target\\rtl\\color_target_track_guard.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\video_in.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\video_out.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\mc_to_user_interface.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\data_96bit_to_128bit.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\isp\\fifo_event_counter.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\vtc\\uivtc.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\ip_source\\w128_d512_fifo\\soft_fifo_al_4057d6b76aa6.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\ip_source\\w128_d512_fifo\\w128_d512_fifo.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\ip_source\\w155_d512_fifo\\soft_fifo_al_f58e8b3e1f3d.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\ip_source\\w155_d512_fifo\\w155_d512_fifo.v"
+        ],
+        "exit_code": 0,
+        "tool_ok": true,
+        "elapsed_seconds": 0.1720000000022992
+      },
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+          "-c",
+          "-quiet",
+          "-lib",
+          "work",
+          "tb_target_frame_system",
+          "+TRACE=C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\warm-01\\events.txt",
+          "-do",
+          "onerror {quit -code 2}; run -all; quit -f -code 0"
+        ],
+        "exit_code": 0,
+        "tool_ok": true,
+        "elapsed_seconds": 614.0469999999987
+      }
+    ],
+    "scope": "Actual digital MAIN/FIFOs with prior read lease; spatial synthetic pixels and bounded DDR. Not final HDMI pixel/PHY/P&R/board proof."
+  },
+  "latency_review": {
+    "evidence_valid": true,
+    "normal_controls_satisfied": false,
+    "all_probes_satisfied": false,
+    "revision": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47",
+    "checks": [
+      {
+        "name": "normal_first_count",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "normal_valid",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "normal_no_fatal",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "repeat_not_recounted",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "repeat_age_event",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "resync_count_zero",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "resync_sum_zero",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "resync_invalid",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "resync_clean_pair",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "two_losses_counted",
+        "expected": 2,
+        "actual": 2,
+        "reported_pass": true
+      },
+      {
+        "name": "two_losses_visible",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "two_losses_one_delivery",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "queue_full_lost_four",
+        "expected": 4,
+        "actual": 4,
+        "reported_pass": true
+      },
+      {
+        "name": "queue_full_accounted",
+        "expected": 20,
+        "actual": 20,
+        "reported_pass": true
+      },
+      {
+        "name": "foreign_counted",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "foreign_not_inserted",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "foreign_invalid",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "authoritative_pair_recovers",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "overflow_latched_fatal",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "alarm_clear_not_recovery",
+        "expected": 0,
+        "actual": 0,
+        "reported_pass": true
+      },
+      {
+        "name": "fatal_survives_alarm_clear",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "fatal_resync_recovers",
+        "expected": 1,
+        "actual": 1,
+        "reported_pass": true
+      },
+      {
+        "name": "destination_reset_no_old_replay",
+        "expected": 0,
+        "actual": 1,
+        "reported_pass": false
+      },
+      {
+        "name": "destination_reset_new_event",
+        "expected": 1,
+        "actual": 2,
+        "reported_pass": false
+      },
+      {
+        "name": "loss_wrap_still_visible",
+        "expected": 1,
+        "actual": 0,
+        "reported_pass": false
+      },
+      {
+        "name": "loss_wrap_deliveries",
+        "expected": 16,
+        "actual": 16,
+        "reported_pass": true
+      }
+    ],
+    "stages": [
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+          "work"
+        ],
+        "exit_code": 0,
+        "tool_ok": true
+      },
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+          "-sv",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\latency-v2-02\\frame_event_bridge.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\latency-v2-02\\latency_meter.v",
+          "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\latency-v2-02\\tb_latency_review_v2.sv"
+        ],
+        "exit_code": 0,
+        "tool_ok": true
+      },
+      {
+        "argv": [
+          "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+          "-c",
+          "-quiet",
+          "tb_latency_review_v2",
+          "-do",
+          "onerror {quit -code 2}; run -all; quit -f -code 0"
+        ],
+        "exit_code": 0,
+        "tool_ok": true
+      }
+    ],
+    "scope": "Public-port isolated digital review; no MAIN wiring or physical CDC/board proof"
+  },
+  "software_selftests": {
+    "board": 18,
+    "replay_input": 5
+  },
+  "cli_jobs": [
+    {
+      "label": "replay-profile-cli",
+      "argv": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\prepare_candidate_replay.py",
+        "--manifest",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\synthetic-replay-input\\manifest.json",
+        "--source",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source",
+        "--snapshot-manifest",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\snapshot-manifest.json",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\candidate-profile"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "matched": true
+    },
+    {
+      "label": "board-template-cli",
+      "argv": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_board_run.py",
+        "--template",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\board-run-blank.json"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "matched": true
+    },
+    {
+      "label": "board-blank-cli",
+      "argv": [
+        "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+        "-B",
+        "-X",
+        "utf8",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tools\\check_board_run.py",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\board-run-blank.json",
+        "--bit",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\latest-readiness-2026-10-23\\candidate-source\\artifacts\\bitstreams\\STYLE_V2_TARGET_V1\\camera_to_dsi_display.bit",
+        "--out",
+        "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\board-blank-analysis.json"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "matched": true
+    }
+  ],
+  "actual_camera_material_used": false,
+  "new_synthesis_route_bit": false,
+  "board_test": false,
+  "boundary": "No MAIN/LATENCY/production TARGET changes; no integrated guard temporal replay or final HDMI pixels in this fault case",
+  "final_replay_tests_log": "replay-preflight-tests-final.txt",
+  "raw_zip_note": "Original raw zip preserves the earlier 3 replay tests; final log adds two RTL source-integrity rejection tests."
+}

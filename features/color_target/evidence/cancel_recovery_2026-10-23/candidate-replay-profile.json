@@ -1,0 +1,103 @@
+{
+  "candidate_commit": "5cbb1de3814a842067ee1ffd41df3d75bbf0de26",
+  "source_sha256": {
+    "features/color_target/rtl/color_target_detect_stream.v": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+    "features/color_target/rtl/color_target_track_guard.v": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_frame_system.v": "7c5b4aef499ece4e98f2e9f16f136cb91a0e079e578c7f7b825118898b753ab7",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/frame_timebase.v": "5442389b06963dcef3808d5f3a13ab4cb278fb3b56468c0b610c2eb020eb78d1",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_display_commit.v": "256508c671c72dca9efcf909b09b4caa014be8c2c1ea35a1997d91e3ba05adee"
+  },
+  "local_replay_rtl_binding": {
+    "color_classify.v": {
+      "raw_sha256": "6f5a214a92bbe127c361f3364613bb23fd1105ab4b2e1c3e511e590a1ccc050e",
+      "pinned_sha256": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_detect.v": {
+      "raw_sha256": "0852d4e23648ff7fde9df4d76ff42d37eefd886a26ba684c538da86971ca99de",
+      "pinned_sha256": "04a0deb44826a24485db86959ab3028875b3e1884289a383734a24610a597d39",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_detect_stream.v": {
+      "raw_sha256": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+      "pinned_sha256": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+      "representation": "raw"
+    },
+    "color_target_mask_stats.v": {
+      "raw_sha256": "2ac2d163e9992eaff3363b23f58e097cdd600d33ff85559e91bd4321f4efb9aa",
+      "pinned_sha256": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_overlay.v": {
+      "raw_sha256": "b8253d68fff5f3b12513cf1406d2450575ddb840899652cb8d2f8ec59ce264fc",
+      "pinned_sha256": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_support3.v": {
+      "raw_sha256": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+      "pinned_sha256": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+      "representation": "raw"
+    },
+    "color_target_text_overlay.v": {
+      "raw_sha256": "b89d4b65bb27deb0fe63606601b53483296d147ff0378667ed6a9cabf6690aa9",
+      "pinned_sha256": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_track.v": {
+      "raw_sha256": "a0ad7ba300e5898c8edc4b209332a1c7105380369d68bbc4891bcd6e5e975457",
+      "pinned_sha256": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "representation": "uniform_CRLF_to_LF"
+    },
+    "color_target_track_guard.v": {
+      "raw_sha256": "29a9933ee2f8b404f9eed4358b40a1e5b3524311562db127fe652f70e7852196",
+      "pinned_sha256": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "representation": "uniform_CRLF_to_LF"
+    }
+  },
+  "replay_runner_sha256": "5ddd03574f9ccd9562f664c0a4ada1179f583c28e8f134e210c1f1b5b6aadb59",
+  "classifier_parameters": {
+    "target_class": 0,
+    "hue_half_width_deg": 30,
+    "c_min": 24,
+    "v_min": 32,
+    "min_count": 64,
+    "filter_enable": false
+  },
+  "guard_configuration": {
+    "time_w": 64,
+    "counter_w": 16,
+    "acq_frames": 3,
+    "lost_frames": 15,
+    "max_target_age_ticks": 100000,
+    "max_reliable_age_ticks": 100000,
+    "tick_hz_nominal": 1000000,
+    "max_scan_ticks": 16501
+  },
+  "dataset": {
+    "groups_by_source_and_split": {
+      "synthetic/validation": 1
+    },
+    "unannotated_frames": 1,
+    "camera_material_declared": false,
+    "input_tap_provenance": "User declaration; not independently certified by the manifest"
+  },
+  "detector_replay_argv": [
+    "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+    "-B",
+    "-X",
+    "utf8",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\run_color_target_replay.py",
+    "--manifest",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\synthetic-replay-input\\manifest.json",
+    "--out",
+    "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\cancel-recovery-review-2026-10-23\\candidate-profile-v3\\detector-only",
+    "--mode",
+    "bypass",
+    "--min-count",
+    "64"
+  ],
+  "preflight_passed": true,
+  "replay_executed": false,
+  "integrated_guard_temporal_replay_verified": false,
+  "scope": "Input/source/configuration preflight only; existing replay uses legacy track. Add explicit trusted time/control/result/display events before guard acceptance; no assumed frame rate or derived capture timestamps."
+}
