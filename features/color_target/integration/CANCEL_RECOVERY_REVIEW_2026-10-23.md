@@ -120,6 +120,8 @@ python -B -m unittest discover -s features/color_target/tb -p test_candidate_rep
 `evidence/cancel_recovery_2026-10-23/`保存summary、来源/哈希、原始日志zip。warm-01的events.txt是事务事件表；原始上一轮active-input-stop证据保留本机原目录，没有覆盖。
 首次软件自检受限于Windows TemporaryDirectory权限，未执行到功能检查；正常本机环境最终18+5项全部通过。ModelSim同样使用正常本机环境，不安装/替换工具。原始zip内保留此前3项回放输入检查日志，最终补充日志还包括缺失/篡改RTL的拒绝检查。
 
+证据哈希分两个字节域：`SHA256.json`保留采集机原始文件哈希，`RAW_INDEX.json`用于逐项核验zip中的原始字节。Git会将部分JSON/TXT的统一CRLF转换为LF，不能直接拿原始文件哈希检查克隆后的这些文本；请使用 `GIT_BLOB_BINDING.json`中的路径/Git对象ID/SHA256核验仓库字节。该绑定逐文件证明“字节完全相同”或“仅统一CRLF→LF”，不忽略其他内容。zip为二进制，字节未改变，65份内部证据仍按原始哈希核验。`SOURCE_BINDING.json`对应初次交付8b085c4的测试/工具源码；后续仅补充本说明与仓库字节绑定，不改变测试源码或重写原始日志。
+
 本轮对原452份MAIN快照逐字节复核未变。导出器另从Git重建44份所需输入并逐blob验证；这44份是**所选数字测试输入**，不是完整TD工程交付。没有新综合/整机P&R/bit或板测，不能把本次检查数描述为实板稳定性证明。原MAIN资源/时序仍只适用于原route：Slice94.04%、ERAM91.67%、Setup/Hold WNS +0.165/+0.020ns。
 
 剩余人工决策：MAIN确认取消/隔离/重启契约与具体生产改动；异常恢复允许丢多少帧/多长时间；LATENCY单侧复位与长时间停目的时钟是否作为支持场景，以及失效后强制resync机制。下一步先审查R1+R2组合方案，不能仅消除误取消而遗漏残留FIFO。
