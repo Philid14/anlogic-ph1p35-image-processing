@@ -36,6 +36,8 @@ module tb_latency_osd;
     reg        cap_event = 1'b0;
     reg [1:0]  cap_kind = 2'd0;
     reg [31:0] cap_sid = 32'd0, cap_fid = 32'd0;
+    reg [31:0] auth_sid = 32'd0;
+    reg        auth_sid_vld = 1'b0;
     reg        dsp_event = 1'b0;
     reg [31:0] dsp_sid = 32'd0, dsp_fid = 32'd0;
 
@@ -48,6 +50,9 @@ module tb_latency_osd;
     wire [63:0] dbg_sum_ticks;
     wire [3:0]  dbg_alarm;
     wire        dbg_stats_valid, dbg_lat_seen, dbg_age_seen, dbg_fps_valid;
+    wire [7:0]  dbg_lost_total;
+    wire [31:0] dbg_foreign_count;
+    wire        dbg_fatal;
 
     reg [6:0] dbg_raddr = 7'd0;
 
@@ -60,6 +65,7 @@ module tb_latency_osd;
         .clk_cap(clk), .rst_cap_n(rst_n), .cap_event(cap_event), .cap_kind(cap_kind),
         .cap_sid(cap_sid), .cap_fid(cap_fid),
         .clk(clk), .rst_n(rst_n), .de(de), .hs(hs), .vs(vs), .rgb_in(rgb_in),
+        .auth_sid(auth_sid), .auth_sid_vld(auth_sid_vld),
         .dsp_event(dsp_event), .dsp_sid(dsp_sid), .dsp_fid(dsp_fid),
         .alarm_clr(1'b0), .resync_req(1'b0),
         .rgb_out(rgb_out), .de_out(de_out), .hs_out(hs_out), .vs_out(vs_out),
@@ -70,7 +76,8 @@ module tb_latency_osd;
         .dbg_cap_count(dbg_cap_count), .dbg_dsp_count(dbg_dsp_count),
         .dbg_avg_ticks(dbg_avg_ticks), .dbg_stat_count(dbg_stat_count), .dbg_sum_ticks(dbg_sum_ticks),
         .dbg_alarm(dbg_alarm), .dbg_stats_valid(dbg_stats_valid),
-        .dbg_lat_seen(dbg_lat_seen), .dbg_age_seen(dbg_age_seen), .dbg_fps_valid(dbg_fps_valid)
+        .dbg_lat_seen(dbg_lat_seen), .dbg_age_seen(dbg_age_seen), .dbg_fps_valid(dbg_fps_valid),
+        .dbg_lost_total(dbg_lost_total), .dbg_foreign_count(dbg_foreign_count), .dbg_fatal(dbg_fatal)
     );
 
     integer cyc = 0, line = 0, col = 0, i, f;

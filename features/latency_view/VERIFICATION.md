@@ -17,9 +17,10 @@ vvp align.vvp
 |---|---|
 | 模型自检 | `latency_model self-test: PASS` |
 | 布局生成物 | `osd_layout.vh up to date` |
-| 21 场景 | **cases: 21, failed: 0 / RESULT: PASS** |
+| 23 场景 | **cases: 23, failed: 0 / RESULT: PASS** |
 | 面板内容 | **RESULT: PASS**（normal + fault，128 字符与模型一致；AVG 与 sum/count 独立比对） |
 | 720p 全尺寸 | **PASS**（1280×720 单帧，8 行面板与模型一致） |
+| 事件桥丢失账本 | **PASS**（暂停目的端：20 事件→交付 16/丢失 4；连续 2 次过密→丢失 +2） |
 | 坐标对齐 | `ALIGN_ERRORS 0` |
 
 ## 场景
@@ -46,7 +47,9 @@ vvp align.vvp
 | s18_fid_wrap | 帧号回绕无新会话：清表 + bit3 |
 | s19_too_fast_alarm_clr | 过密事件被丢弃，`alarm_clr` 后 bit2 不再复置 |
 | s20_resync_stats_reset | `resync_req` 清零 count/sum，平均与 CNT 从新窗口重算 |
-| s21_queued_sample | FIFO 排队样本被排除（alarm bit2），不计入统计 |
+| s21_rapid_events | 出队过密 → fatal 锁存，无统计直到 resync |
+| s22_foreign_session | 非权威 session 被拒绝；resync 后才恢复统计 |
+| s23_fatal_requires_resync | 溢出后干净配对不能绕过 resync |
 
 真值由测试台打印的**实际事件时刻**计算；同钟容差 0 拍，跨钟 ±1 拍。
 
@@ -66,6 +69,15 @@ vvp align.vvp
 | 10 | `cap_too_fast` 单拍脉冲在慢目标时钟下可能漏采 | 改为 toggle + 目标域 XOR 边沿检测 | `s19` + 文档 |
 | 11 | 排队检测把 gray 指针当二进制比较（误判正常样本） | gray→binary 后再算占用 | 21 场景回归 |
 | 12 | 固定 CROSS 无法消除 FIFO 排队延迟（MAIN 指出） | 排队样本判无效并置 alarm[2] | `s21_queued_sample` |
+
+## TARGET 复审修复（2026-10-21，对 531ef61 的 3 项 P1）
+
+| # | TARGET 发现 | 修复 | 回归 |
+|---|---|---|---|
+| 13 | FIFO 满时 20 个合法事件只交付 16 个，两端告警均 0 | 每次丢弃（满/过密）递增 gray 错误计数器，`lost_count` 上报并置 fatal | `tb_frame_event_bridge`：lost=4/16 delivered |
+| 14 | 无应答 toggle 连续两次错误可能互相抵消 | gray 计数跨域 + 目标域比较，任意次数都不抵消 | 同上：连续 2 次过密 → lost +2 |
+| 15 | 表满/重采集后干净配对可绕过 resync | fatal 锁存，只有 `resync_req` 清除 | `s23_fatal_requires_resync`、`s17` |
+| 16 | 任意新 sid 被当成会话切换；单侧复位可重放旧包 | `auth_sid/auth_sid_vld` 权威会话 + resync flush + 目的端复位自动 flush | `s22_foreign_session` |
 
 ## 未验证（如实标记）
 

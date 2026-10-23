@@ -29,6 +29,7 @@
 python model/latency_model.py
 python model/gen_osd_layout.py --check
 python tests/run_latency_sim.py
+python tests/run_bridge_sim.py         # 事件桥丢失账本（满队列/连续错误）
 python tests/run_osd_sim.py            # 小分辨率 normal + fault
 python tests/run_osd_sim.py --full     # 追加 1280x720 单帧回归
 python model/preview.py --out .build/preview.png   # 面板预览 PNG

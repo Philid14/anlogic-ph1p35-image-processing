@@ -65,15 +65,16 @@ module latency_meter #(
     input  wire [1:0]        cap_kind,     // 0 start, 1 abort, 2 complete
     input  wire [SID_W-1:0]  cap_sid,
     input  wire [FID_W-1:0]  cap_fid,
-    output wire              cap_too_fast,
     // ---- display side (HDMI pixel domain) ----
     input  wire              clk,
     input  wire              rst_n,
     input  wire              dsp_event,    // first valid pixel of a displayed frame
     input  wire [SID_W-1:0]  dsp_sid,
     input  wire [FID_W-1:0]  dsp_fid,
+    input  wire [SID_W-1:0]  auth_sid,      // MAIN authoritative session
+    input  wire              auth_sid_vld,  // 1: only accept capture with this sid
     input  wire              alarm_clr,
-    input  wire              resync_req,
+    input  wire              resync_req,     // also flushes the bridge (epoch)
     // ---- measurement results ----
     output reg               lat_valid,    // 1 cycle pulse
     output reg  [CNT_W-1:0]  lat_cycles,   // held last first-display latency
@@ -103,17 +104,18 @@ module latency_meter #(
     output wire              evt_gap_alarm,
     output reg  [CNT_W-1:0]  lost_done_count,
     output reg  [CNT_W-1:0]  lost_abort_count,
-    output reg  [CNT_W-1:0]  queued_count     // samples excluded because the FIFO queued them
+    output wire [7:0]        lost_total,      // dropped source events (from the bridge)
+    output reg  [CNT_W-1:0]  foreign_count,   // captures with a non-authoritative session
+    output wire              fatal            // latched fault: resync required
 );
     localparam integer ENT = (1 << ENTRY_LOG2);
 
     //------------------------------------------------------------------
     // 1. capture event crossing
     //------------------------------------------------------------------
-    wire [SID_W+FID_W+2:0] evt_data;
+    wire [SID_W+FID_W+1:0] evt_data;
     wire                   evt_valid;
     wire                   pop = evt_valid;
-    wire                   evt_queued = evt_data[SID_W+FID_W+2];
     wire [1:0]             evt_kind = evt_data[SID_W+FID_W+1:SID_W+FID_W];
     wire [SID_W-1:0]       evt_sid  = evt_data[FID_W +: SID_W];
     wire [FID_W-1:0]       evt_fid  = evt_data[FID_W-1:0];
@@ -131,13 +133,15 @@ module latency_meter #(
         .cap_kind      (cap_kind),
         .cap_sid       (cap_sid),
         .cap_fid       (cap_fid),
-        .cap_too_fast  (cap_too_fast),
         .clk           (clk),
         .rst_n         (rst_n),
         .evt_ready     (1'b1),
+        .flush_req     (resync_req),
         .evt_data      (evt_data),
         .evt_valid     (evt_valid),
-        .evt_gap_alarm (evt_gap_alarm)
+        .evt_gap_alarm (evt_gap_alarm),
+        .lost_event    (lost_event),
+        .lost_count    (lost_total)
     );
 
     //------------------------------------------------------------------
@@ -178,7 +182,6 @@ module latency_meter #(
     reg                vld  [0:ENT-1];
     reg                done [0:ENT-1];   // frame completed (kind 2 seen)
     reg                used [0:ENT-1];   // displayed at least once
-    reg                eq   [0:ENT-1];   // event was queued in the CDC FIFO
     reg [SID_W-1:0]    esid [0:ENT-1];
     reg [FID_W-1:0]    efid [0:ENT-1];
     reg [CNT_W-1:0]    ecyc [0:ENT-1];
@@ -274,23 +277,23 @@ module latency_meter #(
     wire [CNT_W-1:0]  age_cyc_nxt  = (cyc_cnt  - ecyc[hit_idx])  + CROSS_CYCLES[CNT_W-1:0];
     wire [TICK_W-1:0] age_tick_nxt = (tick_cnt - etick[hit_idx]) + TICK_CROSS[TICK_W-1:0];
 
+    reg  fatal_r;
+    assign fatal = fatal_r;
+
+    wire foreign_cap = cap_start & auth_sid_vld & (evt_sid != auth_sid);
+    wire auth_change = auth_sid_vld & (auth_sid != cur_sid);
+
     wire commit_lat  = dsp_rise & hit & hit_done & ~hit_used;
     wire commit_age  = dsp_rise & hit & hit_used;
     wire bad_display = dsp_rise & hit & ~hit_done & ~hit_used;
     wire miss_dsp    = dsp_rise & ~hit;
 
     // session / frame id wrap detection on a capture start
-    wire sid_change  = cap_start && cur_sid_vld && (evt_sid != cur_sid);
+    wire sid_change  = cap_start && !auth_sid_vld && cur_sid_vld && (evt_sid != cur_sid);
     wire fid_wrap    = cap_start && cur_sid_vld && (evt_sid == cur_sid) && (evt_fid < last_fid);
 
-    // cap_too_fast is a pulse in the capture domain: synchronise it before use
-    reg ct_ff1, ct_ff2, ct_ff3;
-    always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) {ct_ff1, ct_ff2, ct_ff3} <= 3'b000;
-        else        {ct_ff1, ct_ff2, ct_ff3} <= {cap_too_fast, ct_ff1, ct_ff2};
-    end
-    wire cap_too_fast_evt = ct_ff2 ^ ct_ff3;   // toggle changed = one error
-    wire event_too_fast    = cap_too_fast_evt | evt_gap_alarm;
+    // the bridge reports losses in the display domain (gray counter crossing)
+    wire event_too_fast = lost_event | evt_gap_alarm;
 
     // one second window counters
     reg  [TICK_W-1:0] fps_base;
@@ -328,7 +331,8 @@ module latency_meter #(
             repeat_count     <= {CNT_W{1'b0}};
             lost_done_count  <= {CNT_W{1'b0}};
             lost_abort_count <= {CNT_W{1'b0}};
-            queued_count     <= {CNT_W{1'b0}};
+            foreign_count    <= {CNT_W{1'b0}};
+            fatal_r          <= 1'b0;
             cap_fps          <= {CNT_W{1'b0}};
             dsp_fps          <= {CNT_W{1'b0}};
             fps_valid        <= 1'b0;
@@ -349,7 +353,7 @@ module latency_meter #(
 
             if (resync_req) begin
                 for (i = 0; i < ENT; i = i + 1) begin
-                    vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
+                    vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
                 end
                 stats_valid <= 1'b0;
                 lat_seen    <= 1'b0;
@@ -360,17 +364,26 @@ module latency_meter #(
                 stat_count      <= {CNT_W{1'b0}};
                 stat_sum_cycles <= 64'd0;
                 stat_sum_ticks  <= 64'd0;
+                fatal_r         <= 1'b0;
             end else begin
                 // ---- session / frame id wrap ----
-                if (cap_start && (sid_change || fid_wrap)) begin
+                if (auth_change) begin
+                    // MAIN moved to a new authoritative session: clean barrier
                     for (i = 0; i < ENT; i = i + 1) begin
-                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
+                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
+                    end
+                    stats_valid <= 1'b0;
+                    cur_sid     <= auth_sid;
+                    cur_sid_vld <= 1'b1;
+                end else if (cap_start && (sid_change || fid_wrap)) begin
+                    for (i = 0; i < ENT; i = i + 1) begin
+                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
                     end
                     stats_valid <= 1'b0;
                     alarm[3]    <= 1'b1;
                 end else if (dsp_rise && cur_sid_vld && (dsp_sid != cur_sid)) begin
                     for (i = 0; i < ENT; i = i + 1) begin
-                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0; eq[i] <= 1'b0;
+                        vld[i] <= 1'b0; done[i] <= 1'b0; used[i] <= 1'b0;
                     end
                     stats_valid <= 1'b0;
                     alarm[3]    <= 1'b1;
@@ -384,11 +397,15 @@ module latency_meter #(
                 end
 
                 // ---- capture start: insert record (replace same key) ----
-                if (cap_start) begin
+                if (cap_start && foreign_cap) begin
+                    // non authoritative session: never switch, never insert
+                    foreign_count <= foreign_count + 1'b1;
+                    alarm[3]      <= 1'b1;
+                    fatal_r       <= 1'b1;
+                end else if (cap_start) begin
                     vld[wr_idx]   <= 1'b1;
                     done[wr_idx]  <= 1'b0;
                     used[wr_idx]  <= 1'b0;
-                    eq[wr_idx]    <= evt_queued;
                     esid[wr_idx]  <= evt_sid;
                     efid[wr_idx]  <= evt_fid;
                     ecyc[wr_idx]  <= cyc_cnt;
@@ -397,6 +414,7 @@ module latency_meter #(
                     if (ins_overwrite || key_hit) begin
                         alarm[1]    <= 1'b1;
                         stats_valid <= 1'b0;
+                        fatal_r     <= 1'b1;
                     end
                 end else if (cap_abort) begin
                     if (key_hit) begin
@@ -419,12 +437,9 @@ module latency_meter #(
                 // ---- display event ----
                 if (commit_lat) begin
                     used[hit_idx] <= 1'b1;
-                    if (eq[hit_idx]) begin
-                        // queued sample: the extra FIFO delay is unknown, so the
-                        // reading is excluded (MAIN reply 2026-10-21)
-                        queued_count <= queued_count + 1'b1;
-                        alarm[2]     <= 1'b1;
-                        stats_valid  <= 1'b0;
+                    if (fatal_r | lost_event) begin
+                        // fault latched: no statistic until resync
+                        stats_valid <= 1'b0;
                     end else begin
                         lat_valid      <= 1'b1;
                         lat_cycles     <= lat_cyc_nxt;
@@ -437,9 +452,8 @@ module latency_meter #(
                     end
                 end else if (commit_age) begin
                     used[hit_idx] <= 1'b1;
-                    if (eq[hit_idx]) begin
-                        queued_count <= queued_count + 1'b1;
-                        alarm[2]     <= 1'b1;
+                    if (fatal_r | lost_event) begin
+                        stats_valid <= 1'b0;
                     end else begin
                         age_valid    <= 1'b1;
                         age_cycles   <= age_cyc_nxt;
@@ -476,7 +490,10 @@ module latency_meter #(
                     if (dsp_rise)  dsp_win <= dsp_win + 1'b1;
                 end
 
-                if (event_too_fast) alarm[2] <= 1'b1;
+                if (event_too_fast) begin
+                    alarm[2] <= 1'b1;
+                    fatal_r  <= 1'b1;
+                end
             end
         end
     end

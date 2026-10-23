@@ -56,6 +56,8 @@ module latency_osd #(
     input  wire              hs,
     input  wire              vs,
     input  wire [23:0]       rgb_in,
+    input  wire [31:0]       auth_sid,
+    input  wire              auth_sid_vld,
     input  wire              dsp_event,
     input  wire [31:0]       dsp_sid,
     input  wire [31:0]       dsp_fid,
@@ -82,7 +84,10 @@ module latency_osd #(
     output wire              dbg_stats_valid,
     output wire              dbg_lat_seen,
     output wire              dbg_age_seen,
-    output wire              dbg_fps_valid
+    output wire              dbg_fps_valid,
+    output wire [7:0]        dbg_lost_total,
+    output wire [31:0]       dbg_foreign_count,
+    output wire              dbg_fatal
 );
     localparam integer OSD_ADDR_W = 7;      // 128 == COLS*ROWS
 
@@ -95,7 +100,7 @@ module latency_osd #(
     wire [31:0] lost_done, lost_abort, entry_count;
     wire        lat_valid, lat_seen, age_valid, age_seen, stats_valid, fps_valid;
     wire [3:0]  alarm;
-    wire        cap_too_fast, evt_gap_alarm;
+    wire        evt_gap_alarm;
 
     latency_meter #(
         .SID_W          (32),
@@ -116,12 +121,13 @@ module latency_osd #(
         .cap_kind       (cap_kind),
         .cap_sid        (cap_sid),
         .cap_fid        (cap_fid),
-        .cap_too_fast   (cap_too_fast),
         .clk            (clk),
         .rst_n          (rst_n),
         .dsp_event      (dsp_event),
         .dsp_sid        (dsp_sid),
         .dsp_fid        (dsp_fid),
+        .auth_sid       (auth_sid),
+        .auth_sid_vld   (auth_sid_vld),
         .alarm_clr      (alarm_clr),
         .resync_req     (resync_req),
         .lat_valid      (lat_valid),
@@ -149,7 +155,10 @@ module latency_osd #(
         .entry_count    (entry_count),
         .evt_gap_alarm  (evt_gap_alarm),
         .lost_done_count(lost_done),
-        .lost_abort_count(lost_abort)
+        .lost_abort_count(lost_abort),
+        .lost_total     (dbg_lost_total),
+        .foreign_count  (dbg_foreign_count),
+        .fatal          (dbg_fatal)
     );
 
     //------------------------------------------------------------------

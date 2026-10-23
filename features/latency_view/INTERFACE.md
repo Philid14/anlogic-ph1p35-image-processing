@@ -28,6 +28,21 @@
 - **OSD 位置**：默认 `(24,24)` 会覆盖左上角 160×160 安路 Logo，改为 **`(24,192)`**、8×8 字体放大 2 倍、
   面板 256×128 像素，避开 Logo、右上状态与底部目标文字；最终位置/合成顺序/字库由 MAIN 落实，Logo 最高优先。
 
+## 0.1 TARGET 独立复审修复（2026-10-21，commit 531ef61 复审）
+
+TARGET 用独立测试台抓到 3 个 P1，本模块已修复：
+
+| P1 | 修复 |
+|---|---|
+| FIFO 满时事件静默丢弃（`~full` 阻止写入但没有告警） | 每个丢弃事件（过密或满）递增 **8 位 gray 错误计数器**，跨域后报告 `lost_count` 并产生 `lost_event`；**满队列不再静默** |
+| 无应答 toggle 连续出错时可能偶数抵消，目的端看不到 | 改为 gray 计数 + 目标域比较，**任意次数的错误都不会抵消** |
+| 表满/同键重采集/丢失后，后续干净配对可绕过 resync 直接恢复统计 | 新增 **fatal 锁存**：loss/溢出/重采集/非权威会话都置 fatal，`lat_valid`/`age_valid` 被抑制，**仅 `resync_req` 能清除** |
+
+另加两项接入安全：
+- **权威会话**：新增 `auth_sid[31:0]` / `auth_sid_vld`；非权威 sid 的采集被拒绝（`foreign_count`、alarm[3]、fatal），
+  不再把任意新 sid 当成会话切换。`auth_sid` 变化视为干净屏障（清表、统计失效，不置 fatal）。
+- **排空/epoch**：`resync_req` 同时 flush 桥内待处理事件；目的端复位后桥自动 flush 直到空，避免旧包重放。
+
 ## 事件
 
 | 信号 | 域 | 位宽 | 语义 |
@@ -37,7 +52,8 @@
 | `cap_sid`/`cap_fid` | `clk_cap` | 32/32 | 会话号/帧号 |
 | `dsp_event` | `clk` | 1 | 该帧首个有效像素实际输出 |
 | `dsp_sid`/`dsp_fid` | `clk` | 32/32 | **读出时锁存**并随像素路径携带（§4.4） |
-| `alarm_clr` | `clk` | 1 | 只清告警位 |
+| `auth_sid` / `auth_sid_vld` | `clk` | 32 / 1 | MAIN 权威会话；有效时只接受该 sid 的采集 |
+| `alarm_clr` | `clk` | 1 | 只清告警位（不清 fatal、不恢复统计） |
 | `resync_req` | `clk` | 1 | 清表并使统计失效，直到新的干净配对 |
 
 `cap_kind=2` 必须在该帧最后一个有效像素之后；未收到完成事件的记录不得计入统计。
@@ -49,7 +65,7 @@
 `age_*`（重复显示图像年龄）、`stat_count/stat_sum_cycles/stat_sum_ticks`（平均延迟 = sum/count，由读取方计算）、
 `cap_count/cap_done_count/cap_abort_count/dsp_count`、
 `cap_fps/dsp_fps/fps_valid`（窗口= `FPS_WINDOW_TICKS` 个 0.01 ms 刻度，默认 1 s）、
-`stats_valid`、`alarm[3:0]`：
+`stats_valid`、`alarm[3:0]`、`lost_total[7:0]`（桥丢失事件数）、`foreign_count`、`fatal`：
 
 | bit | 含义 |
 |---|---|
@@ -65,8 +81,9 @@
 `CROSS_CYCLES`（默认 3 拍）补偿。误差**有符号有界**：同钟 0 拍、跨钟约 ±1 拍；**不声明"读数不小于物理延迟"**。
 75 MHz → `TICK_BASE=750, TICK_REMAINDER=0`（配置频率，非实测）。
 
-排队样本：FIFO 写入时若已有待处理条目（占用 >1），该样本不计统计并置 alarm[2]；
-正常条件（1 事件/帧、读端每拍出队）下占用 ≤1，残差为 ±1 拍。
+排队/丢失：正常条件（1 事件/帧、读端每拍出队、深度 16）下 FIFO 不会积压，残差为 ±1 拍；
+任何丢失（满队列或过密）都由 gray 计数上报并置 fatal，必须 `resync_req` 后才能恢复统计。
+目的端复位后桥自动排空，`resync_req` 也会排空在途事件，避免旧包重放。
 
 ## 失效与恢复
 
@@ -79,7 +96,9 @@
 | 未知完成/中止 | 计数 | bit1 / bit3 |
 | 会话切换/帧号回绕 | 清空旧会话 | bit3，`stats_valid=0` |
 | `alarm_clr` | 仅清告警，不恢复统计 | — |
-| `resync_req` + 干净配对 | 统计重新有效；count/sum/CNT 清零，AVG 从新窗口重算 | — |
+| 事件丢失 / 出队过密 / 表满 / 同键重采集 / 非权威会话 | 置 `fatal`，抑制所有有效统计 | bit0/1/2/3 |
+| `alarm_clr` | 仅清告警位；`fatal` 保持，统计仍无效 | — |
+| `resync_req`（清 fatal + flush 桥）→ 新的干净配对 | 统计重新有效；count/sum/CNT 清零，AVG 从新窗口重算 | — |
 
 ## 面板（latency_osd）
 

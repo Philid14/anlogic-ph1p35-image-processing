@@ -208,20 +208,20 @@ SCENARIOS = [
          desc="abort for a frame that was never captured sets alarm bit3"),
 
     dict(name="s17_recapture", tol=0,
-         events=[start(105, 1, 1), start(205, 1, 1), done(255, 1, 1), dsp(355, 1, 1)],
-         lat=[(215, 355, 1, 1)],
+         events=[start(105, 1, 1), start(205, 1, 1), resync(305),
+                 start(405, 1, 1), done(455, 1, 1), dsp(505, 1, 1)],
+         lat=[(415, 505, 1, 1)],
          alarm=2, stats=(1, 1), cnt=(1, 0, 0, 1), flags=(0, 0, 0),
-         counts=(2, 1, 0, 1),
+         counts=(3, 1, 0, 1),
          desc="same key captured twice: record replaced, alarm bit1"),
 
-    dict(name="s21_queued_sample", tol=0, min_gap_src=1,
-         events=[start(105, 1, 1), start(115, 1, 2), start(125, 1, 3),
-                 done(205, 1, 1), done(215, 1, 2), done(225, 1, 3),
-                 dsp(305, 1, 1), dsp(405, 1, 2), dsp(505, 1, 3)],
-         lat=[(115, 305, 1, 1), (215, 405, 1, 2)],
-         alarm=4, stats=(0, 2), cnt=(3, 0, 0, 1), flags=(1, 1, 0),
-         counts=(3, 3, 0, 3), queued=(1,),
-         desc="third rapid capture is queued and excluded from the statistic"),
+    dict(name="s21_rapid_events", tol=0, min_gap_src=1,
+         events=[start(105, 1, 1), start(115, 1, 2), start(125, 1, 3), start(135, 1, 4),
+                 done(205, 1, 1), done(215, 1, 2), done(225, 1, 3), done(235, 1, 4),
+                 dsp(305, 1, 1), dsp(405, 1, 2), dsp(505, 1, 3), dsp(605, 1, 4)],
+         lat=[], alarm=4, stats=(0, 0), cnt=(4, 0, 0, 0), flags=(1, 1, 0),
+         counts=(4, 4, 0, 4), fatal_final=(1,),
+         desc="too-close pops latch a fatal fault; no statistics until resync"),
 
     dict(name="s20_resync_stats_reset", tol=0, sum_check=False,
          events=[start(105, 1, 1), done(155, 1, 1), dsp(205, 1, 1),
@@ -234,11 +234,31 @@ SCENARIOS = [
 
     dict(name="s19_too_fast_alarm_clr", tol=0, min_gap_src=3,
          events=[start(105, 1, 1), start(112, 1, 2), done(205, 1, 1),
-                 clr(405), start(505, 1, 2), done(605, 1, 2), dsp(655, 1, 2)],
+                 clr(405), resync(455), start(505, 1, 2), done(605, 1, 2), dsp(655, 1, 2)],
          lat=[(515, 655, 1, 2)],
-         alarm=0, stats=(1, 1), cnt=(2, 0, 0, 1), flags=(0, 0, 0),
+         alarm=0, stats=(1, 1), cnt=(1, 0, 0, 1), flags=(0, 0, 0),
          counts=(2, 2, 0, 1),
          desc="too-close start is dropped and alarm bit2 can be cleared by alarm_clr"),
+
+    dict(name="s22_foreign_session", tol=0, auth_vld=1, auth_sid=1,
+         events=[start(105, 2, 1), done(205, 2, 1), dsp(305, 2, 1),
+                 start(405, 1, 1), done(455, 1, 1), dsp(505, 1, 1),
+                 resync(605), start(705, 1, 1), done(755, 1, 1), dsp(805, 1, 1)],
+         lat=[(715, 805, 1, 1)],
+         alarm=11, stats=(1, 1), cnt=(1, 1, 0, 1), flags=(0, 0, 0),
+         counts=(3, 3, 0, 3), foreign=(1,), fatal_final=(0,),
+         desc="non-authoritative session is rejected; resync required before new stats"),
+
+    dict(name="s23_fatal_requires_resync", tol=0,
+         events=[start(105, 1, 1), start(205, 1, 2), start(305, 1, 3), start(405, 1, 4),
+                 start(505, 1, 5), start(605, 1, 6), start(705, 1, 7), start(805, 1, 8),
+                 start(905, 1, 9), clr(1005),
+                 start(1105, 1, 10), done(1155, 1, 10), dsp(1205, 1, 10),
+                 resync(1305), start(1405, 1, 11), done(1455, 1, 11), dsp(1505, 1, 11)],
+         lat=[(1415, 1505, 1, 11)],
+         alarm=2, stats=(1, 1), cnt=(1, 0, 0, 1), flags=(0, 0, 0),
+         counts=(11, 2, 0, 2), fatal_final=(0,),
+         desc="overflow fault latches: a clean pair cannot restore stats before resync"),
 
     dict(name="s18_fid_wrap", tol=0,
          events=[start(105, 1, 10), done(155, 1, 10), start(305, 1, 1), done(355, 1, 1),
@@ -272,7 +292,7 @@ def parse(text):
             out["age"].append(dict(cycles=int(m.group(1)), t=float(m.group(2))))
             continue
         for tag, key in (("ALARM", "alarm"), ("STATS", "stats"), ("CNT", "cnt"), ("FLAGS", "flags"),
-                         ("COUNTS", "counts"), ("FPS", "fps"), ("LOST", "lost"), ("QUEUED", "queued")):
+                         ("COUNTS", "counts"), ("FPS", "fps"), ("LOST", "lost"), ("LOST_EV", "lost_ev"), ("FOREIGN", "foreign"), ("FATAL", "fatal")):
             m = re.match(r"^%s ([0-9 ]+)$" % tag, line)
             if m:
                 out[key] = [int(x) for x in m.group(1).split()]
@@ -338,6 +358,14 @@ def check(case, rec):
         for i, label in enumerate(labels):
             if got[i] != expected[i]:
                 fails.append("%s.%s=%d expected=%d" % (key, label, got[i], expected[i]))
+    for key, label, expected in (("foreign", "foreign", case.get("foreign", ())),
+                                 ("fatal", "fatal", case.get("fatal_final", ())),
+                                 ("lost_ev", "lost_events", case.get("lost_total", ()))):
+        if not expected:
+            continue
+        got = rec.get(key)
+        if got is None or got[0] != expected[0]:
+            fails.append("%s=%s expected=%d" % (label, got, expected[0]))
     if rec.get("stats") and case.get("stats_sum") is not None:
         if rec["stats"][2] != case["stats_sum"]:
             fails.append("stat_sum=%d expected=%d" % (rec["stats"][2], case["stats_sum"]))
@@ -358,6 +386,8 @@ def run_case(case, iver):
            "-Ptb_latency_meter.TB_CAP_HALF=%s" % case.get("cap_half", 5.0),
            "-Ptb_latency_meter.TB_FPS_WINDOW=%d" % case.get("fps_window", 100000),
            "-Ptb_latency_meter.TB_MIN_GAP_SRC=%d" % case.get("min_gap_src", 2),
+           "-Ptb_latency_meter.TB_AUTH_VLD=%d" % case.get("auth_vld", 0),
+           "-Ptb_latency_meter.TB_AUTH_SID=%d" % case.get("auth_sid", 1),
            str(HERE / "tb_latency_meter.v"), str(RTL / "latency_meter.v"),
            str(RTL / "frame_event_bridge.v")]
     p = subprocess.run(cmd, capture_output=True, text=True, env=tool_env(iver))
