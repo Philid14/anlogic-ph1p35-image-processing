@@ -1,0 +1,6 @@
+{
+  "board_test": "NOT_RUN",
+  "bit": "NOT_GENERATED",
+  "passed": false,
+  "scope": "Failed physical experiment only; exit 0 is not timing pass. No generated bit. Attempt02 buffer_opt is CPLD-only and skipped; attempt05 invalid command stopped; attempts06/07 moved zero instances (unavailable slot)."
+}

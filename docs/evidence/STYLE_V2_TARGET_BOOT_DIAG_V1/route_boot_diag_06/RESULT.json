@@ -1,0 +1,8 @@
+{
+  "board_test": "NOT_RUN",
+  "bit": "NOT_GENERATED",
+  "passed": false,
+  "database_sha256": "b86fbfa7dd27995d499655ad98e520aae35f89a03259c9903edc5b65d143e911",
+  "timing": "SWNS: 0.110ns, STNS: 0.000ns.\nHWNS: -0.068ns, HTNS: -0.068ns.\n",
+  "scope": "Failed physical experiment only; exit 0 is not timing pass. No generated bit. Attempt02 buffer_opt is CPLD-only and skipped; attempt05 invalid command stopped; attempts06/07 moved zero instances (unavailable slot)."
+}

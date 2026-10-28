@@ -39,7 +39,7 @@ def control_proof():
  assert norm(s)==norm(old(rel)),'Original top routing/control changed'
  return {'unchanged_original_controls':True,'unchanged_original_algorithm_sensor_ddr_clock_inputs':True,'added_logic_is_passive_telemetry':True}
 def main():
- ap=argparse.ArgumentParser();ap.add_argument('--proof-only',action='store_true');ap.add_argument('--physical-cdc',type=Path);ap.add_argument('--out',type=Path);a=ap.parse_args()
+ ap=argparse.ArgumentParser();ap.add_argument('--proof-only',action='store_true');ap.add_argument('--physical-cdc',type=Path);ap.add_argument('--out',type=Path);ap.add_argument('--route',default='route_boot_diag_01');a=ap.parse_args()
  proof=control_proof()
  if a.proof_only:print(json.dumps(proof));return
  before=snapshot();frozen=json.loads((ROOT/'tmp/style_v2_target_v1/syn_boot_diag_01/SOURCE_MANIFEST.json').read_text())
@@ -60,7 +60,7 @@ def main():
      assert src.is_file() and sha(src)==expected,(name,rel)
   if name=='active_epoch_regression_04':
    evaluation=json.loads(read(folder/'RESULT_EVALUATION.json'));assert evaluation['rtl_execution_passed']
- cdc_path=a.physical_cdc.resolve();cdc=json.loads(read(cdc_path));route=ROOT/'tmp/style_v2_target_v1/route_boot_diag_01/route.db'
+ cdc_path=a.physical_cdc.resolve();cdc=json.loads(read(cdc_path));route=ROOT/'tmp/style_v2_target_v1'/a.route/'route.db'
  assert cdc['passed'] and len(cdc['mailbox_families'])==9 and cdc['database_sha256']==sha(route)
  for p in cdc_path.parent.iterdir():
   if p.is_file() and p.suffix in ('.zip','.tcl','.sdc'):remember(p)

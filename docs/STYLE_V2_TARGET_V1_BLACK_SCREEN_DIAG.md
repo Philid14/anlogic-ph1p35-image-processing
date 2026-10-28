@@ -29,3 +29,12 @@ Version STYLE_V2_TARGET_BOOT_DIAG_V1，分支codex/main/style-v2-target-boot-dia
 从新归档bit烧录，在约5秒和30秒各拍一张完整面板；仍保持当前原接线与Sensor配置。
 先看C是否有RAW/AWB输入，再看D的calib/ready/allocation/write/commit/read链是否推进；若C的包络或lane错误出现，需结合计数/阶段进一步确认语义，不能据sticky独断每帧坏。
 当前用户黑屏反馈属于原candidate实板FAIL，新增诊断bit状态在完整构建成功前为NOT_GENERATED，构建与新上板结果另行记录。
+
+## 本轮验证范围与限制
+
+- `verify_style_target_boot_release.py --proof-only` 对原候选实际输入清单逐项比对：算法、Sensor/ISP、DDR、时钟/SDC字节一致；逆向删除新增的诊断端口、接线和显示分支后，顶层、帧控制、显示控制与原候选文本一致。未绕过错误、伪造FrameRef或改变帧准入。
+- 原生ModelSim完整1650×750显示旧版等价回归：2,475,309次检查；新增启动面板在metadata缺失/scan_fault状态下逐像素检查1,237,500拍、1532个文字像素，不制造有效显示身份。
+- 原生MAIN/MC/FIFO active-epoch回归完成90ms、24,648,825次检查。调用脚本误填了另一个测试的PASS字符串，原summary保留`passed:false`；`RESULT_EVALUATION.json`依据实际正确PASS标记、三个工具退出码0和源码哈希另行确认RTL通过。没有改动期望、掩盖工具退出或将脚本失败改写为成功。
+- 两级整包邮箱单元测试PASS；上述front_boundary仅验证真实行缓存及流边界，不验证实际Sensor/PHY。
+- 原生默认布线出现一条packed RGB寄存器bit87到写FIFO ERAM的Hold -0.068ns；不得生成该结果的bit。原始报告和后续短物理实验都保留。CPLD专用buffer_opt未生效；默认post-route优化和clock_opt未收敛；移动试验因没有可用slot移动0实例，不能描述为已修复。
+- 最后一次有界尝试使用TD原生route effort high，自同一place.db重新布线；不改RTL/SDC/seed。其结果及实际选择另记。诊断版的Hold违例不构成原候选黑屏原因证据。
