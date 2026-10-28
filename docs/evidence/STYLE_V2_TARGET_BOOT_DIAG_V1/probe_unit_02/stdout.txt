@@ -1,0 +1,2 @@
+PASS BOOT_PROBE checks=4
+tests/tb_target_boot_probe.sv:16: $finish called at 15120000 (1ps)

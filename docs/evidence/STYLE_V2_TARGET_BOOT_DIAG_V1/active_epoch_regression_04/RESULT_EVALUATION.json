@@ -1,0 +1,7 @@
+{
+  "rtl_execution_passed": true,
+  "original_runner_verdict": false,
+  "reason": "Caller supplied PASS TARGET_FRAME_SYSTEM_FAULTS instead of actual fixture PASS TARGET_ACTIVE_EPOCH; original failed summary retained. Complete 90ms execution has correct marker, unchanged inputs and all three native-tool stages exit0. No RTL or expected counts changed.",
+  "actual_marker": "PASS TARGET_ACTIVE_EPOCH",
+  "scope": "Native MAIN/MC/FIFO active epoch regression, diagnostic parameter default OFF; enabled probe separately tested and proven no feedback"
+}

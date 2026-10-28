@@ -1,0 +1,27 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_target_boot_display -do "onerror {quit -code 2}; run -all; quit -f -code 0" 
+# Start time: 12:07:45 on Oct 28,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Too few port connections. Expected 29, found 24.
+# 
+#         Region: /tb_target_boot_display/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Missing connection for port 'glyph_request'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Missing connection for port 'pixel_slot'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Missing connection for port 'pixel_generation'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Missing connection for port 'hidden_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_target_boot_display.sv(8): [TFMPC] - Missing connection for port 'late_count'.
+# 
+# onerror {quit -code 2}
+#  Warning: onerror command for use within macro
+#  run -all
+# PASS BOOT_DISPLAY checks=1237500 visible_text_pixels=1532 no_metadata=1 scan_fault=1
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_target_boot_display.sv(39)
+#    Time: 16500931672 ps  Iteration: 1  Instance: /tb_target_boot_display
+# End time: 12:07:52 on Oct 28,2026, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 6

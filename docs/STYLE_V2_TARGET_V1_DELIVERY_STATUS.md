@@ -1,6 +1,6 @@
 # STYLE_V2_TARGET_V1 candidate交付状态
 
-2026-10-22 / MAIN。资源、功能、最终路由及独立物理CDC门通过，bit已生成；**真实上板NOT_RUN**。
+2026-10-22构建通过；2026-10-28 / MAIN补记：**真实上板FAIL：Logo/CNT正常，但无摄像头底图、无MODE/B/S及TARGET底部面板；旧STYLE V2同接线正常。** 原bit/tag保持不变，故障定位见STYLE_V2_TARGET_V1_BLACK_SCREEN_DIAG.md。
 
 ## 版本追溯
 

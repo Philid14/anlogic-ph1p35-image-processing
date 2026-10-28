@@ -316,3 +316,10 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 验证：原生官方ERAM/GSR、FIFO/MC、720p最终HDMI52405117检查，故障29904827与活动epoch24648825检查；五模式/K3/K4/Logo/CNT、独立TARGET、原子CDC/租约/年龄及负对照通过。35项联合项目源码+2外部官方模型逐项绑定；85项TD输入/60旧输入冻结。
 - CDC：7类邮箱1706端点40ns界限通过，36位Gray及额外扇出305端点13.033ns通过；原SDC覆盖缺口与相机/I2C布线旧warning保留，非长期硬件证明。
 - Board Test Result：NOT_RUN；是否保留：保留candidate及全部失败/历史归档；下一步：3次冷启动/红目标出现移动消失/五模式/明暗变化/30分钟B:S增量，稳态S增长阻断。完成后停止，不合并、不集成LATENCY或进阶五。
+
+## STYLE_V2_TARGET_V1 实板失败补记（2026-10-28，MAIN）
+
+- 原tag style-v2-target-v1-candidate /归档24dbb6b /源码7c7e5ee /bit SHA256 2172E53406AF5D67BD2A167C8935F6C9870CC0AC6E79382217F13024DF7888FF全部保留不移动。
+- 用户同接线旧EDGE_STYLE_FILL_V2正常；新候选重复烧录仍只有Logo/CNT，MODE/B/S及底部TARGET面板未见。照片人物为反光，不当作摄像头底图。
+- Board Test Result：FAIL。数字仿真/STA不能覆盖此实板反馈。已定位调查范围到首个可显示帧链，具体RAW/packet/lane/DDR校准/准入原因尚未证实。
+- 新建独立STYLE_V2_TARGET_BOOT_DIAG_V1，仅只读boot telemetry绕开“先有成功首帧才能显示诊断”的观测盲区。未修改旧Sensor/ISP/错误判定/DDR/PLL/SDC，无正式算法改进或故障修复结论。

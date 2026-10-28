@@ -10,7 +10,9 @@ ROOT=Path(__file__).resolve().parents[1]
 BASE='89093f428878b918036c8a30a0d1afe7764946b8'
 def git(*a):return subprocess.check_output(['git',*a],cwd=ROOT)
 branch=git('branch','--show-current').decode().strip()
-assert branch=='codex/main/style-v2-target-v1'
+assert branch in ('codex/main/style-v2-target-v1','codex/main/style-v2-target-boot-diag-v1')
+VERSION='STYLE_V2_TARGET_BOOT_DIAG_V1' if branch.endswith('boot-diag-v1') else 'STYLE_V2_TARGET_V1'
+if VERSION=='STYLE_V2_TARGET_BOOT_DIAG_V1':BASE='5cbb1de3814a842067ee1ffd41df3d75bbf0de26'
 files=git('diff','--cached','--name-only','-z',BASE).split(b'\0')
 patterns=[re.compile(rb'gh[pousr]_[A-Za-z0-9]{25,}'),re.compile(rb'github_pat_[A-Za-z0-9_]{30,}'),
     re.compile(rb'sk-[A-Za-z0-9]{30,}'),re.compile(rb'-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----')]
@@ -20,9 +22,9 @@ for raw in files:
     name=raw.decode('utf-8')
     assert not any(part.endswith('_Runs') for part in Path(name).parts),name
     if name.endswith('.bit'):
-        assert name=='artifacts/bitstreams/STYLE_V2_TARGET_V1/camera_to_dsi_display.bit',name
-        info=json.loads(git('show',':artifacts/bitstreams/STYLE_V2_TARGET_V1/BUILD_INFO.json'))
-        assert info['version']=='STYLE_V2_TARGET_V1' and info['board_test']=='NOT_RUN'
+        assert name=='artifacts/bitstreams/'+VERSION+'/camera_to_dsi_display.bit',name
+        info=json.loads(git('show',':artifacts/bitstreams/'+VERSION+'/BUILD_INFO.json'))
+        assert info['version']==VERSION and info['board_test']=='NOT_RUN'
         assert info['setup_wns']>=0 and info['hold_wns']>=0 and info['setup_tns']==0 and info['hold_tns']==0
         assert info['resources']['slice']<=21216
         assert hashlib.sha256(git('show',':'+name)).hexdigest()==info['bit_sha256']

@@ -10,7 +10,9 @@ from build_style_v2_target_v1 import ROOT, PROJECT
 
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--database',type=Path,required=True)
-    ap.add_argument('--out',type=Path,required=True);a=ap.parse_args()
+    ap.add_argument('--out',type=Path,required=True)
+    ap.add_argument('--boot-probe',action='store_true',help='Require both additional diagnostic-only mailbox families')
+    a=ap.parse_args()
     database=a.database.resolve();out=a.out.resolve();out.mkdir(parents=True,exist_ok=False)
     run=PROJECT/'camera_to_dsi_display_Runs/phy_1'
     sdc=PROJECT/'camera_to_dsi_display.sdc';original=sdc.read_bytes()
@@ -53,6 +55,7 @@ exit
     assert re.search(r'Confidence\s+:\s+Routed',exceptions), 'A placed database is not routed evidence'
     families=sorted(set(re.findall(r'Begin Point\s+:\s+.*?/((?:u_\w+/)+)held_payload',report)))
     expected=['u_begin/','u_control/','u_display/','u_grant/','u_terminal/','u_time/u_time_csi/','u_time/u_time_ddr/']
+    if a.boot_probe:expected=sorted(expected+['u_boot_csi/','u_boot_display/'])
     assert families==expected,families
     summary=re.search(r'Max\s+: SWNS\s+(-?[\d.]+)ns, STNS\s+(-?[\d.]+)ns,\s+(\d+) Viol Endpoints,\s+(\d+) Total Endpoints,\s+(\d+) Paths Analyzed',report)
     assert summary, 'Missing max-delay coverage summary'

@@ -15,7 +15,9 @@ def main():
     ap.add_argument('--placement',required=True)
     ap.add_argument('--route',required=True)
     ap.add_argument('--verification',type=Path,required=True)
+    ap.add_argument('--version',default='STYLE_V2_TARGET_V1',choices=['STYLE_V2_TARGET_V1','STYLE_V2_TARGET_BOOT_DIAG_V1'])
     a=ap.parse_args()
+    tag=a.version.lower().replace('_','-')+'-candidate'
     tmp=ROOT/'tmp/style_v2_target_v1'
     syn=tmp/a.synthesis; place=tmp/a.placement; route=tmp/a.route
     frozen=json.loads((syn/'SOURCE_MANIFEST.json').read_text())
@@ -48,7 +50,7 @@ def main():
         return int(found[1])
     counts={name:number(name) for name in ('slice','lut6','reg','eram','dsp')}
     assert counts['slice']<=21216
-    dest=ROOT/'artifacts/bitstreams/STYLE_V2_TARGET_V1'
+    dest=ROOT/'artifacts/bitstreams'/a.version
     assert not dest.exists(), 'Never overwrite an archive'
     bit=route/'camera_to_dsi_display.bit'
     assert not bit.exists(), 'Never reuse an existing bit'
@@ -84,16 +86,16 @@ exit
     shutil.copy2(place/'result.json',evidence/'PLACEMENT_RESULT.json')
     for name in INIT_NAMES:
         if (INIT_DIR/name).is_file():shutil.copy2(INIT_DIR/name,evidence/name)
-    info=dict(version='STYLE_V2_TARGET_V1',source_commit=frozen['source_commit'],verification_commit=before['source_commit'],
-        tag='style-v2-target-v1-candidate',bit_sha256=sha(bit),route_db_sha256=sha(route/'route.db'),
+    info=dict(version=a.version,source_commit=frozen['source_commit'],verification_commit=before['source_commit'],
+        tag=tag,bit_sha256=sha(bit),route_db_sha256=sha(route/'route.db'),
         synthesis=a.synthesis,placement=a.placement,route=a.route,resources=counts,
         setup_wns=sw,hold_wns=hw,setup_tns=st,hold_tns=ht,board_test='NOT_RUN')
     (dest/'BUILD_INFO.json').write_text(json.dumps(info,indent=2)+'\n')
-    (dest/'BUILD_INFO.md').write_text(f'''# STYLE_V2_TARGET_V1
+    (dest/'BUILD_INFO.md').write_text(f'''# {a.version}
 
 - Actual build source commit: `{frozen['source_commit']}`
 - Verification commit: `{before['source_commit']}`
-- Candidate tag: `style-v2-target-v1-candidate` (created separately only after archive review)
+- Candidate tag: `{tag}` (created separately only after archive review)
 - Build time: {datetime.datetime.now().astimezone().isoformat()}
 - Device: PH1P35MDG324, speed 3; top: design_top_wrapper
 - Original generated bit: `{bit.as_posix()}`

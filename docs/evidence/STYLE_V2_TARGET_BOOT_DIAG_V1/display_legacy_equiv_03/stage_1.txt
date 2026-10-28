@@ -1,0 +1,14 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 12:05:45 on Oct 28,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_target_display_pipeline.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/target/target_display_commit.v D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/display_legacy_equiv_03/target_display_commit_reference.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v D:/anlogic_formal_project/features/color_target/rtl/color_target_overlay.v D:/anlogic_formal_project/features/color_target/rtl/color_target_text_overlay.v 
+-- Compiling module tb_target_display_pipeline
+-- Compiling module target_display_commit
+-- Compiling module target_display_commit_reference
+-- Compiling module osd_char_lib
+-- Compiling module color_target_overlay
+-- Compiling module color_target_text_overlay
+
+Top level modules:
+	tb_target_display_pipeline
+End time: 12:05:45 on Oct 28,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

@@ -1,0 +1,104 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb PH1P_PHY_GSR -do "onerror {quit -code 2}; run -all; quit -f -code 0" 
+# Start time: 11:56:47 on Oct 28,2026
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/raw_matrix_3x3_buffer.v(136): [PCDPC] - Port size (1) does not match connection size (32) for port 'O_raw_tready'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/mipi_to_raw_converter.v(37).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/mipi_to_raw_converter_r0
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v(167): [TFMPC] - Too few port connections. Expected 10, found 7.
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/zhenghe_d/blk_mem_gen_zhenghe_d1
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v(167): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v(167): [TFMPC] - Missing connection for port 'web'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v(167): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/RTL/ram_d32970204f32.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_sbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/zhenghe_d/blk_mem_gen_zhenghe_d1/ram_d32970204f32_Inst/username_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/RTL/ram_d32970204f32.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_dbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/zhenghe_d/blk_mem_gen_zhenghe_d1/ram_d32970204f32_Inst/username_inst
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Too few port connections. Expected 10, found 7.
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[1]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'web'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/ram_c36c2ca3b3a7.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_sbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[1]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0/ram_c36c2ca3b3a7_Inst/username_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/ram_c36c2ca3b3a7.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_dbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[1]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0/ram_c36c2ca3b3a7_Inst/username_inst
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Too few port connections. Expected 10, found 7.
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[2]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'web'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v(98): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/ram_c36c2ca3b3a7.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_sbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[2]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0/ram_c36c2ca3b3a7_Inst/username_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/ram_c36c2ca3b3a7.v(91): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_dbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/dm/raw_matrix_3x3_buffer_d/two_line_buffer[2]/line_buffer_demosaic_r1/blk_mem_gen_demosaic_r0/ram_c36c2ca3b3a7_Inst/username_inst
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v(120): [TFMPC] - Too few port connections. Expected 10, found 7.
+# 
+#         Region: /tb/aw/signal_delay_d/blk_mem_gen_awb_delay_signal_d
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v(120): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v(120): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v(120): [TFMPC] - Missing connection for port 'web'.
+# 
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/ram_f84573da5ab5.v(60): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_sbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/aw/signal_delay_d/blk_mem_gen_awb_delay_signal_d/ram_f84573da5ab5_Inst/username_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/ram_f84573da5ab5.v(60): [PCDPC] - Port size (1) does not match connection size (32) for port 'ecc_dbiterrinj'. The port definition is at: D:/TD/sim_release/ph1p/ph1p_logic_eram.v(48).
+# 
+#         Region: /tb/aw/signal_delay_d/blk_mem_gen_awb_delay_signal_d/ram_f84573da5ab5_Inst/username_inst
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Too few port connections. Expected 37, found 28.
+# 
+#         Region: /tb/obs
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'capture_session'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'capture_frame'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'capture_time'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'pixel_rgb'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'x0'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'y'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'observation_session'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'observation_frame'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(15): [TFMPC] - Missing connection for port 'observation_time'.
+# 
+# onerror {quit -code 2}
+#  Warning: onerror command for use within macro
+#  run -all
+# AWB_USER cycle=65 raw_identity=1 rawframe=         0
+# OBSERVER_DONE cycle=359939 good=1 obsbeats=230400 bad=0
+# RAW_COMPLETE cycle=360002 good=1 rawbeats=230400
+# AWB_USER cycle=500142 raw_identity=1 rawframe=         1
+# RAW_COMPLETE cycle=860002 good=1 rawbeats=230400
+# OBSERVER_DONE cycle=860016 good=1 obsbeats=230400 bad=0
+# RESULT AWB beats=460800 user=2 last=1440 raw_good=2 obs_done=2 obs_good=2 abort_beats=0 epoch=0 rawerr=0 obserr=0
+# ** Note: $finish    : D:/anlogic_formal_project/tmp/style_target_black_screen_20261028/front_boundary_01/tb.sv(26)
+#    Time: 16668083340 ps  Iteration: 1  Instance: /tb
+# End time: 11:57:27 on Oct 28,2026, Elapsed time: 0:00:40
+# Errors: 0, Warnings: 35
