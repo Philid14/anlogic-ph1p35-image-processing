@@ -81,11 +81,14 @@ def main():
         full=json.loads((ROOT/'tmp/color_compare_v1/full_results.json').read_text())
         assert full['stream']['beats']==1152000 and full['stream']['packed_words']==864000
         for rel,digest in full['sources'].items():assert sha(ROOT/rel)==digest,rel
-        assert sha(phy/'camera_to_dsi_display_pr.db')==(OUT/'ROUTE_DB_SHA256.txt').read_text().strip()
-        sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',(OUT/'phy_camera_to_dsi_display_phy.ts').read_text()))
+        selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None
+        database=Path(selected['route_database']) if selected else phy/'camera_to_dsi_display_pr.db'
+        assert sha(database)==(selected['database_sha256'] if selected else (OUT/'ROUTE_DB_SHA256.txt').read_text().strip())
+        timing=Path(selected['timing_report']) if selected else OUT/'phy_camera_to_dsi_display_phy.ts'
+        sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing.read_text()))
         assert sw>=0 and hw>=0 and st==ht==0
         bit=OUT/'camera_to_dsi_display.bit';assert not bit.exists()
-        text='source ./settings.cfg\nimport_device ph1_35p.db -package PH1P35MDG324 -speed 3\nopen_project camera_to_dsi_display.prj -noanalyze\nimport_db camera_to_dsi_display_pr.db\ncommit_param -step bitgen\nbitgen -bit {'+bit.as_posix()+'}\nexport_bitgen_param -file {'+(OUT/'bitgen_params.txt').as_posix()+'}\nputs "BIT_COMPLETE"\nexit\n'
+        text='source ./settings.cfg\nimport_device ph1_35p.db -package PH1P35MDG324 -speed 3\nopen_project camera_to_dsi_display.prj -noanalyze\nimport_db {'+database.as_posix()+'}\ncommit_param -step bitgen\nbitgen -bit {'+bit.as_posix()+'}\nexport_bitgen_param -file {'+(OUT/'bitgen_params.txt').as_posix()+'}\nputs "BIT_COMPLETE"\nexit\n'
         run('bit',text,phy)
         assert bit.is_file() and bit.stat().st_size>1_000_000 and sha(bit) not in current['old_bits'].values()
     after=snapshot()
