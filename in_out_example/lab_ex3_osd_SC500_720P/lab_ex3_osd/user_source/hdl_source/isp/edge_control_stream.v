@@ -11,7 +11,8 @@ module edge_control_stream #(
     parameter integer QUALITY_ENABLE = 0,
     parameter integer QUALITY_HOPS = 4,
     parameter integer TEMPORAL_ENABLE = 0,
-    parameter integer RELIABILITY_ENABLE = 0
+    parameter integer RELIABILITY_ENABLE = 0,
+    parameter integer COLOR_COMPARE_ENABLE = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
@@ -110,11 +111,39 @@ module edge_control_stream #(
             default:     selected_data = stable_edge_data;
         endcase
     end
+    wire [95:0] compare_data;
+    wire [18:0] compare_config;
+    wire compare_valid,compare_user,compare_last;
+    generate if(COLOR_COMPARE_ENABLE)begin:g_color_compare
+        reg [18:0] config_d1,config_d2;
+        always @(posedge clk or negedge rst_n)begin
+            if(!rst_n)begin config_d1<=RESET_CONFIG;config_d2<=RESET_CONFIG;end
+            else begin config_d1<=config_p[EDGE_STAGES-1];config_d2<=config_d1;end
+        end
+        assign compare_config=config_d2;
+        wire [47:0] measured_means;
+        wire measurement_valid;
+        wire [15:0] measurement_id;
+        color_compare_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_stats(
+            .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
+            .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_compare(
+            .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
+            .user(user_p[EDGE_STAGES-1]),.last(last_p[EDGE_STAGES-1]),
+            .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id),
+            .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
+    end else begin:g_no_color_compare
+        assign compare_config=config_p[EDGE_STAGES-1];
+        assign compare_data=selected_data;
+        assign compare_valid=valid_p[EDGE_STAGES-1];
+        assign compare_user=user_p[EDGE_STAGES-1];
+        assign compare_last=last_p[EDGE_STAGES-1];
+    end endgenerate
     edge_status_osd #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
                      .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE)) u_status (
-        .clk(clk), .rst_n(rst_n), .I_data(selected_data),
-        .I_valid(valid_p[EDGE_STAGES-1]), .I_user(user_p[EDGE_STAGES-1]), .I_last(last_p[EDGE_STAGES-1]),
-        .I_config(config_p[EDGE_STAGES-1]), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
+        .clk(clk), .rst_n(rst_n), .I_data(compare_data),
+        .I_valid(compare_valid), .I_user(compare_user), .I_last(compare_last),
+        .I_config(compare_config), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
         .O_user(O_user), .O_last(O_last)
     );
 endmodule

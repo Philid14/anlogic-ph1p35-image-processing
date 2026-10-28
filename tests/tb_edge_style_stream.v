@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 module tb_edge_style_stream;
-    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1;
-    localparam DEPTH = 29;
+    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1, COMPARE=0;
+    localparam DEPTH = 29+(COMPARE?2:0);
     reg clk=0;
     always #5 clk=~clk;
     reg rst_n=0, v=0, u=0, l=0, ready=0;
@@ -15,7 +15,7 @@ module tb_edge_style_stream;
     edge_control_stream #(
         .IMG_WIDTH(WIDTH), .IMG_HEIGHT(HEIGHT), .DENOISE_ENABLE(1),
         .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),
-        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY)
+        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE)
     ) dut (
         .clk(clk), .rst_n(rst_n), .requested_config(cfg),
         .I_fifo_event_counts(fifo_counts),
@@ -34,7 +34,7 @@ module tb_edge_style_stream;
     isp_top #(
         .EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1),
         .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .TEMPORAL_ENABLE(1),
-        .RELIABILITY_ENABLE(RELIABILITY)
+        .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE)
     ) integrated (
         .axi4s_video_aclk(clk), .I_rst_n(rst_n), .I_edge_config(cfg),
         .I_fifo_event_counts(fifo_counts),
