@@ -1,0 +1,4 @@
+SWNS: 0.000ns, STNS: 0.000ns.
+HWNS: 0.020ns, HTNS: 0.000ns.
+
+PASS phy actual TD inputs unchanged; board NOT_RUN

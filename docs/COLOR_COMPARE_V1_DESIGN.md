@@ -45,7 +45,7 @@ ABS为TEST与REF各通道绝对差；L1为三差之和0..765；MAX为最大通�
 
 - 独立NumPy均值、颜色、绝对差/距离和OSD模型；80帧小尺寸统计，含纯色、噪声、末尾像素、提前/同步SOF、间断valid、缺行、多拍、错误last、中途复位。
 - 原五模式/K3/K4/配置CDC/灰度二值/STYLE及打包回归；完整720p五帧、1152000有效四像素拍、864000个128位字逐像素/逐字比较。显式Demosaic/AWB测试替身仅提供已知post-AWB输入，不冒充真实Sensor/PHY/DDR实板验证。
-- 68个直接TD输入中原66个的63个字节不变，另三个只做接线/使能；IP、Sensor、MIPI、DDR、HDMI及约束冻结；原字库不改。
+- 68个直接TD输入中原66个的63个提交内容不变（允许Windows检出换行差异），另三个只做接线/使能；IP、Sensor、MIPI、DDR、HDMI及约束冻结；原字库不改。
 - 所有实际TD输入必须先commit。SYN、place/route、最终STA通过后才允许bitgen，禁止旧Runs bit充当新版本；归档完整源码清单、资源、时序、SHA256和上板状态。
 
 实际结果、资源和bit以交付报告及BUILD_INFO为准，本设计说明不代表已上板。

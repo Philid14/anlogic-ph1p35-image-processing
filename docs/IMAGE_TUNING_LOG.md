@@ -305,3 +305,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 模型/RTL：中性门限彩斑47.31%→0，数字星/亮线结构误差→0；这些不是实板改善率。5尺寸×63序列、完整720p五帧1152000拍/864000打包字通过。
 - Board：待用户上板；按BOARD_TEST比较ORIGIN/V1/V2；浅色去饱和/明度色带/输入饱和不可恢复等代价已记录。B/S稳态、30分钟/光照变化待验收，S增长阻断正式验收。
 - 保留候选与V1全部历史；停止本轮，不开发进阶五或队友目标检测。
+
+### 2026-10-28 / COLOR_COMPARE_V1 candidate / MAIN
+
+- 用户明确停止STYLE_V2_TARGET黑屏修复，改从已正常上板的EDGE_STYLE_FILL_V2推进固定平台颜色比对。
+- 基线tag edge-style-fill-v2-candidate（8d26c6e）；新分支codex/main/color-compare-v1；实际TD源码commit 06e70a0d5d1676ed7991c475facd533b2b804aad。
+- 唯一主要新增功能：并接于算法前彩色流的左右128×128区域RGB均值/粗颜色分类/差值比对，OSD显示REF/TEST/ABS/L1/MAX与LAST；不引入TARGET事务帧通路、不控制原视频读写。
+- 原Sensor/ISP、曝光1990、VTS1000、HTS1600、15.75×增益、BLC15、五模式算法和K3/K4、Logo/CNT、MIPI/DDR/HDMI/PLL/SDC不变。公共像素流水新增2拍，无新增ERAM/DSP。
+- 软件/RTL：80帧统计/4464检查、218快照2398字段、完整五模式720p 1152000四像素拍/864000打包字及原键控/CDC/STYLE回归PASS；物理IP和实板不在该仿真证明范围。
+- TD SYN→Physical→final Timing→bitgen PASS：Slice19336、LUT6 18104、FF17606、ERAM85、DSP21；Setup +0.000ns，Hold +0.020ns，TNS0。Setup裕量紧，一次布局后优化未改善、未选用。不能报告长期实板稳定。
+- Bit：artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit；SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27；candidate tag color-compare-v1-candidate（待实际创建/push记录）。
+- Board Test：NOT_RUN；相机RGB差非标定ΔE，LIM12为演示容差，空框/背景仍参与均值。保留候选等待上板，暂不进入测尺寸或后续ISP调节。

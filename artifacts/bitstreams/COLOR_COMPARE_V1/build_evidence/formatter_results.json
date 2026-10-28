@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "snapshots": 218,
+  "fields": 2398,
+  "classes": 9,
+  "tolerance_boundary": [
+    12,
+    13
+  ],
+  "reset": true
+}
