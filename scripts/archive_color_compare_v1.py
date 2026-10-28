@@ -1,4 +1,5 @@
 """Archive only a fresh, timing-clean COLOR_COMPARE_V1 build and its evidence."""
+from pathlib import Path
 import json,hashlib,re,shutil,datetime,subprocess,zipfile
 from build_color_compare_v1 import ROOT,P,OUT,snapshot,sha
 
