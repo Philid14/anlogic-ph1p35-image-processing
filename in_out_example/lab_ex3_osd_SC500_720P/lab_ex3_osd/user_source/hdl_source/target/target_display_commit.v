@@ -4,6 +4,7 @@
 // This adapter never samples live guard output during a scan.
 module target_display_commit #(
     parameter integer ENABLE=1,
+    parameter integer BOOT_DIAG_ENABLE=0,
     parameter integer PIPELINE_GLYPH=0,
     parameter [63:0] MAX_AGE_TICKS=64'd100000,
     parameter [63:0] MAX_SCAN_TICKS=64'd16501
@@ -11,6 +12,7 @@ module target_display_commit #(
     input clk, rst_n, input [63:0] now_tick,
     input metadata_receive, input [505:0] metadata,
     input metadata_online, input scan_fault,
+    input [95:0] boot_diagnostics,
     input [23:0] video_rgb, input video_de, video_hs, video_vs,
     input blanking_start,
     output reg [23:0] out_rgb, output reg out_de,out_hs,out_vs,
@@ -122,6 +124,35 @@ module target_display_commit #(
                 end
             end
         end
+        if(BOOT_DIAG_ENABLE) begin
+            // Two independent boot rows. No genuine display metadata is forged.
+            field_index=diagnostic_column/8;field_column=diagnostic_column%8;
+            diagnostic_char=8'd32;diagnostic_number=0;
+            if(field_index<3) begin
+                if(!diagnostic_line) begin
+                    case(field_index)
+                        0:diagnostic_number=boot_diagnostics[95:80];
+                        1:diagnostic_number=boot_diagnostics[79:64];
+                        2:diagnostic_number=boot_diagnostics[63:48];
+                    endcase
+                end else begin
+                    case(field_index)
+                        0:diagnostic_number=boot_diagnostics[47:32];
+                        1:diagnostic_number=boot_diagnostics[31:16];
+                        2:diagnostic_number=boot_diagnostics[15:0];
+                    endcase
+                end
+                if(field_column==0) begin
+                    if(!diagnostic_line) begin
+                        case(field_index) 0:diagnostic_char="C";1:diagnostic_char="D";2:diagnostic_char="R";endcase
+                    end else begin
+                        case(field_index) 0:diagnostic_char="D";1:diagnostic_char="C";2:diagnostic_char="Q";endcase
+                    end
+                end else if(field_column==1)diagnostic_char=":";
+                else if(field_column>=2 && field_column<=5)
+                    diagnostic_char=hexchar(diagnostic_number>>(4*(5-field_column)));
+            end
+        end
     end
     wire [7:0] request_char=diagnostic_region ? diagnostic_char : text_char;
     wire [3:0] request_row=diagnostic_region ? (py-680)&15 : text_row;
@@ -157,7 +188,7 @@ module target_display_commit #(
                 char_d<=request_char;row_d<=request_row;request_d<=request_valid;
                 column_d<=(px-24)&15;first_d<=first_now;
                 stage_de<=video_de;stage_hs<=video_hs;stage_vs<=video_vs;base_d<=video_rgb;
-                diagnostic_d<=ENABLE && have_prepared && diagnostic_region;
+                diagnostic_d<=(BOOT_DIAG_ENABLE || (ENABLE && have_prepared)) && diagnostic_region;
                 protected_d<=protected_region;
                 geometry_d<=geometry_valid;geometry_rgb_d<=geometry_rgb;
                 text_d<=text_valid;text_foreground_d<=text_rgb;
@@ -177,7 +208,7 @@ module target_display_commit #(
             if(!rst_n) begin out_rgb<=0;out_de<=0;out_hs<=0;out_vs<=0;end
             else begin
                 out_de<=video_de;out_hs<=video_hs;out_vs<=video_vs;
-                if(ENABLE && have_prepared && diagnostic_region) out_rgb<=glyph_bits[15-((px-24)&15)] ? 24'hfff200 : 24'h101010;
+                if((BOOT_DIAG_ENABLE || (ENABLE && have_prepared)) && diagnostic_region) out_rgb<=glyph_bits[15-((px-24)&15)] ? 24'hfff200 : 24'h101010;
                 else if(video_de && whole_mask && !protected_region && text_valid) out_rgb<=text_rgb;
                 else if(video_de && whole_mask && !protected_region && geometry_valid) out_rgb<=geometry_rgb;
                 else out_rgb<=video_rgb;

@@ -3,6 +3,7 @@ module tb_target_display_pipeline;
     reg clk=0;always #6.6665 clk=~clk;
     reg rst_n=0;reg[63:0] now_tick=110;
     reg metadata_receive=0,metadata_online=1,scan_fault=0;
+    wire [95:0] boot_diagnostics=96'd0;
     reg[505:0] metadata=0;
     reg[23:0] video_rgb=0;reg video_de=0,video_hs=0,video_vs=0,blanking_start=0;
     wire[23:0] out_rgb,old_rgb,off_rgb;

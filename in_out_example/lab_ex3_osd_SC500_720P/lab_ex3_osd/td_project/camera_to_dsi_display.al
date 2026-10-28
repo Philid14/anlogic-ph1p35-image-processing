@@ -390,6 +390,14 @@
                     <Attr Name="CompileOrder" Val="101"/>
                 </FileInfo>
             </File>
+            <File Path="../user_source/hdl_source/target/target_boot_probe.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="101"/>
+                </FileInfo>
+            </File>
             <File Path="../user_source/hdl_source/target/frame_timebase.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>

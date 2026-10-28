@@ -1,7 +1,7 @@
 // MAIN integration owner: two existing pixel FIFOs, bounded DDR transactions,
 // authoritative capture keys, TARGET guard, and one atomic display snapshot.
 // Experimental until the multi-clock/top-level validation gates have passed.
-module target_frame_system(
+module target_frame_system #(parameter integer BOOT_DIAG_ENABLE=0)(
     input rst_n, csi_clk, ddr_clk, hdmi_clk, input calib_ready,
     input raw_valid, raw_sof, raw_eol, native_frame_end, input packet_error,
     input awb_user, awb_valid, awb_last, input [95:0] awb_rgb,
@@ -16,6 +16,8 @@ module target_frame_system(
     output [63:0] display_tick,
     output display_metadata_receive, output [505:0] display_metadata,
     output display_metadata_online, output display_scan_fault,
+    input diag_packet_error,diag_lane_error,
+    output [95:0] boot_diagnostics,
     output [15:0] dropped_frames,cancelled_frames,metadata_faults
 );
     localparam [63:0] MAX_AGE=64'd100000;
@@ -346,4 +348,24 @@ module target_frame_system(
             endcase
         end
     end
+// Passive boot evidence survives recovery's metadata-only flush.
+    generate if(BOOT_DIAG_ENABLE) begin:g_boot_probe
+        target_boot_probe u_probe(.rst_n(rst_n),.csi_clk(csi_clk),.ddr_clk(ddr_clk),.hdmi_clk(hdmi_clk),
+            .csi_events({terminal_send && !terminal_good,observer_done && !observer_good,
+                raw_complete && !raw_good,camera_we,grant_matches,packed_valid,
+                diag_lane_error,diag_packet_error,detector_strobe && detector_valid,
+                observer_done && observer_good,awb_valid,awb_user,raw_complete && raw_good,
+                native_frame_end,capture_start,raw_valid}),
+            .ddr_events({pending_writes!=0,terminal_receive && !terminal[185],
+                terminal_receive && terminal_match && terminal[185],terminal_receive,
+                cancelled,display_overflow,grant_overflow,camera_fault_sync[2],
+                scan_selected,scan_request,committed,mc_write_accept,allocated,
+                ledger_ready,ddr_time_valid,calib_ready}),
+            .live_status({5'd0,pending_writes==0,read_idle,write_idle,write_active,
+                ledger_ready,ddr_time_valid,calib_ready,recovery,metadata_transport_online}),
+            .drops(dropped_frames),.cancels(cancelled_frames),.faults(metadata_faults),
+            .diagnostics(boot_diagnostics));
+    end else begin:g_no_boot_probe
+        assign boot_diagnostics=96'd0;
+    end endgenerate
 endmodule

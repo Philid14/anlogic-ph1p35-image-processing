@@ -2,6 +2,7 @@
 
 module design_top_wrapper #(
     parameter integer TARGET_ENABLE=1,
+    parameter integer TARGET_BOOT_DIAG_ENABLE=1,
     parameter integer TARGET_OVERLAY_ENABLE=1
 )(
     input wire        I_sys_clk,
@@ -592,6 +593,7 @@ wire [31:0] S_fifo_event_counts;
 wire [95:0] S_target_rgb;
 wire S_target_valid,S_target_user,S_target_last;
 wire [63:0] S_target_tick;
+wire [95:0] S_target_boot_diagnostics;
 wire S_target_metadata_receive,S_target_metadata_online,S_target_scan_fault;
 wire [505:0] S_target_metadata;
 wire [15:0] S_target_drops,S_target_cancels,S_target_faults;
@@ -623,7 +625,7 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
 
 
 generate if(TARGET_ENABLE) begin:g_target_system
-    target_frame_system u_system(
+    target_frame_system #(.BOOT_DIAG_ENABLE(TARGET_BOOT_DIAG_ENABLE)) u_system(
         .rst_n(S_rst_n),.csi_clk(S_csi_rx_clk),.ddr_clk(S_ddr_clk),.hdmi_clk(S_hdmi_pixel_clk),
         .calib_ready(S_init_calib_complete),.raw_valid(S_raw_tvalid),.raw_sof(S_raw_tuser),
         .raw_eol(S_raw_tlast),.native_frame_end(S_raw10_frame_end),.packet_error(S_target_packet_error || S_lane_error_any),
@@ -636,7 +638,8 @@ generate if(TARGET_ENABLE) begin:g_target_system
         .display_rgb(S_video_rd_data),.fifo_counts(S_fifo_event_counts),.display_tick(S_target_tick),
         .display_metadata_receive(S_target_metadata_receive),.display_metadata(S_target_metadata),
         .display_metadata_online(S_target_metadata_online),.display_scan_fault(S_target_scan_fault),
-        .dropped_frames(S_target_drops),.cancelled_frames(S_target_cancels),.metadata_faults(S_target_faults));
+        .diag_packet_error(S_target_packet_error),.diag_lane_error(S_lane_error_any),
+        .boot_diagnostics(S_target_boot_diagnostics),.dropped_frames(S_target_drops),.cancelled_frames(S_target_cancels),.metadata_faults(S_target_faults));
     assign S_vi_ddr_wr_en=S_ddr_user_wr_en;
     assign S_vi_ddr_wr_addr=S_ddr_user_addr;
     assign S_vi_ddr_wr_data=S_ddr_user_wr_data;
@@ -644,6 +647,7 @@ generate if(TARGET_ENABLE) begin:g_target_system
     assign S_vo_ddr_rd_addr=S_ddr_user_addr;
 end else begin:g_legacy_video
     assign S_target_tick=0;
+    assign S_target_boot_diagnostics=0;
     assign S_target_metadata_receive=0;
     assign S_target_metadata=0;
     assign S_target_metadata_online=0;
@@ -845,10 +849,11 @@ end endgenerate
             if(!S_hdmi_rst_n) vs_previous<=0;
             else vs_previous<=S_target_base_vs;
         end
-        target_display_commit #(.ENABLE(TARGET_OVERLAY_ENABLE),.PIPELINE_GLYPH(1)) u_commit(
+        target_display_commit #(.ENABLE(TARGET_OVERLAY_ENABLE),.PIPELINE_GLYPH(1),.BOOT_DIAG_ENABLE(TARGET_BOOT_DIAG_ENABLE)) u_commit(
             .clk(S_hdmi_pixel_clk),.rst_n(S_hdmi_rst_n),.now_tick(S_target_tick),
             .metadata_receive(S_target_metadata_receive),.metadata(S_target_metadata),
             .metadata_online(S_target_metadata_online),.scan_fault(S_target_scan_fault),
+            .boot_diagnostics(S_target_boot_diagnostics),
             .video_rgb(S_target_base_rgb),.video_de(S_target_base_de),
             .video_hs(S_target_base_hs),.video_vs(S_target_base_vs),
             .blanking_start(vs_previous && !S_target_base_vs),
