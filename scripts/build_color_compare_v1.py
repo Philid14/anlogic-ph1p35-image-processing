@@ -27,7 +27,11 @@ def snapshot():
         path=(P/entry).resolve();rel=path.relative_to(ROOT).as_posix()
         assert path.read_bytes().replace(b'\r\n',b'\n')==git('show',head+':'+rel).replace(b'\r\n',b'\n'),rel+' is not committed'
         files[rel]=sha(path)
-        if rel in baseline and rel not in CHANGED:assert files[rel]==baseline[rel],rel+' changed from STYLE_V2'
+        if rel in baseline and rel not in CHANGED:
+            # Windows checkout may expand LF to CRLF; prove the committed
+            # baseline content instead of mistaking line endings for RTL edits.
+            original=git('show','694559fd76676093e134229d435161ecb44ab00c:'+rel)
+            assert path.read_bytes().replace(b'\r\n',b'\n')==original.replace(b'\r\n',b'\n'),rel+' changed from STYLE_V2'
     assert set(files)==set(baseline)|ADDED
     for run,name in [('syn_1','syn_settings.cfg'),('phy_1','phy_settings.cfg')]:
         assert (P/'camera_to_dsi_display_Runs'/run/'settings.cfg').read_bytes()==(ROOT/'artifacts/bitstreams/EDGE_STYLE_FILL_V2/build_evidence'/name).read_bytes(),run+' settings changed'
