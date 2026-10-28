@@ -43,7 +43,7 @@ Setup/Hold违例数为0；STA通过**不等于时序裕量充足或已上板稳�
 - Bit：[camera_to_dsi_display.bit](../artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit)
 - SHA256：`b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27`
 - Build info：[BUILD_INFO.md](../artifacts/bitstreams/COLOR_COMPARE_V1/BUILD_INFO.md)，包含源码清单、工具流程/原始资源/时序、SYN及route数据库SHA、验证证据及历史bit不变清单。
-- Candidate tag：color-compare-v1-candidate，待归档提交审查后创建；PR/实际push状态另记，不移动旧tag。
+- Candidate tag：color-compare-v1-candidate，指向归档commit9670a39f3a94f0876c303dd3cec4b6cc5c607a37；已实际push并核对远程，不移动旧tag。
 - Board Test Status：**NOT_RUN**，用户负责真实验收。
 
 ## 上板与使用限制
@@ -53,3 +53,9 @@ Setup/Hold违例数为0；STA通过**不等于时序裕量充足或已上板稳�
 本版是相机RGB相对比较，非CIE Lab/ΔE或校准色差仪。粗颜色类别不等同于材质/精细颜色识别。框内背景、反光、饱和、左右照明差、镜头阴影和AWB均会影响结果；MATCH不是物品存在或工业合格结论。没有自动分割物体，需操作时填满取样框。
 
 下一步先等待本候选真实上板反馈，再决定光源/颜色标定与容差设定。本轮不做二维尺寸、目标跟踪或下一版算法，不自动合并PR。旧STYLE_V2归档bit可直接回滚，SHA已核对未变。
+
+## 远程与工作区
+
+已上传Private origin，分支及candidate tag通过git ls-remote核对；Draft PR [#17](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/17)，base为codex/main/edge-style-fill-v2，依赖#13→#12，均不自动合并。等待Philid14审查最新提交及真实上板结果，同账号不能请求自审。
+
+本轮源码、bit、证据和文档已提交；原有docs/GITHUB_REFERENCE_RESEARCH.md修改及用户未跟踪资料保留，未混入提交。后续远程回执文档提交不移动candidate tag或改写bit归档。

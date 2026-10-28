@@ -314,5 +314,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 原Sensor/ISP、曝光1990、VTS1000、HTS1600、15.75×增益、BLC15、五模式算法和K3/K4、Logo/CNT、MIPI/DDR/HDMI/PLL/SDC不变。公共像素流水新增2拍，无新增ERAM/DSP。
 - 软件/RTL：80帧统计/4464检查、218快照2398字段、完整五模式720p 1152000四像素拍/864000打包字及原键控/CDC/STYLE回归PASS；物理IP和实板不在该仿真证明范围。
 - TD SYN→Physical→final Timing→bitgen PASS：Slice19336、LUT6 18104、FF17606、ERAM85、DSP21；Setup +0.000ns，Hold +0.020ns，TNS0。Setup裕量紧，一次布局后优化未改善、未选用。不能报告长期实板稳定。
-- Bit：artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit；SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27；candidate tag color-compare-v1-candidate（待实际创建/push记录）。
+- Bit：artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit；SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27；candidate tag color-compare-v1-candidate（已push，归档commit9670a39，Draft PR #17）。
 - Board Test：NOT_RUN；相机RGB差非标定ΔE，LIM12为演示容差，空框/背景仍参与均值。保留候选等待上板，暂不进入测尺寸或后续ISP调节。
