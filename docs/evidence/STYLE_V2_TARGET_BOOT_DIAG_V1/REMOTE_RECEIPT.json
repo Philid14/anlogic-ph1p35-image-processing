@@ -1,0 +1,17 @@
+{
+  "branch": "codex/main/style-v2-target-boot-diag-v1",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "push_status": "SUCCESS",
+  "remote_head": "965016af9e0fafcfdcb6eb108a0a79cf57305596",
+  "failure_tag": "style-v2-target-boot-diag-v1-hold-fail",
+  "failure_tag_target": "965016af9e0fafcfdcb6eb108a0a79cf57305596",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/16",
+  "pr_base": "codex/main/style-v2-target-v1",
+  "source_commit": "958e1068a3aae15b5d2c0f93141a9e5cbea83ca2",
+  "bit": "NOT_GENERATED",
+  "board_test": "NOT_RUN",
+  "original_candidate_board_test": "FAIL: logo/CNT only",
+  "original_bit_sha256_unchanged": "2172e53406af5d67bd2a167c8935f6c9870cc0ac6e79382217f13024df7888ff",
+  "unrelated_changes_preserved": "docs/GITHUB_REFERENCE_RESEARCH.md and user untracked material excluded from commits",
+  "note": "Remote refs verified after actual push. This receipt will be added in a follow-up documentation commit without moving the failure tag."
+}

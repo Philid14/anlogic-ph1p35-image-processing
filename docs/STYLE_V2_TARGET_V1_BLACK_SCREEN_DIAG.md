@@ -57,3 +57,7 @@ Version STYLE_V2_TARGET_BOOT_DIAG_V1，分支codex/main/style-v2-target-boot-dia
 2. `place_style_target_preflight.py`从该SYN完成place；本轮原输入manifest、place结果存于docs/evidence/STYLE_V2_TARGET_V1/syn_boot_diag_01和place_boot_diag_01。
 3. route_boot_diag_01完整布线；route_boot_diag_08自同一place.db用`set_param route effort high`重新布线，flow、source chain、原生stdout、压缩timing和最终RESULT均已归档。02–07是短物理命令实验，无新RTL candidate；无效/CPLD专用选项或移动0实例按实际失败记录保留。
 4. 未通过Hold前不得调用finalize_style_target_route.py生成bit。脚本仍保留Setup/Hold/TNS、源码哈希、物理CDC及验证门槛。
+
+## 远程记录
+
+已实际push并通过git ls-remote核对：失败归档commit965016af9e0fafcfdcb6eb108a0a79cf57305596，annotated tag `style-v2-target-boot-diag-v1-hold-fail`解析到同一commit；Draft PR [#16](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/16)，base为codex/main/style-v2-target-v1，依赖#14→#13，均未合并。后续本记录提交不移动失败tag。原candidate归档bit SHA已再次核对未变；用户既有dirty文档与未跟踪资料未提交。
