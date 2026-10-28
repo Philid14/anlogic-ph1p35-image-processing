@@ -38,3 +38,22 @@ Version STYLE_V2_TARGET_BOOT_DIAG_V1，分支codex/main/style-v2-target-boot-dia
 - 两级整包邮箱单元测试PASS；上述front_boundary仅验证真实行缓存及流边界，不验证实际Sensor/PHY。
 - 原生默认布线出现一条packed RGB寄存器bit87到写FIFO ERAM的Hold -0.068ns；不得生成该结果的bit。原始报告和后续短物理实验都保留。CPLD专用buffer_opt未生效；默认post-route优化和clock_opt未收敛；移动试验因没有可用slot移动0实例，不能描述为已修复。
 - 最后一次有界尝试使用TD原生route effort high，自同一place.db重新布线；不改RTL/SDC/seed。其结果及实际选择另记。诊断版的Hold违例不构成原候选黑屏原因证据。
+
+## 最终状态：诊断固件未发布
+
+- Version：STYLE_V2_TARGET_BOOT_DIAG_V1；Branch：codex/main/style-v2-target-boot-diag-v1。
+- 实际构建RTL commit：958e1068a3aae15b5d2c0f93141a9e5cbea83ca2。
+- Synthesis/placement完成；最终route_boot_diag_08仍为Setup +0.110ns、Hold -0.068ns，Setup TNS0、Hold TNS -0.068ns、1个Hold违例端点。原生高力度route没有解决该违例。
+- 实际布局布线资源：Slice19572/21216（92.25%）、LUT6 17692、FF21352、ERAM20K99/108、DSP21/40。相对原candidate Slice减少380；这不是功能修复或稳定性通过。
+- **Timing FAIL；bitgen未执行；Bit Path/SHA256不适用；Board NOT_RUN；未建立candidate tag。** 不烧录 *_Runs 中旧bit，不将SYN/仿真PASS冒充完整构建PASS。
+- 失败标签拟使用style-v2-target-boot-diag-v1-hold-fail，指向包含源码和失败证据的提交；不替代或移动历史tag。
+- 新增两条诊断邮箱的最终物理CDC复核未执行，因为本诊断构建已被Hold门阻断。原候选的CDC/PHY及首帧实板风险依旧未排除。
+- 用户最新照片确认仅Logo/CNT、其余为反光；原STYLE_V2_TARGET_V1上板状态仍为FAIL，尚未修复。
+- 当前最安全的可用显示回退仍是已由用户确认正常的edge-style-fill-v2-candidate归档bit。后续应先解决诊断构建这条最小Hold短路径，取得启动C/D/R及drop/cancel/fault增量，再定位首个失败的帧准入条件；不能直接关闭包错误、lane错误或完整帧检查。
+
+### 复现路径
+
+1. 从本诊断分支的实际RTL commit恢复TD输入，执行`build_style_v2_target_v1.py --attempt <独立名称>`完成SYN。
+2. `place_style_target_preflight.py`从该SYN完成place；本轮原输入manifest、place结果存于docs/evidence/STYLE_V2_TARGET_V1/syn_boot_diag_01和place_boot_diag_01。
+3. route_boot_diag_01完整布线；route_boot_diag_08自同一place.db用`set_param route effort high`重新布线，flow、source chain、原生stdout、压缩timing和最终RESULT均已归档。02–07是短物理命令实验，无新RTL candidate；无效/CPLD专用选项或移动0实例按实际失败记录保留。
+4. 未通过Hold前不得调用finalize_style_target_route.py生成bit。脚本仍保留Setup/Hold/TNS、源码哈希、物理CDC及验证门槛。

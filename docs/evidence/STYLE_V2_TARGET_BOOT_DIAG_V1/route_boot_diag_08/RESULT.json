@@ -1,0 +1,25 @@
+{
+  "version": "STYLE_V2_TARGET_BOOT_DIAG_V1",
+  "source_commit": "958e1068a3aae15b5d2c0f93141a9e5cbea83ca2",
+  "passed": false,
+  "build_status": "BLOCKED_HOLD",
+  "bit": "NOT_GENERATED",
+  "bit_sha256": null,
+  "board_test": "NOT_RUN",
+  "resources": {
+    "slice": 19572,
+    "lut6": 17692,
+    "ff": 21352,
+    "eram20k": 99,
+    "dsp": 21
+  },
+  "setup_wns_ns": 0.11,
+  "setup_tns_ns": 0,
+  "hold_wns_ns": -0.068,
+  "hold_tns_ns": -0.068,
+  "violating_hold_endpoints": 1,
+  "database_sha256": "29924374328cfc99b91b557723b91de1def219723cdba15d050b8401e804b30d",
+  "route": "route_boot_diag_08",
+  "cdc_audit": "NOT_RUN: release already blocked by hold",
+  "scope": "Diagnostic build failure; not evidence that original routed candidate has this hold violation, and not a black-screen root cause conclusion."
+}

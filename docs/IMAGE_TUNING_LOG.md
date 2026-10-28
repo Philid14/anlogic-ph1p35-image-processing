@@ -323,3 +323,15 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 用户同接线旧EDGE_STYLE_FILL_V2正常；新候选重复烧录仍只有Logo/CNT，MODE/B/S及底部TARGET面板未见。照片人物为反光，不当作摄像头底图。
 - Board Test Result：FAIL。数字仿真/STA不能覆盖此实板反馈。已定位调查范围到首个可显示帧链，具体RAW/packet/lane/DDR校准/准入原因尚未证实。
 - 新建独立STYLE_V2_TARGET_BOOT_DIAG_V1，仅只读boot telemetry绕开“先有成功首帧才能显示诊断”的观测盲区。未修改旧Sensor/ISP/错误判定/DDR/PLL/SDC，无正式算法改进或故障修复结论。
+
+### 2026-10-28 / STYLE_V2_TARGET_BOOT_DIAG_V1 构建阻断
+
+- 角色MAIN；独立分支codex/main/style-v2-target-boot-diag-v1；从5cbb1de依赖PR14开始。
+- 实际RTL/SYN输入commit：958e1068a3aae15b5d2c0f93141a9e5cbea83ca2。
+- 假设/唯一主要变量：增加不依赖首个FrameRef的被动启动观测面板，定位原候选只有Logo/CNT、图像为黑底的卡点；不改变Sensor、算法、错误源、帧准入、DDR、按键或SDC。
+- 原参数与现参数一致；新增显示为CSI/DDR sticky、live状态及原drop/cancel/fault计数；没有伪造有效帧或旁路错误。
+- 真实front边界、原生显示等价/启动面板、原生active-epoch、整包邮箱验证通过，范围与测试调用标记错误详见诊断报告。
+- 构建：SYN/place完成；最终route08 Slice19572、LUT6 17692、FF21352、ERAM99、DSP21；Setup +0.110ns、Hold -0.068ns，Timing FAIL。
+- Bit SHA256/Path：无；bitgen未执行；Board Test NOT_RUN。保留失败实验，未生成candidate；失败标签style-v2-target-boot-diag-v1-hold-fail（创建及push结果另记）。
+- 原STYLE_V2_TARGET_V1：用户新图再次确认Logo/CNT正常、无MODE及底部TARGET面板，屏幕人物为反光。仍是实板FAIL；本诊断构建的Hold失败不解释原bit黑屏。
+- 下一步：先收敛诊断的单条FIFO输入Hold路径，再获取启动状态定位RAW/AWB、calibration、admission、write、commit、read；不在证据不足时关闭完整性检查。
