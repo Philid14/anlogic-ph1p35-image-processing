@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "baseline": "1cc05016eaef482a87f31bd37bc20a9aae541689",
+  "full_frames": 2,
+  "scope": "all RGB and DE/HS/VS/read-enable every cycle, no output latency change; post-DDR digital boundary, no board claim",
+  "sources": {
+    "tests/tb_mixer_logo_retime.sv": "bc1ef839d0800a25df8b64633babda3b9184bddaad0c4cc37642d194d7b0ec44",
+    "tmp/metrology_v1/mixer/reference_mixer.v": "c533d827a66da67965dca4d14e10c778eee7ebb140a353773b77f8ee6ddd5bb4",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v": "61f3206f13f9366d97089a4aa058d9af0a11d3aa67bab299b2044e596911aeec",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v": "37c76680345f17a85632b7835e46a3a197cf75fdd91ca6a970b75f5346e7a9f8"
+  }
+}

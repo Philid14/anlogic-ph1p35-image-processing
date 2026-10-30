@@ -1,0 +1,5 @@
+PASS multi-mode keys: K3 cycle/debounce/hold, K4 short/long, independent 10..250 thresholds, CDC ACK
+D:\anlogic_formal_project\tests\tb_edge_style_keys.v:142: $finish called at 43010000 (1ps)
+
+PASS five-mode mailbox: 200 fast atomic 19-bit packets, latest state, reset recovery
+D:\anlogic_formal_project\tests\tb_edge_style_keys.v:198: $finish called at 2214000 (1ps)

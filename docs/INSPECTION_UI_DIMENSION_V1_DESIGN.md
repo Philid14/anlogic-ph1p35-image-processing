@@ -43,7 +43,7 @@ beyond real ruler-based board validation. Thin planar objects only.
 
 SW1 selects dimension display, taking priority over color if both are on.
 SW2 selects dark(0)/bright(1) silhouette in RUN; X(0)/Y(1) axis in CAL.
-SW3 selects ruler calibration. In CAL, K4 in ORIGIN CAL short decreases the selected
+SW3 selects ruler calibration. Select ORIGIN; K4 short decreases the selected
 pixel interval by 4; hold increases by 4 and repeats at nominal 10 Hz after
 0.7 s. X spans 16..736 px, Y 16..352 px. Initial interval 256 px is NOT a
 calibration. Put two ruler ticks exactly 100 mm apart at the guide end

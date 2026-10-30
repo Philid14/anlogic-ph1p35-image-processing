@@ -1,0 +1,37 @@
+{
+  "version": "INSPECTION_UI_DIMENSION_V1",
+  "branch": "codex/main/inspection-ui-dimension-v1",
+  "source_commit": "d26a591a399f70259944671956c7a801d9674b6d",
+  "archive_driver_commit": "d26a591a399f70259944671956c7a801d9674b6d",
+  "tag": "inspection-ui-dimension-v1-candidate",
+  "bit_sha256": "2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc",
+  "resources": {
+    "slice": 20042,
+    "lut6": 18668,
+    "ff": 18560,
+    "eram": 85,
+    "dsp": 23
+  },
+  "setup_wns_ns": 0.152,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "extra_stream_cycles_vs_COLOR_COMPARE_V1": 0,
+  "baseline": "color-compare-v1-candidate",
+  "route_db_sha256": "432308798ba097845a311b3459566cdd7fd3332c6c53169979bec3e04b4334d3",
+  "selected_post_route_polish": false,
+  "dimensions": "single thin silhouette, axis-aligned extents and center-line gaps; manual two-axis 100mm ruler calibration; 0.1mm display is not accuracy",
+  "resource_delta_vs_COLOR_COMPARE_V1": {
+    "slice": 706,
+    "lut6": 564,
+    "ff": 954,
+    "eram": 0,
+    "dsp": 2
+  },
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": []
+}

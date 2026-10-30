@@ -316,3 +316,22 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - TD SYN→Physical→final Timing→bitgen PASS：Slice19336、LUT6 18104、FF17606、ERAM85、DSP21；Setup +0.000ns，Hold +0.020ns，TNS0。Setup裕量紧，一次布局后优化未改善、未选用。不能报告长期实板稳定。
 - Bit：artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit；SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27；candidate tag color-compare-v1-candidate（已push，归档commit9670a39，Draft PR #17）。
 - Board Test：NOT_RUN；相机RGB差非标定ΔE，LIM12为演示容差，空框/背景仍参与均值。保留候选等待上板，暂不进入测尺寸或后续ISP调节。
+
+
+## 2026-10-30 INSPECTION_UI_DIMENSION_V1 candidate
+
+- Version: INSPECTION_UI_DIMENSION_V1
+- Git Branch: codex/main/inspection-ui-dimension-v1
+- Actual TD source Git Commit: d26a591a399f70259944671956c7a801d9674b6d
+- Git Tag: inspection-ui-dimension-v1-candidate (after archive; not an accepted final tag)
+- 修改假设/主要变量: 以颜色比对版构建可切换的固定平台仪表应用；先独立UI检查点，再独立几何统计/标定；为实际STA收敛最小等价重定时Logo地址。
+- 修改前: 颜色框和面板常驻、黑底、混合字形；无尺子标定或工件尺寸。
+- 修改后: SW0显隐颜色、透明统一字库，SW1尺寸、SW2极性/轴、SW3标定；已有K4在ORIGIN标定中调整；100mm两轴手动标定，单薄件外包/中心截线。
+- 保持: 原颜色统计/分类/MAX12、Sensor/ISP/曝光增益、五算法、K3/K4正常语义、720p、MIPI/DDR/PLL/SDC；无新增帧缓存。K1/K2为1.5V不使用，最终复用C7/K4。
+- Bit SHA-256: 2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc
+- Build Result: r2 SYN/PHY/final STA/bitgen PASS; Slice20042, LUT18668, FF18560, ERAM85, DSP23, Setup+0.152ns, Hold+0.020ns, TNS0。
+- 失败保留: r0 ADC //注释语法；r1 Setup-1.276ns及撤回错误A9/K2提案，均无bit；证据不删除。
+- Validation: 完整720p六帧1382400拍/1036800打包字PASS，mixer1857588周期等价PASS，几何/标定/换算/显隐/颜色/原按键和STYLE回归PASS。独立数字边界，不冒充硬件验证。
+- Board Test Result: NOT_RUN. 用户薄T片/矩形片、100mm丁字尺、纯色背景先验收；GAP不是自动圆拟合，0.1mm显示不是精度。
+- 是否保留: candidate待实板，不替换历史已验证bit。FIFO S增长为验收阻断，Gray约束局限独立保留。
+- 下一步结论: 先按BOARD_TEST完成开关/字形、两轴独立标定、已知尺寸及30分钟稳定性验证；等待用户反馈，不开发下一版、不合并PR。

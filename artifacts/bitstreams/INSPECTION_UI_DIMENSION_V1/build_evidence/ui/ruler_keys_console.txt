@@ -1,0 +1,2 @@
+PASS real synchronized ruler UI: short decrease, held repeat, release, axes, confirmation
+D:\anlogic_formal_project\tests\tb_inspection_ui.sv:54: $finish called at 1390000 (1ps)

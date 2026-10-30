@@ -1,0 +1,2 @@
+PASS mixer cycle equivalence 1857588 cycles / 1851484 active pixels; Logo/CNT, blanking, reset, unchanged sync/latency
+D:\anlogic_formal_project\tests\tb_mixer_logo_retime.sv:36: $finish called at 18575886000 (1ps)
