@@ -11,7 +11,6 @@ module design_top_wrapper (
       
     input wire [1:0]  I_button,
     input wire [3:0] I_switch,
-    input wire I_measure_key_n,
 
     output wire       O_screen_pwm,
     output wire       O_tmds_ch0_p,
@@ -592,7 +591,7 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_fifo_event_counts(S_fifo_event_counts),
 .I_edge_config   (S_edge_received_config),
-.I_switch(I_switch), .I_measure_key_n(I_measure_key_n),
+.I_switch(I_switch), .I_measure_key_n(I_button[1]),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
 .I_tuser         (S_raw_tuser	),

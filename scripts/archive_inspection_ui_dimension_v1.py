@@ -9,6 +9,8 @@ def main():
     full=json.loads((ROOT/'tmp/metrology_v1/full_results.json').read_text())
     assert full['passed'] and full['beats']==1382400 and full['words']==1036800
     for path,digest in full['sources'].items():assert sha(ROOT/path)==digest,path
+    mixer=json.loads((ROOT/'tmp/metrology_v1/mixer/results.json').read_text());assert mixer['passed']
+    for path,digest in mixer['sources'].items():assert sha(ROOT/path)==digest,path
     unit=json.loads((ROOT/'tmp/metrology_v1/unit/results.json').read_text());assert unit['passed'] and unit['frames']==160
     ui=json.loads((ROOT/'tmp/metrology_v1/ui/results.json').read_text());assert ui['passed'] and ui['full_frame_beats']==691200
     scope=json.loads((ROOT/'tmp/metrology_v1/SOURCE_SCOPE.json').read_text());assert scope['passed']
@@ -52,7 +54,12 @@ def main():
     for name in ('SOURCE_MANIFEST.json','syn.tcl','syn_stdout.txt'):
         if(failed/name).exists():shutil.copy2(failed/name,failure/name)
     (failure/'README.md').write_text('First SYN stopped on a newly added // ADC comment (ADC is Tcl). No implementation or bit. Changed only that comment to #, committed 103f625 and rebuilt as r1. Failure preserved.\n')
-    for sub in ('unit','ui','legacy','full','small'):
+    withdrawn=ROOT/'tmp/metrology_v1/r1';target=evidence/'r1_withdrawn';target.mkdir()
+    for f in withdrawn.iterdir():
+        if f.is_file() and f.suffix in ('.txt','.json','.tcl','.cfg','.area','.ts','.rpt','.qor','.timing','.prj'):
+            shutil.copy2(f,target/f.name)
+    (target/'README.md').write_text('r1 source 103f625, functional full six-frame regression passed, but routed setup -1.276ns failed in the original Logo ROM address path. Also withdrew proposed A9/K2 pin after detailed supply review revealed 1.5V pull-up. No bitgen or board use. r2 reuses C7/K4, updates CAL labels and retimes only Logo address into an existing pipeline slot; mixer cycle-equivalence is gated before bitgen.\n')
+    for sub in ('unit','ui','legacy','full','small','mixer'):
         d=ROOT/'tmp/metrology_v1'/sub;target=evidence/sub;target.mkdir()
         for f in d.glob('*.txt'):
             if f.name.endswith('_console.txt') or f.name=='console.txt':shutil.copy2(f,target/f.name)
@@ -82,7 +89,7 @@ def main():
 - Critical warning types: {result['critical_warning_types']}; new: {result['new_critical_warning_types']}
 - Board Test Status: NOT_RUN. User must validate switches/pins, display, dimensional accuracy, lighting and long-term stability.
 - No extra pixel latency vs COLOR_COMPARE_V1; same 31-cycle five-mode/OSD alignment (including its two comparison clocks). Metrics describe preceding completed capture frame, not same-frame tracking.
-- Color means/classifier/tolerance preserved, all original five algorithms/Sensor/ISP/DDR/MIPI/HDMI/PLL/SDC frozen. New input pin assignments are schematic verified.
+- Color means/classifier/tolerance preserved, all original five algorithms/Sensor/ISP/DDR/MIPI/PLL/SDC frozen. HDMI external data/sync/latency unchanged; only Logo address retimed with cycle-equivalence proof. Four switch pins verified; K4 reuses existing C7, neither 1.5V K1/K2 is used.
 - Manual 100mm ruler calibration in X/Y; no guessed scale. 0.1mm displayed resolution is NOT established accuracy. Thin single workpiece, plain contrast background, axis alignment; GAPX/Y are cross-sections, no circle fitting or multi-hole recognition.
 - No additional frame RAM. Constant scale multiplication may map to DSP; actual counts above govern.
 - Historical FIFO B/S and Gray-pointer constraint coverage risks remain. New UI only synchronizes human inputs, no new video CDC or frame gating.

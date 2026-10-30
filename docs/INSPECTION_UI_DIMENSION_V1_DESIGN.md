@@ -10,8 +10,10 @@ Keep the color means/classification/tolerance exactly. No height measurement.
 
 - Four level switches SW0..3 verified against local HX1P35B_FT_40P sheets
   3/9 (files _3.pdf/_8.pdf): A4/B4/E11/D11, 3.3 V, selector to 3.3 V or GND.
-  K2/KEY1 is A9 active-low, 3.3 V; existing K3 B9/K4 C7 remain unchanged.
-  Do not use K1/KEY0, whose pull-up supply is 1.5 V.
+  Existing K3 B9/K4 C7 are 3.3 V. Reuse K4 in ORIGIN calibration;
+  no added key pin. Detailed supply review shows BOTH K1/KEY0 and K2/KEY1
+  pull up to 1.5 V: neither is used. Earlier source checkpoints proposed
+  K2 incorrectly; r1 was withdrawn before bitgen and had STA setup failure.
 - SW0 controls both color sampling outlines and all four result lines.
   Controls synchronize/debounce in CSI domain; display changes only at SOF.
 - Transparent empty glyph pixels in comparison and MODE/THRESHOLD/B/S;
@@ -21,7 +23,7 @@ Keep the color means/classification/tolerance exactly. No height measurement.
   Logo ROM, CNT behavior. Generator is repository-native, no external font code.
 - 3 complete 720p overlay frames / 691200 four-pixel beats compared to an
   independent pixel model, off/on/off plus changes during a frame: PASS.
-  Asynchronous switch bounce, short/long K2 and reset: PASS.
+  Asynchronous switch bounce, short/long K4 and reset: PASS.
   This checkpoint is a source/test checkpoint, not a separately generated bit.
 
 ## Planar measurement boundary
@@ -41,7 +43,7 @@ beyond real ruler-based board validation. Thin planar objects only.
 
 SW1 selects dimension display, taking priority over color if both are on.
 SW2 selects dark(0)/bright(1) silhouette in RUN; X(0)/Y(1) axis in CAL.
-SW3 selects ruler calibration. In CAL, K2 short decreases the selected
+SW3 selects ruler calibration. In CAL, K4 in ORIGIN CAL short decreases the selected
 pixel interval by 4; hold increases by 4 and repeats at nominal 10 Hz after
 0.7 s. X spans 16..736 px, Y 16..352 px. Initial interval 256 px is NOT a
 calibration. Put two ruler ticks exactly 100 mm apart at the guide end
@@ -80,10 +82,22 @@ does; moving objects have one capture-frame measurement age, not same-frame
 tracking. Blank/clipped/malformed result prints dashes/NO VALID OBJECT.
 Full-frame geometry is checked and invalid data never gates video writes.
 
-K3/K4 five-mode and threshold semantics stay unchanged. Dimension
+K3/K4 normal five-mode and threshold semantics stay unchanged. Use ORIGIN for calibration, where K4 previously has no threshold action. Dimension
 measurements must use real pre-effect RGB/luma, not rendered STYLE/EDGE pixels.
 No new frame cache, video admission gate, PLL or SDC change is authorized.
 
 Current candidate is resource-constrained (Slice19336/21216, setup +0.000ns).
 Full regression and routed STA are required before any new candidate bit.
 Source checkpoints and actual TD source commit will be tracked separately.
+
+## Routed timing checkpoint and corrective retiming
+
+r1 (source 103f625) routed Slice19765, ERAM85, DSP23 but failed setup
+-1.276 ns / TNS -23.998 ns; hold +0.020 ns. No bitgen. Worst path was
+HDMI_PIXEL_CLK mixer Logo address multiply/add -> asynchronous Logo ROM ->
+HDMI output, not measurement (CSI had +1.483 ns). For r2, calculate/register
+Logo address from existing *_1d coordinates/DE while those same signals
+advance to *_2d. Original RGB/read enable/sync/output latency do not change.
+An old/new mixer cycle-equivalence regression must pass, including Logo,
+CNT, blanking, SOF/reset and all pixel values. No PLL, SDC or video-interface
+change. r1 is also withdrawn for the incorrect proposed K2 IO supply.

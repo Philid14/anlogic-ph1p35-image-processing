@@ -506,7 +506,7 @@ module color_compare_osd #(
                 8'd25:character="P";
                 8'd26:character="X";
                 8'd64:character="K";
-                8'd65:character="2";
+                8'd65:character="4";
                 8'd67:character="S";
                 8'd68:character="H";
                 8'd69:character="O";

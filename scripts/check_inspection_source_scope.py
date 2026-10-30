@@ -9,7 +9,7 @@ def main():
     names=['awb.v','isp/color_compare_stats.v','isp/edge_detect_96.v',
       'isp/gaussian_pair_3x3.v','isp/nms_gradient_pair_3x3.v','isp/edge_link_pair_3x3.v',
       'isp/edge_center_pair_delay.v','isp/edge_temporal_hold.v','isp/style_fill_96.v',
-      'isp/rgb_effects_96.v','video_in.v','video_out.v','hdmi_mixer.v','anlogic_logo_rom.v',
+      'isp/rgb_effects_96.v','video_in.v','video_out.v','anlogic_logo_rom.v',
       'edge_key_control.v','edge_config_cdc.v','data_96bit_to_128bit.v']
     for name in names:assert (HDL/name).read_text(encoding='utf-8')==old(HDL/name),name
     p=HDL/'osd_char_lib.v';new=p.read_text();base=old(p)
@@ -26,7 +26,8 @@ def main():
     pins={port:pin for port,pin in entries}
     assert len(set(pins.values()))==len(pins),'Pin collision'
     assert [pins[f'I_switch[{i}]'] for i in range(4)]==['A4','B4','E11','D11']
-    assert pins['I_measure_key_n']=='A9' and pins['I_button[0]']=='B9' and pins['I_button[1]']=='C7'
+    assert 'I_measure_key_n' not in pins and pins['I_button[0]']=='B9' and pins['I_button[1]']=='C7'
+    assert '.I_measure_key_n(I_button[1])' in (HDL/'design_top_wrapper.v').read_text()
     sdc=HDL.parent.parent/'td_project/camera_to_dsi_display.sdc'
     assert sdc.read_text()==old(sdc),'SDC changed'
     result=dict(passed=True,baseline=BASE,unchanged_modules=names,chinese_glyphs_unchanged=True,

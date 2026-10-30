@@ -8,9 +8,9 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/metrology_v1/r1'
+OUT=ROOT/'tmp/metrology_v1/r2'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
-CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','edge_status_osd.v','osd_char_lib.v','isp/color_compare_osd.v')}
+CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','edge_status_osd.v','hdmi_mixer.v','osd_char_lib.v','isp/color_compare_osd.v')}
 CHANGED.add(HDL.replace('hdl_source/','constraints_source/')+'pin.adc')
 ADDED={HDL+'isp/'+p+'.v' for p in ('inspection_control','inspection_calibration','planar_measure_stats')}
 TD=Path('D:/TD/bin/td_commands_prompt.exe')
@@ -82,6 +82,8 @@ def main():
         full=json.loads((ROOT/'tmp/metrology_v1/full_results.json').read_text())
         assert full['passed'] and full['beats']==1382400 and full['words']==1036800
         for rel,digest in full['sources'].items():assert sha(ROOT/rel)==digest,rel
+        mixer=json.loads((ROOT/'tmp/metrology_v1/mixer/results.json').read_text());assert mixer['passed']
+        for rel,digest in mixer['sources'].items():assert sha(ROOT/rel)==digest,rel
         selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None
         database=Path(selected['route_database']) if selected else phy/'camera_to_dsi_display_pr.db'
         assert sha(database)==(selected['database_sha256'] if selected else (OUT/'ROUTE_DB_SHA256.txt').read_text().strip())

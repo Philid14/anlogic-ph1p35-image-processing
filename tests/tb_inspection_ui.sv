@@ -43,7 +43,7 @@ module tb_inspection_ruler_keys;
     initial begin
       repeat(3)@(negedge clk);rst_n=1;raw_sw=10;repeat(10)@(negedge clk);
       key=0;repeat(8)@(negedge clk);key=1;repeat(10)@(negedge clk);
-      if(sx!==252 || sy!==256)$fatal(1,"FAIL real K2 short decrement");
+      if(sx!==252 || sy!==256)$fatal(1,"FAIL real K4 short decrement");
       key=0;repeat(40)@(negedge clk);key=1;repeat(10)@(negedge clk);
       if(sx<264)$fatal(1,"FAIL held key repeat");held=sx;
       repeat(20)@(negedge clk);if(sx!==held)$fatal(1,"FAIL repeat did not stop");

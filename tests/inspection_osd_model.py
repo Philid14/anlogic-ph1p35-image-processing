@@ -15,7 +15,7 @@ def dimension_lines(m,calibrated,sx,sy,cal_mode,axis_y,cut,sid):
           f'CUT:{cut:03d} '+('BRIGHT' if axis_y else 'DARK  ')+ 'CAL:'+('OK' if calibrated else 'NEEDED'),
           f'LAST:{sid:04X} '+('ALIGN EDGES TO X/Y' if m.get('valid',True) and m['present'] else 'NO VALID OBJECT')]
     if cal_mode:rows=[f'CAL {"Y" if axis_y else "X"} 100.0 MM SPAN:{sy if axis_y else sx:04d} PX',
-        'K2 SHORT -4 HOLD +4','SW2 X/Y SW3 OFF CONFIRM','ALIGN RULER IN WORK PLANE']
+        'K4 SHORT -4 HOLD +4','SW2 X/Y SW3 OFF CONFIRM','ALIGN RULER IN WORK PLANE']
     return [s.ljust(38) for s in rows]
 
 def overlay(pixels,x,y,ui,means,sid,m,font,calibrated=False,sx=256,sy=256,cut=130):

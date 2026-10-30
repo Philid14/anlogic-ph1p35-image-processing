@@ -560,10 +560,21 @@ module hdmi_mixer #(
         end
     end
 
+    // Logo address is calculated from the existing earlier coordinate stage.
+    // At every clock these coordinates and DE advance into *_2d together.
+    // This cuts multiply/add -> ROM -> output into existing pipeline slots;
+    // pixel data, video read enable and HDMI sync/output latency are unchanged.
+    always @(posedge I_clk or negedge I_rst_n) begin
+        if(!I_rst_n) S_logo_addr <= 15'd0;
+        else if(S_video_de_1d && S_x_1d>=LOGO_X && S_x_1d<LOGO_X+LOGO_W &&
+                S_y_1d>=LOGO_Y && S_y_1d<LOGO_Y+LOGO_H)
+            S_logo_addr <= (S_y_1d-LOGO_Y)*LOGO_W+(S_x_1d-LOGO_X);
+        else S_logo_addr <= 15'd0;
+    end
+
     always @(*) begin
         S_osd_hit   = 1'b0;
         S_osd_color = 24'd0;
-        S_logo_addr = 15'd0;
 
         S_logo_x = 12'd0;
         S_logo_y = 12'd0;
@@ -616,7 +627,6 @@ module hdmi_mixer #(
                (S_y_2d >= LOGO_Y) && (S_y_2d < (LOGO_Y + LOGO_H))) begin
                 S_logo_x = S_x_2d - LOGO_X;
                 S_logo_y = S_y_2d - LOGO_Y;
-                S_logo_addr = S_logo_y * LOGO_W + S_logo_x;
                 if(S_logo_pixel[24]) begin
                     S_osd_hit   = 1'b1;
                     S_osd_color = S_logo_pixel[23:0];
