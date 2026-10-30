@@ -5,7 +5,7 @@ module tb_inspection_ui;
     wire [95:0] out;wire ov,ou,ol;
     color_compare_osd #(.UI_ENABLE(1)) dut(.clk(clk),.rst_n(rst_n),.rgb(rgb),
       .valid(v),.user(u),.last(l),.means({24'hb4413c,24'hc84641}),
-      .result_valid(1'b1),.sample_id(16'h1234),.display_enable(en),
+      .result_valid(1'b1),.sample_id(16'h1234),.display_enable(en),.dimension_enable(1'b0),
       .out_rgb(out),.out_valid(ov),.out_user(ou),.out_last(ol));
     reg [95:0] expected0=0,expected1=0;reg ev=0,eu=0,el=0;
     integer fd,n,tv,tu,tl,te,cycles=0,checked=0;

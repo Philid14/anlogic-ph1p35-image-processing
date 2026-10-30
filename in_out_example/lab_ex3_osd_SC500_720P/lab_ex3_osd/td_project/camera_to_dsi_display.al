@@ -382,6 +382,22 @@
             <File Path="../user_source/hdl_source/isp/fifo_event_counter.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
             <File Path="../user_source/hdl_source/isp/edge_center_pair_delay.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
             <File Path="../user_source/hdl_source/isp/edge_temporal_hold.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
+            <File Path="../user_source/hdl_source/isp/planar_measure_stats.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="70"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/inspection_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
             <File Path="../user_source/hdl_source/isp/inspection_control.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>

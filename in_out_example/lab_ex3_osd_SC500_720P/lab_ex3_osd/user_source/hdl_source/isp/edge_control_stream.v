@@ -114,14 +114,19 @@ module edge_control_stream #(
         endcase
     end
     wire [3:0] ui_switches;
-    wire capture_toggle,clear_toggle;
+    wire capture_toggle,clear_toggle,repeat_toggle;
+    wire [10:0] ui_span_x,ui_span_y;wire ui_calibrated;wire [1:0] ui_visited;
     generate if(INSPECTION_ENABLE)begin:g_inspection_controls
         inspection_control u_controls(.clk(clk),.rst_n(rst_n),.switches(I_switch),
             .key_n(I_measure_key_n),.stable_switches(ui_switches),
-            .capture_toggle(capture_toggle),.clear_toggle(clear_toggle));
+            .capture_toggle(capture_toggle),.clear_toggle(clear_toggle),.repeat_toggle(repeat_toggle));
+        inspection_calibration u_calibration(.clk(clk),.rst_n(rst_n),.switches(ui_switches),
+            .short_toggle(capture_toggle),.up_toggle(repeat_toggle),.span_x(ui_span_x),.span_y(ui_span_y),
+            .calibrated(ui_calibrated),.visited(ui_visited));
     end else begin:g_legacy_controls
         assign ui_switches=4'b0001;
-        assign capture_toggle=1'b0;assign clear_toggle=1'b0;
+        assign capture_toggle=1'b0;assign clear_toggle=1'b0;assign repeat_toggle=1'b0;
+        assign ui_span_x=256;assign ui_span_y=256;assign ui_calibrated=0;assign ui_visited=0;
     end endgenerate
     reg [3:0] ui_frame;
     wire [3:0] ui_beat=I_user?ui_switches:ui_frame;
@@ -152,11 +157,29 @@ module edge_control_stream #(
         color_compare_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_stats(
             .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
+        wire [43:0] dim_sizes,dim_box;wire dim_valid,dim_present;
+        wire [1:0] dim_gap;wire [7:0] dim_cut;wire dim_bright;wire [15:0] dim_id;
+        if(INSPECTION_ENABLE)begin:g_measure_stats
+            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_dimension(
+                .clk(clk),.rst_n(rst_n),.binary_pixels({binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]}),
+                .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),.bright(ui_pipe[0][2]),
+                .threshold(config_p[0][7:0]),.result_valid(dim_valid),.present(dim_present),
+                .gap_valid(dim_gap),.sizes(dim_sizes),.box_coords(dim_box),.sample_id(dim_id),
+                .result_threshold(dim_cut),.result_bright(dim_bright));
+        end else begin:g_no_measure_stats
+            assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
+            assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
+        end
         color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
             .user(user_p[EDGE_STAGES-1]),.last(last_p[EDGE_STAGES-1]),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id),
-            .display_enable(ui_pipe[EDGE_STAGES-1][0]),
+             .display_enable(ui_pipe[EDGE_STAGES-1][0]),.dimension_enable(ui_pipe[EDGE_STAGES-1][1]),
+            .cal_mode(ui_pipe[EDGE_STAGES-1][3]),.axis_y(ui_pipe[EDGE_STAGES-1][2]),
+            .calibrated(ui_calibrated),.span_x(ui_span_x),.span_y(ui_span_y),.cal_visited(ui_visited),
+            .dim_sizes(dim_sizes),.dim_box(dim_box),
+            .dim_valid(dim_valid && dim_cut==config_p[EDGE_STAGES-1][7:0] && dim_bright==ui_pipe[EDGE_STAGES-1][2]),
+            .dim_present(dim_present),.dim_gap_valid(dim_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
     end else begin:g_no_color_compare
         assign compare_config=config_p[EDGE_STAGES-1];

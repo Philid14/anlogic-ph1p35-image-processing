@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 module tb_edge_style_stream;
-    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1, COMPARE=0;
+    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1, COMPARE=0, INSPECTION=0;
+    reg [3:0] ui_test=0;reg cal_test=0;reg [10:0] sx_test=256,sy_test=256;
     localparam DEPTH = 29+(COMPARE?2:0);
     reg clk=0;
     always #5 clk=~clk;
@@ -15,7 +16,7 @@ module tb_edge_style_stream;
     edge_control_stream #(
         .IMG_WIDTH(WIDTH), .IMG_HEIGHT(HEIGHT), .DENOISE_ENABLE(1),
         .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),
-        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE)
+        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION)
     ) dut (
         .clk(clk), .rst_n(rst_n), .requested_config(cfg),
         .I_fifo_event_counts(fifo_counts),
@@ -34,7 +35,7 @@ module tb_edge_style_stream;
     isp_top #(
         .EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1),
         .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .TEMPORAL_ENABLE(1),
-        .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE)
+        .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION)
     ) integrated (
         .axi4s_video_aclk(clk), .I_rst_n(rst_n), .I_edge_config(cfg),
         .I_fifo_event_counts(fifo_counts),
@@ -46,7 +47,7 @@ module tb_edge_style_stream;
     reg [95:0] golden [0:DEPTH-1];
     reg [DEPTH-1:0] ev=0, eu=0, el=0;
     reg prev_user=0;
-    integer inf, pf, rc, j, iv, iu, il, cycles=0, beats=0, words=0, expected_words;
+    integer inf, pf, rc, j, iv, iu, il, iui,ical,isx,isy, cycles=0, beats=0, words=0, expected_words;
     reg [95:0] din, expected;
     reg [18:0] next_cfg;
     reg [127:0] expected_pack;
@@ -97,10 +98,24 @@ module tb_edge_style_stream;
         force integrated.awb_O_tvalid=v;
         force integrated.awb_O_tuser=u;
         force integrated.awb_O_tlast=l;
+        if(INSPECTION)begin
+            force dut.ui_switches=ui_test;
+            force dut.ui_calibrated=cal_test;
+            force dut.ui_span_x=sx_test;force dut.ui_span_y=sy_test;
+            force integrated.g_control.u_control.ui_switches=ui_test;
+            force integrated.g_control.u_control.ui_calibrated=cal_test;
+            force integrated.g_control.u_control.ui_span_x=sx_test;
+            force integrated.g_control.u_control.ui_span_y=sy_test;
+        end
         repeat(8) @(negedge clk);
         rst_n=1;
         while(!$feof(inf)) begin
-            rc=$fscanf(inf,"%d %d %d %h %h %h\n",
+            if(INSPECTION)begin
+                rc=$fscanf(inf,"%d %d %d %h %h %h %d %d %d %d\n",
+                    iv,iu,il,next_cfg,din,expected,iui,ical,isx,isy);
+                ui_test=iui;cal_test=ical;sx_test=isx;sy_test=isy;
+                if(rc==10)rc=6;
+            end else rc=$fscanf(inf,"%d %d %d %h %h %h\n",
                        iv,iu,il,next_cfg,din,expected);
             if(rc==6) step(iv!=0,iu!=0,il!=0,next_cfg,din,expected);
             else if(!$feof(inf)) $fatal(1,"FAIL malformed vector");
