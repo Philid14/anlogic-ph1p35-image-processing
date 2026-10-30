@@ -15,10 +15,11 @@ def main():
     for stage in ('syn','phy','bit'):
         text=(OUT/(stage+'_stdout.txt')).read_text(errors='replace')
         assert stage.upper()+'_COMPLETE' in text and not re.search(r'\bERROR\s*:',text),stage
-    timing=(OUT/'phy_camera_to_dsi_display_phy.ts').read_text()
+    selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None
+    timing=(Path(selected['timing_report']) if selected else OUT/'phy_camera_to_dsi_display_phy.ts').read_text()
     sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
     assert sw>=0 and hw>=0 and st==ht==0
-    area=(OUT/'phy_camera_to_dsi_display_phy.area').read_text()
+    area=(Path(selected['area_report']) if selected else OUT/'phy_camera_to_dsi_display_phy.area').read_text()
     number=lambda n:int(re.search(r'^#'+re.escape(n)+r'\s+(\d+)',area,re.M)[1])
     resources={k:number(n) for k,n in [('slice','slice'),('lut6','lut6'),('ff','reg'),('eram','eram'),('dsp','dsp')]}
     assert resources['slice']<=21216 and resources['eram']<=108 and resources['dsp']<=40
@@ -30,7 +31,8 @@ def main():
         tag='inspection-ui-dimension-v1-candidate',bit_sha256=sha(bit),resources=resources,
         setup_wns_ns=sw,hold_wns_ns=hw,setup_tns_ns=st,hold_tns_ns=ht,board_test='NOT_RUN',
         extra_stream_cycles_vs_COLOR_COMPARE_V1=0,baseline='color-compare-v1-candidate',
-        route_db_sha256=(OUT/'ROUTE_DB_SHA256.txt').read_text().strip(),
+        route_db_sha256=selected['database_sha256'] if selected else (OUT/'ROUTE_DB_SHA256.txt').read_text().strip(),
+        selected_post_route_polish=bool(selected),
         dimensions='single thin silhouette, axis-aligned extents and center-line gaps; manual two-axis 100mm ruler calibration; 0.1mm display is not accuracy')
     previous=json.loads((ROOT/'artifacts/bitstreams/COLOR_COMPARE_V1/BUILD_INFO.json').read_text())
     result['resource_delta_vs_COLOR_COMPARE_V1']={k:resources[k]-v for k,v in previous['resources'].items()}
@@ -42,6 +44,10 @@ def main():
     for f in OUT.iterdir():
         if f.is_file() and f.suffix in ('.txt','.json','.tcl','.cfg','.area','.ts','.rpt','.qor','.timing','.prj'):
             shutil.copy2(f,evidence/f.name)
+    if (OUT/'polish01').exists():
+        target=evidence/'polish01';target.mkdir()
+        for f in (OUT/'polish01').iterdir():
+            if f.is_file() and f.suffix!='.db':shutil.copy2(f,target/f.name)
     failed=ROOT/'tmp/metrology_v1/r0';failure=evidence/'r0_adc_comment_failure';failure.mkdir()
     for name in ('SOURCE_MANIFEST.json','syn.tcl','syn_stdout.txt'):
         if(failed/name).exists():shutil.copy2(failed/name,failure/name)
