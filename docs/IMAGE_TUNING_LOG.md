@@ -335,3 +335,12 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result: NOT_RUN. 用户薄T片/矩形片、100mm丁字尺、纯色背景先验收；GAP不是自动圆拟合，0.1mm显示不是精度。
 - 是否保留: candidate待实板，不替换历史已验证bit。FIFO S增长为验收阻断，Gray约束局限独立保留。
 - 下一步结论: 先按BOARD_TEST完成开关/字形、两轴独立标定、已知尺寸及30分钟稳定性验证；等待用户反馈，不开发下一版、不合并PR。
+
+### 2026-10-30 INSPECTION_UI_DIMENSION_V1 首次界面反馈 / MAIN
+
+- 沿用上述candidate、源码commit与bit SHA256；本次唯一变更为文档纠正与实测记录，无RTL/配置/bit改动，无新tag。
+- Board Test Result: PARTIAL。全部物理OFF显示CAL Y；仅第一路ON为CAL X；仅第二路ON为颜色；仅第三路ON为尺寸RUN、BRIGHT、CAL:OK、NO VALID OBJECT。用户确认每次单独拨动；第二路ON后再开第四路无变化。
+- 确认问题：原物理路数说明未经实板核验，撤回；第四路颜色显隐未通过。实际路由SW0/A4、SW1/B4、SW2/E11、SW3/D11仅证实编译绑定，不证实实板顺序。禁止按排除法盲改引脚。
+- 标定证据：SPAN0256为默认，CAL:OK仅说明访问X/Y并退出，不等于已对齐100mm。当前没有有效工件尺寸或精度验证结果。
+- 是否保留：candidate保留，未宣称通过。下一步按修订BOARD_TEST使用前三路操作、同平面尺子两轴标定和独立尺寸复测；另核实实板SWITCH丝印/原理图。反光、单张B/S不能证明画面故障或长期无溢出。
+- 详细记录：docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md。无新算法、无重建、无PR合并。

@@ -1,5 +1,9 @@
 # INSPECTION_UI_DIMENSION_V1 交付报告
 
+> 2026-10-30实板反馈更正：下列SW0～3为RTL逻辑编号，原文“第几路”不能认定为实板顺序。
+> 用户已观察到标定/颜色/测量界面，但第四物理开关未能关闭颜色显示，尺寸尚无有效实测值。
+> 当前状态PARTIAL，详见[反馈记录](INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md)及更新的BOARD_TEST。
+
 2026-10-30 / MAIN。基于COLOR_COMPARE_V1（1cc0501，PR #17），按用户要求先改颜色显隐与文字，再增加薄工件二维尺寸测量。用户的金属T片、矩形片、角码、合页和塑料件照片用于确定使用边界，不作为FPGA原始RGB或尺寸真值。
 
 ## 已完成
@@ -73,4 +77,4 @@ Setup/Hold违例端点0。最差路径现位于CSI域尺寸统计minx的使能�
 - Remote：Private origin https://github.com/Philid14/anlogic-ph1p35-image-processing.git
 - 源码、bit归档、分支与candidate tag已实际push；远程引用和tag内bit的SHA256已核对，见[evidence/REMOTE_RECEIPT](evidence/INSPECTION_UI_DIMENSION_V1/REMOTE_RECEIPT.json)。
 - Git Status：本轮内容独立提交；原docs/GITHUB_REFERENCE_RESEARCH.md修改与用户未跟踪资料保留，不混入提交。
-- Board Test Status：**NOT_RUN**。候选等待用户上板；本轮不自行进入下一版。
+- Board Test Status：**PARTIAL**。界面已有实板反馈；物理颜色显隐未通过、尺寸精度与长期稳定性未验证。构建归档中的NOT_RUN为当时状态，保留不改。本轮不自行进入下一版。
