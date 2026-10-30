@@ -1,13 +1,19 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
     input [47:0] means,input result_valid,input [15:0] sample_id,
+    input display_enable,
     output reg [95:0] out_rgb,output reg out_valid,out_user,out_last
 );
+    reg show_color;
+    wire enabled=UI_ENABLE?show_color:1'b1;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)show_color<=0;else if(user)show_color<=display_enable;
+    end
     reg [10:0] x;reg [9:0] y;
     wire [10:0] px=user?11'd0:x;wire [9:0] py=user?10'd0:y;
     reg [47:0] held_rgb;reg [15:0] held_id;
@@ -269,13 +275,13 @@ module color_compare_osd #(
             if(user)begin x<=0;y<=0;end
             if(valid)begin x<=px==WIDTH-4?0:px+4;if(px==WIDTH-4)y<=py==HEIGHT-1?0:py+1'b1;else y<=py;end
             char_d<=character;row_d<=ly[4:1];col_d<=lx[4:1];
-            panel_d<=panel;ref_d<=ref_box;test_d<=test_box;
+            panel_d<=panel && enabled;ref_d<=ref_box && enabled;test_d<=test_box && enabled;
             ink_d<=row==0?24'h40ff80:row==1?24'h40dfff:row==2?24'hffff80:
                 (!held_valid || !formatted)?24'hffff00:compare_match?24'h40ff80:24'hff8040;
             rgb_d<=rgb;v_d<=valid;u_d<=user;l_d<=last;
             out_valid<=v_d;out_user<=u_d;out_last<=l_d;
             for(lane=0;lane<4;lane=lane+1)
-                out_rgb[95-lane*24-:24]<=panel_d?(bits[15-col_d-lane/2]?ink_d:24'h101820):
+                out_rgb[95-lane*24-:24]<=panel_d && bits[15-col_d-lane/2]?ink_d:
                     ref_d?24'h40ff80:test_d?24'h40dfff:rgb_d[95-lane*24-:24];
         end
     end

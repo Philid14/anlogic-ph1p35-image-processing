@@ -39,7 +39,7 @@ def overlay(pixels,x,y,means,sid,font,valid=True):
             bits=font.get(ord(char),{}).get(((y-544)%32)//2,0)
             ink=[(64,255,128),(64,223,255),(255,255,128),
                  (255,255,0) if not valid else (64,255,128) if max(abs(a-b) for a,b in zip(*means))<=12 else (255,128,64)][row]
-            p=ink if bits & (1<<(15-((px-32)%32)//2)) else (16,24,32)
+            p=ink if bits & (1<<(15-((px-32)%32)//2)) else p
         else:
             for roi,color in [(REF,(64,255,128)),(TEST,(64,223,255))]:
                 rx,ry,rw,rh=roi

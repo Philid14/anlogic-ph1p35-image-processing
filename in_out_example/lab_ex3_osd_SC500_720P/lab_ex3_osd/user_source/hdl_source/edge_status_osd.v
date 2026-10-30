@@ -138,9 +138,8 @@ module edge_status_osd #(
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin
-                if (hit_s1)
-                    O_data[95-lane*24 -:24] <= (glyph_s1 && glyph_bits[15-col_s1-(lane/2)])
-                        ? 24'hffff00 : 24'h101010;
+                if (hit_s1 && glyph_s1 && glyph_bits[15-col_s1-(lane/2)])
+                    O_data[95-lane*24 -:24] <= 24'hffff00;
                 else O_data[95-lane*24 -:24] <= rgb_s1[95-lane*24 -:24];
             end
         end

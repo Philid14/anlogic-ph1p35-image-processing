@@ -10,6 +10,8 @@ module design_top_wrapper (
     output wire       O_cam_rst,
       
     input wire [1:0]  I_button,
+    input wire [3:0] I_switch,
+    input wire I_measure_key_n,
 
     output wire       O_screen_pwm,
     output wire       O_tmds_ch0_p,
@@ -586,10 +588,11 @@ assign S_raw_tuser  = S_axis_tuser;
 
 //ISP算法顶层模块
 wire [31:0] S_fifo_event_counts;
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1)) u_isp_top (
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1)) u_isp_top (
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_fifo_event_counts(S_fifo_event_counts),
 .I_edge_config   (S_edge_received_config),
+.I_switch(I_switch), .I_measure_key_n(I_measure_key_n),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
 .I_tuser         (S_raw_tuser	),

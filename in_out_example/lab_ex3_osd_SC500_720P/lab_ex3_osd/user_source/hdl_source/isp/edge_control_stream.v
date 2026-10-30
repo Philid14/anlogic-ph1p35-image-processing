@@ -12,11 +12,13 @@ module edge_control_stream #(
     parameter integer QUALITY_HOPS = 4,
     parameter integer TEMPORAL_ENABLE = 0,
     parameter integer RELIABILITY_ENABLE = 0,
-    parameter integer COLOR_COMPARE_ENABLE = 0
+    parameter integer COLOR_COMPARE_ENABLE = 0,
+    parameter integer INSPECTION_ENABLE = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
     input [31:0] I_fifo_event_counts,
+    input [3:0] I_switch,input I_measure_key_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     output [95:0] O_data, output O_valid, output O_user, output O_last,
     output I_ready, input O_ready
@@ -111,6 +113,29 @@ module edge_control_stream #(
             default:     selected_data = stable_edge_data;
         endcase
     end
+    wire [3:0] ui_switches;
+    wire capture_toggle,clear_toggle;
+    generate if(INSPECTION_ENABLE)begin:g_inspection_controls
+        inspection_control u_controls(.clk(clk),.rst_n(rst_n),.switches(I_switch),
+            .key_n(I_measure_key_n),.stable_switches(ui_switches),
+            .capture_toggle(capture_toggle),.clear_toggle(clear_toggle));
+    end else begin:g_legacy_controls
+        assign ui_switches=4'b0001;
+        assign capture_toggle=1'b0;assign clear_toggle=1'b0;
+    end endgenerate
+    reg [3:0] ui_frame;
+    wire [3:0] ui_beat=I_user?ui_switches:ui_frame;
+    reg [3:0] ui_pipe[0:EDGE_STAGES-1];
+    integer ui_i;
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin
+            ui_frame<=0;for(ui_i=0;ui_i<EDGE_STAGES;ui_i=ui_i+1)ui_pipe[ui_i]<=0;
+        end else begin
+            if(I_user)ui_frame<=ui_switches;
+            ui_pipe[0]<=ui_beat;
+            for(ui_i=1;ui_i<EDGE_STAGES;ui_i=ui_i+1)ui_pipe[ui_i]<=ui_pipe[ui_i-1];
+        end
+    end
     wire [95:0] compare_data;
     wire [18:0] compare_config;
     wire compare_valid,compare_user,compare_last;
@@ -127,10 +152,11 @@ module edge_control_stream #(
         color_compare_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_stats(
             .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_compare(
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
             .user(user_p[EDGE_STAGES-1]),.last(last_p[EDGE_STAGES-1]),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id),
+            .display_enable(ui_pipe[EDGE_STAGES-1][0]),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
     end else begin:g_no_color_compare
         assign compare_config=config_p[EDGE_STAGES-1];
