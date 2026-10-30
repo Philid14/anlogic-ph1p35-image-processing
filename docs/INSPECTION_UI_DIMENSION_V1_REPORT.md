@@ -65,12 +65,12 @@ Setup/Hold违例端点0。最差路径现位于CSI域尺寸统计minx的使能�
 - Version：INSPECTION_UI_DIMENSION_V1
 - Git Branch：codex/main/inspection-ui-dimension-v1
 - 实际TD源码Git Commit：d26a591a399f70259944671956c7a801d9674b6d
-- Git Tag：inspection-ui-dimension-v1-candidate（归档后建立，不移动历史tag）
+- Git Tag：inspection-ui-dimension-v1-candidate，指向归档commit dfbec5818de58925852e06554c1d8fa0c8bf1d31；已push，不移动历史tag。
 - Draft PR：[#18](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/18)，依赖#17→#13→#12；不合并。
 - Bit：[camera_to_dsi_display.bit](../artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/camera_to_dsi_display.bit)
 - SHA-256：`2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc`
 - 构建信息：[BUILD_INFO](../artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/BUILD_INFO.md)及JSON；完整资源/时序、源码清单和各轮验证在同目录build_evidence。
 - Remote：Private origin https://github.com/Philid14/anlogic-ph1p35-image-processing.git
-- 源码检查点已push；bit归档、candidate tag推送状态以最终REMOTE_RECEIPT及报告发布补记为准。
+- 源码、bit归档、分支与candidate tag已实际push；远程引用和tag内bit的SHA256已核对，见[evidence/REMOTE_RECEIPT](evidence/INSPECTION_UI_DIMENSION_V1/REMOTE_RECEIPT.json)。
 - Git Status：本轮内容独立提交；原docs/GITHUB_REFERENCE_RESEARCH.md修改与用户未跟踪资料保留，不混入提交。
 - Board Test Status：**NOT_RUN**。候选等待用户上板；本轮不自行进入下一版。
