@@ -72,7 +72,9 @@ For a T plate, SIZE measures overall width/height, not all branch lengths.
 The screen shows pixel units until calibration. Afterwards each axis uses
 round(pixels*1000/calibration_pixels) tenths of mm with a shared serial
 divider. Decimal resolution 0.1 mm is NOT demonstrated measurement accuracy.
-No universal combinational division or extra DSP/frame storage. Per-frame
+No universal combinational division or extra frame storage. The constant
+scale multiplication is left to TD mapping; actual DSP usage is reported
+from the final implementation rather than assumed zero. Per-frame
 results refer to the preceding complete sample (LAST), as color comparison
 does; moving objects have one capture-frame measurement age, not same-frame
 tracking. Blank/clipped/malformed result prints dashes/NO VALID OBJECT.

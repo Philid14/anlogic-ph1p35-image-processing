@@ -29,6 +29,9 @@ def main():
     (OUT/'overlay_console.txt').write_text(log)
     log=c.simulate(OUT,'tb_inspection_control',[c.ROOT/'tests/tb_inspection_ui.sv',c.HDL/'isp/inspection_control.v',c.HDL/'edge_key_control.v'])
     (OUT/'controls_console.txt').write_text(log)
+    log=c.simulate(OUT,'tb_inspection_ruler_keys',[c.ROOT/'tests/tb_inspection_ui.sv',
+        c.HDL/'isp/inspection_control.v',c.HDL/'isp/inspection_calibration.v',c.HDL/'edge_key_control.v'])
+    (OUT/'ruler_keys_console.txt').write_text(log)
     result=dict(passed=True,full_frame_beats=beats,frames=3,
       scope='2-cycle actual comparison overlay, frame-latched on/off and independent debounce; no board claim')
     (OUT/'results.json').write_text(json.dumps(result,indent=2)+'\n')
