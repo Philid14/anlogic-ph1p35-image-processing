@@ -1,4 +1,4 @@
-"""STYLE_V2-based build with explicit SYN/PHY/STA/bitgen gates, never stale bit.
+"""COLOR_COMPARE_V1-based build with explicit SYN/PHY/STA/bitgen gates, never stale bit.
 
 Approved MAIN UI, font, pin and dimension additions only; frozen color detector.
 User dirty research notes are preserved and excluded from actual TD inputs.
@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/metrology_v1/r0'
+OUT=ROOT/'tmp/metrology_v1/r1'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','edge_status_osd.v','osd_char_lib.v','isp/color_compare_osd.v')}
 CHANGED.add(HDL.replace('hdl_source/','constraints_source/')+'pin.adc')
