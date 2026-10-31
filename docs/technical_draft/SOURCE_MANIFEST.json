@@ -1,0 +1,186 @@
+{
+  "document_version": "0.1",
+  "date": "2026-10-31",
+  "base_commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
+  "board_status": "PARTIAL",
+  "new_tests_run": false,
+  "new_build_run": false,
+  "sources": [
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v",
+      "git_blob": "b694939f9b32187c691f09c4304bab6d0f3997d2",
+      "sha256": "8387507143adbe1b8ddc5d875e331a0cf919d6e6a284677221dc631bb9a65045",
+      "bytes": 41874
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v",
+      "git_blob": "81c1b78db986c6ef98906e30d13a1eb56af255c1",
+      "sha256": "630db76f5b7a141157b7e4e9a9f12d035738dc8eb06da227edea2ec247eeb1f2",
+      "bytes": 28073
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v",
+      "git_blob": "7160894b2ab68299c4299dae273ee6db737c1730",
+      "sha256": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
+      "bytes": 3371
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
+      "git_blob": "e73d504be1d0cbeb9ff49864eef6a53ebd4f165b",
+      "sha256": "45928e8bb39e5451712dea0d2dad8c9577b069a8c3043c498605924e164fcfb2",
+      "bytes": 11033
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_detect_96.v",
+      "git_blob": "843b3110740a45532c6301f7ab7f94d53d43d6a8",
+      "sha256": "e0fdefcd0b8f7d51630bb8c44c8e764de1cc3552a7116fb3304201306f26237f",
+      "bytes": 14318
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_link_pair_3x3.v",
+      "git_blob": "5c0ca99821d50995dc26ba74eba4fb012792d697",
+      "sha256": "73ef88bb85bccb98bf9060440b8c121d9d5768ca82a48facc92ff22bad56f4e5",
+      "bytes": 4574
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_temporal_hold.v",
+      "git_blob": "efde96252556fd264e2d445a8c3bbf37baba7602",
+      "sha256": "de9372d3435d31101d7e8fd7dbaf3c4754fff3eefcb59f3256efa21d92e315c0",
+      "bytes": 3147
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/gaussian_pair_3x3.v",
+      "git_blob": "78df2eb55e29930409ec0e4a4c3e47db9dccff0d",
+      "sha256": "45bac0e76f9e874988b762ccd062b946cc8e8db150e3646f8412269989f2f51a",
+      "bytes": 4459
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_calibration.v",
+      "git_blob": "42c5487a16d12a29cfb0176304266f1d4f0d6e0a",
+      "sha256": "d31b92f9bdd9aa9e345a8e96ebaa305ab64677dd0811b2edff79ab913ec169e7",
+      "bytes": 1666
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_control.v",
+      "git_blob": "6e9b19087e51c17edeea32f8aec52b40e4bf2ed7",
+      "sha256": "da780e2f70276c640f60a42714fba802a7248250b015a54751d3e694b1a74dc6",
+      "bytes": 2314
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/nms_gradient_pair_3x3.v",
+      "git_blob": "3fc4780024328abd56b6d0b738590896d9155757",
+      "sha256": "df00b95fefd64f6dbc4c8be4e1672c89171482c9ac64549d5bf23b9b4f37cef2",
+      "bytes": 5484
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v",
+      "git_blob": "14e04b13633cbd4fffdcf316543fbbf5a8453120",
+      "sha256": "0320640b55ec1863041026f94efed6cd9e7d9ec8c55806253fe8f25c440b81e6",
+      "bytes": 6420
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v",
+      "git_blob": "874715bc9fee84e270d8af4ff124a5d717b90290",
+      "sha256": "2b3b4118009c381287d9a3c826ec239d50e4ab2371e391c3eb32903d9e7f1423",
+      "bytes": 6360
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+      "git_blob": "a899bc2e06a01adce9c5a036bd34eb2b8b8e29ac",
+      "sha256": "5d0edeccd6618cc9ea155be7e3d1b4f0a1e87f0f35d3e6d9352410c56d16b371",
+      "bytes": 7093
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+      "git_blob": "e8513de1e57e52b6851997044effc62e4bc86f52",
+      "sha256": "f522f6a0a0ef099686e4dabee9a29d98b1fe62374801accb881865289ddadd2d",
+      "bytes": 6799
+    },
+    {
+      "path": "AGENTS.md",
+      "git_blob": "362811c49573f9520745aeabcacc914aca5dee24",
+      "sha256": "f60b62004ddb2acca174b30b6dc9788f689f391506d17773cc303635b56e0118",
+      "bytes": 13810
+    },
+    {
+      "path": "docs/TEAM_AI_WORK_PROTOCOL.md",
+      "git_blob": "88b870a241be1b92d8dc83b767425bab8ba561cb",
+      "sha256": "8437f2855df5227ffca298523da7c2475858f6b4cda5b279584e00c23fe2ddc5",
+      "bytes": 23116
+    },
+    {
+      "path": "docs/COLOR_COMPARE_V1_DESIGN.md",
+      "git_blob": "e3986c721f10fce98d590c41eec44c568900a7b3",
+      "sha256": "4683a0c15ab72c76abee8e4ef03eee5d7bd31f26f669a12e4995167d974eeae5",
+      "bytes": 5203
+    },
+    {
+      "path": "docs/INSPECTION_UI_DIMENSION_V1_DESIGN.md",
+      "git_blob": "a348335b4afae68db4d47ae5e099577b522fc846",
+      "sha256": "15d348e0eb83c3d0ad260cf7a8aa4dda1f6eb31a9b4a829b07797308efefbb2b",
+      "bytes": 6590
+    },
+    {
+      "path": "docs/INSPECTION_UI_DIMENSION_V1_REPORT.md",
+      "git_blob": "aa6223cf00ed631aa6c6789f87ece5510f7e9eec",
+      "sha256": "04c1928d20a1db31559e0816910a84d80d8e0e22ccfe5c0cccba2056f1a9a628",
+      "bytes": 8367
+    },
+    {
+      "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md",
+      "git_blob": "f66beb73f9f879f1fa2775d08faed8fcdb82c92e",
+      "sha256": "5a9e108d506c69a0245363425b2213d1656df16df4bcbdf37ab9fcc9a31c6240",
+      "bytes": 3742
+    },
+    {
+      "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_TEST.md",
+      "git_blob": "3859847be20d9a4b5c89c9ec7f6eef2d1f52817b",
+      "sha256": "5f9b3b498897f6078820c785490a36d3df20d46e49d382fdff395948ab828dc4",
+      "bytes": 8933
+    },
+    {
+      "path": "artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/BUILD_INFO.md",
+      "git_blob": "483a3b6518ddf4cf26826e701097ad913caef8f7",
+      "sha256": "4f4f7827b7ec684c8a932674813c3ed3ed0824342a5e47ca0658f39e3a11b70d",
+      "bytes": 2428
+    },
+    {
+      "path": "artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/camera_to_dsi_display.bit",
+      "git_blob": "a0e5d4e0352e713452ce110a0499e116a145cc7b",
+      "sha256": "2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc",
+      "bytes": 1789539
+    },
+    {
+      "path": "docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf",
+      "git_blob": "22d8732f394da32afe9c6c1f34964a5bf82a006f",
+      "sha256": "51bb865f89bfc00d05e653f69cdd095103f8ce800f3db9529a5ce54e1401c418",
+      "bytes": 1592860
+    }
+  ],
+  "local_references": [
+    {
+      "name": "技术文档模板.docx",
+      "sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+      "bytes": 87367,
+      "uploaded_original": false
+    },
+    {
+      "name": "关于最终作品实现.txt",
+      "sha256": "67981012acd4873599160682c14271b9bead8fa7e841548087f3c392c0385008",
+      "bytes": 1000,
+      "uploaded_original": false
+    },
+    {
+      "name": "MECHANICAL_MATERIALS_600_CUBE_2026-10-24.md",
+      "sha256": "6edd65e0ee2296b878f6acc9c93beb954f76bf8f00699cab49e47b49683aa563",
+      "bytes": 17121,
+      "uploaded_original": false
+    },
+    {
+      "name": "AS_164100_IM-X1000_C_643775_KC_CN_2115_3.pdf",
+      "sha256": "749794fab5c9d957c5591946fbca4dc06af63fe93513bf334e1a395e94a675c2",
+      "bytes": 8947932,
+      "uploaded_original": false
+    }
+  ]
+}
