@@ -14,7 +14,8 @@ module isp_top #(
     parameter integer COLOR_COMPARE_ENABLE = 0,
     parameter integer INSPECTION_ENABLE = 0,
     parameter integer AUTO_DIMENSION = 0,
-    parameter integer USABILITY_ENABLE = 0
+    parameter integer USABILITY_ENABLE = 0,
+    parameter integer INSPECTION_V4 = 0
 ) (
     input 			axi4s_video_aclk,
     input [18:0] I_edge_config,
@@ -75,7 +76,7 @@ wire         m_aixs_tvalid;  //synthesis keep
           else last_128 <= algorithm_last;
       end
       assign algorithm_last_128 = last_128;
-      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS), .TEMPORAL_ENABLE(TEMPORAL_ENABLE), .RELIABILITY_ENABLE(RELIABILITY_ENABLE),.COLOR_COMPARE_ENABLE(COLOR_COMPARE_ENABLE),.INSPECTION_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE)) u_control (
+      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS), .TEMPORAL_ENABLE(TEMPORAL_ENABLE), .RELIABILITY_ENABLE(RELIABILITY_ENABLE),.COLOR_COMPARE_ENABLE(COLOR_COMPARE_ENABLE),.INSPECTION_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4)) u_control (
           .clk(axi4s_video_aclk), .rst_n(I_rst_n),
           .requested_config(I_edge_config),
           .I_fifo_event_counts(I_fifo_event_counts),

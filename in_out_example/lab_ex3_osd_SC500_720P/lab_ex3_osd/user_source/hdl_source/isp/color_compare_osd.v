@@ -1,7 +1,7 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
@@ -45,7 +45,19 @@ module color_compare_osd #(
     wire [11:0] trial={remainder[10:0],dividend[19]};
     wire quotient_bit=trial>={1'b0,denominator};
     wire [19:0] quotient_next={quotient[18:0],quotient_bit};
-    reg [19:0] digits[0:10];
+    reg [19:0] digits[0:12];
+    reg normalizing;reg [2:0] norm_field;reg [7:0] normalized[0:5];
+    wire [9:0] ref_sum={2'b0,held_rgb[47:40]}+{2'b0,held_rgb[39:32]}+{2'b0,held_rgb[31:24]};
+    wire [9:0] test_sum={2'b0,held_rgb[23:16]}+{2'b0,held_rgb[15:8]}+{2'b0,held_rgb[7:0]};
+    wire [7:0] ref_value=held_rgb[47:40]>held_rgb[39:32]?(held_rgb[47:40]>held_rgb[31:24]?held_rgb[47:40]:held_rgb[31:24]):(held_rgb[39:32]>held_rgb[31:24]?held_rgb[39:32]:held_rgb[31:24]);
+    wire [7:0] test_value=held_rgb[23:16]>held_rgb[15:8]?(held_rgb[23:16]>held_rgb[7:0]?held_rgb[23:16]:held_rgb[7:0]):(held_rgb[15:8]>held_rgb[7:0]?held_rgb[15:8]:held_rgb[7:0]);
+    wire [7:0] nr=absdiff(normalized[0],normalized[3]),ng=absdiff(normalized[1],normalized[4]),nb=absdiff(normalized[2],normalized[5]);
+    wire [7:0] chroma_difference=nr>ng?(nr>nb?nr:nb):(ng>nb?ng:nb);
+    wire [7:0] value_difference=absdiff(ref_value,test_value);
+    wire chroma_reliable=ref_sum>=96 && test_sum>=96 && ref_value>=32 && test_value>=32 && ref_value<254 && test_value<254;
+    // 0 MATCH(raw), 1 DIFF, 2 LIGHT(possible multiplicative shading), 3 CHECK.
+    // No shade compensation rewrites the measured RGB or automatically certifies a material match.
+    wire [1:0] comparison_status=!INSPECTION_V4?(compare_match?0:1):!chroma_reliable?3:compare_match?0:chroma_difference<=6?2:1;
     reg [7:0] dr,dg,db;reg [3:0] class_ref,class_test;
     wire [9:0] l1={2'd0,dr}+{2'd0,dg}+{2'd0,db};
     wire [7:0] max_difference=dr>dg?(dr>db?dr:db):(dg>db?dg:db);
@@ -123,13 +135,24 @@ module color_compare_osd #(
             else case(pos)0:match_letter="D";1:match_letter="I";2:match_letter="F";3:match_letter="F";endcase
         end
     endfunction
-    reg [19:0] number;reg [10:0] pixel_span,axis_span;
+    function [7:0] comparison_letter;input[1:0]st;input[2:0]pos;
+        begin
+            comparison_letter=" ";
+            case(st)
+                0:comparison_letter=match_letter(1'b1,pos);
+                1:comparison_letter=match_letter(1'b0,pos);
+                2:case(pos)0:comparison_letter="L";1:comparison_letter="I";2:comparison_letter="G";3:comparison_letter="H";4:comparison_letter="T";endcase
+                3:case(pos)0:comparison_letter="C";1:comparison_letter="H";2:comparison_letter="E";3:comparison_letter="C";4:comparison_letter="K";endcase
+            endcase
+        end
+    endfunction
+    reg [19:0] number;reg [10:0] pixel_span,axis_span;reg [7:0] norm_channel;
     always @*begin
-        number=0;pixel_span=0;axis_span=1;
+        number=0;pixel_span=0;axis_span=1;norm_channel=0;
         case(field)
             0:number=held_rgb[47:40];1:number=held_rgb[39:32];2:number=held_rgb[31:24];
             3:number=held_rgb[23:16];4:number=held_rgb[15:8];5:number=held_rgb[7:0];
-            6:number=dr;7:number=dg;8:number=db;9:number=l1;10:number=max_difference;
+            6:number=dr;7:number=dg;8:number=db;9:number=l1;10:number=max_difference;11:number=chroma_difference;12:number=value_difference;
         endcase
         if(dimension)begin
             case(field)
@@ -145,6 +168,15 @@ module color_compare_osd #(
                 default:number=0;
             endcase
         end
+        if(normalizing)begin
+            case(norm_field)
+                0:norm_channel=held_rgb[47:40];1:norm_channel=held_rgb[39:32];2:norm_channel=held_rgb[31:24];
+                3:norm_channel=held_rgb[23:16];4:norm_channel=held_rgb[15:8];5:norm_channel=held_rgb[7:0];
+            endcase
+            axis_span=norm_field<3?{1'b0,ref_sum}:{1'b0,test_sum};
+            if(axis_span==0)axis_span=1;
+            number=norm_channel*20'd255+(axis_span>>1);
+        end
     end
     reg [19:0] adjusted;integer n;
     always @*begin
@@ -156,21 +188,27 @@ module color_compare_osd #(
         if(!rst_n)begin
             held_rgb<=0;held_id<=0;held_valid<=0;formatted<=0;busy<=0;
             field<=0;step<=0;binary_shift<=0;bcd<=0;dividing<=0;dividend<=0;quotient<=0;remainder<=0;denominator<=1;dr<=0;dg<=0;db<=0;class_ref<=0;class_test<=0;
-            for(j=0;j<11;j=j+1)digits[j]<=0;
+            normalizing<=0;norm_field<=0;
+            for(j=0;j<13;j=j+1)digits[j]<=0;
+            for(j=0;j<6;j=j+1)normalized[j]<=0;
         end else if(user)begin
             held_rgb<=means;held_id<=sample_id;held_valid<=result_valid;
             dr<=absdiff(means[47:40],means[23:16]);dg<=absdiff(means[39:32],means[15:8]);db<=absdiff(means[31:24],means[7:0]);
             class_ref<=classify(means[47:24]);class_test<=classify(means[23:0]);
-            busy<=1;field<=0;step<=0;formatted<=0;dividing<=0;
+            busy<=1;field<=0;step<=0;formatted<=0;dividing<=0;normalizing<=INSPECTION_V4 && !dimension_enable;norm_field<=0;
         end else if(busy)begin
             if(dividing)begin
                 dividend<={dividend[18:0],1'b0};quotient<=quotient_next;
                 remainder<=quotient_bit ? trial-{1'b0,denominator} : trial;
                 if(step==20)begin
-                    dividing<=0;binary_shift<=quotient_next;bcd<=0;step<=1;
+                    dividing<=0;
+                    if(normalizing)begin
+                        normalized[norm_field]<=quotient_next[7:0];step<=0;
+                        if(norm_field==5)normalizing<=0;else norm_field<=norm_field+1'b1;
+                    end else begin binary_shift<=quotient_next;bcd<=0;step<=1;end
                 end else step<=step+1'b1;
             end else if(step==0)begin
-                if(dimension && held_calibrated && field<4)begin
+                if(normalizing || (dimension && held_calibrated && field<4))begin
                     dividing<=1;dividend<=number;denominator<=axis_span;
                     remainder<=0;quotient<=0;step<=1;
                 end else begin binary_shift<=number;bcd<=0;step<=1;end
@@ -178,14 +216,14 @@ module color_compare_osd #(
                 bcd<={adjusted[18:0],binary_shift[19]};binary_shift<={binary_shift[18:0],1'b0};
                 if(step==20)begin
                     digits[field]<={adjusted[18:0],binary_shift[19]};step<=0;
-                    if(field==(dimension?(AUTO_DIMENSION?3:6):10))begin busy<=0;formatted<=1;end else field<=field+1'b1;
+                    if(field==(dimension?(AUTO_DIMENSION?3:6):(INSPECTION_V4?12:10)))begin busy<=0;formatted<=1;end else field<=field+1'b1;
                 end else step<=step+1'b1;
             end
         end
     end
-    wire panel=px>=32 && px<1248 && py>=544 && py<672;
+    wire panel=px>=32 && px<1248 && py>=544 && py<(INSPECTION_V4?704:672);
     wire [10:0] lx=px-32;wire [9:0] ly=py-544;
-    wire [5:0] column=lx[10:5];wire [1:0] row=ly[6:5];
+    wire [5:0] column=lx[10:5];wire [2:0] row=ly[7:5];
     wire ref_box=px>=REF_X-4 && px<REF_X+ROI_W+4 && py>=ROI_Y-2 && py<ROI_Y+ROI_H+2 &&
         (px<REF_X || px>=REF_X+ROI_W || py<ROI_Y || py>=ROI_Y+ROI_H);
     wire test_box=px>=TEST_X-4 && px<TEST_X+ROI_W+4 && py>=ROI_Y-2 && py<ROI_Y+ROI_H+2 &&
@@ -207,7 +245,7 @@ module color_compare_osd #(
     wire [3:0] engineering_marks;
     wire engineering_text;wire [7:0] engineering_char;wire [3:0] engineering_row,engineering_col;
     generate if(AUTO_DIMENSION)begin:g_drawing
-        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE)) u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
+        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4)) u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
             .object_valid(held_dim_valid && held_present),.formatted(formatted),.cal_status(held_cal_status),
             .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(held_gap),
             .digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),
@@ -313,11 +351,11 @@ module color_compare_osd #(
             8'd211:character="0";
             8'd212:character="1";
             8'd213:character="2";
-            8'd215:character=match_letter(compare_match,3'd0);
-            8'd216:character=match_letter(compare_match,3'd1);
-            8'd217:character=match_letter(compare_match,3'd2);
-            8'd218:character=match_letter(compare_match,3'd3);
-            8'd219:character=match_letter(compare_match,3'd4);
+            8'd215:character=INSPECTION_V4?comparison_letter(comparison_status,3'd0):match_letter(compare_match,3'd0);
+            8'd216:character=INSPECTION_V4?comparison_letter(comparison_status,3'd1):match_letter(compare_match,3'd1);
+            8'd217:character=INSPECTION_V4?comparison_letter(comparison_status,3'd2):match_letter(compare_match,3'd2);
+            8'd218:character=INSPECTION_V4?comparison_letter(comparison_status,3'd3):match_letter(compare_match,3'd3);
+            8'd219:character=INSPECTION_V4?comparison_letter(comparison_status,3'd4):match_letter(compare_match,3'd4);
             8'd221:character="L";
             8'd222:character="A";
             8'd223:character="S";
@@ -328,6 +366,19 @@ module color_compare_osd #(
             8'd228:character=hexchar(held_id[7 -:4]);
             8'd229:character=hexchar(held_id[3 -:4]);
         endcase
+        if(INSPECTION_V4 && row==4)begin
+            character=" ";
+            case(column)
+                0:character="C";1:character="H";2:character="R";3:character=":";
+                4:character="0"+digits[11][11:8];5:character="0"+digits[11][7:4];6:character="0"+digits[11][3:0];
+                8:character="D";9:character="V";10:character=":";
+                11:character="0"+digits[12][11:8];12:character="0"+digits[12][7:4];13:character="0"+digits[12][3:0];
+                15:character="C";16:character="L";17:character="I";18:character="M";19:character=":";
+                20:character="0";21:character="0";22:character="6";
+                24:character="R";25:character="G";26:character="B";28:character="R";29:character="A";30:character="W";
+            endcase
+            if(!chroma_reliable && column>=4 && column<=6)character="-";
+        end
         if(!held_valid || !formatted)begin
             character=" ";
             if(row==3)case(column)
@@ -602,7 +653,7 @@ module color_compare_osd #(
             native_d<=dimension && AUTO_DIMENSION;marks_d<=dimension?engineering_marks:0;
             panel_d<=dimension && AUTO_DIMENSION?engineering_text:panel && (enabled || dimension);dim_d<=!AUTO_DIMENSION && old_dim_mark;ref_d<=ref_box && enabled;test_d<=test_box && enabled;
             ink_d<=dimension && AUTO_DIMENSION?24'hffff80:row==0?24'h40ff80:row==1?24'h40dfff:row==2?24'hffff80:
-                (!held_valid || !formatted)?24'hffff00:compare_match?24'h40ff80:24'hff8040;
+                (!held_valid || !formatted)?24'hffff00:comparison_status==0?24'h40ff80:comparison_status==2?24'hffff00:24'hff8040;
             rgb_d<=rgb;v_d<=valid;u_d<=user;l_d<=last;
             out_valid<=v_d;out_user<=u_d;out_last<=l_d;
             for(lane=0;lane<4;lane=lane+1)

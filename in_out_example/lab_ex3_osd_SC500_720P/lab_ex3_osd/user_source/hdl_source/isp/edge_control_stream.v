@@ -15,7 +15,8 @@ module edge_control_stream #(
     parameter integer COLOR_COMPARE_ENABLE = 0,
     parameter integer INSPECTION_ENABLE = 0,
     parameter integer AUTO_DIMENSION = 0,
-    parameter integer USABILITY_ENABLE = 0
+    parameter integer USABILITY_ENABLE = 0,
+    parameter integer INSPECTION_V4 = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
@@ -125,7 +126,7 @@ module edge_control_stream #(
             .capture_toggle(capture_toggle),.clear_toggle(clear_toggle),.repeat_toggle(repeat_toggle));
         if(AUTO_DIMENSION)begin:g_auto
             wire [10:0] ruler_span;
-            ruler_auto_calibration #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.ROBUST_ENABLE(USABILITY_ENABLE)) u_ruler(
+            ruler_auto_calibration #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.ROBUST_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4)) u_ruler(
                 .clk(clk),.rst_n(rst_n),
                 .gray({gray_p[0][95:88],gray_p[0][71:64],gray_p[0][47:40],gray_p[0][23:16]}),
                 .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),
@@ -187,7 +188,7 @@ module edge_control_stream #(
             assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),
             .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
             .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),

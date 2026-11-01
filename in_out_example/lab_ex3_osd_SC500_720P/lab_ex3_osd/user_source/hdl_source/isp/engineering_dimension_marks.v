@@ -1,6 +1,6 @@
 // Drawing-style dimensions on the single observed plane (not CAD reconstruction).
 // Native 16px glyphs, transparent backgrounds. All text anchors are 4px aligned.
-module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
+module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0)(
     input [10:0] x,input [9:0] y,
     input cal,calibrated,object_valid,formatted,
     input [2:0] cal_status,
@@ -42,13 +42,13 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
             // Put the millimetre tick baseline across all three scan lines.
             for(k=0;k<4;k=k+1)begin
                 q=x+k;
-                marks[3-k]=(q>=380 && q<=899 && y>=288 && y<=324 &&
-                    (q<384 || q>=896 || y==288 || y==324)) ||
-                    (q>=384 && q<896 && scan_y && q[3:0]<4);
+                marks[3-k]=(q>=(AREA_ENABLE?252:380) && q<=(AREA_ENABLE?1027:899) && y>=(AREA_ENABLE?190:288) && y<=(AREA_ENABLE?481:324) &&
+                    (q<(AREA_ENABLE?256:384) || q>=(AREA_ENABLE?1024:896) || y==(AREA_ENABLE?190:288) || y==(AREA_ENABLE?481:324))) ||
+                    (!AREA_ENABLE && q>=384 && q<896 && scan_y && q[3:0]<4);
             end
-            if(x>=384 && x<864 && y>=240 && y<256)begin
-                text_valid=1;glyph_col=x[3:0];glyph_row=y-240;
-                case((x-384)>>4)
+            if(x>=(AREA_ENABLE?256:384) && x<(AREA_ENABLE?736:864) && y>=(AREA_ENABLE?168:240) && y<(AREA_ENABLE?184:256))begin
+                text_valid=1;glyph_col=x[3:0];glyph_row=y-(AREA_ENABLE?168:240);
+                case((x-(AREA_ENABLE?256:384))>>4)
                     0:character="1";1:character="M";2:character="M";
                     4:character="R";5:character="U";6:character="L";7:character="E";8:character="R";
                     10:character="B";11:character="L";12:character="A";13:character="C";14:character="K";
@@ -56,9 +56,9 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
                     default:character=" ";
                 endcase
             end
-            if(x>=384 && x<864 && y>=352 && y<368)begin
-                text_valid=1;glyph_col=x[3:0];glyph_row=y-352;
-                character=message((x-384)>>4,cal_status);
+            if(x>=(AREA_ENABLE?256:384) && x<(AREA_ENABLE?736:864) && y>=(AREA_ENABLE?496:352) && y<(AREA_ENABLE?512:368))begin
+                text_valid=1;glyph_col=x[3:0];glyph_row=y-(AREA_ENABLE?496:352);
+                character=message((x-(AREA_ENABLE?256:384))>>4,cal_status);
             end
         end else if(object_valid && formatted)begin
             // Outer dimension extension lines and inward-pointing arrowheads.
@@ -107,7 +107,7 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
             end
         end else if(x>=384 && x<864 && y>=184 && y<200)begin
             text_valid=1;glyph_col=x[3:0];glyph_row=y-184;
-            if(!calibrated)character=message((x-384)>>4,cal_status);
+            if(!calibrated)character=message((x-(AREA_ENABLE?256:384))>>4,cal_status);
             else case((x-384)>>4)
                 0:character="N";1:character="O";3:character="V";4:character="A";5:character="L";
                 6:character="I";7:character="D";9:character="O";10:character="B";11:character="J";
