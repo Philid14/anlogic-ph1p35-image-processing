@@ -67,13 +67,14 @@ module engineering_dimension_marks(
                     ((q==xmin || q==xmax) && y>=ymin-12 && y<=ymin-2) ||
                     (q==xmax+20 && y>=ymin && y<=ymax) ||
                     ((y==ymin || y==ymax) && q>=xmax+2 && q<=xmax+24);
-                // Small triangular arrowheads: tips at the measured endpoints.
-                line_ink=line_ink || (y>=ymin-11 && y<=ymin-5 &&
-                    ((q>=xmin && q<=xmin+6 && (q-xmin)>=(y>ymin-8?y-(ymin-8):(ymin-8)-y)*2) ||
-                     (q<=xmax && q+6>=xmax && (xmax-q)>=(y>ymin-8?y-(ymin-8):(ymin-8)-y)*2)));
-                line_ink=line_ink || (q>=xmax+17 && q<=xmax+23 &&
-                    ((y>=ymin && y<=ymin+6 && (y-ymin)>=(q>xmax+20?q-(xmax+20):(xmax+20)-q)*2) ||
-                     (y<=ymax && y+6>=ymax && (ymax-y)>=(q>xmax+20?q-(xmax+20):(xmax+20)-q)*2)));
+                // Open arrowheads with constant offsets; no wide variable subtract/absolute paths.
+                line_ink=line_ink ||
+                    ((y==ymin-9 || y==ymin-7) && (q==xmin+2 || q+2==xmax)) ||
+                    ((y==ymin-10 || y==ymin-6) && (q==xmin+4 || q+4==xmax)) ||
+                    ((y==ymin-11 || y==ymin-5) && (q==xmin+6 || q+6==xmax)) ||
+                    ((q==xmax+19 || q==xmax+21) && (y==ymin+2 || y+2==ymax)) ||
+                    ((q==xmax+18 || q==xmax+22) && (y==ymin+4 || y+4==ymax)) ||
+                    ((q==xmax+17 || q==xmax+23) && (y==ymin+6 || y+6==ymax));
                 if(gap_valid[1])line_ink=line_ink ||
                     (y==352 && q>=gl && q<=gr) || ((q==gl || q==gr) && y>=348 && y<=356);
                 if(gap_valid[0])line_ink=line_ink ||

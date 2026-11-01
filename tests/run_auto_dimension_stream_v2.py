@@ -104,12 +104,14 @@ def main():
       'isp/data128_96/data128_96.v']
     sources=[c.ROOT/'tests/tb_auto_dimension_stream.sv']+[c.HDL/n for n in names]+[c.ROOT/'tests/isp_boundary_stubs.v']
     print(f'Vectors ready: {w}x{h} {beats} beats / {words} words; running actual RTL',flush=True)
+    source_hashes={p.relative_to(c.ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}
     log=c.simulate(d,'tb_auto_dimension_stream',sources,[f'-Ptb_auto_dimension_stream.WIDTH={w}',f'-Ptb_auto_dimension_stream.HEIGHT={h}',
         '-Ptb_auto_dimension_stream.COMPARE=1','-Ptb_auto_dimension_stream.INSPECTION=1','-Ptb_auto_dimension_stream.AUTO_DIMENSION=1'],
         [f'+STIM={stim.as_posix()}',f'+PACK={packed.as_posix()}',f'+WORDS={words}'])
+    assert source_hashes=={p.relative_to(c.ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},'Source changed during simulation'
     (d/'console.txt').write_text(log)
     result=dict(passed=True,width=w,height=h,beats=beats,words=words,frames=9,
-      sources={p.relative_to(c.ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources},
+      sources=source_hashes,
       boundary='post-AWB RGB + synchronized UI/calibration; debounce/calibration separately tested; board NOT_RUN')
     (OUT/('full_results.json' if a.full else 'small_results.json')).write_text(json.dumps(result,indent=2)+'\n')
 if __name__=='__main__':main()

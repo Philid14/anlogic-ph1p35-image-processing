@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/auto_dimension_v2/r1'
+OUT=ROOT/'tmp/auto_dimension_v2/r2'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='7cffe56c384340f59a526da80a2ac3f3018bf209'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','isp/color_compare_osd.v','isp/planar_measure_stats.v')}

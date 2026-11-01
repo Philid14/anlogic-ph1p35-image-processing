@@ -45,6 +45,8 @@ def main():
     copy_reports(OUT,ev)
     copy_reports(ROOT/'tmp/auto_dimension_v2/r0',ev/'r0_withdrawn')
     (ev/'r0_withdrawn/README.md').write_text('0f19311 completed SYN only; scanline spacing 16px withdrawn for short ruler ticks. No PHY or bitgen. Final r1 uses 2px spacing and a fresh synthesis. Early full regression stopped before PASS, repeated under final layout.\n')
+    copy_reports(ROOT/'tmp/auto_dimension_v2/r1',ev/'r1_withdrawn')
+    (ev/'r1_withdrawn/README.md').write_text('590d161 completed SYN only. Withdrawn before PHY to improve bright-background annotation contrast and reduce arrow/formatter resources. No bitgen. Incomplete full regressions were stopped and not counted as PASS. Final r2 reruns all changed rendering checks.\n')
     for name in ('unit','drawing','full'):copy_reports(ROOT/'tmp/auto_dimension_v2'/name,ev/name)
     for name in ('full_results.json','SOURCE_SCOPE.json'):shutil.copy2(ROOT/'tmp/auto_dimension_v2'/name,ev/name)
     for name,src in [('legacy_ui',ROOT/'tmp/metrology_v1/ui'),('legacy_geometry',ROOT/'tmp/metrology_v1/unit')]:copy_reports(src,ev/name)

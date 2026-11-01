@@ -140,7 +140,7 @@ module color_compare_osd #(
             axis_span=(field==1 || field==3)?held_span_y:held_span_x;
             if(axis_span==0)axis_span=1;
             if(field<4)number=held_calibrated ? pixel_span*20'd1000+(axis_span>>1) : pixel_span*20'd10;
-            else case(field)
+            else if(!AUTO_DIMENSION)case(field)
                 4:number=held_cut;5:number=held_span_x;6:number=held_span_y;
                 default:number=0;
             endcase
@@ -178,7 +178,7 @@ module color_compare_osd #(
                 bcd<={adjusted[18:0],binary_shift[19]};binary_shift<={binary_shift[18:0],1'b0};
                 if(step==20)begin
                     digits[field]<={adjusted[18:0],binary_shift[19]};step<=0;
-                    if(field==(dimension?6:10))begin busy<=0;formatted<=1;end else field<=field+1'b1;
+                    if(field==(dimension?(AUTO_DIMENSION?3:6):10))begin busy<=0;formatted<=1;end else field<=field+1'b1;
                 end else step<=step+1'b1;
             end
         end
@@ -606,8 +606,8 @@ module color_compare_osd #(
             rgb_d<=rgb;v_d<=valid;u_d<=user;l_d<=last;
             out_valid<=v_d;out_user<=u_d;out_last<=l_d;
             for(lane=0;lane<4;lane=lane+1)
-                out_rgb[95-lane*24-:24]<=panel_d && bits[15-col_d-(native_d?lane:lane/2)]?ink_d:
-                    (dim_d || marks_d[3-lane])?24'hffff80:ref_d?24'h40ff80:test_d?24'h40dfff:rgb_d[95-lane*24-:24];
+                out_rgb[95-lane*24-:24]<=panel_d && bits[15-col_d-(native_d?lane:lane/2)]?((native_d && rgb_d[87-lane*24])?24'h101030:ink_d):
+                    (dim_d || marks_d[3-lane])?((native_d && rgb_d[87-lane*24])?24'h101030:24'hffff80):ref_d?24'h40ff80:test_d?24'h40dfff:rgb_d[95-lane*24-:24];
         end
     end
 endmodule

@@ -19,12 +19,13 @@ def gap_coordinates(rgb,bright,cut=130):
 
 def draw(rgb,m,font,calibrated,sx,sy,cal=False,status=0,gaps=(0,0,0,0)):
     out=rgb.copy();h,w=out.shape[:2];yy,xx=np.indices((h,w));ink=(255,255,128)
-    def paint(mask):out[mask]=ink
+    palette=np.where((rgb[:,:,1]>=128)[:,:,None],np.array((16,16,48)),np.array(ink)).astype(np.uint8)
+    def paint(mask):out[mask]=palette[mask]
     def text(x,y,s):
         for i,ch in enumerate(s):
             for r,bits in font.get(ord(ch),{}).items():
                 for col in range(16):
-                    if bits&(1<<(15-col)) and 0<=y+r<h and 0<=x+i*16+col<w:out[y+r,x+i*16+col]=ink
+                    if bits&(1<<(15-col)) and 0<=y+r<h and 0<=x+i*16+col<w:out[y+r,x+i*16+col]=palette[y+r,x+i*16+col]
     msg='CAL: '+{0:'NEED',1:'WAIT',2:'BUSY',3:'OK  '}.get(status,'FAIL')+' K4 CAPTURE'
     if cal:
         paint((xx>=380)&(xx<=899)&(yy>=288)&(yy<=324)&((xx<384)|(xx>=896)|(yy==288)|(yy==324)))
@@ -36,12 +37,9 @@ def draw(rgb,m,font,calibrated,sx,sy,cal=False,status=0,gaps=(0,0,0,0)):
               (((xx==l)|(xx==r))&(yy>=t-12)&(yy<=t-2))|
               ((xx==r+20)&(yy>=t)&(yy<=b))|
               (((yy==t)|(yy==b))&(xx>=r+2)&(xx<=r+24)))
-        paint((yy>=t-11)&(yy<=t-5)&(
-            ((xx>=l)&(xx<=l+6)&(xx-l>=np.abs(yy-(t-8))*2))|
-            ((xx<=r)&(xx>=r-6)&(r-xx>=np.abs(yy-(t-8))*2))))
-        paint((xx>=r+17)&(xx<=r+23)&(
-            ((yy>=t)&(yy<=t+6)&(yy-t>=np.abs(xx-(r+20))*2))|
-            ((yy<=b)&(yy>=b-6)&(b-yy>=np.abs(xx-(r+20))*2))))
+        for delta in (1,2,3):
+            paint(np.isin(yy,[t-8-delta,t-8+delta])&np.isin(xx,[l+2*delta,r-2*delta]))
+            paint(np.isin(xx,[r+20-delta,r+20+delta])&np.isin(yy,[t+2*delta,b-2*delta]))
         if m['gap'][0]:paint(((yy==352)&(xx>=gl)&(xx<=gr))|(((xx==gl)|(xx==gr))&(yy>=348)&(yy<=356)))
         if m['gap'][1]:paint(((xx==640)&(yy>=gt)&(yy<=gb))|(((yy==gt)|(yy==gb))&(xx>=636)&(xx<=644)))
         vals=[tenths_mm(v,sy if i in (1,3) else sx) if calibrated else v*10 for i,v in enumerate(m['sizes'])]
