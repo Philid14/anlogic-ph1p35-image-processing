@@ -48,7 +48,7 @@ def main():
     src=[ROOT/'tests/tb_vision_observer.sv',HDL/'vision/vision_source_observer.v',HDL/'vision/vision_motion_grid.v']
     src +=[ROOT/'features/color_target/rtl'/n for n in ('color_classify.v','color_target_mask_stats.v','color_target_track.v','color_target_track_guard.v')]
     digests={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}
-    log=simulate(OUT,'tb_vision_observer',src,plus=['+STIM='+(OUT/'vectors.txt').as_posix()])
+    log=simulate(OUT,'tb_vision_observer',src,plus=['+STIM='+(OUT/'vectors.txt').as_posix()],eram=True)
     assert 'PASS vision observer' in log
     (OUT/'console.txt').write_text(log);(OUT/'results.json').write_text(json.dumps(dict(passed=True,checks=checks,sources=digests),indent=2)+'\n')
     print(log[-750:])

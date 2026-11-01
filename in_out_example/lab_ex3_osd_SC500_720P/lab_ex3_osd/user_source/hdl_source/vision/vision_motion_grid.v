@@ -10,12 +10,11 @@ module vision_motion_grid #(
   output reg [2:0] result_state);
     localparam COLS=WIDTH/32,ROWS=HEIGHT/16,CELLS=COLS*ROWS;
     reg [16:0] row_sums[0:COLS-1];
-    reg [7:0] bank0[0:CELLS-1],bank1[0:CELLS-1];
     reg bank,history_valid,pair_valid;
     reg [31:0] previous_frame;
     reg [12:0] horizontal;
     reg [11:0] address;
-    reg [7:0] old_mean,current_mean;
+    wire [7:0] old_mean;reg [7:0] current_mean;
     reg cell_pending,cell_eligible,eof_pending,good_pending;
     reg [31:0] frame_pending;
     reg [11:0] count;
@@ -29,13 +28,20 @@ module vision_motion_grid #(
     wire [7:0] difference=current_mean>=old_mean?current_mean-old_mean:old_mean-current_mean;
     wire changed=cell_pending && cell_eligible && difference>=THRESHOLD;
     wire [12:0] final_count={1'b0,count}+changed;
+    // 4096x8 true dual-port history: each bank occupies 2048 addresses.
+    // Write current bank and synchronously read the other bank at the SAME
+    // cell address. No read/write collision; no reset of RAM contents.
+    PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(8),.DATA_WIDTH_B(8),.ADDR_WIDTH_A(12),.ADDR_WIDTH_B(12),
+      .DATA_DEPTH_A(4096),.DATA_DEPTH_B(4096),.MODE("DP"),.CLKMODE("SYNC"),
+      .REGMODE_A("NOREG"),.REGMODE_B("NOREG"),.INIT_FILE("NONE"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_history(
+      .clka(clk),.cea(cell_end && !abort),.ocea(1'b1),.addra({bank,address[10:0]}),
+      .dia(rounded[16:9]),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
+      .clkb(clk),.ceb(cell_end && !abort),.oceb(1'b1),.addrb({!bank,address[10:0]}),
+      .dib(8'd0),.web(1'b0),.rstb(1'b0),.beb(1'b1),.dob(old_mean),
+      .ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());
     // RAM contents never reset. A bank becomes history only after full valid EOF.
     always @(posedge clk)begin
         if(block_end && !abort)row_sums[x>>5]<=vsum;
-        if(cell_end && !abort)begin
-            if(bank)begin bank1[address]<=rounded[16:9];old_mean<=bank0[address];end
-            else begin bank0[address]<=rounded[16:9];old_mean<=bank1[address];end
-        end
     end
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin

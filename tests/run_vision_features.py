@@ -56,8 +56,10 @@ def main():
         for _ in range(40):emit()
     words=old.old.pack_model(seqv,seqd);(OUT/'pack.txt').write_text(''.join(f'{w:032x}\n' for w in words))
     src=[ROOT/'tests/tb_vision_feature_stream.sv']+sources()
+    hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}
     print('Feature vectors ready',beats,len(words),flush=True)
     log=old.c.simulate(OUT,'tb_vision_feature_stream',src,params=['-Ptb_vision_feature_stream.'+x for x in ('WIDTH=1280','HEIGHT=720','COMPARE=1','INSPECTION=1','AUTO_DIMENSION=1','USABILITY_ENABLE=1','INSPECTION_V4=1')],plus=[f'+STIM={(OUT/"stim.txt").as_posix()}',f'+PACK={(OUT/"pack.txt").as_posix()}',f'+WORDS={len(words)}'])
     (OUT/'console.txt').write_text(log)
-    (OUT/'results.json').write_text(json.dumps(dict(passed=True,beats=beats,words=len(words),frames=8,model=results,sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}),indent=2)+'\n')
+    assert hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src},'Sources changed during regression'
+    (OUT/'results.json').write_text(json.dumps(dict(passed=True,beats=beats,words=len(words),frames=8,model=results,sources=hashes),indent=2)+'\n')
 if __name__=='__main__':main()
