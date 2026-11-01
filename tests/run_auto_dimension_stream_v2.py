@@ -79,7 +79,7 @@ def vectors(directory,w,h,full):
                     expected=screen.status(pixels,x,y,mode,80,130,font)
                     data=int.from_bytes(rgb[y,x:x+4].tobytes(),'big')
                     # Mid-frame switch changes cannot tear the current overlays.
-                    emit(1,0,int(x==w-4),data,expected,ui_override=ui^3 if 200<=y<250 else ui)
+                    emit(1,0,int(x==w-4),data,expected,ui_override=ui^3 if f<6 and 200<=y<250 else ui)
                     beats+=1
                     if not full and (x//4)%23==9:emit()
                 emit();emit()
