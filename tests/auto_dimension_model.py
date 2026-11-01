@@ -27,8 +27,8 @@ def draw(rgb,m,font,calibrated,sx,sy,cal=False,status=0,gaps=(0,0,0,0)):
                     if bits&(1<<(15-col)) and 0<=y+r<h and 0<=x+i*16+col<w:out[y+r,x+i*16+col]=ink
     msg='CAL: '+{0:'NEED',1:'WAIT',2:'BUSY',3:'OK  '}.get(status,'FAIL')+' K4 CAPTURE'
     if cal:
-        paint((xx>=380)&(xx<=899)&(yy>=272)&(yy<=336)&((xx<384)|(xx>=896)|(yy==272)|(yy==336)))
-        paint((xx>=384)&(xx<896)&np.isin(yy,[288,304,320])&(xx%16<4))
+        paint((xx>=380)&(xx<=899)&(yy>=288)&(yy<=324)&((xx<384)|(xx>=896)|(yy==288)|(yy==324)))
+        paint((xx>=384)&(xx<896)&np.isin(yy,[304,306,308])&(xx%16<4))
         text(384,240,'1MM RULER BLACK TICKS');text(384,352,msg)
     elif m.get('valid',False) and m['present']:
         l,r,t,b=m['box'];gl,gr,gt,gb=gaps

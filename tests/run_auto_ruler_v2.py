@@ -12,7 +12,7 @@ def main():
         if not inline:emit(u=1)
         for y in range(112):
             for x in range(0,640,4):
-                pix=lines[(y-32)//16,x-64:x-60] if y in (32,48,64) and 64<=x<576 else np.full(4,210,np.uint8)
+                pix=lines[(y-32)//2,x-64:x-60] if y in (32,34,36) and 64<=x<576 else np.full(4,210,np.uint8)
                 emit(v=1,u=int(inline and y==0 and x==0),l=int(x==636)^(malformed and y==81 and x==636),data=int.from_bytes(bytes(pix),'big'))
             if y%7==1:emit()
     def pattern(pitch,width=1):

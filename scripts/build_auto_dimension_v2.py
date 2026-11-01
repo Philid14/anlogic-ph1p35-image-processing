@@ -1,4 +1,4 @@
-"""COLOR_COMPARE_V1-based build with explicit SYN/PHY/STA/bitgen gates, never stale bit.
+"""INSPECTION_AUTO_DIMENSION_V2 build with explicit SYN/PHY/STA/bitgen gates, never stale bit.
 
 Approved MAIN UI, font, pin and dimension additions only; frozen color detector.
 User dirty research notes are preserved and excluded from actual TD inputs.
@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/auto_dimension_v2/r0'
+OUT=ROOT/'tmp/auto_dimension_v2/r1'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='7cffe56c384340f59a526da80a2ac3f3018bf209'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','isp/color_compare_osd.v','isp/planar_measure_stats.v')}
@@ -80,7 +80,7 @@ def main():
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
         full=json.loads((ROOT/'tmp/auto_dimension_v2/full_results.json').read_text())
-        assert full['passed'] and full['beats']==1382400 and full['words']==1036800
+        assert full['passed'] and full['beats']==2073600 and full['words']==1555200
         for rel,digest in full['sources'].items():assert sha(ROOT/rel)==digest,rel
         for name in ('unit/ruler_results.json','drawing/results.json'):
             check=json.loads((ROOT/'tmp/auto_dimension_v2'/name).read_text());assert check['passed']

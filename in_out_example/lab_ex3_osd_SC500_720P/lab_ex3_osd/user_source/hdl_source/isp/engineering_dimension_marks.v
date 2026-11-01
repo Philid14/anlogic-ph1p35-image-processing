@@ -41,9 +41,9 @@ module engineering_dimension_marks(
             // Put the millimetre tick baseline across all three scan lines.
             for(k=0;k<4;k=k+1)begin
                 q=x+k;
-                marks[3-k]=(q>=380 && q<=899 && y>=272 && y<=336 &&
-                    (q<384 || q>=896 || y==272 || y==336)) ||
-                    (q>=384 && q<896 && (y==288 || y==304 || y==320) && q[3:0]<4);
+                marks[3-k]=(q>=380 && q<=899 && y>=288 && y<=324 &&
+                    (q<384 || q>=896 || y==288 || y==324)) ||
+                    (q>=384 && q<896 && (y==304 || y==306 || y==308) && q[3:0]<4);
             end
             if(x>=384 && x<864 && y>=240 && y<256)begin
                 text_valid=1;glyph_col=x[3:0];glyph_row=y-240;
