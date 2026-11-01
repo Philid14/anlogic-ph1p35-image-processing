@@ -1,153 +1,73 @@
 {
-  "date": "2026-10-31",
-  "role": "TARGET",
-  "scope": "Documentation and MAIN review request only",
-  "doc_branch": "codex/target/submission-intro-review-v2",
-  "doc_base_commit": "c42168e26026425660f2a6f51eec76b04c85eea0",
-  "showcase_candidate": "INSPECTION_UI_DIMENSION_V1",
-  "candidate_reference_commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-  "actual_td_source_commit": "d26a591a399f70259944671956c7a801d9674b6d",
-  "candidate_tag": "inspection-ui-dimension-v1-candidate",
-  "archive_commit": "dfbec5818de58925852e06554c1d8fa0c8bf1d31",
-  "bit_sha256": "2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc",
-  "user_confirmation_date": "2026-10-31",
-  "confirmed_complete": [
-    "physical fixed platform, top camera, work plane, blackout and adjustable light",
-    "basic display, five modes, Logo, visibility and switches"
+  "date": "2026-11-01",
+  "document_revision": "Introduction V3 (not hardware V3)",
+  "title_utf16": 15,
+  "intro_utf16": 469,
+  "document_base": "6837009a0716c2c40cc480fca606e77c3ce0863f",
+  "latest_engineering_candidate": "VISION_TRACK_MOTION_V1",
+  "candidate_head": "123186a9d339990b207b846cb15e6a7e309c22a7",
+  "actual_td_source": "c3bdf9240647d9f98a2ff68c416693ad1e20f4b9",
+  "archive_commit": "be226969254331561de1e6376610cd6bf99af601",
+  "candidate_tag": "vision-track-motion-v1-candidate",
+  "bit_sha256": "f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0",
+  "bit_hash_checked": true,
+  "inherited_color_dimension_base": "43ff61b4f1791782e74100c92b9612317e0d2249",
+  "board_status": "NOT_RUN",
+  "physical_platform_and_earlier_basic_video": "User confirmation 2026-10-31; not new-candidate acceptance",
+  "unmeasured": [
+    "auto-ruler physical success/time/false success",
+    "X/Y shared-scale cross-check, actual dimensions/gaps and error",
+    "color placement/light/status repeatability",
+    "new candidate tracking/motion physical effect",
+    "long run, illumination recovery, FIFO/CDC/thermal behaviour",
+    "actual FPS and same-frame end-to-end latency"
   ],
-  "not_measured": [
-    "actual color effect",
-    "ruler-calibrated actual dimensions and error",
-    "long-run, light changes and FIFO metrics",
-    "actual FPS and end-to-end latency"
-  ],
-  "explicitly_deferred": "whether original red/blue dynamic bounding-box tracking is retained",
-  "new_build_or_board_run": false,
-  "length_utf16": {
-    "name": 15,
-    "introduction": 418
-  },
-  "archived_test_source_fingerprints_checked": 22,
-  "candidate_code_snapshot_manifest": [
+  "legacy_red_blue_full_bbox_demo": "not confirmed; latest red tracking candidate is separate and does not establish old blue/current-frame-full-bbox capability",
+  "source_snapshots": [
     {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "docs/VISION_TRACK_MOTION_V1_REPORT.md",
+      "sha256": "00a4178a1b183d46e173f93bd5bce92453a4454545c9496c0fc989355e9b0ab1",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/docs/VISION_TRACK_MOTION_V1_REPORT.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "docs/VISION_TRACK_MOTION_V1_DESIGN.md",
+      "sha256": "ef0593d44b6869144c1ff2e65b538d45c29f000ee61eac68afc804f429525852",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/docs/VISION_TRACK_MOTION_V1_DESIGN.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md",
+      "sha256": "726b08b3fd83fab6449b523c5fb8efbdd2be70aad15484c9493b7d8997a09419",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
       "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
-      "sha256": "bc4f21817f5ad96c817b9bee298c7617967b8bd0b65db5e5b08639ed6fca9929",
-      "git_blob": "7b34aa3a88f5b0c4d4c7e3e87872324160ff8e42"
+      "sha256": "454ab867d026688a6973f5b9ffcb810881a39bb59ee9f38d8647f102118fae6d",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v"
     },
     {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al",
-      "sha256": "62593a329277d05c2f1fa4336ff88dd1942896c0e5fc64481179780727bf46f9",
-      "git_blob": "92bdb5777fd8467ab5e74ba3399aa6ebe350f904"
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v",
+      "sha256": "2313d641e1bf1e3377044a2552156b4013a9b6087a814719538589db0e02d2d0",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v"
     },
     {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v",
-      "sha256": "274e2c5b86d04087d68ac041a0ff6e86a820b1b0a0b9d769792ea40c869ce4db",
-      "git_blob": "bd6ab98211c6437c532638a50cd4dd1d47cf56dc"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
       "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
-      "sha256": "45928e8bb39e5451712dea0d2dad8c9577b069a8c3043c498605924e164fcfb2",
-      "git_blob": "e73d504be1d0cbeb9ff49864eef6a53ebd4f165b"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v",
-      "sha256": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
-      "git_blob": "7160894b2ab68299c4299dae273ee6db737c1730"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v",
-      "sha256": "630db76f5b7a141157b7e4e9a9f12d035738dc8eb06da227edea2ec247eeb1f2",
-      "git_blob": "81c1b78db986c6ef98906e30d13a1eb56af255c1"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v",
-      "sha256": "0320640b55ec1863041026f94efed6cd9e7d9ec8c55806253fe8f25c440b81e6",
-      "git_blob": "14e04b13633cbd4fffdcf316543fbbf5a8453120"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_calibration.v",
-      "sha256": "d31b92f9bdd9aa9e345a8e96ebaa305ab64677dd0811b2edff79ab913ec169e7",
-      "git_blob": "42c5487a16d12a29cfb0176304266f1d4f0d6e0a"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_control.v",
-      "sha256": "da780e2f70276c640f60a42714fba802a7248250b015a54751d3e694b1a74dc6",
-      "git_blob": "6e9b19087e51c17edeea32f8aec52b40e4bf2ed7"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/awb/awb.v",
-      "sha256": "1c1ba61cb996e7a9abd4e6f4a97a268bb8b86d2f2d7899912aa5607d362fac1b",
-      "git_blob": "fe4c3057df2f99cb6b179ae6aea150e6e8a0b7f1"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_temporal_hold.v",
-      "sha256": "de9372d3435d31101d7e8fd7dbaf3c4754fff3eefcb59f3256efa21d92e315c0",
-      "git_blob": "efde96252556fd264e2d445a8c3bbf37baba7602"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v",
-      "sha256": "2b3b4118009c381287d9a3c826ec239d50e4ab2371e391c3eb32903d9e7f1423",
-      "git_blob": "874715bc9fee84e270d8af4ff124a5d717b90290"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "docs/INSPECTION_UI_DIMENSION_V1_DESIGN.md",
-      "sha256": "15d348e0eb83c3d0ad260cf7a8aa4dda1f6eb31a9b4a829b07797308efefbb2b",
-      "git_blob": "a348335b4afae68db4d47ae5e099577b522fc846"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "docs/INSPECTION_UI_DIMENSION_V1_REPORT.md",
-      "sha256": "04c1928d20a1db31559e0816910a84d80d8e0e22ccfe5c0cccba2056f1a9a628",
-      "git_blob": "aa6223cf00ed631aa6c6789f87ece5510f7e9eec"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_TEST.md",
-      "sha256": "5f9b3b498897f6078820c785490a36d3df20d46e49d382fdff395948ab828dc4",
-      "git_blob": "3859847be20d9a4b5c89c9ec7f6eef2d1f52817b"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md",
-      "sha256": "5a9e108d506c69a0245363425b2213d1656df16df4bcbdf37ab9fcc9a31c6240",
-      "git_blob": "f66beb73f9f879f1fa2775d08faed8fcdb82c92e"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "docs/COLOR_COMPARE_V1_DESIGN.md",
-      "sha256": "4683a0c15ab72c76abee8e4ef03eee5d7bd31f26f669a12e4995167d974eeae5",
-      "git_blob": "e3986c721f10fce98d590c41eec44c568900a7b3"
-    },
-    {
-      "commit": "7cffe56c384340f59a526da80a2ac3f3018bf209",
-      "path": "artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/BUILD_INFO.md",
-      "sha256": "4f4f7827b7ec684c8a932674813c3ed3ed0824342a5e47ca0658f39e3a11b70d",
-      "git_blob": "483a3b6518ddf4cf26826e701097ad913caef8f7"
+      "sha256": "62351505f725c4ffb825a10efe4b32c50581eddd5ee4b1997ac84f542f2e2481",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v"
     }
   ],
-  "public_form_snapshot_sha256": {
-    "socchina-landing.html": "0869400507a21ac5264f6c96448c92bd6c778b3ae55dcff4c1f66c1493b0de94",
-    "official-student-team.html": "37d1141575d6fc3fd5ec83c346fe0b45ba1f645621463c9a9aa5befa66b6c1bc",
-    "official-student-work.html": "ca03d93b4a8e7eee5c0853dace85a1d2b7520e7324c9baac06fcde337e01b0a7"
+  "technical_report_new_file_old_baseline": {
+    "commit": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "declared_baseline": "EDGE_CONTROL_V1 Candidate",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/449f03ec516c8dc7766ae4dc0750190e4613f440/docs/technical_report/README.md",
+    "action": "MAIN should reconcile versions/status; not used to downgrade newer RTL or upgrade board evidence"
   },
-  "source_links": {
-    "report": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/7cffe56c384340f59a526da80a2ac3f3018bf209/docs/INSPECTION_UI_DIMENSION_V1_REPORT.md",
-    "design": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/7cffe56c384340f59a526da80a2ac3f3018bf209/docs/INSPECTION_UI_DIMENSION_V1_DESIGN.md",
-    "color": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/7cffe56c384340f59a526da80a2ac3f3018bf209/docs/COLOR_COMPARE_V1_DESIGN.md",
-    "board_plan": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/7cffe56c384340f59a526da80a2ac3f3018bf209/docs/INSPECTION_UI_DIMENSION_V1_BOARD_TEST.md",
-    "build": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/7cffe56c384340f59a526da80a2ac3f3018bf209/artifacts/bitstreams/INSPECTION_UI_DIMENSION_V1/BUILD_INFO.md"
-  }
+  "historical_v1_evidence": "EVIDENCE_INDEX_V1.json",
+  "changes_production_rtl": false,
+  "new_simulation_synthesis_pnr_or_board_run": false
 }
