@@ -83,7 +83,8 @@ r0（0f19311）和r1（590d161）仅完成SYN，分别因扫描线间隔及笔�
 - Bit SHA256：`db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20`
 - [BUILD_INFO](../artifacts/bitstreams/INSPECTION_AUTO_DIMENSION_V2/BUILD_INFO.md)及同目录build_evidence包含完整构建、资源、时序、源码清单、验证和撤回检查点证据。
 - Remote：Private origin https://github.com/Philid14/anlogic-ph1p35-image-processing.git
-- Push / Draft PR：归档提交后发布，实际结果另记REMOTE_RECEIPT；依赖PR #18→#17→#13→#12，不自动合并。
+- Push Status：分支和candidate tag已实际push，远程引用、tag内bit SHA和73个实际TD输入源码闭环均已核对，见[REMOTE_RECEIPT](evidence/INSPECTION_AUTO_DIMENSION_V2/REMOTE_RECEIPT.json)。
+- Draft PR：[#21](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/21)，归档commit 0a5c262072c4e996cc0a7a4d078fbe2f3341ce42；依赖#18→#17→#13→#12，不合并。
 - Git Status：只提交本任务内容，原docs/GITHUB_REFERENCE_RESEARCH.md修改及用户未跟踪资料保留。
 - Board Test Status：NOT_RUN，等待用户真实尺子、水平/竖直独立尺寸、10次重复/旋转/位置、30分钟及光照变化验收。
 

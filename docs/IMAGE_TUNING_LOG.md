@@ -356,3 +356,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 数字验证：27项读尺/含分数间距；五整屏绘图1152000拍；实际ISP九帧2073600拍/1555200打包字和500px/100mm读尺PASS；旧几何/换算/透明显隐/键控/颜色回归PASS。
 - Board Test Result：NOT_RUN，不宣称物理尺子或计量精度已验证。X/Y共享比例须正俯视和双方向独立尺寸复核；工件仍只测外包/中心截线，不是自动CAD。第四物理开关、FIFO B/S与Gray覆盖仍待处理。
 - 是否保留：candidate等待上板；r0/r1仅SYN撤回、无bit。下一步按新BOARD_TEST短按读尺、居中薄片测量、独立真实尺寸与长期视频稳定性验收；不合并PR、不自行下一版。
+
+- 发布核对：归档commit 0a5c262072c4e996cc0a7a4d078fbe2f3341ce42；Draft PR #21，依赖#18→#17→#13→#12；分支和candidate tag已push，tag内bit SHA及73个TD输入源码与实际构建提交一致；仍NOT_RUN，不合并。
