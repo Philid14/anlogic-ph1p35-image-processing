@@ -2,7 +2,7 @@
 
 MAIN / 2026-11-01。准确基线43ff61b4 / INSPECTION_USABILITY_V4 / Draft PR #23，未合并。
 本轮已完成数字验证、完整TD SYN→PHY→最终STA→bitgen及本地归档；**Board Test NOT_RUN**。
-远程推送与Draft PR发布状态见本报告末尾和REMOTE_RECEIPT，不将本地归档称为已上传。
+分支和candidate tag已成功推送Private GitHub，Draft PR #24依赖未合并#23；发布核对见REMOTE_RECEIPT。
 
 ## 实现结果
 
@@ -65,7 +65,7 @@ FIFO稳态溢出、Gray指针物理约束覆盖、实际长期/温度/光照稳�
 - 构建信息：[BUILD_INFO](../artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md)，完整资源/时序/失败尝试/原生验证一并归档。
 - Git Status：仅显式提交本任务；用户原有GITHUB_REFERENCE_RESEARCH修改及未跟踪录像/机械/原理图资料保留，不宣称全工作区clean。
 - Remote：https://github.com/Philid14/anlogic-ph1p35-image-processing.git，Private。
-- Push Status / Draft PR：待本地归档提交后发布并记录回执；不合并。
+- Push Status / Draft PR：分支与candidate tag已实际push成功；[Draft PR #24](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/24)依赖#23，未合并。归档commit be226969254331561de1e6376610cd6bf99af601；tag内bit SHA及84个TD输入与实际构建源码核对通过，见[REMOTE_RECEIPT](evidence/VISION_TRACK_MOTION_V1/REMOTE_RECEIPT.json)。
 - Board Test Status：NOT_RUN；进阶2/4只能标为“已集成候选，待实板”，不是正式达标。
 
 最小联合验收：先旧V4再新版确认旧模式；SW=0000；红卡移动/消失重现；MOTION静置/移动/停下/移出及灯光变化；记录FRAME、ERR与B/S在5s/30s/120s和30分钟稳态表现。

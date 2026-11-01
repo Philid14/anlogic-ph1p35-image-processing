@@ -401,3 +401,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Bit artifacts/bitstreams/VISION_TRACK_MOTION_V1/camera_to_dsi_display.bit；SHA256 f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0。
 - Board Test Result：NOT_RUN；FIFO稳态溢出、Gray覆盖、长期/温度/光照、实际目标误报/漏检和旧应用验收仍待联合实板。原type PHY-5060/5079与高密度告警保留，不宣称修复。
 - 是否保留/下一步：保留本candidate与历史V4；按BOARD_TEST验收，进阶2/4仅“候选集成”不先写正式达标。完成即停止，不合并、不改队友RTL或进入下一版。发布信息另补回执。
+
+- 发布核对：归档commit be226969254331561de1e6376610cd6bf99af601；Draft PR #24依赖#23，未合并。实际分支/candidate tag push成功，tag内bit SHA及84个TD输入与实际构建源码闭环已核对；历史bit未变。见VISION_TRACK_MOTION_V1的REMOTE_RECEIPT；仍NOT_RUN，等待联合上板。
