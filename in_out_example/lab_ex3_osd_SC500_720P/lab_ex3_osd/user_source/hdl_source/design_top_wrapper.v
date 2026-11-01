@@ -438,7 +438,7 @@ module design_top_wrapper (
   assign S_ae = 16'd1990;
   assign S_ag = 16'd0; // unused while S_ae_req=0, not a sensor gain encoding
   wire [18:0] S_edge_requested_config, S_edge_received_config;
-  edge_key_control u_edge_keys (
+  edge_key_control #(.VISION_ENABLE(1)) u_edge_keys (
       .clk(S_24m_clk), .rst_n(S_rst_n), .keys_n(I_button),
       .requested_config(S_edge_requested_config)
   );
@@ -587,7 +587,9 @@ assign S_raw_tuser  = S_axis_tuser;
 
 //ISP算法顶层模块
 wire [31:0] S_fifo_event_counts;
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1)) u_isp_top (
+wire vision_capture_toggle;
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1)) u_isp_top (
+.O_capture_toggle(vision_capture_toggle),
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_fifo_event_counts(S_fifo_event_counts),
 .I_edge_config   (S_edge_received_config),
@@ -755,8 +757,9 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
         .IMG_WIDTH  ( 1280 ),
         .IMG_HEIGHT ( 720  ),
         .DEBUG_MODE ( 0    ),
-        .LOGO_ERAM_ENABLE(1)
+        .LOGO_ERAM_ENABLE(1),.VISION_WATCHDOG(1)
     )u_hdmi_mixer(
+        .I_capture_toggle(vision_capture_toggle),
         .I_clk           ( S_hdmi_pixel_clk   ),
         .I_rst_n         ( S_hdmi_rst_n       ),
         .I_video_vsync   ( S_hdmi_vsync       ),

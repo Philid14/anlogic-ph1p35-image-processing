@@ -15,7 +15,8 @@ module isp_top #(
     parameter integer INSPECTION_ENABLE = 0,
     parameter integer AUTO_DIMENSION = 0,
     parameter integer USABILITY_ENABLE = 0,
-    parameter integer INSPECTION_V4 = 0
+    parameter integer INSPECTION_V4 = 0,
+    parameter integer VISION_ENABLE = 0
 ) (
     input 			axi4s_video_aclk,
     input [18:0] I_edge_config,
@@ -32,6 +33,7 @@ module isp_top #(
     output 			O_tlast			,
     output 			O_tuser			,
     output 			O_tvalid		,
+    output O_capture_toggle,
     output 			I_tready
 );
  
@@ -76,7 +78,7 @@ wire         m_aixs_tvalid;  //synthesis keep
           else last_128 <= algorithm_last;
       end
       assign algorithm_last_128 = last_128;
-      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS), .TEMPORAL_ENABLE(TEMPORAL_ENABLE), .RELIABILITY_ENABLE(RELIABILITY_ENABLE),.COLOR_COMPARE_ENABLE(COLOR_COMPARE_ENABLE),.INSPECTION_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4)) u_control (
+      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS), .TEMPORAL_ENABLE(TEMPORAL_ENABLE), .RELIABILITY_ENABLE(RELIABILITY_ENABLE),.COLOR_COMPARE_ENABLE(COLOR_COMPARE_ENABLE),.INSPECTION_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.VISION_ENABLE(VISION_ENABLE)) u_control (
           .clk(axi4s_video_aclk), .rst_n(I_rst_n),
           .requested_config(I_edge_config),
           .I_fifo_event_counts(I_fifo_event_counts),
@@ -85,7 +87,7 @@ wire         m_aixs_tvalid;  //synthesis keep
           .I_user(awb_O_tuser), .I_last(awb_O_tlast),
           .I_ready(awb_O_tready), .O_ready(O_tready),
           .O_data(algorithm_data), .O_valid(algorithm_valid),
-          .O_user(algorithm_user), .O_last(algorithm_last)
+          .O_user(algorithm_user), .O_last(algorithm_last),.O_capture_toggle(O_capture_toggle)
       );
   end else if (EDGE_ENABLE) begin : g_edge
       reg last_128;

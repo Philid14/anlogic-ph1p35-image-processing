@@ -16,7 +16,8 @@ module edge_control_stream #(
     parameter integer INSPECTION_ENABLE = 0,
     parameter integer AUTO_DIMENSION = 0,
     parameter integer USABILITY_ENABLE = 0,
-    parameter integer INSPECTION_V4 = 0
+    parameter integer INSPECTION_V4 = 0,
+    parameter integer VISION_ENABLE = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
@@ -24,7 +25,7 @@ module edge_control_stream #(
     input [3:0] I_switch,input I_measure_key_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     output [95:0] O_data, output O_valid, output O_user, output O_last,
-    output I_ready, input O_ready
+    output I_ready, input O_ready,output O_capture_toggle
 );
     localparam [2:0] MODE_ORIGIN = 3'd0;
     localparam [2:0] MODE_GRAY   = 3'd1;
@@ -106,13 +107,58 @@ module edge_control_stream #(
     end endgenerate
     // Every branch is delayed by the same number of beats. Selection uses the
     // configuration already travelling with this exact pixel beat.
-    reg [95:0] selected_data;
+    wire [3:0] target_mark,motion_mark;
+    wire [1:0] track_state;wire target_valid;
+    wire [10:0] target_x;wire [9:0] target_y;wire [19:0] target_count;
+    wire [31:0] target_frame,motion_frame;wire [11:0] motion_count;
+    wire [2:0] motion_state;wire motion_valid,observer_error;
+    wire [3:0] target_aligned,motion_aligned;
+    generate if(VISION_ENABLE && EDGE_STAGES>=4)begin:g_vision
+        vision_source_observer #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_observer(
+            .clk(clk),.rst_n(rst_n),.rgb(original_p[0]),
+            .gray({gray_p[0][95:88],gray_p[0][71:64],gray_p[0][47:40],gray_p[0][23:16]}),
+            .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),
+            .target_mark(target_mark),.motion_mark(motion_mark),.track_state(track_state),
+            .target_valid(target_valid),.target_x(target_x),.target_y(target_y),
+            .target_count(target_count),.target_frame(target_frame),
+            .motion_ready(),.motion_valid(motion_valid),.motion_count(motion_count),
+            .motion_state(motion_state),.motion_frame(motion_frame),
+            .complete_toggle(O_capture_toggle),.protocol_error(observer_error));
+        reg [3:0] tp[0:EDGE_STAGES-3],mp[0:EDGE_STAGES-4];integer vi;
+        always @(posedge clk or negedge rst_n)begin
+            if(!rst_n)begin
+                for(vi=0;vi<EDGE_STAGES-2;vi=vi+1)tp[vi]<=0;
+                for(vi=0;vi<EDGE_STAGES-3;vi=vi+1)mp[vi]<=0;
+            end else begin
+                tp[0]<=target_mark;mp[0]<=motion_mark;
+                for(vi=1;vi<EDGE_STAGES-2;vi=vi+1)tp[vi]<=tp[vi-1];
+                for(vi=1;vi<EDGE_STAGES-3;vi=vi+1)mp[vi]<=mp[vi-1];
+            end
+        end
+        assign target_aligned=tp[EDGE_STAGES-3];assign motion_aligned=mp[EDGE_STAGES-4];
+    end else begin:g_no_vision
+        assign target_mark=0;assign motion_mark=0;assign target_aligned=0;assign motion_aligned=0;
+        assign track_state=0;assign target_valid=0;assign target_x=0;assign target_y=0;
+        assign target_count=0;assign target_frame=0;assign motion_frame=0;
+        assign motion_count=0;assign motion_state=0;assign motion_valid=0;
+        assign observer_error=0;assign O_capture_toggle=0;
+    end endgenerate
+    reg [95:0] selected_data;integer mark_lane;
     always @(*) begin
         case (config_p[EDGE_STAGES-1][18:16])
             MODE_ORIGIN: selected_data = original_p[EDGE_STAGES-1];
             MODE_GRAY:   selected_data = gray_p[EDGE_STAGES-1];
             MODE_BINARY: selected_data = binary_p[EDGE_STAGES-1];
             MODE_STYLE: selected_data = style_data;
+            3'd5,3'd6:begin
+                selected_data=VISION_ENABLE?original_p[EDGE_STAGES-1]:stable_edge_data;
+                for(mark_lane=0;mark_lane<4;mark_lane=mark_lane+1)begin
+                    if(VISION_ENABLE && config_p[EDGE_STAGES-1][18:16]==3'd5 && target_aligned[3-mark_lane])
+                        selected_data[95-mark_lane*24-:24]=24'h00ff80;
+                    if(VISION_ENABLE && config_p[EDGE_STAGES-1][18:16]==3'd6 && motion_aligned[3-mark_lane])
+                        selected_data[95-mark_lane*24-:24]=24'hff00ff;
+                end
+            end
             default:     selected_data = stable_edge_data;
         endcase
     end
@@ -209,10 +255,13 @@ module edge_control_stream #(
         assign compare_last=last_p[EDGE_STAGES-1];
     end endgenerate
     edge_status_osd #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
-                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE)) u_status (
+                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE),.VISION_ENABLE(VISION_ENABLE)) u_status (
         .clk(clk), .rst_n(rst_n), .I_data(compare_data),
         .I_valid(compare_valid), .I_user(compare_user), .I_last(compare_last),
         .I_config(compare_config),.I_switches(compare_switches),.I_ruler_status(compare_ruler), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
+        .I_track_state(track_state),.I_target_valid(target_valid),.I_target_x(target_x),.I_target_y(target_y),
+        .I_target_count(target_count),.I_target_frame(target_frame),.I_motion_valid(motion_valid),
+        .I_motion_count(motion_count),.I_motion_state(motion_state),.I_motion_frame(motion_frame),.I_observer_error(observer_error),
         .O_user(O_user), .O_last(O_last)
     );
 endmodule

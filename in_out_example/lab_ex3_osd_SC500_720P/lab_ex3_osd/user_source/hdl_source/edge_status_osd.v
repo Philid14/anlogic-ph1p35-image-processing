@@ -9,12 +9,17 @@ module edge_status_osd #(
     parameter integer X0 = 800,
     parameter integer Y0 = 16,
     parameter integer RELIABILITY_ENABLE = 0,
-    parameter integer SWITCH_DIAG_ENABLE = 0
+    parameter integer SWITCH_DIAG_ENABLE = 0,
+    parameter integer VISION_ENABLE = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     input [18:0] I_config,
     input [31:0] I_fifo_event_counts,input [3:0] I_switches,input [2:0] I_ruler_status,
+    input [1:0] I_track_state,input I_target_valid,input [10:0] I_target_x,input [9:0] I_target_y,
+    input [19:0] I_target_count,input [31:0] I_target_frame,
+    input I_motion_valid,input [11:0] I_motion_count,input [2:0] I_motion_state,
+    input [31:0] I_motion_frame,input I_observer_error,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
 );
@@ -27,8 +32,12 @@ module edge_status_osd #(
     wire [10:0] local_y = y_now-Y0;
     wire row3=SWITCH_DIAG_ENABLE && local_y>=120 && local_y<152;
     wire row2=RELIABILITY_ENABLE && local_y>=80 && local_y<112;
-    wire box_hit = ENABLE && pixel_x >= X0 && pixel_x < X0+448
-                          && y_now >= Y0 && (y_now < Y0+72 || row2 || row3);
+    wire analytic=VISION_ENABLE && I_config[18:16]>=5 && I_config[18:16]<=6;
+    wire a_hit=analytic && pixel_x>=32 && pixel_x<1056 && y_now>=192 && y_now<288;
+    wire [1:0] a_row=(y_now-192)>>5;
+    wire [4:0] a_col=(pixel_x-32)>>5;
+    wire box_hit = ENABLE && ((pixel_x >= X0 && pixel_x < X0+448
+                          && y_now >= Y0 && (y_now < Y0+72 || row2 || row3)) || a_hit);
     wire row0 = local_y < 32;
     wire row1 = local_y >= 40 && local_y < 72;
     wire [10:0] text_y = row3 ? local_y-11'd120 : row2 ? local_y-11'd80 : (row1 ? local_y-11'd40 : local_y);
@@ -70,6 +79,41 @@ module edge_status_osd #(
         begin hexchar=n<10 ? 8'h30+n : 8'h41+n-10;end
     endfunction
     reg [7:0] character;
+    reg [1:0] track_f;reg target_valid_f,motion_valid_f,error_f;
+    reg [10:0] tx_f;reg [9:0] ty_f;reg [19:0] tn_f;reg [31:0] tf_f,mf_f;
+    reg [11:0] mn_f;reg [2:0] ms_f;
+    generate if(VISION_ENABLE)begin:g_analytics
+        always @(posedge clk or negedge rst_n)begin
+            if(!rst_n)begin track_f<=0;target_valid_f<=0;motion_valid_f<=0;error_f<=0;
+                tx_f<=0;ty_f<=0;tn_f<=0;tf_f<=0;mf_f<=0;mn_f<=0;ms_f<=0;end
+            else if(I_user)begin track_f<=I_track_state;target_valid_f<=I_target_valid;
+                motion_valid_f<=I_motion_valid;error_f<=I_observer_error;
+                tx_f<=I_target_x;ty_f<=I_target_y;tn_f<=I_target_count;tf_f<=I_target_frame;
+                mf_f<=I_motion_frame;mn_f<=I_motion_count;ms_f<=I_motion_state;end
+        end
+    end endgenerate
+    reg [255:0] analytic_text;
+    reg [63:0] state_text;
+    reg [31:0] shown_frame;
+    always @(*)begin
+        shown_frame=mode==5?tf_f:mf_f;
+        if(mode==5)begin
+            case(track_f)
+                1:state_text="ACQUIRE ";2:state_text="TRACK   ";3:state_text="HOLD    ";default:state_text="SEARCH  ";
+            endcase
+        end else begin
+            case(ms_f)
+                1:state_text="WARMUP  ";2:state_text="STILL   ";3:state_text="MOTION  ";4:state_text="GLOBAL  ";default:state_text="INVALID ";
+            endcase
+        end
+        analytic_text="                                ";
+        case(a_row)
+            0: analytic_text=mode==5?{"RED TRACK: ",state_text,"             "}:{"GRID32X16: ",state_text," TH012       "};
+            1: analytic_text=mode==5?"LAST HEX X:000 Y:000 N:00000    ":"LAST CHANGED HEX:000            ";
+            2: analytic_text="FRAME:00000000 VALID:0 ERR:0    ";
+            default: ;
+        endcase
+    end
     always @(*) begin
         character=8'h20;
         if(row3)begin
@@ -126,6 +170,33 @@ module edge_status_osd #(
                 default: character=" ";
             endcase
         end
+        if(VISION_ENABLE && mode==5 && row0)begin
+            case(char_column)
+                6:character="T";7:character="R";8:character="A";9:character="C";10:character="K";11:character=" ";default:;
+            endcase
+        end
+        if(VISION_ENABLE && mode==6 && row0)begin
+            case(char_column)
+                6:character="M";7:character="O";8:character="T";9:character="I";10:character="O";11:character="N";default:;
+            endcase
+        end
+        if(a_hit)begin
+            character=analytic_text[255-a_col*8-:8];
+            if(a_row==1 && mode==5)begin
+                case(a_col)
+                    11:character=hexchar({1'b0,tx_f[10:8]});12:character=hexchar(tx_f[7:4]);13:character=hexchar(tx_f[3:0]);
+                    17:character=hexchar({2'b0,ty_f[9:8]});18:character=hexchar(ty_f[7:4]);19:character=hexchar(ty_f[3:0]);
+                    23:character=hexchar(tn_f[19:16]);24:character=hexchar(tn_f[15:12]);
+                    25:character=hexchar(tn_f[11:8]);26:character=hexchar(tn_f[7:4]);27:character=hexchar(tn_f[3:0]);default:;
+                endcase
+            end else if(a_row==1 && mode==6 && a_col>=17 && a_col<20)
+                character=hexchar(mn_f>>(4*(19-a_col)));
+            if(a_row==2)begin
+                if(a_col>=6 && a_col<14)character=hexchar(shown_frame>>(4*(13-a_col)));
+                if(a_col==21)character="0"+(mode==5?target_valid_f:motion_valid_f);
+                if(a_col==27)character="0"+error_f;
+            end
+        end
     end
     reg [7:0] char_s1;
     reg [3:0] row_s1, col_s1;
@@ -146,8 +217,8 @@ module edge_status_osd #(
                     x_group<=0; y<=(y_now==IMG_HEIGHT-1) ? 11'd0 : y_now+1'b1;
                 end else begin x_group<=x_now+1'b1; y<=y_now; end
             end
-            char_s1<=character; row_s1<=text_y[4:1]; col_s1<=local_x[4:1];
-            hit_s1<=box_hit; glyph_s1<=row0||row1||row2||row3;diag_s1<=row3;
+            char_s1<=character; row_s1<=a_hit?y_now[4:1]:text_y[4:1]; col_s1<=a_hit?pixel_x[4:1]:local_x[4:1];
+            hit_s1<=box_hit; glyph_s1<=a_hit||row0||row1||row2||row3;diag_s1<=row3||a_hit;
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin

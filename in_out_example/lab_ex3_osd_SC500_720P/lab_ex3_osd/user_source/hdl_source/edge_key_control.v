@@ -46,6 +46,7 @@ module edge_key_event #(
 endmodule
 
 module edge_key_control #(
+    parameter integer VISION_ENABLE = 0,
     parameter integer DEBOUNCE_CYCLES = 480000,
     parameter integer LONG_CYCLES = 16800000
 )(
@@ -76,6 +77,8 @@ module edge_key_control #(
                     MODE_ORIGIN: requested_config[18:16]<=MODE_GRAY;
                     MODE_GRAY: requested_config[18:16]<=MODE_BINARY;
                     MODE_BINARY: requested_config[18:16]<=MODE_STYLE;
+                    MODE_STYLE: requested_config[18:16]<=VISION_ENABLE?3'd5:MODE_EDGE;
+                    3'd5: requested_config[18:16]<=VISION_ENABLE?3'd6:MODE_EDGE;
                     default: requested_config[18:16]<=MODE_EDGE;
                 endcase
             end
