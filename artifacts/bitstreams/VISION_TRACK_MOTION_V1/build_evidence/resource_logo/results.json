@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "baseline": "43ff61b4",
+  "rom_addresses": 32768,
+  "frames": 2,
+  "scope": "Actual vendor ERAM/GSR; all mixer RGB/control cycles including reset and blanking; no latency change"
+}

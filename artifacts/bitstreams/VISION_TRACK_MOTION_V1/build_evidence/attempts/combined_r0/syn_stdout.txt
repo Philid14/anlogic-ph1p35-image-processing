@@ -1,0 +1,33 @@
+============================================================
+   Tang Dynasty, V6.2.168116
+   Copyright (c) 2012-2025 Anlogic Inc.
+   Executable = D:/TD/bin/td_commands_prompt.exe
+   Built at =   16:32:07 Jun 12 2025
+   Run by =     Lenovo
+   Run Date =   Sun Nov  1 18:31:26 2026
+
+   Run on =     PHILID
+============================================================
+RUN-1002 : start command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3"
+ARC-1001 : Device Initialization.
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :           OPTION          |          IO           |   SETTING   
+ARC-1001 : ----------------------------------------------------------------
+ARC-1001 :   non_jtag_persist(none)  |        35 IOs         |    gpio    
+ARC-1001 :            jtag           |  P13/P15/L14/R13/T13  |  dedicate  
+ARC-1001 : ----------------------------------------------------------------
+RUN-1003 : finish command "import_device ph1_35p.db -package PH1P35MDG324 -speed 3" in  1.677784s wall, 1.187500s user + 0.078125s system = 1.265625s CPU (75.4%)
+
+RUN-1004 : used memory is 323 MB, reserved memory is 321 MB, peak memory is 323 MB
+RUN-1002 : start command "open_project camera_to_dsi_display.prj"
+PRJ-5611 WARNING: ../../../user_source/hdl_source/vision/vision_logo_palette.v and ../../../user_source/hdl_source/anlogic_logo_rom.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/gaussian_pair_3x3.v and ../../../user_source/hdl_source/isp/rgb_effects_96.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/edge_center_pair_delay.v and ../../../user_source/hdl_source/isp/fifo_event_counter.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/edge_temporal_hold.v and ../../../user_source/hdl_source/isp/edge_center_pair_delay.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/ruler_auto_calibration.v and ../../../user_source/hdl_source/isp/inspection_calibration.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/ruler_robust_calibration.v and ../../../user_source/hdl_source/isp/ruler_auto_calibration.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/ruler_area_calibration.v and ../../../user_source/hdl_source/isp/ruler_robust_calibration.v have the same CompileOrder value.
+PRJ-5611 WARNING: ../../../user_source/hdl_source/isp/engineering_dimension_marks.v and ../../../user_source/hdl_source/isp/ruler_area_calibration.v have the same CompileOrder value.
+PRJ-8640 ERROR: Open project file D:\anlogic_formal_project\in_out_example\lab_ex3_osd_SC500_720P\lab_ex3_osd\td_project\camera_to_dsi_display_Runs\syn_1\camera_to_dsi_display.prj failed because of previous error(s).
+
+td > 

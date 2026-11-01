@@ -1,0 +1,27 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_vision_watchdog -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 18:52:52 on Nov 01,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(6): [TFMPC] - Too few port connections. Expected 15, found 11.
+# 
+#         Region: /tb_vision_watchdog/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(6): [TFMPC] - Missing connection for port 'O_video_rd_en'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(6): [TFMPC] - Missing connection for port 'O_hdmi_vsync'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(6): [TFMPC] - Missing connection for port 'O_hdmi_hsync'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(6): [TFMPC] - Missing connection for port 'O_hdmi_de'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS source heartbeat synchronizer, stale timeout/resume/reset and exact warning glyph
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_vision_watchdog.sv(32)
+#    Time: 730 ns  Iteration: 1  Instance: /tb_vision_watchdog
+# End time: 18:52:52 on Nov 01,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 5

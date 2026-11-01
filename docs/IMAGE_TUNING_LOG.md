@@ -389,3 +389,15 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留/下一步：保留candidate与历史，按V4_BOARD_TEST先多位置水平读尺，再同色/异色/光照型差异及尺寸验证；R6或S稳态增长先查视频完整性；FIFO/Gray覆盖未冒充已修复。完成后停止，不合并、不自行下一版。
 
 - 发布核对：归档commit ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5；Draft PR #23依赖#22。分支/candidate tag已实际push，远程ref、tag内bit SHA及75个TD输入源码闭环核对通过，见REMOTE_RECEIPT；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 VISION_TRACK_MOTION_V1 candidate / MAIN
+
+- 用户授权直接推进进阶2/4且资源优化优先，准确基线43ff61b4/V4/PR#23；分支codex/main/vision-track-motion-v1，实际TD源码c3bdf9240647d9f98a2ff68c416693ad1e20f4b9，tag vision-track-motion-v1-candidate。
+- 本轮主变量：资源受控的颜色跟踪/运动观察；保留独立Logo优化、运动RAM映射、原生完整回归和负载链检查点，失败尝试无bit并保留。
+- 参数前后：Sensor曝光1990、gain15.75、VTS1000/HTS1600、BLC15/AWB、五算法、PLL/SDC、视频链不变；新增红色±30度/C24/V32/MIN64和32×16均值帧差TH12/至少3块；明确LAST/HEX，当前像素/变化块同步标记。
+- 完整SYN/PHY/final STA/bitgen PASS；Slice20694(97.54%,比V4 -300)、LUT6 19497(-366)、FF20285(+1169)、ERAM102(+12)、DSP27(0)。Setup/Hold+0.106/+0.020ns、TNS0、coverage95.68%；剩余522 Slice/6 ERAM，不是宽裕预算。
+- 验证：真实厂商ERAM/GSR+实际ISP/打包17帧720p、3916800拍/2937600字逐像素通过；32768地址Logo/1857588周期等价；observer14帧异常/超时；七模式按键/CDC；复位首拍701周期通过。全部是数字/构建证据，不冒充实板。
+- Bit artifacts/bitstreams/VISION_TRACK_MOTION_V1/camera_to_dsi_display.bit；SHA256 f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0。
+- Board Test Result：NOT_RUN；FIFO稳态溢出、Gray覆盖、长期/温度/光照、实际目标误报/漏检和旧应用验收仍待联合实板。原type PHY-5060/5079与高密度告警保留，不宣称修复。
+- 是否保留/下一步：保留本candidate与历史V4；按BOARD_TEST验收，进阶2/4仅“候选集成”不先写正式达标。完成即停止，不合并、不改队友RTL或进入下一版。发布信息另补回执。

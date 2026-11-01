@@ -1,0 +1,12 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 18:52:51 on Nov 01,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_vision_watchdog.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v 
+-- Compiling module tb_vision_watchdog
+-- Compiling module hdmi_mixer
+-- Compiling module osd_char_lib
+-- Compiling module anlogic_logo_rom
+
+Top level modules:
+	tb_vision_watchdog
+End time: 18:52:51 on Nov 01,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
