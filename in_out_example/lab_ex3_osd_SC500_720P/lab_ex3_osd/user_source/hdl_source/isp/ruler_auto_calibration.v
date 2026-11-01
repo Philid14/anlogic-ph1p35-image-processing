@@ -3,13 +3,19 @@
 // Two independent lines must agree. No OCR, no perspective correction.
 // span is pixels per 100 mm; shared X/Y requires perpendicular square-pixel view.
 module ruler_auto_calibration #(
-    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=304,LINE_STEP=2,ROBUST_ENABLE=0,SEARCH_Y0=288,SEARCH_STEP=3
+    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=304,LINE_STEP=2,AREA_ENABLE=0,ROBUST_ENABLE=0,SEARCH_Y0=288,SEARCH_STEP=3
 )(input clk,rst_n,input [31:0] gray,input valid,user,last,
   input enable,input request_toggle,
   output reg [10:0] span,output reg calibrated,output reg [2:0] status);
     // 0 required, 1 awaiting full frame, 2 reading, 3 OK, 4 no ticks,
     // 5 irregular/ambiguous ticks, 6 invalid stream, 7 cancelled.
-    generate if(ROBUST_ENABLE)begin:g_robust
+    generate if(AREA_ENABLE)begin:g_area
+        wire [10:0] area_span;wire area_calibrated;wire [2:0] area_status;
+        ruler_area_calibration #(.WIDTH(WIDTH),.HEIGHT(HEIGHT)) u_reader(
+            .clk(clk),.rst_n(rst_n),.gray(gray),.valid(valid),.user(user),.last(last),.enable(enable),
+            .request_toggle(request_toggle),.span(area_span),.calibrated(area_calibrated),.status(area_status));
+        always @*begin span=area_span;calibrated=area_calibrated;status=area_status;end
+    end else if(ROBUST_ENABLE)begin:g_robust
         wire [10:0] robust_span;wire robust_calibrated;wire [2:0] robust_status;
         ruler_robust_calibration #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.X0(X0),.Y0(SEARCH_Y0),.LINE_STEP(SEARCH_STEP)) u_reader(
             .clk(clk),.rst_n(rst_n),.gray(gray),.valid(valid),.user(user),.last(last),.enable(enable),
