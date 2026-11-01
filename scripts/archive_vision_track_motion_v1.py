@@ -8,6 +8,9 @@ def copy_reports(src,dst):
     for f in src.iterdir():
         if f.is_file() and f.suffix in ('.txt','.json','.tcl','.cfg','.area','.ts','.rpt','.qor','.timing','.prj','.png') and f.name not in ('vectors.txt','stim.txt','pack.txt'):
             shutil.copy2(f,dst/f.name)
+    for child in src.iterdir():
+        if child.is_dir() and (child.name=='regression' or src.name=='regression'):
+            copy_reports(child,dst/child.name)
 def main():
     frozen=json.loads((OUT/'SOURCE_MANIFEST.json').read_text());now=snapshot()
     for k in ('files','al_sha256','old_bits'):assert now[k]==frozen[k],k
@@ -15,6 +18,7 @@ def main():
     for directory in ('observer_unit','controls','legacy/native','features/native'):
         result=json.loads((root/directory/'results.json').read_text());assert result['passed']
         for rel,digest in result['sources'].items():assert sha(ROOT/rel)==digest,rel
+    scope=json.loads((root/'SCOPE.json').read_text());assert scope['passed'] and scope['td_input_count']==84
     for case,beats,words in [('legacy',2073600,1555200),('features',1843200,1382400)]:
         result=json.loads((root/case/'native/results.json').read_text());assert result['beats']==beats and result['words']==words
     for directory in ('observer_unit','legacy/native','features/native','resource_logo'):
@@ -48,6 +52,7 @@ def main():
       route_db_sha256=(OUT/'ROUTE_DB_SHA256.txt').read_text().strip())
     dest=ROOT/'artifacts/bitstreams'/VERSION;assert not dest.exists(),'Never overwrite archive'
     ev=dest/'build_evidence';ev.mkdir(parents=True);shutil.copy2(bit,dest/bit.name);copy_reports(OUT,ev)
+    shutil.copy2(root/'SCOPE.json',ev/'SCOPE.json')
     for directory in ('observer_unit','controls','controls/keys','controls/watchdog','controls/pipeline_reset','legacy/native','features/native','resource_logo'):
         copy_reports(root/directory,ev/directory)
     for attempt in root.glob('*_r*'):

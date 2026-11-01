@@ -65,6 +65,7 @@ def main():
         assert not manifest.exists(),'Do not overwrite a build attempt'
         manifest.write_text(json.dumps(current,indent=2)+'\n')
     else:
+        scope=json.loads((ROOT/'tmp/vision_track_motion/SCOPE.json').read_text());assert scope['passed'] and scope['td_input_count']==84
         frozen=json.loads(manifest.read_text())
         for k in ('files','al_sha256','old_bits'):assert current[k]==frozen[k],k
     syn=P/'camera_to_dsi_display_Runs/syn_1';phy=P/'camera_to_dsi_display_Runs/phy_1'
