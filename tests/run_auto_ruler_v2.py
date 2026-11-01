@@ -28,6 +28,17 @@ def main():
         for _ in range(2500):emit()
         emit(check=1,span=pitch*100,ok=1,status=3);count+=1
         emit(en=0);emit(en=0,check=1,span=pitch*100,ok=1,status=3);count+=1
+    # Camera magnification is rarely an integer number of pixels per mm.
+    # Known ideal pitch is the oracle, allowing at most one pixel per 100mm
+    # from finite endpoint quantization; independent subpixel phase per line.
+    for pitch in (2.2,2.5,3.3,6.6,11.7):
+        a=np.full((3,512),225,np.uint8)
+        for line in range(3):
+            positions=np.rint(np.arange(7+line*0.25,509,pitch)).astype(int)
+            a[line,positions]=25
+        req^=1;emit();frame(a);emit(u=1)
+        for _ in range(2500):emit()
+        emit(check=2,span=int(round(pitch*100)),ok=1,status=3);count+=1
     # Different illumination and single bad scanline: two intact lines still agree.
     a=pattern(6,2);a[1]=rng.integers(0,255,512,dtype=np.uint8)
     req^=1;emit();frame(a);emit(u=1)
@@ -52,6 +63,6 @@ def main():
     log=c.simulate(OUT,'tb_ruler_auto_calibration',sources,plus=['+STIM='+(OUT/'ruler_vectors.txt').as_posix()])
     (OUT/'ruler_console.txt').write_text(log)
     (OUT/'ruler_results.json').write_text(json.dumps(dict(passed=True,checks=count,
-      cases='2..16px/mm; early/inline SOF; valid gaps; two-of-three lines; no contrast; missing ticks; mismatch; malformed stream; cancel; reset',
+      cases='2..16 integer and 2.2/2.5/3.3/6.6/11.7 fractional px/mm; early/inline SOF; valid gaps; two-of-three lines; no contrast; missing ticks; mismatch; malformed stream; cancel; reset',
       sources={p.relative_to(c.ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sources}),indent=2)+'\n')
 if __name__=='__main__':main()

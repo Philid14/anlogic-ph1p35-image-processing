@@ -26,7 +26,7 @@ def main():
     bits=0
     for p in staged:
         assert not p.startswith(('features/','2026-10-05/','3_原理图/','最终作品实现/')),p
-        assert p!='docs/GITHUB_REFERENCE_RESEARCH.md' and '_Runs/' not in p,p
+        assert p!='docs/GITHUB_REFERENCE_RESEARCH.md' and '_Runs/' not in p and not p.startswith('tmp/'),p
         data=git('show',':'+p);assert len(data)<100_000_000,p
         assert not any(re.search(pattern,data) for pattern in patterns),'Potential credential in '+p
         if p.endswith('.bit'):

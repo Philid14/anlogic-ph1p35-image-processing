@@ -31,6 +31,7 @@ def main():
       resources=resources,resource_delta_vs_V1={k:resources[k]-v for k,v in previous['resources'].items()},
       setup_wns_ns=sw,setup_tns_ns=st,hold_wns_ns=hw,hold_tns_ns=ht,critical_warning_types=critical,
       new_critical_warning_types=sorted(set(critical)-set(previous['critical_warning_types'])),board_test='NOT_RUN',
+      high_density_warning='PHY-7022' in logs,
       extra_common_pixel_cycles=0,measurement_age='previous complete capture frame, plus inherited DDR display latency',
       calibration='one short K4 in ORIGIN/CAL, horizontal 1mm black ticks, three nearby rows and two-line agreement; common X/Y scalar, no perspective correction',
       annotation='outer axis-aligned W/H plus measured center-line gaps; no height/CAD reconstruction',
@@ -68,6 +69,7 @@ def main():
 - Setup WNS/TNS: {sw:+.3f}ns / {st}; Hold WNS/TNS: {hw:+.3f}ns / {ht}
 - Synthesis -> Physical Design -> final Timing Check -> bitgen: PASS
 - Critical warning types: {critical}; new: {info['new_critical_warning_types']}
+- High density warning PHY-7022: {info['high_density_warning']}; routed pass does not establish thermal/board stability.
 - Board Test Status: NOT_RUN. Independent ruler scale and measurement accuracy remain unverified.
 - Common pixel delay unchanged (31 cycles). No frame cache; three 512px grayscale scan lines only.
 - K4 short obtains a validated next-frame ruler measurement in ORIGIN/CAL; switch exit does not confirm.

@@ -17,7 +17,7 @@ module tb_ruler_auto_calibration;
                 @(negedge clk);rst_n=rr;v=rv;u=vu;l=vl;en=ve;req=vq;gray=data;
                 @(posedge clk);#1;cycles=cycles+1;
                 if(check)begin
-                    if(ok!==eo || status!==et || (eo && span!==es))
+                    if(ok!==eo || status!==et || (eo && ((^span===1'bx) || (check==2 ? (span+1<es || span>es+1) : span!==es))))
                         $fatal(1,"FAIL ruler cycle%0d got span%0d ok%0d status%0d expected %0d/%0d/%0d",cycles,span,ok,status,es,eo,et);
                     checks=checks+1;
                 end
