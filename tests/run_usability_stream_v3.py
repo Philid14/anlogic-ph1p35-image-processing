@@ -45,7 +45,7 @@ def vectors(directory,w,h,full):
             rgb=scene(w,h,f)
             if f>=6:
                 rgb[:]=225
-                for yy in (288,294,300,306,312,318):
+                for yy in range(288,324,3):
                     for xx in range(391,894,5):rgb[yy,xx]=25
             cfg=(mode<<16)|(80<<8)|130
             active,raw=old.expected_edge(rgb,80,previous_raw,80 if previous_raw is not None else None)

@@ -21,7 +21,7 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
     wire [10:0] gy=((({1'b0,gt}+{1'b0,gb})>>1)-24);
     reg [10:0] tx,ty,q;reg [3:0] col;
     reg [1:0] field;reg active;reg [19:0] value;
-    wire scan_y=SEARCH_ENABLE ? (y==288 || y==294 || y==300 || y==306 || y==312 || y==318) : (y==304 || y==306 || y==308);
+    wire scan_y=SEARCH_ENABLE ? (y==288 || y==291 || y==294 || y==297 || y==300 || y==303 || y==306 || y==309 || y==312 || y==315 || y==318 || y==321) : (y==304 || y==306 || y==308);
     reg line_ink;integer k;
     function [7:0] message;input [5:0] i;input [2:0] s;begin
         message=" ";

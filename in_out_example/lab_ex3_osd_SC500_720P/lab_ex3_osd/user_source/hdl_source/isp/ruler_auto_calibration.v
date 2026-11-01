@@ -3,7 +3,7 @@
 // Two independent lines must agree. No OCR, no perspective correction.
 // span is pixels per 100 mm; shared X/Y requires perpendicular square-pixel view.
 module ruler_auto_calibration #(
-    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=304,LINE_STEP=2,ROBUST_ENABLE=0,SEARCH_Y0=288,SEARCH_STEP=6
+    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=304,LINE_STEP=2,ROBUST_ENABLE=0,SEARCH_Y0=288,SEARCH_STEP=3
 )(input clk,rst_n,input [31:0] gray,input valid,user,last,
   input enable,input request_toggle,
   output reg [10:0] span,output reg calibrated,output reg [2:0] status);

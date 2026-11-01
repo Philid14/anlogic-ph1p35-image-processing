@@ -1,36 +1,36 @@
-// One-frame horizontal 1mm ruler reader: six heights, per-line contrast,
+// One-frame horizontal 1mm ruler reader: twelve heights, per-line contrast,
 // dominant inter-tick intervals, two agreeing accepted line estimates.
 // Known metric ticks are an operator precondition, not OCR/unit recognition.
 module ruler_robust_calibration #(
-    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=288,LINE_STEP=6
+    parameter WIDTH=1280,HEIGHT=720,X0=384,Y0=288,LINE_STEP=3
 )(input clk,rst_n,input [31:0] gray,input valid,user,last,
   input enable,request_toggle,output reg [10:0] span,
   output reg calibrated,output reg [2:0] status);
-    reg [31:0] memory[0:767];
-    reg [7:0] lows[0:5],highs[0:5];
+    reg [31:0] memory[0:1535];
+    reg [7:0] lows[0:11],highs[0:11];
     reg [10:0] x,y;wire [10:0] px=user?0:x,py=user?0:y;
     reg pending,capturing,seen,armed,bad,finished;
     reg [17:0] beats;
     wire geometry=last!=(px==WIDTH-4);
     wire complete=armed && finished && !bad && beats==(WIDTH/4)*HEIGHT;
-    reg sample_line;reg [2:0] capture_line;
+    reg sample_line;reg [3:0] capture_line;
     reg [7:0] beat_low,beat_high;integer k;
     always @*begin
         sample_line=0;capture_line=0;beat_low=255;beat_high=0;
-        for(k=0;k<6;k=k+1)if(py==Y0+k*LINE_STEP)begin sample_line=1;capture_line=k;end
+        for(k=0;k<12;k=k+1)if(py==Y0+k*LINE_STEP)begin sample_line=1;capture_line=k;end
         for(k=0;k<4;k=k+1)begin
             if(gray[31-k*8-:8]<beat_low)beat_low=gray[31-k*8-:8];
             if(gray[31-k*8-:8]>beat_high)beat_high=gray[31-k*8-:8];
         end
     end
-    wire [9:0] write_address={capture_line,7'b0}+((px-X0)>>2);
+    wire [10:0] write_address={capture_line,7'b0}+((px-X0)>>2);
     always @(posedge clk)
         if(capturing && enable && valid && !user && sample_line && px>=X0 && px<X0+512)
             memory[write_address]<=gray;
     localparam IDLE=0,SETUP=1,CLEAR=2,FETCH=3,WAIT_READ=4,PIXEL=5,SCAN=6,RATIO=7,DIVIDE=8;
-    reg [3:0] state;reg [9:0] address;reg [31:0] word;
+    reg [3:0] state;reg [10:0] address;reg [31:0] word;
     always @(posedge clk)word<=memory[address];
-    reg [2:0] line_no;reg [1:0] lane;reg [8:0] pos,start;
+    reg [3:0] line_no;reg [1:0] lane;reg [8:0] pos,start;
     reg in_tick,have_center,any_contrast,have_anchor;
     reg [9:0] run_width,last_center;reg [10:0] anchor;
     reg [7:0] cut,eligible;
@@ -62,7 +62,7 @@ module ruler_robust_calibration #(
     integer j;
     task advance_line;
         begin
-            if(line_no==5)begin state<=IDLE;status<=any_contrast?5:4;end
+            if(line_no==11)begin state<=IDLE;status<=any_contrast?5:4;end
             else begin line_no<=line_no+1'b1;state<=SETUP;end
         end
     endtask
@@ -75,7 +75,7 @@ module ruler_robust_calibration #(
             delay0<=0;delay1<=0;delay2<=0;delay3<=0;delay4<=0;
             window_count<=0;best_count<=0;window_weight<=0;best_weight<=0;
             dividend<=0;quotient<=0;remainder<=0;denominator<=1;step<=0;
-            for(j=0;j<6;j=j+1)begin lows[j]<=255;highs[j]<=0;end
+            for(j=0;j<12;j=j+1)begin lows[j]<=255;highs[j]<=0;end
         end else begin
             seen<=request_toggle;
             if(user)begin
@@ -98,7 +98,7 @@ module ruler_robust_calibration #(
             end else begin
                 if(user && pending)begin
                     pending<=0;capturing<=1;
-                    for(j=0;j<6;j=j+1)begin lows[j]<=255;highs[j]<=0;end
+                    for(j=0;j<12;j=j+1)begin lows[j]<=255;highs[j]<=0;end
                 end
                 if(user && capturing)begin
                     capturing<=0;

@@ -38,7 +38,7 @@ def draw(rgb,m,font,calibrated,sx,sy,cal=False,status=0,gaps=(0,0,0,0)):
         yy,xx=np.indices(rgb.shape[:2]);region=(xx>=384)&(xx<896)&(xx%16<4)
         old_guides=region&np.isin(yy,(304,306,308))
         out[old_guides]=rgb[old_guides]
-        new_guides=region&np.isin(yy,(288,294,300,306,312,318))
+        new_guides=region&np.isin(yy,tuple(range(288,324,3)))
         dark=rgb[:,:,1]>=128
         out[new_guides&dark]=(16,16,48);out[new_guides&~dark]=(255,255,128)
     return out
