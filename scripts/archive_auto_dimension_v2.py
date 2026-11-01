@@ -41,7 +41,7 @@ def main():
     def copy_reports(src,dst):
         dst.mkdir(parents=True,exist_ok=True)
         for f in src.iterdir():
-            if f.is_file() and f.suffix in ('.txt','.json','.tcl','.cfg','.area','.ts','.rpt','.qor','.timing','.prj') and f.name not in ('vectors.txt','stim.txt','pack.txt','ruler_vectors.txt'):
+            if f.is_file() and f.suffix in ('.txt','.json','.tcl','.cfg','.area','.ts','.rpt','.qor','.timing','.prj') and f.name not in ('vectors.txt','stim.txt','pack.txt','ruler_vectors.txt','stats.txt','formatter.txt'):
                 shutil.copy2(f,dst/f.name)
     copy_reports(OUT,ev)
     copy_reports(ROOT/'tmp/auto_dimension_v2/r0',ev/'r0_withdrawn')

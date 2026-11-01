@@ -1,0 +1,25 @@
+# INSPECTION_AUTO_DIMENSION_V2 BUILD_INFO
+
+- Version / Role: INSPECTION_AUTO_DIMENSION_V2 / MAIN
+- Branch: codex/main/inspection-auto-dimension-v2
+- Actual TD source commit: a198ef662d293e4a4699e3222b51da0c40cb21ec
+- Tag: inspection-auto-dimension-v2-candidate (created after archive)
+- Build time: 2026-11-01T11:41:59.313848+08:00
+- Device / Top: PH1P35MDG324 speed3 / design_top_wrapper
+- Original bit: D:/anlogic_formal_project/tmp/auto_dimension_v2/r2/camera_to_dsi_display.bit
+- Bit SHA256: db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20
+- Resource: {'slice': 20503, 'lut6': 19369, 'ff': 18808, 'eram': 86, 'dsp': 24}
+- Delta vs V1: {'slice': 461, 'lut6': 701, 'ff': 248, 'eram': 1, 'dsp': 1}
+- Setup WNS/TNS: +0.251ns / 0.0; Hold WNS/TNS: +0.020ns / 0.0
+- Synthesis -> Physical Design -> final Timing Check -> bitgen: PASS
+- Critical warning types: ['PHY-5060', 'PHY-5079']; new: []
+- High density warning PHY-7022: True; routed pass does not establish thermal/board stability.
+- Board Test Status: NOT_RUN. Independent ruler scale and measurement accuracy remain unverified.
+- Common pixel delay unchanged (31 cycles). No frame cache; three 512px grayscale scan lines only.
+- K4 short obtains a validated next-frame ruler measurement in ORIGIN/CAL; switch exit does not confirm.
+- Shared X/Y scale requires perpendicular view and equal magnification; no perspective/distortion correction or metrology precision claim.
+- Annotation uses actual measured bbox and gap endpoints, transparent glyphs; no automatic CAD/height/multi-hole reconstruction.
+- Original five algorithms, color classifier/MAX12, Sensor/ISP parameters, video, Logo/CNT, key semantics, pins/PLL/SDC frozen.
+- Physical fourth-switch mismatch, FIFO B/S and Gray-pointer coverage risks inherited, not fixed by this candidate.
+- Rollback: historical INSPECTION_UI_DIMENSION_V1 bit/tag; SHA256 2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc.
+- r0 SYN-only withdrawn; no failed/withdrawn bit generated, no historical tag moved. No PR merged.

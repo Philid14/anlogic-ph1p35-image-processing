@@ -344,3 +344,15 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 标定证据：SPAN0256为默认，CAL:OK仅说明访问X/Y并退出，不等于已对齐100mm。当前没有有效工件尺寸或精度验证结果。
 - 是否保留：candidate保留，未宣称通过。下一步按修订BOARD_TEST使用前三路操作、同平面尺子两轴标定和独立尺寸复测；另核实实板SWITCH丝印/原理图。反光、单张B/S不能证明画面故障或长期无溢出。
 - 详细记录：docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md。无新算法、无重建、无PR合并。
+
+
+## 2026-11-01 INSPECTION_AUTO_DIMENSION_V2 candidate / MAIN
+
+- 基线7cffe56/PR #18；分支codex/main/inspection-auto-dimension-v2；实际TD源码a198ef662d293e4a4699e3222b51da0c40cb21ec；tag inspection-auto-dimension-v2-candidate。
+- 修改假设/主要变量：二维测量应用改为1mm尺周期自动定标和对应位置的工程尺寸线。由手调100mm像素跨度、双轴访问/开关确认，改为ORIGIN/CAL下一完整帧三近邻扫描线、两线一致才确认；K4短按一次，不改正常阈值语义。
+- 保持Sensor/ISP参数、五算法、颜色分类与MAX12、Logo/CNT、MIPI/DDR/HDMI/PLL/引脚/SDC、队友目录；无新公共视频延迟，无整帧缓存。
+- Bit SHA256：db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20；Bit artifacts/bitstreams/INSPECTION_AUTO_DIMENSION_V2/camera_to_dsi_display.bit。
+- Build Result：r2 SYN/PHY/final STA/bitgen PASS；Slice20503(96.64%)、LUT6 19369、FF18808、ERAM86、DSP24；Setup/Hold +0.251/+0.020ns、TNS0。新增PHY-7022高占用风险，关键类型未新增。
+- 数字验证：27项读尺/含分数间距；五整屏绘图1152000拍；实际ISP九帧2073600拍/1555200打包字和500px/100mm读尺PASS；旧几何/换算/透明显隐/键控/颜色回归PASS。
+- Board Test Result：NOT_RUN，不宣称物理尺子或计量精度已验证。X/Y共享比例须正俯视和双方向独立尺寸复核；工件仍只测外包/中心截线，不是自动CAD。第四物理开关、FIFO B/S与Gray覆盖仍待处理。
+- 是否保留：candidate等待上板；r0/r1仅SYN撤回、无bit。下一步按新BOARD_TEST短按读尺、居中薄片测量、独立真实尺寸与长期视频稳定性验收；不合并PR、不自行下一版。

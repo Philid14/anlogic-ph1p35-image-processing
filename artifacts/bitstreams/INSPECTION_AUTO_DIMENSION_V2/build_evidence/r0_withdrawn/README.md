@@ -1,0 +1,1 @@
+0f19311 completed SYN only; scanline spacing 16px withdrawn for short ruler ticks. No PHY or bitgen. Final r1 uses 2px spacing and a fresh synthesis. Early full regression stopped before PASS, repeated under final layout.

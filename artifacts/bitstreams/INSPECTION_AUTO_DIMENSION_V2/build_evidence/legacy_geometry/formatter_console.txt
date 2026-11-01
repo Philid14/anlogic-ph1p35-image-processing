@@ -1,0 +1,2 @@
+PASS metric conversion 240 snapshots, rounded two-axis mm, px and snapshot isolation
+D:\anlogic_formal_project\tests\tb_planar_measure.sv:80: $finish called at 628830000 (1ps)

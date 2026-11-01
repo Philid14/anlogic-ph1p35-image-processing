@@ -1,0 +1,1 @@
+590d161 completed SYN only. Withdrawn before PHY to improve bright-background annotation contrast and reduce arrow/formatter resources. No bitgen. Incomplete full regressions were stopped and not counted as PASS. Final r2 reruns all changed rendering checks.
