@@ -1,0 +1,3 @@
+PASS actual ISP one-key ruler: 500px/100mm, native size annotations and exact packing
+PASS multi-mode stream width=1280 height=720 cycles=2089345 valid_beats=2073600 packed_words=1555200 reliability=1
+D:\anlogic_formal_project\tests\tb_inspection_v4_stream.sv:118: $finish called at 20893536000 (1ps)

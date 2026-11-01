@@ -374,3 +374,16 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留/下一步：保留本candidate与全部历史。按INSPECTION_USABILITY_V3_BOARD_TEST先记录SW基准及左1..4变化，再无字白纸/1mm刻线/K4采样并记录R；独立横竖尺寸和30分钟稳定性验收。完成本轮即停止，不合并、不开发下一版。
 
 - 发布核对：归档commit409f493652fab2299753ebf28b05334c9eb40508，Draft PR #22依赖#21；分支/tag实际push成功，远程引用、tag内bit SHA和74个TD源码与构建提交一致。详见REMOTE_RECEIPT；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 INSPECTION_USABILITY_V4 candidate / MAIN
+
+- 基线8591403/PR #22；分支codex/main/inspection-usability-v4；实际TD源码7067db0bb052747b3c06bc97c4acf9ff36dcbdae；tag inspection-usability-v4-candidate。
+- 用户V3实板反馈PARTIAL：小框已显示，同一黄纸两侧RGB仍有差值；要求CAL扩大。照片不能定量证明照明是唯一来源，也未提供真实CAL成功/尺寸精度。
+- 修改假设/主要变量：围绕读尺放置与颜色解释改善应用。读尺窄带→x256..1023/y192..479的768x288区域，十二行缓存27带搜索；仅同一有效帧两条线确认，异常R6停止。原RGB/ABS/L1/MAX12保留，增加归一化CHR/DV及LIGHT/CHECK，LIGHT绝不自动等同MATCH。
+- 独立源码检查点909d506读尺、7067db0颜色集成；相互独立模型/RTL证据保留。68个其余TD输入不变；Sensor/ISP/五算法/正常键控/视频/PLL/引脚/SDC/队友目录冻结，无公共视频延迟增量或整帧缓存。
+- Bit artifacts/bitstreams/INSPECTION_USABILITY_V4/camera_to_dsi_display.bit；SHA256 2655fd65ebb245279b684fbdc5f3065dab8f654b387c7c61cfca3bdbadc64f39。
+- Build Result：SYN/PHY/final STA/bitgen PASS；Slice20994(98.95%)、LUT6 19863、FF19116、ERAM90、DSP27；比V3 +433/+428/+75/+2/+1；Setup/Hold +0.146/+0.020ns、TNS0、STA95.84%；关键warning类型无新增，高密度风险加重。
+- 验证：16区域读尺检查/1947736周期、完整287相邻行对覆盖模型、330颜色对/4290字段、五状态面板321600拍、实际ISP九帧720p共2073600拍/1555200打包字及500px/100mm标定PASS；旧读尺/UI/按键/几何/换算/绘图/颜色格式回归PASS。
+- Board Test Result：NOT_RUN。模型证明等比例增益下比例稳定，不证明现场照明贡献率或标准色度精度；大框不能保证斜尺/模糊/只有厘米长线。共用XY标尺需正俯视、同平面和真实已知长度复测。
+- 是否保留/下一步：保留candidate与历史，按V4_BOARD_TEST先多位置水平读尺，再同色/异色/光照型差异及尺寸验证；R6或S稳态增长先查视频完整性；FIFO/Gray覆盖未冒充已修复。完成后停止，不合并、不自行下一版。

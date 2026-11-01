@@ -1,0 +1,2 @@
+PASS LIGHT/DIFF/MATCH/CHECK/WAIT raster 321600 four-pixel positions
+D:\anlogic_formal_project\tests\tb_light_panel_v4.sv:40: $finish called at 3241106000 (1ps)

@@ -1,0 +1,2 @@
+PASS light diagnostics 330 snapshots / 4290 fields
+D:\anlogic_formal_project\tests\tb_light_compare_v4.sv:26: $finish called at 1656650000 (1ps)

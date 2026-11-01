@@ -1,0 +1,2 @@
+PASS UI transparent overlay, frame enable, glyphs 691200 beats
+D:\anlogic_formal_project\tests\tb_inspection_ui.sv:29: $finish called at 6937886000 (1ps)
