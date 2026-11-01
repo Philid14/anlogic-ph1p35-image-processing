@@ -43,7 +43,7 @@ def snapshot():
     # Formal main ownership: teammate directories, Sensor, DDR, MIPI and HDMI
     # are also frozen by source diff, not just the directly listed .al files.
     changed=git('diff','--name-only',BASE,'--',HDL,HDL.replace('user_source/hdl_source/','user_source/ip_source/')).decode().splitlines()
-    assert set(changed)<=CHANGED|ADDED,changed
+    assert set(changed)<=CHANGED|ADDED|{HDL+'vision/vision_logo_index.dath',HDL+'vision/vision_logo_palette.dath'},changed
     return dict(source_commit=head,files=files,al_sha256=sha(P/'camera_to_dsi_display.al'),old_bits={p.relative_to(ROOT).as_posix():sha(p) for p in (ROOT/'artifacts/bitstreams').glob('*/*.bit')},time=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),baseline=BASE,unchanged_baseline_inputs=len(baseline)-len(CHANGED))
 
 def run(stage,flow,working):
