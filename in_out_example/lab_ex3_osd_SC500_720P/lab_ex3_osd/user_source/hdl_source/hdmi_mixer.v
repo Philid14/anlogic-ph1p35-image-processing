@@ -3,7 +3,8 @@ module hdmi_mixer #(
     parameter V_OFFSET = 60,
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
-    parameter integer DEBUG_MODE = 0
+    parameter integer DEBUG_MODE = 0,
+    parameter integer LOGO_ERAM_ENABLE = 0
 )(
     input wire        I_clk,
     input wire        I_rst_n,
@@ -470,10 +471,14 @@ module hdmi_mixer #(
 
     assign O_video_rd_en = I_video_de;
 
-    anlogic_logo_rom u_anlogic_logo_rom(
-        .I_addr  ( S_logo_addr  ),
-        .O_pixel ( S_logo_pixel )
-    );
+    // Two synchronous ROM reads start from the original stage-zero coordinates.
+    // They finish with *_2d, exactly where the old asynchronous ROM was used.
+    wire [14:0] early_logo_address=(I_video_de && S_x<LOGO_W && S_y<LOGO_H) ? S_y*LOGO_W+S_x : 15'd0;
+    generate if(LOGO_ERAM_ENABLE)begin:g_eram_logo
+        vision_logo_palette u_logo(.clk(I_clk),.address(early_logo_address),.pixel(S_logo_pixel));
+    end else begin:g_legacy_logo
+        anlogic_logo_rom u_anlogic_logo_rom(.I_addr(S_logo_addr),.O_pixel(S_logo_pixel));
+    end endgenerate
 
     osd_char_lib u_osd_char_lib(
         .I_char     ( S_pf_char     ),

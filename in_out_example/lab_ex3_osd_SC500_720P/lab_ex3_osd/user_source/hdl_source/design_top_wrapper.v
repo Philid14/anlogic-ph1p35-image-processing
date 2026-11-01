@@ -754,7 +754,8 @@ isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_
         .V_OFFSET   ( 0    ),
         .IMG_WIDTH  ( 1280 ),
         .IMG_HEIGHT ( 720  ),
-        .DEBUG_MODE ( 0    )
+        .DEBUG_MODE ( 0    ),
+        .LOGO_ERAM_ENABLE(1)
     )u_hdmi_mixer(
         .I_clk           ( S_hdmi_pixel_clk   ),
         .I_rst_n         ( S_hdmi_rst_n       ),
