@@ -1,0 +1,296 @@
+[
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/COLOR_COMPARE_V1_BOARD_TEST.md",
+    "sha256": "49586ae5779c9ae1174b1a55d1bf77aaf876a9c909018b9b3fb26e56bfda8a14",
+    "bytes": 3917
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/COLOR_COMPARE_V1_DESIGN.md",
+    "sha256": "4683a0c15ab72c76abee8e4ef03eee5d7bd31f26f669a12e4995167d974eeae5",
+    "bytes": 5203
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/COLOR_COMPARE_V1_REPORT.md",
+    "sha256": "1669228e9dbfb733bff56e8d8686989a5ad684c9f39c940bc85c28cb27557e39",
+    "bytes": 5308
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_AUTO_DIMENSION_V2_BOARD_TEST.md",
+    "sha256": "c867c15e5cdd6b738b0a4113132b2b9fb70709a64fb54fbf5478a80c665a5011",
+    "bytes": 4497
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_AUTO_DIMENSION_V2_DESIGN.md",
+    "sha256": "b446cc43d42842c594477662abed58512a478fc6f58ea20b2203754c0ab25874",
+    "bytes": 5281
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_AUTO_DIMENSION_V2_REPORT.md",
+    "sha256": "73ebc331d9b719a7449de064eae1e18f58e7e2eb520120f5aa01adb03c1481d1",
+    "bytes": 7247
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_USABILITY_V4_BOARD_TEST.md",
+    "sha256": "30e2ab80d9330ec4050a5697af344283772e9bbfadbae19d2725e948cfcbc4c3",
+    "bytes": 4581
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_USABILITY_V4_DESIGN.md",
+    "sha256": "f107bdd7b74387dc117fd8769df8d03ad620d49d4c0e80849a09dfad4348563e",
+    "bytes": 4281
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/INSPECTION_USABILITY_V4_REPORT.md",
+    "sha256": "36fbb9728039ad12bbc78abdf66ffe60ae612d04bc9ab715c6db5f36756e4d8a",
+    "bytes": 6221
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/VISION_TRACK_MOTION_V1_BOARD_TEST.md",
+    "sha256": "6ffd59017ac807ee08539ab11416027b3108299155a923dba5228f1280c58bed",
+    "bytes": 3831
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/VISION_TRACK_MOTION_V1_DESIGN.md",
+    "sha256": "ef0593d44b6869144c1ff2e65b538d45c29f000ee61eac68afc804f429525852",
+    "bytes": 6365
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "docs/VISION_TRACK_MOTION_V1_REPORT.md",
+    "sha256": "00a4178a1b183d46e173f93bd5bce92453a4454545c9496c0fc989355e9b0ab1",
+    "bytes": 6508
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
+    "sha256": "454ab867d026688a6973f5b9ffcb810881a39bb59ee9f38d8647f102118fae6d",
+    "bytes": 28273
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v",
+    "sha256": "2313d641e1bf1e3377044a2552156b4013a9b6087a814719538589db0e02d2d0",
+    "bytes": 4956
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_status_osd.v",
+    "sha256": "d1b1eb7b4bf9a440cc76ab78538f69f45d97bc47e8a542eb0918b0b123386179",
+    "bytes": 11809
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
+    "sha256": "62351505f725c4ffb825a10efe4b32c50581eddd5ee4b1997ac84f542f2e2481",
+    "bytes": 16794
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/rgb_effects_96.v",
+    "sha256": "ed568aa91f763ef618e9c63289dcc65885810e5b152378b2b29c8f3dc5c798bf",
+    "bytes": 1318
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v",
+    "sha256": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
+    "bytes": 3371
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v",
+    "sha256": "d4279b64f287238ab690956c406c01871454f551d9e25dc4a8436c193eb2c4fc",
+    "bytes": 34000
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v",
+    "sha256": "0506edb1cb0d22b25a64236e2e7efcacdcd5b271910c7afc412484f27e521064",
+    "bytes": 6548
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v",
+    "sha256": "4387dfbbb9c07d5a9c645410c63122f2c0c10492f6afd0f136c001750cb4a4b5",
+    "bytes": 9990
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_robust_calibration.v",
+    "sha256": "b7b525ad3afa8f8400a61c1e8f6f8e70ec7372dae673ecf4aef7853ce7ea2238",
+    "bytes": 9368
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/engineering_dimension_marks.v",
+    "sha256": "a65482f44392a93556ac787b7d50b5d28bad41024029eb25b4546625126bb9a6",
+    "bytes": 7000
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v",
+    "sha256": "703fcc62ea93c4269ea8a89bccac5055d1ab8850d919d877614874268feee13f",
+    "bytes": 6960
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_motion_grid.v",
+    "sha256": "1b4791574036567525895682bf8c6ed4c354316fd97f5515861ed4010aabf527",
+    "bytes": 4332
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/awb/awb.v",
+    "sha256": "1c1ba61cb996e7a9abd4e6f4a97a268bb8b86d2f2d7899912aa5607d362fac1b",
+    "bytes": 16747
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+    "sha256": "5d0edeccd6618cc9ea155be7e3d1b4f0a1e87f0f35d3e6d9352410c56d16b371",
+    "bytes": 7093
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+    "sha256": "f522f6a0a0ef099686e4dabee9a29d98b1fe62374801accb881865289ddadd2d",
+    "bytes": 6799
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.json",
+    "sha256": "2e9089e520e09355e0904132e8933f86066efe75212d5a9f8e16ef98f16db04b",
+    "bytes": 1813
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md",
+    "sha256": "726b08b3fd83fab6449b523c5fb8efbdd2be70aad15484c9493b7d8997a09419",
+    "bytes": 1922
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/SOURCE_MANIFEST.json",
+    "sha256": "efea0e15eec5a038d9597a75d39f7850f9d1ab113ed1208799e7b2727bc92dab",
+    "bytes": 18421
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r0/SOURCE_MANIFEST.json",
+    "sha256": "3957cb4964eea39b066f0d3fb66d41175e4610674cd7e5d62fa1c29103d9bfda",
+    "bytes": 18421
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r1/SOURCE_MANIFEST.json",
+    "sha256": "9b91d2bd4f39682b2fbcaa39290ed89476d318e6ba6fa50baf92944dba0c6a37",
+    "bytes": 18421
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r2/SOURCE_MANIFEST.json",
+    "sha256": "3bfbfc86887f899f5207677f40ba753b2781eb5aab0b029fa89abf5b231685bb",
+    "bytes": 18421
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r3/SOURCE_MANIFEST.json",
+    "sha256": "3bbda4b2d1c54ab2de96aa477dbdbb0ee7861fc9270482bd1ec65936ee0bf24c",
+    "bytes": 18421
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r3/regression/features/SIM_SOURCE_MANIFEST.json",
+    "sha256": "7d219564807696fe27b0ab21294346f34942eeccdfa1ab9e1ae9676dacbe8d6f",
+    "bytes": 6861
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/combined_r3/regression/legacy/SIM_SOURCE_MANIFEST.json",
+    "sha256": "ba098f0c17ad518fb1f8bbeca6a9d411424a075ac5f89d551b31d3b1e7af2127",
+    "bytes": 6860
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/pipeline_reset/SIM_SOURCE_MANIFEST.json",
+    "sha256": "b30145d55f8fa0234687dc07672cf225d7f1c68000c3fd3d59517bf53fc8a011",
+    "bytes": 6861
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/attempts/resource_r0/SOURCE_MANIFEST.json",
+    "sha256": "8f6be94a3c64af4edf559a5ddf86008b489a97553a3d79f8075f6b9792574b5d",
+    "bytes": 17570
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/controls/keys/SIM_SOURCE_MANIFEST.json",
+    "sha256": "c3dbff650c6c0a9cb4b7faec7faee50f303d85e77f5069ec478a3524f2f1aa96",
+    "bytes": 524
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/controls/pipeline_reset/SIM_SOURCE_MANIFEST.json",
+    "sha256": "b30145d55f8fa0234687dc07672cf225d7f1c68000c3fd3d59517bf53fc8a011",
+    "bytes": 6861
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/controls/watchdog/SIM_SOURCE_MANIFEST.json",
+    "sha256": "09f4ff3401b41abd262d7a7db33e6769fccaad3ed64295b7ccbf7ca4e4c7435c",
+    "bytes": 717
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/features/native/SIM_SOURCE_MANIFEST.json",
+    "sha256": "26d121694ba9038fba87f8aa5bb45ab366723ea80433c003d25b66f1c8b325ef",
+    "bytes": 6861
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/legacy/native/SIM_SOURCE_MANIFEST.json",
+    "sha256": "1d2cc298ef21ca4a0cc33b31209e0eb76996baca8613e0fef2fa4d824e32a9f3",
+    "bytes": 6860
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/observer_unit/SIM_SOURCE_MANIFEST.json",
+    "sha256": "3f14085049a68fb9d923fa2cdf01119d1574abb2b5925290d6b609714f052224",
+    "bytes": 1819
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/phy_camera_to_dsi_display_phy.area",
+    "sha256": "c91f15082fcd218289dc3bc81fbd4788bf9793b8ed6743db58053c8092ef61c1",
+    "bytes": 57586
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/phy_final_timing.rpt",
+    "sha256": "95ebc17f8af05ca4146f0694249e07bb7c56d4da43fe3e5e693a38edcac81e15",
+    "bytes": 4772737
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/build_evidence/resource_logo/SIM_SOURCE_MANIFEST.json",
+    "sha256": "5247f8e7e72a54c6ab2372901b00123dfe5b978237e34ba5202e327e32954d4b",
+    "bytes": 1747
+  },
+  {
+    "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al",
+    "sha256": "459d35f5e9a551adc5e0818e9e7159f60a18ca0dc31c03dc3d675b97569f81ca",
+    "bytes": 33044
+  }
+]

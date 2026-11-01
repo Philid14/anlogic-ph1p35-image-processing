@@ -1,0 +1,20 @@
+[
+  {
+    "commit": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "path": "docs/technical_report/README.md",
+    "sha256": "45a8bb4e41915a5f1974ddfcca948a6089a4902fccccc9b50033a8b6d58762e8",
+    "local": "initial_readme.md"
+  },
+  {
+    "commit": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "path": "docs/technical_report/基于安路PH1P35的实时数字图像处理系统_技术文档.docx",
+    "sha256": "45191263115a7b7a3c65822fcb27245b09ba1327fa3aa15b73f7f0d3f5320912",
+    "local": "initial.docx"
+  },
+  {
+    "commit": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "path": "docs/technical_report/基于安路PH1P35的实时数字图像处理系统_技术文档.pdf",
+    "sha256": "41399730b67265fba03869dac18a035f740ce610ae4a1a0742558fa30d8e82df",
+    "local": "initial.pdf"
+  }
+]
