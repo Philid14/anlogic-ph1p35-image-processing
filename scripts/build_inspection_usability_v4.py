@@ -82,7 +82,7 @@ def main():
         full=json.loads((ROOT/'tmp/inspection_v4/full_results.json').read_text())
         assert full['passed'] and full['beats']==2073600 and full['words']==1555200
         for rel,digest in full['sources'].items():assert sha(ROOT/rel)==digest,rel
-        for name in ('area/results.json','color/results.json'):
+        for name in ('area/results.json','color/results.json','panel/results.json'):
             check=json.loads((ROOT/'tmp/inspection_v4'/name).read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
         selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None
