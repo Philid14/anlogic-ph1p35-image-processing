@@ -77,7 +77,8 @@ R4无足够对比、R5无可信刻度、R6帧异常、R7取消；R3仍须独立�
 - SHA256：2655fd65ebb245279b684fbdc5f3065dab8f654b387c7c61cfca3bdbadc64f39
 - Remote：https://github.com/Philid14/anlogic-ph1p35-image-processing.git（Private）
 - Git状态：本轮显式提交；用户原有GITHUB_REFERENCE_RESEARCH修改和未跟踪资料保留。
-- Push/PR：待发布核验，完成后在REMOTE_RECEIPT记录；不合并。
+- 归档commit：ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5；[Draft PR #23](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/23)，依赖#22，未合并。
+- Push Status：分支/tag已成功推送，远程ref、tag内bit SHA及75个TD输入与实际构建源码闭环已核对；见[REMOTE_RECEIPT](evidence/INSPECTION_USABILITY_V4/REMOTE_RECEIPT.json)。
 - Board Test Status：NOT_RUN。真实尺子成功率、现场颜色解释、尺寸精度与长期视频稳定均待验收。
 
 先PROGRAM_SRAM；按BOARD_TEST进行大框多位置标定、独立真实尺寸及同色/异色/单侧光变化对照。

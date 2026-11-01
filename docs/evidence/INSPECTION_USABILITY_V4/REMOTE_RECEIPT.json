@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-11-01T09:05:43.682431+00:00",
+  "version": "INSPECTION_USABILITY_V4",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "visibility": "private",
+  "branch": "codex/main/inspection-usability-v4",
+  "publication_head": "ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5",
+  "tag": "inspection-usability-v4-candidate",
+  "remote_refs": {
+    "refs/heads/codex/main/inspection-usability-v4": "ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5",
+    "refs/tags/inspection-usability-v4-candidate": "4a45bc41847cff258e24d1455383e62da64ba97f",
+    "refs/tags/inspection-usability-v4-candidate^{}": "ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5"
+  },
+  "actual_td_source": "7067db0bb052747b3c06bc97c4acf9ff36dcbdae",
+  "bit_path": "artifacts/bitstreams/INSPECTION_USABILITY_V4/camera_to_dsi_display.bit",
+  "bit_sha256": "2655fd65ebb245279b684fbdc5f3065dab8f654b387c7c61cfca3bdbadc64f39",
+  "tag_source_inputs_match_actual_td": 75,
+  "historical_bits_unchanged": 25,
+  "pr": 23,
+  "pr_url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/23",
+  "pr_base": "codex/main/inspection-usability-v3",
+  "draft": true,
+  "merged": false,
+  "push_status": "SUCCESS",
+  "board_test": "NOT_RUN",
+  "preserved_dirty_tracked_file": "docs/GITHUB_REFERENCE_RESEARCH.md"
+}

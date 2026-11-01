@@ -387,3 +387,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 验证：16区域读尺检查/1947736周期、完整287相邻行对覆盖模型、330颜色对/4290字段、五状态面板321600拍、实际ISP九帧720p共2073600拍/1555200打包字及500px/100mm标定PASS；旧读尺/UI/按键/几何/换算/绘图/颜色格式回归PASS。
 - Board Test Result：NOT_RUN。模型证明等比例增益下比例稳定，不证明现场照明贡献率或标准色度精度；大框不能保证斜尺/模糊/只有厘米长线。共用XY标尺需正俯视、同平面和真实已知长度复测。
 - 是否保留/下一步：保留candidate与历史，按V4_BOARD_TEST先多位置水平读尺，再同色/异色/光照型差异及尺寸验证；R6或S稳态增长先查视频完整性；FIFO/Gray覆盖未冒充已修复。完成后停止，不合并、不自行下一版。
+
+- 发布核对：归档commit ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5；Draft PR #23依赖#22。分支/candidate tag已实际push，远程ref、tag内bit SHA及75个TD输入源码闭环核对通过，见REMOTE_RECEIPT；仍NOT_RUN，不合并。
