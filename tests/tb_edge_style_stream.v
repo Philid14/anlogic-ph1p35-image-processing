@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 module tb_edge_style_stream;
-    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1, COMPARE=0, INSPECTION=0;
+    parameter WIDTH=64, HEIGHT=16, RELIABILITY=1, COMPARE=0, INSPECTION=0, AUTO_DIMENSION=0;
     reg [3:0] ui_test=0;reg cal_test=0;reg [10:0] sx_test=256,sy_test=256;
     localparam DEPTH = 29+(COMPARE?2:0);
     reg clk=0;
@@ -16,7 +16,7 @@ module tb_edge_style_stream;
     edge_control_stream #(
         .IMG_WIDTH(WIDTH), .IMG_HEIGHT(HEIGHT), .DENOISE_ENABLE(1),
         .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4),
-        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION)
+        .TEMPORAL_ENABLE(1), .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION),.AUTO_DIMENSION(AUTO_DIMENSION)
     ) dut (
         .clk(clk), .rst_n(rst_n), .requested_config(cfg),
         .I_fifo_event_counts(fifo_counts),
@@ -35,7 +35,7 @@ module tb_edge_style_stream;
     isp_top #(
         .EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1),
         .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .TEMPORAL_ENABLE(1),
-        .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION)
+        .RELIABILITY_ENABLE(RELIABILITY),.COLOR_COMPARE_ENABLE(COMPARE),.INSPECTION_ENABLE(INSPECTION),.AUTO_DIMENSION(AUTO_DIMENSION)
     ) integrated (
         .axi4s_video_aclk(clk), .I_rst_n(rst_n), .I_edge_config(cfg),
         .I_fifo_event_counts(fifo_counts),

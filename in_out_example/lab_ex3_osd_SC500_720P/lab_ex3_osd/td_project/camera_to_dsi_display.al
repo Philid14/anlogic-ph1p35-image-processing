@@ -398,6 +398,22 @@
                     <Attr Name="CompileOrder" Val="69"/>
                 </FileInfo>
             </File>
+            <File Path="../user_source/hdl_source/isp/ruler_auto_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/engineering_dimension_marks.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
             <File Path="../user_source/hdl_source/isp/inspection_control.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>

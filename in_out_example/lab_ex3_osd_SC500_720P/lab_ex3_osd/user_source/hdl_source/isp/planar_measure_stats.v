@@ -9,7 +9,7 @@ module planar_measure_stats #(
 )(input clk,rst_n,input [3:0] binary_pixels,input valid,user,last,
   input bright,input [7:0] threshold,
   output reg result_valid,present,output reg [1:0] gap_valid,
-  output reg [43:0] sizes,box_coords,output reg [15:0] sample_id,
+  output reg [43:0] sizes,box_coords,output reg [43:0] gap_coords,output reg [15:0] sample_id,
   output reg [7:0] result_threshold,output reg result_bright);
     reg[10:0] x,y;wire[10:0] px=user?0:x,py=user?0:y;
     reg armed,bad,finished;reg[17:0] beats;reg[15:0] seq;
@@ -81,13 +81,14 @@ module planar_measure_stats #(
             row_min<=2047;row_max<=0;row_count<=0;rows<=0;area<=0;run_h<=0;run_v<=0;
             hx_left<=0;hx_right<=0;vy_top<=0;vy_bottom<=0;
             hx_lfound<=0;hx_rfound<=0;vy_tfound<=0;vy_bfound<=0;hcenter<=0;vcenter<=0;
-            result_valid<=0;present<=0;gap_valid<=0;sizes<=0;box_coords<=0;sample_id<=0;result_threshold<=0;result_bright<=0;
+            result_valid<=0;present<=0;gap_valid<=0;sizes<=0;box_coords<=0;gap_coords<=0;sample_id<=0;result_threshold<=0;result_bright<=0;
         end else if(user)begin
             result_valid<=complete;present<=complete && object_ok;
             gap_valid<={complete && object_ok && gapx_ok,complete && object_ok && gapy_ok};
             sizes<={maxx-minx+11'd1,maxy-miny+11'd1,
                 gapx_ok?(hx_right-hx_left-11'd1):11'd0,
                 gapy_ok?(vy_bottom-vy_top-11'd1):11'd0};
+            gap_coords<={hx_left+11'd1,hx_right-11'd1,vy_top+11'd1,vy_bottom-11'd1};
             box_coords<={minx,maxx,miny,maxy};sample_id<=seq;seq<=seq+1'b1;
             result_threshold<=cut;result_bright<=polarity;
             // Production ROI starts well after the first beat, so no ROI

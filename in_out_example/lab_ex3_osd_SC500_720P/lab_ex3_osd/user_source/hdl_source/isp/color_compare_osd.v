@@ -1,14 +1,14 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
     input [47:0] means,input result_valid,input [15:0] sample_id,
     input display_enable,dimension_enable,cal_mode,axis_y,calibrated,
     input [10:0] span_x,span_y,input [1:0] cal_visited,
-    input [43:0] dim_sizes,dim_box,input dim_valid,dim_present,
+    input [43:0] dim_sizes,dim_box,dim_gap_coords,input [2:0] cal_status,input dim_valid,dim_present,
     input [1:0] dim_gap_valid,input [7:0] dim_threshold,
     input [15:0] dim_id,
     output reg [95:0] out_rgb,output reg out_valid,out_user,out_last
@@ -16,7 +16,7 @@ module color_compare_osd #(
     reg show_color,show_dimension,held_cal,held_axis,held_calibrated;
     reg [10:0] held_span_x,held_span_y;
     reg [1:0] held_visited,held_gap;
-    reg [43:0] held_sizes,held_box;
+    reg [43:0] held_sizes,held_box,held_gap_coords;reg [2:0] held_cal_status;
     reg held_dim_valid,held_present;
     reg [7:0] held_cut;
     reg [15:0] held_dim_id;
@@ -26,12 +26,12 @@ module color_compare_osd #(
         if(!rst_n)begin
             show_color<=0;show_dimension<=0;held_cal<=0;held_axis<=0;held_calibrated<=0;
             held_span_x<=256;held_span_y<=256;held_visited<=0;held_sizes<=0;held_box<=0;
-            held_dim_valid<=0;held_present<=0;held_gap<=0;held_cut<=0;held_dim_id<=0;
+            held_gap_coords<=0;held_cal_status<=0;held_dim_valid<=0;held_present<=0;held_gap<=0;held_cut<=0;held_dim_id<=0;
         end else if(user)begin
             show_color<=display_enable && !dimension_enable;show_dimension<=dimension_enable;
             held_cal<=cal_mode;held_axis<=axis_y;held_calibrated<=calibrated;
             held_span_x<=span_x;held_span_y<=span_y;held_visited<=cal_visited;
-            held_sizes<=dim_sizes;held_box<=dim_box;held_dim_valid<=dim_valid;
+            held_gap_coords<=dim_gap_coords;held_cal_status<=cal_status;held_sizes<=dim_sizes;held_box<=dim_box;held_dim_valid<=dim_valid;
             held_present<=dim_present;held_gap<=dim_gap_valid;held_cut<=dim_threshold;held_dim_id<=dim_id;
         end
     end
@@ -202,8 +202,20 @@ module color_compare_osd #(
         ((px==((xa>>2)<<2) || px==((xb>>2)<<2)) && py>=328 && py<=376);
     wire cal_y_mark=(px==640 && py>=ya && py<=yb) ||
         ((py==ya || py==yb) && px>=616 && px<=664);
-    wire dim_mark=dimension && (held_cal ? (held_axis?cal_y_mark:cal_x_mark) :
+    wire old_dim_mark=dimension && (held_cal ? (held_axis?cal_y_mark:cal_x_mark) :
         (work_outline || box_outline || crosshair));
+    wire [3:0] engineering_marks;
+    wire engineering_text;wire [7:0] engineering_char;wire [3:0] engineering_row,engineering_col;
+    generate if(AUTO_DIMENSION)begin:g_drawing
+        engineering_dimension_marks u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
+            .object_valid(held_dim_valid && held_present),.formatted(formatted),.cal_status(held_cal_status),
+            .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(held_gap),
+            .digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),
+            .text_valid(engineering_text),.character(engineering_char),.glyph_row(engineering_row),.glyph_col(engineering_col));
+    end else begin:g_no_drawing
+        assign engineering_marks=0;assign engineering_text=0;assign engineering_char=32;
+        assign engineering_row=0;assign engineering_col=0;
+    end endgenerate
     reg [7:0] character;
     always @*begin
         character=" ";
@@ -325,7 +337,7 @@ module color_compare_osd #(
                 14:character="F";15:character="R";16:character="A";17:character="M";18:character="E";
             endcase
         end
-        if(dimension)begin
+        if(dimension && !AUTO_DIMENSION)begin
             character=" ";
             case({row,column})
                 8'd0:character="S";
@@ -573,26 +585,29 @@ module color_compare_osd #(
         end
     end
     reg [7:0] char_d;reg [3:0] row_d,col_d;
-    reg panel_d,ref_d,test_d,dim_d,v_d,u_d,l_d;reg [95:0] rgb_d;
+    reg panel_d,ref_d,test_d,dim_d,v_d,u_d,l_d;reg [3:0] marks_d;reg native_d;reg [95:0] rgb_d;
     reg [23:0] ink_d;wire [15:0] bits;
     osd_char_lib u_font(.I_char(char_d),.I_row(row_d),.O_row_bits(bits));
     integer lane;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            x<=0;y<=0;char_d<=0;row_d<=0;col_d<=0;panel_d<=0;ref_d<=0;test_d<=0;dim_d<=0;v_d<=0;u_d<=0;l_d<=0;rgb_d<=0;ink_d<=0;
+            marks_d<=0;native_d<=0;x<=0;y<=0;char_d<=0;row_d<=0;col_d<=0;panel_d<=0;ref_d<=0;test_d<=0;dim_d<=0;v_d<=0;u_d<=0;l_d<=0;rgb_d<=0;ink_d<=0;
             out_rgb<=0;out_valid<=0;out_user<=0;out_last<=0;
         end else begin
             if(user)begin x<=0;y<=0;end
             if(valid)begin x<=px==WIDTH-4?0:px+4;if(px==WIDTH-4)y<=py==HEIGHT-1?0:py+1'b1;else y<=py;end
-            char_d<=character;row_d<=ly[4:1];col_d<=lx[4:1];
-            panel_d<=panel && (enabled || dimension);dim_d<=dim_mark;ref_d<=ref_box && enabled;test_d<=test_box && enabled;
-            ink_d<=row==0?24'h40ff80:row==1?24'h40dfff:row==2?24'hffff80:
+            char_d<=dimension && AUTO_DIMENSION?engineering_char:character;
+            row_d<=dimension && AUTO_DIMENSION?engineering_row:ly[4:1];
+            col_d<=dimension && AUTO_DIMENSION?engineering_col:lx[4:1];
+            native_d<=dimension && AUTO_DIMENSION;marks_d<=dimension?engineering_marks:0;
+            panel_d<=dimension && AUTO_DIMENSION?engineering_text:panel && (enabled || dimension);dim_d<=!AUTO_DIMENSION && old_dim_mark;ref_d<=ref_box && enabled;test_d<=test_box && enabled;
+            ink_d<=dimension && AUTO_DIMENSION?24'hffff80:row==0?24'h40ff80:row==1?24'h40dfff:row==2?24'hffff80:
                 (!held_valid || !formatted)?24'hffff00:compare_match?24'h40ff80:24'hff8040;
             rgb_d<=rgb;v_d<=valid;u_d<=user;l_d<=last;
             out_valid<=v_d;out_user<=u_d;out_last<=l_d;
             for(lane=0;lane<4;lane=lane+1)
-                out_rgb[95-lane*24-:24]<=panel_d && bits[15-col_d-lane/2]?ink_d:
-                    dim_d?24'hffff80:ref_d?24'h40ff80:test_d?24'h40dfff:rgb_d[95-lane*24-:24];
+                out_rgb[95-lane*24-:24]<=panel_d && bits[15-col_d-(native_d?lane:lane/2)]?ink_d:
+                    (dim_d || marks_d[3-lane])?24'hffff80:ref_d?24'h40ff80:test_d?24'h40dfff:rgb_d[95-lane*24-:24];
         end
     end
 endmodule
