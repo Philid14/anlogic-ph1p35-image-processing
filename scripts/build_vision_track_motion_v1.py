@@ -8,10 +8,10 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/vision_track_motion/combined_r2'
+OUT=ROOT/'tmp/vision_track_motion/combined_r3'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='43ff61b4f1791782e74100c92b9612317e0d2249'
-CHANGED={HDL+p for p in ('design_top_wrapper.v','hdmi_mixer.v','edge_key_control.v','edge_status_osd.v','isp/isp_top.v','isp/edge_control_stream.v')}
+CHANGED={HDL+p for p in ('design_top_wrapper.v','hdmi_mixer.v','edge_key_control.v','edge_status_osd.v','isp/isp_top.v','isp/edge_control_stream.v','isp/edge_detect_96.v','isp/color_compare_osd.v')}
 ADDED={HDL+'vision/'+n for n in ('vision_logo_palette.v','vision_motion_grid.v','vision_source_observer.v')}
 ADDED|={'features/color_target/rtl/'+n for n in ('color_classify.v','color_target_mask_stats.v','color_target_track.v','color_target_track_guard.v')}
 TD=Path('D:/TD/bin/td_commands_prompt.exe')
@@ -87,9 +87,12 @@ def main():
         sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
-        for name in ('observer_unit/results.json','controls/results.json','legacy/results.json','features/results.json'):
+        for name in ('observer_unit/results.json','controls/results.json','legacy/native/results.json','features/native/results.json'):
             check=json.loads((ROOT/'tmp/vision_track_motion'/name).read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
+        for directory in ('observer_unit','legacy/native','features/native'):
+            native=json.loads((ROOT/'tmp/vision_track_motion'/directory/'SIM_SOURCE_MANIFEST.json').read_text())
+            for rel,digest in native.items():assert sha(Path(rel))==digest,rel
         logo=json.loads((ROOT/'tmp/vision_track_motion/resource_logo/SIM_SOURCE_MANIFEST.json').read_text())
         for rel,digest in logo.items():assert sha(Path(rel))==digest,rel
         selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None

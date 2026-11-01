@@ -57,11 +57,11 @@ module color_compare_osd #(
     wire chroma_reliable=ref_sum>=96 && test_sum>=96 && ref_value>=32 && test_value>=32 && ref_value<254 && test_value<254;
     // 0 MATCH(raw), 1 DIFF, 2 LIGHT(possible multiplicative shading), 3 CHECK.
     // No shade compensation rewrites the measured RGB or automatically certifies a material match.
-    wire [1:0] comparison_status=!INSPECTION_V4?(compare_match?0:1):!chroma_reliable?3:compare_match?0:chroma_difference<=6?2:1;
     reg [7:0] dr,dg,db;reg [3:0] class_ref,class_test;
     wire [9:0] l1={2'd0,dr}+{2'd0,dg}+{2'd0,db};
     wire [7:0] max_difference=dr>dg?(dr>db?dr:db):(dg>db?dg:db);
     wire compare_match=max_difference<=12;
+    wire [1:0] comparison_status=!INSPECTION_V4?(compare_match?0:1):!chroma_reliable?3:compare_match?0:chroma_difference<=6?2:1;
     function [7:0] absdiff;input[7:0]a,b;begin absdiff=a>b?a-b:b-a;end endfunction
     // Coarse camera-RGB hue category, not a calibrated material classification.
     function [3:0] classify;

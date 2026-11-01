@@ -256,6 +256,7 @@ module edge_detect_96 #(
     // Existing S5 becomes strong/weak classification for QUALITY only.
     // THRESHOLD OSD is the high threshold; low=floor(high/2). No sensor writes.
     generate if(QUALITY_ENABLE && NMS_ENABLE) begin : g_quality
+        wire [13:0] low_threshold={1'b0,nms_threshold[13:1]};
         reg [3:0] classified;
         reg [1:0] support_classified;
         wire [1:0] support[0:QUALITY_HOPS];
@@ -268,7 +269,6 @@ module edge_detect_96 #(
         assign O_temporal_support=TEMPORAL_ENABLE ? support[QUALITY_HOPS]:2'd0;
         wire [3:0] labels[0:QUALITY_HOPS];
         wire [QUALITY_HOPS:0] qv,qu,ql;
-        wire [13:0] low_threshold={1'b0,nms_threshold[13:1]};
         always @(posedge I_clk or negedge I_rst_n) begin
             if(!I_rst_n) classified<=0;
             else classified<={nms_keep[1] && nms_magnitude[27:14]>=low_threshold,

@@ -13,13 +13,13 @@ module tb_vision_feature_stream;
     wire ov, ou, ol, ir, pv, pu;
     wire [127:0] pd;
 
+    wire iv128, iu128, il128;
+    wire [127:0] id128;
     // Observe the actual ISP algorithm and actual ISP packer. No duplicate DUT.
     assign od=integrated.algorithm_data;assign ov=integrated.algorithm_valid;
     assign ou=integrated.algorithm_user;assign ol=integrated.algorithm_last;
     assign ir=integrated.awb_O_tready;
     assign pd=id128;assign pv=iv128;assign pu=iu128;
-    wire iv128, iu128, il128;
-    wire [127:0] id128;
     reg last128=0;
     always @(posedge clk) last128<=ol;
     isp_top #(
