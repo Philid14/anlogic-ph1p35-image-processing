@@ -372,3 +372,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - r0/267a478六行6px版完成SYN/回归后撤回，无PHY/bit；受控纵向覆盖不足促成十二行版本重新验证。报告与证据保留，不移动旧tag。
 - Board Test Result：NOT_RUN。实际透明尺成功率、物理SW映射、独立尺寸精度、光照与长期无溢出均待用户测试。R6或S稳态增长时阻断正式验收，优先视频完整性。
 - 是否保留/下一步：保留本candidate与全部历史。按INSPECTION_USABILITY_V3_BOARD_TEST先记录SW基准及左1..4变化，再无字白纸/1mm刻线/K4采样并记录R；独立横竖尺寸和30分钟稳定性验收。完成本轮即停止，不合并、不开发下一版。
+
+- 发布核对：归档commit409f493652fab2299753ebf28b05334c9eb40508，Draft PR #22依赖#21；分支/tag实际push成功，远程引用、tag内bit SHA和74个TD源码与构建提交一致。详见REMOTE_RECEIPT；仍NOT_RUN，不合并。

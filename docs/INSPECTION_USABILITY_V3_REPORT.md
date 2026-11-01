@@ -83,7 +83,8 @@ Synthesis→Physical Design→final Timing Check→bitgen PASS；setup/hold TNS0
 - Bit：artifacts/bitstreams/INSPECTION_USABILITY_V3/camera_to_dsi_display.bit
 - SHA256：18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d
 - Remote：https://github.com/Philid14/anlogic-ph1p35-image-processing.git（Private）
-- 发布commit、Draft PR及实际push结果在同轮REMOTE_RECEIPT记录；仅远程核验完成后标记成功。
+- 归档commit：409f493652fab2299753ebf28b05334c9eb40508；[Draft PR #22](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/22)，base为V2分支；未合并。
+- Push Status：分支和candidate tag已成功push，远程ref、tag内bit SHA及74个TD源码闭环已核对，见[evidence/INSPECTION_USABILITY_V3/REMOTE_RECEIPT.json](evidence/INSPECTION_USABILITY_V3/REMOTE_RECEIPT.json)。
 - Git：本轮文件显式提交；原有研究文档修改、用户录像/原理图/最终作品资料保持原状，不混入。
 - Board Test：NOT_RUN。
 
