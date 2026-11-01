@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/vision_track_motion/combined_r0'
+OUT=ROOT/'tmp/vision_track_motion/combined_r1'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='43ff61b4f1791782e74100c92b9612317e0d2249'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','hdmi_mixer.v','edge_key_control.v','edge_status_osd.v','isp/isp_top.v','isp/edge_control_stream.v')}
