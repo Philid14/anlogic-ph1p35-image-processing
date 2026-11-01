@@ -1,0 +1,42 @@
+{
+  "version": "INSPECTION_USABILITY_V3",
+  "branch": "codex/main/inspection-usability-v3",
+  "source_commit": "ee01ac3b420dcfc37b8a62bb6f49385d9af54c4d",
+  "archive_driver_commit": "63fae8d2b1afb8565d5e8aef25995a9448010a9b",
+  "tag": "inspection-usability-v3-candidate",
+  "build_time": "2026-11-01T13:58:24.927221+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/inspection_v3/r1/camera_to_dsi_display.bit",
+  "bit_sha256": "18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d",
+  "resources": {
+    "slice": 20561,
+    "lut6": 19435,
+    "ff": 19041,
+    "eram": 88,
+    "dsp": 26
+  },
+  "resource_delta_vs_V2": {
+    "slice": 58,
+    "lut6": 66,
+    "ff": 233,
+    "eram": 2,
+    "dsp": 2
+  },
+  "setup_wns_ns": 0.106,
+  "setup_tns_ns": 0.0,
+  "hold_wns_ns": 0.02,
+  "hold_tns_ns": 0.0,
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "board_test": "NOT_RUN",
+  "high_density_warning": true,
+  "extra_common_pixel_cycles": 0,
+  "measurement_age": "previous complete capture frame, plus inherited DDR display latency",
+  "calibration": "K4 next complete frame; twelve row search, per-line contrast and dominant interval confidence; two readable lines agree; common X/Y scalar, no perspective correction",
+  "annotation": "outer axis-aligned W/H plus measured center-line gaps; no height/CAD reconstruction",
+  "route_db_sha256": "9165ca585b297e03eca3c792628409a59be1fd2f74c9f4404c14f7e80604d22c"
+}

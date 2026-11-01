@@ -1,0 +1,6 @@
+{
+  "passed": true,
+  "full_frame_beats": 691200,
+  "frames": 3,
+  "scope": "2-cycle actual comparison overlay, frame-latched on/off and independent debounce; no board claim"
+}

@@ -358,3 +358,17 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留：candidate等待上板；r0/r1仅SYN撤回、无bit。下一步按新BOARD_TEST短按读尺、居中薄片测量、独立真实尺寸与长期视频稳定性验收；不合并PR、不自行下一版。
 
 - 发布核对：归档commit 0a5c262072c4e996cc0a7a4d078fbe2f3341ce42；Draft PR #21，依赖#18→#17→#13→#12；分支和candidate tag已push，tag内bit SHA及73个TD输入源码与实际构建提交一致；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 INSPECTION_USABILITY_V3 candidate / MAIN
+
+- 基线7323b05/PR #21；分支codex/main/inspection-usability-v3；实际TD源码ee01ac3b420dcfc37b8a62bb6f49385d9af54c4d；tag inspection-usability-v3-candidate。
+- V2实板反馈PARTIAL：真实透明尺CAL FAIL，128px颜色框跨多个色块/隔线。最终用户纠正开关编号为从左到右，不按丝印。旧失败无码，现场唯一原因尚未定位，旧归档不改写。
+- 修改假设/主要变量：保持检测原理和视频链路，改善采样区域/读尺条件与可观测性。色框128x128改32x32、中心不变；三近邻读尺改十二行3px搜索/逐行阈值/主间距筛选/两线一致；增加透明SW逻辑位与R错误码。逻辑0颜色、1尺寸优先、2明暗极性、3CAL；物理排列待SW观察，不猜测换引脚。
+- 冻结Sensor/ISP、五算法、K3/K4正常阈值语义、Logo/CNT、视频/PLL/ADC/SDC和队友文件，66个其余TD输入不变。没有新增公共视频延迟或整帧缓存。
+- Bit artifacts/bitstreams/INSPECTION_USABILITY_V3/camera_to_dsi_display.bit；SHA256 18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d。
+- Build Result：r1 SYN/PHY/final STA/bitgen PASS；Slice20561(96.91%)、LUT6 19435、FF19041、ERAM88、DSP26；相比V2 +58/+66/+233/+2/+2；Setup/Hold +0.106/+0.020ns、TNS0、STA95.80%。关键warning类型未新增；高密度/既有FIFO和Gray覆盖风险保留。
+- 数字验证：25读尺检查、16种SW组合及全部错误码、实际ISP九帧720p共2073600拍/1555200打包字及500px/100mm捕获PASS；旧读尺27项、UI/键控、几何/换算、五整屏工程标注、颜色格式PASS。边界为post-AWB数字输入，不冒充实板。
+- r0/267a478六行6px版完成SYN/回归后撤回，无PHY/bit；受控纵向覆盖不足促成十二行版本重新验证。报告与证据保留，不移动旧tag。
+- Board Test Result：NOT_RUN。实际透明尺成功率、物理SW映射、独立尺寸精度、光照与长期无溢出均待用户测试。R6或S稳态增长时阻断正式验收，优先视频完整性。
+- 是否保留/下一步：保留本candidate与全部历史。按INSPECTION_USABILITY_V3_BOARD_TEST先记录SW基准及左1..4变化，再无字白纸/1mm刻线/K4采样并记录R；独立横竖尺寸和30分钟稳定性验收。完成本轮即停止，不合并、不开发下一版。

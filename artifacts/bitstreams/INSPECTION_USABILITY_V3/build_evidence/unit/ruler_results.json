@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": 25,
+  "scope": "Synthetic model vs actual RTL; no board success claim",
+  "sources": {
+    "tests/tb_ruler_robust_calibration.sv": "6dd4f6e8fc7990581fabf40d2219f5f5e09241268c6bd45099902722f6e342b6",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_robust_calibration.v": "097690276f54a99e8a6feee44a1ab3eb6ce44ad825667c430f965c40787518e5"
+  }
+}

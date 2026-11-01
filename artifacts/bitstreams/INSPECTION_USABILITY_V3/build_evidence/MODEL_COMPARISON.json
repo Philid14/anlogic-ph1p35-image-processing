@@ -1,0 +1,264 @@
+{
+  "passed": true,
+  "scope": "Synthetic spacing/contrast/placement evidence only; board failure code not captured in V2 photo",
+  "cases": [
+    {
+      "case": "clean_fractional",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 340,
+        "status": 3,
+        "lines": [
+          340,
+          340
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "low_contrast_ticks",
+      "old_accepted": false,
+      "new": {
+        "ok": true,
+        "span": 340,
+        "status": 3,
+        "lines": [
+          340,
+          340
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "occasional_missing_tick",
+      "old_accepted": false,
+      "new": {
+        "ok": true,
+        "span": 340,
+        "status": 3,
+        "lines": [
+          340,
+          340
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "wide_dark_artifact",
+      "old_accepted": false,
+      "new": {
+        "ok": true,
+        "span": 341,
+        "status": 3,
+        "lines": [
+          341,
+          341
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "ticks_away_from_old_three_lines",
+      "old_accepted": false,
+      "new": {
+        "ok": true,
+        "span": 340,
+        "status": 3,
+        "lines": [
+          340,
+          340
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "only_one_readable_line",
+      "old_accepted": false,
+      "new": {
+        "ok": false,
+        "span": 0,
+        "status": 5,
+        "lines": [
+          null,
+          null,
+          340,
+          null,
+          null,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "case": "flat_no_ruler",
+      "old_accepted": false,
+      "new": {
+        "ok": false,
+        "span": 0,
+        "status": 4,
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "case": "random_texture",
+      "old_accepted": false,
+      "new": {
+        "ok": false,
+        "span": 0,
+        "status": 5,
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "case": "inconsistent_scale",
+      "old_accepted": false,
+      "new": {
+        "ok": false,
+        "span": 0,
+        "status": 5,
+        "lines": [
+          200,
+          300,
+          400,
+          500,
+          700,
+          1100
+        ]
+      },
+      "expected": false
+    },
+    {
+      "case": "centimetre_marks_only_at_this_zoom",
+      "old_accepted": false,
+      "new": {
+        "ok": false,
+        "span": 0,
+        "status": 5,
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "expected": false
+    },
+    {
+      "case": "pitch_2",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 200,
+        "status": 3,
+        "lines": [
+          200,
+          200
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_2.2",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 220,
+        "status": 3,
+        "lines": [
+          220,
+          220
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_2.5",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 250,
+        "status": 3,
+        "lines": [
+          250,
+          250
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_5",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 500,
+        "status": 3,
+        "lines": [
+          500,
+          500
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_6.6",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 661,
+        "status": 3,
+        "lines": [
+          661,
+          661
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_11.7",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 1169,
+        "status": 3,
+        "lines": [
+          1169,
+          1169
+        ]
+      },
+      "expected": true
+    },
+    {
+      "case": "pitch_16",
+      "old_accepted": true,
+      "new": {
+        "ok": true,
+        "span": 1600,
+        "status": 3,
+        "lines": [
+          1600,
+          1600
+        ]
+      },
+      "expected": true
+    }
+  ]
+}

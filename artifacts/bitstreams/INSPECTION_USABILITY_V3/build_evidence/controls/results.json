@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "combinations": 16,
+  "beats": 901120,
+  "sources": {
+    "tests/tb_switch_status_v3.sv": "4b2c56209d869b7f120dffe1ee15f3e0113754c527f0a57a9901f1d90ae5d161",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_status_osd.v": "878021b5ad61d7a540e5e9bc184975377bd0688c5f94b28126480863051267f7",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a"
+  }
+}

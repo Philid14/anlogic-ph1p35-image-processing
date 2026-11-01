@@ -1,0 +1,2 @@
+PASS engineering drawing 1152000 four-pixel positions
+D:\anlogic_formal_project\tests\tb_engineering_dimension.sv:23: $finish called at 1152000000 (1ps)

@@ -1,0 +1,2 @@
+PASS planar stats 91459 cycles: runs, lanes, polarity, gaps, malformed frames, reset
+D:\anlogic_formal_project\tests\tb_planar_measure.sv:25: $finish called at 914596000 (1ps)

@@ -1,0 +1,25 @@
+# INSPECTION_USABILITY_V3 BUILD_INFO
+
+- Version / Role: INSPECTION_USABILITY_V3 / MAIN
+- Branch: codex/main/inspection-usability-v3
+- Actual TD source commit: ee01ac3b420dcfc37b8a62bb6f49385d9af54c4d
+- Tag: inspection-usability-v3-candidate (created after archive)
+- Build time: 2026-11-01T13:58:24.927221+08:00
+- Device / Top: PH1P35MDG324 speed3 / design_top_wrapper
+- Original bit: D:/anlogic_formal_project/tmp/inspection_v3/r1/camera_to_dsi_display.bit
+- Bit SHA256: 18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d
+- Resource: {'slice': 20561, 'lut6': 19435, 'ff': 19041, 'eram': 88, 'dsp': 26}
+- Delta vs V2: {'slice': 58, 'lut6': 66, 'ff': 233, 'eram': 2, 'dsp': 2}
+- Setup WNS/TNS: +0.106ns / 0.0; Hold WNS/TNS: +0.020ns / 0.0
+- Synthesis -> Physical Design -> final Timing Check -> bitgen: PASS
+- Critical warning types: ['PHY-5060', 'PHY-5079']; new: []
+- High density warning PHY-7022: True; routed pass does not establish thermal/board stability.
+- Board Test Status: NOT_RUN. Independent ruler scale and measurement accuracy remain unverified.
+- Common pixel delay unchanged (31 cycles). No frame cache; twelve 512px grayscale scan lines only.
+- K4 short obtains a validated next-frame ruler measurement in ORIGIN/CAL; switch exit does not confirm.
+- Shared X/Y scale requires perpendicular view and equal magnification; no perspective/distortion correction or metrology precision claim.
+- Annotation uses actual measured bbox and gap endpoints, transparent glyphs; no automatic CAD/height/multi-hole reconstruction.
+- Original five algorithms, color classifier/MAX12, Sensor/ISP parameters, video, Logo/CNT, key semantics, pins/PLL/SDC frozen. Color sampling/drawing is 32x32 at unchanged centers. SW diagnostics expose logical inputs, not a guessed physical map.
+- Physical switch mapping remains pending board SW-bit observations; FIFO B/S and Gray-pointer coverage risks inherited. R6 is an explicit video-integrity rejection.
+- Rollback: historical INSPECTION_AUTO_DIMENSION_V2 bit/tag; SHA256 db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20.
+- r0 six-row SYN-only implementation withdrawn; no failed/withdrawn bit generated, no historical tag moved. No PR merged.

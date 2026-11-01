@@ -1,0 +1,2 @@
+PASS ruler calibration two axes, explicit confirm, bounds and reset
+D:\anlogic_formal_project\tests\tb_planar_measure.sv:51: $finish called at 6746000 (1ps)

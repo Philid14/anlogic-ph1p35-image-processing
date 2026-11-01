@@ -1,0 +1,2 @@
+PASS switch/error status 16 combinations, frame isolation, contrast and metadata 901154 cycles
+D:\anlogic_formal_project\tests\tb_switch_status_v3.sv:25: $finish called at 9011576000 (1ps)
