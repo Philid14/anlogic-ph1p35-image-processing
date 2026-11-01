@@ -8,12 +8,13 @@ module edge_status_osd #(
     parameter integer ENABLE = 1,
     parameter integer X0 = 800,
     parameter integer Y0 = 16,
-    parameter integer RELIABILITY_ENABLE = 0
+    parameter integer RELIABILITY_ENABLE = 0,
+    parameter integer SWITCH_DIAG_ENABLE = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
     input [18:0] I_config,
-    input [31:0] I_fifo_event_counts,
+    input [31:0] I_fifo_event_counts,input [3:0] I_switches,input [2:0] I_ruler_status,
     output reg [95:0] O_data,
     output reg O_valid, output reg O_user, output reg O_last
 );
@@ -24,12 +25,13 @@ module edge_status_osd #(
     wire [12:0] pixel_x = {x_now,2'b00};
     wire [12:0] local_x = pixel_x-X0;
     wire [10:0] local_y = y_now-Y0;
+    wire row3=SWITCH_DIAG_ENABLE && local_y>=120 && local_y<152;
     wire row2=RELIABILITY_ENABLE && local_y>=80 && local_y<112;
     wire box_hit = ENABLE && pixel_x >= X0 && pixel_x < X0+448
-                          && y_now >= Y0 && (y_now < Y0+72 || row2);
+                          && y_now >= Y0 && (y_now < Y0+72 || row2 || row3);
     wire row0 = local_y < 32;
     wire row1 = local_y >= 40 && local_y < 72;
-    wire [10:0] text_y = row2 ? local_y-11'd80 : (row1 ? local_y-11'd40 : local_y);
+    wire [10:0] text_y = row3 ? local_y-11'd120 : row2 ? local_y-11'd80 : (row1 ? local_y-11'd40 : local_y);
     wire [3:0] char_column = local_x[8:5];
 
     // All 0..255 values are defined; no hundreds truncation or division IP.
@@ -59,9 +61,10 @@ module edge_status_osd #(
     wire [7:0] active_threshold = (mode==3'd2) ? I_config[7:0] : I_config[15:8];
     wire threshold_applicable = (mode==3'd2) || (mode==3'd3);
     wire [11:0] digits = decimal3(active_threshold);
-    reg [31:0] fifo_frame;
+    reg [31:0] fifo_frame;reg [3:0] switch_frame;reg [2:0] ruler_frame;
     always @(posedge clk or negedge rst_n)begin
-        if(!rst_n)fifo_frame<=0;else if(I_user)fifo_frame<=I_fifo_event_counts;
+        if(!rst_n)begin fifo_frame<=0;switch_frame<=0;ruler_frame<=0;end
+        else if(I_user)begin fifo_frame<=I_fifo_event_counts;switch_frame<=I_switches;ruler_frame<=I_ruler_status;end
     end
     function [7:0] hexchar;input[3:0] n;
         begin hexchar=n<10 ? 8'h30+n : 8'h41+n-10;end
@@ -69,7 +72,17 @@ module edge_status_osd #(
     reg [7:0] character;
     always @(*) begin
         character=8'h20;
-        if(row2)begin
+        if(row3)begin
+            case(char_column)
+                0:character="S";1:character="W";2:character=":";
+                3:character="0"+switch_frame[0];4:character="0"+switch_frame[1];
+                5:character="0"+switch_frame[2];6:character="0"+switch_frame[3];
+                8:character="R";9:character=":";10:character="0"+ruler_frame;
+                12:character=switch_frame[1]?"M":switch_frame[0]?"C":"-";
+                13:character=switch_frame[1] && switch_frame[3]?"A":" ";
+                default:character=" ";
+            endcase
+        end else if(row2)begin
             case(char_column)
                 0:character="B";1:character=":";
                 2:character=hexchar(fifo_frame[31:28]);3:character=hexchar(fifo_frame[27:24]);
@@ -116,7 +129,7 @@ module edge_status_osd #(
     end
     reg [7:0] char_s1;
     reg [3:0] row_s1, col_s1;
-    reg hit_s1, glyph_s1, valid_s1, user_s1, last_s1;
+    reg diag_s1;reg hit_s1, glyph_s1, valid_s1, user_s1, last_s1;
     reg [95:0] rgb_s1;
     wire [15:0] glyph_bits;
     osd_char_lib u_font (.I_char(char_s1), .I_row(row_s1), .O_row_bits(glyph_bits));
@@ -124,7 +137,7 @@ module edge_status_osd #(
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             x_group<=0; y<=0; char_s1<=0; row_s1<=0; col_s1<=0;
-            hit_s1<=0; glyph_s1<=0; valid_s1<=0; user_s1<=0; last_s1<=0;
+            diag_s1<=0;hit_s1<=0; glyph_s1<=0; valid_s1<=0; user_s1<=0; last_s1<=0;
             rgb_s1<=0; O_data<=0; O_valid<=0; O_user<=0; O_last<=0;
         end else begin
             if (I_user) begin x_group<=0; y<=0; end
@@ -134,12 +147,12 @@ module edge_status_osd #(
                 end else begin x_group<=x_now+1'b1; y<=y_now; end
             end
             char_s1<=character; row_s1<=text_y[4:1]; col_s1<=local_x[4:1];
-            hit_s1<=box_hit; glyph_s1<=row0||row1||row2;
+            hit_s1<=box_hit; glyph_s1<=row0||row1||row2||row3;diag_s1<=row3;
             rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin
                 if (hit_s1 && glyph_s1 && glyph_bits[15-col_s1-(lane/2)])
-                    O_data[95-lane*24 -:24] <= 24'hffff00;
+                    O_data[95-lane*24 -:24] <= (diag_s1 && rgb_s1[87-lane*24])?24'h101030:24'hffff00;
                 else O_data[95-lane*24 -:24] <= rgb_s1[95-lane*24 -:24];
             end
         end

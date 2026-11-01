@@ -1,6 +1,6 @@
 // Drawing-style dimensions on the single observed plane (not CAD reconstruction).
 // Native 16px glyphs, transparent backgrounds. All text anchors are 4px aligned.
-module engineering_dimension_marks(
+module engineering_dimension_marks #(parameter SEARCH_ENABLE=0)(
     input [10:0] x,input [9:0] y,
     input cal,calibrated,object_valid,formatted,
     input [2:0] cal_status,
@@ -21,6 +21,7 @@ module engineering_dimension_marks(
     wire [10:0] gy=((({1'b0,gt}+{1'b0,gb})>>1)-24);
     reg [10:0] tx,ty,q;reg [3:0] col;
     reg [1:0] field;reg active;reg [19:0] value;
+    wire scan_y=SEARCH_ENABLE ? (y==288 || y==294 || y==300 || y==306 || y==312 || y==318) : (y==304 || y==306 || y==308);
     reg line_ink;integer k;
     function [7:0] message;input [5:0] i;input [2:0] s;begin
         message=" ";
@@ -43,7 +44,7 @@ module engineering_dimension_marks(
                 q=x+k;
                 marks[3-k]=(q>=380 && q<=899 && y>=288 && y<=324 &&
                     (q<384 || q>=896 || y==288 || y==324)) ||
-                    (q>=384 && q<896 && (y==304 || y==306 || y==308) && q[3:0]<4);
+                    (q>=384 && q<896 && scan_y && q[3:0]<4);
             end
             if(x>=384 && x<864 && y>=240 && y<256)begin
                 text_valid=1;glyph_col=x[3:0];glyph_row=y-240;

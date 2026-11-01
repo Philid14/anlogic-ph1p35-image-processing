@@ -14,7 +14,8 @@ module edge_control_stream #(
     parameter integer RELIABILITY_ENABLE = 0,
     parameter integer COLOR_COMPARE_ENABLE = 0,
     parameter integer INSPECTION_ENABLE = 0,
-    parameter integer AUTO_DIMENSION = 0
+    parameter integer AUTO_DIMENSION = 0,
+    parameter integer USABILITY_ENABLE = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
@@ -124,7 +125,7 @@ module edge_control_stream #(
             .capture_toggle(capture_toggle),.clear_toggle(clear_toggle),.repeat_toggle(repeat_toggle));
         if(AUTO_DIMENSION)begin:g_auto
             wire [10:0] ruler_span;
-            ruler_auto_calibration #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_ruler(
+            ruler_auto_calibration #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.ROBUST_ENABLE(USABILITY_ENABLE)) u_ruler(
                 .clk(clk),.rst_n(rst_n),
                 .gray({gray_p[0][95:88],gray_p[0][71:64],gray_p[0][47:40],gray_p[0][23:16]}),
                 .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),
@@ -156,19 +157,21 @@ module edge_control_stream #(
         end
     end
     wire [95:0] compare_data;
-    wire [18:0] compare_config;
+    wire [18:0] compare_config;wire [3:0] compare_switches;wire [2:0] compare_ruler;
     wire compare_valid,compare_user,compare_last;
     generate if(COLOR_COMPARE_ENABLE)begin:g_color_compare
-        reg [18:0] config_d1,config_d2;
+        reg [18:0] config_d1,config_d2;reg [3:0] switches_d1,switches_d2;reg [2:0] ruler_d1,ruler_d2;
         always @(posedge clk or negedge rst_n)begin
-            if(!rst_n)begin config_d1<=RESET_CONFIG;config_d2<=RESET_CONFIG;end
-            else begin config_d1<=config_p[EDGE_STAGES-1];config_d2<=config_d1;end
+            if(!rst_n)begin config_d1<=RESET_CONFIG;config_d2<=RESET_CONFIG;switches_d1<=0;switches_d2<=0;ruler_d1<=0;ruler_d2<=0;end
+            else begin config_d1<=config_p[EDGE_STAGES-1];config_d2<=config_d1;switches_d1<=ui_pipe[EDGE_STAGES-1];switches_d2<=switches_d1;ruler_d1<=ui_cal_status;ruler_d2<=ruler_d1;end
         end
-        assign compare_config=config_d2;
+        assign compare_config=config_d2;assign compare_switches=switches_d2;assign compare_ruler=ruler_d2;
         wire [47:0] measured_means;
         wire measurement_valid;
         wire [15:0] measurement_id;
-        color_compare_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_stats(
+        color_compare_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),
+            .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
+            .W_LOG(USABILITY_ENABLE?5:7),.H_LOG(USABILITY_ENABLE?5:7)) u_stats(
             .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
         wire [43:0] dim_sizes,dim_box,dim_gap_coords;wire dim_valid,dim_present;
@@ -184,7 +187,9 @@ module edge_control_stream #(
             assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION)) u_compare(
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),
+            .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
+            .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
             .user(user_p[EDGE_STAGES-1]),.last(last_p[EDGE_STAGES-1]),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id),
@@ -196,17 +201,17 @@ module edge_control_stream #(
             .dim_present(dim_present),.dim_gap_valid(dim_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
     end else begin:g_no_color_compare
-        assign compare_config=config_p[EDGE_STAGES-1];
+        assign compare_config=config_p[EDGE_STAGES-1];assign compare_switches=ui_pipe[EDGE_STAGES-1];assign compare_ruler=ui_cal_status;
         assign compare_data=selected_data;
         assign compare_valid=valid_p[EDGE_STAGES-1];
         assign compare_user=user_p[EDGE_STAGES-1];
         assign compare_last=last_p[EDGE_STAGES-1];
     end endgenerate
     edge_status_osd #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
-                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE)) u_status (
+                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE)) u_status (
         .clk(clk), .rst_n(rst_n), .I_data(compare_data),
         .I_valid(compare_valid), .I_user(compare_user), .I_last(compare_last),
-        .I_config(compare_config), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
+        .I_config(compare_config),.I_switches(compare_switches),.I_ruler_status(compare_ruler), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
         .O_user(O_user), .O_last(O_last)
     );
 endmodule

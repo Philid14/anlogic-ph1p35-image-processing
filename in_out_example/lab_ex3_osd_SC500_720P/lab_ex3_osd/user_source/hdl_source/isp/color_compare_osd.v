@@ -1,7 +1,7 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
@@ -207,7 +207,7 @@ module color_compare_osd #(
     wire [3:0] engineering_marks;
     wire engineering_text;wire [7:0] engineering_char;wire [3:0] engineering_row,engineering_col;
     generate if(AUTO_DIMENSION)begin:g_drawing
-        engineering_dimension_marks u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
+        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE)) u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
             .object_valid(held_dim_valid && held_present),.formatted(formatted),.cal_status(held_cal_status),
             .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(held_gap),
             .digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),
