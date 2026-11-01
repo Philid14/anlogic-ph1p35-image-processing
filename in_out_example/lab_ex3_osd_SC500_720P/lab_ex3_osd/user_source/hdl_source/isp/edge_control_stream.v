@@ -54,22 +54,28 @@ module edge_control_stream #(
         .I_rgb(I_data), .I_binary_threshold(beat_config[7:0]),
         .O_gray(gray_now), .O_binary(binary_now)
     );
+    // Payload has no reset: valid/user/last/config retain reset and traverse
+    // the SAME depth. After any reset every first-valid beat fully replaces
+    // its own payload before it may be observed. Allows native delay RAM/SRL
+    // mapping, without resettable 3x96-bit register chains or new latency.
+    integer payload_i;
+    always @(posedge clk)begin
+        original_p[0]<=I_data;gray_p[0]<=gray_now;binary_p[0]<=binary_now;
+        for(payload_i=1;payload_i<EDGE_STAGES;payload_i=payload_i+1)begin
+            original_p[payload_i]<=original_p[payload_i-1];
+            gray_p[payload_i]<=gray_p[payload_i-1];
+            binary_p[payload_i]<=binary_p[payload_i-1];
+        end
+    end
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             valid_p <= 0; user_p <= 0; last_p <= 0;
             for (i=0; i<EDGE_STAGES; i=i+1) begin
-                original_p[i] <= 0; gray_p[i] <= 0; binary_p[i] <= 0;
                 config_p[i] <= RESET_CONFIG;
             end
         end else begin
-            original_p[0] <= I_data;
-            gray_p[0] <= gray_now;
-            binary_p[0] <= binary_now;
             config_p[0] <= beat_config;
             for (i=1; i<EDGE_STAGES; i=i+1) begin
-                original_p[i] <= original_p[i-1];
-                gray_p[i] <= gray_p[i-1];
-                binary_p[i] <= binary_p[i-1];
                 config_p[i] <= config_p[i-1];
             end
             valid_p <= {valid_p[EDGE_STAGES-2:0],I_valid};
