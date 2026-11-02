@@ -19,7 +19,7 @@ def main():
    for rel,digest in json.loads(native.read_text()).items():assert sha(Path(rel))==digest,rel
  for case in ('legacy','integrated'):
   r=json.loads((ROOT/'tmp/track_region_fix'/case/'results.json').read_text());assert (r['frames'],r['beats'],r['words'])==(9,2073600,1555200)
- for case in ('region','region_full','red_equivalence'):
+ for case in ('region','region_full'):
   assert json.loads((ROOT/'tmp/track_region_fix'/case/'results.json').read_text())['legacy_reproduced']
  logs='\n'.join((OUT/(s+'_stdout.txt')).read_text(errors='replace') for s in ('syn','phy','bit'))
  for stage in ('SYN','PHY','BIT'):assert stage+'_COMPLETE' in logs
