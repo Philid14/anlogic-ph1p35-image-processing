@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-02",
+  "fetch_result": "SUCCESS",
+  "docs_branch": "codex/target/technical-report-vision-v2",
+  "docs_start_HEAD": "470f6d97ae9692b4b08b839f760f4ba85086936b",
+  "docs_sync": "fast-forward check: already up to date",
+  "origin_main": "c42168e26026425660f2a6f51eec76b04c85eea0",
+  "latest_engineering_HEAD": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+  "engineering_pr": 28,
+  "engineering_pr_state": "OPEN Draft, unmerged",
+  "candidate_board_status": "NOT_RUN",
+  "new_candidate_or_board_feedback_since_previous_review": "none found on fetched main/engineering refs",
+  "sources": [
+    {
+      "path": "docs/INSPECTION_SHAPE_TRACK_V1_BOARD_TEST.md",
+      "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+      "git_blob_sha256": "8f12aa9ef043d385ba5dff6d9780c441862a3e19d40285eb686cfd2314cbe6ce"
+    },
+    {
+      "path": "docs/INSPECTION_SHAPE_TRACK_V1_REPORT.md",
+      "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+      "git_blob_sha256": "6c8c7ff2b2b72b371fdaae51e8f21ac3ccaa9de792d59281b8a5797db786d3a7"
+    },
+    {
+      "path": "artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/BUILD_INFO.json",
+      "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+      "git_blob_sha256": "692c1a1ed7f06e51d903bbec59f9d13e5d3c15fc5a26c45371b883626786d565"
+    }
+  ],
+  "local_R1_docx_sha256": "aa77b7f3981aa3a3ca58037a0891d182e6772ae4278311ca030dd9f946819fe1",
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "scope": "docs only; no production merge or RTL/sensor/constraints/bit change"
+}
