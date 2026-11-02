@@ -10,7 +10,8 @@ module edge_status_osd #(
     parameter integer Y0 = 16,
     parameter integer RELIABILITY_ENABLE = 0,
     parameter integer SWITCH_DIAG_ENABLE = 0,
-    parameter integer VISION_ENABLE = 0
+    parameter integer VISION_ENABLE = 0,
+    parameter integer COMPACT_FONT = 0
 )(
     input clk, input rst_n,
     input [95:0] I_data, input I_valid, input I_user, input I_last,
@@ -203,7 +204,11 @@ module edge_status_osd #(
     reg diag_s1;reg hit_s1, glyph_s1, valid_s1, user_s1, last_s1;
     reg [95:0] rgb_s1;
     wire [15:0] glyph_bits;
-    osd_char_lib u_font (.I_char(char_s1), .I_row(row_s1), .O_row_bits(glyph_bits));
+    generate if(COMPACT_FONT)begin:g_font_ram
+        inspection_font_rom u_font(.clk(clk),.character(character),.row(a_hit?y_now[4:1]:text_y[4:1]),.bits(glyph_bits));
+    end else begin:g_font_logic
+        osd_char_lib u_font (.I_char(char_s1), .I_row(row_s1), .O_row_bits(glyph_bits));
+    end endgenerate
     integer lane;
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin

@@ -1,7 +1,7 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,COMPACT_FONT=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
@@ -638,7 +638,12 @@ module color_compare_osd #(
     reg [7:0] char_d;reg [3:0] row_d,col_d;
     reg panel_d,ref_d,test_d,dim_d,v_d,u_d,l_d;reg [3:0] marks_d;reg native_d;reg [95:0] rgb_d;
     reg [23:0] ink_d;wire [15:0] bits;
-    osd_char_lib u_font(.I_char(char_d),.I_row(row_d),.O_row_bits(bits));
+    generate if(COMPACT_FONT)begin:g_font_ram
+        inspection_font_rom u_font(.clk(clk),.character(dimension && AUTO_DIMENSION?engineering_char:character),
+            .row(dimension && AUTO_DIMENSION?engineering_row:ly[4:1]),.bits(bits));
+    end else begin:g_font_logic
+        osd_char_lib u_font(.I_char(char_d),.I_row(row_d),.O_row_bits(bits));
+    end endgenerate
     integer lane;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin

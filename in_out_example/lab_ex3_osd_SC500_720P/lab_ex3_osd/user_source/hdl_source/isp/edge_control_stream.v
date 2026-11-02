@@ -17,7 +17,8 @@ module edge_control_stream #(
     parameter integer AUTO_DIMENSION = 0,
     parameter integer USABILITY_ENABLE = 0,
     parameter integer INSPECTION_V4 = 0,
-    parameter integer VISION_ENABLE = 0
+    parameter integer VISION_ENABLE = 0,
+    parameter integer COMPACT_FONT = 0
 )(
     input clk, input rst_n,
     input [18:0] requested_config,
@@ -240,7 +241,7 @@ module edge_control_stream #(
             assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),
             .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
             .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
@@ -261,7 +262,7 @@ module edge_control_stream #(
         assign compare_last=last_p[EDGE_STAGES-1];
     end endgenerate
     edge_status_osd #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
-                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE),.VISION_ENABLE(VISION_ENABLE)) u_status (
+                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE),.VISION_ENABLE(VISION_ENABLE),.COMPACT_FONT(COMPACT_FONT)) u_status (
         .clk(clk), .rst_n(rst_n), .I_data(compare_data),
         .I_valid(compare_valid), .I_user(compare_user), .I_last(compare_last),
         .I_config(compare_config),.I_switches(compare_switches),.I_ruler_status(compare_ruler), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),

@@ -9,7 +9,7 @@ def simulate(out,top,sources,plus=(),parameters=(),eram=False,timeout=600):
     if eram:
         files +=[Path('D:/TD/sim_release/ph1p/ph1p_logic_eram.v'),Path('D:/TD/sim_release/ph1p/ph1p_phy_gsr.v')]
         tops=['PH1P_PHY_GSR']
-        for name in ('vision_logo_index.dath','vision_logo_palette.dath'):
+        for name in ('vision_logo_index.dath','vision_logo_palette.dath','inspection_font.dath'):
             source=HDL/'vision'/name;shutil.copy2(source,out/name);data.append(source)
     hashes={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     commands=[[(MSIM/'vlib.exe').as_posix(),'work'],

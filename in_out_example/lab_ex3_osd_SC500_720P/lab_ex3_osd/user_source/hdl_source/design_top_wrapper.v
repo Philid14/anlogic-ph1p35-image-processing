@@ -588,7 +588,7 @@ assign S_raw_tuser  = S_axis_tuser;
 //ISP算法顶层模块
 wire [31:0] S_fifo_event_counts;
 wire vision_capture_toggle;
-isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1)) u_isp_top (
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1),.COMPACT_FONT(1)) u_isp_top (
 .O_capture_toggle(vision_capture_toggle),
 .axi4s_video_aclk(S_csi_rx_clk),
 .I_fifo_event_counts(S_fifo_event_counts),
