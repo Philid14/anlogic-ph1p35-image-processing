@@ -86,10 +86,10 @@ def main():
         sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
-        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated','tmp/inspection_shape_track/reset','tmp/inspection_shape_track/config','tmp/inspection_shape_track/background_full','tmp/inspection_shape_track/select','tmp/inspection_shape_track/contract'):
+        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated','tmp/inspection_shape_track/reset','tmp/inspection_shape_track/config','tmp/inspection_shape_track/background_full','tmp/inspection_shape_track/select','tmp/inspection_shape_track/contract','tmp/inspection_shape_track/track_stream'):
             check=json.loads((ROOT/path/'results.json').read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
-        for path in ('tmp/inspection_shape_track/legacy',):
+        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated','tmp/inspection_shape_track/reset','tmp/inspection_shape_track/config','tmp/inspection_shape_track/background_full','tmp/inspection_shape_track/track_stream'):
             native=json.loads((ROOT/path/'SIM_SOURCE_MANIFEST.json').read_text())
             for rel,digest in native.items():assert sha(Path(rel))==digest,rel
         selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None

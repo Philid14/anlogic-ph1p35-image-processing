@@ -11,7 +11,9 @@ OUT=ROOT/'tmp/inspection_shape_track/integrated'
 def vectors():
  OUT.mkdir(parents=True,exist_ok=True);font=glyph_table();x=y=frame=0;ui=0;count=previous=0;words=0
  stim=OUT/'stim.txt';pack=OUT/'pack.txt'
- with (ROOT/'tmp/ruler_cm/stream_r1/stim.txt').open() as inp,stim.open('w') as out,pack.open('w') as pf:
+ from inspection_vectors import baseline
+ baseline_stim,_=baseline()
+ with baseline_stim.open() as inp,stim.open('w') as out,pack.open('w') as pf:
   for line in inp:
    fields=line.split();v,u,l=map(int,fields[:3]);cfg=int(fields[3],16)
    if u:x=y=0;ui=int(fields[6]);frame+=1
