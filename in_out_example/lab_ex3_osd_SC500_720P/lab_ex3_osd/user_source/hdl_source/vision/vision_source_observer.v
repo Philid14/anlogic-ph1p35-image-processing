@@ -33,20 +33,27 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
     wire [3:0] mask;
     genvar lane;
     generate for(lane=0;lane<4;lane=lane+1)begin:g_class
+        wire raw_hit;
+        wire [7:0] r=rgb[95-lane*24-:8],g=rgb[87-lane*24-:8],b=rgb[79-lane*24-:8];
+        wire [7:0] red_limit=r-(r>>2);
         color_classify #(.TARGET_CLASS(0),.HUE_HALF_WIDTH_DEG(30),.C_MIN(24),.V_MIN(32)) u_class(
-            .I_r(rgb[95-lane*24-:8]),.I_g(rgb[87-lane*24-:8]),.I_b(rgb[79-lane*24-:8]),.O_hit(mask[3-lane]));
+            .I_r(r),.I_g(g),.I_b(b),.O_hit(raw_hit));
+        // Relative channel dominance rejects warm near-neutral highlights.
+        assign mask[3-lane]=raw_hit && g<=red_limit && b<=red_limit;
     end endgenerate
     wire det_ready,det_valid,det_present;wire [31:0] det_sid,det_fid;
     wire [19:0] det_count;wire [10:0] dx0,dx1,dcx;wire [9:0] dy0,dy1,dcy;
-    wire [1:0] det_class;wire det_error;
-    color_target_mask_stats #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.MIN_COUNT(64),.TARGET_CLASS(0)) u_stats(
-        .clk(clk),.rst_n(rst_n),.I_pixel_valid(valid && active && (!finished || user)),.I_mask(mask),
-        .I_x0(px),.I_y(py),.I_sof(pixel_sof),.I_eol(last),.I_eof(pixel_eof),
-        .I_session_id(pixel_sid),.I_frame_id(pixel_fid),.I_frame_abort(abort),
-        .O_res_session_id(det_sid),.O_res_frame_id(det_fid),.O_result_valid(det_valid),
-        .O_target_present(det_present),.O_color_class(det_class),.O_pixel_count(det_count),
-        .O_xmin(dx0),.O_xmax(dx1),.O_center_x(dcx),.O_ymin(dy0),.O_ymax(dy1),.O_center_y(dcy),
-        .O_result_ready(det_ready),.O_protocol_error(det_error));
+    wire [1:0] det_class=0;wire det_error=0;
+    // MAIN spatial admission after the unchanged TARGET color classifier.
+    // The authoritative raster/abort validation above also qualifies EOF.
+    // Select a coherent region rather than extrema of all red pixels.
+    vision_red_run_stats u_stats(
+        .clk(clk),.rst_n(rst_n),.valid(valid && active && (!finished || user)),.mask(mask),
+        .x(px),.y(py),.eol(last),.eof(pixel_eof),.good(frame_good && !abort),
+        .sid(pixel_sid),.fid(pixel_fid),
+        .res_sid(det_sid),.res_fid(det_fid),.result_valid(det_valid),
+        .present(det_present),.count(det_count),
+        .xmin(dx0),.xmax(dx1),.cx(dcx),.ymin(dy0),.ymax(dy1),.cy(dcy),.ready(det_ready));
     color_target_track_guard #(.TIME_W(64),.COUNTER_W(16),.ACQ_FRAMES(3),.LOST_FRAMES(15),
         .MAX_TARGET_AGE_TICKS(MAX_AGE_CYCLES),.MAX_RELIABLE_AGE_TICKS(MAX_AGE_CYCLES)) u_guard(
         .clk(clk),.rst_n(rst_n),.I_session_start(session_start),.I_control_session_id(sid),
@@ -103,6 +110,107 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
                 target_box<=det_valid && det_present?{dx0,dx1,1'b0,dy0,1'b0,dy1}:44'd0;
                 target_x<=det_valid && det_present?dcx:0;target_y<=det_valid && det_present?dcy:0;
                 target_count<=det_valid?det_count:0;
+            end
+        end
+    end
+endmodule
+
+// No image RAM, no video stalls. One 4-pixel block needs >=3 red pixels.
+// Keep the longest uninterrupted run (>=8px) in each row. Link consecutive
+// rows only when their chosen runs overlap/touch within 4px. Publish the
+// largest resulting chain with >=4 rows and >=64 support pixels per frame.
+// This is deliberately NOT general connected-component labeling: only one
+// run per row is retained. Fine/hollow/multiple red targets are limitations.
+// X bounds are quantized to blocks of four; count is accepted block area.
+// Two register stages after the last beat; no added common pixel latency.
+module vision_red_run_stats(
+    input clk,rst_n,valid,input [3:0] mask,
+    input [10:0] x,input [9:0] y,input eol,eof,good,
+    input [31:0] sid,fid,
+    output reg [31:0] res_sid,res_fid,
+    output reg result_valid,present,ready,output reg [19:0] count,
+    output reg [10:0] xmin,xmax,cx,output reg [9:0] ymin,ymax,cy
+);
+    wire hit=(mask[3] && mask[2] && (mask[1] || mask[0])) ||
+             (mask[1] && mask[0] && (mask[3] || mask[2]));
+    wire [8:0] bx=x[10:2];
+    reg [8:0] run_left,row_left,row_right;
+    reg [9:0] run_len,row_len;
+    wire [9:0] base_len=x==0?10'd0:run_len;
+    wire [9:0] next_len=hit?base_len+1'b1:10'd0;
+    wire [8:0] next_left=(base_len==0)?bx:run_left;
+    wire longer=hit && (x==0 || next_len>row_len);
+    wire [9:0] win_len=longer?next_len:(x==0?10'd0:row_len);
+    wire [8:0] win_left=longer?next_left:row_left;
+    wire [8:0] win_right=longer?bx:row_right;
+    reg row_pending,row_eof,row_good;
+    reg [9:0] ry,rlength;
+    reg [8:0] rl,rr,previous_left,previous_right;
+    reg [31:0] row_sid,row_fid;
+    reg chain_active;
+    reg [8:0] chain_left,chain_right,best_left,best_right;
+    reg [9:0] chain_top,best_top,best_bottom;
+    reg [17:0] chain_area,best_area;
+    wire row_ok=rlength>=2;
+    wire joins=chain_active && ry!=0 &&
+        {1'b0,rl}<={1'b0,previous_right}+10'd1 &&
+        {1'b0,rr}+10'd1>={1'b0,previous_left};
+    wire [17:0] new_area=(joins?chain_area:18'd0)+rlength;
+    wire [8:0] new_left=(joins && chain_left<rl)?chain_left:rl;
+    wire [8:0] new_right=(joins && chain_right>rr)?chain_right:rr;
+    wire [9:0] new_top=joins?chain_top:ry;
+    wire qualified=row_ok && (ry-new_top>=3) && new_area>=16;
+    wire wins=qualified && (ry==0 || new_area>best_area);
+    wire [17:0] final_area=wins?new_area:best_area;
+    wire [8:0] final_left=wins?new_left:best_left;
+    wire [8:0] final_right=wins?new_right:best_right;
+    wire [9:0] final_top=wins?new_top:best_top;
+    wire [9:0] final_bottom=wins?ry:best_bottom;
+    wire [11:0] xsum={1'b0,final_left,2'b00}+{1'b0,final_right,2'b11};
+    wire [10:0] ysum={1'b0,final_top}+{1'b0,final_bottom};
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin
+            run_left<=0;run_len<=0;row_len<=0;row_left<=0;row_right<=0;
+            row_pending<=0;row_eof<=0;row_good<=0;ry<=0;rlength<=0;rl<=0;rr<=0;
+            row_sid<=0;row_fid<=0;previous_left<=0;previous_right<=0;
+            chain_active<=0;chain_left<=0;chain_right<=0;chain_top<=0;chain_area<=0;
+            best_area<=0;best_left<=0;best_right<=0;best_top<=0;best_bottom<=0;
+            ready<=0;result_valid<=0;present<=0;count<=0;
+            res_sid<=0;res_fid<=0;xmin<=0;xmax<=0;cx<=0;ymin<=0;ymax<=0;cy<=0;
+        end else begin
+            ready<=row_pending && row_eof;
+            row_pending<=valid && eol;
+            if(valid)begin
+                run_len<=eol?10'd0:next_len;
+                if(hit && base_len==0)run_left<=bx;
+                row_len<=eol?10'd0:win_len;
+                if(longer)begin row_left<=next_left;row_right<=bx;end
+                if(eol)begin
+                    ry<=y;rlength<=win_len;rl<=win_left;rr<=win_right;
+                    row_eof<=eof;row_good<=good;row_sid<=sid;row_fid<=fid;
+                end
+            end
+            if(row_pending)begin
+                chain_active<=row_ok;
+                previous_left<=rl;previous_right<=rr;
+                chain_area<=row_ok?new_area:18'd0;
+                chain_left<=new_left;chain_right<=new_right;chain_top<=new_top;
+                if(ry==0)best_area<=0;
+                else if(wins)begin
+                    best_area<=new_area;best_left<=new_left;best_right<=new_right;
+                    best_top<=new_top;best_bottom<=ry;
+                end
+                if(row_eof)begin
+                    res_sid<=row_sid;res_fid<=row_fid;result_valid<=row_good;
+                    present<=row_good && final_area!=0;
+                    count<=row_good?{final_area,2'b00}:20'd0;
+                    xmin<=row_good && final_area!=0?{final_left,2'b00}:11'd0;
+                    xmax<=row_good && final_area!=0?{final_right,2'b11}:11'd0;
+                    cx<=row_good && final_area!=0?xsum[11:1]:11'd0;
+                    ymin<=row_good && final_area!=0?final_top:10'd0;
+                    ymax<=row_good && final_area!=0?final_bottom:10'd0;
+                    cy<=row_good && final_area!=0?ysum[10:1]:10'd0;
+                end
             end
         end
     end
