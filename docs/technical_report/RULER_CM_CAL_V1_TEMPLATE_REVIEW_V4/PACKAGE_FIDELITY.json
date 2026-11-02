@@ -1,0 +1,42 @@
+{
+  "template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "preserve_only_parts": [
+    "_rels/",
+    "_rels/.rels",
+    "docProps/",
+    "docProps/app.xml",
+    "docProps/custom.xml",
+    "word/",
+    "word/_rels/",
+    "word/_rels/header1.xml.rels",
+    "word/fontTable.xml",
+    "word/footer1.xml",
+    "word/footer2.xml",
+    "word/footer3.xml",
+    "word/header1.xml",
+    "word/header2.xml",
+    "word/header3.xml",
+    "word/media/",
+    "word/media/image1.png",
+    "word/numbering.xml",
+    "word/settings.xml",
+    "word/theme/",
+    "word/theme/theme1.xml"
+  ],
+  "preserve_only_count": 21,
+  "unchanged": true,
+  "allowed_changed_parts": [
+    "[Content_Types].xml",
+    "docProps/core.xml",
+    "word/_rels/document.xml.rels",
+    "word/document.xml",
+    "word/styles.xml"
+  ],
+  "new_parts": [
+    "word/media/image2.png",
+    "word/media/image3.png",
+    "word/media/image4.png",
+    "word/media/image5.png"
+  ],
+  "section_geometry_unchanged": true
+}
