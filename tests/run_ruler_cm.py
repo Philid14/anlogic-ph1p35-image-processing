@@ -27,7 +27,14 @@ def main():
     # average measured intervals instead of selecting a single interval.
     a=ruler(minor=False);a[:,104:110]=225;a[3:18,106:107]=30;cases.append(('jitter_one_mark',a))
     for i,(name,a) in enumerate(cases):
-        m=scale(a);req^=1;emit()
+        m=scale(a)
+        # Image-construction truth, independent of both the model and RTL:
+        # centimeter scale must be10*pitch, not the half/mm harmonic.
+        if name.startswith('cm_') and name!='cm_only':expected=int(round(float(name[3:])*10))
+        elif name in ('flat','only_fine_ticks','four_cm_marks'):expected=0
+        else:expected=340
+        assert m['ok']==bool(expected) and (not expected or abs(m['span']-expected)<=2),(name,m,expected)
+        req^=1;emit()
         for b in range(5):frame(a,inline=(i+b)%2==0)
         emit(check=1,m=m);records.append(dict(case=name,**m))
     req^=1;emit();frame(ruler(),bad=True);emit(check=1,m=dict(span=0,ok=False,status=6))
