@@ -8,7 +8,7 @@ module tb_inspection_track;
  .clk(clk),.rst_n(rst),.rgb(rgb),.gray(32'd0),.valid(v),.user(u),.last(l),.target_box(bbox),
  .target_valid(tv),.track_state(state),.target_x(tx),.target_y(ty),.target_count(count),.target_frame(fid),
  .target_mark(),.motion_mark(),.motion_ready(),.motion_valid(),.motion_count(),.motion_state(),.motion_frame(),.complete_toggle(),.protocol_error(err));
- edge_status_osd #(.IMG_WIDTH(128),.IMG_HEIGHT(96),.VISION_ENABLE(1),.COMPACT_FONT(1),.INSPECTION_V5(1)) osd(
+ edge_status_osd #(.IMG_WIDTH(128),.IMG_HEIGHT(96),.VISION_ENABLE(1),.COMPACT_FONT(0),.INSPECTION_V5(1)) osd(
  .clk(clk),.rst_n(rst),.I_data(rgb),.I_valid(v),.I_user(u),.I_last(l),.I_config({3'd5,8'd80,8'd130}),
  .I_fifo_event_counts(0),.I_switches(0),.I_ruler_status(0),.I_track_state(state),.I_target_valid(tv),
  .I_target_x(tx),.I_target_y(ty),.I_target_count(count),.I_target_frame(fid),.I_target_box(bbox),

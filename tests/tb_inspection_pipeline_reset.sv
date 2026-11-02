@@ -4,7 +4,7 @@ reg clk=0;always #5 clk=~clk;
 reg rn=0,v=0,u=0,l=0;reg[95:0]rgb=0;
 wire[95:0]out;wire ov,ou,ol;
 edge_control_stream #(.IMG_WIDTH(64),.IMG_HEIGHT(16),.OSD_ENABLE(0),.DENOISE_ENABLE(1),.NMS_ENABLE(1),
- .QUALITY_ENABLE(1),.TEMPORAL_ENABLE(1),.VISION_ENABLE(1),.INSPECTION_V5(1),.COMPACT_FONT(1)) dut(
+ .QUALITY_ENABLE(1),.TEMPORAL_ENABLE(1),.VISION_ENABLE(1),.INSPECTION_V5(1),.COMPACT_FONT(0)) dut(
  .clk(clk),.rst_n(rn),.requested_config(19'h05082),.I_fifo_event_counts(32'd0),.I_switch(4'd0),
  .I_measure_key_n(1'b1),.I_data(rgb),.I_valid(v),.I_user(u),.I_last(l),.O_data(out),.O_valid(ov),.O_user(ou),.O_last(ol),.O_ready(1'b1));
 localparam DEPTH=29; // 27 algorithm + 2 disabled status stages; compare layer off.

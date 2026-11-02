@@ -3,7 +3,7 @@ module tb_inspection_drawing;
  reg clk=0;always #5 clk=~clk;
  reg rst=0,v=0,u=0,l=0,enable=1;reg[95:0]rgb={4{24'h606060}};
  wire[95:0]od;wire ov,ou,ol;
- color_compare_osd #(.UI_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.COMPACT_FONT(1),.INSPECTION_V5(1)) dut(
+ color_compare_osd #(.UI_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.COMPACT_FONT(0),.INSPECTION_V5(1)) dut(
  .clk(clk),.rst_n(rst),.rgb(rgb),.valid(v),.user(u),.last(l),.means(48'd0),.result_valid(1'b1),.sample_id(16'd1),
  .display_enable(1'b0),.dimension_enable(enable),.cal_mode(1'b0),.axis_y(1'b0),.calibrated(1'b1),.span_x(11'd1000),.span_y(11'd1000),.cal_visited(2'd0),
  .dim_round(1'b1),.background_applied(1'b1),.background_status(3'd3),.dim_sizes({11'd100,11'd100,22'd0}),

@@ -9,7 +9,7 @@ module tb_inspection_track_stream;
  .target_valid(tv),.track_state(state),.target_x(tx),.target_y(ty),.target_count(count),.target_frame(fid),
  .target_mark(),.motion_mark(),.motion_ready(),.motion_valid(),.motion_count(),.motion_state(),.motion_frame(),.complete_toggle(),.protocol_error(err));
  edge_control_stream #(.IMG_WIDTH(128),.IMG_HEIGHT(96),.DENOISE_ENABLE(1),.NMS_ENABLE(1),.QUALITY_ENABLE(1),.TEMPORAL_ENABLE(1),
- .COLOR_COMPARE_ENABLE(1),.INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1),.INSPECTION_V5(1),.COMPACT_FONT(1)) main(
+ .COLOR_COMPARE_ENABLE(1),.INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1),.INSPECTION_V5(1),.COMPACT_FONT(0)) main(
  .clk(clk),.rst_n(rst),.I_data(rgb),.I_valid(v),.I_user(u),.I_last(l),.requested_config({3'd5,8'd80,8'd130}),
  .I_fifo_event_counts(32'd0),.I_switch(4'd0),.I_measure_key_n(1'b1),.O_ready(1'b1),
  .O_data(out_rgb),.O_valid(ov),.O_user(ou),.O_last(ol));

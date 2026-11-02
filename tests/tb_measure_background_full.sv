@@ -27,8 +27,13 @@ module tb_measure_background_full;
      for(k=0;k<4;k=k+1)begin
       b=120+((x+k)/16+y/16)%80;a=b;
       if(f>=2&&x+k>=680&&x+k<820&&y>=260&&y<410)a=b+((x+k<750)?-25:25);
+      if(f>=2&&x+k>=860&&x+k<884&&y>=260&&y<410)begin
+       case((x+k-860)/4)
+        0:a=b+11;1:a=b+12;2:a=b+13;3:a=b-11;4:a=b-12;5:a=b-13;
+       endcase
+      end
       g[31-k*8-:8]=a;bin[3-k]=a>=130;
-      ex[3-k]=x>=256&&x<1024&&y>=160&&y<544?!(a!=b):bin[3-k];
+      ex[3-k]=x>=256&&x<1024&&y>=160&&y<544?!((a-b>=12)||(b-a>=12)):bin[3-k];
      end
      step(1,x==0&&y==0,x==1276,g,bin,ex);
      if(x==100&&y%71==0)step(0,0,0,0,0,0);
