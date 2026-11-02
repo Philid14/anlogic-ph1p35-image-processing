@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/track_region_fix/full_r1'
+OUT=ROOT/'tmp/track_region_fix/full_r2'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='4d0f779cefd680363b8a3f0d4d5c33a42d81197f'
 CHANGED={HDL+'vision/vision_source_observer.v'}
@@ -86,10 +86,10 @@ def main():
         sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
-        for path in ('tmp/track_region_fix/shape','tmp/track_region_fix/font','tmp/track_region_fix/legacy','tmp/track_region_fix/track','tmp/track_region_fix/drawing','tmp/track_region_fix/integrated','tmp/track_region_fix/reset','tmp/track_region_fix/config','tmp/track_region_fix/background_full','tmp/track_region_fix/select','tmp/track_region_fix/contract','tmp/track_region_fix/track_stream','tmp/track_region_fix/region','tmp/track_region_fix/region_full'):
+        for path in ('tmp/track_region_fix/shape','tmp/track_region_fix/font','tmp/track_region_fix/legacy','tmp/track_region_fix/track','tmp/track_region_fix/drawing','tmp/track_region_fix/integrated','tmp/track_region_fix/reset','tmp/track_region_fix/config','tmp/track_region_fix/background_full','tmp/track_region_fix/select','tmp/track_region_fix/contract','tmp/track_region_fix/track_stream','tmp/track_region_fix/region','tmp/track_region_fix/region_full','tmp/track_region_fix/red_equivalence'):
             check=json.loads((ROOT/path/'results.json').read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
-        for path in ('tmp/track_region_fix/shape','tmp/track_region_fix/font','tmp/track_region_fix/legacy','tmp/track_region_fix/track','tmp/track_region_fix/drawing','tmp/track_region_fix/integrated','tmp/track_region_fix/reset','tmp/track_region_fix/config','tmp/track_region_fix/background_full','tmp/track_region_fix/track_stream','tmp/track_region_fix/region','tmp/track_region_fix/region_full'):
+        for path in ('tmp/track_region_fix/shape','tmp/track_region_fix/font','tmp/track_region_fix/legacy','tmp/track_region_fix/track','tmp/track_region_fix/drawing','tmp/track_region_fix/integrated','tmp/track_region_fix/reset','tmp/track_region_fix/config','tmp/track_region_fix/background_full','tmp/track_region_fix/track_stream','tmp/track_region_fix/region','tmp/track_region_fix/region_full','tmp/track_region_fix/red_equivalence'):
             native=json.loads((ROOT/path/'SIM_SOURCE_MANIFEST.json').read_text())
             for rel,digest in native.items():assert sha(Path(rel))==digest,rel
         selected=json.loads((OUT/'SELECTED_ROUTE.json').read_text()) if (OUT/'SELECTED_ROUTE.json').exists() else None

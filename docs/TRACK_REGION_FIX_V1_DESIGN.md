@@ -76,3 +76,5 @@ camera backgrounds will work. Do not increase confidence based on simulation
 alone; use empty-plane/target/move/remove board comparison and check artifacts.
 
 First implementation e8cee699 passed all14 native groups but failed PHY packing:21312>21216. No bit. R1 removes only the duplicate internal result bank; MAIN LAST remains registered, frame-atomic, and read-only across the next frame.
+
+R1 also passed regression but packed21226>21216; no bit. R2 removes the extra row identity bank: MAIN sid/fid pre-edge tokens are stable through the ready edge even if the next SOF arrives then. Tight back-to-back frame tests explicitly check atomic bbox and FRAME. R2 also specializes the unchanged red30/C24/V32 predicate algebraically (common factor30 canceled, red dominance supplies max=R) in MAIN; exhaustive native comparison covers all16777216 RGB values against the original imported classifier plus the same relative gate. TARGET files themselves remain unchanged. No decision change vs R0/R1.

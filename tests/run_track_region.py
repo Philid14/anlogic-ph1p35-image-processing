@@ -102,6 +102,9 @@ def main():
  src=[ROOT/'tests/tb_track_region.sv',OBSERVER,HDL/'vision/vision_motion_grid.v']+[ROOT/'features/color_target/rtl'/n for n in ('color_classify.v','color_target_mask_stats.v','color_target_track.v','color_target_track_guard.v')]
  log=simulate(out,'tb_track_region',src,parameters=[f'-gWIDTH={w}',f'-gHEIGHT={h}'],plus=['+STIM='+stim.as_posix()],eram=True,timeout=900)
  (out/'console.txt').write_text(log)
+ if not full:
+  tight=simulate(out/'tight','tb_track_region',src,parameters=['-gTIGHT=1'],plus=['+STIM='+stim.as_posix()],eram=True)
+  (out/'tight/console.txt').write_text(tight)
  # Prove the preceding implementation fails exactly the same new test vector.
  original=subprocess.check_output(['git','show','4d0f779cefd680363b8a3f0d4d5c33a42d81197f:'+OBSERVER.relative_to(ROOT).as_posix()],cwd=ROOT)
  oldfile=out/'legacy_observer.v';oldfile.write_bytes(original)

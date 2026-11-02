@@ -33,13 +33,8 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
     wire [3:0] mask;
     genvar lane;
     generate for(lane=0;lane<4;lane=lane+1)begin:g_class
-        wire raw_hit;
         wire [7:0] r=rgb[95-lane*24-:8],g=rgb[87-lane*24-:8],b=rgb[79-lane*24-:8];
-        wire [7:0] red_limit=r-(r>>2);
-        color_classify #(.TARGET_CLASS(0),.HUE_HALF_WIDTH_DEG(30),.C_MIN(24),.V_MIN(32)) u_class(
-            .I_r(r),.I_g(g),.I_b(b),.O_hit(raw_hit));
-        // Relative channel dominance rejects warm near-neutral highlights.
-        assign mask[3-lane]=raw_hit && g<=red_limit && b<=red_limit;
+        vision_red_classify u_class(.r(r),.g(g),.b(b),.hit(mask[3-lane]));
     end endgenerate
     wire det_ready,det_valid,det_present;wire [31:0] det_sid,det_fid;
     wire [19:0] det_count;wire [10:0] dx0,dx1,dcx;wire [9:0] dy0,dy1,dcy;
@@ -50,7 +45,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
     vision_red_run_stats u_stats(
         .clk(clk),.rst_n(rst_n),.valid(valid && active && (!finished || user)),.mask(mask),
         .x(px),.y(py),.eol(last),.eof(pixel_eof),.good(frame_good && !abort),
-        .sid(pixel_sid),.fid(pixel_fid),
+        .sid(sid),.fid(fid),
         .res_sid(det_sid),.res_fid(det_fid),.result_valid(det_valid),
         .present(det_present),.count(det_count),
         .xmin(dx0),.xmax(dx1),.cx(dcx),.ymin(dy0),.ymax(dy1),.cy(dcy),.ready(det_ready));
@@ -147,7 +142,6 @@ module vision_red_run_stats(
     reg row_pending,row_eof,row_good;
     reg [9:0] ry,rlength;
     reg [8:0] rl,rr,previous_left,previous_right;
-    reg [31:0] row_sid,row_fid;
     reg chain_active;
     reg [8:0] chain_left,chain_right,best_left,best_right;
     reg [9:0] chain_top,best_top,best_bottom;
@@ -170,7 +164,10 @@ module vision_red_run_stats(
     wire [11:0] xsum={1'b0,final_left,2'b00}+{1'b0,final_right,2'b11};
     wire [10:0] ysum={1'b0,final_top}+{1'b0,final_bottom};
     assign ready=row_pending && row_eof;
-    assign res_sid=row_sid;assign res_fid=row_fid;
+    // Parent tokens advance only on the next SOF clock edge. ready is
+    // consumed on that edge, so its pre-edge tokens still identify this EOF.
+    // Reset drops row_pending; a new-session barrier still flushes the guard.
+    assign res_sid=sid;assign res_fid=fid;
     assign result_valid=row_good;
     assign present=final_area!=0;
     assign count={final_area,2'b00};
@@ -180,7 +177,7 @@ module vision_red_run_stats(
         if(!rst_n)begin
             run_left<=0;run_len<=0;row_len<=0;row_left<=0;row_right<=0;
             row_pending<=0;row_eof<=0;row_good<=0;ry<=0;rlength<=0;rl<=0;rr<=0;
-            row_sid<=0;row_fid<=0;previous_left<=0;previous_right<=0;
+            previous_left<=0;previous_right<=0;
             chain_active<=0;chain_left<=0;chain_right<=0;chain_top<=0;chain_area<=0;
             best_area<=0;best_left<=0;best_right<=0;best_top<=0;best_bottom<=0;
         end else begin
@@ -192,7 +189,7 @@ module vision_red_run_stats(
                 if(longer)begin row_left<=next_left;row_right<=bx;end
                 if(eol)begin
                     ry<=y;rlength<=win_len;rl<=win_left;rr<=win_right;
-                    row_eof<=eof;row_good<=good;row_sid<=sid;row_fid<=fid;
+                    row_eof<=eof;row_good<=good;
                 end
             end
             if(row_pending)begin
@@ -208,4 +205,17 @@ module vision_red_run_stats(
             end
         end
     end
+endmodule
+
+// MAIN specialization of red W30/C24/V32 plus relative channel dominance.
+// R dominates when G/B<=R-floor(R/4), hence max=R, min=min(G,B).
+// Cancel positive common factor30: 60*abs(G-B)<=30*C iff 2*abs(G-B)<=C.
+// Exhaustively checked against the unchanged imported classifier for every
+// one of the 16777216 RGB888 values. No new color decision is introduced here.
+module vision_red_classify(input [7:0] r,g,b,output hit);
+    wire [7:0] limit=r-(r>>2);
+    wire [7:0] low=(g<b)?g:b;
+    wire [7:0] diff=(g>b)?g-b:b-g;
+    wire [8:0] chroma={1'b0,r}-{1'b0,low};
+    assign hit=r>=8'd32 && g<=limit && b<=limit && chroma>=9'd24 && {diff,1'b0}<=chroma;
 endmodule
