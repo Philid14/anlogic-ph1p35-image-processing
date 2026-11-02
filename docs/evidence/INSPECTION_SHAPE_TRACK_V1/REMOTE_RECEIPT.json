@@ -1,0 +1,27 @@
+{
+  "version": "INSPECTION_SHAPE_TRACK_V1",
+  "branch": "codex/main/inspection-shape-track-v1",
+  "tag": "inspection-shape-track-v1-candidate",
+  "tag_object": "3827ebb38d762e45ad0cd551b8632e038fb9412e",
+  "archive_commit": "8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3",
+  "source_commit": "517697c7f3ad3328ed62a976867b5185fbcb7df0",
+  "bit_sha256": "5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a",
+  "remote": "origin",
+  "remote_visibility": "private",
+  "verified_remote_refs": {
+    "refs/heads/codex/main/inspection-shape-track-v1": "8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3",
+    "refs/tags/inspection-shape-track-v1-candidate": "3827ebb38d762e45ad0cd551b8632e038fb9412e",
+    "refs/tags/inspection-shape-track-v1-candidate^{}": "8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3"
+  },
+  "actual_td_inputs_verified": 89,
+  "historical_bits_verified": 28,
+  "pr_number": 28,
+  "pr_url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/28",
+  "draft": true,
+  "merged": false,
+  "push_status": "SUCCESS",
+  "board_test": "NOT_RUN",
+  "verification_time": "2026-11-02T14:07:17.244673+08:00",
+  "scope": "Remote refs match immutable local objects; tagged bit SHA and all tagged/source-commit TD inputs verified. No tag moved, no PR merged.",
+  "project_entry_verified": true
+}

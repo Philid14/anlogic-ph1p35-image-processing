@@ -428,3 +428,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Bit artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/camera_to_dsi_display.bit；SHA256 5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a。
 - 数字验证：18帧720p ISP/打包器、2帧D/R绘图、4帧背景缓存、MAIN TRACK128×96、160帧几何/240换算、字库/配置RAM/复位/选择等通过；不是实板证据。
 - Board Test NOT_RUN，FIFO/Gray、资源紧张和实际反光/测量误差/跟踪滞后待验收。保留候选及全部历史；按BOARD_TEST完成CAL→空背景→工件及TRACK对照，S稳态若增长先查完整性。停止候选开发，不自动合并、不自行下一版。
+
+- 发布核对：候选归档commit 8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3；Draft [PR #28](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/28) 依赖未合并#27。Private origin分支/tag实际push成功；远程tag内bit SHA、89个TD输入与实际构建源码闭环核对通过，28份历史bit未变。见REMOTE_RECEIPT.json；仍NOT_RUN，等待实板，不自动合并或进入下一版。

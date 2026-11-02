@@ -72,3 +72,5 @@ CAL中短按K4仍是读尺；BINARY/EDGE下K4短-10/长+10不变；TRACK/MOTION�
 - Board Test Status: NOT_RUN。完成候选后停止，等待用户实板反馈。
 
 详见INSPECTION_SHAPE_TRACK_V1_DESIGN.md、BOARD_TEST.md。回滚使用RULER_CM_CAL_V1归档bit，SHA256 6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2，不依赖本轮临时构建目录。
+
+- 发布核对：候选归档commit 8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3；Draft [PR #28](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/28) 依赖未合并#27。Private origin分支/tag实际push成功；远程tag内bit SHA、89个TD输入与实际构建源码闭环核对通过，28份历史bit未变。见REMOTE_RECEIPT.json；仍NOT_RUN，等待实板，不自动合并或进入下一版。
