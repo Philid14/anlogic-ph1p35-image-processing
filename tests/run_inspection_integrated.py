@@ -37,7 +37,7 @@ def vectors():
  return stim,pack,words
 def main():
  stim,pack,words=vectors();print('V5 vectors ready',words,flush=True)
- src=[ROOT/'tests/tb_inspection_integrated_stream.sv']+[p for p in sources() if p.name!='vision_eram_contract.v']+[HDL/'vision/inspection_font_rom.v',HDL/'vision/measure_background.v']
+ src=[ROOT/'tests/tb_inspection_integrated_stream.sv']+[p for p in sources() if p.name!='vision_eram_contract.v']+[HDL/'vision/inspection_font_rom.v',HDL/'vision/measure_background.v',HDL/'vision/inspection_config_delay.v']
  log=simulate(OUT,'tb_inspection_integrated_stream',src,parameters=['-g'+v for v in ('WIDTH=1280','HEIGHT=720','COMPARE=1','INSPECTION=1','AUTO_DIMENSION=1','USABILITY_ENABLE=1','INSPECTION_V4=1')],plus=[f'+STIM={stim.as_posix()}',f'+PACK={pack.as_posix()}',f'+WORDS={words}'],eram=True,timeout=1000)
  (OUT/'console.txt').write_text(log);(OUT/'results.json').write_text(json.dumps(dict(passed=True,frames=9,beats=2073600,words=words,sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}),indent=2)+'\n');print(log[-900:])
 if __name__=='__main__':main()

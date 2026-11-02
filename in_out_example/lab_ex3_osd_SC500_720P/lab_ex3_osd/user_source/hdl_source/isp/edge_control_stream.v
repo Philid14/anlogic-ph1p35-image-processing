@@ -48,7 +48,7 @@ module edge_control_stream #(
     reg [95:0] original_p [0:EDGE_STAGES-1];
     reg [95:0] gray_p [0:EDGE_STAGES-1];
     reg [95:0] binary_p [0:EDGE_STAGES-1];
-    reg [18:0] config_p [0:EDGE_STAGES-1];
+    wire [18:0] config_p [0:EDGE_STAGES-1];
     reg [EDGE_STAGES-1:0] valid_p, user_p, last_p;
     integer i;
     wire [95:0] gray_now, binary_now;
@@ -78,24 +78,6 @@ module edge_control_stream #(
             last_p <= {last_p[EDGE_STAGES-2:0],I_last};
         end
     end
-    // Like RGB payload, delayed config is observed only with its delayed
-    // valid/SOF. Active config and all control-valid bits still reset.
-    // Every accepted first beat carries fully replaced config of the SAME
-    // depth, allowing native shift storage rather than 513 resettable FFs.
-    generate if(INSPECTION_V5)begin:g_config_shift
-        integer ci;
-        always @(posedge clk)begin
-            config_p[0]<=beat_config;
-            for(ci=1;ci<EDGE_STAGES;ci=ci+1)config_p[ci]<=config_p[ci-1];
-        end
-    end else begin:g_config_reset
-        integer ci;
-        always @(posedge clk or negedge rst_n)begin
-            if(!rst_n)for(ci=0;ci<EDGE_STAGES;ci=ci+1)config_p[ci]<=RESET_CONFIG;
-            else begin config_p[0]<=beat_config;
-                for(ci=1;ci<EDGE_STAGES;ci=ci+1)config_p[ci]<=config_p[ci-1];end
-        end
-    end endgenerate
     wire [95:0] edge_data,stable_edge_data;
     wire [1:0] edge_support;
     edge_detect_96 #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
@@ -211,7 +193,7 @@ module edge_control_stream #(
     end endgenerate
     reg [3:0] ui_frame;
     wire [3:0] ui_beat=I_user?ui_switches:ui_frame;
-    reg [3:0] ui_pipe[0:EDGE_STAGES-1];
+    wire [3:0] ui_pipe[0:EDGE_STAGES-1];
     integer ui_i;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
@@ -220,17 +202,24 @@ module edge_control_stream #(
             if(I_user)ui_frame<=ui_switches;
         end
     end
-    generate if(INSPECTION_V5)begin:g_ui_shift
-        integer si;always @(posedge clk)begin
-            ui_pipe[0]<=ui_beat;
-            for(si=1;si<EDGE_STAGES;si=si+1)ui_pipe[si]<=ui_pipe[si-1];
+    generate if(INSPECTION_V5)begin:g_config_ram
+        wire[22:0] first,spatial,final_config;
+        inspection_config_delay #(.TAP(SPATIAL_STAGES),.DEPTH(EDGE_STAGES)) u_delay(
+            .clk(clk),.rst_n(rst_n),.data({ui_beat,beat_config}),
+            .first(first),.spatial(spatial),.final_data(final_config));
+        for(genvar c=0;c<EDGE_STAGES;c=c+1)begin:g_taps
+            assign config_p[c]=c==0?first[18:0]:c==SPATIAL_STAGES-1?spatial[18:0]:c==EDGE_STAGES-1?final_config[18:0]:19'd0;
+            assign ui_pipe[c]=c==0?first[22:19]:c==EDGE_STAGES-1?final_config[22:19]:4'd0;
         end
-    end else begin:g_ui_reset
-        integer si;always @(posedge clk or negedge rst_n)begin
-            if(!rst_n)for(si=0;si<EDGE_STAGES;si=si+1)ui_pipe[si]<=0;
-            else begin ui_pipe[0]<=ui_beat;
-                for(si=1;si<EDGE_STAGES;si=si+1)ui_pipe[si]<=ui_pipe[si-1];end
+    end else begin:g_config_legacy
+        reg[18:0] cp[0:EDGE_STAGES-1];reg[3:0] sp[0:EDGE_STAGES-1];integer ci;
+        always @(posedge clk or negedge rst_n)begin
+            if(!rst_n)for(ci=0;ci<EDGE_STAGES;ci=ci+1)begin cp[ci]<=RESET_CONFIG;sp[ci]<=0;end
+            else begin cp[0]<=beat_config;sp[0]<=ui_beat;
+                for(ci=1;ci<EDGE_STAGES;ci=ci+1)begin cp[ci]<=cp[ci-1];sp[ci]<=sp[ci-1];end
+            end
         end
+        for(genvar c=0;c<EDGE_STAGES;c=c+1)begin:g_taps assign config_p[c]=cp[c];assign ui_pipe[c]=sp[c];end
     end endgenerate
     wire [95:0] compare_data;
     wire [18:0] compare_config;wire [3:0] compare_switches;wire [2:0] compare_ruler;

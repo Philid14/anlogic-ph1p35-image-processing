@@ -1,5 +1,5 @@
-// Empty-plane grayscale reference at16x16 cells. All pixels contribute to
-// training; inference compares EVERY pixel with its saved cell mean. Both
+// Empty-plane grayscale reference at16x16 cells. Four spaced samples along
+// each cell's center row form its reference; inference compares EVERY pixel. Both
 // darker and brighter differences are foreground. Not recovery of clipping.
 // Two output cycles, statistics branch only. No image/video backpressure.
 module measure_background #(
@@ -17,23 +17,19 @@ module measure_background #(
  // x/y advance only on valid. Finished+geometry+no-extra-beat already proves
  // exact raster size; a second full-frame beat counter is redundant.
  wire complete=armed && finished && !bad && cells_written==CELLS;
- reg[15:0]row_sum[0:COLS-1];reg[11:0]horizontal;
+ reg[9:0]horizontal;
  wire[10:0]col=(px-X0)>>4;
  wire[10:0]address=((py-Y0)>>4)*COLS+col;
- wire[9:0]beat_sum={2'b0,gray[31:24]}+{2'b0,gray[23:16]}+{2'b0,gray[15:8]}+{2'b0,gray[7:0]};
- wire[11:0]hsum=(px[3:0]==0?12'd0:horizontal)+beat_sum;
- wire[15:0]vsum=(py[3:0]==0?16'd0:row_sum[col])+hsum;
- wire[16:0]rounded={1'b0,vsum}+17'd128;
- wire block_end=capturing && valid && in_area && px[3:0]==12;
- wire cell_end=block_end && py[3:0]==15;
+ wire[9:0]hsum=(px[3:0]==0?10'd0:horizontal)+{2'b0,gray[31:24]};
+ wire[9:0]rounded=hsum+10'd2;
+ wire cell_end=capturing && valid && in_area && px[3:0]==12 && py[3:0]==8;
  wire[7:0]background;
  PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(8),.DATA_WIDTH_B(8),.ADDR_WIDTH_A(11),.ADDR_WIDTH_B(11),
  .DATA_DEPTH_A(2048),.DATA_DEPTH_B(2048),.MODE("DP"),.CLKMODE("SYNC"),.REGMODE_A("NOREG"),.REGMODE_B("NOREG"),
  .INIT_FILE("NONE"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_reference(
- .clka(clk),.cea(cell_end),.ocea(1'b1),.addra(address),.dia(rounded[15:8]),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
+ .clka(clk),.cea(cell_end),.ocea(1'b1),.addra(address),.dia(rounded[9:2]),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
  .clkb(clk),.ceb(valid && in_area && frame_use && !capturing),.oceb(1'b1),.addrb(address),.dib(8'd0),.web(1'b0),.rstb(1'b0),.beb(1'b1),.dob(background),
  .ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());
- always @(posedge clk)if(block_end)row_sum[col]<=vsum;
  reg[31:0]gray_d;reg[3:0]fallback_d;reg v_d,u_d,l_d,bright_d,use_d,in_area_d;
  reg[7:0]sample;reg signed[8:0]difference;integer k;
  always @(posedge clk or negedge rst_n)begin

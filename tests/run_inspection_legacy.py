@@ -7,7 +7,7 @@ OUT=ROOT/'tmp/inspection_shape_track/legacy'
 def main():
     OUT.mkdir(parents=True,exist_ok=True)
     stim,pack=ROOT/'tmp/ruler_cm/stream_r1/stim.txt',ROOT/'tmp/ruler_cm/stream_r1/pack.txt';words=1555200;beats=2073600;print('CM full ISP vectors ready',beats,words,flush=True)
-    top='tb_inspection_legacy_stream';src=[ROOT/'tests'/(top+'.sv')]+[p for p in sources() if p.name!='vision_eram_contract.v']+[HDL/'vision/inspection_font_rom.v',HDL/'vision/measure_background.v']
+    top='tb_inspection_legacy_stream';src=[ROOT/'tests'/(top+'.sv')]+[p for p in sources() if p.name!='vision_eram_contract.v']+[HDL/'vision/inspection_font_rom.v',HDL/'vision/measure_background.v',HDL/'vision/inspection_config_delay.v']
     hashes={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}
     log=simulate(OUT,top,src,parameters=['-g'+v for v in ('WIDTH=1280','HEIGHT=720','COMPARE=1','INSPECTION=1','AUTO_DIMENSION=1','USABILITY_ENABLE=1','INSPECTION_V4=1')],plus=[f'+STIM={stim.as_posix()}',f'+PACK={pack.as_posix()}',f'+WORDS={words}'],eram=True,timeout=900)
     assert hashes=={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}

@@ -14,12 +14,14 @@ module planar_measure_stats #(
     reg[10:0] x,y;wire[10:0] px=user?0:x,py=user?0:y;
     reg armed,bad,finished;reg[15:0] seq;
     reg polarity;reg[7:0] cut;
-    reg[10:0] minx,maxx,miny,maxy,row_min,row_max,row_count,rows;
-    reg[19:0] area;
+    localparam COUNT_W=SHAPE_ENABLE?7:11,AREA_W=SHAPE_ENABLE?7:20;
+    reg[10:0] minx,maxx,miny,maxy,row_min,row_max,rows;
+    reg[COUNT_W-1:0]row_count;
+    reg[AREA_W-1:0] area;
     reg[1:0] run_h,run_v;
     reg[10:0] hx_left,hx_right,vy_top,vy_bottom;
     reg hx_lfound,hx_rfound,vy_tfound,vy_bfound,hcenter,vcenter;
-    reg[10:0] next_min,next_max,next_count;
+    reg[10:0] next_min,next_max;reg[COUNT_W-1:0]next_count;
     reg[1:0] next_run;
     reg[10:0] next_hleft,next_hright,next_vtop,next_vbottom;
     reg next_hlf,next_hrf,next_vtf,next_vbf,next_hcenter,next_vcenter;
@@ -55,9 +57,9 @@ module planar_measure_stats #(
                         if(next_run==3)begin
                             start=q-2;
                             if(start<next_min)next_min=start;
-                            next_max=q;next_count=next_count+3;
+                            next_max=q;if(!SHAPE_ENABLE || next_count<64)next_count=next_count+3;
                         end
-                    end else begin next_max=q;next_count=next_count+1'b1;end
+                    end else begin next_max=q;if(!SHAPE_ENABLE || next_count<64)next_count=next_count+1'b1;end
                     if(py==CY && next_run==3)begin
                         if(q<CX)begin next_hleft=q;next_hlf=1;end
                         if(q>=CX && !next_hrf)begin
@@ -93,6 +95,7 @@ module planar_measure_stats #(
                 envelope<=(bbox_area>>1)+(bbox_area>>2)+(bbox_area>>3);
         end
     end
+    wire[7:0]small_area={1'b0,area[6:0]}+{1'b0,next_count[6:0]};
     wire geometry=last!=(px==WIDTH-4);
     // Raster counters advance only on valid. Correct EOL geometry and one
     // finished raster, with no later beats, prove the exact frame size.
@@ -138,7 +141,8 @@ module planar_measure_stats #(
             if(px==WIDTH-4)begin
                 if(next_count>=MIN_ROW && py>=Y0 && py<Y1)begin
                     if(next_min<minx)minx<=next_min;if(next_max>maxx)maxx<=next_max;
-                    if(py<miny)miny<=py;maxy<=py;rows<=rows+1'b1;area<=area+next_count;
+                    if(py<miny)miny<=py;maxy<=py;rows<=rows+1'b1;
+                    if(SHAPE_ENABLE)area<=small_area>=64?7'd64:small_area[6:0];else area<=area+next_count;
                 end
                 row_min<=2047;row_max<=0;row_count<=0;run_h<=0;
             end
