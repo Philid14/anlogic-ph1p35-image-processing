@@ -21,7 +21,7 @@ The new same-input tests reject both; a24x24 red target amid outliers yields
 40..63/32..55,576 support pixels, rather than a full-frame box.
 
 Only compiled `vision_source_observer.v` changes. The MAIN-owned adapter
-contains the new spatial selector. TARGET's classifier, statistics, tracking
+contains the new spatial selector and an exhaustively equivalent fixed-red classifier. TARGET's classifier, statistics, tracking
 guard and all teammate files remain byte-identical. The original statistics
 module remains archived and in the source list but is no longer instantiated.
 Notice to TARGET: MAIN admission/result semantics change as described below;
@@ -31,7 +31,8 @@ MOTION, DDR/MIPI/HDMI, PLL/pins/SDC and old archived bits are frozen.
 
 ## Implementation and interface semantics
 
-1. Existing red hue±30°,chroma>=24,max>=32 predicate is retained. MAIN additionally
+1. Existing red hue±30°,chroma>=24,max>=32 predicate is retained mathematically,
+   specialized in MAIN rather than instantiating the generic classifier. MAIN additionally
    requires G and B <= R-floor(R/4), rejecting warm near-neutral highlights.
    This may reject very pale pink/low-saturation red, intentionally.
 2. Each aligned4-pixel group needs at least3 red hits. Each row retains only

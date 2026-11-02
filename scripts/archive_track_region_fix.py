@@ -15,8 +15,7 @@ def main():
  for case in CASES:
   folder=ROOT/'tmp/track_region_fix'/case;result=json.loads((folder/'results.json').read_text());assert result['passed']
   for rel,digest in result['sources'].items():assert sha(ROOT/rel)==digest,rel
-  native=folder/'SIM_SOURCE_MANIFEST.json'
-  if native.exists():
+  for native in folder.rglob('SIM_SOURCE_MANIFEST.json'):
    for rel,digest in json.loads(native.read_text()).items():assert sha(Path(rel))==digest,rel
  for case in ('legacy','integrated'):
   r=json.loads((ROOT/'tmp/track_region_fix'/case/'results.json').read_text());assert (r['frames'],r['beats'],r['words'])==(9,2073600,1555200)
