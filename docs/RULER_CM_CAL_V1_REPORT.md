@@ -55,7 +55,7 @@ Setup/Hold WNS **+0.145/+0.020ns**、TNS均0；STA coverage95.66%。
 - [BUILD_INFO](../artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.md)与完整构建/资源/STA/原生回归证据已归档。
 - Git Status：显式提交本任务；用户原有GITHUB_REFERENCE_RESEARCH修改和未跟踪资料保留，不宣称全工作区clean。
 - Remote：https://github.com/Philid14/anlogic-ph1p35-image-processing.git（Private）。
-- Push Status / Draft PR：待本地归档提交后发布，尚不把本地bit称为已上传；不合并。
+- Push Status / Draft PR：分支和candidate tag已实际push成功；[Draft PR #27](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/27)依赖#24，未合并。归档commit 67204bf5f0a2caae1b5b657bb3b684799deb4ec8；远程tag内bit SHA及84个TD输入与实际构建源码核对通过，见[REMOTE_RECEIPT](evidence/RULER_CM_CAL_V1/REMOTE_RECEIPT.json)。
 - Board Test：NOT_RUN。完成本候选即停止，不自行开发下一版。
 
 回滚VISION_TRACK_MOTION_V1 / vision-track-motion-v1-candidate；SHA256 f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0。历史bit/tag未改变。

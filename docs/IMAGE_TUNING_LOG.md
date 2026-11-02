@@ -415,3 +415,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Bit artifacts/bitstreams/RULER_CM_CAL_V1/camera_to_dsi_display.bit；SHA256 6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2。
 - Board Test Result：NOT_RUN。公制厘米长线/清楚水平/干净浅色背景是前提，不是OCR，不保证无倍数误认；新CAL OK后独立已知尺寸复核。
 - 是否保留/下一步：保留候选和所有历史；按BOARD_TEST验证实际尺子成功率及粗尺度误差、旧功能和稳态B/S。R6或溢出增长先查完整性。完成后停止，不合并PR、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit 67204bf5f0a2caae1b5b657bb3b684799deb4ec8；Draft PR #27依赖#24，未合并。分支/candidate tag已实际push，远程tag内bit SHA和84个TD输入与实际构建源码闭环核对通过，历史bit不变；见RULER_CM_CAL_V1 REMOTE_RECEIPT。仍NOT_RUN，等待用户读尺与粗尺度复核，不自行下一版。
