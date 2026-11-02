@@ -44,10 +44,8 @@ module edge_link_pair_3x3 #(
     // 80*(16+8)=1920 logical bits/hop, versus R0's 320*4*2=2560.
     // Read the old word four times; write row1 after its fourth read.
     // Row2 copies registered old mid active bits one clock after that read.
-    reg [15:0] row1[0:WORDS-1];
-    reg [7:0] row2[0:WORDS-1];
     reg [7:0] top_word_s2;
-    reg [15:0] mid_word_s2;
+    wire [15:0] mid_word_s2;
     reg [11:0] pending;
     reg [3:0] bot_s2;
     reg [10:0] x_s2,y_s2;
@@ -61,14 +59,51 @@ module edge_link_pair_3x3 #(
         ({pending,labels_s1} << (4*(3-x_s1[1:0])));
     always @(posedge clk) begin
         if(valid_p[0]) begin
-            top_word_s2<=row2[read_address];mid_word_s2<=row1[read_address];bot_s2<=labels_s1;
+            bot_s2<=labels_s1;
             pending<={pending[7:0],labels_s1};
-            if(x_s1[1:0]==3 || ((GROUPS%4!=0) && x_s1==GROUPS-1)) row1[read_address]<=assembled;
         end
-        if(valid_p[1] && (x_s2[1:0]==3 || ((GROUPS%4!=0) && x_s2==GROUPS-1)))
-            row2[copy_address]<={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
-                              mid_word_s2[6],mid_word_s2[4],mid_word_s2[2],mid_word_s2[0]};
     end
+    generate if(GROUPS%4==0 && WORDS<=512)begin:g_shared_rows
+        // Port A reads row1 every beat, READBEFOREWRITE on quarter3.
+        // Row2 is prefetched on quarter3 into a register for the next word.
+        // Its old value is cached on quarter0 before port B copies old row1
+        // on quarter1. Thus B never needs different read/write addresses in
+        // one clock. Regions0..WORDS-1 and512..512+WORDS-1 are disjoint.
+        wire prefetch=valid_p[0] && x_s1[1:0]==3;
+        wire copy=valid_p[1] && x_s2[1:0]==0;
+        wire [ADDR_BITS-1:0] next_address=read_address==WORDS-1?0:read_address+1'b1;
+        wire [9:0] a_address=read_address;
+        wire [9:0] b_address=10'd512+(copy?copy_address:next_address);
+        wire [7:0] copied={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
+                          mid_word_s2[6],mid_word_s2[4],mid_word_s2[2],mid_word_s2[0]};
+        wire [15:0] top_prefetched;reg [7:0] top_hold;
+        PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(16),.DATA_WIDTH_B(16),.ADDR_WIDTH_A(10),.ADDR_WIDTH_B(10),
+          .DATA_DEPTH_A(1024),.DATA_DEPTH_B(1024),.MODE("DP"),.CLKMODE("SYNC"),
+          .REGMODE_A("NOREG"),.REGMODE_B("NOREG"),.WRITEMODE_A("READBEFOREWRITE"),
+          .WRITEMODE_B("NORMAL"),.INIT_FILE("NONE"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_rows(
+          .clka(clk),.cea(valid_p[0]),.ocea(1'b1),.addra(a_address),.dia(assembled),.wea(x_s1[1:0]==3),
+          .rsta(1'b0),.bea(1'b1),.doa(mid_word_s2),
+          .clkb(clk),.ceb(prefetch||copy),.oceb(1'b1),.addrb(b_address),.dib({8'd0,copied}),.web(copy),
+          .rstb(1'b0),.beb(1'b1),.dob(top_prefetched),
+          .ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());
+        always @(posedge clk)if(valid_p[0])begin
+            top_word_s2<=x_s1[1:0]==0?top_prefetched[7:0]:top_hold;
+            if(x_s1[1:0]==0)top_hold<=top_prefetched[7:0];
+        end
+    end else begin:g_partial_words
+        // Preserve the established generic partial-word schedule unchanged.
+        reg [15:0] row1[0:WORDS-1];reg [7:0] row2[0:WORDS-1];reg[15:0] mid;
+        assign mid_word_s2=mid;
+        always @(posedge clk)begin
+            if(valid_p[0])begin
+                top_word_s2<=row2[read_address];mid<=row1[read_address];
+                if(x_s1[1:0]==3 || x_s1==GROUPS-1)row1[read_address]<=assembled;
+            end
+            if(valid_p[1] && (x_s2[1:0]==3 || x_s2==GROUPS-1))
+                row2[copy_address]<={mid_word_s2[14],mid_word_s2[12],mid_word_s2[10],mid_word_s2[8],
+                                  mid_word_s2[6],mid_word_s2[4],mid_word_s2[2],mid_word_s2[0]};
+        end
+    end endgenerate
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin x_s2<=0;y_s2<=0;end
         else begin x_s2<=x_s1;y_s2<=y_s1;end
