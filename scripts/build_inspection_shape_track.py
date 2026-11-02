@@ -8,11 +8,11 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/inspection_shape_track/full_r3'
+OUT=ROOT/'tmp/inspection_shape_track/full_r4'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='8dd67021a9f667047bad150125d2e17dd7a33c2a'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','isp/color_compare_osd.v','edge_status_osd.v','vision/vision_source_observer.v','isp/planar_measure_stats.v','isp/engineering_dimension_marks.v')}
-ADDED={HDL+'vision/inspection_font_rom.v',HDL+'vision/inspection_font.dath',HDL+'vision/measure_background.v',HDL+'vision/inspection_config_delay.v'}
+ADDED={HDL+'vision/inspection_font_rom.v',HDL+'vision/inspection_font.dath',HDL+'vision/measure_background.v',HDL+'vision/inspection_config_delay.v',HDL+'vision/inspection_shape_select.v'}
 TD=Path('D:/TD/bin/td_commands_prompt.exe')
 FLOW=Path('D:/TD/doc/scripts/DefaultFlow.tcl')
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -21,7 +21,7 @@ def git(*args):return subprocess.check_output(['git',*args],cwd=ROOT)
 def snapshot():
     head=git('rev-parse','HEAD').decode().strip()
     entries=re.findall(r'<File Path="([^"]+)"',(P/'camera_to_dsi_display.al').read_text(encoding='utf-8'))
-    assert len(entries)==85 and not any('temporal_roi' in x or 'target_frame_system' in x for x in entries)
+    assert len(entries)==86 and not any('temporal_roi' in x or 'target_frame_system' in x for x in entries)
     baseline=json.loads((ROOT/'artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/SOURCE_MANIFEST.json').read_text())['files']
     files={}
     for entry in entries:
@@ -86,7 +86,7 @@ def main():
         sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
-        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated','tmp/inspection_shape_track/reset','tmp/inspection_shape_track/config','tmp/inspection_shape_track/background_full'):
+        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated','tmp/inspection_shape_track/reset','tmp/inspection_shape_track/config','tmp/inspection_shape_track/background_full','tmp/inspection_shape_track/select','tmp/inspection_shape_track/contract'):
             check=json.loads((ROOT/path/'results.json').read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
         for path in ('tmp/inspection_shape_track/legacy',):

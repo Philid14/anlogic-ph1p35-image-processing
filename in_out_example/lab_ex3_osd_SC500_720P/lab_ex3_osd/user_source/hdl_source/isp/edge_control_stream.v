@@ -245,6 +245,9 @@ module edge_control_stream #(
             wire[3:0] measured_pixels;wire mv,mu,ml,mb;wire[7:0] mt;
             if(INSPECTION_V5)begin:g_background
                 wire applied,ready;reg[1:0] bright_pipe;reg[7:0] cut0,cut1;reg background_result,background_frame;
+                inspection_shape_select u_shape(.clk(clk),.rst_n(rst_n),
+                    .enable(ui_switches[1] && !ui_switches[3] && beat_config[18:16]==MODE_ORIGIN),
+                    .long_toggle(clear_toggle),.frame_start(mu),.result_circle(dim_round));
                 measure_background #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_background(
                     .clk(clk),.rst_n(rst_n),.gray({gray_p[0][95:88],gray_p[0][71:64],gray_p[0][47:40],gray_p[0][23:16]}),
                     .fallback_pixels({binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]}),
@@ -261,11 +264,11 @@ module edge_control_stream #(
             end else begin:g_fixed
                 assign measured_pixels={binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]};
                 assign mv=valid_p[0];assign mu=user_p[0];assign ml=last_p[0];assign mb=ui_pipe[0][2];assign mt=config_p[0][7:0];
-                assign dim_background=0;assign bg_status=0;
+                assign dim_round=0;assign dim_background=0;assign bg_status=0;
             end
-            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.SHAPE_ENABLE(INSPECTION_V5),.MIN_ROW(INSPECTION_V5?6:8)) u_dimension(
+            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.SHAPE_ENABLE(0),.COMPACT_COUNT(INSPECTION_V5),.MIN_ROW(INSPECTION_V5?6:8)) u_dimension(
                 .clk(clk),.rst_n(rst_n),.binary_pixels(measured_pixels),
-                .valid(mv),.user(mu),.last(ml),.bright(mb),.round_present(dim_round),
+                .valid(mv),.user(mu),.last(ml),.bright(mb),.round_present(),
                 .threshold(mt),.result_valid(dim_valid),.present(dim_present),
                 .gap_valid(dim_gap),.gap_coords(dim_gap_coords),.sizes(dim_sizes),.box_coords(dim_box),.sample_id(dim_id),
                 .result_threshold(dim_cut),.result_bright(dim_bright));

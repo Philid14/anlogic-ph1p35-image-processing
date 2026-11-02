@@ -18,7 +18,7 @@ def main():
      if bits>>(15-xx)&1:image[y+yy,x+16*n+xx]=ink
  text(452,270,'D   10.0 MM ')
  text(632,341,'R    5.0 MM ')
- text(256,560,'BG:OK   K4 EMPTY AUTO12')
+ text(256,560,'BG:OK   K4 EMPTY AUTO12'.ljust(24)+'K4 HOLD: D/R')
  gold=OUT/'gold.txt'
  with gold.open('w') as f:
   for row in image:

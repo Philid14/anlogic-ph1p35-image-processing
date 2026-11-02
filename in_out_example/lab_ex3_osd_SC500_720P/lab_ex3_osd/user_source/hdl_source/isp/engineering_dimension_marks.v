@@ -139,6 +139,8 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
                 8:character="K";9:character="4";11:character="E";12:character="M";13:character="P";14:character="T";15:character="Y";
                 17:character=background_applied?"A":"C";18:character=background_applied?"U":"U";19:character=background_applied?"T":"T";
                 20:character=background_applied?"O":" ";21:character=background_applied?"1":" ";22:character=background_applied?"2":" ";
+                24:character="K";25:character="4";27:character="H";28:character="O";29:character="L";30:character="D";31:character=":";
+                33:character=round_mode?"D":"W";34:character="/";35:character=round_mode?"R":"H";
                 default:character=" ";
             endcase
         end

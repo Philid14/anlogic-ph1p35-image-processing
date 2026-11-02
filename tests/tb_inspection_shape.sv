@@ -10,7 +10,7 @@ module tb_inspection_shape;
  .applied(applied),.ready(ready),.status(status));
  reg[1:0]bp=0;always @(posedge clk)bp<={bp[0],bright};
  wire complete,present,round_present;wire[43:0]sizes,box_coords,gaps;wire[1:0]gapv;
- planar_measure_stats #(.WIDTH(128),.HEIGHT(128),.X0(16),.X1(112),.Y0(16),.Y1(96),.MIN_ROW(6),.SHAPE_ENABLE(1)) stats(
+ planar_measure_stats #(.WIDTH(128),.HEIGHT(128),.X0(16),.X1(112),.Y0(16),.Y1(96),.MIN_ROW(6),.SHAPE_ENABLE(0),.COMPACT_COUNT(1)) stats(
  .clk(clk),.rst_n(rst),.binary_pixels(pixels),.valid(ov),.user(ou),.last(ol),.bright(bp[1]),.threshold(8'd130),
  .result_valid(complete),.present(present),.round_present(round_present),.sizes(sizes),.box_coords(box_coords),
  .gap_coords(gaps),.gap_valid(gapv),.sample_id(),.result_threshold(),.result_bright());
@@ -71,8 +71,8 @@ module tb_inspection_shape;
   frame(0,0); // training starts
   frame(0,0); // commit, next frame will apply
   check_pixels=1;frame(1,0);publish(1,0,52,52);
-  frame(2,0);publish(1,1,51,49); // top/bottom single pixel tips rejected by 3px rule
-  frame(2,0);publish(1,1,51,49);
+  frame(2,0);publish(1,0,51,49); // top/bottom single pixel tips rejected by 3px rule
+  frame(2,0);publish(1,0,51,49);
   frame(3,0);publish(1,0,52,52);
   frame(4,0);publish(1,0,51,45);
   frame(5,0);publish(1,0,52,52);
@@ -81,7 +81,7 @@ module tb_inspection_shape;
   if(complete||present||round_present)$fatal(1,"malformed frame published");
   clear=1;step(0,0,0,0,0,0);clear=0;if(ready)$fatal(1,"clear");
   request=0;repeat(3)step(0,0,0,0,0,0);frame(0,1);frame(0,0);if(ready||status!=4)$fatal(1,"bad training accepted");
-  $display("PASS background mixed reflectance, polarity, shape circle/square/diamond/T, malformed capture, clear, 2-cycle metadata %0d cycles",n);$finish;
+  $display("PASS background mixed reflectance, polarity, W/H geometry circle/square/diamond/T, malformed capture, clear, 2-cycle metadata %0d cycles",n);$finish;
  end
 endmodule
 
