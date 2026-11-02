@@ -1,0 +1,48 @@
+{
+  "version": "RULER_CM_CAL_V1",
+  "role": "MAIN",
+  "branch": "codex/main/ruler-cm-cal-v1",
+  "source_commit": "9d1eff3e1e88861bfac317c6064c51062282aa4d",
+  "archive_driver_commit": "d620ca440aabc0f92981002c461708b7d1ef6870",
+  "tag": "ruler-cm-cal-v1-candidate",
+  "build_time": "2026-11-02T10:59:43.243923+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/ruler_cm/r0/camera_to_dsi_display.bit",
+  "bit_sha256": "6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2",
+  "resources": {
+    "slice": 20726,
+    "lut6": 19445,
+    "ff": 20230,
+    "eram": 102,
+    "dsp": 25
+  },
+  "resource_delta_vs_VISION": {
+    "slice": 32,
+    "lut6": -52,
+    "ff": -55,
+    "eram": 0,
+    "dsp": -2
+  },
+  "setup_wns_ns": 0.145,
+  "setup_tns_ns": 0.0,
+  "hold_wns_ns": 0.02,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "high_density_warning": true,
+  "extra_common_pixel_cycles": 0,
+  "common_pixel_cycles": 31,
+  "calibration": "Coarse10mm tick pitch: mean4+adjacent intervals per row then two agreeing rows; prefer largest stable pitch across27bands; same pixels-per100mm interface",
+  "limitations": [
+    "Metric ruler/long centimeter ticks are an operator precondition, not OCR/unit recognition",
+    "Only a rough commonX/Y scale; perspective/height/blur/regular background patterns can bias scale",
+    "Full720p reader/768x288 search separately validated; integrated9frame test search height12 for scheduling runtime",
+    "Unchanged inherited FIFO/Gray/thermal/long-run risks and all new features still await physical board validation"
+  ],
+  "route_db_sha256": "d9a4966b37c58c04267fd7ea0223e38e7d61c216314dfc19383ad8bf4fec8826"
+}

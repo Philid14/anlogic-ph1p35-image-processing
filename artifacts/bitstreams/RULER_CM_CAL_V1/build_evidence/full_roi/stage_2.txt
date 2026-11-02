@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_ruler_cm_full_roi -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:07:17 on Nov 01,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS full production720p/768x288 cm search, top and bottom placement, 2 checks 27443319 cycles
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_ruler_cm_full_roi.sv(33)
+#    Time: 274433190 ns  Iteration: 1  Instance: /tb_ruler_cm_full_roi
+# End time: 21:09:44 on Nov 01,2026, Elapsed time: 0:02:27
+# Errors: 0, Warnings: 0

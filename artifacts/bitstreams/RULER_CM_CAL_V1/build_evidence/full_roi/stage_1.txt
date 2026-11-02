@@ -1,0 +1,10 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 21:07:16 on Nov 01,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_ruler_cm_full_roi.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v 
+-- Compiling module tb_ruler_cm_full_roi
+-- Compiling module ruler_area_calibration
+
+Top level modules:
+	tb_ruler_cm_full_roi
+End time: 21:07:16 on Nov 01,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

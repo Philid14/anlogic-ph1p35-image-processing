@@ -403,3 +403,15 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留/下一步：保留本candidate与历史V4；按BOARD_TEST验收，进阶2/4仅“候选集成”不先写正式达标。完成即停止，不合并、不改队友RTL或进入下一版。发布信息另补回执。
 
 - 发布核对：归档commit be226969254331561de1e6376610cd6bf99af601；Draft PR #24依赖#23，未合并。实际分支/candidate tag push成功，tag内bit SHA及84个TD输入与实际构建源码闭环已核对；历史bit未变。见VISION_TRACK_MOTION_V1的REMOTE_RECEIPT；仍NOT_RUN，等待联合上板。
+
+
+## 2026-11-02 RULER_CM_CAL_V1 candidate / MAIN
+
+- 用户实板CAL FAIL/R5（具体bit SHA未核验）后授权改为厘米刻线像素间距平均，接受粗略标尺。基线123186a9/VISION/PR24；分支codex/main/ruler-cm-cal-v1，实际TD源码9d1eff3e1e88861bfac317c6064c51062282aa4d，tag ruler-cm-cal-v1-candidate。
+- 唯一主要变量：原至少24个毫米间距/严格两行8px一致 → 至少五条厘米线、行内平均4+间距、相邻行粗一致，再选全区域较大稳定周期。标题1MM BLACK→1CM LONG；尺度接口仍px/100mm、缓存不增加。
+- 两个正式HDL改变，另外82个TD输入不变；原五算法/颜色/目标跟踪/运动/尺寸绘图、Sensor参数、video/DDR、PLL/引脚/SDC和实体按键/开关语义不改。
+- 数字验证：19项/3992831周期；完整1280x720/768x288读尺27443319周期上下框位置；9帧720p整机（仅读尺搜索高度12，全部288另测）加8帧跟踪运动，3916800拍/2937600打包字逐像素通过，尺度500px/100mm。不是实板精度证据。
+- 完整TD SYN/PHY/final STA/bitgen PASS。Slice20726(+32)、LUT6 19445(-52)、FF20230(-55)、ERAM102(0)、DSP25(-2)，Setup/Hold+0.145/+0.020ns，TNS0，STA95.66%。无新增关键warning类型，仍仅490 Slice/6 ERAM余量。
+- Bit artifacts/bitstreams/RULER_CM_CAL_V1/camera_to_dsi_display.bit；SHA256 6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2。
+- Board Test Result：NOT_RUN。公制厘米长线/清楚水平/干净浅色背景是前提，不是OCR，不保证无倍数误认；新CAL OK后独立已知尺寸复核。
+- 是否保留/下一步：保留候选和所有历史；按BOARD_TEST验证实际尺子成功率及粗尺度误差、旧功能和稳态B/S。R6或溢出增长先查完整性。完成后停止，不合并PR、不自行下一版。发布回执另补。

@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "width": 1280,
+  "height": 720,
+  "roi": [
+    256,
+    192,
+    768,
+    288
+  ],
+  "checks": 2,
+  "sources": {
+    "tests/tb_ruler_cm_full_roi.sv": "3a1ff0ee9436bf3b8244db69e983b078f828aba120f52a7dde487ab4047e680b",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v": "0e6cd255e794514c15454cc56fe35b791894e097558f1e5af67bea09f8184795"
+  }
+}
