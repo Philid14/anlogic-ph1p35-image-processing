@@ -1,6 +1,6 @@
 """TRACK_REGION_FIX_V1 build with explicit SYN/PHY/STA/bitgen gates, never stale bit.
 
-Approved MAIN UI, font, pin and dimension additions only; frozen color detector.
+Only MAIN target observation changes; imported TARGET RTL and all other inputs frozen.
 User dirty research notes are preserved and excluded from actual TD inputs.
 """
 from pathlib import Path
@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/track_region_fix/full_r0'
+OUT=ROOT/'tmp/track_region_fix/full_r1'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='4d0f779cefd680363b8a3f0d4d5c33a42d81197f'
 CHANGED={HDL+'vision/vision_source_observer.v'}
@@ -106,4 +106,3 @@ def main():
     for key in ('files','al_sha256','old_bits'):assert after[key]==current[key],key+' changed during build'
     print('PASS',args.stage,'actual TD inputs unchanged; board NOT_RUN',flush=True)
 if __name__=='__main__':main()
-

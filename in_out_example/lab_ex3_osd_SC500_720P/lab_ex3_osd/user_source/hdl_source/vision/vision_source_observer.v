@@ -122,14 +122,15 @@ endmodule
 // This is deliberately NOT general connected-component labeling: only one
 // run per row is retained. Fine/hollow/multiple red targets are limitations.
 // X bounds are quantized to blocks of four; count is accepted block area.
-// Two register stages after the last beat; no added common pixel latency.
+// Fields are consumed only with ready; the parent atomically registers LAST.
+// No duplicate result bank, no added common pixel latency.
 module vision_red_run_stats(
     input clk,rst_n,valid,input [3:0] mask,
     input [10:0] x,input [9:0] y,input eol,eof,good,
     input [31:0] sid,fid,
-    output reg [31:0] res_sid,res_fid,
-    output reg result_valid,present,ready,output reg [19:0] count,
-    output reg [10:0] xmin,xmax,cx,output reg [9:0] ymin,ymax,cy
+    output [31:0] res_sid,res_fid,
+    output result_valid,present,ready,output [19:0] count,
+    output [10:0] xmin,xmax,cx,output [9:0] ymin,ymax,cy
 );
     wire hit=(mask[3] && mask[2] && (mask[1] || mask[0])) ||
              (mask[1] && mask[0] && (mask[3] || mask[2]));
@@ -168,6 +169,13 @@ module vision_red_run_stats(
     wire [9:0] final_bottom=wins?ry:best_bottom;
     wire [11:0] xsum={1'b0,final_left,2'b00}+{1'b0,final_right,2'b11};
     wire [10:0] ysum={1'b0,final_top}+{1'b0,final_bottom};
+    assign ready=row_pending && row_eof;
+    assign res_sid=row_sid;assign res_fid=row_fid;
+    assign result_valid=row_good;
+    assign present=final_area!=0;
+    assign count={final_area,2'b00};
+    assign xmin={final_left,2'b00};assign xmax={final_right,2'b11};assign cx=xsum[11:1];
+    assign ymin=final_top;assign ymax=final_bottom;assign cy=ysum[10:1];
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             run_left<=0;run_len<=0;row_len<=0;row_left<=0;row_right<=0;
@@ -175,10 +183,7 @@ module vision_red_run_stats(
             row_sid<=0;row_fid<=0;previous_left<=0;previous_right<=0;
             chain_active<=0;chain_left<=0;chain_right<=0;chain_top<=0;chain_area<=0;
             best_area<=0;best_left<=0;best_right<=0;best_top<=0;best_bottom<=0;
-            ready<=0;result_valid<=0;present<=0;count<=0;
-            res_sid<=0;res_fid<=0;xmin<=0;xmax<=0;cx<=0;ymin<=0;ymax<=0;cy<=0;
         end else begin
-            ready<=row_pending && row_eof;
             row_pending<=valid && eol;
             if(valid)begin
                 run_len<=eol?10'd0:next_len;
@@ -199,17 +204,6 @@ module vision_red_run_stats(
                 else if(wins)begin
                     best_area<=new_area;best_left<=new_left;best_right<=new_right;
                     best_top<=new_top;best_bottom<=ry;
-                end
-                if(row_eof)begin
-                    res_sid<=row_sid;res_fid<=row_fid;result_valid<=row_good;
-                    present<=row_good && final_area!=0;
-                    count<=row_good?{final_area,2'b00}:20'd0;
-                    xmin<=row_good && final_area!=0?{final_left,2'b00}:11'd0;
-                    xmax<=row_good && final_area!=0?{final_right,2'b11}:11'd0;
-                    cx<=row_good && final_area!=0?xsum[11:1]:11'd0;
-                    ymin<=row_good && final_area!=0?final_top:10'd0;
-                    ymax<=row_good && final_area!=0?final_bottom:10'd0;
-                    cy<=row_good && final_area!=0?ysum[10:1]:10'd0;
                 end
             end
         end

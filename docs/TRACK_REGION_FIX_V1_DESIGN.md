@@ -48,8 +48,8 @@ MOTION, DDR/MIPI/HDMI, PLL/pins/SDC and old archived bits are frozen.
    LAST means last completed observation, possibly one capture frame behind
    the moving image; this is not new DDR/display identity matching.
 7. Existing authoritative source geometry/abort/session validation qualifies
-   results. The selector publishes after the final-row stage; MAIN reads it
-   two clocks after EOF, one clock later than before. Common video latency
+   results. The selector exposes its final-row stage only with ready; MAIN atomically
+   registers it one clock after EOF, as in the old adapter. Common video latency
    stays31 clocks. Guard acquisition, stale handling and disappearance semantics
    remain; no target immediately disables the displayed bbox.
 
@@ -74,3 +74,5 @@ SYN/PHY/STA/bitgen gates reject area/timing failure and stale bit reuse.
 Physical board success is pending. Synthetic improvement does not prove all
 camera backgrounds will work. Do not increase confidence based on simulation
 alone; use empty-plane/target/move/remove board comparison and check artifacts.
+
+First implementation e8cee699 passed all14 native groups but failed PHY packing:21312>21216. No bit. R1 removes only the duplicate internal result bank; MAIN LAST remains registered, frame-atomic, and read-only across the next frame.
