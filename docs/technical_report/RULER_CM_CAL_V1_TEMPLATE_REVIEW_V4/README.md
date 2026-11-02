@@ -12,5 +12,6 @@
 - [实验记录空表CSV](EXPERIMENT_RECORD_TEMPLATE.csv)
 - [模板对照与明确调整](TEMPLATE_COMPARISON.md)
 - [证据索引及SHA](SOURCE_EVIDENCE.json)
+- [相关获奖作品资料与具体改稿建议](AWARD_REPORT_REFERENCES.md)
 
 先复核版本与基础闭环，再做厘米读尺→独立尺寸，随后长稳与颜色/动态。尚缺实物照片与量化数据，不作为已完成实板验收的证明；旧版文档及证据保留。
