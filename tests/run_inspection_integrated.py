@@ -23,7 +23,7 @@ def vectors():
       px=x+lane
       if 256<=px<1024:
        c=ord(message[(px-256)//16]);bits=font.get(c,{}).get(y-560,0)
-       if bits>>(15-((px-256)%16))&1:pixels[lane*3:lane*3+3]=bytes((16,16,48) if rgb[lane*3+1]>=128 else (255,255,128))
+       if bits>>(15-((px-256)%16))&1:pixels[lane*3:lane*3+3]=bytes((16,16,48) if pixels[lane*3+1]>=128 else (255,255,128))
      fields[5]=pixels.hex();current=int(fields[5],16)
     x+=4
     if l:x=0;y+=1

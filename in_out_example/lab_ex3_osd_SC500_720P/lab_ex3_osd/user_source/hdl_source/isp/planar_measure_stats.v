@@ -12,7 +12,7 @@ module planar_measure_stats #(
   output reg [43:0] sizes,box_coords,output reg [43:0] gap_coords,output reg [15:0] sample_id,
   output reg [7:0] result_threshold,output reg result_bright);
     reg[10:0] x,y;wire[10:0] px=user?0:x,py=user?0:y;
-    reg armed,bad,finished;reg[17:0] beats;reg[15:0] seq;
+    reg armed,bad,finished;reg[15:0] seq;
     reg polarity;reg[7:0] cut;
     reg[10:0] minx,maxx,miny,maxy,row_min,row_max,row_count,rows;
     reg[19:0] area;
@@ -94,14 +94,16 @@ module planar_measure_stats #(
         end
     end
     wire geometry=last!=(px==WIDTH-4);
-    wire complete=armed && finished && !bad && beats==(WIDTH/4)*HEIGHT;
+    // Raster counters advance only on valid. Correct EOL geometry and one
+    // finished raster, with no later beats, prove the exact frame size.
+    wire complete=armed && finished && !bad;
     wire object_ok=rows>=MIN_ROWS && area>=MIN_AREA && maxx>=minx && maxy>=miny &&
         minx>X0 && maxx<X1-1 && miny>Y0 && maxy<Y1-1;
     wire gapx_ok=hx_lfound && hx_rfound && !hcenter && hx_right>hx_left+1;
     wire gapy_ok=vy_tfound && vy_bfound && !vcenter && vy_bottom>vy_top+1;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            x<=0;y<=0;armed<=0;bad<=0;finished<=0;beats<=0;seq<=0;
+            x<=0;y<=0;armed<=0;bad<=0;finished<=0;seq<=0;
             polarity<=0;cut<=0;minx<=2047;maxx<=0;miny<=2047;maxy<=0;
             row_min<=2047;row_max<=0;row_count<=0;rows<=0;area<=0;run_h<=0;run_v<=0;
             hx_left<=0;hx_right<=0;vy_top<=0;vy_bottom<=0;
@@ -120,14 +122,13 @@ module planar_measure_stats #(
             // Production ROI starts well after the first beat, so no ROI
             // contribution is discarded when SOF coincides with valid.
             x<=valid?4:0;y<=0;armed<=1;finished<=0;bad<=valid && geometry;
-            beats<=valid?1:0;polarity<=bright;cut<=threshold;
+            polarity<=bright;cut<=threshold;
             minx<=2047;maxx<=0;miny<=2047;maxy<=0;row_min<=2047;row_max<=0;row_count<=0;
             rows<=0;area<=0;run_h<=0;run_v<=0;
             hx_left<=0;hx_right<=0;vy_top<=0;vy_bottom<=0;
             hx_lfound<=0;hx_rfound<=0;vy_tfound<=0;vy_bfound<=0;hcenter<=0;vcenter<=0;
         end else if(valid)begin
             if(!armed || finished || geometry)bad<=1;
-            if(beats<(WIDTH/4)*HEIGHT+1)beats<=beats+1'b1;
             x<=px==WIDTH-4?0:px+4;
             if(px==WIDTH-4)begin y<=py+1'b1;if(py==HEIGHT-1)finished<=1;end
             row_min<=next_min;row_max<=next_max;row_count<=next_count;run_h<=next_run;
