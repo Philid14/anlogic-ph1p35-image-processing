@@ -18,6 +18,7 @@ module edge_control_stream #(
     parameter integer USABILITY_ENABLE = 0,
     parameter integer INSPECTION_V4 = 0,
     parameter integer VISION_ENABLE = 0,
+    parameter integer INSPECTION_V5 = 0,
     parameter integer COMPACT_FONT = 0
 )(
     input clk, input rst_n,
@@ -117,7 +118,7 @@ module edge_control_stream #(
     wire [3:0] target_mark,motion_mark;
     wire [1:0] track_state;wire target_valid;
     wire [10:0] target_x;wire [9:0] target_y;wire [19:0] target_count;
-    wire [31:0] target_frame,motion_frame;wire [11:0] motion_count;
+    wire [43:0] target_box;wire [31:0] target_frame,motion_frame;wire [11:0] motion_count;
     wire [2:0] motion_state;wire motion_valid,observer_error;
     wire [3:0] target_aligned,motion_aligned;
     generate if(VISION_ENABLE && EDGE_STAGES>=4)begin:g_vision
@@ -127,7 +128,7 @@ module edge_control_stream #(
             .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),
             .target_mark(target_mark),.motion_mark(motion_mark),.track_state(track_state),
             .target_valid(target_valid),.target_x(target_x),.target_y(target_y),
-            .target_count(target_count),.target_frame(target_frame),
+            .target_box(target_box),.target_count(target_count),.target_frame(target_frame),
             .motion_ready(),.motion_valid(motion_valid),.motion_count(motion_count),
             .motion_state(motion_state),.motion_frame(motion_frame),
             .complete_toggle(O_capture_toggle),.protocol_error(observer_error));
@@ -146,7 +147,7 @@ module edge_control_stream #(
     end else begin:g_no_vision
         assign target_mark=0;assign motion_mark=0;assign target_aligned=0;assign motion_aligned=0;
         assign track_state=0;assign target_valid=0;assign target_x=0;assign target_y=0;
-        assign target_count=0;assign target_frame=0;assign motion_frame=0;
+        assign target_box=0;assign target_count=0;assign target_frame=0;assign motion_frame=0;
         assign motion_count=0;assign motion_state=0;assign motion_valid=0;
         assign observer_error=0;assign O_capture_toggle=0;
     end endgenerate
@@ -160,7 +161,7 @@ module edge_control_stream #(
             3'd5,3'd6:begin
                 selected_data=VISION_ENABLE?original_p[EDGE_STAGES-1]:stable_edge_data;
                 for(mark_lane=0;mark_lane<4;mark_lane=mark_lane+1)begin
-                    if(VISION_ENABLE && config_p[EDGE_STAGES-1][18:16]==3'd5 && target_aligned[3-mark_lane])
+                    if(VISION_ENABLE && !INSPECTION_V5 && config_p[EDGE_STAGES-1][18:16]==3'd5 && target_aligned[3-mark_lane])
                         selected_data[95-mark_lane*24-:24]=24'h00ff80;
                     if(VISION_ENABLE && config_p[EDGE_STAGES-1][18:16]==3'd6 && motion_aligned[3-mark_lane])
                         selected_data[95-mark_lane*24-:24]=24'hff00ff;
@@ -229,19 +230,40 @@ module edge_control_stream #(
             .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
         wire [43:0] dim_sizes,dim_box,dim_gap_coords;wire dim_valid,dim_present;
-        wire [1:0] dim_gap;wire [7:0] dim_cut;wire dim_bright;wire [15:0] dim_id;
+        wire dim_round,dim_background;wire[2:0] bg_status;wire [1:0] dim_gap;wire [7:0] dim_cut;wire dim_bright;wire [15:0] dim_id;
         if(INSPECTION_ENABLE)begin:g_measure_stats
-            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_dimension(
-                .clk(clk),.rst_n(rst_n),.binary_pixels({binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]}),
-                .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),.bright(ui_pipe[0][2]),
-                .threshold(config_p[0][7:0]),.result_valid(dim_valid),.present(dim_present),
+            wire[3:0] measured_pixels;wire mv,mu,ml,mb;wire[7:0] mt;
+            if(INSPECTION_V5)begin:g_background
+                wire applied,ready;reg[1:0] bright_pipe;reg[7:0] cut0,cut1;reg background_result,background_frame;
+                measure_background #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT)) u_background(
+                    .clk(clk),.rst_n(rst_n),.gray({gray_p[0][95:88],gray_p[0][71:64],gray_p[0][47:40],gray_p[0][23:16]}),
+                    .fallback_pixels({binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]}),
+                    .valid(valid_p[0]),.user(user_p[0]),.last(last_p[0]),.bright(ui_pipe[0][2]),
+                    .learn_enable(ui_switches[1] && !ui_switches[3] && beat_config[18:16]==MODE_ORIGIN),
+                    .clear(ui_switches[1] && ui_switches[3]),.request_toggle(capture_toggle),
+                    .pixels(measured_pixels),.out_valid(mv),.out_user(mu),.out_last(ml),.applied(applied),.ready(ready),.status(bg_status));
+                always @(posedge clk or negedge rst_n)begin
+                    if(!rst_n)begin bright_pipe<=0;cut0<=0;cut1<=0;background_result<=0;background_frame<=0;end
+                    else begin bright_pipe<={bright_pipe[0],ui_pipe[0][2]};cut0<=config_p[0][7:0];cut1<=cut0;
+                        if(mu)begin background_frame<=applied;background_result<=background_frame;end end
+                end
+                assign mb=bright_pipe[1];assign mt=cut1;assign dim_background=background_result;
+            end else begin:g_fixed
+                assign measured_pixels={binary_p[0][95],binary_p[0][71],binary_p[0][47],binary_p[0][23]};
+                assign mv=valid_p[0];assign mu=user_p[0];assign ml=last_p[0];assign mb=ui_pipe[0][2];assign mt=config_p[0][7:0];
+                assign dim_background=0;assign bg_status=0;
+            end
+            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.SHAPE_ENABLE(INSPECTION_V5),.MIN_ROW(INSPECTION_V5?6:8)) u_dimension(
+                .clk(clk),.rst_n(rst_n),.binary_pixels(measured_pixels),
+                .valid(mv),.user(mu),.last(ml),.bright(mb),.round_present(dim_round),
+                .threshold(mt),.result_valid(dim_valid),.present(dim_present),
                 .gap_valid(dim_gap),.gap_coords(dim_gap_coords),.sizes(dim_sizes),.box_coords(dim_box),.sample_id(dim_id),
                 .result_threshold(dim_cut),.result_bright(dim_bright));
         end else begin:g_no_measure_stats
-            assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
+            assign dim_round=0;assign dim_background=0;assign bg_status=0;assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5),
             .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
             .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
@@ -250,7 +272,7 @@ module edge_control_stream #(
              .display_enable(ui_pipe[EDGE_STAGES-1][0]),.dimension_enable(ui_pipe[EDGE_STAGES-1][1]),
             .cal_mode(ui_pipe[EDGE_STAGES-1][3]),.axis_y(ui_pipe[EDGE_STAGES-1][2]),
             .calibrated(ui_calibrated),.span_x(ui_span_x),.span_y(ui_span_y),.cal_visited(ui_visited),
-            .dim_sizes(dim_sizes),.dim_box(dim_box),.dim_gap_coords(dim_gap_coords),.cal_status(ui_cal_status),
+            .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(dim_sizes),.dim_box(dim_box),.dim_gap_coords(dim_gap_coords),.cal_status(ui_cal_status),
             .dim_valid(dim_valid && dim_cut==config_p[EDGE_STAGES-1][7:0] && dim_bright==ui_pipe[EDGE_STAGES-1][2]),
             .dim_present(dim_present),.dim_gap_valid(dim_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
@@ -262,12 +284,12 @@ module edge_control_stream #(
         assign compare_last=last_p[EDGE_STAGES-1];
     end endgenerate
     edge_status_osd #(.IMG_WIDTH(IMG_WIDTH), .IMG_HEIGHT(IMG_HEIGHT),
-                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE),.VISION_ENABLE(VISION_ENABLE),.COMPACT_FONT(COMPACT_FONT)) u_status (
+                     .ENABLE(OSD_ENABLE),.RELIABILITY_ENABLE(RELIABILITY_ENABLE),.SWITCH_DIAG_ENABLE(USABILITY_ENABLE),.VISION_ENABLE(VISION_ENABLE),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5)) u_status (
         .clk(clk), .rst_n(rst_n), .I_data(compare_data),
         .I_valid(compare_valid), .I_user(compare_user), .I_last(compare_last),
         .I_config(compare_config),.I_switches(compare_switches),.I_ruler_status(compare_ruler), .I_fifo_event_counts(I_fifo_event_counts), .O_data(O_data), .O_valid(O_valid),
         .I_track_state(track_state),.I_target_valid(target_valid),.I_target_x(target_x),.I_target_y(target_y),
-        .I_target_count(target_count),.I_target_frame(target_frame),.I_motion_valid(motion_valid),
+        .I_target_box(target_box),.I_target_count(target_count),.I_target_frame(target_frame),.I_motion_valid(motion_valid),
         .I_motion_count(motion_count),.I_motion_state(motion_state),.I_motion_frame(motion_frame),.I_observer_error(observer_error),
         .O_user(O_user), .O_last(O_last)
     );

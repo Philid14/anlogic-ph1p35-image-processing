@@ -1,14 +1,14 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,COMPACT_FONT=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,COMPACT_FONT=0,INSPECTION_V5=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
     input [47:0] means,input result_valid,input [15:0] sample_id,
     input display_enable,dimension_enable,cal_mode,axis_y,calibrated,
     input [10:0] span_x,span_y,input [1:0] cal_visited,
-    input [43:0] dim_sizes,dim_box,dim_gap_coords,input [2:0] cal_status,input dim_valid,dim_present,
+    input dim_round,background_applied,input[2:0]background_status,input [43:0] dim_sizes,dim_box,dim_gap_coords,input [2:0] cal_status,input dim_valid,dim_present,
     input [1:0] dim_gap_valid,input [7:0] dim_threshold,
     input [15:0] dim_id,
     output reg [95:0] out_rgb,output reg out_valid,out_user,out_last
@@ -17,17 +17,18 @@ module color_compare_osd #(
     reg [10:0] held_span_x,held_span_y;
     reg [1:0] held_visited,held_gap;
     reg [43:0] held_sizes,held_box,held_gap_coords;reg [2:0] held_cal_status;
-    reg held_dim_valid,held_present;
+    reg held_dim_valid,held_present,held_round,held_background;reg[2:0]held_bg_status;
     reg [7:0] held_cut;
     reg [15:0] held_dim_id;
     wire dimension=UI_ENABLE && show_dimension;
     wire enabled=UI_ENABLE?show_color:1'b1;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            show_color<=0;show_dimension<=0;held_cal<=0;held_axis<=0;held_calibrated<=0;
+            held_round<=0;held_background<=0;held_bg_status<=0;show_color<=0;show_dimension<=0;held_cal<=0;held_axis<=0;held_calibrated<=0;
             held_span_x<=256;held_span_y<=256;held_visited<=0;held_sizes<=0;held_box<=0;
             held_gap_coords<=0;held_cal_status<=0;held_dim_valid<=0;held_present<=0;held_gap<=0;held_cut<=0;held_dim_id<=0;
         end else if(user)begin
+            held_round<=dim_round;held_background<=background_applied;held_bg_status<=background_status;
             show_color<=display_enable && !dimension_enable;show_dimension<=dimension_enable;
             held_cal<=cal_mode;held_axis<=axis_y;held_calibrated<=calibrated;
             held_span_x<=span_x;held_span_y<=span_y;held_visited<=cal_visited;
@@ -156,13 +157,17 @@ module color_compare_osd #(
         endcase
         if(dimension)begin
             case(field)
-                0:pixel_span=held_sizes[43:33];1:pixel_span=held_sizes[32:22];
+                0:pixel_span=held_sizes[43:33];1:pixel_span=INSPECTION_V5 && held_round?held_sizes[43:33]:held_sizes[32:22];
                 2:pixel_span=held_sizes[21:11];3:pixel_span=held_sizes[10:0];
                 default:pixel_span=0;
             endcase
-            axis_span=(field==1 || field==3)?held_span_y:held_span_x;
+            axis_span=((field==1 && !(INSPECTION_V5 && held_round)) || field==3)?held_span_y:held_span_x;
             if(axis_span==0)axis_span=1;
-            if(field<4)number=held_calibrated ? pixel_span*20'd1000+(axis_span>>1) : pixel_span*20'd10;
+            if(field<4)begin
+                number=held_calibrated ? pixel_span*20'd1000 : pixel_span*20'd10;
+                if(INSPECTION_V5 && held_round && field==1)number=number>>1;
+                if(held_calibrated)number=number+(axis_span>>1);
+            end
             else if(!AUTO_DIMENSION)case(field)
                 4:number=held_cut;5:number=held_span_x;6:number=held_span_y;
                 default:number=0;
@@ -245,7 +250,7 @@ module color_compare_osd #(
     wire [3:0] engineering_marks;
     wire engineering_text;wire [7:0] engineering_char;wire [3:0] engineering_row,engineering_col;
     generate if(AUTO_DIMENSION)begin:g_drawing
-        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4)) u_drawing(.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
+        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4),.SHAPE_ENABLE(INSPECTION_V5)) u_drawing(.round_object(held_round),.background_applied(held_background),.background_status(held_bg_status),.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
             .object_valid(held_dim_valid && held_present),.formatted(formatted),.cal_status(held_cal_status),
             .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(held_gap),
             .digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),

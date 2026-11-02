@@ -7,7 +7,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
     output reg [3:0] target_mark,output [3:0] motion_mark,
     output [1:0] track_state,output target_valid,
     output reg [10:0] target_x,output reg [9:0] target_y,
-    output reg [19:0] target_count,output reg [31:0] target_frame,
+    output reg [43:0] target_box,output reg [19:0] target_count,output reg [31:0] target_frame,
     output motion_ready,motion_valid,output [11:0] motion_count,
     output [2:0] motion_state,output [31:0] motion_frame,
     output reg complete_toggle,output reg protocol_error
@@ -67,7 +67,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
             x<=0;y<=0;armed<=0;first<=0;finished<=0;bad<=0;beats<=0;fid<=0;sid<=1;
             now_tick<=0;capture_tick<=0;retire_tick<=0;session_start<=1;cancel_pending<=0;
             cancel_fid<=0;cancel_sid<=0;cancel_tick<=0;target_mark<=0;
-            last_target_valid<=0;target_x<=0;target_y<=0;target_count<=0;target_frame<=0;
+            last_target_valid<=0;target_box<=0;target_x<=0;target_y<=0;target_count<=0;target_frame<=0;
             complete_toggle<=0;protocol_error<=0;gap_expired<=0;
         end else begin
             now_tick<=now_tick+1'b1;session_start<=0;cancel_pending<=0;
@@ -81,7 +81,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
                 if(restart)begin sid<=sid+1'b1;session_start<=1;end
                 if(armed && !finished && beats!=0)begin
                     cancel_pending<=1;cancel_fid<=fid;cancel_sid<=sid;cancel_tick<=capture_tick;
-                    last_target_valid<=0;target_x<=0;target_y<=0;target_count<=0;
+                    last_target_valid<=0;target_box<=0;target_x<=0;target_y<=0;target_count<=0;
                 end
             end else if(valid)begin
                 first<=0;if(stream_error)bad<=1;
@@ -92,7 +92,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
             if(stream_error && !bad && armed && !finished && !user)begin
                 sid<=sid+1'b1;session_start<=1;
                 cancel_pending<=1;cancel_fid<=fid;cancel_sid<=sid;cancel_tick<=capture_tick;
-                last_target_valid<=0;target_x<=0;target_y<=0;target_count<=0;
+                last_target_valid<=0;target_box<=0;target_x<=0;target_y<=0;target_count<=0;
             end
             if(pixel_eof)begin
                 retire_tick<=capture_tick;
@@ -100,6 +100,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
             end
             if(det_ready)begin
                 last_target_valid<=det_valid && det_present;target_frame<=det_fid;
+                target_box<=det_valid && det_present?{dx0,dx1,1'b0,dy0,1'b0,dy1}:44'd0;
                 target_x<=det_valid && det_present?dcx:0;target_y<=det_valid && det_present?dcy:0;
                 target_count<=det_valid?det_count:0;
             end

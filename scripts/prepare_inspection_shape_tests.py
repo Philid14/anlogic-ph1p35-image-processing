@@ -1,0 +1,17 @@
+from pathlib import Path
+R=Path(__file__).resolve().parents[1]
+p=R/'tests/tb_ruler_cm_stream.sv';s=p.read_text().replace('tb_ruler_cm_stream','tb_inspection_legacy_stream')
+s=s.replace('.VISION_ENABLE(1)', '.VISION_ENABLE(1),.COMPACT_FONT(1),.INSPECTION_V5(0)')
+(R/'tests/tb_inspection_legacy_stream.sv').write_text(s)
+s=(R/'tests/run_ruler_cm_stream.py').read_text().replace("OUT=ROOT/'tmp/ruler_cm/stream_r1'", "OUT=ROOT/'tmp/inspection_shape_track/legacy'")
+s=s.replace('import ruler_cm_stream_vectors as vectors','import ruler_cm_stream_vectors as vectors\nfrom vision_sim import HDL')
+s=s.replace("stim,pack,words,beats=vectors.vectors(OUT,1280,720,True)","stim,pack=ROOT/'tmp/ruler_cm/stream_r1/stim.txt',ROOT/'tmp/ruler_cm/stream_r1/pack.txt';words=1555200;beats=2073600")
+s=s.replace("top='tb_ruler_cm_stream'","top='tb_inspection_legacy_stream'")
+s=s.replace("if p.name!='vision_eram_contract.v']", "if p.name!='vision_eram_contract.v']+[HDL/'vision/inspection_font_rom.v',HDL/'vision/measure_background.v']")
+(R/'tests/run_inspection_legacy.py').write_text(s)
+s=(R/'scripts/build_inspection_shape_font.py').read_text().replace("OUT=ROOT/'tmp/inspection_shape_track/font_r0'", "OUT=ROOT/'tmp/inspection_shape_track/full_r0'")
+s=s.replace("HDL+'vision/inspection_font.dath'}", "HDL+'vision/inspection_font.dath',HDL+'vision/measure_background.v'}").replace('len(entries)==83','len(entries)==84')
+s=s.replace("choices=['syn']", "choices=['syn','phy','bit']")
+s=s.replace("('tmp/ruler_cm/unit','tmp/ruler_cm/full_roi','tmp/ruler_cm/stream_r1','tmp/ruler_cm/features','tmp/vision_track_motion/controls')", "('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing')")
+s=s.replace("('tmp/ruler_cm/stream_r1','tmp/ruler_cm/features')", "('tmp/inspection_shape_track/legacy',)")
+(R/'scripts/build_inspection_shape_track.py').write_text(s)

@@ -5,10 +5,10 @@
 module planar_measure_stats #(
     parameter WIDTH=1280,HEIGHT=720,X0=256,X1=1024,Y0=160,Y1=544,
     parameter CX=(X0+X1)/2,CY=(Y0+Y1)/2,
-    parameter MIN_ROW=8,MIN_ROWS=3,MIN_AREA=64
+    parameter SHAPE_ENABLE=0,MIN_ROW=8,MIN_ROWS=3,MIN_AREA=64
 )(input clk,rst_n,input [3:0] binary_pixels,input valid,user,last,
   input bright,input [7:0] threshold,
-  output reg result_valid,present,output reg [1:0] gap_valid,
+  output reg round_present,output reg result_valid,present,output reg [1:0] gap_valid,
   output reg [43:0] sizes,box_coords,output reg [43:0] gap_coords,output reg [15:0] sample_id,
   output reg [7:0] result_threshold,output reg result_bright);
     reg[10:0] x,y;wire[10:0] px=user?0:x,py=user?0:y;
@@ -68,6 +68,39 @@ module planar_measure_stats #(
             end else next_run=0;
         end
     end
+    // Envelope area fills internal holes/highlights, but not a missing silhouette.
+    wire[10:0] spanx=maxx-minx+11'd1,spany=maxy-miny+11'd1;
+    wire[10:0] rspan=next_max-next_min+11'd1;
+    reg[19:0] envelope;reg[21:0] bbox_area;
+    reg[10:0] tip_span,q1_span,q3_span;
+    wire[10:0] old_y0=box_coords[21:11],old_y1=box_coords[10:0];
+    wire[10:0] old_h=old_y1-old_y0+11'd1;
+    wire[10:0] q1y=old_y0+(old_h>>2),q3y=old_y1-(old_h>>2);
+    reg shape_ok;
+    wire near_square=spanx>=24 && spany>=24 &&
+        (spanx>spany?spanx-spany:spany-spanx)<=(spanx>>3);
+    wire stable_y=(miny>old_y0?miny-old_y0:old_y0-miny)<=2 &&
+        (maxy>old_y1?maxy-old_y1:old_y1-maxy)<=2;
+    wire quarter_ok=q1_span>=(spanx-(spanx>>2)) && q3_span>=(spanx-(spanx>>2)) &&
+        q1_span<=(spanx-(spanx>>4)) && q3_span<=(spanx-(spanx>>4)) &&
+        (q1_span>q3_span?q1_span-q3_span:q3_span-q1_span)<=(spanx>>3);
+    // Computed below ROI, long before SOF. One small product, no pixel critical path.
+    always @(posedge clk or negedge rst_n)begin
+        if(!rst_n)begin envelope<=0;bbox_area<=0;tip_span<=2047;q1_span<=0;q3_span<=0;shape_ok<=0;end
+        else if(user)begin envelope<=0;tip_span<=2047;q1_span<=0;q3_span<=0;shape_ok<=0;end
+        else if(SHAPE_ENABLE && valid)begin
+            if(px==WIDTH-4 && py>=Y0 && py<Y1 && next_count>=MIN_ROW)begin
+                envelope<=envelope+rspan;
+                if(rspan<tip_span)tip_span<=rspan;
+                if(py+1>=q1y && py<=q1y+1 && rspan>q1_span)q1_span<=rspan;
+                if(py+1>=q3y && py<=q3y+1 && rspan>q3_span)q3_span<=rspan;
+            end
+            if(py==Y1 && px==0)bbox_area<=spanx*spany;
+            if(py==Y1 && px==4)shape_ok<=near_square && stable_y && quarter_ok &&
+                tip_span<spanx-(spanx>>2) && envelope>=(bbox_area>>1)+(bbox_area>>3) &&
+                envelope<=(bbox_area>>1)+(bbox_area>>2)+(bbox_area>>3);
+        end
+    end
     wire geometry=last!=(px==WIDTH-4);
     wire complete=armed && finished && !bad && beats==(WIDTH/4)*HEIGHT;
     wire object_ok=rows>=MIN_ROWS && area>=MIN_AREA && maxx>=minx && maxy>=miny &&
@@ -81,8 +114,9 @@ module planar_measure_stats #(
             row_min<=2047;row_max<=0;row_count<=0;rows<=0;area<=0;run_h<=0;run_v<=0;
             hx_left<=0;hx_right<=0;vy_top<=0;vy_bottom<=0;
             hx_lfound<=0;hx_rfound<=0;vy_tfound<=0;vy_bfound<=0;hcenter<=0;vcenter<=0;
-            result_valid<=0;present<=0;gap_valid<=0;sizes<=0;box_coords<=0;gap_coords<=0;sample_id<=0;result_threshold<=0;result_bright<=0;
+            round_present<=0;result_valid<=0;present<=0;gap_valid<=0;sizes<=0;box_coords<=0;gap_coords<=0;sample_id<=0;result_threshold<=0;result_bright<=0;
         end else if(user)begin
+            round_present<=SHAPE_ENABLE && complete && object_ok && shape_ok;
             result_valid<=complete;present<=complete && object_ok;
             gap_valid<={complete && object_ok && gapx_ok,complete && object_ok && gapy_ok};
             sizes<={maxx-minx+11'd1,maxy-miny+11'd1,

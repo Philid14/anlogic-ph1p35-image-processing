@@ -11,6 +11,7 @@ module edge_status_osd #(
     parameter integer RELIABILITY_ENABLE = 0,
     parameter integer SWITCH_DIAG_ENABLE = 0,
     parameter integer VISION_ENABLE = 0,
+    parameter integer INSPECTION_V5 = 0,
     parameter integer COMPACT_FONT = 0
 )(
     input clk, input rst_n,
@@ -18,7 +19,7 @@ module edge_status_osd #(
     input [18:0] I_config,
     input [31:0] I_fifo_event_counts,input [3:0] I_switches,input [2:0] I_ruler_status,
     input [1:0] I_track_state,input I_target_valid,input [10:0] I_target_x,input [9:0] I_target_y,
-    input [19:0] I_target_count,input [31:0] I_target_frame,
+    input [43:0] I_target_box,input [19:0] I_target_count,input [31:0] I_target_frame,
     input I_motion_valid,input [11:0] I_motion_count,input [2:0] I_motion_state,
     input [31:0] I_motion_frame,input I_observer_error,
     output reg [95:0] O_data,
@@ -82,14 +83,15 @@ module edge_status_osd #(
     reg [7:0] character;
     reg [1:0] track_f;reg target_valid_f,motion_valid_f,error_f;
     reg [10:0] tx_f;reg [9:0] ty_f;reg [19:0] tn_f;reg [31:0] tf_f,mf_f;
+    reg [43:0] tb_f;
     reg [11:0] mn_f;reg [2:0] ms_f;
     generate if(VISION_ENABLE)begin:g_analytics
         always @(posedge clk or negedge rst_n)begin
             if(!rst_n)begin track_f<=0;target_valid_f<=0;motion_valid_f<=0;error_f<=0;
-                tx_f<=0;ty_f<=0;tn_f<=0;tf_f<=0;mf_f<=0;mn_f<=0;ms_f<=0;end
+                tb_f<=0;tx_f<=0;ty_f<=0;tn_f<=0;tf_f<=0;mf_f<=0;mn_f<=0;ms_f<=0;end
             else if(I_user)begin track_f<=I_track_state;target_valid_f<=I_target_valid;
                 motion_valid_f<=I_motion_valid;error_f<=I_observer_error;
-                tx_f<=I_target_x;ty_f<=I_target_y;tn_f<=I_target_count;tf_f<=I_target_frame;
+                tb_f<=I_target_box;tx_f<=I_target_x;ty_f<=I_target_y;tn_f<=I_target_count;tf_f<=I_target_frame;
                 mf_f<=I_motion_frame;mn_f<=I_motion_count;ms_f<=I_motion_state;end
         end
     end endgenerate
@@ -209,12 +211,22 @@ module edge_status_osd #(
     end else begin:g_font_logic
         osd_char_lib u_font (.I_char(char_s1), .I_row(row_s1), .O_row_bits(glyph_bits));
     end endgenerate
-    integer lane;
+    wire [10:0] bx0=tb_f[43:33],bx1=tb_f[32:22],by0=tb_f[21:11],by1=tb_f[10:0];
+    reg [3:0] outline,outline_s1;integer lane,bl;reg[12:0] bpx;
+    always @*begin
+        outline=0;bpx=0;
+        for(bl=0;bl<4;bl=bl+1)begin
+            bpx=pixel_x+bl;
+            outline[3-bl]=INSPECTION_V5 && ENABLE && VISION_ENABLE && mode==5 && target_valid_f &&
+                bx1>=bx0 && by1>=by0 && bpx>=bx0 && bpx<=bx1 && y_now>=by0 && y_now<=by1 &&
+                (bpx<=bx0+1 || bpx+1>=bx1 || y_now<=by0+1 || y_now+1>=by1);
+        end
+    end
     always @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             x_group<=0; y<=0; char_s1<=0; row_s1<=0; col_s1<=0;
             diag_s1<=0;hit_s1<=0; glyph_s1<=0; valid_s1<=0; user_s1<=0; last_s1<=0;
-            rgb_s1<=0; O_data<=0; O_valid<=0; O_user<=0; O_last<=0;
+            outline_s1<=0;rgb_s1<=0; O_data<=0; O_valid<=0; O_user<=0; O_last<=0;
         end else begin
             if (I_user) begin x_group<=0; y<=0; end
             if (I_valid) begin
@@ -224,11 +236,12 @@ module edge_status_osd #(
             end
             char_s1<=character; row_s1<=a_hit?y_now[4:1]:text_y[4:1]; col_s1<=a_hit?pixel_x[4:1]:local_x[4:1];
             hit_s1<=box_hit; glyph_s1<=a_hit||row0||row1||row2||row3;diag_s1<=row3||a_hit;
-            rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
+            outline_s1<=outline;rgb_s1<=I_data; valid_s1<=I_valid; user_s1<=I_user; last_s1<=I_last;
             O_valid<=valid_s1; O_user<=user_s1; O_last<=last_s1;
             for (lane=0; lane<4; lane=lane+1) begin
                 if (hit_s1 && glyph_s1 && glyph_bits[15-col_s1-(lane/2)])
                     O_data[95-lane*24 -:24] <= (diag_s1 && rgb_s1[87-lane*24])?24'h101030:24'hffff00;
+                else if(outline_s1[3-lane])O_data[95-lane*24-:24]<=24'h00ff80;
                 else O_data[95-lane*24 -:24] <= rgb_s1[95-lane*24 -:24];
             end
         end
