@@ -50,6 +50,7 @@ CAL中短按K4仍是读尺；BINARY/EDGE下K4短-10/长+10不变；TRACK/MOTION�
 
 - Slice {r['slice']}/21216，余{21216-r['slice']}；ERAM {r['eram']}/108，余{108-r['eram']}。资源非常紧，不能当作后续算法仍有充足余量。
 - Setup WNS {i['setup_wns_ns']:+.3f}ns，Hold WNS {i['hold_wns_ns']:+.3f}ns，TNS均0；完整SYN/PHY/final STA/bitgen通过，未放宽SDC。
+- STA覆盖{i['sta_coverage_percent']}%，不是全覆盖；最差Setup在CSI颜色OSD held_rgb→char_d，slow_m40c，13级逻辑。路由与有效时序检查通过不等于CDC/实板长期稳定已验收。
 - 公共视频延迟31时钟，新增0；仅测量统计分支增加2时钟。Sensor/ISP参数、视频分辨率、DDR/HDMI、PLL/引脚/SDC及队友RTL保持。
 - 关键warning类型 {i['critical_warning_types']}；新增类型 {i['new_critical_warning_types']}。继承FIFO/Gray覆盖问题、长期/温度/稳态风险仍未通过新实板验证。
 

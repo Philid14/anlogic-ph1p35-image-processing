@@ -39,6 +39,8 @@ def main():
   setup_wns_ns=sw,hold_wns_ns=hw,setup_tns_ns=st,hold_tns_ns=ht,board_test='NOT_RUN',
   critical_warning_types=critical,new_critical_warning_types=sorted(set(critical)-set(previous['critical_warning_types'])),
   high_density_warning='PHY-7022' in logs,common_pixel_cycles=31,extra_common_pixel_cycles=0,extra_measurement_statistic_cycles=2,
+  sta_coverage_percent=float(re.search(r'STA coverage\s*:\s*([\d.]+)%',(OUT/'phy_final_timing.rpt').read_text())[1]),
+  worst_setup_path='CSI color_compare_osd held_rgb[15] to char_d[3], slow_m40c, 13 logic levels',
   implemented=['4-point cell reference on empty plane; per-pixel bipolar difference12','Explicit K4 long W/H or D/R mode; NOT automatic circle or arc fitting','Previous-complete-frame LAST red bbox, red interior preserved','Original shared logic fonts and exact per-clock config RAM delay'],
   diagnostic_only=['Automatic near-round classifier was rejected for area; SHAPE_ENABLE=0 in production','COMPACT_FONT=0: ERAM-font attempt stopped during long routing, not a released candidate'],
   limitations=['Smooth fixed background/light/camera; retrain empty plane after changes; no invisible/clipped-edge recovery',
@@ -66,6 +68,7 @@ def main():
 - Routed resources: {resources}
 - Delta vs RULER_CM_CAL_V1: {info['resource_delta_vs_RULER_CM']}
 - Setup WNS/TNS: {sw:+.3f}ns / {st}; Hold WNS/TNS: {hw:+.3f}ns / {ht}
+- STA coverage: {info['sta_coverage_percent']}%; worst setup: {info['worst_setup_path']}.
 - SYN → PHY → final Timing Check → bitgen: PASS. No changed SDC, clocks, Sensor, DDR or teammate RTL.
 - Critical warning types: {critical}; new types: {info['new_critical_warning_types']}.
 - Common pixel path: 31 clocks, extra0; only measurement-statistics branch +2 clocks.
