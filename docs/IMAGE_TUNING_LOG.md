@@ -430,3 +430,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test NOT_RUN，FIFO/Gray、资源紧张和实际反光/测量误差/跟踪滞后待验收。保留候选及全部历史；按BOARD_TEST完成CAL→空背景→工件及TRACK对照，S稳态若增长先查完整性。停止候选开发，不自动合并、不自行下一版。
 
 - 发布核对：候选归档commit 8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3；Draft [PR #28](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/28) 依赖未合并#27。Private origin分支/tag实际push成功；远程tag内bit SHA、89个TD输入与实际构建源码闭环核对通过，28份历史bit未变。见REMOTE_RECEIPT.json；仍NOT_RUN，等待实板，不自动合并或进入下一版。
+
+
+## 2026-11-02 TRACK_REGION_FIX_V1 candidate / MAIN
+
+- 上一版INSPECTION_SHAPE_TRACK_V1实板补记：用户报告空台面与红瓶盖均出现近全屏跳框，TRACK未验收通过；照片未核验实际烧录SHA，不能作原始RGB。本轮不改历史归档。
+- 基线4d0f779cefd680363b8a3f0d4d5c33a42d81197f / Draft PR28；唯一主要变量：全局红点包围框 → MAIN相对红优势+连续主要区域选择。TARGET、Sensor/ISP、其他模式/尺寸/颜色、DDR/HDMI/PLL/SDC冻结。
+- 实际TD源码0e054712064041a18047f13c8ee76c57ad8e29f8，branch codex/main/track-region-fix-v1，tag track-region-fix-v1-candidate。
+- 模型与旧RTL同输入复现误框，新RTL独立16帧+7帧720p及完整15组native回归通过；不是实板验证。N语义改为选中连续区域支持面积。
+- 最终资源{'slice': 20942, 'lut6': 19498, 'ff': 20368, 'eram': 105, 'dsp': 25}，差值{'slice': -161, 'lut6': -311, 'ff': -131, 'eram': 0, 'dsp': 0}；Setup/Hold+0.137/+0.020ns，TNS0；完整SYN/PHY/STA/bitgen PASS。首轮打包失败保留证据。
+- Bit artifacts/bitstreams/TRACK_REGION_FIX_V1/camera_to_dsi_display.bit；SHA256 049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99；Board Test NOT_RUN。FIFO/Gray/长期/热稳定风险未排除。
+- 保留本候选与全部历史，按BOARD_TEST完成空台面/单实心红目标/移动/消失验证；不自动合并，不自行下一版。

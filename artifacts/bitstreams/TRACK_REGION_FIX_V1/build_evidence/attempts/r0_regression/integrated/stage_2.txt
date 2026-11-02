@@ -1,0 +1,95 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_integrated_stream PH1P_PHY_GSR -gWIDTH=1280 -gHEIGHT=720 -gCOMPARE=1 -gINSPECTION=1 -gAUTO_DIMENSION=1 -gUSABILITY_ENABLE=1 -gINSPECTION_V4=1 "+STIM=D:/anlogic_formal_project/tmp/track_region_fix/integrated/stim.txt" "+PACK=D:/anlogic_formal_project/tmp/track_region_fix/integrated/pack.txt" "+WORDS=1555200" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 20:02:12 on Nov 02,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_inspection_integrated_stream.sv(29): [TFMPC] - Too few port connections. Expected 18, found 15.
+# 
+#         Region: /tb_inspection_integrated_stream/integrated
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_inspection_integrated_stream.sv(29): [TFMPC] - Missing connection for port 'I_switch'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_inspection_integrated_stream.sv(29): [TFMPC] - Missing connection for port 'I_measure_key_n'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_inspection_integrated_stream.sv(29): [TFMPC] - Missing connection for port 'O_capture_toggle'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Too few port connections. Expected 58, found 25.
+# 
+#         Region: /tb_inspection_integrated_stream/integrated/g_control/u_control/g_vision/u_observer/u_guard
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_session_ready'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_current_session_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_event_strobe'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_retired_strobe'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_admitted_strobe'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_reason'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_timeout_strobe'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_reliable_valid'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_observation_session_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_observation_frame_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_box_session_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_box_frame_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_reliable_age'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_positive_age'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_reliable_tick'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_positive_tick'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_color_class'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_pixel_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_xmin'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_xmax'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_center_x'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_ymin'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_ymax'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_center_y'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_duplicate_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_reorder_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_wrong_session_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_identity_error_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_invalid_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_cancelled_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_stale_result_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_time_error_count'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v(58): [TFMPC] - Missing connection for port 'O_timeout_count'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS actual ISP one-key ruler: 500px/100mm, native size annotations and exact packing
+# PASS multi-mode stream width=1280 height=720 cycles=2089345 valid_beats=2073600 packed_words=1555200 reliability=1
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_integrated_stream.sv(122)
+#    Time: 20893536 ns  Iteration: 0  Instance: /tb_inspection_integrated_stream
+# End time: 20:08:46 on Nov 02,2026, Elapsed time: 0:06:34
+# Errors: 0, Warnings: 38

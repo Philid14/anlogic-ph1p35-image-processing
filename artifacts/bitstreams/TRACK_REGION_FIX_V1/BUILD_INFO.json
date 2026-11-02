@@ -1,0 +1,60 @@
+{
+  "version": "TRACK_REGION_FIX_V1",
+  "role": "MAIN",
+  "branch": "codex/main/track-region-fix-v1",
+  "baseline_commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+  "source_commit": "0e054712064041a18047f13c8ee76c57ad8e29f8",
+  "archive_driver_commit": "20635615a60bdcc27a45ce46812993bf26445250",
+  "tag": "track-region-fix-v1-candidate",
+  "build_time": "2026-11-02T20:59:48.326009+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/track_region_fix/full_r2/camera_to_dsi_display.bit",
+  "bit_sha256": "049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99",
+  "resources": {
+    "slice": 20942,
+    "lut6": 19498,
+    "ff": 20368,
+    "eram": 105,
+    "dsp": 25
+  },
+  "resource_delta_vs_INSPECTION_SHAPE_TRACK": {
+    "slice": -161,
+    "lut6": -311,
+    "ff": -131,
+    "eram": 0,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.137,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "high_density_warning": true,
+  "common_pixel_cycles": 31,
+  "extra_common_pixel_cycles": 0,
+  "extra_eram": 0,
+  "extra_dsp": 0,
+  "sta_coverage_percent": 95.67,
+  "implemented": [
+    "Exhaustively equivalent MAIN-specialized red30 predicate and R-relative dominance",
+    "3-of4 block/8px row run/4-row coherent chain; largest support area",
+    "Single registered atomic LAST result; no new image RAM or pixel latency"
+  ],
+  "validation": "15 native groups; independent model16 frames+7 full720p frames with old RTL failure;18 full720p ISP/packer regression; exact MAIN31cycle TRACK; inherited dimension/BG/format/reset/font tests rerun",
+  "limitations": [
+    "Not general CCL: one longest run per row; solid single red object on non-red background",
+    "Pale pink, thin/hollow targets or glare holes can under-detect; similarly sized red objects can swap",
+    "N is selected chain support area in4px groups, not raw red count or calibrated object area",
+    "LAST bbox may lag one capture frame; no new DDR/display identity association",
+    "Inherited FIFO/Gray coverage, high-density, thermal and long-run risks require board tests"
+  ],
+  "route_db_sha256": "f195cadd620acffa7419b9acd096cff6c1d27f87e6fe9e3d37c0ca4e433c8e58",
+  "rollback_tag": "inspection-shape-track-v1-candidate",
+  "rollback_bit_sha256": "5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a"
+}

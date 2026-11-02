@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_measure_background_full PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 20:31:43 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS 1280x720 inline SOF/gaps/all1152 cells/gradient reference, mixed polarities exact mask, mid-frame clear keeps current mask until SOF 924532 cycles
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_measure_background_full.sv(46)
+#    Time: 9245406 ns  Iteration: 0  Instance: /tb_measure_background_full
+# End time: 20:31:58 on Nov 02,2026, Elapsed time: 0:00:15
+# Errors: 0, Warnings: 0
