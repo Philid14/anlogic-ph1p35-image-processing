@@ -1,7 +1,9 @@
-// Wide-area horizontal 1mm ruler reader. Twelve adjacent rows per capture;
-// overlap one row and search successive complete frames across the entire ROI.
-// A success uses two lines from ONE validated frame, never mixed-frame evidence.
-// Known metric ticks are an operator precondition, not OCR/unit recognition.
+// Centimeter coarse scale: same twelve-row cache / wide search / frame checks.
+// At least five thin marks per row. Average adjacent 10mm intervals, then
+// agree two adjacent rows; search ALL bands and prefer the larger stable
+// pitch to avoid accepting the 5mm line band before the 10mm tips appear.
+// Operator supplies a horizontal METRIC ruler on a clean light background.
+// Not OCR: a different regularly spaced pattern can be mistaken for ticks.
 module ruler_area_calibration #(
     parameter WIDTH=1280,HEIGHT=720,X0=256,Y0=192,SCAN_PIXELS=768,SEARCH_HEIGHT=288
 )(input clk,rst_n,input [31:0] gray,input valid,user,last,
@@ -30,61 +32,36 @@ module ruler_area_calibration #(
     always @(posedge clk)
         if(capturing && enable && valid && !user && sample_line && px>=X0 && px<X0+SCAN_PIXELS)
             memory[write_address]<=gray;
-    localparam IDLE=0,SETUP=1,CLEAR=2,FETCH=3,WAIT_READ=4,PIXEL=5,SCAN=6,RATIO=7,DIVIDE=8;
+
+    localparam IDLE=0,SETUP=1,FETCH=2,WAIT_READ=3,PIXEL=4,DIVIDE=5,NEXT_LINE=6,FINISH=7,ROW_END=8;
     reg [3:0] state;reg [11:0] address;reg [31:0] word;
     always @(posedge clk)word<=memory[address];
     reg [3:0] line_no;reg [1:0] lane;reg [9:0] pos,start;
     reg in_tick,have_center,any_contrast,have_anchor;
-    reg [10:0] run_width,last_center;reg [10:0] anchor;
-    reg [7:0] cut;reg [8:0] eligible;
+    reg [10:0] run_width,last_center,seed_gap,run_sum,best_sum;
+    reg [6:0] run_n,best_n;reg [10:0] anchor,global_best;
+    reg [7:0] cut;
     wire [10:0] center={1'b0,start}+{1'b0,pos}-1'b1;
     wire [10:0] gap=center-last_center;
-    wire ended=state==PIXEL && in_tick && word[31-lane*8-:8]>=cut;
-    wire add_gap=ended && start!=0 && run_width<=8 && have_center && gap>=4 && gap<=32;
-    // A small distributed scratch RAM, cleared serially, not reset as 256 FF.
-    reg [8:0] histogram[0:31];reg [5:0] scan_index;reg [4:0] clear_index;
-    wire [4:0] hist_address=state==CLEAR?clear_index:state==PIXEL?(gap-4):scan_index[4:0];
-    wire [8:0] hist_read=histogram[hist_address];
-    always @(posedge clk)begin
-        if(state==CLEAR)histogram[hist_address]<=0;
-        else if(add_gap)histogram[hist_address]<=hist_read+1'b1;
-    end
-    reg [8:0] delay0,delay1,delay2,delay3,delay4;
-    reg [9:0] window_count,best_count;
-    reg [15:0] window_weight,best_weight;
-    wire [8:0] incoming=scan_index<=28?hist_read:0;
-    wire [15:0] incoming_weight=incoming*(scan_index+6'd4);
-    wire [15:0] outgoing_weight=delay4*(scan_index-6'd1);
-    wire [9:0] count_next=window_count+{1'b0,incoming}-{1'b0,delay4};
-    wire [15:0] weight_next=window_weight+incoming_weight-outgoing_weight;
+    wire [10:0] gap_error=gap>=seed_gap?gap-seed_gap:seed_gap-gap;
+    wire similar=run_n!=0 && gap_error<=((seed_gap>>2)+2);
+    wire [6:0] next_n=similar?run_n+1'b1:7'd1;
+    wire [10:0] next_sum=similar?run_sum+gap:gap;
     reg [16:0] dividend,quotient;reg [9:0] remainder;
     reg [8:0] denominator;reg [4:0] step;
     wire [10:0] trial={remainder,dividend[16]};
     wire qbit=trial>={2'b0,denominator};wire [16:0] qnext={quotient[15:0],qbit};
     wire [16:0] difference=qnext>=anchor?qnext-anchor:anchor-qnext;
+    wire [17:0] mean_span=({1'b0,qnext}+{7'd0,anchor}+1'b1)>>1;
     integer j;
-    task advance_line;
-        begin
-            if(line_no==11)begin
-                state<=IDLE;
-                if(band_y+11<Y0+SEARCH_HEIGHT-1)begin
-                    band_y<=band_y+11;pending<=1;status<=2;
-                    search_contrast<=search_contrast || any_contrast;
-                end else status<=(search_contrast || any_contrast)?5:4;
-            end
-            else begin line_no<=line_no+1'b1;state<=SETUP;end
-        end
-    endtask
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             band_y<=Y0;search_contrast<=0;
             x<=0;y<=0;pending<=0;capturing<=0;seen<=0;armed<=0;bad<=0;finished<=0;beats<=0;
             span<=0;calibrated<=0;status<=0;state<=IDLE;address<=0;line_no<=0;lane<=0;pos<=0;start<=0;
-            in_tick<=0;have_center<=0;any_contrast<=0;have_anchor<=0;anchor<=0;run_width<=0;last_center<=0;
-            cut<=0;eligible<=0;scan_index<=0;clear_index<=0;
-            delay0<=0;delay1<=0;delay2<=0;delay3<=0;delay4<=0;
-            window_count<=0;best_count<=0;window_weight<=0;best_weight<=0;
-            dividend<=0;quotient<=0;remainder<=0;denominator<=1;step<=0;
+            in_tick<=0;have_center<=0;any_contrast<=0;have_anchor<=0;anchor<=0;global_best<=0;
+            run_width<=0;last_center<=0;seed_gap<=0;run_sum<=0;best_sum<=0;run_n<=0;best_n<=0;
+            cut<=0;dividend<=0;quotient<=0;remainder<=0;denominator<=1;step<=0;
             for(j=0;j<12;j=j+1)begin lows[j]<=255;highs[j]<=0;end
         end else begin
             seen<=request_toggle;
@@ -104,7 +81,8 @@ module ruler_area_calibration #(
                 if(pending || capturing || state!=IDLE)status<=7;
                 pending<=0;capturing<=0;state<=IDLE;
             end else if(request_toggle!=seen)begin
-                pending<=1;capturing<=0;calibrated<=0;status<=1;state<=IDLE;band_y<=Y0;search_contrast<=0;
+                pending<=1;capturing<=0;calibrated<=0;status<=1;state<=IDLE;
+                band_y<=Y0;search_contrast<=0;global_best<=0;have_anchor<=0;
             end else begin
                 if(user && pending)begin
                     pending<=0;capturing<=1;
@@ -112,22 +90,19 @@ module ruler_area_calibration #(
                 end
                 if(user && capturing)begin
                     capturing<=0;
-                    if(!complete)begin status<=6;state<=IDLE;end
-                    else begin
-                        status<=2;state<=SETUP;line_no<=0;any_contrast<=0;have_anchor<=0;
-                    end
+                    if(!complete)begin status<=6;state<=IDLE;global_best<=0;end
+                    else begin status<=2;state<=SETUP;line_no<=0;any_contrast<=0;have_anchor<=0;end
                 end
                 case(state)
                     SETUP:begin
-                        if(highs[line_no]<lows[line_no] || ({1'b0,highs[line_no]}-{1'b0,lows[line_no]})<24)advance_line();
-                        else begin
-                            any_contrast<=1;cut<=({1'b0,highs[line_no]}+{1'b0,lows[line_no]})>>1;
-                            clear_index<=0;state<=CLEAR;address<=line_no*WORDS;
-                            pos<=0;lane<=0;in_tick<=0;have_center<=0;run_width<=0;eligible<=0;
+                        if(highs[line_no]<lows[line_no] || ({1'b0,highs[line_no]}-{1'b0,lows[line_no]})<16)begin
+                            have_anchor<=0;state<=NEXT_LINE;
+                        end else begin
+                            any_contrast<=1;
+                            cut<=lows[line_no]+(({1'b0,highs[line_no]}-{1'b0,lows[line_no]})>>2);
+                            address<=line_no*WORDS;pos<=0;lane<=0;in_tick<=0;have_center<=0;
+                            run_width<=0;seed_gap<=0;run_n<=0;run_sum<=0;best_n<=0;best_sum<=0;state<=FETCH;
                         end
-                    end
-                    CLEAR:begin
-                        if(clear_index==31)state<=FETCH;else clear_index<=clear_index+1'b1;
                     end
                     FETCH:state<=WAIT_READ;
                     WAIT_READ:state<=PIXEL;
@@ -137,46 +112,49 @@ module ruler_area_calibration #(
                             else if(run_width<SCAN_PIXELS)run_width<=run_width+1'b1;
                         end else if(in_tick)begin
                             in_tick<=0;
-                            if(start!=0)begin
-                                if(run_width>8)have_center<=0;
-                                else begin
-                                    if(add_gap)eligible<=eligible+1'b1;
-                                    have_center<=1;last_center<=center;
-                                end
-                            end
+                            if(start!=0 && run_width<=4)begin
+                                have_center<=1;last_center<=center;
+                                if(have_center && gap>=24 && gap<=240)begin
+                                    if(!similar)seed_gap<=gap;
+                                    run_n<=next_n;run_sum<=next_sum;
+                                    if(next_n>=4 && next_sum>best_sum)begin best_n<=next_n;best_sum<=next_sum;end
+                                end else begin run_n<=0;run_sum<=0;end
+                            end else begin have_center<=0;run_n<=0;run_sum<=0;end
                         end
-                        if(pos==SCAN_PIXELS-1)begin
-                            state<=SCAN;scan_index<=0;window_count<=0;window_weight<=0;
-                            best_count<=0;best_weight<=0;
-                            delay0<=0;delay1<=0;delay2<=0;delay3<=0;delay4<=0;
-                        end else begin
+                        if(pos==SCAN_PIXELS-1)state<=ROW_END;
+                        else begin
                             pos<=pos+1'b1;lane<=lane+1'b1;
                             if(lane==3)begin address<=address+1'b1;state<=FETCH;end
                         end
                     end
-                    SCAN:begin
-                        window_count<=count_next;window_weight<=weight_next;
-                        delay4<=delay3;delay3<=delay2;delay2<=delay1;delay1<=delay0;delay0<=incoming;
-                        if(scan_index>=2 && count_next>best_count)begin best_count<=count_next;best_weight<=weight_next;end
-                        if(scan_index==30)state<=RATIO;else scan_index<=scan_index+1'b1;
-                    end
-                    RATIO:begin
-                        if(best_count>=24 && best_weight>=256 &&
-                           ({best_count,2'b0}>=( {2'b0,eligible} + {1'b0,eligible,1'b0})))begin
-                            dividend<=best_weight*17'd50+(best_count>>1);denominator<=best_count[8:0];
+                    ROW_END:begin
+                        if(best_n>=4)begin
+                            // doubled pixel separation * 5 / intervals = px per100mm.
+                            dividend<={6'd0,best_sum}*17'd5+(best_n>>1);denominator<={2'd0,best_n};
                             quotient<=0;remainder<=0;step<=0;state<=DIVIDE;
-                        end else advance_line();
+                        end else begin have_anchor<=0;state<=NEXT_LINE;end
                     end
                     DIVIDE:begin
                         dividend<={dividend[15:0],1'b0};quotient<=qnext;
                         remainder<=qbit?trial-{2'b0,denominator}:trial;
                         if(step==16)begin
-                            if(qnext>=200 && qnext<=1600)begin
-                                if(have_anchor && difference<=8)begin
-                                    span<=(qnext+anchor+1'b1)>>1;calibrated<=1;status<=3;state<=IDLE;
-                                end else begin anchor<=qnext[10:0];have_anchor<=1;advance_line();end
-                            end else advance_line();
+                            if(qnext>=120 && qnext<=1200)begin
+                                if(have_anchor && difference<=((anchor>>3)+12) && mean_span>global_best)
+                                    global_best<=mean_span[10:0];
+                                anchor<=qnext[10:0];have_anchor<=1;
+                            end else have_anchor<=0;
+                            state<=NEXT_LINE;
                         end else step<=step+1'b1;
+                    end
+                    NEXT_LINE:begin
+                        if(line_no==11)state<=FINISH;
+                        else begin line_no<=line_no+1'b1;state<=SETUP;end
+                    end
+                    FINISH:begin
+                        state<=IDLE;search_contrast<=search_contrast || any_contrast;
+                        if(band_y+11<Y0+SEARCH_HEIGHT-1)begin band_y<=band_y+11;pending<=1;status<=2;end
+                        else if(global_best!=0)begin span<=global_best;calibrated<=1;status<=3;end
+                        else status<=(search_contrast || any_contrast)?5:4;
                     end
                 endcase
             end

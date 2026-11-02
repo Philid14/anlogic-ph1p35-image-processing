@@ -49,10 +49,13 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0)(
             if(x>=(AREA_ENABLE?256:384) && x<(AREA_ENABLE?736:864) && y>=(AREA_ENABLE?168:240) && y<(AREA_ENABLE?184:256))begin
                 text_valid=1;glyph_col=x[3:0];glyph_row=y-(AREA_ENABLE?168:240);
                 case((x-(AREA_ENABLE?256:384))>>4)
-                    0:character="1";1:character="M";2:character="M";
+                    0:character="1";1:character=AREA_ENABLE?"C":"M";2:character="M";
                     4:character="R";5:character="U";6:character="L";7:character="E";8:character="R";
-                    10:character="B";11:character="L";12:character="A";13:character="C";14:character="K";
-                    16:character="T";17:character="I";18:character="C";19:character="K";20:character="S";
+                    10:character=AREA_ENABLE?"L":"B";11:character=AREA_ENABLE?"O":"L";
+                    12:character=AREA_ENABLE?"N":"A";13:character=AREA_ENABLE?"G":"C";14:character=AREA_ENABLE?" ":"K";
+                    15:character=AREA_ENABLE?"T":" ";16:character=AREA_ENABLE?"I":"T";
+                    17:character=AREA_ENABLE?"C":"I";18:character=AREA_ENABLE?"K":"C";
+                    19:character=AREA_ENABLE?"S":"K";20:character=AREA_ENABLE?" ":"S";
                     default:character=" ";
                 endcase
             end
