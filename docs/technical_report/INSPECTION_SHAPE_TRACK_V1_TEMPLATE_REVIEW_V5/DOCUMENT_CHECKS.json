@@ -1,0 +1,84 @@
+{
+  "date": "2026-11-02",
+  "page_count": 24,
+  "template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "original_template_unchanged": true,
+  "required_headings": "PASS",
+  "character_counts": {
+    "摘要": {
+      "non_whitespace_characters": 482,
+      "limit": 800
+    },
+    "1.1": {
+      "non_whitespace_characters": 206,
+      "limit": 400
+    },
+    "1.2": {
+      "non_whitespace_characters": 104,
+      "limit": 400
+    },
+    "1.3": {
+      "non_whitespace_characters": 167,
+      "limit": 400
+    },
+    "1.4": {
+      "non_whitespace_characters": 157,
+      "limit": 200
+    },
+    "1.5": {
+      "non_whitespace_characters": 129,
+      "limit": 200
+    },
+    "1.6": {
+      "non_whitespace_characters": 112,
+      "limit": 200
+    },
+    "4.1": {
+      "non_whitespace_characters": 154,
+      "limit": 300
+    },
+    "4.2": {
+      "non_whitespace_characters": 527,
+      "limit": 1000
+    }
+  },
+  "reference_count": 16,
+  "immutable_native_hyperlinks": 14,
+  "source_styles_unchanged": 14,
+  "preserve_only_parts_unchanged": 21,
+  "original_relationships_unchanged": true,
+  "section_geometry_unchanged": true,
+  "native_math_equations": 1,
+  "figures": 4,
+  "PAGE_fields": "1..24 verified via native Word PDF",
+  "visual_review": "All 24 delivered pages verified at 140 DPI. Pages 15/20/21/22 and references 23/24 inspected from delivery render; other 18 PNGs byte-identical to previously inspected release/final pages. No clipping, overlap, missing glyphs, orphan headings or blank pages observed.",
+  "final_changed_pages": [
+    "page-15.png",
+    "page-20.png",
+    "page-21.png",
+    "page-22.png"
+  ],
+  "md_local_links": "PASS",
+  "empty_measurement_template": "header only; no invented readings",
+  "experiment_cases": 13,
+  "archived_regression_JSONs_passed": 12,
+  "new_rtl_simulation_td_board": "NOT_RUN",
+  "candidate_board": "NOT_RUN",
+  "candidate_HEAD": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+  "actual_td_source": "517697c7f3ad3328ed62a976867b5185fbcb7df0",
+  "bit_sha256_independently_checked": "5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a",
+  "TD_input_check": "89 source/archive/HEAD identical; 84 raw manifest hashes explainable; 5 NOT_REPRODUCED_FROM_GIT_BLOB",
+  "document_check_scope": "Document format/content consistency, not physical acceptance; pending raw-manifest provenance remains explicit",
+  "docx_sha256": "15d2d9e98b38d8360dbc140cc35876b5958d4d4c964df82c4ccd5706d335b3ad",
+  "pdf_sha256": "8d6c63735c0ea3dbdc7a05a1e69873736a9fe9b6232f1626add5847bf22fec22",
+  "missing_official_materials": [
+    "real system front/45 photos",
+    "mechanical dimensions and matched circuits",
+    "current-bit scene and success/failure groups",
+    "instruments/truth/errors",
+    "stability and recovery",
+    "frame rate and latency"
+  ],
+  "portal_other_requirements": "not fully supplied; no blanket compliance claim",
+  "verification_result": "PASS for document formatting/content checks; candidate physical NOT_RUN; 5 original manifest byte SHA items remain unconfirmed"
+}

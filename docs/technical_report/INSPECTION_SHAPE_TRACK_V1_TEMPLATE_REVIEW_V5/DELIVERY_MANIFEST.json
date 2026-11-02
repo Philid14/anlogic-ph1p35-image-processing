@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-02",
+  "files": {
+    "APPLICATION_EVOLUTION.md": "8f9e04ec512f765d592eb947e4b4cb4af0c4a46b42869dd4bb3cf3e65b67d166",
+    "AWARD_REPORT_REFERENCES.md": "dacb76128e09b3dd210cd3f3fadbd5241bb4d88bea2cc6f60ed99fc2597c73eb",
+    "DOCUMENT_CHECKS.json": "ec8e0534981c52447bc2d0152fbd242fa525304c9f2340b29c00fa49a6f23aca",
+    "EXPERIMENT_RECORD_TEMPLATE.csv": "7a5f2c3a44b87e407f97d82b1d38f5086384c3584f2bf6a3e4f585f0fc478934",
+    "EXPERIMENT_STATUS.md": "733970f9a2ab08bd1116e6e1c1d14e4d9106e10e9e95e4a1669ff807b8ef969d",
+    "MAIN_EXPERIMENT_LIST.md": "9c710db3596f48a98619d404e0ad99eee741671d1fe83d06af42de482da964f6",
+    "PACKAGE_FIDELITY.json": "954bd1ec9bf4cd798f72fb57f5d8955af300f79cf12a4815b35878f210e36cd6",
+    "PUBLIC_REFERENCE_SOURCES.json": "148505b13e1e67c3153736050965dc8e10fb9583f314bb51d450d018b7773507",
+    "README.md": "fa9c3153b4151134c8669c18ded4e118fb650a7c2b20105b3ade3a8d19b0bd0f",
+    "SOURCE_EVIDENCE.json": "bd8e7cd14ec676e8604b58bb0b7a7353c4daac10f32b3605f0231255a7f98369",
+    "TD_INPUT_HASH_CHECK.json": "2804627f5cb4778b918425b3af18a1d5c5a182b5e7f3f1d26fded2100d7aa9f8",
+    "TECHNICAL_REPORT.md": "1dfdd7bb130a5b71a7f4f52a48c260d78258c837ee3e36408a3849b886ab0b61",
+    "TEMPLATE_COMPARISON.md": "53858841e2d6ba91ca05b1c232d351ff99888bdaa81488d1dcc4d2ced9afc315",
+    "TEMPLATE_CONTRACT.md": "003b5c572c38d89a1b3c0dd9c37df99e9490bb8e641acbfa578e17a82462d731",
+    "TEMPLATE_INSPECTION.json": "5f55718da10f08a340a91a15dbf1038280d3cc4a7ea81d1b17bcc0ceaddd9cd5",
+    "TEMPLATE_PARTS_MANIFEST.json": "d2d432998c6c7164ca22ed58008255c31f07ae6545143c820b7d8d622679ffbf",
+    "VERIFICATION_LOG.md": "56992bc90bc7ebb111f28d530bf2b780a0ccb7f4ed3029a0c40de2f78d8f3fb4",
+    "技术文档_形状与跟随框候选_官方模板第五稿.docx": "15d2d9e98b38d8360dbc140cc35876b5958d4d4c964df82c4ccd5706d335b3ad",
+    "技术文档_形状与跟随框候选_官方模板第五稿.pdf": "8d6c63735c0ea3dbdc7a05a1e69873736a9fe9b6232f1626add5847bf22fec22",
+    "figures/calibration_measurement.png": "1ab9166a039ec62d0f6d8d24716adbde7b3e96047f6a17586a5ce9d9949f8714",
+    "figures/observer_flow.png": "3dfe35967ee3600509864247c9b5df10b578835a096986f03068edfe5860bd5a",
+    "figures/pipeline_observation.png": "5161b5359877eed7a736474ed5c9e3994e225244c3b589ec25841623821c4f34",
+    "figures/system_architecture.png": "58941d0eb7993efb112f3a0fc3451e77baa894dbaa19f93e24d5ce48e8765a47",
+    "reference/官方技术文档模板.docx": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c"
+  },
+  "hash_scope": "Local delivered bytes before Git text EOL conversion; binary DOCX/PDF/template/PNG hashes remain byte-exact. For text content use Git object identity plus documented line-ending normalization."
+}
