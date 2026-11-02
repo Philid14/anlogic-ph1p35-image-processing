@@ -441,3 +441,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 最终资源{'slice': 20942, 'lut6': 19498, 'ff': 20368, 'eram': 105, 'dsp': 25}，差值{'slice': -161, 'lut6': -311, 'ff': -131, 'eram': 0, 'dsp': 0}；Setup/Hold+0.137/+0.020ns，TNS0；完整SYN/PHY/STA/bitgen PASS。首轮打包失败保留证据。
 - Bit artifacts/bitstreams/TRACK_REGION_FIX_V1/camera_to_dsi_display.bit；SHA256 049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99；Board Test NOT_RUN。FIFO/Gray/长期/热稳定风险未排除。
 - 保留本候选与全部历史，按BOARD_TEST完成空台面/单实心红目标/移动/消失验证；不自动合并，不自行下一版。
+
+- 发布核对：候选归档commit806e29ab76f360a2bc76eea37fe826a92a8da57c；[Draft PR #29](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29)依赖未合并PR28。Private origin分支与candidate tag已实际push，远程tag内bit/89个输入与实际TD源码一致，29个历史bit不变。见REMOTE_RECEIPT/PR_CREATION；Board Test仍NOT_RUN，不自动合并，等待本版上板。

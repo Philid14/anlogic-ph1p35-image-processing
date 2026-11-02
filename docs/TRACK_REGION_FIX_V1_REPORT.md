@@ -65,3 +65,5 @@ X为4像素分组边界，Y为原始行，X/Y显示框中心。N改为选中连�
   →左右上下移动→取走，各观察10秒；再抽查颜色比对、尺寸、模式与B/S稳态。
 - 回退 `inspection-shape-track-v1-candidate`，全部旧bit/tag保留。新Draft依赖未合并PR28，
   不自动合并、不改main，完成候选后等待上板。
+
+- 发布核对：候选归档commit806e29ab76f360a2bc76eea37fe826a92a8da57c；[Draft PR #29](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29)依赖未合并PR28。Private origin分支与candidate tag已实际push，远程tag内bit/89个输入与实际TD源码一致，29个历史bit不变。见REMOTE_RECEIPT/PR_CREATION；Board Test仍NOT_RUN，不自动合并，等待本版上板。
