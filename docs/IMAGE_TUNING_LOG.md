@@ -417,3 +417,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 是否保留/下一步：保留候选和所有历史；按BOARD_TEST验证实际尺子成功率及粗尺度误差、旧功能和稳态B/S。R6或溢出增长先查完整性。完成后停止，不合并PR、不自行下一版。发布回执另补。
 
 - 发布核对：归档commit 67204bf5f0a2caae1b5b657bb3b684799deb4ec8；Draft PR #27依赖#24，未合并。分支/candidate tag已实际push，远程tag内bit SHA和84个TD输入与实际构建源码闭环核对通过，历史bit不变；见RULER_CM_CAL_V1 REMOTE_RECEIPT。仍NOT_RUN，等待用户读尺与粗尺度复核，不自行下一版。
+
+
+## 2026-11-02 INSPECTION_SHAPE_TRACK_V1 candidate / MAIN
+
+- 基线8dd67021 / RULER_CM_CAL_V1 / Draft PR27；新分支codex/main/inspection-shape-track-v1，实际TD源码517697c7f3ad3328ed62a976867b5185fbcb7df0，tag inspection-shape-track-v1-candidate。
+- 用户实板反馈：反光工件漏测、瓶盖无D/R、红色目标只有填充无跟随框。Sensor/ISP/SDC不改；分别保留背景、D/R、框和资源检查点，未把三个问题伪称同一根因。
+- 旧固定阈值 → 空台面4样本格参照/逐像素双极性差12；无D/R → ORIGIN测量RUN长K4显式圆片档；绿色实心目标 → 保留红色本体、上一完整结果LAST外框。短K4学背景，CAL/阈值交互保持。
+- 自动近圆分类因资源失败放弃正式集成，四轮失败证据归档；最终资源{'slice': 21103, 'lut6': 19809, 'ff': 20499, 'eram': 105, 'dsp': 25}，差值vs厘米版{'slice': 377, 'lut6': 364, 'ff': 269, 'eram': 3, 'dsp': 0}，Setup/Hold+0.111/+0.020ns，TNS0，SYN/PHY/final STA/bitgen PASS。
+- Bit artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/camera_to_dsi_display.bit；SHA256 5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a。
+- 数字验证：18帧720p ISP/打包器、2帧D/R绘图、4帧背景缓存、MAIN TRACK128×96、160帧几何/240换算、字库/配置RAM/复位/选择等通过；不是实板证据。
+- Board Test NOT_RUN，FIFO/Gray、资源紧张和实际反光/测量误差/跟踪滞后待验收。保留候选及全部历史；按BOARD_TEST完成CAL→空背景→工件及TRACK对照，S稳态若增长先查完整性。停止候选开发，不自动合并、不自行下一版。

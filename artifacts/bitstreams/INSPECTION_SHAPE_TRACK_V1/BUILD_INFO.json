@@ -1,0 +1,62 @@
+{
+  "version": "INSPECTION_SHAPE_TRACK_V1",
+  "role": "MAIN",
+  "branch": "codex/main/inspection-shape-track-v1",
+  "source_commit": "517697c7f3ad3328ed62a976867b5185fbcb7df0",
+  "archive_driver_commit": "56159a46f661eb3cf37c393dfec08d47e6ac2170",
+  "tag": "inspection-shape-track-v1-candidate",
+  "build_time": "2026-11-02T14:01:23.002507+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/inspection_shape_track/full_r5/camera_to_dsi_display.bit",
+  "bit_sha256": "5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a",
+  "resources": {
+    "slice": 21103,
+    "lut6": 19809,
+    "ff": 20499,
+    "eram": 105,
+    "dsp": 25
+  },
+  "resource_delta_vs_RULER_CM": {
+    "slice": 377,
+    "lut6": 364,
+    "ff": 269,
+    "eram": 3,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.111,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "high_density_warning": true,
+  "common_pixel_cycles": 31,
+  "extra_common_pixel_cycles": 0,
+  "extra_measurement_statistic_cycles": 2,
+  "sta_coverage_percent": 95.69,
+  "worst_setup_path": "CSI color_compare_osd held_rgb[15] to char_d[3], slow_m40c, 13 logic levels",
+  "implemented": [
+    "4-point cell reference on empty plane; per-pixel bipolar difference12",
+    "Explicit K4 long W/H or D/R mode; NOT automatic circle or arc fitting",
+    "Previous-complete-frame LAST red bbox, red interior preserved",
+    "Original shared logic fonts and exact per-clock config RAM delay"
+  ],
+  "diagnostic_only": [
+    "Automatic near-round classifier was rejected for area; SHAPE_ENABLE=0 in production",
+    "COMPACT_FONT=0: ERAM-font attempt stopped during long routing, not a released candidate"
+  ],
+  "limitations": [
+    "Smooth fixed background/light/camera; retrain empty plane after changes; no invisible/clipped-edge recovery",
+    "Operator chooses round mode for a known planar circle; D is horizontal exterior span and R=D/2",
+    "LAST bbox can lag moving targets; stale DDR repeats may retain old box with SOURCE STALE warning",
+    "Only one total red bbox, not independent multi-target tracking",
+    "FIFO/Gray coverage, high density, thermal/long-run and physical measurement accuracy remain unverified"
+  ],
+  "route_db_sha256": "91844581dd753a67392ee95e235d12452c473f12c6dd0c274ad108b54a52a181",
+  "rollback_bit_sha256": "6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2"
+}

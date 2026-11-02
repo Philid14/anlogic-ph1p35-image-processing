@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_shape PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 12:44:39 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS background mixed reflectance, polarity, W/H geometry circle/square/diamond/T, malformed capture, clear, 2-cycle metadata 51026 cycles
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_shape.sv(84)
+#    Time: 510346 ns  Iteration: 0  Instance: /tb_inspection_shape
+# End time: 12:44:41 on Nov 02,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
