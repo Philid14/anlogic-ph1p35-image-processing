@@ -72,32 +72,24 @@ module planar_measure_stats #(
     wire[10:0] spanx=maxx-minx+11'd1,spany=maxy-miny+11'd1;
     wire[10:0] rspan=next_max-next_min+11'd1;
     reg[19:0] envelope;reg[21:0] bbox_area;
-    reg[10:0] tip_span,q1_span,q3_span;
-    wire[10:0] old_y0=box_coords[21:11],old_y1=box_coords[10:0];
-    wire[10:0] old_h=old_y1-old_y0+11'd1;
-    wire[10:0] q1y=old_y0+(old_h>>2),q3y=old_y1-(old_h>>2);
+    reg[10:0] center_min,center_max;
+    wire[10:0] row_center=({1'b0,next_min}+{1'b0,next_max})>>1;
     reg shape_ok;
     wire near_square=spanx>=24 && spany>=24 &&
         (spanx>spany?spanx-spany:spany-spanx)<=(spanx>>3);
-    wire stable_y=(miny>old_y0?miny-old_y0:old_y0-miny)<=2 &&
-        (maxy>old_y1?maxy-old_y1:old_y1-maxy)<=2;
-    wire quarter_ok=q1_span>=(spanx-(spanx>>2)) && q3_span>=(spanx-(spanx>>2)) &&
-        q1_span<=(spanx-(spanx>>4)) && q3_span<=(spanx-(spanx>>4)) &&
-        (q1_span>q3_span?q1_span-q3_span:q3_span-q1_span)<=(spanx>>3);
     // Computed below ROI, long before SOF. One small product, no pixel critical path.
     always @(posedge clk or negedge rst_n)begin
-        if(!rst_n)begin envelope<=0;bbox_area<=0;tip_span<=2047;q1_span<=0;q3_span<=0;shape_ok<=0;end
-        else if(user)begin envelope<=0;tip_span<=2047;q1_span<=0;q3_span<=0;shape_ok<=0;end
+        if(!rst_n)begin envelope<=0;bbox_area<=0;center_min<=2047;center_max<=0;shape_ok<=0;end
+        else if(user)begin envelope<=0;center_min<=2047;center_max<=0;shape_ok<=0;end
         else if(SHAPE_ENABLE && valid)begin
             if(px==WIDTH-4 && py>=Y0 && py<Y1 && next_count>=MIN_ROW)begin
                 envelope<=envelope+rspan;
-                if(rspan<tip_span)tip_span<=rspan;
-                if(py+1>=q1y && py<=q1y+1 && rspan>q1_span)q1_span<=rspan;
-                if(py+1>=q3y && py<=q3y+1 && rspan>q3_span)q3_span<=rspan;
+                if(row_center<center_min)center_min<=row_center;
+                if(row_center>center_max)center_max<=row_center;
             end
             if(py==Y1 && px==0)bbox_area<=spanx*spany;
-            if(py==Y1 && px==4)shape_ok<=near_square && stable_y && quarter_ok &&
-                tip_span<spanx-(spanx>>2) && envelope>=(bbox_area>>1)+(bbox_area>>3) &&
+            if(py==Y1 && px==4)shape_ok<=near_square && center_max-center_min<=(spanx>>3) &&
+                envelope>=(bbox_area>>1)+(bbox_area>>3) &&
                 envelope<=(bbox_area>>1)+(bbox_area>>2)+(bbox_area>>3);
         end
     end

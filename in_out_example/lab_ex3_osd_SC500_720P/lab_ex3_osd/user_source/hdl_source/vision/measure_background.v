@@ -13,8 +13,10 @@ module measure_background #(
  wire in_area=px>=X0 && px<X1 && py>=Y0 && py<Y1;
  wire geometry=last!=(px==WIDTH-4);
  reg armed,bad,finished,pending,capturing,seen,frame_use;
- reg[17:0]beats;reg[11:0]cells_written;
- wire complete=armed && finished && !bad && beats==(WIDTH/4)*HEIGHT && cells_written==CELLS;
+ reg[11:0]cells_written;
+ // x/y advance only on valid. Finished+geometry+no-extra-beat already proves
+ // exact raster size; a second full-frame beat counter is redundant.
+ wire complete=armed && finished && !bad && cells_written==CELLS;
  reg[15:0]row_sum[0:COLS-1];reg[11:0]horizontal;
  wire[10:0]col=(px-X0)>>4;
  wire[10:0]address=((py-Y0)>>4)*COLS+col;
@@ -37,7 +39,7 @@ module measure_background #(
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin
    x<=0;y<=0;armed<=0;bad<=0;finished<=0;pending<=0;capturing<=0;seen<=0;frame_use<=0;
-   beats<=0;cells_written<=0;horizontal<=0;ready<=0;status<=0;
+   cells_written<=0;horizontal<=0;ready<=0;status<=0;
    gray_d<=0;fallback_d<=0;v_d<=0;u_d<=0;l_d<=0;bright_d<=0;use_d<=0;in_area_d<=0;
    pixels<=0;out_valid<=0;out_user<=0;out_last<=0;applied<=0;
   end else begin
@@ -50,11 +52,10 @@ module measure_background #(
     pixels[3-k]<=use_d && in_area_d ? ((difference>=DELTA)^!bright_d):fallback_d[3-k];
    end
    if(user)begin
-    x<=valid?4:0;y<=0;armed<=1;bad<=valid && geometry;finished<=0;beats<=valid?1:0;
+    x<=valid?4:0;y<=0;armed<=1;bad<=valid && geometry;finished<=0;
     frame_use<=ready && !capturing && !clear;
    end else if(valid)begin
     if(!armed || finished || geometry)bad<=1;
-    if(beats<(WIDTH/4)*HEIGHT+1)beats<=beats+1'b1;
     x<=px==WIDTH-4?0:px+4;
     if(px==WIDTH-4)begin y<=py+1'b1;if(py==HEIGHT-1)finished<=1;end
    end else if(last)bad<=1;

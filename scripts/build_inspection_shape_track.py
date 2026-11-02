@@ -8,7 +8,7 @@ import argparse,hashlib,json,re,subprocess,shutil,datetime
 import prepare_td_runs
 ROOT=Path(__file__).resolve().parents[1]
 P=prepare_td_runs.PROJECT
-OUT=ROOT/'tmp/inspection_shape_track/full_r0'
+OUT=ROOT/'tmp/inspection_shape_track/full_r1'
 HDL='in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/'
 BASE='8dd67021a9f667047bad150125d2e17dd7a33c2a'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','isp/isp_top.v','isp/edge_control_stream.v','isp/color_compare_osd.v','edge_status_osd.v','vision/vision_source_observer.v','isp/planar_measure_stats.v','isp/engineering_dimension_marks.v')}
@@ -86,7 +86,7 @@ def main():
         sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
         assert sw>=0 and hw>=0 and st==ht==0,'Timing failed; no bitgen'
     else:
-        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing'):
+        for path in ('tmp/inspection_shape_track/shape','tmp/inspection_shape_track/font','tmp/inspection_shape_track/legacy','tmp/inspection_shape_track/track','tmp/inspection_shape_track/drawing','tmp/inspection_shape_track/integrated'):
             check=json.loads((ROOT/path/'results.json').read_text());assert check['passed']
             for rel,digest in check['sources'].items():assert sha(ROOT/rel)==digest,rel
         for path in ('tmp/inspection_shape_track/legacy',):
@@ -106,3 +106,4 @@ def main():
     for key in ('files','al_sha256','old_bits'):assert after[key]==current[key],key+' changed during build'
     print('PASS',args.stage,'actual TD inputs unchanged; board NOT_RUN',flush=True)
 if __name__=='__main__':main()
+
