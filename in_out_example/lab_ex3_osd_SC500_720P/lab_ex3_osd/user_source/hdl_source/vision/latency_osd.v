@@ -6,7 +6,7 @@ module latency_osd(
  input clk,rst_n,input update,
  input[19:0] latency,minimum,maximum,age,
  input[31:0] frame_id,input[15:0] samples,errors,input[2:0] status,
- input[11:0] x1,y1,x2,y2,output hit,output[23:0] color);
+ input[11:0] x1,y1,x2,y2,output hit,output[23:0] color,input[23:0] diagnostic);
  reg update_d;reg busy;reg[1:0] which;reg[4:0] bit_count;
  reg[19:0] binary;reg[23:0] working,bcd[0:3];
  reg[23:0] adjusted;integer d;
@@ -37,7 +37,7 @@ module latency_osd(
  // nibble index; all remaining indices are a compact ASCII subset.
  localparam L=18,M=19,N=20,P=21,R=22,S=23,T=24,W=25,X=26,COLON=27,DOT=28,SPACE=29;
  wire[4:0] col=(x1-12'd256)>>4;
- wire[1:0] row=(y1-12'd16)>>4;
+ wire[2:0] row=(y1-12'd16)>>4;
  reg[4:0] code;reg[23:0] number;reg[3:0] digit;
  always @*begin
   code=SPACE;number=0;digit=0;
@@ -82,6 +82,13 @@ module latency_osd(
      20:code=31;21:code=14;22:code=X;
     endcase
    end
+   4:begin
+    case(col)
+     0:code=12;1:code=COLON;2,3:code={1'b0,diagnostic[(7-col)*4+:4]};
+     5:code=W;6:code=COLON;7,8:code={1'b0,diagnostic[(10-col)*4+:4]};
+     10:code=13;11:code=COLON;12,13:code={1'b0,diagnostic[(13-col)*4+:4]};
+    endcase
+   end
   endcase
  end
  wire[17:0] glyph;
@@ -94,6 +101,6 @@ module latency_osd(
   .clkb(clk),.ceb(1'b0),.oceb(1'b0),.addrb(10'd0),.dib(18'd0),.web(1'b0),
   .rstb(1'b0),.beb(1'b1),.dob(),.ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),
   .ecc_sbiterr(),.ecc_dbiterr());
- assign hit=x2>=256 && x2<640 && y2>=16 && y2<80 && glyph[15-x2[3:0]];
+ assign hit=x2>=256 && x2<640 && y2>=16 && y2<96 && glyph[15-x2[3:0]];
  assign color=status==3?24'hff4040:24'h00e6ff;
 endmodule

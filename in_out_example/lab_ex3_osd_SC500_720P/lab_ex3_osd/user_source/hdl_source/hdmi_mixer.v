@@ -31,6 +31,7 @@ module hdmi_mixer #(
     input wire[19:0] I_latency,I_latency_min,I_latency_max,I_latency_age,
     input wire[31:0] I_latency_frame,
     input wire[15:0] I_latency_samples,I_latency_errors,
+    input wire[23:0] I_latency_diagnostic,
     input wire[2:0] I_latency_status
 );
 
@@ -52,7 +53,7 @@ module hdmi_mixer #(
     generate if(LATENCY_ENABLE)begin:g_latency_osd
         latency_osd u_panel(.clk(I_clk),.rst_n(I_rst_n),.update(I_video_user),
             .latency(I_latency),.minimum(I_latency_min),.maximum(I_latency_max),.age(I_latency_age),
-            .frame_id(I_latency_frame),.samples(I_latency_samples),.errors(I_latency_errors),.status(I_latency_status),
+            .frame_id(I_latency_frame),.samples(I_latency_samples),.errors(I_latency_errors),.status(I_latency_status),.diagnostic(I_latency_diagnostic),
             .x1(S_x_1d),.y1(S_y_1d),.x2(S_x_2d),.y2(S_y_2d),.hit(performance_hit),.color(performance_color));
     end else begin:g_no_latency assign performance_hit=0;assign performance_color=0;end endgenerate
 

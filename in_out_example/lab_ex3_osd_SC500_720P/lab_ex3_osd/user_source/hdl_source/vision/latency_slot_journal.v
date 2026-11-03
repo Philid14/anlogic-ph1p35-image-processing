@@ -9,7 +9,7 @@ module latency_slot_journal #(
  input clk,rst_n,input wr_en,input[24:0] wr_addr,input[86:0] wr_tag,
  input rd_en,rd_valid,command_full,
  input read_select,input[1:0] read_slot,input reference_heartbeat,
- output reg[84:0] selected,output reg select_toggle,output reg read_bad);
+ output reg[84:0] selected,output reg select_toggle,output reg read_bad,output[7:0] diagnostic);
  localparam[24:0] BASE0=0,BASE1=7000000,BASE2=14000000,BASE3=21000000;
  reg[83:0] records[0:3];reg[3:0] committed,recent;
  reg[25:0] expiry;
@@ -23,6 +23,7 @@ module latency_slot_journal #(
  (* async_reg="true" *)reg hb1,hb2;reg hb_old;
  reg[16:0] hb_age;reg hb_seen,hb_fault;
  wire clock_live=hb_age<HEARTBEAT_TIMEOUT && hb_seen && !hb_fault;
+ assign diagnostic={committed, !clock_live,write_bad,read_bad,writing};
  wire commit_record=wr_en && !(first && is_base) && writing && last &&
    count==WORDS-1 && good && !write_bad && key==write_key &&
    wr_addr==next_address && !command_full && clock_live;
@@ -103,7 +104,7 @@ module latency_display_meter #(parameter PIXELS=921600,MAX_AGE=100000)(
  input[84:0] selected,input select_toggle,input read_bad,
  output reg[19:0] latency,minimum,maximum,age,
  output reg[31:0] frame_id,session_id,
- output reg[15:0] samples,errors,output reg[2:0] status);
+ output reg[15:0] samples,errors,output reg[2:0] status,output reg[7:0] diagnostic);
  (* async_reg="true" *)reg st1,st2,rb1,rb2;
  reg st3,st_seen,vs_old;
  reg[84:0] tuple;
@@ -120,12 +121,13 @@ module latency_display_meter #(parameter PIXELS=921600,MAX_AGE=100000)(
    st1<=0;st2<=0;st3<=0;st_seen<=0;rb1<=1;rb2<=1;vs_old<=0;
    tuple<=0;tuple_ready<=0;frame_bad<=1;seen_pixel<=0;pixels<=0;start_age<=0;
    previous_key<=0;have_previous<=0;latency<=0;minimum<=0;maximum<=0;age<=0;
-   frame_id<=0;session_id<=0;samples<=0;errors<=0;status<=0;
+   frame_id<=0;session_id<=0;samples<=0;errors<=0;status<=0;diagnostic<=0;
   end else begin
    st1<=select_toggle;st2<=st1;st3<=st2;
    rb1<=read_bad;rb2<=rb1;vs_old<=vsync;
    if(vstart)begin
     if(seen_pixel)begin
+     diagnostic<={1'b0,(have_previous && key<previous_key),(start_age>=MAX_AGE),(pixels!=PIXELS),rb2,frame_bad,!tuple[0],!tuple_ready};
      if(tuple_ready && tuple[0] && !frame_bad && !rb2 && pixels==PIXELS && start_age<MAX_AGE &&
        (!have_previous || key>=previous_key))begin
       session_id<=key[63:32];frame_id<=key[31:0];age<=start_age;
