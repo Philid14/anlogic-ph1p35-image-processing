@@ -74,10 +74,10 @@ Sensor曝光/增益/VTS/HTS、BLC/AWB算法、MIPI、DDR、HDMI、颜色比对�
 - Bit：artifacts/bitstreams/INSPECTION_PARTS_MOTION_V1/camera_to_dsi_display.bit。
 - SHA-256：`1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11`。
 - 实际构建源码commit：bb1f8811cafd441815b2248bcc19b263b02657eb。
-- Candidate tag：inspection-parts-motion-v1-candidate（归档提交后建立，不移动历史tag）。
+- Candidate tag：inspection-parts-motion-v1-candidate（已建立于归档commit72fb25a571bd7b91347ff93e7cb66af3f873d0e0）。
 - Branch：codex/main/inspection-parts-motion-v1；Remote：Private origin。
 - Git Status：本轮文件独立提交，原有GITHUB_REFERENCE_RESEARCH.md的38行修改及未跟踪本地资料保留、排除提交。
-- Push Status：远程回执在实际push并核对tag内bit及58份原生报告字节后记录。
+- Push Status：SUCCESS，Private origin分支与tag实际push成功；tag内bit、95项输入及58份原生证据字节复核通过，31份历史bit未变。见REMOTE_RECEIPT.json。
 - Setup/Hold：+0.257/+0.020ns；Board Test：NOT_RUN。
 
-完整资源、配置、输入、验证和失败尝试在同目录BUILD_INFO/build_evidence；原生报告用目录内.gitattributes保留字节，避免Git换行转换破坏验证哈希。完成candidate后停止，等待用户审查/上板，不合并PR、不自行下一版。
+完整资源、配置、输入、验证和失败尝试在同目录BUILD_INFO/build_evidence；原生报告用目录内.gitattributes保留字节，避免Git换行转换破坏验证哈希。本轮candidate已完成，停止开发并等待用户审查/上板，不合并PR、不自行下一版。

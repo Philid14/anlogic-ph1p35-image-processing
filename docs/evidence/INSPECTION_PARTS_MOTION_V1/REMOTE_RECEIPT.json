@@ -1,0 +1,19 @@
+{
+  "version": "INSPECTION_PARTS_MOTION_V1",
+  "time": "2026-11-03T19:59:12.785547+08:00",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "branch": "codex/main/inspection-parts-motion-v1",
+  "remote_head": "72fb25a571bd7b91347ff93e7cb66af3f873d0e0",
+  "source_commit": "bb1f8811cafd441815b2248bcc19b263b02657eb",
+  "archive_commit": "72fb25a571bd7b91347ff93e7cb66af3f873d0e0",
+  "tag": "inspection-parts-motion-v1-candidate",
+  "tag_object": "fff5ddcf3fc6622086d0e08e25b3213419cc5fec",
+  "push_status": "SUCCESS",
+  "board_test": "NOT_RUN",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/31",
+  "bit_sha256": "1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11",
+  "inputs_verified": 95,
+  "historical_bits_unchanged": 31,
+  "verification_hashes": 58,
+  "cdc_passed": true
+}

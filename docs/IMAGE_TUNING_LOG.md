@@ -471,3 +471,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Bit artifacts/bitstreams/INSPECTION_PARTS_MOTION_V1/camera_to_dsi_display.bit；SHA256 1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11。
 - 用户最终要求延迟面板一直显示，不新增按键接口；SW5/SW6分别为蜂鸣器/显示供电电路。其他原模式、颜色、控件、Sensor/BLC/AWB参数、MIPI/DDR/HDMI、PLL/引脚/SDC、Logo/CNT保持。
 - Board Test NOT_RUN，按BOARD_TEST完成MOTION、CAL/空背景/T/L、D/R、原功能及30min稳态E/B/S。保留全部历史；Draft PR31依赖30，不合并、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit72fb25a571bd7b91347ff93e7cb66af3f873d0e0，Private origin分支/candidate tag已实际push；tag内bit、95项实际输入与58份原生证据字节闭环通过，31份历史bit不变。见INSPECTION_PARTS_MOTION_V1的REMOTE_RECEIPT及PR_CANDIDATE。Draft PR31依赖30，未合并；实板NOT_RUN，停止本轮并等待用户反馈。
