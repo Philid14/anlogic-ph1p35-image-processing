@@ -1,0 +1,9 @@
+{
+  "selected": false,
+  "synthesis_estimated_slice": 18304,
+  "eram": 105,
+  "dsp": 25,
+  "native_math_vectors_before_reset": 261,
+  "reference_done_age": 49,
+  "failure": "Reference IP retains in-flight operations across reset; resettable serial state prematurely cancels. No promotion or bit."
+}

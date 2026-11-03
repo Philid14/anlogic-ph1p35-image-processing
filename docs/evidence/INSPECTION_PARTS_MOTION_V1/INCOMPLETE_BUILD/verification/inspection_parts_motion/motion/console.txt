@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_parts_motion_dense PH1P_PHY_GSR "+VECTORS=D:\anlogic_formal_project\tmp\inspection_parts_motion\motion\vectors.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 13:22:33 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS dense LAST map        8039 cycles; no history after abort
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_parts_motion_dense.sv(23)
+#    Time: 80476 ns  Iteration: 0  Instance: /tb_parts_motion_dense
+# End time: 13:22:34 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

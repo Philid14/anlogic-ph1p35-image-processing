@@ -1,0 +1,31 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_dimension_formatter "+STIM=D:/anlogic_formal_project/tmp/inspection_parts_motion/regression/contract/formatter.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 14:45:59 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Too few port connections. Expected 34, found 28.
+# 
+#         Region: /tb_dimension_formatter/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'dim_round'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'background_applied'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'background_status'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'dim_gap_coords'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'cal_status'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(59): [TFMPC] - Missing connection for port 'view_kind'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS metric conversion 240 snapshots, rounded two-axis mm, px and snapshot isolation
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_planar_measure.sv(80)
+#    Time: 628830 ns  Iteration: 1  Instance: /tb_dimension_formatter
+# End time: 14:45:59 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 7

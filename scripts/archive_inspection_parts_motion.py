@@ -38,7 +38,7 @@ def main():
  ev=dest/'build_evidence';ev.mkdir(parents=True);shutil.copy2(bit,dest/bit.name);copy_reports(OUT,ev);copy_reports(OUT/'cdc',ev/'cdc')
  for rel in tests:
   src=(ROOT/rel).parent;copy_reports(src,ev/'verification'/src.relative_to(ROOT/'tmp'))
- for name in ('resource_r0','resource_r1','resource_r2','resource_paged','resource_paged_opt','resource_paged_opt2','resource_compact','full_r0','full_r1'):
+ for name in ('resource_r0','resource_r1','resource_r2','resource_paged','resource_paged_opt','resource_paged_opt2','resource_compact','resource_payload18','resource_payload18_r1','payload18_native','full_r0','full_r1'):
   src=ROOT/'tmp/inspection_parts_motion'/name
   if src.exists():
    target=ev/'attempts'/name;copy_reports(src,target)
