@@ -1,0 +1,27 @@
+{
+  "checked_date": "2026-11-03",
+  "dependencies": [
+    {
+      "number": 29,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29",
+      "head": "codex/main/track-region-fix-v1",
+      "head_sha": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+      "base": "codex/main/inspection-shape-track-v1",
+      "base_sha": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+      "draft": true,
+      "merged": false,
+      "state": "open"
+    },
+    {
+      "number": 5,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/5",
+      "head": "codex/latency/same-frame-association-v2",
+      "head_sha": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47",
+      "base": "main",
+      "base_sha": "c42168e26026425660f2a6f51eec76b04c85eea0",
+      "draft": false,
+      "merged": false,
+      "state": "open"
+    }
+  ]
+}
