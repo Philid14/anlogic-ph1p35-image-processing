@@ -1,6 +1,6 @@
 # FINAL_SUBMISSION_V1 最终代码交付入口
 
-仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing （Private，main为整合主线）。固定代码版本使用tag `final-submission-v1`。本目录是提交资料入口，正式RTL仍在原TD工程目录，避免移动路径破坏IP和约束。
+仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing （Private，main为整合主线）。固定代码版本使用tag `final-submission-v1.1`。本目录是提交资料入口，正式RTL仍在原TD工程目录，避免移动路径破坏IP和约束。
 
 ## 可烧录文件
 

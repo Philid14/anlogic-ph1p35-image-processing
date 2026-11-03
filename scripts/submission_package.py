@@ -2,7 +2,7 @@
 from pathlib import Path
 import argparse,hashlib,json,re,shutil,subprocess,sys,tempfile,datetime
 ROOT=Path(__file__).resolve().parents[1]
-VERSION='FINAL_SUBMISSION_V1'
+VERSION='FINAL_SUBMISSION_V1_1'
 MAX_BYTES=200_000_000
 CODE={'.v','.sv','.vh','.vhd','.py','.ps1','.tcl','.al','.adc','.sdc','.xml','.dath','.mem','.mif','.cfg','.scad','.bat','.sh','.h','.c','.cpp','.json','.toml','.yml','.yaml'}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
@@ -50,7 +50,7 @@ def rar():
  exe=next((p for p in [Path('C:/Program Files/WinRAR/Rar.exe'),Path('C:/Program Files (x86)/WinRAR/Rar.exe')] if p.is_file()),None)
  if exe is None:
   found=shutil.which('rar');assert found,'Install licensed WinRAR/rar to create actual RAR5';exe=Path(found)
- out=ROOT/'dist';out.mkdir(exist_ok=True);dest=out/'PH1P35_FINAL_SUBMISSION_V1.rar'
+ out=ROOT/'dist';out.mkdir(exist_ok=True);dest=out/'PH1P35_FINAL_SUBMISSION_V1_1.rar'
  assert not dest.exists(),'Do not silently overwrite an existing delivery archive'
  source_commit=git('rev-parse','HEAD').decode().strip()
  with tempfile.TemporaryDirectory(prefix='ph1p35_submission_') as temp:
@@ -72,7 +72,7 @@ def rar():
   subprocess.run([sys.executable,'-B','-X','utf8',str(root/'scripts/submission_package.py'),'verify'],cwd=root,check=True)
   subprocess.run([sys.executable,'-B','-X','utf8',str(root/'scripts/build_submission.py'),'--prepare-only'],cwd=root,check=True)
  result=dict(passed=True,version=VERSION,rar_path=str(dest),format='RAR5',size_bytes=dest.stat().st_size,limit_bytes=MAX_BYTES,sha256=sha(dest),source_commit=source_commit,file_count=len(names)+1,all_active_project_code_and_ip_included=True,extraction_all_hashes_passed=True,offline_verification_passed=True,credential_scan=scan,bit_sha256=m['bit_sha256'],board_test=m['board_test'])
- (out/'RAR_VERIFICATION.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+ (out/'RAR_VERIFICATION_V1_1.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps(result,ensure_ascii=False,indent=2))
 if __name__=='__main__':
  a=argparse.ArgumentParser();a.add_argument('command',choices=['verify','rar']);args=a.parse_args()
