@@ -10,7 +10,7 @@ def git(*a):return subprocess.check_output(['git',*a],cwd=ROOT)
 def manifest():return json.loads((ROOT/'submission/MANIFEST.json').read_text(encoding='utf-8'))
 def verify():
  m=manifest();bad=[]
- for rel,h in m['formal_inputs'].items():
+ for rel,h in (m['formal_inputs']|m.get('auxiliary_ip_inputs',{})).items():
   if not (ROOT/rel).is_file() or sha(ROOT/rel)!=h:bad.append(rel)
  for rel,h in [(m['project_entry'],m['project_entry_sha256']),(m['bit_path'],m['bit_sha256'])]:
   if not (ROOT/rel).is_file() or sha(ROOT/rel)!=h:bad.append(rel)
@@ -22,21 +22,16 @@ def verify():
  print('PASS95 formal inputs + .al + real bit; no random-latency logic',flush=True)
  return m
 def files():
- # Stage/HEAD supplies the complete, explicit repository tree, not arbitrary
- # local references or user media. Never run git add from this tool.
- names=git('ls-files','-z').decode('utf-8').split('\0');out=[]
- for rel in names:
-  if not rel:continue
-  p=ROOT/rel
-  if not p.is_file():continue
-  if rel.startswith(('dist/','tmp/','local_assets/','2026-10-05/')) or '_Runs/' in rel:continue
-  if re.search(r'latency[-_]demo',rel,re.I):raise AssertionError('DEMO path in final tree: '+rel)
-  if rel.startswith('artifacts/') and not rel.startswith('artifacts/bitstreams/LATENCY_FRAME_FIX_V1/'):
-   # Retain all source/configuration; old bit/reports are available via tags.
-   if p.suffix.lower() not in CODE:continue
-  elif rel.startswith('docs/evidence/') and p.suffix.lower() not in CODE:continue
-  out.append(rel)
- return sorted(out)
+ m=manifest()
+ selected=set(m['formal_inputs'])|set(m.get('auxiliary_ip_inputs',{}))
+ selected|={m['project_entry'],m['bit_path'],
+  'artifacts/bitstreams/LATENCY_FRAME_FIX_V1/BUILD_INFO.md',
+  'submission/MANIFEST.json','submission/PACKAGE_README.md','submission/ACCEPTANCE.md',
+  'submission/build/syn_settings.cfg','submission/build/phy_settings.cfg',
+  'scripts/submission_package.py','scripts/build_submission.py','scripts/prepare_td_runs.py'}
+ for rel in selected:assert (ROOT/rel).is_file(),rel
+ assert not any(re.search(r'latency[-_]demo',p,re.I) for p in selected)
+ return sorted(selected)
 def secrets(names):
  patterns=[re.compile(rb'gh[pousr]_[A-Za-z0-9]{30,}'),re.compile(rb'github_pat_[A-Za-z0-9_]{50,}'),re.compile(rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----'),re.compile(rb'AKIA[A-Z0-9]{16}')]
  hits=[]
@@ -50,9 +45,8 @@ def secrets(names):
 def rar():
  m=verify();names=files();scan=secrets(names)
  assert set(m['formal_inputs'])|{m['project_entry'],m['bit_path']}<=set(names)
- # Any omission of tracked code outside historical archives is a failure.
- all_code={p for p in git('ls-files','-z').decode('utf-8').split('\0') if p and Path(p).suffix.lower() in CODE and not p.startswith(('tmp/','dist/','local_assets/','2026-10-05/'))}
- assert all_code<=set(names),sorted(all_code-set(names))
+ # Completeness is the active TD dependency closure, not every experiment.
+ assert set(m['formal_inputs'])|set(m.get('auxiliary_ip_inputs',{}))<=set(names)
  exe=next((p for p in [Path('C:/Program Files/WinRAR/Rar.exe'),Path('C:/Program Files (x86)/WinRAR/Rar.exe')] if p.is_file()),None)
  if exe is None:
   found=shutil.which('rar');assert found,'Install licensed WinRAR/rar to create actual RAR5';exe=Path(found)
@@ -76,7 +70,8 @@ def rar():
   assert json.loads((root/'DELIVERY_MANIFEST.json').read_text(encoding='utf-8'))==package
   # A judge can run the verifier offline with no .git or historical caches.
   subprocess.run([sys.executable,'-B','-X','utf8',str(root/'scripts/submission_package.py'),'verify'],cwd=root,check=True)
- result=dict(passed=True,version=VERSION,rar_path=str(dest),format='RAR5',size_bytes=dest.stat().st_size,limit_bytes=MAX_BYTES,sha256=sha(dest),source_commit=source_commit,file_count=len(names)+1,all_tracked_code_included=True,extraction_all_hashes_passed=True,offline_verification_passed=True,credential_scan=scan,bit_sha256=m['bit_sha256'],board_test=m['board_test'])
+  subprocess.run([sys.executable,'-B','-X','utf8',str(root/'scripts/build_submission.py'),'--prepare-only'],cwd=root,check=True)
+ result=dict(passed=True,version=VERSION,rar_path=str(dest),format='RAR5',size_bytes=dest.stat().st_size,limit_bytes=MAX_BYTES,sha256=sha(dest),source_commit=source_commit,file_count=len(names)+1,all_active_project_code_and_ip_included=True,extraction_all_hashes_passed=True,offline_verification_passed=True,credential_scan=scan,bit_sha256=m['bit_sha256'],board_test=m['board_test'])
  (out/'RAR_VERIFICATION.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
  print(json.dumps(result,ensure_ascii=False,indent=2))
 if __name__=='__main__':

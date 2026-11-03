@@ -20,7 +20,7 @@ TD入口：`in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_
 4. Python3执行 `python scripts/submission_package.py verify`，核对95项正式输入及当前bit哈希。
 5. 可选原生ModelSim：`python tests/run_latency_frame_fix.py`。需对应安路ERAM/GSR库；工具路径适配见tests/vision_sim.py。仿真不代替实板。
 
-本RAR包含全部当前跟踪的RTL、IP配置、约束、ROM、测试、脚本、独立队友模块和必要文档；排除.git、tmp、*_Runs、录像及旧bit/报告。历史版本在仓库tag恢复。Windows需解压到普通路径，尽量避免额外过深嵌套。
+本RAR精简为正式.al的全部有效RTL、IP内部依赖、约束、ROM、当前bit和三个构建/校验工具；排除独立未使用模块、历史算法/测试/报告、录像和旧bit。历史版本在仓库tag恢复。Windows需解压到普通路径，尽量避免额外过深嵌套。
 
 ## 功能、控件与展示
 
