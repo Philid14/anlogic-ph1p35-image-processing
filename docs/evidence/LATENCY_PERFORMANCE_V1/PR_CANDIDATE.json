@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/30",
+  "number": 30,
+  "state": "open",
+  "draft": true,
+  "merged": false,
+  "base": "codex/main/track-region-fix-v1",
+  "base_sha": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+  "head": "codex/main/latency-performance-v1",
+  "verified_head_sha": "bc05cb064892b6dc815b47617b69b76d661df466",
+  "updated_at": "2026-11-03T02:01:03Z",
+  "review": "Await Philid14; same account cannot request self review; no merge authorized."
+}

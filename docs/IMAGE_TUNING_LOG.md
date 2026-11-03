@@ -454,3 +454,5 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 最终route新增CDC审计PASS；既有Gray约束覆盖及历史溢出复发、PVT长稳仍待实板，不宣称已修复。
 - Bit artifacts/bitstreams/LATENCY_PERFORMANCE_V1/camera_to_dsi_display.bit；SHA256 062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4。
 - Board Test NOT_RUN。按BOARD_TEST记录5s/30s/120s及30min稳态E/B/S和旧功能。保留历史；Draft PR30依赖29，不合并、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit bc05cb064892b6dc815b47617b69b76d661df466，candidate tag/branch已实际push；tag内bit与95项TD输入对应实际源码，30份历史bit未变，45份验证清单核验通过。见REMOTE_RECEIPT及PR_CANDIDATE；PR30保持Draft/unmerged。NOT_RUN，停止并等待上板。

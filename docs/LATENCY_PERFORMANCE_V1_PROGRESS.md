@@ -53,3 +53,10 @@
 - 45份结果/原生源码清单哈希门禁、18帧720p及实际模块小高度链路数字验证通过，不等于实板通过。
 - bit/BUILD_INFO及证据归档artifacts/bitstreams/LATENCY_PERFORMANCE_V1；tag latency-performance-v1-candidate，远程发布以REMOTE_RECEIPT为准。
 - 仅完成签发/发布核验后停止，等待按BOARD_TEST反馈；不合并、不自行下一版。
+
+## 发布完成
+
+- candidate归档commit bc05cb064892b6dc815b47617b69b76d661df466，tag latency-performance-v1-candidate已实际push。
+- 远程分支/tag及本地tag内bit、95项TD输入闭环通过，30份历史bit未变；见REMOTE_RECEIPT.json。
+- PR30已更新为候选报告，仍Draft/open/unmerged，等待Philid14审查；同账号不能请求自审。
+- 本轮停止，Board Test NOT_RUN。用户原有研究笔记与未跟踪资料保留。

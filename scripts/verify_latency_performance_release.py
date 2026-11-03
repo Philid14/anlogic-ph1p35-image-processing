@@ -49,5 +49,6 @@ def main():
     assert refs['refs/tags/'+tag]==tagobj and refs['refs/tags/'+tag+'^{}']==archive
     receipt=dict(version=info['version'],time=datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=8))).isoformat(),remote=remote,branch=branch,remote_head=head,source_commit=info['source_commit'],archive_commit=archive,tag=tag,tag_object=tagobj,push_status='SUCCESS',board_test='NOT_RUN',draft_pr=info['draft_pr'],**local)
     out=ROOT/'docs/evidence/LATENCY_PERFORMANCE_V1/REMOTE_RECEIPT.json'
-    out.write_text(json.dumps(receipt,indent=2)+'\n');print(json.dumps(receipt,indent=2))
+    if '--check' not in sys.argv:out.write_text(json.dumps(receipt,indent=2)+'\n')
+    print(json.dumps(receipt,indent=2))
 if __name__=='__main__':main()
