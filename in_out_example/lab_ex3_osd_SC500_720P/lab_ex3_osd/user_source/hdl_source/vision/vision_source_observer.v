@@ -59,7 +59,7 @@ module vision_source_observer #(parameter WIDTH=1280,HEIGHT=720,MAX_AGE_CYCLES=6
         .I_capture_tick(cancel_pending?cancel_tick:retire_tick),.I_color_class(det_class),.I_pixel_count(det_count),
         .I_xmin(dx0),.I_xmax(dx1),.I_center_x(dcx),.I_ymin(dy0),.I_ymax(dy1),.I_center_y(dcy),
         .O_track_state(track_state),.O_observation_usable(usable),.O_positive_valid(positive));
-    vision_motion_grid #(.WIDTH(WIDTH),.HEIGHT(HEIGHT)) u_motion(
+    vision_motion_grid #(.WIDTH(WIDTH),.HEIGHT(HEIGHT),.DENSE_MARK(1)) u_motion(
         .clk(clk),.rst_n(rst_n),.gray(gray),.valid(valid && active && (!finished || user)),
         .sof(pixel_sof),.eof(pixel_eof),.abort(abort),.frame_good(frame_good),.x(px),.y(py),.frame_id(pixel_fid),
         .mark(motion_mark),.result_ready(motion_ready),.result_valid(motion_valid),

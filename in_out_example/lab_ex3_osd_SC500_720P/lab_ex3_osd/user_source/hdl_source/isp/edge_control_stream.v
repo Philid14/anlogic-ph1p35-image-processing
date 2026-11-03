@@ -157,7 +157,7 @@ module edge_control_stream #(
                     if(VISION_ENABLE && !INSPECTION_V5 && config_p[EDGE_STAGES-1][18:16]==3'd5 && target_aligned[3-mark_lane])
                         selected_data[95-mark_lane*24-:24]=24'h00ff80;
                     if(VISION_ENABLE && config_p[EDGE_STAGES-1][18:16]==3'd6 && motion_aligned[3-mark_lane])
-                        selected_data[95-mark_lane*24-:24]=24'hff00ff;
+                        selected_data[95-mark_lane*24-:24]=24'hff3000;
                 end
             end
             default:     selected_data = stable_edge_data;

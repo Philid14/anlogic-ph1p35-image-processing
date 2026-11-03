@@ -1,8 +1,9 @@
 // MAIN: 32x16 full-pixel block means, two history banks, no frame RGB store.
 // Input is the normalized 4PPC observer stream. Mask marks the last beat of
-// each changed block; complete statistics publish after EOF, never mid-frame.
+// each changed block in compatibility mode. Dense mode renders an 8px-pitch
+// dot lattice from the LAST complete motion map, not from a partial current map.
 module vision_motion_grid #(
-    parameter WIDTH=1280,HEIGHT=720,THRESHOLD=12,MIN_CELLS=3
+    parameter WIDTH=1280,HEIGHT=720,THRESHOLD=12,MIN_CELLS=3,DENSE_MARK=0
 )(input clk,rst_n,input [31:0] gray,input valid,sof,eof,abort,frame_good,
   input [10:0] x,input [9:0] y,input [31:0] frame_id,
   output reg [3:0] mark,output reg result_ready,result_valid,
@@ -14,7 +15,18 @@ module vision_motion_grid #(
     reg [31:0] previous_frame;
     reg [12:0] horizontal;
     reg [11:0] address;
-    wire [7:0] old_mean;reg [7:0] current_mean;
+    wire [8:0] history_data;wire [7:0] old_mean=history_data[7:0];reg [7:0] current_mean;
+    reg [10:0] write_address,row_base;
+    reg [3:0] dots_d;reg dots_valid;
+    wire [10:0] view_address=row_base+(x>>5);
+    wire block_start=valid && x[4:0]==0;
+    reg [3:0] dots;integer dot_lane;
+    always @*begin
+        dots=0;
+        for(dot_lane=0;dot_lane<4;dot_lane=dot_lane+1)
+            dots[3-dot_lane]=(y[2:0]>=1 && y[2:0]<=3) &&
+                (((x+dot_lane)&7)>=1 && ((x+dot_lane)&7)<=3);
+    end
     reg cell_pending,cell_eligible,eof_pending,good_pending;
     reg [31:0] frame_pending;
     reg [11:0] count;
@@ -31,13 +43,15 @@ module vision_motion_grid #(
     // 4096x8 true dual-port history: each bank occupies 2048 addresses.
     // Write current bank and synchronously read the other bank at the SAME
     // cell address. No read/write collision; no reset of RAM contents.
-    PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(8),.DATA_WIDTH_B(8),.ADDR_WIDTH_A(12),.ADDR_WIDTH_B(12),
+    PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(DENSE_MARK?9:8),.DATA_WIDTH_B(DENSE_MARK?9:8),.ADDR_WIDTH_A(12),.ADDR_WIDTH_B(12),
       .DATA_DEPTH_A(4096),.DATA_DEPTH_B(4096),.MODE("DP"),.CLKMODE("SYNC"),
       .REGMODE_A("NOREG"),.REGMODE_B("NOREG"),.INIT_FILE("NONE"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_history(
-      .clka(clk),.cea(cell_end && !abort),.ocea(1'b1),.addra({bank,address[10:0]}),
-      .dia(rounded[16:9]),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
-      .clkb(clk),.ceb(cell_end && !abort),.oceb(1'b1),.addrb({!bank,address[10:0]}),
-      .dib(8'd0),.web(1'b0),.rstb(1'b0),.beb(1'b1),.dob(old_mean),
+      .clka(clk),.cea((DENSE_MARK?cell_pending:cell_end) && !abort),.ocea(1'b1),
+      .addra({bank,(DENSE_MARK?write_address:address[10:0])}),
+      .dia(DENSE_MARK?{changed,current_mean}:{1'b0,rounded[16:9]}),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
+      .clkb(clk),.ceb((cell_end || (DENSE_MARK && block_start)) && !abort),.oceb(1'b1),
+      .addrb({!bank,(cell_end?address[10:0]:view_address)}),
+      .dib(9'd0),.web(1'b0),.rstb(1'b0),.beb(1'b1),.dob(history_data),
       .ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());
     // RAM contents never reset. A bank becomes history only after full valid EOF.
     always @(posedge clk)begin
@@ -49,8 +63,12 @@ module vision_motion_grid #(
             current_mean<=0;cell_pending<=0;cell_eligible<=0;eof_pending<=0;good_pending<=0;
             frame_pending<=0;count<=0;mark<=0;result_ready<=0;result_valid<=0;
             result_frame<=0;changed_cells<=0;result_state<=0;
+            write_address<=0;row_base<=0;dots_d<=0;dots_valid<=0;
         end else begin
-            mark<=changed?4'b1111:4'b0000;
+            mark<=DENSE_MARK?(dots_valid && !abort && history_data[8]?dots_d:4'd0):(changed?4'b1111:4'b0000);
+            dots_d<=dots;dots_valid<=valid && pair_valid && !abort;
+            if(cell_end)write_address<=address[10:0];
+            if(valid && x==WIDTH-4 && y[3:0]==15)row_base<=row_base+COLS;
             result_ready<=0;
             cell_pending<=cell_end && !abort;
             cell_eligible<=pair_valid && !abort;
@@ -60,6 +78,7 @@ module vision_motion_grid #(
             if(cell_end && !abort)begin current_mean<=rounded[16:9];address<=address+1'b1;end
             if(changed)count<=count+1'b1;
             if(sof)begin
+                row_base<=0;
                 count<=0;horizontal<=beat_sum;address<=0;
                 pair_valid<=history_valid && frame_id==previous_frame+1'b1;
             end
