@@ -26,5 +26,9 @@
       "result_sha256": "398ff98b620f0d983616dcb8647750e7e2235d481ec3aa439835a85f433648dc"
     }
   },
-  "board_test": "NOT_RUN"
+  "board_test": "NOT_RUN",
+  "independent_archive_full_td_passed": true,
+  "independent_td_source_commit": "6432c918fea3b8ea25d65f5c5fe3816400b0cbfe",
+  "source_algorithm_changed": false,
+  "rebuilt_bit_sha256": "ce6d17efe38297709ff71f24fd57f260270e16ff1bb6ed7031f5a03adc866515"
 }

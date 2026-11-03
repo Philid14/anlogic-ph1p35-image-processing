@@ -1,14 +1,13 @@
 {
-  "version": "FINAL_SUBMISSION_V1_1",
-  "kind": "source delivery with TD Windows path portability fix; hardware unchanged",
+  "version": "FINAL_SUBMISSION_V1_2",
+  "kind": "independently rebuilt lean source delivery, with a short P35 archive root",
   "repository": "https://github.com/Philid14/anlogic-ph1p35-image-processing",
-  "tag": "final-submission-v1.1",
-  "hardware_version": "LATENCY_FRAME_FIX_V1",
-  "hardware_tag": "latency-frame-fix-v1-candidate",
-  "hardware_source_commit": "ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8",
-  "hardware_archive_commit": "ad7bc680601d29ac9097803608e0b648068a8a8d",
-  "bit_path": "artifacts/bitstreams/LATENCY_FRAME_FIX_V1/camera_to_dsi_display.bit",
-  "bit_sha256": "d516c1d81ec30999d3510ac82e32e354dd31e1e40dd374ad376e2b572a1f2c16",
+  "tag": "final-submission-v1.2",
+  "hardware_version": "FINAL_SUBMISSION_REBUILD_V1",
+  "hardware_tag": "final-submission-rebuild-v1-candidate",
+  "hardware_source_commit": "6432c918fea3b8ea25d65f5c5fe3816400b0cbfe",
+  "bit_path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/camera_to_dsi_display.bit",
+  "bit_sha256": "ce6d17efe38297709ff71f24fd57f260270e16ff1bb6ed7031f5a03adc866515",
   "setup_wns_ns": 0.137,
   "hold_wns_ns": 0.02,
   "resources": {
@@ -115,7 +114,7 @@
     "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_font.dath": "1f1662f8578f56a8ec53aa93b09e9f92459fbdf18e315ee3a3b7a0f926653462",
     "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_font.dath": "4eed02fdfda4c26c95c055cde67b95533bba94e6ccb3edd644fc8f767659e2fb"
   },
-  "board_test": "NOT_RUN for this exact real-latency fix; do not infer from earlier photos",
+  "board_test": "NOT_RUN for this exact rebuilt bit",
   "source_policy": "LEAN submission: only actual .al source/configuration and active IP support files,4 ROMs, current bit, build/verifier tools and brief instructions. Historical code/tests/reports stay on GitHub, not in the RAR.",
   "random_latency_demo": "removed; not part of this tree or submission",
   "project_entry": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al",
@@ -217,5 +216,7 @@
     "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/DesignConfiguration.xml": "fd3ac947078686af5ac2d07ae9e64b5cddaea3f796163a10c5c1079e47cccdee",
     "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v": "cffdae59273ca6d7a4ab6473baa8cf94e81ab1900c4b9e358adca6e4b196114d",
     "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.v": "d600bcd8e876691d6cf3a512650e7e69118fc8016e9fdf892ac85e4c63851e37"
-  }
+  },
+  "hardware_archive_ref": "refs/tags/final-submission-rebuild-v1-candidate",
+  "independent_full_TD_rebuild_passed": true
 }
