@@ -55,10 +55,21 @@ module nms_gradient_pair_3x3 #(
     wire [27:0] top_s2;reg[27:0]bot_s2;
     wire [31:0] mid_s2;
     reg [10:0] x_s2,y_s2;
+    generate if(GROUPS<=512)begin:g_native_history
+    wire[31:0]early_mid;
     edge_row_history #(.MID_WIDTH(32),.TOP_WIDTH(28))u_rows(
-        .clk(clk),.read_en(valid_p[0]),.read_address(x_s1[9:0]),.data(pair_s1),
-        .copy_en(valid_p[1]),.copy_address(x_s2[9:0]),.copy_data({mid_s2[29:16],mid_s2[13:0]}),
-        .middle(mid_s2),.top(top_s2));
+        .clk(clk),.read_en(I_valid && rst_n),.read_address(x_now[9:0]),
+        .data({I_direction[3:2],I_magnitude[27:14],I_direction[1:0],I_magnitude[13:0]}),
+        .copy_en(valid_p[0]),.copy_address(x_s1[9:0]),.copy_data({early_mid[29:16],early_mid[13:0]}),
+        .middle(mid_s2),.top(top_s2),.early_middle(early_mid));
+    end else begin:g_wide_fallback
+        reg[31:0]row1[0:GROUPS-1],middle;reg[27:0]row2[0:GROUPS-1],top;
+        assign mid_s2=middle;assign top_s2=top;
+        always @(posedge clk)begin
+            if(valid_p[0])begin top<=row2[x_s1];middle<=row1[x_s1];row1[x_s1]<=pair_s1;end
+            if(valid_p[1])row2[x_s2]<={mid_s2[29:16],mid_s2[13:0]};
+        end
+    end endgenerate
     always @(posedge clk) begin
         if(valid_p[0]) begin
             bot_s2<={pair_s1[29:16],pair_s1[13:0]};

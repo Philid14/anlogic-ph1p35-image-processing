@@ -37,3 +37,11 @@
 - 新资源方案将Gaussian/NMS旧LUT行缓存等价映射到原生ERAM，配置延迟改为短移位链以释放2ERAM。独立旧模型对照通过；整机综合试验r5为108ERAM，最终布局/时序尚待。
 - 当前正在完成新源码的720p旧功能回归与正式TD构建。没有新candidate bit/tag或上板成功结论。
 - GitHub核对：PR29仍Draft/open，HEAD072bc0f8；PR5仍open/unmerged，HEAD87bb9a53。没有自动合并。
+
+## 后续已验证检查点
+
+- R0正式源d1eabc5实际完成SYN/PHY/最终STA：Setup+0.127ns、Hold+0.020ns、TNS0；未生成bit。所有18帧720p旧功能/打包和TRACK31拍回归通过。
+- 为保留ERAM余量，R1将Gaussian/NMS首行读提前一级，并在原G2/N2对齐，窗口与总延迟不变。两类行缓存6→3ERAM；独立软件参考、复位及18帧整机回归再次通过。
+- retime_syn实际确认105ERAM。R1需重新正式构建，禁止引用R0时序冒充R1。
+- 校正诊断超时使用DDR实际配置66.667MHz，并让参考时钟中断sticky invalid直到全局复位；新增独立异常测试，视频调度不变。
+- Draft PR30已创建，依赖29；尚无最终candidate bit/tag，仍不能宣称实板验收通过。

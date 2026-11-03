@@ -15,7 +15,7 @@ def simulate(out,top,sources,**kwargs):
     if os.environ.get('LATENCY_STAGING')=='1':
         def staged(p):
             if p.is_relative_to(HDL):
-                candidate=ROOT/'tmp/latency_performance/staging'/p.relative_to(HDL)
+                candidate=ROOT/os.environ.get('LATENCY_STAGE_ROOT','tmp/latency_performance/staging')/p.relative_to(HDL)
                 if candidate.exists():return candidate
             return p
         files=[staged(p) for p in files]
@@ -24,7 +24,7 @@ def simulate(out,top,sources,**kwargs):
 def main():
     for case in sys.argv[1:]:
         module=importlib.import_module(CASES[case])
-        module.OUT=ROOT/'tmp/latency_performance/regression'/case
+        module.OUT=ROOT/os.environ.get('LATENCY_REGRESSION_OUT','tmp/latency_performance/regression')/case
         if hasattr(module,'simulate'):module.simulate=simulate
         module.main()
 if __name__=='__main__':main()

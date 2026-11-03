@@ -3,8 +3,8 @@
 // Completion means all exact, contiguous user writes have entered the ordered
 // MC command FIFO. A later read of a committed slot queues behind these writes.
 module latency_slot_journal #(
- parameter WORDS=172800,parameter EXPIRE_CYCLES=62500000,
- parameter HEARTBEAT_TIMEOUT=125000
+ parameter WORDS=172800,parameter EXPIRE_CYCLES=33333333,
+ parameter HEARTBEAT_TIMEOUT=66667
 )(
  input clk,rst_n,input wr_en,input[24:0] wr_addr,input[86:0] wr_tag,
  input rd_en,rd_valid,command_full,
@@ -21,8 +21,8 @@ module latency_slot_journal #(
  wire first=wr_tag[2],last=wr_tag[1],good=wr_tag[0];
  wire[83:0] key=wr_tag[86:3];
  (* async_reg="true" *)reg hb1,hb2;reg hb_old;
- reg[16:0] hb_age;
- wire clock_live=hb_age<HEARTBEAT_TIMEOUT;
+ reg[16:0] hb_age;reg hb_seen,hb_fault;
+ wire clock_live=hb_age<HEARTBEAT_TIMEOUT && hb_seen && !hb_fault;
  wire commit_record=wr_en && !(first && is_base) && writing && last &&
    count==WORDS-1 && good && !write_bad && key==write_key &&
    wr_addr==next_address && !command_full && clock_live;
@@ -30,11 +30,12 @@ module latency_slot_journal #(
  // its contents on reset would need hundreds of FFs without improving safety.
  always @(posedge clk)if(rst_n && commit_record)records[write_slot]<=key;
  always @(posedge clk or negedge rst_n)begin
-  if(!rst_n)begin hb1<=0;hb2<=0;hb_old<=0;hb_age<=HEARTBEAT_TIMEOUT;end
+  if(!rst_n)begin hb1<=0;hb2<=0;hb_old<=0;hb_age<=HEARTBEAT_TIMEOUT;hb_seen<=0;hb_fault<=0;end
   else begin
    hb1<=reference_heartbeat;hb2<=hb1;hb_old<=hb2;
-   if(hb2!=hb_old)hb_age<=0;
+   if(hb2!=hb_old)begin hb_age<=0;hb_seen<=1;end
    else if(hb_age<HEARTBEAT_TIMEOUT)hb_age<=hb_age+1'b1;
+   else if(hb_seen)hb_fault<=1;
   end
  end
  integer i;
@@ -45,8 +46,9 @@ module latency_slot_journal #(
    outstanding<=0;selected<=0;select_toggle<=0;read_bad<=1;
   end else begin
    // Two successive half-second windows bound untouched slot lifetime below
-   // one second, safely below the 10.48s timestamp wrap. Lost reference clock
-   // clears all records; it cannot produce a plausible wrapped latency later.
+   // one second at configured DDR user66.667MHz, below the10.48s timestamp wrap.
+   // Lost reference clears records and latches a fault until global reset:
+   // a stopped reference cannot establish absolute timing across the outage.
    if(expiry==EXPIRE_CYCLES-1)begin
     expiry<=0;committed<=committed & recent;recent<=0;
    end else expiry<=expiry+1'b1;

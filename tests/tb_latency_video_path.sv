@@ -2,7 +2,7 @@
 // Actual video_in, ordered MC command FIFO, video_out, mixer and native RAMs.
 // Small height retains production1280-pixel line and240-word DDR bursts.
 module tb_latency_video_path;
- reg cc=0,dc=0,hc=0;always #20 cc=~cc;always #4 dc=~dc;always #6.667 hc=~hc;
+ reg cc=0,dc=0,hc=0;always #8.334 cc=~cc;always #7.5 dc=~dc;always #6.667 hc=~hc;
  reg rst_n=0,rv=0,ru=0,rl=0,pv=0,pu=0;
  reg[127:0]rgb=0;
  wire[19:0]tick,gray;wire[86:0]tag,wr_tag;
@@ -96,13 +96,13 @@ module tb_latency_video_path;
   fork
    begin
     for(integer f=0;f<12;f=f+1)begin
-     @(negedge cc);ru=1;rv=1;rl=0;capture_time[f]=$realtime+20;
+     @(negedge cc);ru=1;rv=1;rl=0;capture_time[f]=$realtime+8.334;
      for(integer b=1;b<1280;b=b+1)begin @(negedge cc);ru=0;rv=1;rl=b%320==319;end
      @(negedge cc);rv=0;rl=0;pu=1;
      @(negedge cc);pu=0;repeat(40)@(negedge cc);
      rgb={16{8'(f+1)}};
      for(integer b=0;b<960;b=b+1)begin @(negedge cc);pv=1;end
-     @(negedge cc);pv=0;repeat(4000)@(negedge cc);
+     @(negedge cc);pv=0;repeat(16000)@(negedge cc);
     end
    end
    begin

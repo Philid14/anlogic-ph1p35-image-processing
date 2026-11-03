@@ -57,8 +57,19 @@ module gaussian_pair_3x3 #(
     // Arrays deliberately have no reset; G3/G4 border masks reject stale data.
     wire [15:0] top_s2,mid_s2;reg[15:0]bot_s2;
     reg [10:0] x_s2,y_s2;
-    edge_row_history u_rows(.clk(clk),.read_en(valid_p[0]),.read_address(x_s1[9:0]),.data(pair_s1),
-        .copy_en(valid_p[1]),.copy_address(x_s2[9:0]),.copy_data(mid_s2),.middle(mid_s2),.top(top_s2));
+    generate if(GROUPS<=512)begin:g_native_history
+    wire[15:0]early_mid;
+    edge_row_history u_rows(.clk(clk),.read_en(I_valid && rst_n),.read_address(x_now[9:0]),.data(I_pair),
+        .copy_en(valid_p[0]),.copy_address(x_s1[9:0]),.copy_data(early_mid),
+        .middle(mid_s2),.top(top_s2),.early_middle(early_mid));
+    end else begin:g_wide_fallback
+        reg[15:0]row1[0:GROUPS-1],row2[0:GROUPS-1],middle,top;
+        assign mid_s2=middle;assign top_s2=top;
+        always @(posedge clk)begin
+            if(valid_p[0])begin top<=row2[x_s1];middle<=row1[x_s1];row1[x_s1]<=pair_s1;end
+            if(valid_p[1])row2[x_s2]<=mid_s2;
+        end
+    end endgenerate
     always @(posedge clk) begin
         if(valid_p[0]) begin
             bot_s2<=pair_s1;

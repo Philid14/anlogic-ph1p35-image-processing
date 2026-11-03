@@ -5,13 +5,13 @@ staged MAIN adapters are used before their promotion to the formal .al project.
 All clock/IP constraints retain identical contents, with absolute paths only.
 """
 from pathlib import Path
-import re,json,shutil,hashlib,subprocess
+import re,json,shutil,hashlib,subprocess,os
 import prepare_td_runs
 ROOT=prepare_td_runs.ROOT
 P=prepare_td_runs.PROJECT
 HDL=P.parent/'user_source/hdl_source'
-STAGING=ROOT/'tmp/latency_performance/staging'
-OUT=ROOT/'tmp/latency_performance/integrated_syn_r5'
+STAGING=ROOT/os.environ.get('LATENCY_STAGE_ROOT','tmp/latency_performance/staging')
+OUT=ROOT/os.environ.get('LATENCY_RESOURCE_OUT','tmp/latency_performance/integrated_syn_r5')
 ADDED=['edge_row_history.v','latency_capture_tag.v','latency_slot_journal.v','latency_tagged_fifo.v','latency_osd.v']
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def main():
@@ -38,6 +38,7 @@ def main():
     entries=''
     for order,name in enumerate(ADDED,200):
         path=HDL/'vision'/name
+        if path.relative_to(ROOT).as_posix() in manifest:continue
         manifest[path.relative_to(ROOT).as_posix()]=dict(actual_path=str(path),sha256=sha(path))
         frozen=freeze(path,path)
         entries+='<File Path="'+frozen.as_posix()+'"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="'+str(order)+'"/></FileInfo></File>\n'

@@ -4,7 +4,7 @@ from pathlib import Path
 import build_track_region_fix as build
 ROOT=build.ROOT;P=build.P;HDL=build.HDL
 BASE='072bc0f8858ceb3009659f8df7cb02b9da05ed36'
-OUT=ROOT/'tmp/latency_performance/full_r0'
+OUT=ROOT/'tmp/latency_performance/full_r1'
 CHANGED={HDL+p for p in ('design_top_wrapper.v','video_in.v','video_out.v','mc_to_user_interface.v','hdmi_mixer.v',
  'isp/edge_link_pair_3x3.v','isp/gaussian_pair_3x3.v','isp/nms_gradient_pair_3x3.v','vision/inspection_config_delay.v')}
 ADDED={HDL+'vision/'+p for p in ('edge_row_history.v','latency_capture_tag.v','latency_slot_journal.v','latency_tagged_fifo.v','latency_osd.v','latency_font.dath')}
@@ -47,10 +47,11 @@ def regression_gate():
             hashes=json.loads(manifest.read_text())
             for name,digest in hashes.items():
                 path=Path(name);assert build.sha(path)==digest,name+' changed after test'
-                stage=ROOT/'tmp/latency_performance/staging'
-                if path.is_relative_to(stage):
-                    actual=ROOT/HDL/path.relative_to(stage)
-                    assert build.sha(actual)==digest,'staging differs from formal source '+name
+                for staging in ('staging','retime_staging'):
+                    stage=ROOT/'tmp/latency_performance'/staging
+                    if path.is_relative_to(stage):
+                        actual=ROOT/HDL/path.relative_to(stage)
+                        assert build.sha(actual)==digest,'staging differs from formal source '+name
             evidence[manifest.relative_to(ROOT).as_posix()]=build.sha(manifest)
     return evidence
 

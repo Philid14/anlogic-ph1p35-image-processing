@@ -74,13 +74,27 @@ The integrated experiment needed112/108ERAM. This route was rejected. The formal
 RGB/gray/binary payload delay implementation remains byte-identical to the baseline.
 
 The selected alternative moves the existing Gaussian and NMS synchronous row
-arrays from LUT RAM to native SP/DP RAM: same old-data reads, copy-on-next-clock,
-same borders and4cycles/stage. Native independent old software vectors pass for
-Gaussian1282 and NMS2564 beats. These two modules consume6ERAM while replacing
-704LUT-RAM cells. The23-bit config delay uses an exact unreset per-clock shift
-chain instead of2ERAM. Four-hop coalescing frees4ERAM; wider pixel/tag FIFO costs
-2 and compact font costs1. Net105-4-2+6+2+1=108ERAM, confirmed by integrated r5
-synthesis. Actual Slice and final timing remain subject to full physical build.
+arrays from LUT RAM to native RAM, replacing704LUT-RAM cells. R0 used6ERAM and
+passed final STA(+0.127ns setup/+0.020ns hold) plus18 full720p reference frames.
+It did not generate a bit; its source and full build evidence are retained.
+
+R1 retimes the row1 old-data access from G2/N2 to G1/N1. G2/N2 registers that old
+row1 and reads-before-writing row2 at its matching column. Both histories now use
+disjoint regions of the SAME DP16 bank: Gaussian1bank, NMS2banks. The original
+G2/N2 windows, borders, metadata and4cycles/stage remain exact; widths above2048
+retain the old generic arrays. Independent old software vectors(1282Gaussian/
+2564NMS beats), reset cases and18 full720p stream frames pass with this retiming.
+
+The23-bit config delay uses an exact unreset per-clock shift chain instead of
+2ERAM. Four-hop coalescing frees4ERAM; wider pixel/tag FIFO costs2 and compact
+font costs1. Net105-4-2+3+2+1=105ERAM, confirmed by the retimed synthesis. Final
+Slice and timing still require R1 physical build; R0 timing is not reused as R1.
+
+Actual constraint-derived clocks are CSI~59.995MHz, DDR user66.667MHz and HDMI
+75MHz(nominal configured, not physically calibrated). DDR expiry33333333cycles
+is one half-second window; heartbeat timeout66667cycles is1ms. A reference outage
+after acquisition of its heartbeat latches invalid until global reset, so timing
+across a stopped reference is never silently accepted after it resumes.
 
 One resettable committed bit per slot protects unreset journal payload RAM; no
 uninitialized metadata is eligible. Source identity/timestamp is held until the
