@@ -4,8 +4,8 @@ from pathlib import Path
 import build_track_region_fix as build
 ROOT=build.ROOT;P=build.P;HDL=build.HDL
 BASE='6ad4f7cd70b5614240c07db2a16775aa492d9f14'
-OUT=ROOT/'tmp/inspection_parts_motion/full_r2'
-CHANGED={HDL+n for n in ('vision/vision_motion_grid.v','vision/vision_source_observer.v','isp/edge_control_stream.v','isp/planar_measure_stats.v','isp/color_compare_osd.v','isp/engineering_dimension_marks.v')}
+OUT=ROOT/'tmp/inspection_parts_motion/full_r3'
+CHANGED={HDL+n for n in ('vision/vision_motion_grid.v','vision/vision_source_observer.v','isp/edge_control_stream.v','isp/planar_measure_stats.v','isp/color_compare_osd.v','isp/engineering_dimension_marks.v','awb.v','isp/isp_top.v')}
 def snapshot():
  head=build.git('rev-parse','HEAD').decode().strip()
  old=json.loads((ROOT/'artifacts/bitstreams/LATENCY_PERFORMANCE_V1/build_evidence/SOURCE_MANIFEST.json').read_text())
@@ -24,9 +24,13 @@ def snapshot():
  assert set(changed)<=CHANGED,changed
  return dict(source_commit=head,baseline=BASE,files=files,al_sha256=old['al_sha256'],old_bits={p.relative_to(ROOT).as_posix():build.sha(p) for p in (ROOT/'artifacts/bitstreams').glob('*/*.bit')})
 def regression_gate():
- folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','views','drawing','stream','equivalence')]
+ folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','all_drawing_r3','stream_r3','equivalence','awb_divider_equivalence_r1','awb_frame_equivalence_r1')]
  folders +=[ROOT/'tmp/inspection_parts_motion/regression'/x for x in ('font','shape','drawing','track','config','reset','select','contract','legacy','integrated','background_full','track_stream')]
  folders +=[ROOT/'tmp/latency_performance'/x for x in ('memory','rows','units','fifo','osd','video_path')]
+ # Native sources were compiled in isolated stages before promotion; bind
+ # those exact bytes to the actual formal inputs, not just a test model.
+ for stage,names in [('divider_stage_r1',('awb.v','isp/isp_top.v')),('final_stage_r3',('awb.v','isp/isp_top.v','isp/edge_control_stream.v','isp/color_compare_osd.v','isp/engineering_dimension_marks.v'))]:
+  for name in names:assert build.sha(ROOT/'tmp/inspection_parts_motion'/stage/name)==build.sha(ROOT/HDL/name),name
  hashes={}
  for folder in folders:
   result=folder/'results.json';data=json.loads(result.read_text());assert data['passed'],str(folder)

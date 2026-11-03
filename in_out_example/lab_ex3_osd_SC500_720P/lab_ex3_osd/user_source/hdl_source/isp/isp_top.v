@@ -158,7 +158,8 @@ data128_96 u_data128_96 (
 
 awb #(
     .IMG_HEIGHT(720 ),
-    .IMG_WIDTH (1280)
+    .IMG_WIDTH (1280),
+    .FRAME_SERIAL_DIV(1)
 ) u_awb (
     .I_clk   (axi4s_video_aclk),
     .I_rst_n (I_rst_n),

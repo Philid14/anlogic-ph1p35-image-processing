@@ -9,7 +9,8 @@ interface, signal_delay RAM and Anlogic divider IP remain unchanged.
 *****************************************************************/
 module awb #(
     parameter IMG_HEIGHT = 1080,
-    parameter IMG_WIDTH  = 1920
+    parameter IMG_WIDTH  = 1920,
+    parameter FRAME_SERIAL_DIV = 0
 )(
     input             I_clk,
     input             I_rst_n,
@@ -201,6 +202,19 @@ module awb #(
     // Start both Anlogic divider IPs only for a complete valid frame.
     wire [47:0] quotient_r, quotient_b;
     wire done_r, done_b;
+    generate if(FRAME_SERIAL_DIV && IMG_HEIGHT>=64)begin:g_frame_divider
+    awb_frame_divider48 div_gen_G_R_r1 (
+        .clk(I_clk), .rst(!I_rst_n), .start(frame_ready),
+        .denominator(frame_r), .numerator({frame_g,16'd0}),
+        .quotient(quotient_r), .done(done_r)
+    );
+    awb_frame_divider48 divide_G_B_r1 (
+        .clk(I_clk), .rst(!I_rst_n), .start(frame_ready),
+        .denominator(frame_b), .numerator({frame_g,16'd0}),
+        .quotient(quotient_b), .done(done_b)
+    );
+
+    end else begin:g_streaming_divider
     divider div_gen_G_R_r1 (
         .clk(I_clk), .rst(!I_rst_n), .start(frame_ready),
         .denominator(frame_r), .numerator({frame_g,16'd0}),
@@ -211,6 +225,8 @@ module awb #(
         .denominator(frame_b), .numerator({frame_g,16'd0}),
         .quotient(quotient_b), .done(done_b)
     );
+
+    end endgenerate
 
     // Preserve the reference design's 50-clock RAM pixel delay.
     reg I_tvalid_r0, I_tvalid_r1;
@@ -312,4 +328,33 @@ module awb #(
         sat_q16(mult_r[0]), green_d[0], sat_q16(mult_b[0])
     } : 96'd0;
     assign I_tready = O_tready;
+endmodule
+
+// Frame-only exact unsigned48/32 division. Start spacing>=50 clocks is a
+// contract, NOT a generic pipelined-divider replacement. AWB720-line counter
+// guarantees>=720 clocks between complete-frame starts, including bad streams.
+// Native reference IP done is49 clocks after its start edge; preserve this.
+module awb_frame_divider48(input clk,rst,start,input[47:0]numerator,
+ input[31:0]denominator,output reg[47:0]quotient,output reg[31:0]remainder,output reg done);
+ reg[47:0]shift;reg[31:0]den,rem;reg[5:0]bit_count;reg busy=0;
+ // The official IP only resets its OUTPUT registers. Its in-flight data and
+ // start pipeline survive rst. Keep that exact boundary behavior, including
+ // a pre-reset operation that completes after rst deasserts. GSR starts0.
+ reg[48:0]tokens=49'd0;
+ wire[32:0]trial={rem,shift[47]};
+ wire subtract=trial>={1'b0,den};
+ wire[32:0]difference=trial-{1'b0,den};
+ always @(posedge clk)begin
+   tokens<={tokens[47:0],start};
+   if(start)begin shift<=numerator;den<=denominator;rem<=0;bit_count<=0;busy<=1;end
+   else if(busy)begin
+    shift<={shift[46:0],subtract};rem<=subtract?difference[31:0]:trial[31:0];
+    if(bit_count==47)busy<=0;
+    else bit_count<=bit_count+1'b1;
+   end
+ end
+ always @(posedge clk or posedge rst)begin
+  if(rst)begin done<=0;quotient<=0;remainder<=0;end
+  else begin done<=tokens[48];if(tokens[48])begin quotient<=shift;remainder<=rem;end end
+ end
 endmodule

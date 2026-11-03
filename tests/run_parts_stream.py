@@ -2,7 +2,7 @@ import json,hashlib,os
 from vision_sim import ROOT,HDL,simulate
 from run_vision_legacy import sources
 from run_latency_regression import simulate as with_helpers
-OUT=ROOT/'tmp/inspection_parts_motion/stream'
+OUT=ROOT/'tmp/inspection_parts_motion/stream_r3'
 def main():
  src=[ROOT/'tests/tb_parts_stream.sv']+[p for p in sources() if p.name!='vision_eram_contract.v']+[HDL/'vision'/n for n in ('inspection_font_rom.v','measure_background.v','inspection_config_delay.v','inspection_shape_select.v')]
  if os.environ.get('LATENCY_STAGING')=='1':
