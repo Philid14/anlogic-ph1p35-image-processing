@@ -1,0 +1,118 @@
+{
+  "scope": "DOCUMENT_AND_READ_ONLY_EVIDENCE",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "official_length_limits",
+      "passed": true,
+      "details": {
+        "摘要": {
+          "chars": 547,
+          "limit": 800
+        },
+        "1.1": {
+          "chars": 168,
+          "limit": 400
+        },
+        "1.2": {
+          "chars": 104,
+          "limit": 400
+        },
+        "1.3": {
+          "chars": 176,
+          "limit": 400
+        },
+        "1.4": {
+          "chars": 165,
+          "limit": 200
+        },
+        "1.5": {
+          "chars": 122,
+          "limit": 200
+        },
+        "1.6": {
+          "chars": 127,
+          "limit": 200
+        },
+        "4.1": {
+          "chars": 143,
+          "limit": 300
+        },
+        "4.2": {
+          "chars": 491,
+          "limit": 1000
+        }
+      }
+    },
+    {
+      "name": "five_parts",
+      "passed": true,
+      "details": "official five parts"
+    },
+    {
+      "name": "references",
+      "passed": true,
+      "details": "20 references"
+    },
+    {
+      "name": "figures",
+      "passed": true,
+      "details": "30 inherited + 2 new / 19 groups"
+    },
+    {
+      "name": "zip",
+      "passed": true,
+      "details": "ZIP CRC"
+    },
+    {
+      "name": "preserved_parts",
+      "passed": true,
+      "details": "original opaque parts/styles/header/footer/old images unchanged"
+    },
+    {
+      "name": "native_equation",
+      "passed": true,
+      "details": "OMML retained"
+    },
+    {
+      "name": "section_geometry",
+      "passed": true,
+      "details": "one A4 section with template geometry"
+    },
+    {
+      "name": "inherited_figures",
+      "passed": true,
+      "details": "30 original image files unchanged"
+    },
+    {
+      "name": "new_figures",
+      "passed": true,
+      "details": "2 full presentation frames"
+    },
+    {
+      "name": "source_boundary",
+      "passed": true,
+      "details": "191 matching Git inputs; raw EOL differences separately retained"
+    },
+    {
+      "name": "video",
+      "passed": true,
+      "details": "171.20 seconds; 342 2Hz samples; edited presentation"
+    },
+    {
+      "name": "no_invented_measurement",
+      "passed": true,
+      "details": "real latency/truth/long-run unquantified; recording SHA not inferred"
+    },
+    {
+      "name": "template_hash",
+      "passed": true,
+      "details": "retained template"
+    }
+  ],
+  "docx_sha256": "3fa151c95da0526efa2e770906b926a2230124567b88e69d3b66580eb10cda76",
+  "not_run": [
+    "RTL/TD/P&R/bitgen",
+    "new hardware/accuracy/latency/long-run tests"
+  ]
+}
