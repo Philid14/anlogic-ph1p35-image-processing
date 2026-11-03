@@ -24,7 +24,7 @@ def snapshot():
  assert set(changed)<=CHANGED,changed
  return dict(source_commit=head,baseline=BASE,files=files,al_sha256=old['al_sha256'],old_bits={p.relative_to(ROOT).as_posix():build.sha(p) for p in (ROOT/'artifacts/bitstreams').glob('*/*.bit')})
 def regression_gate():
- folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','views','drawing','stream')]
+ folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','views','drawing','stream','equivalence')]
  folders +=[ROOT/'tmp/inspection_parts_motion/regression'/x for x in ('font','shape','drawing','track','config','reset','select','contract','legacy','integrated','background_full','track_stream')]
  folders +=[ROOT/'tmp/latency_performance'/x for x in ('memory','rows','units','fifo','osd','video_path')]
  hashes={}
