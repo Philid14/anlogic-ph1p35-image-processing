@@ -1,0 +1,9 @@
+{
+  "fileFormatVersion": "1",
+  "parameterSets": {
+    "color_open": {"scene": "color", "show_curtains": "false", "show_fov": "true"},
+    "measure_open": {"scene": "measure", "show_curtains": "false", "show_fov": "false"},
+    "calibration_open": {"scene": "calibration", "show_curtains": "false", "show_fov": "false"},
+    "enclosed": {"scene": "color", "show_curtains": "true", "front_open": "false", "show_fov": "false"}
+  }
+}
