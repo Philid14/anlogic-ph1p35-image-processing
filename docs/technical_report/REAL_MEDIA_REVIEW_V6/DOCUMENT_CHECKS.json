@@ -1,0 +1,127 @@
+{
+  "scope": "DOCUMENT_AND_READ_ONLY_MEDIA_REVIEW",
+  "checks": [
+    {
+      "name": "official_length_limits",
+      "passed": true,
+      "details": {
+        "摘要": {
+          "characters_excluding_whitespace": 545,
+          "limit": 800
+        },
+        "1.1": {
+          "characters_excluding_whitespace": 206,
+          "limit": 400
+        },
+        "1.2": {
+          "characters_excluding_whitespace": 104,
+          "limit": 400
+        },
+        "1.3": {
+          "characters_excluding_whitespace": 176,
+          "limit": 400
+        },
+        "1.4": {
+          "characters_excluding_whitespace": 161,
+          "limit": 200
+        },
+        "1.5": {
+          "characters_excluding_whitespace": 137,
+          "limit": 200
+        },
+        "1.6": {
+          "characters_excluding_whitespace": 112,
+          "limit": 200
+        },
+        "4.1": {
+          "characters_excluding_whitespace": 144,
+          "limit": 300
+        },
+        "4.2": {
+          "characters_excluding_whitespace": 497,
+          "limit": 1000
+        }
+      }
+    },
+    {
+      "name": "five_parts",
+      "passed": true,
+      "details": "official five parts retained"
+    },
+    {
+      "name": "references",
+      "passed": true,
+      "details": "20 references"
+    },
+    {
+      "name": "figures",
+      "passed": true,
+      "details": "4 original diagrams + 20 real-media figures"
+    },
+    {
+      "name": "docx_zip",
+      "passed": true,
+      "details": "ZIP integrity"
+    },
+    {
+      "name": "preserved_parts",
+      "passed": true,
+      "details": {
+        "changed": [
+          "[Content_Types].xml",
+          "word/document.xml",
+          "word/_rels/document.xml.rels",
+          "docProps/core.xml"
+        ],
+        "preserved": 26
+      }
+    },
+    {
+      "name": "native_equation",
+      "passed": true,
+      "details": "1 native OMML equation"
+    },
+    {
+      "name": "section_geometry",
+      "passed": true,
+      "details": "original section properties retained"
+    },
+    {
+      "name": "original_media_decode",
+      "passed": true,
+      "details": {
+        "photos": 12,
+        "videos": 15,
+        "sampled_frames": 979
+      }
+    },
+    {
+      "name": "selected_media_digests",
+      "passed": true,
+      "details": "20 figures match recorded hashes"
+    },
+    {
+      "name": "latest_archived_bit_sha",
+      "passed": true,
+      "details": "062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4"
+    },
+    {
+      "name": "source_digests",
+      "passed": true,
+      "details": 6
+    },
+    {
+      "name": "no_fabricated_physical_results",
+      "passed": true,
+      "details": "exact photo bit/ground truth/long-run unresolved; numerical values in captions are displayed values only"
+    }
+  ],
+  "docx_sha256": "7d3068f14199a54af93a42b55c0f30e2c4c15c2f1121c8c20ea4b0ebbd24826a",
+  "result": "PASS",
+  "not_run": [
+    "RTL simulation",
+    "TD/P&R",
+    "new board run",
+    "physical accuracy/long-run measurement"
+  ]
+}

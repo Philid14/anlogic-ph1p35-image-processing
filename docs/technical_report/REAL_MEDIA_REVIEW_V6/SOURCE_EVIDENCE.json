@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-03",
+  "fetch": "SUCCESS",
+  "docs_start": "3ee87b31cd9aeadccababc92705c77d6873d5fe0",
+  "main": "c42168e26026425660f2a6f51eec76b04c85eea0",
+  "sources": [
+    {
+      "commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+      "path": "docs/LATENCY_PERFORMANCE_V1_REPORT.md",
+      "sha256": "42754fc8f0b3b3ac375fbb9524227411137d07d95b134b54767ca3b0545ec3c8"
+    },
+    {
+      "commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+      "path": "docs/LATENCY_PERFORMANCE_V1_DESIGN.md",
+      "sha256": "cdf32ab7874800d444a17fbf29ad62ac366422914f2f748104ea42f77664fbb0"
+    },
+    {
+      "commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+      "path": "artifacts/bitstreams/LATENCY_PERFORMANCE_V1/BUILD_INFO.json",
+      "sha256": "1a5b6b71d177b97b9da4a94813c1bb427563b7dc91193a5d269cc2fa42456dbf"
+    },
+    {
+      "commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+      "path": "docs/evidence/LATENCY_PERFORMANCE_V1/REMOTE_RECEIPT.json",
+      "sha256": "77a9e93dcac274b5addfaa6a382a0288f15d34554483354b842387d37e0e30ce"
+    },
+    {
+      "commit": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+      "path": "docs/TRACK_REGION_FIX_V1_REPORT.md",
+      "sha256": "903333935abc9529bbf86d1ff38ee1aa415b330fe588ef0a4740955a8c6bd905"
+    },
+    {
+      "commit": "7ffab1704456a6e10833f722f94fa13ced026025",
+      "path": "docs/INSPECTION_PARTS_MOTION_V1_REPORT.md",
+      "sha256": "29430671c6744405028b3446594edf51ea0dc136d6a8af6364ed271a21b8da8b"
+    }
+  ],
+  "latest_archived_candidate": "LATENCY_PERFORMANCE_V1",
+  "candidate_board_status": "NOT_RUN",
+  "newest_development": "INSPECTION_PARTS_MOTION_V1; routing pending, no candidate/bit",
+  "real_media_bit": "same latest-at-recording per user; SHA not provided"
+}

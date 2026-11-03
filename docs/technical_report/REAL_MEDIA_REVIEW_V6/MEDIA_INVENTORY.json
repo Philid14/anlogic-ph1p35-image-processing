@@ -1,0 +1,334 @@
+{
+  "source": "D:\\Anlogic\\IMG_20261102_230338等27项文件",
+  "items": [
+    {
+      "file": "IMG_20261102_230012.jpg",
+      "bytes": 4593994,
+      "sha256": "5574ddb752584f0fe21cb94d6f682dca404a8584e27234bea1504fe5316437b9",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:26"
+      }
+    },
+    {
+      "file": "IMG_20261102_230024.jpg",
+      "bytes": 5073415,
+      "sha256": "96ae01d025a1ff8f1b0a642082f14995094c8ee25fbdd64eab6b657a5bee5c4f",
+      "size": [
+        3072,
+        4096
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:26"
+      }
+    },
+    {
+      "file": "IMG_20261102_230046.jpg",
+      "bytes": 7829004,
+      "sha256": "31267d06cdebdd807d649826c2c293eedf6fa21564e7d80045a45f250666bcb1",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:26"
+      }
+    },
+    {
+      "file": "IMG_20261102_230046_1.jpg",
+      "bytes": 7770857,
+      "sha256": "46e28069be5364cac83eeb0d5fbf063f0f0a187b583a39ff37b967daa5aae289",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:27"
+      }
+    },
+    {
+      "file": "IMG_20261102_230046_2.jpg",
+      "bytes": 7409260,
+      "sha256": "074aab0397788dceb31b16ed93170a36ec44065aaed8572087dee302e3f37617",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:27"
+      }
+    },
+    {
+      "file": "IMG_20261102_230047.jpg",
+      "bytes": 7832319,
+      "sha256": "fc0228fc572d43ac6f76be9f5da21cbae57658e10800be091ce847f4747a3aa3",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:27"
+      }
+    },
+    {
+      "file": "IMG_20261102_230047_1.jpg",
+      "bytes": 7089095,
+      "sha256": "7b373d28140ee8587cf61d52791df5816122765f2a2f5079d7e00010536435e6",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:27"
+      }
+    },
+    {
+      "file": "IMG_20261102_230048.jpg",
+      "bytes": 6148599,
+      "sha256": "f3df18b1c89661bedf6fe0d0352975d4f3b3b4ca72d7c79ef6a13d941e20900d",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:27"
+      }
+    },
+    {
+      "file": "IMG_20261102_230130.jpg",
+      "bytes": 4940769,
+      "sha256": "0ca3b1c15058a13f23c5e6cccdd2ec2cd4b5bf650ae456c8f2916eacc174ec3e",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:28"
+      }
+    },
+    {
+      "file": "IMG_20261102_230218.jpg",
+      "bytes": 7829701,
+      "sha256": "3e7f0b046bf4939e3a2439749f96a212ba5fbd2c419f6c89c9cf7fdcc7e4f51c",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:28"
+      }
+    },
+    {
+      "file": "IMG_20261102_230319.jpg",
+      "bytes": 6462723,
+      "sha256": "b24593701ae8a90f11d64f599cc1b56d70cae3275c485d5c3bebb6a64df122b7",
+      "size": [
+        3072,
+        4096
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:28"
+      }
+    },
+    {
+      "file": "IMG_20261102_230338.jpg",
+      "bytes": 5153590,
+      "sha256": "dbe1a2a79b76cbd17318005d0e2f2cfa2ca4e2db9d483f8a0a654bbdcdb6a289",
+      "size": [
+        4096,
+        3072
+      ],
+      "exif": {
+        "Make": "--",
+        "Model": "--",
+        "Orientation": "1",
+        "DateTime": "2026:11:02 23:14:28"
+      }
+    },
+    {
+      "file": "video_20261102_213233.mp4",
+      "bytes": 21492322,
+      "sha256": "0869d92a496e2148940fcc38e785ef749a770c70081a4df4a9294b0b23dbfd59",
+      "duration_seconds_container": 16.35,
+      "decoded_exit_code": 0,
+      "frames": 33,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_214915.mp4",
+      "bytes": 34412534,
+      "sha256": "760a4f1f7efe6fdcab56618e6013f766561411ddfab31abbd9c4c4439ebfeda2",
+      "duration_seconds_container": 37.69,
+      "decoded_exit_code": 0,
+      "frames": 75,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_215000.mp4",
+      "bytes": 14086461,
+      "sha256": "b512894835b648f239d0ceddc8c36a878561b3c33535cbc26f49e24b3835ecf8",
+      "duration_seconds_container": 11.53,
+      "decoded_exit_code": 0,
+      "frames": 23,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_215017.mp4",
+      "bytes": 39663992,
+      "sha256": "27e6acc20cb0e5ea5e9f49f8ec6833ebf6f059014d3a4798047720b3ad76a8e1",
+      "duration_seconds_container": 49.53,
+      "decoded_exit_code": 0,
+      "frames": 99,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_220402.mp4",
+      "bytes": 31606215,
+      "sha256": "219e4d90dcd51729c4f780591fa38f3d62bb1e77ef81a4c86c0c94a2c2c1ac07",
+      "duration_seconds_container": 31.66,
+      "decoded_exit_code": 0,
+      "frames": 63,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_221102.mp4",
+      "bytes": 26927096,
+      "sha256": "3d1d71b4d2ddb04937c5557f97f3b1404c01c911e5d7dc79318370e07c490d85",
+      "duration_seconds_container": 26.63,
+      "decoded_exit_code": 0,
+      "frames": 53,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_222216.mp4",
+      "bytes": 50360509,
+      "sha256": "0fd7f5abfcef8241aacd0abb4247ab29098a830da884e6c252a2bf4eef82f8ed",
+      "duration_seconds_container": 43.98,
+      "decoded_exit_code": 0,
+      "frames": 88,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_222521.mp4",
+      "bytes": 9342651,
+      "sha256": "2b429f8d9fba7d583b7397bc4d882e7d553a39a00b416532d8bd301d9546ed17",
+      "duration_seconds_container": 7.13,
+      "decoded_exit_code": 0,
+      "frames": 14,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_222541.mp4",
+      "bytes": 64905756,
+      "sha256": "dc421a7f832073bafd6458ddee4189ba7dbc3beadb84c2dc90523f34d16046b0",
+      "duration_seconds_container": 48.46,
+      "decoded_exit_code": 0,
+      "frames": 97,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_223541.mp4",
+      "bytes": 87996317,
+      "sha256": "8a7cea36c846c6f27c95a1783a42b98a44a28013f820d371fe919196b9585921",
+      "duration_seconds_container": 92.65,
+      "decoded_exit_code": 0,
+      "frames": 185,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_224327.mp4",
+      "bytes": 19263643,
+      "sha256": "6ad5ef53c1a612a34a2b81dfd2f85cf43e31b136f3aa01582c7cc51de2404ad7",
+      "duration_seconds_container": 19.2,
+      "decoded_exit_code": 0,
+      "frames": 38,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_224408.mp4",
+      "bytes": 2575186,
+      "sha256": "4e011a6f2b4d7626d27a74ab9589386ea5df4705e5883e0504a7cb2d50455489",
+      "duration_seconds_container": 3.28,
+      "decoded_exit_code": 0,
+      "frames": 7,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_224420.mp4",
+      "bytes": 29228295,
+      "sha256": "d17b4c48a1c4933a041f686184da238fd88e3b9ea6e0a0cef72c03fe036ae040",
+      "duration_seconds_container": 43.6,
+      "decoded_exit_code": 0,
+      "frames": 87,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_224747.mp4",
+      "bytes": 42678791,
+      "sha256": "d857c2b34757f284512279a8d21e1b237a6d34325a356a7d7c70513be36d79b0",
+      "duration_seconds_container": 38.43,
+      "decoded_exit_code": 0,
+      "frames": 77,
+      "sample_interval_s": 0.5
+    },
+    {
+      "file": "video_20261102_225214.mp4",
+      "bytes": 10977359,
+      "sha256": "bafefc56c71b6a6ecb79763ab193c4ffb3ba6c47ee0c97797140ea0158721ae8",
+      "duration_seconds_container": 19.83,
+      "decoded_exit_code": 0,
+      "frames": 40,
+      "sample_interval_s": 0.5
+    }
+  ],
+  "user_confirmation": {
+    "same_bit": true,
+    "description": "用户2026-11-03确认：对，用的最新一版；未提供版本名/bit SHA。",
+    "physical_ground_truth_and_long_run": "用户答没测",
+    "bit_sha256": null
+  },
+  "method": {
+    "video": "FFmpeg decode to end, 2Hz time samples; 9-frame overview per clip and selected original-size sampled frames inspected; no audio transcription or continuous every-frame audit",
+    "photos": "12 photo previews reviewed, selected originals used",
+    "sampled_frames": 979,
+    "duration_total_s": 489.95,
+    "longest_clip_s": 92.65,
+    "warning": "durations are media-container durations, not continuous-run coverage or system fps; frame index labels nominal 0.5s sampling times"
+  }
+}
