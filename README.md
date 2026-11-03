@@ -2,7 +2,7 @@
 
 全国大学生嵌入式芯片与系统设计竞赛2026 FPGA创新设计赛道，上海安路选题二。以HX1P35A/PH1P35MDG324实现MIPI摄像头采集、FPGA并行图像处理、DDR缓存、含安路Logo的OSD和720p HDMI显示，面向固定俯视工作台的颜色比对与薄工件二维尺寸标注。
 
-**最终代码交付入口：[submission/README.md](submission/README.md)**。GitHub保持Private；主分支main，固定提交tag `final-submission-v1`。RAR由dist目录提供，全部代码/配置齐全，大小低于200MB。
+**最终代码交付入口：[submission/README.md](submission/README.md)**。GitHub保持Private；主分支main，固定提交tag `final-submission-v1.1`。RAR由dist目录提供，全部代码/配置齐全，大小低于200MB。
 
 ## 当前有效版本
 

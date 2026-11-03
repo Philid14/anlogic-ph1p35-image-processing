@@ -6,6 +6,8 @@ import submission_package as check
 ROOT=Path(__file__).resolve().parents[1]
 def main():
  a=argparse.ArgumentParser();a.add_argument('--td-root',default='D:/TD');a.add_argument('--prepare-only',action='store_true');args=a.parse_args()
+ if not args.prepare_only and len(ROOT.as_posix())>40:
+  raise SystemExit('TD6.2 Windows path limit: copy the complete extracted folder to D:/FPGA/FINAL_SUBMISSION_V1_1 (short root, <=40 characters), then run again. No RTL changes needed.')
  m=check.verify();p=prep.PROJECT;runs=p/'camera_to_dsi_display_Runs'
  for kind in ('syn','phy'):
   folder=runs/(kind+'_1');folder.mkdir(parents=True,exist_ok=True)
@@ -23,7 +25,7 @@ def main():
  out=ROOT/'dist/local_build'/datetime.datetime.now().strftime('%Y%m%d_%H%M%S');out.mkdir(parents=True)
  def run(stage,text,cwd):
   script=out/(stage+'.tcl');script.write_text(text,encoding='utf-8')
-  with (out/(stage+'.log')).open('wb') as f:rc=subprocess.run([str(exe),str(script)],cwd=cwd,stdout=f,stderr=subprocess.STDOUT).returncode
+  with (out/(stage+'.log')).open('wb') as f:rc=subprocess.run([exe.as_posix(),script.as_posix()],cwd=cwd,stdout=f,stderr=subprocess.STDOUT).returncode
   log=(out/(stage+'.log')).read_text(errors='replace')
   assert rc==0 and stage.upper()+'_COMPLETE' in log and not re.search(r'\bERROR\s*:',log),(stage,'see log')
  run('syn','source {'+flow.as_posix()+'}\nputs "SYN_COMPLETE"\nexit\n',runs/'syn_1')

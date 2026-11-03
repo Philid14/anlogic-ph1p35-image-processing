@@ -1,8 +1,10 @@
-# PH1P35 最终提交代码包
+# PH1P35 最终提交代码包 V1.1
+
+**请解压到短路径，例如 D:/FPGA/FINAL_SUBMISSION_V1_1，不要在桌面重复套多层文件夹后直接编译。**
 
 本包仅保留可重建当前工程的全部有效代码及必需配置，不包含开发历史、无效算法、独立未使用模块、全量测试、原始视频或旧bit。
 
-- 仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing ，main为整合主线；固定tag：final-submission-v1。
+- 仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing ，main为整合主线；固定tag：final-submission-v1.1。
 - 正式TD入口：in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al。
 - 芯片PH1P35MDG324 speed3，使用Tang Dynasty6.2及安路设备/IP环境。
 - 沿用真实测量LATENCY_FRAME_FIX_V1 bit，源码ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8。没有随机延迟模拟。
@@ -17,6 +19,10 @@ in_out_example保留原工程路径，含主RTL、MIPI/ISP/DDR/HDMI、OSD/算法
 scripts只保留构建、准备与校验三个工具；submission保留源清单、TD设置、本说明和待验收清单；artifacts只保留当前唯一bit和BUILD_INFO。历史版本和完整研究证据去GitHub查看，不在包内重复。
 
 包内共203文件：188工程/IP/约束/ROM，4目标RTL，3构建/校验工具，5说明/清单/TD设置，2当前bit及BUILD_INFO，1打包校验清单。未压缩约5.6MB。
+
+## Windows路径要求
+
+TD6.2 GUI请解压到短目录，例如D:/FPGA/FINAL_SUBMISSION_V1_1。桌面嵌套长目录会令TD拼接出的相对路径达到260字符，文件虽在也会报找不到。CLI现在提前检查解压根路径长度，并正确使用正斜杠传递Tcl脚本路径。GUI与CLI均建议使用D:/FPGA/FINAL_SUBMISSION_V1_1这类短目录，不能靠修改RTL解决TD长路径限制。
 
 ## 使用
 

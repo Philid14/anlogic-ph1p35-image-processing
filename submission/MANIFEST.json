@@ -1,8 +1,8 @@
 {
-  "version": "FINAL_SUBMISSION_V1",
-  "kind": "source delivery, not a new FPGA build",
+  "version": "FINAL_SUBMISSION_V1_1",
+  "kind": "source delivery with TD Windows path portability fix; hardware unchanged",
   "repository": "https://github.com/Philid14/anlogic-ph1p35-image-processing",
-  "tag": "final-submission-v1",
+  "tag": "final-submission-v1.1",
   "hardware_version": "LATENCY_FRAME_FIX_V1",
   "hardware_tag": "latency-frame-fix-v1-candidate",
   "hardware_source_commit": "ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8",
