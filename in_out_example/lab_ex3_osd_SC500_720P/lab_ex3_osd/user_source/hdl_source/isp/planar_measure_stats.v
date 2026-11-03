@@ -171,10 +171,11 @@ module planar_two_band_profile(
  reg[8:0]al,ar,bl,br;
  reg[10:0]split,previous_y;
  wire[8:0]l=left_x[10:2],r=right_x[10:2];
- wire same_a=({1'b0,l}<={1'b0,al}+10'd1) && ({1'b0,al}<={1'b0,l}+10'd1) &&
-             ({1'b0,r}<={1'b0,ar}+10'd1) && ({1'b0,ar}<={1'b0,r}+10'd1);
- wire same_b=({1'b0,l}<={1'b0,bl}+10'd1) && ({1'b0,bl}<={1'b0,l}+10'd1) &&
-             ({1'b0,r}<={1'b0,br}+10'd1) && ({1'b0,br}<={1'b0,r}+10'd1);
+ wire[8:0]ref_l=state==1?al:bl,ref_r=state==1?ar:br;
+ // Modulo deltas of -1/0/+1 share one subtractor per endpoint. Valid ROI
+ // buckets are far from the 0/511 wrap boundary, so no false wrap admission.
+ wire[8:0]dl=l-ref_l,dr=r-ref_r;
+ wire same_band=(dl==0 || dl==1 || dl==9'h1ff) && (dr==0 || dr==1 || dr==9'h1ff);
  wire[8:0]aw=ar-al,bw=br-bl;
  wire a_wide={1'b0,al}<={1'b0,bl}+10'd1 && {1'b0,ar}+10'd1>={1'b0,br} && {1'b0,aw}>={1'b0,bw}+10'd3;
  wire b_wide={1'b0,bl}<={1'b0,al}+10'd1 && {1'b0,br}+10'd1>={1'b0,ar} && {1'b0,bw}>={1'b0,aw}+10'd3;
@@ -192,8 +193,8 @@ module planar_two_band_profile(
    if(row_good)begin
     if(state==0)begin state<=1;al<=l;ar<=r;end
     else if(ended || row_y!=previous_y+11'd1)state<=3;
-    else if(state==1 && !same_a)begin state<=2;bl<=l;br<=r;split<=row_y;end
-    else if(state==2 && !same_b)state<=3;
+    else if(state==1 && !same_band)begin state<=2;bl<=l;br<=r;split<=row_y;end
+    else if(state==2 && !same_band)state<=3;
    end else if(state!=0)ended<=1;
   end
  end

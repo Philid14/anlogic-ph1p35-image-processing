@@ -24,8 +24,6 @@ module color_compare_osd #(
     wire parts=PARTS_ENABLE && held_part_valid && !held_round;
     wire[10:0]part_left=held_part_coords[32:22],part_right=held_part_coords[21:11],part_split=held_part_coords[10:0];
     wire[10:0]part_top=held_box[21:11],part_bottom=held_box[10:0];
-    wire[10:0]part_bar=held_part_coords[33]?part_split-part_top:part_bottom-part_split+11'd1;
-    wire[10:0]part_leg=held_part_coords[33]?part_bottom-part_split+11'd1:part_split-part_top;
     wire dimension=UI_ENABLE && show_dimension;
     wire enabled=UI_ENABLE?show_color:1'b1;
     always @(posedge clk or negedge rst_n)begin
@@ -155,9 +153,9 @@ module color_compare_osd #(
             endcase
         end
     endfunction
-    reg [19:0] number;reg [10:0] pixel_span,axis_span;reg [7:0] norm_channel;
+    reg [19:0] number;reg [10:0] pixel_span,axis_span,part_a,part_b;reg part_plus;reg [7:0] norm_channel;
     always @*begin
-        number=0;pixel_span=0;axis_span=1;norm_channel=0;
+        number=0;pixel_span=0;axis_span=1;norm_channel=0;part_a=0;part_b=0;part_plus=0;
         case(field)
             0:number=held_rgb[47:40];1:number=held_rgb[39:32];2:number=held_rgb[31:24];
             3:number=held_rgb[23:16];4:number=held_rgb[15:8];5:number=held_rgb[7:0];
@@ -169,14 +167,16 @@ module color_compare_osd #(
                 2:pixel_span=held_sizes[21:11];3:pixel_span=held_sizes[10:0];
                 default:pixel_span=0;
             endcase
-            if(parts)case(field)
-                2:pixel_span=part_right-part_left+11'd1;
-                3:pixel_span=part_bar;
-                4:pixel_span=part_left-held_box[43:33];
-                5:pixel_span=held_box[32:22]-part_right;
-                6:pixel_span=part_leg;
-                default:pixel_span=pixel_span;
-            endcase
+            if(parts)begin
+                case(field)
+                    2:begin part_a=part_right;part_b=part_left;part_plus=1;end
+                    3:begin part_a=held_part_coords[33]?part_split:part_bottom;part_b=held_part_coords[33]?part_top:part_split;part_plus=!held_part_coords[33];end
+                    4:begin part_a=part_left;part_b=held_box[43:33];end
+                    5:begin part_a=held_box[32:22];part_b=part_right;end
+                    6:begin part_a=held_part_coords[33]?part_bottom:part_split;part_b=held_part_coords[33]?part_split:part_top;part_plus=held_part_coords[33];end
+                endcase
+                if(field>=2)pixel_span=part_a-part_b+part_plus;
+            end
             axis_span=((field==1 && !(INSPECTION_V5 && held_round)) || field==3)?held_span_y:held_span_x;
             if(parts && field==6)axis_span=held_span_y;
             if(axis_span==0)axis_span=1;

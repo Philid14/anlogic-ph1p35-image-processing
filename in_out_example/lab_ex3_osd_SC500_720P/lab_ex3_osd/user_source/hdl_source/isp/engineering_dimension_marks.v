@@ -33,7 +33,7 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
     wire[9:0]bg_y=part_mode?10'd688:10'd560;
     reg part_line,part_text;reg[2:0]part_field;reg[10:0]ptx,pty;reg[19:0]part_value;
     reg [10:0] tx,ty,q;reg [3:0] col;
-    reg [1:0] field;reg active;reg [19:0] value;
+    reg [2:0] field;reg active,compact_text;reg[3:0]format_col;reg [19:0] value;
     wire scan_y=SEARCH_ENABLE ? (y==288 || y==291 || y==294 || y==297 || y==300 || y==303 || y==306 || y==309 || y==312 || y==315 || y==318 || y==321) : (y==304 || y==306 || y==308);
     reg line_ink;integer k;
     function [7:0] message;input [5:0] i;input [2:0] s;begin
@@ -50,7 +50,7 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
     end endfunction
     always @*begin
         marks=0;text_valid=0;character=" ";glyph_row=0;glyph_col=0;
-        tx=0;ty=0;col=0;field=0;active=0;value=0;line_ink=0;q=0;
+        tx=0;ty=0;col=0;field=0;active=0;compact_text=0;format_col=0;value=0;line_ink=0;q=0;
         part_line=0;part_text=0;part_field=0;ptx=0;pty=0;part_value=0;
         if(cal)begin
             // Put the millimetre tick baseline across all three scan lines.
@@ -117,20 +117,6 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
             end else if(gap_valid[0] && x>=652 && x<844 && y>=gy && y<gy+16)begin
                 active=1;field=3;tx=652;ty=gy;
             end
-            if(active)begin
-                text_valid=1;glyph_col=x-tx;glyph_row=y-ty;col=(x-tx)>>4;
-                case(field)0:value=digits[79:60];1:value=digits[59:40];
-                    2:value=digits[39:20];3:value=digits[19:0];endcase
-                case(col)
-                    0:character=field==0?(round_mode?"D":"W"):field==1?(round_mode?"R":"H"):field==2?"X":"Y";
-                    2:character=value[19:16]!=0?"0"+value[19:16]:" ";
-                    3:character=value[19:12]!=0?"0"+value[15:12]:" ";
-                    4:character=value[19:8]!=0?"0"+value[11:8]:" ";
-                    5:character="0"+value[7:4];6:character=".";7:character="0"+value[3:0];
-                    9:character=calibrated?"M":"P";10:character=calibrated?"M":"X";
-                    default:character=" ";
-                endcase
-            end
         end else if(x>=384 && x<864 && y>=184 && y<200)begin
             text_valid=1;glyph_col=x[3:0];glyph_row=y-184;
             if(!calibrated)character=message((x-(AREA_ENABLE?256:384))>>4,cal_status);
@@ -164,21 +150,33 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
             end else if(x>=side_x && x<side_x+11'd112 && y>=leg_mid-11'd8 && y<leg_mid+11'd8)begin
                 part_text=1;part_field=4;ptx=side_x;pty=leg_mid-11'd8;
             end
-            case(part_field)
-                0:part_value=part_digits[99:80];1:part_value=part_digits[79:60];
-                2:part_value=part_digits[59:40];3:part_value=part_digits[39:20];4:part_value=part_digits[19:0];
-            endcase
             if(part_text)begin
-                text_valid=1;glyph_col=x-ptx;glyph_row=y-pty;col=(x-ptx)>>4;
-                case(col)
-                    0:case(part_field)0:character="S";1:character="T";2:character="A";3:character="B";4:character="V";endcase
-                    2:character=part_value[15:12]!=0?"0"+part_value[15:12]:" ";
-                    3:character=part_value[15:8]!=0?"0"+part_value[11:8]:" ";
-                    4:character="0"+part_value[7:4];5:character=".";6:character="0"+part_value[3:0];
-                    default:character=" ";
-                endcase
-                if(col>=2 && part_value[19:16]!=0)character="*";
+                active=1;compact_text=1;field=part_field+3'd2;tx=ptx;ty=pty;
             end
+        end
+        if(active)begin
+            text_valid=1;glyph_col=x-tx;glyph_row=y-ty;col=(x-tx)>>4;
+            format_col=compact_text && col>=2?col+1'b1:col;
+            case(field)
+                0:value=digits[79:60];1:value=digits[59:40];
+                2:value=part_mode?part_digits[99:80]:digits[39:20];
+                3:value=part_mode?part_digits[79:60]:digits[19:0];
+                4:value=part_digits[59:40];5:value=part_digits[39:20];6:value=part_digits[19:0];
+            endcase
+            case(format_col)
+                0:case(field)
+                    0:character=round_mode?"D":"W";1:character=round_mode?"R":"H";
+                    2:character=part_mode?"S":"X";3:character=part_mode?"T":"Y";
+                    4:character="A";5:character="B";6:character="V";
+                endcase
+                2:character=value[19:16]!=0?"0"+value[19:16]:" ";
+                3:character=value[19:12]!=0?"0"+value[15:12]:" ";
+                4:character=value[19:8]!=0?"0"+value[11:8]:" ";
+                5:character="0"+value[7:4];6:character=".";7:character="0"+value[3:0];
+                9:character=calibrated?"M":"P";10:character=calibrated?"M":"X";
+                default:character=" ";
+            endcase
+            if(compact_text && col>=2 && value[19:16]!=0)character="*";
         end
         if(SHAPE_ENABLE && !cal && x>=256 && x<1024 && y>=bg_y && y<bg_y+16)begin
             text_valid=1;glyph_col=x[3:0];glyph_row=y-bg_y;
