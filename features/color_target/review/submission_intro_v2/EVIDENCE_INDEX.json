@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-01",
+  "document_revision": "Introduction V3 (not hardware V3)",
+  "title_utf16": 15,
+  "intro_utf16": 469,
+  "document_base": "6837009a0716c2c40cc480fca606e77c3ce0863f",
+  "latest_engineering_candidate": "VISION_TRACK_MOTION_V1",
+  "candidate_head": "123186a9d339990b207b846cb15e6a7e309c22a7",
+  "actual_td_source": "c3bdf9240647d9f98a2ff68c416693ad1e20f4b9",
+  "archive_commit": "be226969254331561de1e6376610cd6bf99af601",
+  "candidate_tag": "vision-track-motion-v1-candidate",
+  "bit_sha256": "f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0",
+  "bit_hash_checked": true,
+  "inherited_color_dimension_base": "43ff61b4f1791782e74100c92b9612317e0d2249",
+  "board_status": "NOT_RUN",
+  "physical_platform_and_earlier_basic_video": "User confirmation 2026-10-31; not new-candidate acceptance",
+  "unmeasured": [
+    "auto-ruler physical success/time/false success",
+    "X/Y shared-scale cross-check, actual dimensions/gaps and error",
+    "color placement/light/status repeatability",
+    "new candidate tracking/motion physical effect",
+    "long run, illumination recovery, FIFO/CDC/thermal behaviour",
+    "actual FPS and same-frame end-to-end latency"
+  ],
+  "legacy_red_blue_full_bbox_demo": "not confirmed; latest red tracking candidate is separate and does not establish old blue/current-frame-full-bbox capability",
+  "source_snapshots": [
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "docs/VISION_TRACK_MOTION_V1_REPORT.md",
+      "sha256": "00a4178a1b183d46e173f93bd5bce92453a4454545c9496c0fc989355e9b0ab1",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/docs/VISION_TRACK_MOTION_V1_REPORT.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "docs/VISION_TRACK_MOTION_V1_DESIGN.md",
+      "sha256": "ef0593d44b6869144c1ff2e65b538d45c29f000ee61eac68afc804f429525852",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/docs/VISION_TRACK_MOTION_V1_DESIGN.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md",
+      "sha256": "726b08b3fd83fab6449b523c5fb8efbdd2be70aad15484c9493b7d8997a09419",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/artifacts/bitstreams/VISION_TRACK_MOTION_V1/BUILD_INFO.md"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
+      "sha256": "454ab867d026688a6973f5b9ffcb810881a39bb59ee9f38d8647f102118fae6d",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v",
+      "sha256": "2313d641e1bf1e3377044a2552156b4013a9b6087a814719538589db0e02d2d0",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v"
+    },
+    {
+      "commit": "123186a9d339990b207b846cb15e6a7e309c22a7",
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
+      "sha256": "62351505f725c4ffb825a10efe4b32c50581eddd5ee4b1997ac84f542f2e2481",
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/123186a9d339990b207b846cb15e6a7e309c22a7/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v"
+    }
+  ],
+  "technical_report_new_file_old_baseline": {
+    "commit": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "declared_baseline": "EDGE_CONTROL_V1 Candidate",
+    "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/449f03ec516c8dc7766ae4dc0750190e4613f440/docs/technical_report/README.md",
+    "action": "MAIN should reconcile versions/status; not used to downgrade newer RTL or upgrade board evidence"
+  },
+  "historical_v1_evidence": "EVIDENCE_INDEX_V1.json",
+  "changes_production_rtl": false,
+  "new_simulation_synthesis_pnr_or_board_run": false
+}
