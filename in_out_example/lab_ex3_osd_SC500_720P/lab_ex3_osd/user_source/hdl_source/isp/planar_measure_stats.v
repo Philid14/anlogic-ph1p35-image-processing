@@ -5,12 +5,13 @@
 module planar_measure_stats #(
     parameter WIDTH=1280,HEIGHT=720,X0=256,X1=1024,Y0=160,Y1=544,
     parameter CX=(X0+X1)/2,CY=(Y0+Y1)/2,
-    parameter SHAPE_ENABLE=0,COMPACT_COUNT=0,MIN_ROW=8,MIN_ROWS=3,MIN_AREA=64
+    parameter SHAPE_ENABLE=0,COMPACT_COUNT=0,PARTS_ENABLE=0,MIN_ROW=8,MIN_ROWS=3,MIN_AREA=64
 )(input clk,rst_n,input [3:0] binary_pixels,input valid,user,last,
   input bright,input [7:0] threshold,
   output reg round_present,output reg result_valid,present,output reg [1:0] gap_valid,
   output reg [43:0] sizes,box_coords,output reg [43:0] gap_coords,output reg [15:0] sample_id,
-  output reg [7:0] result_threshold,output reg result_bright);
+  output reg [7:0] result_threshold,output reg result_bright,
+  output part_valid,output [33:0] part_coords);
     reg[10:0] x,y;wire[10:0] px=user?0:x,py=user?0:y;
     reg armed,bad,finished;reg[15:0] seq;
     reg polarity;reg[7:0] cut;
@@ -105,6 +106,13 @@ module planar_measure_stats #(
         minx>X0 && maxx<X1-1 && miny>Y0 && maxy<Y1-1;
     wire gapx_ok=hx_lfound && hx_rfound && !hcenter && hx_right>hx_left+1;
     wire gapy_ok=vy_tfound && vy_bfound && !vcenter && vy_bottom>vy_top+1;
+    generate if(PARTS_ENABLE)begin:g_parts
+        planar_two_band_profile u_profile(.clk(clk),.rst_n(rst_n),.sof(user),
+            .row_end(valid && !user && px==WIDTH-4 && py>=Y0 && py<Y1),
+            .row_good(next_count>=MIN_ROW),.left_x(next_min),.right_x(next_max),.row_y(py),
+            .commit(complete && object_ok),.box_coords({minx,maxx,miny,maxy}),
+            .result_valid(part_valid),.coords(part_coords));
+    end else begin:g_no_parts assign part_valid=0;assign part_coords=0;end endgenerate
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
             x<=0;y<=0;armed<=0;bad<=0;finished<=0;seq<=0;
@@ -149,4 +157,43 @@ module planar_measure_stats #(
             end
         end else if(last)bad<=1;
     end
+endmodule
+
+// Single orthogonal silhouette with exactly two stable, nested row envelopes.
+// Coordinates quantized to 4px; a one-bucket tolerance handles raster jitter.
+// Reject taper, third band, row holes, short bands and incomplete frames.
+// This is a constrained T/L profile, not general contour/CAD reconstruction.
+module planar_two_band_profile(
+ input clk,rst_n,sof,row_end,row_good,commit,
+ input[10:0]left_x,right_x,row_y,input[43:0]box_coords,
+ output reg result_valid,output reg[33:0]coords);
+ reg[1:0]state;reg ended;
+ reg[8:0]al,ar,bl,br;
+ reg[10:0]split,previous_y;
+ wire[8:0]l=left_x[10:2],r=right_x[10:2];
+ wire same_a=({1'b0,l}<={1'b0,al}+1) && ({1'b0,al}<={1'b0,l}+1) &&
+             ({1'b0,r}<={1'b0,ar}+1) && ({1'b0,ar}<={1'b0,r}+1);
+ wire same_b=({1'b0,l}<={1'b0,bl}+1) && ({1'b0,bl}<={1'b0,l}+1) &&
+             ({1'b0,r}<={1'b0,br}+1) && ({1'b0,br}<={1'b0,r}+1);
+ wire a_wide=al<=bl+1 && ar+1>=br && (ar-al)>=(br-bl)+3;
+ wire b_wide=bl<=al+1 && br+1>=ar && (br-bl)>=(ar-al)+3;
+ wire[10:0]xmin=box_coords[43:33],xmax=box_coords[32:22];
+ wire[10:0]ymin=box_coords[21:11],ymax=box_coords[10:0];
+ wire[10:0]nl={a_wide?bl:al,2'b00},nr={a_wide?br:ar,2'b11};
+ always @(posedge clk or negedge rst_n)begin
+  if(!rst_n)begin state<=0;ended<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;previous_y<=0;result_valid<=0;coords<=0;end
+  else if(sof)begin
+   result_valid<=commit && state==2 && (a_wide || b_wide) && split>=ymin+6 && ymax+1>=split+6;
+   coords<={a_wide,nl<xmin?xmin:nl,nr>xmax?xmax:nr,split};
+   state<=0;ended<=0;
+  end else if(row_end)begin
+   previous_y<=row_y;
+   if(row_good)begin
+    if(state==0)begin state<=1;al<=l;ar<=r;end
+    else if(ended || row_y!=previous_y+1)state<=3;
+    else if(state==1 && !same_a)begin state<=2;bl<=l;br<=r;split<=row_y;end
+    else if(state==2 && !same_b)state<=3;
+   end else if(state!=0)ended<=1;
+  end
+ end
 endmodule

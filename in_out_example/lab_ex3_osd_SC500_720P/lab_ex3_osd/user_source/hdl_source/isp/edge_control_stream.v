@@ -240,6 +240,7 @@ module edge_control_stream #(
             .clk(clk),.rst_n(rst_n),.rgb(I_data),.valid(I_valid),.user(I_user),.last(I_last),
             .means(measured_means),.result_valid(measurement_valid),.sample_id(measurement_id));
         wire [43:0] dim_sizes,dim_box,dim_gap_coords;wire dim_valid,dim_present;
+        wire dim_part_valid;wire[33:0]dim_part_coords;
         wire dim_round,dim_background;wire[2:0] bg_status;wire [1:0] dim_gap;wire [7:0] dim_cut;wire dim_bright;wire [15:0] dim_id;
         if(INSPECTION_ENABLE)begin:g_measure_stats
             wire[3:0] measured_pixels;wire mv,mu,ml,mb;wire[7:0] mt;
@@ -266,17 +267,18 @@ module edge_control_stream #(
                 assign mv=valid_p[0];assign mu=user_p[0];assign ml=last_p[0];assign mb=ui_pipe[0][2];assign mt=config_p[0][7:0];
                 assign dim_round=0;assign dim_background=0;assign bg_status=0;
             end
-            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.SHAPE_ENABLE(0),.COMPACT_COUNT(INSPECTION_V5),.MIN_ROW(INSPECTION_V5?6:8)) u_dimension(
+            planar_measure_stats #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.SHAPE_ENABLE(0),.COMPACT_COUNT(INSPECTION_V5),.PARTS_ENABLE(INSPECTION_V5),.MIN_ROW(INSPECTION_V5?6:8)) u_dimension(
                 .clk(clk),.rst_n(rst_n),.binary_pixels(measured_pixels),
                 .valid(mv),.user(mu),.last(ml),.bright(mb),.round_present(),
                 .threshold(mt),.result_valid(dim_valid),.present(dim_present),
                 .gap_valid(dim_gap),.gap_coords(dim_gap_coords),.sizes(dim_sizes),.box_coords(dim_box),.sample_id(dim_id),
-                .result_threshold(dim_cut),.result_bright(dim_bright));
+                .result_threshold(dim_cut),.result_bright(dim_bright),.part_valid(dim_part_valid),.part_coords(dim_part_coords));
         end else begin:g_no_measure_stats
+            assign dim_part_valid=0;assign dim_part_coords=0;
             assign dim_round=0;assign dim_background=0;assign bg_status=0;assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5),
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5),.PARTS_ENABLE(INSPECTION_V5),
             .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
             .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
@@ -286,6 +288,7 @@ module edge_control_stream #(
             .cal_mode(ui_pipe[EDGE_STAGES-1][3]),.axis_y(ui_pipe[EDGE_STAGES-1][2]),
             .calibrated(ui_calibrated),.span_x(ui_span_x),.span_y(ui_span_y),.cal_visited(ui_visited),
             .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(dim_sizes),.dim_box(dim_box),.dim_gap_coords(dim_gap_coords),.cal_status(ui_cal_status),
+            .dim_part_valid(dim_part_valid),.dim_part_coords(dim_part_coords),
             .dim_valid(dim_valid && dim_cut==config_p[EDGE_STAGES-1][7:0] && dim_bright==ui_pipe[EDGE_STAGES-1][2]),
             .dim_present(dim_present),.dim_gap_valid(dim_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
