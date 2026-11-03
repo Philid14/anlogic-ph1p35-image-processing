@@ -456,3 +456,18 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test NOT_RUN。按BOARD_TEST记录5s/30s/120s及30min稳态E/B/S和旧功能。保留历史；Draft PR30依赖29，不合并、不自行下一版。发布回执另补。
 
 - 发布核对：归档commit bc05cb064892b6dc815b47617b69b76d661df466，candidate tag/branch已实际push；tag内bit与95项TD输入对应实际源码，30份历史bit未变，45份验证清单核验通过。见REMOTE_RECEIPT及PR_CANDIDATE；PR30保持Draft/unmerged。NOT_RUN，停止并等待上板。
+
+
+## 2026-11-03 INSPECTION_PARTS_MOTION_V1 candidate / MAIN
+
+- 基线6ad4f7cd / LATENCY_PERFORMANCE_V1 / PR30；branch codex/main/inspection-parts-motion-v1，实际TD源码bb1f8811cafd441815b2248bcc19b263b02657eb，tag inspection-parts-motion-v1-candidate。
+- 用户要求：粉色运动点难看清、过稀；T/L工件需要各部分尺寸。分别保存运动/分段检查点；最终两项联合，资源优化保持数值和像素时序，不引入新的画质变量。
+- 运动原每块4粉色像素→FF3000橙红8px间距3×3点阵，最多8点/72px；TH12/32×16检测格保持，9bit均值历史仍2 ERAM，LAST口径及异常清除保持。
+- 尺寸原W/H、D/R→增加S颈宽、T梁厚、A/B伸出、V竖段长，最终七项同时工程标注；单件薄工件、轴对齐、T横梁水平、两段嵌套行包络。4px分段量化和反光/标尺/透视限制，非CAD。
+- 资源R0/R1打包超容量，R2轮巡21127Slice且30轮/超过2h仍拥塞，手动中止无bit；RAM延迟试验无收益不推广。复用每帧稀疏AWB48/32除法，保持原49拍done和复位在途语义，AWB算法/参数/50拍RAM延迟不改。原厂IP不改；默认/小高度走原IP。
+- 最终SYN/PHY/final STA/bitgen PASS；Slice19209(-1622)、LUT6 18551(-981)、FF16340(-4997)、ERAM105(0)、DSP25(0)，Setup/Hold+0.257/+0.020ns，TNS0，STA94.40%。公共31拍、4PPC/720p不变。
+- 58份结果/原生清单门禁PASS：15轮廓、7帧七项720p绘图、8帧实际31拍流/1382400拍MOTION逐像素、旧18帧720p/4147200拍/3110400打包字、原D/R/控制/TRACK/背景/复位/延迟；原厂除法311向量/50复位偏移及完整AWB12帧256×64/194744输出像素逐拍等价。均非实板。
+- 路由CDC核对全部20/85/18位扇出及逻辑寄存器别名通过，保留旧名称筛选漏计；未改SDC，不宣称修复全局Gray覆盖/历史FIFO复发或PVT长稳。
+- Bit artifacts/bitstreams/INSPECTION_PARTS_MOTION_V1/camera_to_dsi_display.bit；SHA256 1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11。
+- 用户最终要求延迟面板一直显示，不新增按键接口；SW5/SW6分别为蜂鸣器/显示供电电路。其他原模式、颜色、控件、Sensor/BLC/AWB参数、MIPI/DDR/HDMI、PLL/引脚/SDC、Logo/CNT保持。
+- Board Test NOT_RUN，按BOARD_TEST完成MOTION、CAL/空背景/T/L、D/R、原功能及30min稳态E/B/S。保留全部历史；Draft PR31依赖30，不合并、不自行下一版。发布回执另补。

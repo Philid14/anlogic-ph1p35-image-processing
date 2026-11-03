@@ -37,6 +37,7 @@ def main():
   rollback_tag='latency-performance-v1-candidate',rollback_bit_sha256=prior['bit_sha256'])
  dest=ROOT/'artifacts/bitstreams'/VERSION;assert not dest.exists(),'Do not overwrite an archive'
  ev=dest/'build_evidence';ev.mkdir(parents=True);shutil.copy2(bit,dest/bit.name);copy_reports(OUT,ev);copy_reports(OUT/'cdc',ev/'cdc')
+ (dest/'.gitattributes').write_text('# Preserve native report/source-manifest bytes across Git checkouts.\nbuild_evidence/** -text\n')
  for rel in tests:
   src=(ROOT/rel).parent;copy_reports(src,ev/'verification'/src.relative_to(ROOT/'tmp'))
   for name in ('awb_reference_baseline.v','awb_interface_compat.v'):
@@ -61,7 +62,7 @@ def main():
 - Original bit: {info['original_bit_path']}; SHA256: {info['bit_sha256']}.
 - Final resources: {resources}; delta vs LATENCY_PERFORMANCE: {info['resource_delta_vs_LATENCY_PERFORMANCE']}.
 - Setup WNS/TNS {sw:+.3f}ns/{st}; Hold WNS/TNS {hw:+.3f}ns/{ht}; STA coverage {info['sta_coverage_percent']}%.
-- Complete SYN/PHY/final STA/bitgen PASS. Clock/PLL/pin/SDC, Sensor/ISP and original application controls unchanged.
+- Complete SYN/PHY/final STA/bitgen PASS. Clock/PLL/pin/SDC and Sensor/ISP numerical parameters unchanged; AWB computation reused with native cycle/numeric equivalence. Original application controls unchanged.
 - Critical warnings: {critical}; new types: {info['new_critical_warning_types']}.
 - Common pixel stream31cycles, extra0; original pixel/DDR throughput and video format unchanged.
 - Verification: {info['validation']}; {len(tests)} result/native-source hashes. Software/RTL/TD, not physical camera/DDR/HDMI evidence.

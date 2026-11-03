@@ -2,7 +2,7 @@
 
 ## 实现结果
 
-本轮完成密集运动点阵、T/L各部分同时标注，并对逐帧AWB除法做功能等价资源复用。当前SYN/PHY/最终STA通过、路由CDC检查通过；bit须在最后回归门禁通过后签发，实板NOT_RUN。
+本轮完成密集运动点阵、T/L各部分同时标注，并对逐帧AWB除法做功能等价资源复用。SYN/PHY/最终STA/bitgen通过，58份验证门禁及路由CDC检查通过；实板NOT_RUN。
 
 - 基线6ad4f7cd70b5614240c07db2a16775aa492d9f14 / LATENCY_PERFORMANCE_V1。
 - Branch：codex/main/inspection-parts-motion-v1。
@@ -70,4 +70,14 @@ Sensor曝光/增益/VTS/HTS、BLC/AWB算法、MIPI、DDR、HDMI、颜色比对�
 
 ## 签发与发布
 
-bit、SHA、candidate tag及实际push回执在完整门禁/bitgen/归档后补齐；当前不得把旧Runs中的bit当作本版。完成可信candidate后停止，等用户上板，不合并或自行下一版。
+- Version：INSPECTION_PARTS_MOTION_V1。
+- Bit：artifacts/bitstreams/INSPECTION_PARTS_MOTION_V1/camera_to_dsi_display.bit。
+- SHA-256：`1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11`。
+- 实际构建源码commit：bb1f8811cafd441815b2248bcc19b263b02657eb。
+- Candidate tag：inspection-parts-motion-v1-candidate（归档提交后建立，不移动历史tag）。
+- Branch：codex/main/inspection-parts-motion-v1；Remote：Private origin。
+- Git Status：本轮文件独立提交，原有GITHUB_REFERENCE_RESEARCH.md的38行修改及未跟踪本地资料保留、排除提交。
+- Push Status：远程回执在实际push并核对tag内bit及58份原生报告字节后记录。
+- Setup/Hold：+0.257/+0.020ns；Board Test：NOT_RUN。
+
+完整资源、配置、输入、验证和失败尝试在同目录BUILD_INFO/build_evidence；原生报告用目录内.gitattributes保留字节，避免Git换行转换破坏验证哈希。完成candidate后停止，等待用户审查/上板，不合并PR、不自行下一版。

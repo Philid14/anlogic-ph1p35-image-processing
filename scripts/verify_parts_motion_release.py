@@ -31,6 +31,11 @@ def main():
  for rel in list(source['files'])+[al]:
   assert (ROOT/rel).read_bytes().replace(b'\r\n',b'\n')==git('show',tag+':'+rel).replace(b'\r\n',b'\n'),rel
  assert sha(git('show',tag+':'+bit.relative_to(ROOT).as_posix()))==info['bit_sha256']
+ for rel,digest in gates.items():
+  p=DEST/'build_evidence/verification'/Path(rel).relative_to('tmp')
+  if p.exists():data=git('show',tag+':'+p.relative_to(ROOT).as_posix())
+  else:data=gzip.decompress(git('show',tag+':'+(Path(str(p)+'.gz')).relative_to(ROOT).as_posix()))
+  assert sha(data)==digest,'Tag changed raw native verification evidence: '+rel
  remote=git('remote','get-url','origin').decode().strip();assert remote=='https://github.com/Philid14/anlogic-ph1p35-image-processing.git'
  refs=dict(line.split()[::-1] for line in git('ls-remote','origin','refs/heads/'+branch,'refs/tags/'+tag,'refs/tags/'+tag+'^{}').decode().splitlines())
  archive=git('rev-parse',tag+'^{}').decode().strip();tagobj=git('rev-parse',tag).decode().strip()
