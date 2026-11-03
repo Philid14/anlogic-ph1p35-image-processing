@@ -6,6 +6,19 @@ CASES['background_full']='run_measure_background_full'
 
 def simulate(out,top,sources,**kwargs):
     files=list(sources)
+    # These legacy ISP tests deliberately stub the AWB boundary; arithmetic
+    # equivalence is verified separately against the actual native IP/RAM.
+    # Accept the new implementation-only parameter without changing the
+    # immutable old stub or the independent expected pixel vectors.
+    if any(p.name=='isp_top.v' for p in files):
+        for index,p in enumerate(files):
+            if p.name=='isp_boundary_stubs.v':
+                original=p.read_text();needle='module awb #(parameter IMG_HEIGHT=720, IMG_WIDTH=1280)'
+                assert needle in original
+                out.mkdir(parents=True,exist_ok=True)
+                compat=out/'awb_interface_compat.v'
+                compat.write_text(original.replace(needle,needle[:-1]+', FRAME_SERIAL_DIV=0)',1))
+                files[index]=compat
     if any(p.name in ('inspection_config_delay.v','edge_control_stream.v') for p in files):
         helper=HDL/'vision/inspection_payload_delay.v'
         if helper not in files:files.append(helper)

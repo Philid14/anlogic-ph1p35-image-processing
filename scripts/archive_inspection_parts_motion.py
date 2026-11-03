@@ -28,17 +28,20 @@ def main():
   sta_coverage_percent=float(re.search(r'STA coverage\s*:\s*([\d.]+)%',(OUT/'phy_final_timing.rpt').read_text())[1]),
   board_test='NOT_RUN',critical_warning_types=critical,new_critical_warning_types=sorted(set(critical)-set(prior['critical_warning_types'])),
   common_pixel_cycles=31,extra_common_pixel_cycles=0,motion='FF3000; 8px lattice, 3x3 dots; prior complete motion map; original32x16/TH12 detection',
-  parts='Two stable nested row bands; single thin axis-aligned T/L; original ruler/background. Cycling W/H, S/V, W/T, A/T, B/T; 32 captured-frame supplementary dwell, zero-side fallback.',
-  validation_hashes=len(tests),validation='15 profile cases,168 view cases,13 full720p overlay frames,8 actual31-cycle streams, original18 full720p reference frames and application/latency regression',
+  parts='Two stable nested row bands; single thin axis-aligned T/L; original ruler/background. Simultaneous W/H/S/T/A/B/V at corresponding sections; zero-side labels suppressed.',
+  awb_compute='Exact frame-only unsigned48/32 serial division; original numerical AWB parameters and49-cycle done boundary including in-flight reset semantics preserved; native reference IP and whole AWB compared',
+  validation_hashes=len(tests),validation='15 profile cases,7 simultaneous7-field native720p overlay frames,8 actual31-cycle streams,311 native divider math vectors/all50 reset offsets,12 native whole-AWB256x64 frames, original18 full720p reference frames and application/latency regression',
   route_db_sha256=cdc['route_db_sha256'],cdc_audit=cdc,
   limitations=['Board NOT_RUN; noise/reflectance/accuracy need user evaluation','T crossbar horizontal; no arbitrary rotation/contour/CAD fitting','4px horizontal section coordinates, not0.1mm physical accuracy',
-   'Dense motion is prior completed map; more display dots do not improve detection resolution','No new globalCDC constraints or inherited FIFO/long-run/PVT fix','Seven dimensions available over views, not simultaneously; R0 simultaneous view rejected at21710Slice'],
+   'Dense motion is prior completed map; more display dots do not improve detection resolution','No new globalCDC constraints or inherited FIFO/long-run/PVT fix','Small T/L objects may have crowded annotations; R0/R1 overcapacity and R2 manually stopped congestion were not signed candidates'],
   rollback_tag='latency-performance-v1-candidate',rollback_bit_sha256=prior['bit_sha256'])
  dest=ROOT/'artifacts/bitstreams'/VERSION;assert not dest.exists(),'Do not overwrite an archive'
  ev=dest/'build_evidence';ev.mkdir(parents=True);shutil.copy2(bit,dest/bit.name);copy_reports(OUT,ev);copy_reports(OUT/'cdc',ev/'cdc')
  for rel in tests:
   src=(ROOT/rel).parent;copy_reports(src,ev/'verification'/src.relative_to(ROOT/'tmp'))
- for name in ('resource_r0','resource_r1','resource_r2','resource_paged','resource_paged_opt','resource_paged_opt2','resource_compact','resource_payload18','resource_payload18_r1','payload18_native','full_r0','full_r1'):
+  for name in ('awb_reference_baseline.v','awb_interface_compat.v'):
+   if (src/name).exists():shutil.copy2(src/name,ev/'verification'/src.relative_to(ROOT/'tmp')/name)
+ for name in ('resource_r0','resource_r1','resource_r2','resource_paged','resource_paged_opt','resource_paged_opt2','resource_compact','resource_payload18','resource_payload18_r1','payload18_native','resource_frame_divider','resource_frame_divider_r1','resource_final_r3','full_r0','full_r1','full_r2'):
   src=ROOT/'tmp/inspection_parts_motion'/name
   if src.exists():
    target=ev/'attempts'/name;copy_reports(src,target)
