@@ -2,15 +2,15 @@
 
 全国大学生嵌入式芯片与系统设计竞赛2026 FPGA创新设计赛道，上海安路选题二。以HX1P35A/PH1P35MDG324实现MIPI摄像头采集、FPGA并行图像处理、DDR缓存、含安路Logo的OSD和720p HDMI显示，面向固定俯视工作台的颜色比对与薄工件二维尺寸标注。
 
-**最终代码交付入口：[submission/README.md](submission/README.md)**。GitHub保持Private；主分支main，固定提交tag `final-submission-v1.1`。RAR由dist目录提供，全部代码/配置齐全，大小低于200MB。
+**最终代码交付入口：[submission/README.md](submission/README.md)**。GitHub保持Private；主分支main，固定提交tag `final-submission-v1.2`。RAR由dist目录提供，全部代码/配置齐全，大小低于200MB。
 
 ## 当前有效版本
 
-正式硬件基线为 **LATENCY_FRAME_FIX_V1**，真实测量源码`ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8`。本轮只整合/整理代码和资料，95项实际TD输入保持不变。随机延迟模拟版本不进入最终代码和提交包。
+当前交付bit为 **FINAL_SUBMISSION_REBUILD_V1**（逻辑与LATENCY_FRAME_FIX_V1同源），真实测量源码`6432c918fea3b8ea25d65f5c5fe3816400b0cbfe`。本次从压缩包独立解压实际完成SYN/PHY/STA/bitgen，95项直接输入、96项IP支持和.al构建前后保持不变。随机延迟模拟版本不进入最终代码和提交包。
 
-- [可烧录bit](artifacts/bitstreams/LATENCY_FRAME_FIX_V1/camera_to_dsi_display.bit) / [BUILD_INFO](artifacts/bitstreams/LATENCY_FRAME_FIX_V1/BUILD_INFO.md)
+- [可烧录bit](artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/camera_to_dsi_display.bit) / [BUILD_INFO](artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/BUILD_INFO.md)
 - Setup/Hold：+0.137/+0.020ns；Slice19177、LUT6 18498、FF16374、ERAM105/108、DSP25/40。
-- SHA256：`d516c1d81ec30999d3510ac82e32e354dd31e1e40dd374ad376e2b572a1f2c16`。
+- SHA256：`ce6d17efe38297709ff71f24fd57f260270e16ff1bb6ed7031f5a03adc866515`。
 - 状态：完整TD构建通过；该修复bit的真实延迟及整机长稳仍待实板。合并与代码交付不表示这些项目已通过。
 
 ## 已集成功能

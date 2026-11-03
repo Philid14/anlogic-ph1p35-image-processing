@@ -1,12 +1,12 @@
 # FINAL_SUBMISSION_V1 最终代码交付入口
 
-仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing （Private，main为整合主线）。固定代码版本使用tag `final-submission-v1.1`。本目录是提交资料入口，正式RTL仍在原TD工程目录，避免移动路径破坏IP和约束。
+仓库：https://github.com/Philid14/anlogic-ph1p35-image-processing （Private，main为整合主线）。固定代码版本使用tag `final-submission-v1.2`。本目录是提交资料入口，正式RTL仍在原TD工程目录，避免移动路径破坏IP和约束。
 
 ## 可烧录文件
 
-`artifacts/bitstreams/LATENCY_FRAME_FIX_V1/camera_to_dsi_display.bit`。SHA256：`d516c1d81ec30999d3510ac82e32e354dd31e1e40dd374ad376e2b572a1f2c16`。
+`artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/camera_to_dsi_display.bit`。SHA256：`ce6d17efe38297709ff71f24fd57f260270e16ff1bb6ed7031f5a03adc866515`。
 
-真实测量源码 `ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8`；原归档tag `latency-frame-fix-v1-candidate`。Setup/Hold +0.137/+0.020ns；Slice19177、LUT6 18498、FF16374、ERAM105、DSP25。当前交付未改变95项实际构建输入，沿用这个已完整构建的bit，不伪造一次新硬件构建。完整构建证据仍在同目录build_evidence；RAR保留BUILD_INFO和源清单，Git中保留全部证据。
+真实测量源码 `6432c918fea3b8ea25d65f5c5fe3816400b0cbfe`；当前归档tag `final-submission-rebuild-v1-candidate`。Setup/Hold +0.137/+0.020ns；Slice19177、LUT6 18498、FF16374、ERAM105、DSP25。当前交付未改变95项直接输入与96项IP支持；当前bit来自本次独立解压后的实际完整重建，资源/时序以这次报告为准。完整构建证据仍在同目录build_evidence；RAR保留BUILD_INFO和源清单，Git中保留全部证据。
 
 仅PROGRAM_SRAM先做验收；FLASH只保存固件，标尺和空背景等运行状态仍需重新学习。此前随机延迟DEMO已撤下，当前无模拟延迟，BAD或N0如实显示。
 
