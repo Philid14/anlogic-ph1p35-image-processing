@@ -18,7 +18,7 @@ def simulate(out,top,sources,plus=(),parameters=(),eram=False,timeout=600):
     for i,cmd in enumerate(commands):
         r=subprocess.run(cmd,cwd=out,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=timeout)
         (out/f'stage_{i}.txt').write_bytes(r.stdout)
-        assert r.returncode==0 and b'** Fatal:' not in r.stdout and b'** Error:' not in r.stdout,(i,r.stdout.decode(errors='replace')[-2500:])
+        assert r.returncode==0 and b'** Fatal:' not in r.stdout and b'** Error:' not in r.stdout and b'Parameter Error' not in r.stdout,(i,r.stdout.decode(errors='replace')[-2500:])
     assert hashes=={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in files+data}
     (out/'SIM_SOURCE_MANIFEST.json').write_text(json.dumps(hashes,indent=2)+'\n')
     return r.stdout.decode(errors='replace')

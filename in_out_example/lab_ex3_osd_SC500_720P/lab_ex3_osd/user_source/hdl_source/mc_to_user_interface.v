@@ -30,7 +30,8 @@ module mc_to_user_interface (
     input wire          I_mc_app_wdf_rdy,
     input wire [127:0]  I_mc_app_rd_data,
     input wire          I_mc_app_rd_data_end,
-    input wire          I_mc_app_rd_data_valid
+    input wire          I_mc_app_rd_data_valid,
+    output wire         O_command_full
 );
 
     wire        S_fifo_wr_en;    
@@ -74,7 +75,7 @@ module mc_to_user_interface (
         .we         ( S_fifo_wr_en     ),
         .di         ( S_fifo_wr_data   ),
         .afull      ( S_fifio_pro_full ),
-        .full_flag  (),
+        .full_flag  ( O_command_full ),
         .wrusedw    (),
  
         .re         ( S_fifo_rd_en     ), 

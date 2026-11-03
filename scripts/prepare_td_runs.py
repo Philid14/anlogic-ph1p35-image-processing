@@ -29,7 +29,7 @@ def main():
         prepared = re.sub(r"    <Runs>.*?</Runs>\s*", "", prepared, flags=re.S)
         prepared = re.sub(r"    <Project_Settings>.*?</Project_Settings>\s*", "", prepared, flags=re.S)
         (directory / f"{NAME}.prj").write_text(prepared, encoding="utf-8")
-        for name in ('vision_logo_index.dath','vision_logo_palette.dath','inspection_font.dath'):
+        for name in ('vision_logo_index.dath','vision_logo_palette.dath','inspection_font.dath','latency_font.dath'):
             initializer=PROJECT.parent/'user_source/hdl_source/vision'/name
             if initializer.exists():shutil.copy2(initializer,directory/name)
         print(f"Prepared {run}: {len(re.findall('<File Path=', prepared))} source/IP/constraint entries")

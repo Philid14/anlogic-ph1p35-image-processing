@@ -4,17 +4,15 @@
 module inspection_config_delay #(parameter TAP=25,DEPTH=27)(
  input clk,rst_n,input[22:0]data,
  output reg[22:0]first,output[22:0]spatial,output[22:0]final_data);
- reg[4:0]wp;wire[4:0]rp=wp-(TAP-1);
- wire[31:0]read_data;
- always @(posedge clk or negedge rst_n)if(!rst_n)wp<=0;else wp<=wp+1'b1;
  always @(posedge clk)first<=data;
- PH1P_LOGIC_ERAM #(.DATA_WIDTH_A(32),.DATA_WIDTH_B(32),.ADDR_WIDTH_A(9),.ADDR_WIDTH_B(9),
- .DATA_DEPTH_A(512),.DATA_DEPTH_B(512),.MODE("DP"),.CLKMODE("SYNC"),.REGMODE_A("NOREG"),.REGMODE_B("NOREG"),
- .INIT_FILE("NONE"),.FILL_ALL("NONE"),.FORCE_KEEP("ON")) u_delay(
- .clka(clk),.cea(rst_n),.ocea(1'b1),.addra({4'd0,wp}),.dia({9'd0,data}),.wea(1'b1),.rsta(1'b0),.bea(1'b1),.doa(),
- .clkb(clk),.ceb(rst_n),.oceb(1'b1),.addrb({4'd0,rp}),.dib(32'd0),.web(1'b0),.rstb(1'b0),.beb(1'b1),.dob(read_data),
- .ecc_sbiterrinj(1'b0),.ecc_dbiterrinj(1'b0),.ecc_sbiterr(),.ecc_dbiterr());
- assign spatial=read_data[22:0];
+ // Small, exact per-clock metadata shift. Deliberately trade a short23-bit
+ // chain for scarce ERAM; payload/reset semantics stay identical.
+ reg[22:0]pipe[0:TAP-1];integer p;
+ always @(posedge clk)begin
+  pipe[0]<=data;
+  for(p=1;p<TAP;p=p+1)pipe[p]<=pipe[p-1];
+ end
+ assign spatial=pipe[TAP-1];
  generate if(DEPTH>TAP)begin:g_tail
   reg[22:0]tail[0:DEPTH-TAP-1];integer i;
   always @(posedge clk)begin

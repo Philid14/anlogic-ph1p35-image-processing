@@ -55,16 +55,14 @@ module gaussian_pair_3x3 #(
     // G2: old-data row reads; G3 copies the registered previous row. Each
     // history row has one read and one write/clock, even at full throughput.
     // Arrays deliberately have no reset; G3/G4 border masks reject stale data.
-    (* ram_style = "block" *) reg [15:0] row1 [0:GROUPS-1];
-    (* ram_style = "block" *) reg [15:0] row2 [0:GROUPS-1];
-    reg [15:0] top_s2,mid_s2,bot_s2;
+    wire [15:0] top_s2,mid_s2;reg[15:0]bot_s2;
     reg [10:0] x_s2,y_s2;
+    edge_row_history u_rows(.clk(clk),.read_en(valid_p[0]),.read_address(x_s1[9:0]),.data(pair_s1),
+        .copy_en(valid_p[1]),.copy_address(x_s2[9:0]),.copy_data(mid_s2),.middle(mid_s2),.top(top_s2));
     always @(posedge clk) begin
         if(valid_p[0]) begin
-            top_s2<=row2[x_s1];mid_s2<=row1[x_s1];bot_s2<=pair_s1;
-            row1[x_s1]<=pair_s1;
+            bot_s2<=pair_s1;
         end
-        if(valid_p[1]) row2[x_s2]<=mid_s2;
     end
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin x_s2<=0;y_s2<=0;end

@@ -52,18 +52,17 @@ module nms_gradient_pair_3x3 #(
     end
     // N2 old-data reads. AUTO inference, not an assumed ERAM implementation.
     // 320*32 + 320*28 = 19200bits for 640 samples. One read/write per row/clock.
-    reg [31:0] row1[0:GROUPS-1];
-    reg [27:0] row2[0:GROUPS-1];
-    reg [27:0] top_s2,bot_s2;
-    reg [31:0] mid_s2;
+    wire [27:0] top_s2;reg[27:0]bot_s2;
+    wire [31:0] mid_s2;
     reg [10:0] x_s2,y_s2;
+    edge_row_history #(.MID_WIDTH(32),.TOP_WIDTH(28))u_rows(
+        .clk(clk),.read_en(valid_p[0]),.read_address(x_s1[9:0]),.data(pair_s1),
+        .copy_en(valid_p[1]),.copy_address(x_s2[9:0]),.copy_data({mid_s2[29:16],mid_s2[13:0]}),
+        .middle(mid_s2),.top(top_s2));
     always @(posedge clk) begin
         if(valid_p[0]) begin
-            top_s2<=row2[x_s1];mid_s2<=row1[x_s1];
             bot_s2<={pair_s1[29:16],pair_s1[13:0]};
-            row1[x_s1]<=pair_s1;
         end
-        if(valid_p[1]) row2[x_s2]<={mid_s2[29:16],mid_s2[13:0]};
     end
     always @(posedge clk or negedge rst_n) begin
         if(!rst_n) begin x_s2<=0;y_s2<=0;end

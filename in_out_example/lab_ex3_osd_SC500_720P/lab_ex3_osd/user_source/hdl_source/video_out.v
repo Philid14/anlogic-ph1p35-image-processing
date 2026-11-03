@@ -17,7 +17,10 @@ module video_out (
     input wire        I_dsi_clk,
     input wire        I_video_vsync,
     input wire        I_video_rd_en,  
-    output reg[23:0]  O_vdieo_data
+    output reg[23:0]  O_vdieo_data,
+    output wire O_read_select,
+    output wire[1:0] O_selected_slot,
+    output wire O_fifo_underflow
 );
 
     reg         S_fifo_rst;     
@@ -53,6 +56,9 @@ module video_out (
     end
 
     assign S_video_frame_start = ~S_video_vsync_3d & S_video_vsync_2d;
+    assign O_read_select=S_video_frame_start;
+    assign O_selected_slot=I_video_out_rp;
+    assign O_fifo_underflow=S_fifo_rd_en && S_fifo_emtpy;
 
 
     always @(posedge I_ddr_clk or negedge I_rst_n) begin

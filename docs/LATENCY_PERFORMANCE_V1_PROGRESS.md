@@ -1,6 +1,6 @@
 # LATENCY_PERFORMANCE_V1 暂停检查点
 
-状态：用户明确要求暂停；仅保存进度，不继续开发。
+状态：用户于2026-11-03明确恢复工作；以下暂停记录保留作为历史。
 角色MAIN；基线072bc0f8 / TRACK_REGION_FIX_V1；分支codex/main/latency-performance-v1。
 
 ## 已完成
@@ -27,3 +27,13 @@
 5. 完整模型/RTL/视频链路回归，再SYN→PHY→STA→bitgen、归档、独立Draft PR依赖29；没有合并授权。
 
 当前原有算法、参数、按键/开关、Logo/CNT/OSD、Sensor、MIPI/DDR/HDMI调度、PLL/SDC均未更改。新的行缓存调度只获得独立RTL验证，整机验证待续。
+
+## 2026-11-03恢复后的实际进度
+
+- 行缓存单独综合确认105→101ERAM。单独PHY因拥塞未完成最终STA，已取消并保留partial_physical/STOPPED.json；不能报告时序通过。
+- MAIN同帧测量适配器及透明OSD已实现并接入：RAW首valid、同字FIFO标签、完整DDR写入校验、实际读槽代次、HDMI首DE、NEW/REP/BAD及毫秒显示。
+- 原生FIFO、源标签/会话回绕、DDR journal异常、HDMI同帧统计、24,576像素字形及小高度真实DDR控制链路仿真通过；这些不等于真实硬件验证。
+- SP宽字延迟存储实验虽然逐拍正确，但实际ERAM代价过大，正式工程未采用；原图/灰度/二值payload延迟保持基线实现。
+- 新资源方案将Gaussian/NMS旧LUT行缓存等价映射到原生ERAM，配置延迟改为短移位链以释放2ERAM。独立旧模型对照通过；整机综合试验r5为108ERAM，最终布局/时序尚待。
+- 当前正在完成新源码的720p旧功能回归与正式TD构建。没有新candidate bit/tag或上板成功结论。
+- GitHub核对：PR29仍Draft/open，HEAD072bc0f8；PR5仍open/unmerged，HEAD87bb9a53。没有自动合并。

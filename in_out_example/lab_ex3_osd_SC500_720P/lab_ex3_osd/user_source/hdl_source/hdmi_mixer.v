@@ -6,7 +6,8 @@ module hdmi_mixer #(
     parameter integer DEBUG_MODE = 0,
     parameter integer LOGO_ERAM_ENABLE = 0,
     parameter integer VISION_WATCHDOG = 0,
-    parameter integer STALE_CYCLES = 15000000
+    parameter integer STALE_CYCLES = 15000000,
+    parameter integer LATENCY_ENABLE = 0
 )(
     input wire        I_clk,
     input wire        I_rst_n,
@@ -26,7 +27,11 @@ module hdmi_mixer #(
     output reg        O_hdmi_vsync,
     output reg        O_hdmi_hsync,
     output reg        O_hdmi_de,
-    output reg[23:0]  O_hdmi_data
+    output reg[23:0]  O_hdmi_data,
+    input wire[19:0] I_latency,I_latency_min,I_latency_max,I_latency_age,
+    input wire[31:0] I_latency_frame,
+    input wire[15:0] I_latency_samples,I_latency_errors,
+    input wire[2:0] I_latency_status
 );
 
     reg        S_video_vsync_1d;
@@ -43,6 +48,13 @@ module hdmi_mixer #(
     reg [11:0] S_x_2d;
     reg [11:0] S_y_1d;
     reg [11:0] S_y_2d;
+    wire performance_hit;wire[23:0] performance_color;
+    generate if(LATENCY_ENABLE)begin:g_latency_osd
+        latency_osd u_panel(.clk(I_clk),.rst_n(I_rst_n),.update(I_video_user),
+            .latency(I_latency),.minimum(I_latency_min),.maximum(I_latency_max),.age(I_latency_age),
+            .frame_id(I_latency_frame),.samples(I_latency_samples),.errors(I_latency_errors),.status(I_latency_status),
+            .x1(S_x_1d),.y1(S_y_1d),.x2(S_x_2d),.y2(S_y_2d),.hit(performance_hit),.color(performance_color));
+    end else begin:g_no_latency assign performance_hit=0;assign performance_color=0;end endgenerate
 
     reg        S_osd_hit;
     reg [23:0] S_osd_color;
@@ -943,6 +955,8 @@ module hdmi_mixer #(
             else begin
                 if(S_osd_hit)
                     O_hdmi_data <= S_osd_color;
+                else if(performance_hit)
+                    O_hdmi_data <= performance_color;
                 else
                     O_hdmi_data <= S_video_data_2d;
             end

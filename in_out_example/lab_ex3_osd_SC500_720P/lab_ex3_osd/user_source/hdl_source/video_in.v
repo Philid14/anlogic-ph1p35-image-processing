@@ -1,6 +1,6 @@
 
 
-module video_in (
+module video_in #(parameter LATENCY_ENABLE=0)(
     input wire         I_rst_n,
 
     input wire         I_camera_clk,
@@ -20,7 +20,10 @@ module video_in (
     output reg[24:0]   O_ddr_user_addr,
     output wire[127:0] O_ddr_user_wr_data,
     input wire         I_ddr_user_ready,
-    output wire [31:0] O_fifo_event_counts
+    output wire [31:0] O_fifo_event_counts,
+    input wire[86:0] I_latency_tag,
+    output wire[86:0] O_latency_tag,
+    output wire O_camera_fifo_full
 );
 
     wire        S_fifo_rst;
@@ -53,6 +56,14 @@ module video_in (
     // 以完整DDR写突发的占用标志仲裁，避免连续视频写入长期阻塞读通道。
     assign O_video_in_wr_busy = S_ddr_wr_valid;
 
+    assign O_camera_fifo_full=monitor_full;
+    generate if(LATENCY_ENABLE)begin:g_tagged
+        latency_tagged_fifo u_fifo(.rst(S_fifo_rst),.clkw(I_camera_clk),.clkr(I_ddr_clk),
+            .we(I_camera_valid),.re(S_fifo_rd_en),.data(I_camera_data),.tag(I_latency_tag),
+            .out_data(O_ddr_user_wr_data),.out_tag(O_latency_tag),
+            .full(monitor_full),.rdused(S_fifo_rd_num));
+    end else begin:g_legacy_fifo
+    assign O_latency_tag=0;
     w128_d512_fifo U_w128_d512_fifo(
         .rst        ( S_fifo_rst         ),   
 
@@ -71,6 +82,7 @@ module video_in (
         .empty_flag (),
         .aempty     ()
     );
+    end endgenerate
 
 
     always @(posedge I_camera_clk or negedge I_rst_n) begin
