@@ -1,62 +1,47 @@
-# 2026 FPGA 创新设计赛道 · 上海安路选题二
+# 安路PH1P35固定工位视觉检测系统
 
-## 技术文档初稿
+全国大学生嵌入式芯片与系统设计竞赛2026 FPGA创新设计赛道，上海安路选题二。以HX1P35A/PH1P35MDG324实现MIPI摄像头采集、FPGA并行图像处理、DDR缓存、含安路Logo的OSD和720p HDMI显示，面向固定俯视工作台的颜色比对与薄工件二维尺寸标注。
 
-[固定平台颜色比对与二维工件测量 V0.1](docs/technical_draft/README.md)：按技术文档模板组织，含实现边界、模块注意事项和来源清单。当前板测为PARTIAL，尚非完整版。
+**最终代码交付入口：[submission/README.md](submission/README.md)**。GitHub保持Private；主分支main，固定提交tag `final-submission-v1`。RAR由dist目录提供，全部代码/配置齐全，大小低于200MB。
 
-**基于安路 PH1P35 的实时数字图像处理系统**
+## 当前有效版本
 
-以安路 **PH1P35MDG324** 为核心、在 **HX1P35A** 开发板上实现
-`MIPI 采集 → FPGA 端图像处理 → 含"安路"Logo 的 OSD → HDMI 实时显示` 的完整链路。
+正式硬件基线为 **LATENCY_FRAME_FIX_V1**，真实测量源码`ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8`。本轮只整合/整理代码和资料，95项实际TD输入保持不变。随机延迟模拟版本不进入最终代码和提交包。
 
-工程基准、指标与验收要求的唯一权威文件是 [`AGENTS.md`](AGENTS.md)；
-原始赛题见 [`docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf`](docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf) 第 16–18 页。
+- [可烧录bit](artifacts/bitstreams/LATENCY_FRAME_FIX_V1/camera_to_dsi_display.bit) / [BUILD_INFO](artifacts/bitstreams/LATENCY_FRAME_FIX_V1/BUILD_INFO.md)
+- Setup/Hold：+0.137/+0.020ns；Slice19177、LUT6 18498、FF16374、ERAM105/108、DSP25/40。
+- SHA256：`d516c1d81ec30999d3510ac82e32e354dd31e1e40dd374ad376e2b572a1f2c16`。
+- 状态：完整TD构建通过；该修复bit的真实延迟及整机长稳仍待实板。合并与代码交付不表示这些项目已通过。
 
-## EDGE_STYLE_FILL_V2 candidate
+## 已集成功能
 
-根据V1实板彩斑、过重描边和细线损失反馈，仅优化STYLE：
-保守同色均值、9档共享明度/中性保护、亮度暗侧描边。原五模式与ISP参数保留，等待实板验收。
+七模式ORIGIN/GRAY/BINARY/EDGE/STYLE/TRACK/MOTION；双ROI颜色比较与光照/占比提示；厘米尺一键近似标定；工程制图式W/H、D/R和T/L分段标注；主红区域跟随框；密集运动点阵；真实同帧延迟面板。Sensor曝光1990 half-lines、VTS1000、HTS1600、模拟增益15.75×、BLC15、AWB_V2数值配置沿用。
 
-- [归因、V1/V2对照及完整报告](docs/EDGE_STYLE_FILL_V2_REPORT.md)
-- [数学定义与实现边界](docs/EDGE_STYLE_FILL_V2_DESIGN.md)
-- [上板步骤与冷启动/稳定性验收](docs/EDGE_STYLE_FILL_V2_BOARD_TEST.md)
-- [bit与BUILD_INFO](artifacts/bitstreams/EDGE_STYLE_FILL_V2/BUILD_INFO.md)
+[控件和重建](submission/README.md) · [实板验收](submission/ACCEPTANCE.md) · [集成记录](submission/INTEGRATION.md) · [第六稿技术文档](docs/technical_report/REAL_MEDIA_REVIEW_V6/README.md) · [版本更新说明](submission/TECHNICAL_REPORT_ADDENDUM.md)
 
-## EDGE_STYLE_FILL_V1 candidate
+## 目录
 
-新增五模式中的 **STYLE：局部同色区域均值填色、64色块化与边界描黑**；
-这是有界风格化，不是全局闭合轮廓/洞填充。原四模式保留，等待实板验收。
-
-- [设计与边界](docs/EDGE_STYLE_FILL_V1_DESIGN.md)
-- [构建、资源与验证报告](docs/EDGE_STYLE_FILL_V1_REPORT.md)
-- [上板步骤与失败判定](docs/EDGE_STYLE_FILL_V1_BOARD_TEST.md)
-- [bit与BUILD_INFO](artifacts/bitstreams/EDGE_STYLE_FILL_V1/BUILD_INFO.md)
-
-## 目录结构
-
-| 路径 | 内容 |
+| 路径 | 用途 |
 |---|---|
-| `AGENTS.md` | 赛题基准、平台约束、验收门槛、Git/GitHub 与实验追溯规则 |
-| `docs/TEAM_AI_WORK_PROTOCOL.md` | 三人 AI 分工、文件所有权、接口协议、GitHub PR 审查与角色启动提示词 |
-| `docs/` | 画质调试记录、GitHub 参考调研、官方基线源码副本、赛题资料 |
-| `docs/IMAGE_TUNING_LOG.md` | 每个实际上板版本的参数、bit、构建与测试记录 |
-| `docs/GITHUB_REFERENCE_RESEARCH.md` | GitHub 外部参考的仓库/许可/采用方式记录 |
-| `in_out_example/lab_ex3_osd_SC500_720P/` | 主工程：OSD 叠加例程（当前开发主线） |
-| `edge_example/lab_ex2_edge_SC500_720P/` | 官方边缘检测例程（第二参考） |
-| `artifacts/bitstreams/<VERSION>/` | 每个上板版本的最终 bit 与 `BUILD_INFO.md` |
+| submission/ | 最终代码入口、源清单、验收及整合记录 |
+| in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/ | 正式TD工程；.al/RTL/IP/引脚/SDC/ROM保持原路径 |
+| features/color_target/、features/latency_view/ | 队友独立模块及交付；是否进入正式工程以.al和INTEGRATION为准 |
+| tests/、scripts/ | 软件模型、原生RTL回归、构建/归档及提交包校验工具 |
+| docs/ | 赛题、团队协议、历史研究、构建和技术文档 |
+| mechanical/frame_concept/ | 机械参考设计；不冒充已制造成品 |
+| 3_原理图/、最终作品实现/ | 板级资料索引和用户作品需求；商业参考/未核验Sensor PDF不随包提交 |
+| artifacts/bitstreams/ | Git历史候选和完整构建证据；当前bit见上方唯一链接 |
+| edge_example/ | 官方边缘参考基线，保留对照 |
+| local_assets/、2026-10-05/ | 本地录像/厂家参考资料，不入库、不打包 |
+| dist/ | 生成的RAR与校验结果，不入Git历史 |
 
-## 构建与烧录
+## 验证与提交
 
-1. 用 Tang Dynasty（TD）打开工程入口 `.al`：
-   `in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.al`
-2. 依次执行 Synthesis → Physical Design → Timing Check → 生成 bit。
-3. 将最终 bit 归档到 `artifacts/bitstreams/<VERSION>/`，并补齐 `BUILD_INFO.md`。
-4. 按 [`AGENTS.md`](AGENTS.md) 的 Candidate → 上板 → 测试结果流程建立 commit 与 tag。
+```powershell
+python scripts/submission_package.py verify
+python scripts/submission_package.py rar
+```
 
-## 版本管理约定（摘要）
+RAR使用WinRAR原生RAR5格式，先进行完整性测试和解压后文件哈希校验，再交付。Git历史/旧bit可由固定tag恢复，不通过删除历史或改写tag整理版本。原始录制数据和用户未提交研究笔记单独保留。
 
-- 主分支：`main`；远程：`origin`（Private 仓库）。
-- `*_Runs/`、TD 日志、未归档 bit 不入库；`.al` / RTL / 约束 / SDC / IP 配置 / ROM 初始化文件 / 文档必须入库。
-- 每个生成 bit 并准备上板的版本对应唯一 commit + tag；一个版本只验证一个主要变量。
-- 失败或未采用的版本同样保留历史，不删除、不移动已公开 tag。
-- 追溯链：`bit → Git commit → 源码 + 工程配置 + 约束 + 文档 + 构建信息 + 上板记录`。
+工程/验收基准见[AGENTS.md](AGENTS.md)、[团队协议](docs/TEAM_AI_WORK_PROTOCOL.md)和[原始赛题](docs/赛题/上海安路信息科技股份有限公司_2026FPGA创新设计赛道选题指南.pdf)第16–18页。

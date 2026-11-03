@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "formal_inputs": 95,
+  "formal_source_sha": "ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8",
+  "unchanged_since_full_TD_build": true,
+  "random_latency_absent": true,
+  "native_regression": {
+    "blanking": {
+      "passed": true,
+      "result_sha256": "af0d99d24b76fa0aa074145dbcc27d813ce90db12e74c64c07d7a1e6fab239de"
+    },
+    "units": {
+      "passed": true,
+      "result_sha256": "62f07fac20e789eefd83a208d4e556f55f6415edfaeb32c99b970e8dd9b17e4b"
+    },
+    "osd": {
+      "passed": true,
+      "result_sha256": "5848f03196cbaf8914fdde5452d4ae0dde8e8fb538f9fb390111745f751da966"
+    },
+    "osd_diagnostic": {
+      "passed": true,
+      "result_sha256": "5c3335b235cff5e277e8e5edd5d001a476e3203fb794ccc3736cdad992b59b45"
+    },
+    "video_path": {
+      "passed": true,
+      "result_sha256": "398ff98b620f0d983616dcb8647750e7e2235d481ec3aa439835a85f433648dc"
+    }
+  },
+  "board_test": "NOT_RUN"
+}

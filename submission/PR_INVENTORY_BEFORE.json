@@ -1,0 +1,312 @@
+[
+  {
+    "number": 31,
+    "head": "codex/main/inspection-parts-motion-v1",
+    "head_sha": "793c9d3de58420524007474bafb2125cbad104f1",
+    "base": "codex/main/latency-performance-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "INSPECTION_PARTS_MOTION_V1: 密集运动点阵、T/L七项同时标注与资源优化"
+  },
+  {
+    "number": 30,
+    "head": "codex/main/latency-performance-v1",
+    "head_sha": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+    "base": "codex/main/track-region-fix-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "LATENCY_PERFORMANCE_V1: 同帧延迟可视化与等价缓存资源优化（candidate）"
+  },
+  {
+    "number": 29,
+    "head": "codex/main/track-region-fix-v1",
+    "head_sha": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+    "base": "codex/main/inspection-shape-track-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "fix(track): reject sparse full-screen boxes and select a coherent red region"
+  },
+  {
+    "number": 28,
+    "head": "codex/main/inspection-shape-track-v1",
+    "head_sha": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+    "base": "codex/main/ruler-cm-cal-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "feat(inspection): reflective-part reference, explicit D/R mode and LAST red bbox"
+  },
+  {
+    "number": 27,
+    "head": "codex/main/ruler-cm-cal-v1",
+    "head_sha": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+    "base": "codex/main/vision-track-motion-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "fix(calibration): average centimeter marks for approximate scale"
+  },
+  {
+    "number": 24,
+    "head": "codex/main/vision-track-motion-v1",
+    "head_sha": "123186a9d339990b207b846cb15e6a7e309c22a7",
+    "base": "codex/main/inspection-usability-v4",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "feat(vision): red tracking and block motion within V4 Slice budget"
+  },
+  {
+    "number": 23,
+    "head": "codex/main/inspection-usability-v4",
+    "head_sha": "43ff61b4f1791782e74100c92b9612317e0d2249",
+    "base": "codex/main/inspection-usability-v3",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "feat(inspection): widen ruler search and distinguish lightness from RGB proportions"
+  },
+  {
+    "number": 22,
+    "head": "codex/main/inspection-usability-v3",
+    "head_sha": "8591403a157a15c2f66f608784f28e1204689571",
+    "base": "codex/main/inspection-auto-dimension-v2",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "fix(inspection): improve ruler capture, shrink color ROIs and expose switch state"
+  },
+  {
+    "number": 21,
+    "head": "codex/main/inspection-auto-dimension-v2",
+    "head_sha": "7323b05ff7d72ecdaba884734cd29e43cf33c2f9",
+    "base": "codex/main/inspection-ui-dimension-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "INSPECTION_AUTO_DIMENSION_V2: one-key ruler calibration and drawing-style dimensions"
+  },
+  {
+    "number": 19,
+    "head": "codex/docs/technical-draft-v0-1",
+    "head_sha": "36cb263c080859d4541dac34212780e268318063",
+    "base": "codex/main/inspection-ui-dimension-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "docs: 技术文档 V0.1 初稿与模块注意事项"
+  },
+  {
+    "number": 18,
+    "head": "codex/main/inspection-ui-dimension-v1",
+    "head_sha": "7cffe56c384340f59a526da80a2ac3f3018bf209",
+    "base": "codex/main/color-compare-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "INSPECTION_UI_DIMENSION_V1: switchable transparent OSD and ruler-calibrated dimensions"
+  },
+  {
+    "number": 17,
+    "head": "codex/main/color-compare-v1",
+    "head_sha": "1cc05016eaef482a87f31bd37bc20a9aae541689",
+    "base": "codex/main/edge-style-fill-v2",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "COLOR_COMPARE_V1: add dual-ROI RGB comparison to proven STYLE V2"
+  },
+  {
+    "number": 16,
+    "head": "codex/main/style-v2-target-boot-diag-v1",
+    "head_sha": "a0a5f31206d4766061e6ac82732730851448513b",
+    "base": "codex/main/style-v2-target-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "Diagnose TARGET black video before first frame; boot firmware blocked by Hold"
+  },
+  {
+    "number": 15,
+    "head": "codex/main/frame-concept-v1",
+    "head_sha": "4b8cc7414c1d8a9563251bfcde51a6c7f776f659",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "mechanical: 桌面俯视暗箱参数化概念框架"
+  },
+  {
+    "number": 14,
+    "head": "codex/main/style-v2-target-v1",
+    "head_sha": "5cbb1de3814a842067ee1ffd41df3d75bbf0de26",
+    "base": "codex/main/edge-style-fill-v2",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "STYLE V2 + TARGET candidate: 19952 Slice, routed timing and integration verified"
+  },
+  {
+    "number": 13,
+    "head": "codex/main/edge-style-fill-v2",
+    "head_sha": "89093f428878b918036c8a30a0d1afe7764946b8",
+    "base": "codex/main/edge-style-fill-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "fix(style): EDGE_STYLE_FILL_V2 neutral colors and fine-detail candidate"
+  },
+  {
+    "number": 12,
+    "head": "codex/main/edge-style-fill-v1",
+    "head_sha": "532d3c62bbc8d0c60d5def5e5233b035f2a9699b",
+    "base": "codex/main/edge-multi-mode-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "feat(style): EDGE_STYLE_FILL_V1 bounded color-region cartoon candidate"
+  },
+  {
+    "number": 11,
+    "head": "codex/main/edge-multi-mode-v1",
+    "head_sha": "22690856d9a0c079485bedd916d9c8f7f116157b",
+    "base": "codex/main/edge-temporal-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_MULTI_MODE_V1: frame-latched ORIGIN/GRAY/BINARY/EDGE"
+  },
+  {
+    "number": 10,
+    "head": "codex/main/edge-temporal-v1",
+    "head_sha": "b47105f8f7780353c45d7539ddfc0c633565b43f",
+    "base": "codex/main/edge-quality-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_TEMPORAL_V1: bounded acquisition-frame gradient-supported edge hold"
+  },
+  {
+    "number": 9,
+    "head": "codex/main/edge-temporal-research-v1",
+    "head_sha": "58f3a6d76fe8a781d2e9735cc30c66e8d22f9d8b",
+    "base": "codex/main/edge-stability-probe-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_TEMPORAL_RESEARCH_V1: 真实 RGB ROI 采样与时间稳定性研究"
+  },
+  {
+    "number": 8,
+    "head": "codex/main/edge-stability-probe-v1",
+    "head_sha": "7343cfeb1de049e0793e63524cae071e9ae5018a",
+    "base": "codex/main/edge-stability-diag-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_STABILITY_PROBE_V1: 固定 RGB 与实板视频完整性诊断"
+  },
+  {
+    "number": 7,
+    "head": "codex/main/edge-stability-diag-v1",
+    "head_sha": "8b3b9853cb900ca2305872b4ad9e129274efdbdf",
+    "base": "codex/main/edge-quality-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "[MAIN] EDGE_STABILITY_DIAG_V1：边缘抖动机制、确定性输入与链路风险诊断"
+  },
+  {
+    "number": 6,
+    "head": "codex/main/edge-quality-v1",
+    "head_sha": "b64daf39af09980621adb1138df1674a8501ea09",
+    "base": "codex/main/edge-nms-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_QUALITY_V1 candidate: bounded edge linking with optimized ERAM history"
+  },
+  {
+    "number": 4,
+    "head": "codex/main/edge-nms-v1",
+    "head_sha": "712fbb33cfc5ba8436b96306e1fe443553aa6591",
+    "base": "codex/main/edge-denoise-v1",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "EDGE_NMS_V1 candidate: paired gradient thinning with full TD evidence"
+  },
+  {
+    "number": 3,
+    "head": "codex/main/edge-denoise-v1",
+    "head_sha": "08ea909febf2dd0952e7221a0ce2bf34b24e3b44",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "[MAIN] EDGE_DENOISE_V1: Gaussian + Sobel candidate"
+  },
+  {
+    "number": 1,
+    "head": "codex/team-ai-protocol",
+    "head_sha": "df351c5444c0d95c05424c1a57319b5466dd2db9",
+    "base": "main",
+    "state_before": "closed",
+    "draft_before": false,
+    "merged_before": true,
+    "title": "docs(team): 明确三人 AI 分工、接口交接与 GitHub 审查协议"
+  },
+  {
+    "number": 2,
+    "head": "codex/target/color-target-detect-v1",
+    "head_sha": "ee2edc581877e6a0c7f85073f04e9b7d79277c1b",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": false,
+    "merged_before": false,
+    "title": "feat(target): 颜色检测、身份年龄 guard 与 MAIN 上板交接"
+  },
+  {
+    "number": 5,
+    "head": "codex/latency/same-frame-association-v2",
+    "head_sha": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": false,
+    "merged_before": false,
+    "title": "feat(latency): same-frame association for latency measurement"
+  },
+  {
+    "number": 20,
+    "head": "codex/target/submission-intro-review-v2",
+    "head_sha": "37b8b5f4f6e715ba76e9264f8ace212ab4eec9f3",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": false,
+    "merged_before": false,
+    "title": "docs(target): 简介第三稿与最新候选实测清单，请 MAIN 审核"
+  },
+  {
+    "number": 25,
+    "head": "docs/final-application-report",
+    "head_sha": "449f03ec516c8dc7766ae4dc0750190e4613f440",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": false,
+    "merged_before": false,
+    "title": "docs: 新增最终应用技术文档归档"
+  },
+  {
+    "number": 26,
+    "head": "codex/target/technical-report-vision-v2",
+    "head_sha": "48cbd024187ac20af70dee64a27000b9d30f1023",
+    "base": "main",
+    "state_before": "open",
+    "draft_before": true,
+    "merged_before": false,
+    "title": "docs: 第六稿技术文档、实拍证据与后续补测清单"
+  }
+]
