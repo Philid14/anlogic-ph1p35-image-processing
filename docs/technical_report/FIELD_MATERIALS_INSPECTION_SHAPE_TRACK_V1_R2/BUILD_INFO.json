@@ -1,0 +1,33 @@
+{
+  "date": "2026-11-02",
+  "docx": "AnlogicTrack2_现场拍摄与测量记录册_R2.docx",
+  "intended_pages": 20,
+  "page_titles": [
+    "AnlogicTrack2 现场拍摄与测量记录册 R2",
+    "02 实物照片与现场配置 E00",
+    "03 基础显示与画质 E01 E09",
+    "04 厘米长线标定 E04",
+    "05 空台面学习与反光 E11",
+    "06 宽高与中心间隙 E05",
+    "07 圆片直径与半径 E12",
+    "08 双区域颜色比对 E03",
+    "09 红色LAST外框 E06",
+    "10 运动检测与恢复 E07 E08",
+    "11 连续运行与异常 E02",
+    "12 刷新率与延迟 E10",
+    "13 回传与资料核对",
+    "14 尺寸逐次原始记录附页",
+    "15 样品与量具台账",
+    "16 定时观测与对照原始记录",
+    "17 照片录像索引与图组检查",
+    "18 主控工程资料一次交付",
+    "19 最终展示与性能声明确认",
+    "20 技术报告材料收齐核对"
+  ],
+  "candidate": "INSPECTION_SHAPE_TRACK_V1",
+  "engineering_head": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+  "bit_sha256": "5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a",
+  "source_document_commit": "470f6d97ae9692b4b08b839f760f4ba85086936b",
+  "purpose": "Blank on-site collection workbook; no measurements invented; no RTL changes",
+  "sha256": "f3caeb15a6fe68c8ee099a9bb6c212a5a147ef71c341f75b05b0f00fd4ca1531"
+}

@@ -1,0 +1,34 @@
+{
+  "source_docx_sha256": "15d2d9e98b38d8360dbc140cc35876b5958d4d4c964df82c4ccd5706d335b3ad",
+  "preserved_original_parts": 26,
+  "changed_original_parts": [
+    "[Content_Types].xml",
+    "word/document.xml",
+    "word/_rels/document.xml.rels",
+    "docProps/core.xml"
+  ],
+  "new_parts": [
+    "word/media/image6.jpg",
+    "word/media/image7.jpg",
+    "word/media/image8.jpg",
+    "word/media/image9.jpg",
+    "word/media/image10.jpg",
+    "word/media/image11.jpg",
+    "word/media/image12.jpg",
+    "word/media/image13.jpg",
+    "word/media/image14.jpg",
+    "word/media/image15.jpg",
+    "word/media/image16.jpg",
+    "word/media/image17.jpg",
+    "word/media/image18.jpg",
+    "word/media/image19.jpg",
+    "word/media/image20.jpg",
+    "word/media/image21.jpg",
+    "word/media/image22.jpg",
+    "word/media/image23.jpg",
+    "word/media/image24.jpg",
+    "word/media/image25.jpg"
+  ],
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "sections_equal": true
+}

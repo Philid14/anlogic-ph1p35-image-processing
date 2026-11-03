@@ -1,0 +1,202 @@
+[
+  {
+    "figure": "figures/overview.jpg",
+    "source_file": "IMG_20261102_230024.jpg",
+    "nominal_sample_time_s": null,
+    "extracted_frame": null,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "96ae01d025a1ff8f1b0a642082f14995094c8ee25fbdd64eab6b657a5bee5c4f",
+    "figure_sha256": "7808e9a75e7843fcc8c24154cc47aa8957495ac23527bfb7dd372a550eb743b9"
+  },
+  {
+    "figure": "figures/oblique.jpg",
+    "source_file": "IMG_20261102_230130.jpg",
+    "nominal_sample_time_s": null,
+    "extracted_frame": null,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "0ca3b1c15058a13f23c5e6cccdd2ec2cd4b5bf650ae456c8f2916eacc174ec3e",
+    "figure_sha256": "25c1ab50e9676151d99b97f5e0ce60442699b995cd9d05992cade14c586b88bc"
+  },
+  {
+    "figure": "figures/camera.jpg",
+    "source_file": "IMG_20261102_230048.jpg",
+    "nominal_sample_time_s": null,
+    "extracted_frame": null,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "f3df18b1c89661bedf6fe0d0352975d4f3b3b4ca72d7c79ef6a13d941e20900d",
+    "figure_sha256": "ec1a7d41537152bee6271bd8eb42aab69bee49b95de6aa36a1dca23bad808121"
+  },
+  {
+    "figure": "figures/lights.jpg",
+    "source_file": "IMG_20261102_230218.jpg",
+    "nominal_sample_time_s": null,
+    "extracted_frame": null,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "3e7f0b046bf4939e3a2439749f96a212ba5fbd2c419f6c89c9cf7fdcc7e4f51c",
+    "figure_sha256": "4d36db3932436725af5051d948a421e91fec2d2f4c04aefaee05602edc38e15c"
+  },
+  {
+    "figure": "figures/board.jpg",
+    "source_file": "IMG_20261102_230319.jpg",
+    "nominal_sample_time_s": null,
+    "extracted_frame": null,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "b24593701ae8a90f11d64f599cc1b56d70cae3275c485d5c3bebb6a64df122b7",
+    "figure_sha256": "fdc0390bad945935f0050f7ece9da1b3b18b917f6092e5247666f64d856053a6"
+  },
+  {
+    "figure": "figures/origin.jpg",
+    "source_file": "video_20261102_214915.mp4",
+    "nominal_sample_time_s": 14.0,
+    "extracted_frame": 29,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "760a4f1f7efe6fdcab56618e6013f766561411ddfab31abbd9c4c4439ebfeda2",
+    "figure_sha256": "a87a4d2dc1f2c51c1251c1a821b293972abbdba38b1ef90a11254f62359cbb93"
+  },
+  {
+    "figure": "figures/gray.jpg",
+    "source_file": "video_20261102_215017.mp4",
+    "nominal_sample_time_s": 12.0,
+    "extracted_frame": 25,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "27e6acc20cb0e5ea5e9f49f8ec6833ebf6f059014d3a4798047720b3ad76a8e1",
+    "figure_sha256": "e681e60185699afec4d4b24b7df626de7ccc065618ad08471b0b3a9cef741390"
+  },
+  {
+    "figure": "figures/binary.jpg",
+    "source_file": "video_20261102_214915.mp4",
+    "nominal_sample_time_s": 23.0,
+    "extracted_frame": 47,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "760a4f1f7efe6fdcab56618e6013f766561411ddfab31abbd9c4c4439ebfeda2",
+    "figure_sha256": "45abfcd9e235ee14ad1596623ddfb3ee701b24ecdb83c5b56318c85db85fa933"
+  },
+  {
+    "figure": "figures/style.jpg",
+    "source_file": "video_20261102_214915.mp4",
+    "nominal_sample_time_s": 28.0,
+    "extracted_frame": 57,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "760a4f1f7efe6fdcab56618e6013f766561411ddfab31abbd9c4c4439ebfeda2",
+    "figure_sha256": "5589d916a344ddc19512c9bd5d7ab73108e1ddef3198117e40f9fe1053122d1a"
+  },
+  {
+    "figure": "figures/edge.jpg",
+    "source_file": "video_20261102_215017.mp4",
+    "nominal_sample_time_s": 37.0,
+    "extracted_frame": 75,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "27e6acc20cb0e5ea5e9f49f8ec6833ebf6f059014d3a4798047720b3ad76a8e1",
+    "figure_sha256": "e3cc70d9b8427631e6ea782c8a86edf02de18e45d15884ec372bc02db7b1867e"
+  },
+  {
+    "figure": "figures/cal_fail.jpg",
+    "source_file": "video_20261102_220402.mp4",
+    "nominal_sample_time_s": 23.0,
+    "extracted_frame": 47,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "219e4d90dcd51729c4f780591fa38f3d62bb1e77ef81a4c86c0c94a2c2c1ac07",
+    "figure_sha256": "d9415244b41d7e2497edfbd0d7f82ff38e321b55733ed5e4508eca381c1f2ed4"
+  },
+  {
+    "figure": "figures/cal_ok.jpg",
+    "source_file": "video_20261102_221102.mp4",
+    "nominal_sample_time_s": 23.0,
+    "extracted_frame": 47,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "3d1d71b4d2ddb04937c5557f97f3b1404c01c911e5d7dc79318370e07c490d85",
+    "figure_sha256": "913e8ea969d8874f7c8362ee7a5d5af325ac3e032a1f36fbe1c403029a71aa36"
+  },
+  {
+    "figure": "figures/width_height.jpg",
+    "source_file": "video_20261102_222541.mp4",
+    "nominal_sample_time_s": 24.0,
+    "extracted_frame": 49,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "dc421a7f832073bafd6458ddee4189ba7dbc3beadb84c2dc90523f34d16046b0",
+    "figure_sha256": "2946c3c0a1a569a05709c469251f5b908250d241688c7c482b8f8a1c96512116"
+  },
+  {
+    "figure": "figures/diameter.jpg",
+    "source_file": "video_20261102_222216.mp4",
+    "nominal_sample_time_s": 43.5,
+    "extracted_frame": 88,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "0fd7f5abfcef8241aacd0abb4247ab29098a830da884e6c252a2bf4eef82f8ed",
+    "figure_sha256": "e6e942e81ab894dc92c59d0bb1d10a5451e3bea7722b4708807c50c209985853"
+  },
+  {
+    "figure": "figures/color_check.jpg",
+    "source_file": "video_20261102_223541.mp4",
+    "nominal_sample_time_s": 46.0,
+    "extracted_frame": 93,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "8a7cea36c846c6f27c95a1783a42b98a44a28013f820d371fe919196b9585921",
+    "figure_sha256": "ab3472159eb511eba692f287c193bb7599743061e475542943b2ac909057507b"
+  },
+  {
+    "figure": "figures/color_light.jpg",
+    "source_file": "video_20261102_223541.mp4",
+    "nominal_sample_time_s": 92.0,
+    "extracted_frame": 185,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "8a7cea36c846c6f27c95a1783a42b98a44a28013f820d371fe919196b9585921",
+    "figure_sha256": "23dc43ecac6f26b2bd1ae2eb3bf5df3cb5264e59af30c501431450b2346111a8"
+  },
+  {
+    "figure": "figures/track_on.jpg",
+    "source_file": "video_20261102_224420.mp4",
+    "nominal_sample_time_s": 21.5,
+    "extracted_frame": 44,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "d17b4c48a1c4933a041f686184da238fd88e3b9ea6e0a0cef72c03fe036ae040",
+    "figure_sha256": "96d647ef12fef0f8e1b9d22044d2219c9913a7c224e42d4049b203dfb453b233"
+  },
+  {
+    "figure": "figures/track_off.jpg",
+    "source_file": "video_20261102_224420.mp4",
+    "nominal_sample_time_s": 43.0,
+    "extracted_frame": 87,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "d17b4c48a1c4933a041f686184da238fd88e3b9ea6e0a0cef72c03fe036ae040",
+    "figure_sha256": "72abf86c7d0d85f52dc83ed78067ef3152f7053b85f61f6e201f223be2268ca2"
+  },
+  {
+    "figure": "figures/motion_on.jpg",
+    "source_file": "video_20261102_224747.mp4",
+    "nominal_sample_time_s": 24.0,
+    "extracted_frame": 49,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "d857c2b34757f284512279a8d21e1b237a6d34325a356a7d7c70513be36d79b0",
+    "figure_sha256": "56f0415a1bb67bde8ef1e33b0ce02b55ec717de413672e9bb9f2255f816019b8"
+  },
+  {
+    "figure": "figures/motion_off.jpg",
+    "source_file": "video_20261102_224747.mp4",
+    "nominal_sample_time_s": 38.0,
+    "extracted_frame": 77,
+    "operation": "EXIF orientation; optional stated quarter-turn; proportional downsample/JPEG; no crop/retouch/perspective correction",
+    "rotation_degrees": 0,
+    "source_sha256": "d857c2b34757f284512279a8d21e1b237a6d34325a356a7d7c70513be36d79b0",
+    "figure_sha256": "31dd671d4f49195d5087f5fce186214b0f002abffcc33bc7a0f26df7dc8a0f9c"
+  }
+]

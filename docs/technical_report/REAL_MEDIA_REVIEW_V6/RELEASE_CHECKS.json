@@ -1,0 +1,270 @@
+{
+  "date": "2026-11-03",
+  "scope": "DOCUMENT_ONLY",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "rendered_page_count",
+      "passed": true,
+      "details": {
+        "pages": 35,
+        "dpi": 140
+      }
+    },
+    {
+      "name": "page_numbers",
+      "passed": true,
+      "details": "1 through 35 in native PDF extraction"
+    },
+    {
+      "name": "reviewed_unchanged_pages",
+      "passed": true,
+      "details": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        15
+      ]
+    },
+    {
+      "name": "final_page_pngs",
+      "passed": true,
+      "details": "14,16-35 reviewed after final changes; 1-13,15 byte-identical to already reviewed images"
+    },
+    {
+      "name": "relative_links",
+      "passed": true,
+      "details": {
+        "checked": 41,
+        "broken": []
+      }
+    },
+    {
+      "name": "originals_still_match",
+      "passed": true,
+      "details": "27 original hashes unchanged"
+    },
+    {
+      "name": "credential_feature_scan",
+      "passed": true,
+      "details": {
+        "hit_files_only": []
+      }
+    },
+    {
+      "name": "scope",
+      "passed": true,
+      "details": {
+        "paths": 36,
+        "only_new_v6_directory": true
+      }
+    },
+    {
+      "name": "no_video_or_build_output",
+      "passed": true,
+      "details": "selected figures and documents only"
+    },
+    {
+      "name": "document_checks_current",
+      "passed": true,
+      "details": "13 document checks current"
+    }
+  ],
+  "manual_visual_review": "35 corresponding final pages, including 14 byte-identical reviewed pages, all clean",
+  "docx_sha256": "7d3068f14199a54af93a42b55c0f30e2c4c15c2f1121c8c20ea4b0ebbd24826a",
+  "unresolved": [
+    "actual recording bit SHA",
+    "independent physical truth/error",
+    "BG:OK/AUTO12 paired improvement",
+    "continuous long-run",
+    "new latency candidate board values",
+    "matching mechanical/circuit drawings"
+  ],
+  "files": [
+    {
+      "path": "DOCUMENT_CHECKS.json",
+      "bytes": 3140,
+      "sha256": "bfa8685f6491798b85a33797dacd0fb6fc9051ff1b6a345d45aab8018de6c81d"
+    },
+    {
+      "path": "figures/binary.jpg",
+      "bytes": 149696,
+      "sha256": "45abfcd9e235ee14ad1596623ddfb3ee701b24ecdb83c5b56318c85db85fa933"
+    },
+    {
+      "path": "figures/board.jpg",
+      "bytes": 1328211,
+      "sha256": "fdc0390bad945935f0050f7ece9da1b3b18b917f6092e5247666f64d856053a6"
+    },
+    {
+      "path": "figures/cal_fail.jpg",
+      "bytes": 151880,
+      "sha256": "d9415244b41d7e2497edfbd0d7f82ff38e321b55733ed5e4508eca381c1f2ed4"
+    },
+    {
+      "path": "figures/cal_ok.jpg",
+      "bytes": 150923,
+      "sha256": "913e8ea969d8874f7c8362ee7a5d5af325ac3e032a1f36fbe1c403029a71aa36"
+    },
+    {
+      "path": "figures/calibration_measurement.png",
+      "bytes": 94492,
+      "sha256": "1ab9166a039ec62d0f6d8d24716adbde7b3e96047f6a17586a5ce9d9949f8714"
+    },
+    {
+      "path": "figures/camera.jpg",
+      "bytes": 1227975,
+      "sha256": "ec1a7d41537152bee6271bd8eb42aab69bee49b95de6aa36a1dca23bad808121"
+    },
+    {
+      "path": "figures/color_check.jpg",
+      "bytes": 147350,
+      "sha256": "ab3472159eb511eba692f287c193bb7599743061e475542943b2ac909057507b"
+    },
+    {
+      "path": "figures/color_light.jpg",
+      "bytes": 146402,
+      "sha256": "23dc43ecac6f26b2bd1ae2eb3bf5df3cb5264e59af30c501431450b2346111a8"
+    },
+    {
+      "path": "figures/diameter.jpg",
+      "bytes": 129277,
+      "sha256": "e6e942e81ab894dc92c59d0bb1d10a5451e3bea7722b4708807c50c209985853"
+    },
+    {
+      "path": "figures/edge.jpg",
+      "bytes": 220383,
+      "sha256": "e3cc70d9b8427631e6ea782c8a86edf02de18e45d15884ec372bc02db7b1867e"
+    },
+    {
+      "path": "figures/gray.jpg",
+      "bytes": 140427,
+      "sha256": "e681e60185699afec4d4b24b7df626de7ccc065618ad08471b0b3a9cef741390"
+    },
+    {
+      "path": "figures/lights.jpg",
+      "bytes": 1502496,
+      "sha256": "4d36db3932436725af5051d948a421e91fec2d2f4c04aefaee05602edc38e15c"
+    },
+    {
+      "path": "figures/motion_off.jpg",
+      "bytes": 141910,
+      "sha256": "31dd671d4f49195d5087f5fce186214b0f002abffcc33bc7a0f26df7dc8a0f9c"
+    },
+    {
+      "path": "figures/motion_on.jpg",
+      "bytes": 143516,
+      "sha256": "56f0415a1bb67bde8ef1e33b0ce02b55ec717de413672e9bb9f2255f816019b8"
+    },
+    {
+      "path": "figures/oblique.jpg",
+      "bytes": 928259,
+      "sha256": "25c1ab50e9676151d99b97f5e0ce60442699b995cd9d05992cade14c586b88bc"
+    },
+    {
+      "path": "figures/observer_flow.png",
+      "bytes": 77573,
+      "sha256": "3dfe35967ee3600509864247c9b5df10b578835a096986f03068edfe5860bd5a"
+    },
+    {
+      "path": "figures/origin.jpg",
+      "bytes": 151122,
+      "sha256": "a87a4d2dc1f2c51c1251c1a821b293972abbdba38b1ef90a11254f62359cbb93"
+    },
+    {
+      "path": "figures/overview.jpg",
+      "bytes": 930409,
+      "sha256": "7808e9a75e7843fcc8c24154cc47aa8957495ac23527bfb7dd372a550eb743b9"
+    },
+    {
+      "path": "figures/pipeline_observation.png",
+      "bytes": 86938,
+      "sha256": "5161b5359877eed7a736474ed5c9e3994e225244c3b589ec25841623821c4f34"
+    },
+    {
+      "path": "figures/style.jpg",
+      "bytes": 154286,
+      "sha256": "5589d916a344ddc19512c9bd5d7ab73108e1ddef3198117e40f9fe1053122d1a"
+    },
+    {
+      "path": "figures/system_architecture.png",
+      "bytes": 72297,
+      "sha256": "58941d0eb7993efb112f3a0fc3451e77baa894dbaa19f93e24d5ce48e8765a47"
+    },
+    {
+      "path": "figures/track_off.jpg",
+      "bytes": 153149,
+      "sha256": "72abf86c7d0d85f52dc83ed78067ef3152f7053b85f61f6e201f223be2268ca2"
+    },
+    {
+      "path": "figures/track_on.jpg",
+      "bytes": 154054,
+      "sha256": "96d647ef12fef0f8e1b9d22044d2219c9913a7c224e42d4049b203dfb453b233"
+    },
+    {
+      "path": "figures/width_height.jpg",
+      "bytes": 130318,
+      "sha256": "2946c3c0a1a569a05709c469251f5b908250d241688c7c482b8f8a1c96512116"
+    },
+    {
+      "path": "FOLLOWUP.md",
+      "bytes": 6732,
+      "sha256": "7af8648353ae44c4a71742e1eaf8afbc744834b4babf4fafd89a62f724ed2e79"
+    },
+    {
+      "path": "MEDIA_INDEX.md",
+      "bytes": 5263,
+      "sha256": "06c9dbc0822dd2df73f3e2affab71e3e2db57841e7667b1e833d1cf14beed271"
+    },
+    {
+      "path": "MEDIA_INVENTORY.json",
+      "bytes": 9741,
+      "sha256": "19a704f291e25a7f4707fc5cdaff9f2ad5b62d8aa44447de1952ff8f6573710b"
+    },
+    {
+      "path": "PACKAGE_FIDELITY.json",
+      "bytes": 1051,
+      "sha256": "b65c2df778a8082144aca019b39168c5f60fec7d04d6b40d8240810eb834b028"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3613,
+      "sha256": "df5cca4a2a7500b15877d677bf8c2c0f5f438643c1258530b63b858317a7fcba"
+    },
+    {
+      "path": "SELECTED_MEDIA.json",
+      "bytes": 10155,
+      "sha256": "1a30bf0308ed1def77ad4cc746c4b42be6ef3d0c0d212b4dae6124bb67346fe7"
+    },
+    {
+      "path": "SOURCE_EVIDENCE.json",
+      "bytes": 1792,
+      "sha256": "6abcac95e335fbb93e44cbdecd4ea7937df5f489a04db8f3e678154023b0a7d8"
+    },
+    {
+      "path": "TECHNICAL_REPORT.md",
+      "bytes": 47750,
+      "sha256": "44126b30245a2859025d9a875325aed3e367e3fe46eb9388a5f7fa798d25a41b"
+    },
+    {
+      "path": "VERIFICATION_LOG.md",
+      "bytes": 4852,
+      "sha256": "444e63d78f807c47cc2431f583997c76623eefb44311e219579e4d43d9a0a0bf"
+    },
+    {
+      "path": "技术文档_实拍补充与候选更新_第六稿.docx",
+      "bytes": 8443952,
+      "sha256": "7d3068f14199a54af93a42b55c0f30e2c4c15c2f1121c8c20ea4b0ebbd24826a"
+    }
+  ]
+}
