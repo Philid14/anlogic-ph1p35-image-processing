@@ -1,0 +1,19 @@
+{
+  "source_docx_sha256": "7d3068f14199a54af93a42b55c0f30e2c4c15c2f1121c8c20ea4b0ebbd24826a",
+  "changed_original_parts": [
+    "word/document.xml",
+    "word/_rels/document.xml.rels",
+    "docProps/core.xml"
+  ],
+  "preserved_original_parts": 46,
+  "new_parts": [
+    "word/media/image26.jpg",
+    "word/media/image27.jpg",
+    "word/media/image28.jpg",
+    "word/media/image29.jpg",
+    "word/media/image30.jpg",
+    "word/media/image31.jpg"
+  ],
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "sections_equal": true
+}

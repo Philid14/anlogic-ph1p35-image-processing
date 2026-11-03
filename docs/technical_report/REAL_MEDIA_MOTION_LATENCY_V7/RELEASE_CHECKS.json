@@ -1,0 +1,342 @@
+{
+  "date": "2026-11-03",
+  "scope": "DOCUMENT_ONLY",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "pages",
+      "passed": true,
+      "details": 37
+    },
+    {
+      "name": "page_numbers",
+      "passed": true,
+      "details": "native PDF page numbers 1-37"
+    },
+    {
+      "name": "final_visual_review",
+      "passed": true,
+      "details": {
+        "reinspected_after_V1_1": [
+          17,
+          33,
+          34,
+          37
+        ],
+        "byte_identical_to_previous_review": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          35,
+          36
+        ]
+      }
+    },
+    {
+      "name": "document_checks_current",
+      "passed": true,
+      "details": "14 checks"
+    },
+    {
+      "name": "relative_links",
+      "passed": true,
+      "details": {
+        "checked": 39,
+        "broken": []
+      }
+    },
+    {
+      "name": "originals_unchanged",
+      "passed": true,
+      "details": "all four original SHA unchanged after review"
+    },
+    {
+      "name": "credential_scan",
+      "passed": true,
+      "details": {
+        "hit_files_only": []
+      }
+    },
+    {
+      "name": "private_metadata_scan",
+      "passed": true,
+      "details": {
+        "hit_files_only": []
+      }
+    },
+    {
+      "name": "scope",
+      "passed": true,
+      "details": {
+        "changed_paths": 45,
+        "only_new_v7_directory": true
+      }
+    },
+    {
+      "name": "no_hardware_or_raw_media",
+      "passed": true,
+      "details": "documentation/selected images/read-only verifier only"
+    }
+  ],
+  "docx_sha256": "37ea9fb43593f54055d4cd84b0c6567b7c6c93170297573fe6f9c8e5534f480e",
+  "manual_visual_review": "37 corresponding final pages; 25 directly viewed + 12 identical to reviewed V6; latest 4 changed pages re-viewed",
+  "unresolved": [
+    "exact recording bit SHA",
+    "real qualified latency measurements",
+    "independent dimensions and T/L board observations",
+    "BG improvement",
+    "continuous stability",
+    "matching mechanical/circuit material",
+    "five raw TD input hashes"
+  ],
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 66,
+      "sha256": "33c6bd693f2fc82351b8abe0673f39b9c500ca5241ceb1ecdfc8fff7060ed717"
+    },
+    {
+      "path": "DOCUMENT_CHECKS.json",
+      "bytes": 3087,
+      "sha256": "c9697e0acd564529b8ab1105f3c34c1bd03b50cc374d724789d55689250900fd"
+    },
+    {
+      "path": "figures/binary.jpg",
+      "bytes": 149696,
+      "sha256": "45abfcd9e235ee14ad1596623ddfb3ee701b24ecdb83c5b56318c85db85fa933"
+    },
+    {
+      "path": "figures/board.jpg",
+      "bytes": 1328211,
+      "sha256": "fdc0390bad945935f0050f7ece9da1b3b18b917f6092e5247666f64d856053a6"
+    },
+    {
+      "path": "figures/cal_fail.jpg",
+      "bytes": 151880,
+      "sha256": "d9415244b41d7e2497edfbd0d7f82ff38e321b55733ed5e4508eca381c1f2ed4"
+    },
+    {
+      "path": "figures/cal_ok.jpg",
+      "bytes": 150923,
+      "sha256": "913e8ea969d8874f7c8362ee7a5d5af325ac3e032a1f36fbe1c403029a71aa36"
+    },
+    {
+      "path": "figures/calibration_measurement.png",
+      "bytes": 94492,
+      "sha256": "1ab9166a039ec62d0f6d8d24716adbde7b3e96047f6a17586a5ce9d9949f8714"
+    },
+    {
+      "path": "figures/camera.jpg",
+      "bytes": 1227975,
+      "sha256": "ec1a7d41537152bee6271bd8eb42aab69bee49b95de6aa36a1dca23bad808121"
+    },
+    {
+      "path": "figures/color_check.jpg",
+      "bytes": 147350,
+      "sha256": "ab3472159eb511eba692f287c193bb7599743061e475542943b2ac909057507b"
+    },
+    {
+      "path": "figures/color_light.jpg",
+      "bytes": 146402,
+      "sha256": "23dc43ecac6f26b2bd1ae2eb3bf5df3cb5264e59af30c501431450b2346111a8"
+    },
+    {
+      "path": "figures/diameter.jpg",
+      "bytes": 129277,
+      "sha256": "e6e942e81ab894dc92c59d0bb1d10a5451e3bea7722b4708807c50c209985853"
+    },
+    {
+      "path": "figures/edge.jpg",
+      "bytes": 220383,
+      "sha256": "e3cc70d9b8427631e6ea782c8a86edf02de18e45d15884ec372bc02db7b1867e"
+    },
+    {
+      "path": "figures/gray.jpg",
+      "bytes": 140427,
+      "sha256": "e681e60185699afec4d4b24b7df626de7ccc065618ad08471b0b3a9cef741390"
+    },
+    {
+      "path": "figures/lights.jpg",
+      "bytes": 1502496,
+      "sha256": "4d36db3932436725af5051d948a421e91fec2d2f4c04aefaee05602edc38e15c"
+    },
+    {
+      "path": "figures/motion_off.jpg",
+      "bytes": 141910,
+      "sha256": "31dd671d4f49195d5087f5fce186214b0f002abffcc33bc7a0f26df7dc8a0f9c"
+    },
+    {
+      "path": "figures/motion_on.jpg",
+      "bytes": 143516,
+      "sha256": "56f0415a1bb67bde8ef1e33b0ce02b55ec717de413672e9bb9f2255f816019b8"
+    },
+    {
+      "path": "figures/new_demo.jpg",
+      "bytes": 188774,
+      "sha256": "f2513077a8e87ff1f8d6941155be9231de598d354a4013dd2a71dce18f65d020"
+    },
+    {
+      "path": "figures/new_demo_detail.jpg",
+      "bytes": 21459,
+      "sha256": "c79e81dad03bb5372e37ada0649361aa23f0483b70edca2d52fd7b5af7e37cf8"
+    },
+    {
+      "path": "figures/new_exterior.jpg",
+      "bytes": 102610,
+      "sha256": "ea23184e74015eeb3c2aba4fa711080f7e939b7cf78dfc8bc50a3584eca28f70"
+    },
+    {
+      "path": "figures/new_interior.jpg",
+      "bytes": 204075,
+      "sha256": "fe66659b50a9696d0d940a1b5ab33c25fb3547b74a0c007e09849d02287ff8c1"
+    },
+    {
+      "path": "figures/new_motion_off.jpg",
+      "bytes": 152639,
+      "sha256": "d2366fc5d1b1797c3464f107cd54028610f13a19fabbca174009cb0373c55e0a"
+    },
+    {
+      "path": "figures/new_motion_on.jpg",
+      "bytes": 190180,
+      "sha256": "e705e1398c8c9b4c4d3ae456f3a1c80aac46d79523cf5e43d7fc78d162752f67"
+    },
+    {
+      "path": "figures/oblique.jpg",
+      "bytes": 928259,
+      "sha256": "25c1ab50e9676151d99b97f5e0ce60442699b995cd9d05992cade14c586b88bc"
+    },
+    {
+      "path": "figures/observer_flow.png",
+      "bytes": 77573,
+      "sha256": "3dfe35967ee3600509864247c9b5df10b578835a096986f03068edfe5860bd5a"
+    },
+    {
+      "path": "figures/origin.jpg",
+      "bytes": 151122,
+      "sha256": "a87a4d2dc1f2c51c1251c1a821b293972abbdba38b1ef90a11254f62359cbb93"
+    },
+    {
+      "path": "figures/overview.jpg",
+      "bytes": 930409,
+      "sha256": "7808e9a75e7843fcc8c24154cc47aa8957495ac23527bfb7dd372a550eb743b9"
+    },
+    {
+      "path": "figures/pipeline_observation.png",
+      "bytes": 86938,
+      "sha256": "5161b5359877eed7a736474ed5c9e3994e225244c3b589ec25841623821c4f34"
+    },
+    {
+      "path": "figures/style.jpg",
+      "bytes": 154286,
+      "sha256": "5589d916a344ddc19512c9bd5d7ab73108e1ddef3198117e40f9fe1053122d1a"
+    },
+    {
+      "path": "figures/system_architecture.png",
+      "bytes": 72297,
+      "sha256": "58941d0eb7993efb112f3a0fc3451e77baa894dbaa19f93e24d5ce48e8765a47"
+    },
+    {
+      "path": "figures/track_off.jpg",
+      "bytes": 153149,
+      "sha256": "72abf86c7d0d85f52dc83ed78067ef3152f7053b85f61f6e201f223be2268ca2"
+    },
+    {
+      "path": "figures/track_on.jpg",
+      "bytes": 154054,
+      "sha256": "96d647ef12fef0f8e1b9d22044d2219c9913a7c224e42d4049b203dfb453b233"
+    },
+    {
+      "path": "figures/width_height.jpg",
+      "bytes": 130318,
+      "sha256": "2946c3c0a1a569a05709c469251f5b908250d241688c7c482b8f8a1c96512116"
+    },
+    {
+      "path": "FOLLOWUP.md",
+      "bytes": 7193,
+      "sha256": "5ef5ebe6b2f4b693abbb9b27b4ecfa3bf7f124c8e24ab856c22044102ce0f5e0"
+    },
+    {
+      "path": "MEDIA_INDEX.md",
+      "bytes": 3021,
+      "sha256": "df7d52e3fd7acb47085036499e8f1d33fb86e558f2070903123cdf40e67c101c"
+    },
+    {
+      "path": "MEDIA_INVENTORY.json",
+      "bytes": 2463,
+      "sha256": "3909ff11033e51fd6b1661bf3382a3e2d8b7738b92b517056014c07048c95b56"
+    },
+    {
+      "path": "PACKAGE_FIDELITY.json",
+      "bytes": 574,
+      "sha256": "afbfb450273459c3e802dfcd560bb7a7ff793ad6c6149e8a21f7066210cbbe58"
+    },
+    {
+      "path": "README.md",
+      "bytes": 3337,
+      "sha256": "bf50e157b0c166f0fc254db0be243d6ed463c477548cc45a831f7cfb9cd3806c"
+    },
+    {
+      "path": "SELECTED_MEDIA.json",
+      "bytes": 3624,
+      "sha256": "ca10770bf45a14c3b364c25fd1628fe0cf32972c992a11d60a34d0d706392572"
+    },
+    {
+      "path": "SOURCE_EVIDENCE.json",
+      "bytes": 41724,
+      "sha256": "4cdef2fcce7bcec8e59abed69ad77e5127117093d1848f005ef46209679fe98f"
+    },
+    {
+      "path": "TECHNICAL_REPORT.md",
+      "bytes": 49957,
+      "sha256": "91be6038b2654b1d554f75e31ec3d18d7dc48c2d66a7c7eb6f51a00d95b41102"
+    },
+    {
+      "path": "TEMPLATE_COMPARISON.md",
+      "bytes": 2328,
+      "sha256": "05e0c52b07372a964f896f4c5ae585f8d5f12b670ee58325a99fe58611e5e87d"
+    },
+    {
+      "path": "VERIFICATION_LOG.md",
+      "bytes": 4483,
+      "sha256": "24b416b74d26cfd03b79b4e57738fe1dd2a7fd381f9104ec582b0028c4a549e5"
+    },
+    {
+      "path": "verify_package.py",
+      "bytes": 4299,
+      "sha256": "17eb66923027d891ea37cae37e0ec05754f1bab77d2e3df6bc8ac5fa370a03e2"
+    },
+    {
+      "path": "技术文档_运动改进与延迟功能_第七稿.docx",
+      "bytes": 9271217,
+      "sha256": "37ea9fb43593f54055d4cd84b0c6567b7c6c93170297573fe6f9c8e5534f480e"
+    }
+  ]
+}

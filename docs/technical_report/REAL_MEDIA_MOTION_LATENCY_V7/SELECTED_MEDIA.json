@@ -1,0 +1,83 @@
+{
+  "new": [
+    {
+      "id": "new_exterior",
+      "source_id": "N01",
+      "source_file": "7c7eb1c8956d681a651acdfe47f024f3.mp4",
+      "source_sha256": "f92a36f572f936b1e5b560393b12aaa4a8177135fc632ff904941424c6533b8b",
+      "sample_frame": 17,
+      "nominal_time_seconds": 4.0,
+      "crop_from_1280x720": null,
+      "figure": "figures/new_exterior.jpg",
+      "figure_sha256": "ea23184e74015eeb3c2aba4fa711080f7e939b7cf78dfc8bc50a3584eca28f70",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    },
+    {
+      "id": "new_interior",
+      "source_id": "N02",
+      "source_file": "ed04386674ed2fa75a29f8d97dbb7c94.mp4",
+      "source_sha256": "c6f0f2fd756c57fe46e9a134369ac8604724ad15866fb2262984a8c17b37328e",
+      "sample_frame": 27,
+      "nominal_time_seconds": 6.5,
+      "crop_from_1280x720": null,
+      "figure": "figures/new_interior.jpg",
+      "figure_sha256": "fe66659b50a9696d0d940a1b5ab33c25fb3547b74a0c007e09849d02287ff8c1",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    },
+    {
+      "id": "new_motion_on",
+      "source_id": "N04",
+      "source_file": "video_20261103_221113.mp4",
+      "source_sha256": "ede8deb81878494382abf01737139c5a9e1ae2941bb72342b53d666510c56b3c",
+      "sample_frame": 55,
+      "nominal_time_seconds": 13.5,
+      "crop_from_1280x720": null,
+      "figure": "figures/new_motion_on.jpg",
+      "figure_sha256": "e705e1398c8c9b4c4d3ae456f3a1c80aac46d79523cf5e43d7fc78d162752f67",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    },
+    {
+      "id": "new_motion_off",
+      "source_id": "N04",
+      "source_file": "video_20261103_221113.mp4",
+      "source_sha256": "ede8deb81878494382abf01737139c5a9e1ae2941bb72342b53d666510c56b3c",
+      "sample_frame": 67,
+      "nominal_time_seconds": 16.5,
+      "crop_from_1280x720": null,
+      "figure": "figures/new_motion_off.jpg",
+      "figure_sha256": "d2366fc5d1b1797c3464f107cd54028610f13a19fabbca174009cb0373c55e0a",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    },
+    {
+      "id": "new_demo",
+      "source_id": "N04",
+      "source_file": "video_20261103_221113.mp4",
+      "source_sha256": "ede8deb81878494382abf01737139c5a9e1ae2941bb72342b53d666510c56b3c",
+      "sample_frame": 47,
+      "nominal_time_seconds": 11.5,
+      "crop_from_1280x720": null,
+      "figure": "figures/new_demo.jpg",
+      "figure_sha256": "f2513077a8e87ff1f8d6941155be9231de598d354a4013dd2a71dce18f65d020",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    },
+    {
+      "id": "new_demo_detail",
+      "source_id": "N04",
+      "source_file": "video_20261103_221113.mp4",
+      "source_sha256": "ede8deb81878494382abf01737139c5a9e1ae2941bb72342b53d666510c56b3c",
+      "sample_frame": 47,
+      "nominal_time_seconds": 11.5,
+      "crop_from_1280x720": [
+        255,
+        175,
+        605,
+        265
+      ],
+      "figure": "figures/new_demo_detail.jpg",
+      "figure_sha256": "c79e81dad03bb5372e37ada0649361aa23f0483b70edca2d52fd7b5af7e37cf8",
+      "treatment": "RGB JPEG re-save; no retouch, recoloring, number or text edits; optional rectangular crop explicitly identified"
+    }
+  ],
+  "inherited": "../REAL_MEDIA_REVIEW_V6/SELECTED_MEDIA.json",
+  "inherited_figure_count": 24
+}

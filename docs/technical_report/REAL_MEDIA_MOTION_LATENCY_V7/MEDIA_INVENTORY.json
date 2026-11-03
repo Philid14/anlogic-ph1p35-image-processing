@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-03",
+  "items": [
+    {
+      "id": "N01",
+      "source_kind": "QQ",
+      "file": "7c7eb1c8956d681a651acdfe47f024f3.mp4",
+      "bytes": 5529689,
+      "sha256": "f92a36f572f936b1e5b560393b12aaa4a8177135fc632ff904941424c6533b8b",
+      "duration_seconds_container": 5.27,
+      "decode_exit": 0,
+      "sample_interval_seconds": 0.25,
+      "sampled_frames": 21
+    },
+    {
+      "id": "N02",
+      "source_kind": "QQ",
+      "file": "ed04386674ed2fa75a29f8d97dbb7c94.mp4",
+      "bytes": 9011502,
+      "sha256": "c6f0f2fd756c57fe46e9a134369ac8604724ad15866fb2262984a8c17b37328e",
+      "duration_seconds_container": 9.09,
+      "decode_exit": 0,
+      "sample_interval_seconds": 0.25,
+      "sampled_frames": 36
+    },
+    {
+      "id": "N03",
+      "source_kind": "ORIGINAL",
+      "file": "video_20261103_221013.mp4",
+      "bytes": 8518056,
+      "sha256": "59278bf6989cc0c9dcc9505ae4641872b68125c629d650f7a1bc21232fbcdddb",
+      "duration_seconds_container": 10.66,
+      "decode_exit": 0,
+      "sample_interval_seconds": 0.25,
+      "sampled_frames": 43
+    },
+    {
+      "id": "N04",
+      "source_kind": "ORIGINAL",
+      "file": "video_20261103_221113.mp4",
+      "bytes": 20001248,
+      "sha256": "ede8deb81878494382abf01737139c5a9e1ae2941bb72342b53d666510c56b3c",
+      "duration_seconds_container": 18.63,
+      "decode_exit": 0,
+      "sample_interval_seconds": 0.25,
+      "sampled_frames": 75
+    }
+  ],
+  "review_method": "decode to end; 4Hz extraction; 1Hz sequential contact sheets + original-size key samples; no audio transcription or system-fps inference",
+  "reviewed": "All four nine-frame overviews; all five 1 Hz sequential contact sheets; selected 1280-pixel-wide key frames. Decoding at 4 Hz to EOF succeeded for all four. Not continuous playback, native-frame-by-frame review, or audio analysis.",
+  "probe_warnings": "N03/N04 have edit-list missing-index/key-frame probe warnings; all full decode commands exit 0. Nominal sample time is not a synchronized physical latency measurement.",
+  "user_confirmation": "用户认为是仓库最新版本；画面明确存在DEMO，未据此绑定到后续真实延迟修复bit。",
+  "exact_recording_bit_sha256": null,
+  "real_latency_values_accepted": false,
+  "privacy": "原视频不上传；不发布QQ账户目录、GPS或容器原始probe；JPEG抽帧不携带原件定位元数据。",
+  "previous_batch": "../REAL_MEDIA_REVIEW_V6/MEDIA_INVENTORY.json"
+}
