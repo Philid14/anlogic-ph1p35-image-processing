@@ -26,10 +26,10 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
     wire[10:0]pl=part_coords[32:22],pr=part_coords[21:11],ps=part_coords[10:0];
     wire[10:0]bar_mid=part_coords[33]?(ymin+ps)>>1:(ps+ymax)>>1;
     wire[10:0]leg_mid=part_coords[33]?(ps+ymax)>>1:(ymin+ps)>>1;
-    wire[10:0]sx=(((pl+pr)>>1)-56)&11'h7fc;
-    wire[10:0]ax=(((xmin+pl)>>1)-56)&11'h7fc;
-    wire[10:0]bx=(((pr+xmax)>>1)-56)&11'h7fc;
-    wire[10:0]side_x=(xmin-144)&11'h7fc;
+    wire[10:0]sx=(((pl+pr)>>1)-11'd56)&11'h7fc;
+    wire[10:0]ax=(((xmin+pl)>>1)-11'd56)&11'h7fc;
+    wire[10:0]bx=(((pr+xmax)>>1)-11'd56)&11'h7fc;
+    wire[10:0]side_x=(xmin-11'd144)&11'h7fc;
     wire[9:0]bg_y=part_mode?10'd688:10'd560;
     reg part_line,part_text;reg[2:0]part_field;reg[10:0]ptx,pty;reg[19:0]part_value;
     reg [10:0] tx,ty,q;reg [3:0] col;
@@ -142,27 +142,27 @@ module engineering_dimension_marks #(parameter SEARCH_ENABLE=0,AREA_ENABLE=0,SHA
         if(part_mode && !cal && object_valid && formatted)begin
             // Four-pixel aligned extension lines; stacked T/V on the left,
             // S across the stem, A above and B below the outline. No new font.
-            part_line=(x[10:2]==((xmin-20)>>2) && y>=ymin && y<=ymax) ||
-                ((y==ymin || y==ps || y==ymax) && x>=xmin-24 && x<=xmin-16) ||
-                (y==leg_mid && x+3>=pl && x<=pr) ||
-                ((x[10:2]==pl[10:2] || x[10:2]==pr[10:2]) && y+4>=leg_mid && y<=leg_mid+4);
+            part_line=(x[10:2]==((xmin-11'd20)>>2) && y>=ymin && y<=ymax) ||
+                ((y==ymin || y==ps || y==ymax) && x>=xmin-11'd24 && x<=xmin-11'd16) ||
+                (y==leg_mid && x+11'd3>=pl && x<=pr) ||
+                ((x[10:2]==pl[10:2] || x[10:2]==pr[10:2]) && y+11'd4>=leg_mid && y<=leg_mid+11'd4);
             if(pl>xmin)part_line=part_line ||
-                (y==ymin-48 && x+3>=xmin && x<pl) ||
-                ((x[10:2]==xmin[10:2] || x[10:2]==pl[10:2]) && y>=ymin-52 && y<=ymin-44);
+                (y==ymin-11'd48 && x+11'd3>=xmin && x<pl) ||
+                ((x[10:2]==xmin[10:2] || x[10:2]==pl[10:2]) && y>=ymin-11'd52 && y<=ymin-11'd44);
             if(pr<xmax)part_line=part_line ||
-                (y==ymax+24 && x+3>=pr && x<=xmax) ||
-                ((x[10:2]==pr[10:2] || x[10:2]==xmax[10:2]) && y>=ymax+20 && y<=ymax+28);
+                (y==ymax+11'd24 && x+11'd3>=pr && x<=xmax) ||
+                ((x[10:2]==pr[10:2] || x[10:2]==xmax[10:2]) && y>=ymax+11'd20 && y<=ymax+11'd28);
             if(part_line)marks=4'b1111;
-            if(x>=sx && x<sx+112 && y>=leg_mid+4 && y<leg_mid+20)begin
-                part_text=1;part_field=0;ptx=sx;pty=leg_mid+4;
-            end else if(x>=side_x && x<side_x+112 && y>=bar_mid-8 && y<bar_mid+8)begin
-                part_text=1;part_field=1;ptx=side_x;pty=bar_mid-8;
-            end else if(pl>xmin && x>=ax && x<ax+112 && y>=ymin-68 && y<ymin-52)begin
-                part_text=1;part_field=2;ptx=ax;pty=ymin-68;
-            end else if(pr<xmax && x>=bx && x<bx+112 && y>=ymax+28 && y<ymax+44)begin
-                part_text=1;part_field=3;ptx=bx;pty=ymax+28;
-            end else if(x>=side_x && x<side_x+112 && y>=leg_mid-8 && y<leg_mid+8)begin
-                part_text=1;part_field=4;ptx=side_x;pty=leg_mid-8;
+            if(x>=sx && x<sx+11'd112 && y>=leg_mid+11'd4 && y<leg_mid+11'd20)begin
+                part_text=1;part_field=0;ptx=sx;pty=leg_mid+11'd4;
+            end else if(x>=side_x && x<side_x+11'd112 && y>=bar_mid-11'd8 && y<bar_mid+11'd8)begin
+                part_text=1;part_field=1;ptx=side_x;pty=bar_mid-11'd8;
+            end else if(pl>xmin && x>=ax && x<ax+11'd112 && y>=ymin-11'd68 && y<ymin-11'd52)begin
+                part_text=1;part_field=2;ptx=ax;pty=ymin-11'd68;
+            end else if(pr<xmax && x>=bx && x<bx+11'd112 && y>=ymax+11'd28 && y<ymax+11'd44)begin
+                part_text=1;part_field=3;ptx=bx;pty=ymax+11'd28;
+            end else if(x>=side_x && x<side_x+11'd112 && y>=leg_mid-11'd8 && y<leg_mid+11'd8)begin
+                part_text=1;part_field=4;ptx=side_x;pty=leg_mid-11'd8;
             end
             case(part_field)
                 0:part_value=part_digits[99:80];1:part_value=part_digits[79:60];

@@ -171,26 +171,27 @@ module planar_two_band_profile(
  reg[8:0]al,ar,bl,br;
  reg[10:0]split,previous_y;
  wire[8:0]l=left_x[10:2],r=right_x[10:2];
- wire same_a=({1'b0,l}<={1'b0,al}+1) && ({1'b0,al}<={1'b0,l}+1) &&
-             ({1'b0,r}<={1'b0,ar}+1) && ({1'b0,ar}<={1'b0,r}+1);
- wire same_b=({1'b0,l}<={1'b0,bl}+1) && ({1'b0,bl}<={1'b0,l}+1) &&
-             ({1'b0,r}<={1'b0,br}+1) && ({1'b0,br}<={1'b0,r}+1);
- wire a_wide=al<=bl+1 && ar+1>=br && (ar-al)>=(br-bl)+3;
- wire b_wide=bl<=al+1 && br+1>=ar && (br-bl)>=(ar-al)+3;
+ wire same_a=({1'b0,l}<={1'b0,al}+10'd1) && ({1'b0,al}<={1'b0,l}+10'd1) &&
+             ({1'b0,r}<={1'b0,ar}+10'd1) && ({1'b0,ar}<={1'b0,r}+10'd1);
+ wire same_b=({1'b0,l}<={1'b0,bl}+10'd1) && ({1'b0,bl}<={1'b0,l}+10'd1) &&
+             ({1'b0,r}<={1'b0,br}+10'd1) && ({1'b0,br}<={1'b0,r}+10'd1);
+ wire[8:0]aw=ar-al,bw=br-bl;
+ wire a_wide={1'b0,al}<={1'b0,bl}+10'd1 && {1'b0,ar}+10'd1>={1'b0,br} && {1'b0,aw}>={1'b0,bw}+10'd3;
+ wire b_wide={1'b0,bl}<={1'b0,al}+10'd1 && {1'b0,br}+10'd1>={1'b0,ar} && {1'b0,bw}>={1'b0,aw}+10'd3;
  wire[10:0]xmin=box_coords[43:33],xmax=box_coords[32:22];
  wire[10:0]ymin=box_coords[21:11],ymax=box_coords[10:0];
  wire[10:0]nl={a_wide?bl:al,2'b00},nr={a_wide?br:ar,2'b11};
  always @(posedge clk or negedge rst_n)begin
   if(!rst_n)begin state<=0;ended<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;previous_y<=0;result_valid<=0;coords<=0;end
   else if(sof)begin
-   result_valid<=commit && state==2 && (a_wide || b_wide) && split>=ymin+6 && ymax+1>=split+6;
+   result_valid<=commit && state==2 && (a_wide || b_wide) && split>=ymin+11'd6 && ymax+11'd1>=split+11'd6;
    coords<={a_wide,nl<xmin?xmin:nl,nr>xmax?xmax:nr,split};
    state<=0;ended<=0;
   end else if(row_end)begin
    previous_y<=row_y;
    if(row_good)begin
     if(state==0)begin state<=1;al<=l;ar<=r;end
-    else if(ended || row_y!=previous_y+1)state<=3;
+    else if(ended || row_y!=previous_y+11'd1)state<=3;
     else if(state==1 && !same_a)begin state<=2;bl<=l;br<=r;split<=row_y;end
     else if(state==2 && !same_b)state<=3;
    end else if(state!=0)ended<=1;
