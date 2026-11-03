@@ -34,6 +34,7 @@ def main():
     critical=sorted(set(re.findall(r'(\w+-\d+) CRITICAL-WARNING',logs)))
     cdc=OUT/'cdc/results.json';assert cdc.exists(),'Explicit new CDC audit required'
     cdc_result=json.loads(cdc.read_text());assert cdc_result['passed']
+    assert cdc_result['route_db_sha256']==(OUT/'ROUTE_DB_SHA256.txt').read_text().strip()
     info=dict(version=VERSION,role='MAIN',branch='codex/main/latency-performance-v1',baseline_commit=BASE,
         source_commit=frozen['source_commit'],archive_driver_commit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
         tag='latency-performance-v1-candidate',draft_pr='https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/30',

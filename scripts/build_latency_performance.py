@@ -61,6 +61,8 @@ def bit():
     tests=regression_gate()
     phy=P/'camera_to_dsi_display_Runs/phy_1';database=phy/'camera_to_dsi_display_pr.db'
     assert build.sha(database)==(OUT/'ROUTE_DB_SHA256.txt').read_text().strip()
+    cdc=json.loads((OUT/'cdc/results.json').read_text())
+    assert cdc['passed'] and cdc['route_db_sha256']==build.sha(database),'New CDC audit must cover this exact route'
     timing=(OUT/'phy_camera_to_dsi_display_phy.ts').read_text()
     sw,st,hw,ht=map(float,re.findall(r'(?:SWNS|STNS|HWNS|HTNS):\s+(-?[\d.]+)ns',timing))
     assert sw>=0 and hw>=0 and st==ht==0
