@@ -39,6 +39,7 @@ def regression_gate():
     evidence={}
     for folder in folders:
         result=folder/'results.json';data=json.loads(result.read_text());assert data['passed'],folder
+        for name,digest in data.get('sources',{}).items():assert build.sha(ROOT/name)==digest,name+' changed after test'
         evidence[result.relative_to(ROOT).as_posix()]=build.sha(result)
         native=list(folder.rglob('SIM_SOURCE_MANIFEST.json'))
         if folder.name!='contract':assert native,folder

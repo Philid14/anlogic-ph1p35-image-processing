@@ -1,4 +1,4 @@
-import json,sys,shutil
+import json,sys,shutil,hashlib
 from vision_sim import ROOT,HDL,simulate
 sys.path.insert(0,str(ROOT/'scripts'))
 from generate_inspection_font import GLYPHS
@@ -23,6 +23,8 @@ def main():
     actual=[int(v) for v in raster.read_text().split()]
     assert actual==expected,[(i,a,b) for i,(a,b) in enumerate(zip(actual,expected)) if a!=b][:8]
     (OUT/'console.txt').write_text(log)
-    (OUT/'results.json').write_text(json.dumps(dict(passed=True,native=True,pixels=len(actual),rows=rows),indent=2)+'\n')
+    inputs=[HDL/'vision/latency_font.dath',ROOT/'scripts/generate_inspection_font.py']
+    (OUT/'results.json').write_text(json.dumps(dict(passed=True,native=True,pixels=len(actual),rows=rows,
+        sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in inputs}),indent=2)+'\n')
     print('PASS native OSD',len(actual),'pixels / original glyph reference / decimal units')
 if __name__=='__main__':main()
