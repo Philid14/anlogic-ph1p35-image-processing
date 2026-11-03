@@ -1,0 +1,166 @@
+{
+  "version": "INSPECTION_PARTS_MOTION_V1",
+  "role": "MAIN",
+  "branch": "codex/main/inspection-parts-motion-v1",
+  "baseline_commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+  "source_commit": "bb1f8811cafd441815b2248bcc19b263b02657eb",
+  "archive_driver_commit": "86b5d9139d19f1139673b44475f7c5ba24ef67bc",
+  "tag": "inspection-parts-motion-v1-candidate",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/31",
+  "build_time": "2026-11-03T19:51:48.327621+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:\\anlogic_formal_project\\tmp\\inspection_parts_motion\\full_r3\\camera_to_dsi_display.bit",
+  "bit_sha256": "1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11",
+  "resources": {
+    "slice": 19209,
+    "lut6": 18551,
+    "ff": 16340,
+    "eram": 105,
+    "dsp": 25
+  },
+  "resource_delta_vs_LATENCY_PERFORMANCE": {
+    "slice": -1622,
+    "lut6": -981,
+    "ff": -4997,
+    "eram": 0,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.257,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "sta_coverage_percent": 94.4,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "common_pixel_cycles": 31,
+  "extra_common_pixel_cycles": 0,
+  "motion": "FF3000; 8px lattice, 3x3 dots; prior complete motion map; original32x16/TH12 detection",
+  "parts": "Two stable nested row bands; single thin axis-aligned T/L; original ruler/background. Simultaneous W/H/S/T/A/B/V at corresponding sections; zero-side labels suppressed.",
+  "awb_compute": "Exact frame-only unsigned48/32 serial division; original numerical AWB parameters and49-cycle done boundary including in-flight reset semantics preserved; native reference IP and whole AWB compared",
+  "validation_hashes": 58,
+  "validation": "15 profile cases,7 simultaneous7-field native720p overlay frames,8 actual31-cycle streams,311 native divider math vectors/all50 reset offsets,12 native whole-AWB256x64 frames, original18 full720p reference frames and application/latency regression",
+  "route_db_sha256": "06ebfece1aaa3a6d8d50ad2781f9d382f977f9bb7408d0bfcc34b10ddb90312b",
+  "cdc_audit": {
+    "passed": true,
+    "route_db_sha256": "06ebfece1aaa3a6d8d50ad2781f9d382f977f9bb7408d0bfcc34b10ddb90312b",
+    "audit_script_sha256": "6b5a2eb5bce1999bfc91b695c8bdd43c999f49fc4a705bf8801c1a0c5cf1d3c8",
+    "raw_net_report_sha256": "1b027a98f5684e76437c3a790ee432d15ebbcc10398db2f03b799fc0acf606e2",
+    "alias_report_sha256": "792f78ba9966ad6b3fa2080e44a9a627f3aa680aefd622ff8f7e389ca5a2212d",
+    "checks": {
+      "time_gray": {
+        "passed": true,
+        "source_bits": 20,
+        "expected_source_bits": 20,
+        "missing_bits": [],
+        "unexpected_bits": [],
+        "load_count_mismatch": [],
+        "all_routed_loads_checked": 23,
+        "max_net_delay_ps": 964.0,
+        "limit_ps": 14700
+      },
+      "held_tuple": {
+        "passed": true,
+        "source_bits": 85,
+        "expected_source_bits": 85,
+        "missing_bits": [],
+        "unexpected_bits": [],
+        "load_count_mismatch": [],
+        "all_routed_loads_checked": 85,
+        "max_net_delay_ps": 1037.0,
+        "limit_ps": 26666
+      },
+      "tagged_fifo_gray": {
+        "passed": true,
+        "source_bits": 18,
+        "expected_source_bits": 18,
+        "missing_bits": [],
+        "unexpected_bits": [],
+        "load_count_mismatch": [],
+        "all_routed_loads_checked": 18,
+        "max_net_delay_ps": 795.0,
+        "limit_ps": 14700
+      },
+      "heartbeat": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 513.0,
+        "min_net_delay_ps": 513.0,
+        "limit_ps": 14700
+      },
+      "select_toggle": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 343.0,
+        "min_net_delay_ps": 343.0,
+        "limit_ps": 26666
+      },
+      "read_bad": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 1185.0,
+        "min_net_delay_ps": 1185.0,
+        "limit_ps": 14700
+      }
+    },
+    "logical_outputs": {
+      "timestamp_stage1": {
+        "passed": true,
+        "output_bits": 20,
+        "expected": 20,
+        "explicit_RTL_aliases": 0,
+        "missing": []
+      },
+      "timestamp_stage2": {
+        "passed": true,
+        "output_bits": 20,
+        "expected": 20,
+        "explicit_RTL_aliases": 0,
+        "missing": []
+      },
+      "held_tuple": {
+        "passed": true,
+        "output_bits": 85,
+        "expected": 85,
+        "explicit_RTL_aliases": 64,
+        "missing": []
+      },
+      "rd_to_wr_firststage": {
+        "passed": true,
+        "output_bits": 9,
+        "expected": 9,
+        "explicit_RTL_aliases": 0,
+        "missing": []
+      },
+      "wr_to_rd_firststage": {
+        "passed": true,
+        "output_bits": 9,
+        "expected": 9,
+        "explicit_RTL_aliases": 0,
+        "missing": []
+      }
+    },
+    "failures": [],
+    "global_sdc_changed": false,
+    "method": "Complete20/85/18 source-bit coverage and ALL physical fanouts, plus logical Q-output aliases; never filter by a colocated physical cell canonical name",
+    "inherited_gray_constraint_coverage": "NOT_FIXED; read-only routed envelope/structure audit, not new global SDC constraints",
+    "limit": "Not full CDC/MTBF signoff, hardware PVT or long-run validation"
+  },
+  "limitations": [
+    "Board NOT_RUN; noise/reflectance/accuracy need user evaluation",
+    "T crossbar horizontal; no arbitrary rotation/contour/CAD fitting",
+    "4px horizontal section coordinates, not0.1mm physical accuracy",
+    "Dense motion is prior completed map; more display dots do not improve detection resolution",
+    "No new globalCDC constraints or inherited FIFO/long-run/PVT fix",
+    "Small T/L objects may have crowded annotations; R0/R1 overcapacity and R2 manually stopped congestion were not signed candidates"
+  ],
+  "rollback_tag": "latency-performance-v1-candidate",
+  "rollback_bit_sha256": "062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4"
+}

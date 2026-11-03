@@ -1,0 +1,2 @@
+# Preserve native report/source-manifest bytes across Git checkouts.
+build_evidence/** -text

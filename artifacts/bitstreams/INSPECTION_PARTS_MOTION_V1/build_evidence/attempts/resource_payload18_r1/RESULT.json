@@ -1,0 +1,10 @@
+{
+  "selected": false,
+  "role": "Frozen inline native18bit compact-delay resource experiment",
+  "estimated_slice": 22268,
+  "eram": 107,
+  "formal_R2_estimated_slice": 22266,
+  "formal_R2_eram": 105,
+  "native_payload_checks": 2782,
+  "reason": "No synthesis Slice benefit versus formal R2, plus2ERAM; not promoted, no full route or bit"
+}

@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_nms_gradient_pair PH1P_PHY_GSR "+STIM=D:/anlogic_formal_project/tmp/latency_performance/retime_rows/nms/unit.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 08:56:25 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS NMS unit: cycles=3010 beats=2564 checked_samples=4200 full14bit/center_axis/four_neighbors/equal_platform/SOF/recovery
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_nms_gradient_pair.v(59)
+#    Time: 30186 ns  Iteration: 0  Instance: /tb_nms_gradient_pair
+# End time: 08:56:25 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

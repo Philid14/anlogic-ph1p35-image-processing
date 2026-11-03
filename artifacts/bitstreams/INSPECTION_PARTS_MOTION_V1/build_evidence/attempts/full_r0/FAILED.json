@@ -1,0 +1,6 @@
+{
+  "source_commit": "7c32412",
+  "status": "REJECTED_NO_BIT",
+  "reason": "PHY-9053 packing requires21710 slices, capacity21216; no routed STA or bit",
+  "next": "Reuse original dimensions formatter/drawing for cycling sub-rectangles"
+}

@@ -1,0 +1,13 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_legacy_stream PH1P_PHY_GSR -gWIDTH=1280 -gHEIGHT=720 -gCOMPARE=1 -gINSPECTION=1 -gAUTO_DIMENSION=1 -gUSABILITY_ENABLE=1 -gINSPECTION_V4=1 "+STIM=D:/anlogic_formal_project/tmp/ruler_cm/stream_r1/stim.txt" "+PACK=D:/anlogic_formal_project/tmp/ruler_cm/stream_r1/pack.txt" "+WORDS=1555200" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 19:17:10 on Nov 03,2026
+# ** Error: (vsim-3584) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v(163): Module parameter 'FRAME_SERIAL_DIV' not found for override.
+# 
+#         Region: /tb_inspection_legacy_stream/integrated
+# Error loading design
+Error loading design
+# End time: 19:17:10 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

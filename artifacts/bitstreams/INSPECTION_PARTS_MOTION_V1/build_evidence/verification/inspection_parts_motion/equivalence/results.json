@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Software finite-domain proof, not native RTL or board evidence",
+  "clamp_pairs": 1639680,
+  "tolerance_pairs": 102400,
+  "counter_cases": 4288,
+  "band_height_pairs": 148225,
+  "assumptions": "qualified chosen intervals contribute to full envelope; source bounds0..1279; MIN_ROW6/MIN_AREA64, MIN_ROWS3",
+  "sources": {
+    "tests/check_parts_equivalence.py": "9c8ca4eb1097ee416d334ac15cf2f52c3fb31003c3421c8c37f3477adc83e88d",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v": "c9aff672f6009232b426c98f9343b471d4a5c743f824007bca846a179faf0816",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "b2e5c497ef3bc9abaef07629cd06651628f6fdc070819045a0c1fe03a2ea675e"
+  }
+}

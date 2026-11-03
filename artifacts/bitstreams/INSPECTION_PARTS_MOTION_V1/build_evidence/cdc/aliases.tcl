@@ -1,0 +1,7 @@
+source ./settings.cfg
+import_device ph1_35p.db -package PH1P35MDG324 -speed 3
+open_project camera_to_dsi_display.prj -noanalyze
+import_db {D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display_Runs/phy_1/camera_to_dsi_display_pr.db}
+report_cells [get_cells -hier {*u_latency_capture*time_sync* *u_latency_display*rb1* *u_latency_display*rb2* *u_latency_display*st1* *u_latency_display*st2* *u_latency_display*st3* *u_latency_display*tuple* *u_latency_slots*hb1* *u_latency_slots*hb2* *u_video_in*g_tagged*sync_r* u_latency_capture/time_sync1_reg*_syn_2 u_latency_capture/time_sync2_reg*_syn_2 u_latency_display/frame_id_reg*_syn_2 u_latency_display/previous_key_reg*_syn_2 u_latency_display/sub0_syn_123 u_latency_display/tuple_reg*_syn_2 u_latency_slots/hb1_reg_syn_3 u_latency_timebase/add1_syn_141 u_latency_timebase/gray_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_sync_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/secondary_addr_o_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_sync_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/secondary_addr_o_reg*_syn_2 u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg*_syn_2}] -connection -pin_loc
+puts {CDC_ALIAS_COMPLETE}
+exit

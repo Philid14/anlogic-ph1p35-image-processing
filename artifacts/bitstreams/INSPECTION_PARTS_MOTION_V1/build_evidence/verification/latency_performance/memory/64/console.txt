@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_edge_link_pair PH1P_PHY_GSR -gW=64 "+STIM=D:/anlogic_formal_project/tmp/latency_performance/memory/64/labels.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 23:52:36 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS edge_link four independent spatial stage references width=64 beats=6916 sample_stage_checks=55328 cycles=8062
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_edge_link_pair.v(50)
+#    Time: 80706 ns  Iteration: 0  Instance: /tb_edge_link_pair
+# End time: 23:52:38 on Nov 02,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0

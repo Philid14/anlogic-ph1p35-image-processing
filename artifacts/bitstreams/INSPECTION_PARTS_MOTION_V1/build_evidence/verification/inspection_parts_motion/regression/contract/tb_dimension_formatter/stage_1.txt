@@ -1,0 +1,15 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 19:16:41 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_planar_measure.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v 
+-- Compiling module tb_planar_measure
+-- Compiling module tb_inspection_calibration
+-- Compiling module tb_dimension_formatter
+-- Compiling module color_compare_osd
+-- Compiling module osd_char_lib
+
+Top level modules:
+	tb_planar_measure
+	tb_inspection_calibration
+	tb_dimension_formatter
+End time: 19:16:41 on Nov 03,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

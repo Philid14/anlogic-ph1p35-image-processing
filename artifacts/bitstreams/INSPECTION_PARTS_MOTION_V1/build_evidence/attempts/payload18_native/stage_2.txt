@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_payload_delay PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 16:35:10 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS exact SP payload delays checks=2782 reset/bubbles/random
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_payload_delay.sv(26)
+#    Time: 30050 ns  Iteration: 1  Instance: /tb_inspection_payload_delay
+# End time: 16:35:11 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
