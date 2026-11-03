@@ -443,3 +443,14 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - 保留本候选与全部历史，按BOARD_TEST完成空台面/单实心红目标/移动/消失验证；不自动合并，不自行下一版。
 
 - 发布核对：候选归档commit806e29ab76f360a2bc76eea37fe826a92a8da57c；[Draft PR #29](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29)依赖未合并PR28。Private origin分支与candidate tag已实际push，远程tag内bit/89个输入与实际TD源码一致，29个历史bit不变。见REMOTE_RECEIPT/PR_CREATION；Board Test仍NOT_RUN，不自动合并，等待本版上板。
+
+## 2026-11-03 LATENCY_PERFORMANCE_V1 candidate / MAIN
+
+- 用户恢复进阶三延迟可视化及扩展四资源优化，其他功能保持；基线072bc0f8/PR29，branch codex/main/latency-performance-v1，实际TD源码69521d7932c2fec94dd67c03a7362b4d6b0ceb8f，tag latency-performance-v1-candidate。
+- 假设：身份/时间随像素FIFO和DDR读槽代次传递，测量RAW首valid至同帧HDMI首DE；等价行缓存及配置存储优化抵消资源。Sensor/ISP、算法、颜色/尺寸/跟踪、按键/开关、调度、PLL/SDC不变，公共流水仍31拍。
+- 原无延迟面板→透明LAT/MIN/MAX/AGE、NEW/REP/BAD/WAIT、HEX F/N/E；10us量化未物理校准，REP不重复累计、BAD不计有效统计。
+- SYN/PHY/final STA/bitgen PASS；Slice20831(-111)、LUT6 19532(+34)、FF21337(+969)、ERAM105(0)、DSP25(0)，Setup/Hold+0.175/+0.020ns、TNS0、STA95.33%。关键warning类型无新增，仍仅385Slice/3ERAM余量。
+- 45份结果/原生源码清单哈希门禁PASS；18帧720p/4147200拍/3110400打包字旧参考、原生FIFO/异常/重复帧/时钟中断、OSD及实际模块1280x4链路通过。R0无bit，资源失败/中止尝试保留。
+- 最终route新增CDC审计PASS；既有Gray约束覆盖及历史溢出复发、PVT长稳仍待实板，不宣称已修复。
+- Bit artifacts/bitstreams/LATENCY_PERFORMANCE_V1/camera_to_dsi_display.bit；SHA256 062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4。
+- Board Test NOT_RUN。按BOARD_TEST记录5s/30s/120s及30min稳态E/B/S和旧功能。保留历史；Draft PR30依赖29，不合并、不自行下一版。发布回执另补。

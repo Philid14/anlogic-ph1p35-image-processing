@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_drawing PH1P_PHY_GSR "+GOLD=D:/anlogic_formal_project/tmp/latency_performance/regression/drawing/gold.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 08:36:52 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS D10.0/R5.0 correct scale and radial geometry, native font bit exact720p, transparent background, dimension off 462946
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_drawing.sv(34)
+#    Time: 4629546 ns  Iteration: 0  Instance: /tb_inspection_drawing
+# End time: 08:36:56 on Nov 03,2026, Elapsed time: 0:00:04
+# Errors: 0, Warnings: 0

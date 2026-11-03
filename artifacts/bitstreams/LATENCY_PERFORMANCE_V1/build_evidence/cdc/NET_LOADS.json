@@ -1,0 +1,1279 @@
+{
+  "time_gray": [
+    {
+      "net": "latency_tick_gray[0]",
+      "pin": "u_latency_capture/time_sync1_reg[0]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  20",
+      "delay_ps": 1224.0
+    },
+    {
+      "net": "latency_tick_gray[0]",
+      "pin": "u_latency_slots/hb1_reg_syn_3.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 466.0
+    },
+    {
+      "net": "u_latency_timebase/gray[19]",
+      "pin": "u_latency_timebase/add1_syn_141.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  17",
+      "delay_ps": 916.0
+    },
+    {
+      "net": "u_latency_timebase/gray[19]",
+      "pin": "u_latency_capture/time_sync1_reg[19]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  19",
+      "delay_ps": 388.0
+    },
+    {
+      "net": "u_latency_timebase/gray[19]",
+      "pin": "u_latency_display/sub0_syn_123.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  17",
+      "delay_ps": 717.0
+    },
+    {
+      "net": "u_latency_timebase/gray[18]",
+      "pin": "u_latency_capture/time_sync1_reg[18]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 190.0
+    },
+    {
+      "net": "u_latency_timebase/gray[17]",
+      "pin": "u_latency_capture/time_sync1_reg[17]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  19",
+      "delay_ps": 569.0
+    },
+    {
+      "net": "u_latency_timebase/gray[16]",
+      "pin": "u_latency_capture/time_sync1_reg[16]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 353.0
+    },
+    {
+      "net": "u_latency_timebase/gray[15]",
+      "pin": "u_latency_capture/time_sync1_reg[15]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  19",
+      "delay_ps": 914.0
+    },
+    {
+      "net": "u_latency_timebase/gray[14]",
+      "pin": "u_latency_capture/time_sync1_reg[14]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 279.0
+    },
+    {
+      "net": "u_latency_timebase/gray[13]",
+      "pin": "u_latency_capture/time_sync1_reg[13]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  20",
+      "delay_ps": 600.0
+    },
+    {
+      "net": "u_latency_timebase/gray[12]",
+      "pin": "u_latency_capture/time_sync1_reg[12]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "11  17",
+      "delay_ps": 346.0
+    },
+    {
+      "net": "u_latency_timebase/gray[11]",
+      "pin": "u_latency_capture/time_sync1_reg[11]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  19",
+      "delay_ps": 790.0
+    },
+    {
+      "net": "u_latency_timebase/gray[10]",
+      "pin": "u_latency_capture/time_sync1_reg[10]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  18",
+      "delay_ps": 628.0
+    },
+    {
+      "net": "u_latency_timebase/gray[9]",
+      "pin": "u_latency_capture/time_sync1_reg[9]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "11  17",
+      "delay_ps": 172.0
+    },
+    {
+      "net": "u_latency_timebase/gray[8]",
+      "pin": "u_latency_capture/time_sync1_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  19",
+      "delay_ps": 317.0
+    },
+    {
+      "net": "u_latency_timebase/gray[7]",
+      "pin": "u_latency_capture/time_sync1_reg[7]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  18",
+      "delay_ps": 782.0
+    },
+    {
+      "net": "u_latency_timebase/gray[6]",
+      "pin": "u_latency_capture/time_sync1_reg[6]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  19",
+      "delay_ps": 719.0
+    },
+    {
+      "net": "u_latency_timebase/gray[5]",
+      "pin": "u_latency_capture/time_sync1_reg[5]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  18",
+      "delay_ps": 1102.0
+    },
+    {
+      "net": "u_latency_timebase/gray[4]",
+      "pin": "u_latency_capture/time_sync1_reg[4]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "20  28",
+      "delay_ps": 1542.0
+    },
+    {
+      "net": "u_latency_timebase/gray[3]",
+      "pin": "u_latency_capture/time_sync1_reg[3]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  19",
+      "delay_ps": 287.0
+    },
+    {
+      "net": "u_latency_timebase/gray[2]",
+      "pin": "u_latency_capture/time_sync1_reg[2]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  18",
+      "delay_ps": 289.0
+    },
+    {
+      "net": "u_latency_timebase/gray[1]",
+      "pin": "u_latency_capture/time_sync1_reg[1]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "11  17",
+      "delay_ps": 176.0
+    },
+    {
+      "net": "u_latency_timebase/next_tick[19]",
+      "pin": "u_latency_timebase/gray_reg[18]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 260.0
+    }
+  ],
+  "held_tuple": [
+    {
+      "net": "u_latency_slots/selected[84]",
+      "pin": "u_latency_display/tuple_reg[84]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 484.0
+    },
+    {
+      "net": "u_latency_slots/selected[83]",
+      "pin": "u_latency_display/tuple_reg[83]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 397.0
+    },
+    {
+      "net": "u_latency_slots/selected[82]",
+      "pin": "u_latency_display/tuple_reg[84]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 375.0
+    },
+    {
+      "net": "u_latency_slots/selected[81]",
+      "pin": "u_latency_display/tuple_reg[81]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 515.0
+    },
+    {
+      "net": "u_latency_slots/selected[80]",
+      "pin": "u_latency_display/tuple_reg[83]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 1453.0
+    },
+    {
+      "net": "u_latency_slots/selected[79]",
+      "pin": "u_latency_display/tuple_reg[79]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 350.0
+    },
+    {
+      "net": "u_latency_slots/selected[78]",
+      "pin": "u_latency_display/tuple_reg[78]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 364.0
+    },
+    {
+      "net": "u_latency_slots/selected[77]",
+      "pin": "u_latency_display/tuple_reg[81]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 200.0
+    },
+    {
+      "net": "u_latency_slots/selected[76]",
+      "pin": "u_latency_display/tuple_reg[76]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 533.0
+    },
+    {
+      "net": "u_latency_slots/selected[75]",
+      "pin": "u_latency_display/tuple_reg[75]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 514.0
+    },
+    {
+      "net": "u_latency_slots/selected[74]",
+      "pin": "u_latency_display/tuple_reg[74]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 742.0
+    },
+    {
+      "net": "u_latency_slots/selected[73]",
+      "pin": "u_latency_display/tuple_reg[73]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 276.0
+    },
+    {
+      "net": "u_latency_slots/selected[72]",
+      "pin": "u_latency_display/tuple_reg[76]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 529.0
+    },
+    {
+      "net": "u_latency_slots/selected[71]",
+      "pin": "u_latency_display/tuple_reg[73]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 355.0
+    },
+    {
+      "net": "u_latency_slots/selected[70]",
+      "pin": "u_latency_display/tuple_reg[70]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 375.0
+    },
+    {
+      "net": "u_latency_slots/selected[69]",
+      "pin": "u_latency_display/tuple_reg[69]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 832.0
+    },
+    {
+      "net": "u_latency_slots/selected[68]",
+      "pin": "u_latency_display/tuple_reg[68]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 498.0
+    },
+    {
+      "net": "u_latency_slots/selected[67]",
+      "pin": "u_latency_display/tuple_reg[67]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 617.0
+    },
+    {
+      "net": "u_latency_slots/selected[66]",
+      "pin": "u_latency_display/tuple_reg[66]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 2010.0
+    },
+    {
+      "net": "u_latency_slots/selected[65]",
+      "pin": "u_latency_display/tuple_reg[65]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 1275.0
+    },
+    {
+      "net": "u_latency_slots/selected[64]",
+      "pin": "u_latency_display/tuple_reg[64]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 1724.0
+    },
+    {
+      "net": "u_latency_slots/selected[63]",
+      "pin": "u_latency_display/tuple_reg[78]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 448.0
+    },
+    {
+      "net": "u_latency_slots/selected[62]",
+      "pin": "u_latency_display/tuple_reg[64]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 271.0
+    },
+    {
+      "net": "u_latency_slots/selected[61]",
+      "pin": "u_latency_display/tuple_reg[69]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 373.0
+    },
+    {
+      "net": "u_latency_slots/selected[60]",
+      "pin": "u_latency_display/tuple_reg[60]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 718.0
+    },
+    {
+      "net": "u_latency_slots/selected[59]",
+      "pin": "u_latency_display/tuple_reg[60]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 1141.0
+    },
+    {
+      "net": "u_latency_slots/selected[58]",
+      "pin": "u_latency_display/tuple_reg[70]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 271.0
+    },
+    {
+      "net": "u_latency_slots/selected[57]",
+      "pin": "u_latency_display/tuple_reg[57]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 330.0
+    },
+    {
+      "net": "u_latency_slots/selected[56]",
+      "pin": "u_latency_display/tuple_reg[56]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 290.0
+    },
+    {
+      "net": "u_latency_slots/selected[55]",
+      "pin": "u_latency_display/tuple_reg[55]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 734.0
+    },
+    {
+      "net": "u_latency_slots/selected[54]",
+      "pin": "u_latency_display/tuple_reg[79]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 702.0
+    },
+    {
+      "net": "u_latency_slots/selected[53]",
+      "pin": "u_latency_display/tuple_reg[57]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 832.0
+    },
+    {
+      "net": "u_latency_slots/selected[52]",
+      "pin": "u_latency_display/tuple_reg[65]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 542.0
+    },
+    {
+      "net": "u_latency_slots/selected[51]",
+      "pin": "u_latency_display/tuple_reg[75]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 270.0
+    },
+    {
+      "net": "u_latency_slots/selected[50]",
+      "pin": "u_latency_display/tuple_reg[56]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 769.0
+    },
+    {
+      "net": "u_latency_slots/selected[49]",
+      "pin": "u_latency_display/tuple_reg[49]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 448.0
+    },
+    {
+      "net": "u_latency_slots/selected[48]",
+      "pin": "u_latency_display/tuple_reg[48]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 1086.0
+    },
+    {
+      "net": "u_latency_slots/selected[47]",
+      "pin": "u_latency_display/tuple_reg[47]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  14",
+      "delay_ps": 449.0
+    },
+    {
+      "net": "u_latency_slots/selected[46]",
+      "pin": "u_latency_display/tuple_reg[48]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 405.0
+    },
+    {
+      "net": "u_latency_slots/selected[45]",
+      "pin": "u_latency_display/tuple_reg[45]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  14",
+      "delay_ps": 449.0
+    },
+    {
+      "net": "u_latency_slots/selected[44]",
+      "pin": "u_latency_display/tuple_reg[44]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 555.0
+    },
+    {
+      "net": "u_latency_slots/selected[43]",
+      "pin": "u_latency_display/tuple_reg[43]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 1633.0
+    },
+    {
+      "net": "u_latency_slots/selected[42]",
+      "pin": "u_latency_display/tuple_reg[43]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 582.0
+    },
+    {
+      "net": "u_latency_slots/selected[41]",
+      "pin": "u_latency_display/tuple_reg[41]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 596.0
+    },
+    {
+      "net": "u_latency_slots/selected[40]",
+      "pin": "u_latency_display/tuple_reg[40]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 327.0
+    },
+    {
+      "net": "u_latency_slots/selected[39]",
+      "pin": "u_latency_display/tuple_reg[45]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  14",
+      "delay_ps": 1492.0
+    },
+    {
+      "net": "u_latency_slots/selected[38]",
+      "pin": "u_latency_display/tuple_reg[47]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  14",
+      "delay_ps": 1435.0
+    },
+    {
+      "net": "u_latency_slots/selected[37]",
+      "pin": "u_latency_display/tuple_reg[44]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 768.0
+    },
+    {
+      "net": "u_latency_slots/selected[36]",
+      "pin": "u_latency_display/tuple_reg[36]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 427.0
+    },
+    {
+      "net": "u_latency_slots/selected[35]",
+      "pin": "u_latency_display/tuple_reg[36]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 587.0
+    },
+    {
+      "net": "u_latency_slots/selected[34]",
+      "pin": "u_latency_display/tuple_reg[41]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  14",
+      "delay_ps": 849.0
+    },
+    {
+      "net": "u_latency_slots/selected[33]",
+      "pin": "u_latency_display/tuple_reg[33]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 553.0
+    },
+    {
+      "net": "u_latency_slots/selected[32]",
+      "pin": "u_latency_display/tuple_reg[55]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 1249.0
+    },
+    {
+      "net": "u_latency_slots/selected[31]",
+      "pin": "u_latency_display/tuple_reg[68]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 450.0
+    },
+    {
+      "net": "u_latency_slots/selected[30]",
+      "pin": "u_latency_display/tuple_reg[67]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 1706.0
+    },
+    {
+      "net": "u_latency_slots/selected[29]",
+      "pin": "u_latency_display/tuple_reg[29]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 1077.0
+    },
+    {
+      "net": "u_latency_slots/selected[28]",
+      "pin": "u_latency_display/tuple_reg[66]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 618.0
+    },
+    {
+      "net": "u_latency_slots/selected[27]",
+      "pin": "u_latency_display/tuple_reg[27]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 298.0
+    },
+    {
+      "net": "u_latency_slots/selected[26]",
+      "pin": "u_latency_display/tuple_reg[33]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 1551.0
+    },
+    {
+      "net": "u_latency_slots/selected[25]",
+      "pin": "u_latency_display/tuple_reg[40]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  14",
+      "delay_ps": 433.0
+    },
+    {
+      "net": "u_latency_slots/selected[24]",
+      "pin": "u_latency_display/tuple_reg[49]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 622.0
+    },
+    {
+      "net": "u_latency_slots/selected[23]",
+      "pin": "u_latency_display/tuple_reg[29]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  13",
+      "delay_ps": 661.0
+    },
+    {
+      "net": "u_latency_slots/selected[22]",
+      "pin": "u_latency_display/tuple_reg[27]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  15",
+      "delay_ps": 397.0
+    },
+    {
+      "net": "u_latency_slots/selected[21]",
+      "pin": "u_latency_display/tuple_reg[74]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "15  15",
+      "delay_ps": 1041.0
+    },
+    {
+      "net": "u_latency_slots/selected[20]",
+      "pin": "u_latency_display/tuple_reg[20]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 522.0
+    },
+    {
+      "net": "u_latency_slots/selected[19]",
+      "pin": "u_latency_display/tuple_reg[20]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 845.0
+    },
+    {
+      "net": "u_latency_slots/selected[18]",
+      "pin": "u_latency_display/tuple_reg[18]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 525.0
+    },
+    {
+      "net": "u_latency_slots/selected[17]",
+      "pin": "u_latency_display/tuple_reg[1]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 779.0
+    },
+    {
+      "net": "u_latency_slots/selected[16]",
+      "pin": "u_latency_display/tuple_reg[16]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 831.0
+    },
+    {
+      "net": "u_latency_slots/selected[15]",
+      "pin": "u_latency_display/tuple_reg[16]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 499.0
+    },
+    {
+      "net": "u_latency_slots/selected[14]",
+      "pin": "u_latency_display/tuple_reg[14]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 454.0
+    },
+    {
+      "net": "u_latency_slots/selected[13]",
+      "pin": "u_latency_display/tuple_reg[14]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 1095.0
+    },
+    {
+      "net": "u_latency_slots/selected[12]",
+      "pin": "u_latency_display/tuple_reg[18]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 501.0
+    },
+    {
+      "net": "u_latency_slots/selected[11]",
+      "pin": "u_latency_display/tuple_reg[8]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 402.0
+    },
+    {
+      "net": "u_latency_slots/selected[10]",
+      "pin": "u_latency_display/tuple_reg[7]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 362.0
+    },
+    {
+      "net": "u_latency_slots/selected[9]",
+      "pin": "u_latency_display/tuple_reg[9]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 372.0
+    },
+    {
+      "net": "u_latency_slots/selected[8]",
+      "pin": "u_latency_display/tuple_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 465.0
+    },
+    {
+      "net": "u_latency_slots/selected[7]",
+      "pin": "u_latency_display/tuple_reg[7]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 531.0
+    },
+    {
+      "net": "u_latency_slots/selected[6]",
+      "pin": "u_latency_display/tuple_reg[6]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 337.0
+    },
+    {
+      "net": "u_latency_slots/selected[5]",
+      "pin": "u_latency_display/tuple_reg[5]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 359.0
+    },
+    {
+      "net": "u_latency_slots/selected[4]",
+      "pin": "u_latency_display/tuple_reg[9]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 479.0
+    },
+    {
+      "net": "u_latency_slots/selected[3]",
+      "pin": "u_latency_display/tuple_reg[6]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 193.0
+    },
+    {
+      "net": "u_latency_slots/selected[2]",
+      "pin": "u_latency_display/tuple_reg[5]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 545.0
+    },
+    {
+      "net": "u_latency_slots/selected[1]",
+      "pin": "u_latency_display/tuple_reg[1]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 569.0
+    },
+    {
+      "net": "u_latency_slots/selected[0]",
+      "pin": "u_latency_display/tuple_reg[0]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  16",
+      "delay_ps": 506.0
+    },
+    {
+      "net": "u_latency_slots/selected_b1[0]_syn_2",
+      "pin": "u_latency_slots/selected_reg[0]_syn_2.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 308.0
+    }
+  ],
+  "select_toggle": [
+    {
+      "net": "u_latency_slots/select_toggle",
+      "pin": "u_latency_display/st1_reg_syn_3.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 636.0
+    },
+    {
+      "net": "u_latency_slots/select_toggle",
+      "pin": "u_latency_slots/select_toggle_reg_syn_3.imf",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "16  29",
+      "delay_ps": 186.0
+    }
+  ],
+  "read_bad": [
+    {
+      "net": "O_cam_rst",
+      "pin": "O_cam_rst",
+      "cell": "Primitive ()",
+      "location": "0   0",
+      "delay_ps": 0.0
+    },
+    {
+      "net": "O_screen_pwm",
+      "pin": "O_screen_pwm",
+      "cell": "Primitive ()",
+      "location": "0   0",
+      "delay_ps": 0.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_7",
+      "pin": "u_latency_display/tuple_reg[9]_syn_2.imf",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 386.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_7",
+      "pin": "u_latency_slots/outstanding_reg[5]_syn_2.ib",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 402.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_7",
+      "pin": "u_latency_slots/outstanding_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 629.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_9",
+      "pin": "u_latency_display/tuple_reg[9]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 446.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_9",
+      "pin": "u_latency_slots/outstanding_reg[5]_syn_2.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 288.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_9",
+      "pin": "u_latency_slots/outstanding_reg[8]_syn_2.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 426.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_11",
+      "pin": "u_latency_slots/outstanding_reg[7]_syn_2.ib",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  17",
+      "delay_ps": 483.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_11",
+      "pin": "u_latency_display/tuple_reg[8]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 180.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_11",
+      "pin": "u_latency_slots/outstanding_reg[6]_syn_2.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 368.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_13",
+      "pin": "u_latency_slots/outstanding_reg[7]_syn_2.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  17",
+      "delay_ps": 223.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_13",
+      "pin": "u_latency_display/tuple_reg[8]_syn_2.imf",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 213.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_13",
+      "pin": "u_latency_slots/outstanding_reg[6]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 365.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_17",
+      "pin": "u_latency_slots/outstanding_reg[9]_syn_2.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  17",
+      "delay_ps": 249.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_17",
+      "pin": "u_latency_display/tuple_reg[20]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "12  18",
+      "delay_ps": 469.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_17",
+      "pin": "u_latency_slots/outstanding_reg[8]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  17",
+      "delay_ps": 287.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_19",
+      "pin": "u_latency_slots/read_bad_reg_syn_39.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 264.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_19",
+      "pin": "u_latency_display/tuple_reg[14]_syn_2.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 264.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_19",
+      "pin": "u_latency_slots/outstanding_reg[10]_syn_2.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 303.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_21",
+      "pin": "u_latency_slots/selected_reg[0]_syn_2.ia",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 263.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_23",
+      "pin": "u_latency_slots/read_bad_reg_syn_39.ia",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  18",
+      "delay_ps": 176.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_25",
+      "pin": "u_latency_slots/read_bad_reg_syn_36.ia",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 676.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_27",
+      "pin": "u_latency_slots/read_bad_reg_syn_38.ia",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 906.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_29",
+      "pin": "u_latency_slots/read_bad_reg_syn_36.ib",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 237.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_31",
+      "pin": "u_latency_slots/read_bad_reg_syn_37.ib",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "14  22",
+      "delay_ps": 352.0
+    },
+    {
+      "net": "u_latency_slots/read_bad_reg_syn_33",
+      "pin": "u_latency_slots/read_bad_reg_syn_36.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 158.0
+    },
+    {
+      "net": "u_latency_slots/read_bad",
+      "pin": "u_latency_slots/selected_reg[0]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  19",
+      "delay_ps": 656.0
+    },
+    {
+      "net": "u_latency_slots/read_bad",
+      "pin": "u_latency_display/rb1_reg_syn_3.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "13  22",
+      "delay_ps": 357.0
+    }
+  ],
+  "tagged_fifo_gray": [
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/sub1_syn_57.ic",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  25",
+      "delay_ps": 518.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_187.addrb[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  19",
+      "delay_ps": 1085.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_146.addrb[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  21",
+      "delay_ps": 810.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_228.addrb[12]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  23",
+      "delay_ps": 692.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_105.addrb[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  37",
+      "delay_ps": 857.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_23.addrb[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  39",
+      "delay_ps": 1127.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_64.addrb[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "7  41",
+      "delay_ps": 1425.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg_reg[7]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  28",
+      "delay_ps": 675.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr_reg[8]_syn_2.ie",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  28",
+      "delay_ps": 192.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  28",
+      "delay_ps": 533.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/sub0_syn_57.id",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "4  28",
+      "delay_ps": 497.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  26",
+      "delay_ps": 871.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr_reg[8]_syn_2.imf",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  27",
+      "delay_ps": 126.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_187.addra[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  19",
+      "delay_ps": 1046.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_146.addra[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  21",
+      "delay_ps": 919.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_228.addra[12]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  23",
+      "delay_ps": 808.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_105.addra[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  37",
+      "delay_ps": 943.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_23.addra[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  39",
+      "delay_ps": 1275.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/ram_inst/ramread0_syn_64.addra[13]",
+      "cell": "PH1P_PHY_ERAM_V2 (BRAM)",
+      "location": "8  41",
+      "delay_ps": 1345.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  27",
+      "delay_ps": 404.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[7]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[7]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  27",
+      "delay_ps": 382.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[6]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[6]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  27",
+      "delay_ps": 523.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[5]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[5]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  27",
+      "delay_ps": 410.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[4]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[5]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  27",
+      "delay_ps": 290.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[3]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[3]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "11  27",
+      "delay_ps": 297.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[2]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[2]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  28",
+      "delay_ps": 176.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[1]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[1]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  28",
+      "delay_ps": 172.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray_reg[0]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/sync_r1_reg[8]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  27",
+      "delay_ps": 360.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/rd_to_wr_cross_inst/primary_addr_gray[0]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/rd_addr_reg[1]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  29",
+      "delay_ps": 533.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[8]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[8]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  26",
+      "delay_ps": 366.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[7]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[8]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  26",
+      "delay_ps": 172.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[6]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[6]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  25",
+      "delay_ps": 200.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[5]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[5]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  26",
+      "delay_ps": 540.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[4]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[6]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  25",
+      "delay_ps": 1263.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[3]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[5]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "9  26",
+      "delay_ps": 458.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[2]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[2]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "4  24",
+      "delay_ps": 840.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[1]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[2]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "4  24",
+      "delay_ps": 544.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg[0]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/sync_r1_reg[0]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  26",
+      "delay_ps": 506.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray[7]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray_reg_reg[8]_syn_2.imb",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "6  26",
+      "delay_ps": 359.0
+    },
+    {
+      "net": "u_video_in/g_tagged$u_fifo/u_fifo/wr_to_rd_cross_inst/primary_addr_gray[0]",
+      "pin": "u_video_in/g_tagged$u_fifo/u_fifo/wr_addr_reg[1]_syn_2.ima",
+      "cell": "PH1P_PHY_LSLICE (SLICE)",
+      "location": "10  27",
+      "delay_ps": 372.0
+    }
+  ]
+}

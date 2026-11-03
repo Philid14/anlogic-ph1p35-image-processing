@@ -1,0 +1,115 @@
+{
+  "version": "LATENCY_PERFORMANCE_V1",
+  "role": "MAIN",
+  "branch": "codex/main/latency-performance-v1",
+  "baseline_commit": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+  "source_commit": "69521d7932c2fec94dd67c03a7362b4d6b0ceb8f",
+  "archive_driver_commit": "c071405fec685a39be546346b7e0d4151e018e75",
+  "tag": "latency-performance-v1-candidate",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/30",
+  "build_time": "2026-11-03T09:50:24.284761+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/latency_performance/full_r1/camera_to_dsi_display.bit",
+  "bit_sha256": "062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4",
+  "resources": {
+    "slice": 20831,
+    "lut6": 19532,
+    "ff": 21337,
+    "eram": 105,
+    "dsp": 25
+  },
+  "resource_delta_vs_TRACK_REGION_FIX": {
+    "slice": -111,
+    "lut6": 34,
+    "ff": 969,
+    "eram": 0,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.175,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "sta_coverage_percent": 95.33,
+  "common_pixel_cycles": 31,
+  "extra_common_pixel_cycles": 0,
+  "configured_reference_hz": 75000000,
+  "timestamp_resolution_us": 10,
+  "measurement_boundary": "decoded RAW first valid -> same image HDMI transmitter input first DE; excludes exposure and monitor",
+  "validation": "18 full720p reference ISP/packer frames, 4147200beats/3110400words; native Gaussian/NMS/link/cache/FIFO/journal/meter/OSD; native 1280x4 actual DDR-command FIFO/readout/mixer path; original applications/reset/font regression",
+  "cdc_audit": {
+    "passed": true,
+    "route_db_sha256": "73c33e7ca080a8219734fe8ffd8311a78b375d5cd35201f05fbc34f95f2b7003",
+    "checks": {
+      "time_gray": {
+        "passed": true,
+        "unique_loads": 20,
+        "minimum_expected": 20,
+        "max_net_delay_ps": 1542.0,
+        "min_net_delay_ps": 172.0,
+        "limit_ps": 14700
+      },
+      "heartbeat": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 466.0,
+        "min_net_delay_ps": 466.0,
+        "limit_ps": 14700
+      },
+      "held_tuple": {
+        "passed": true,
+        "unique_loads": 85,
+        "minimum_expected": 85,
+        "max_net_delay_ps": 2010.0,
+        "min_net_delay_ps": 193.0,
+        "limit_ps": 26666
+      },
+      "select_toggle": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 636.0,
+        "min_net_delay_ps": 636.0,
+        "limit_ps": 26666
+      },
+      "read_bad": {
+        "passed": true,
+        "unique_loads": 1,
+        "minimum_expected": 1,
+        "max_net_delay_ps": 357.0,
+        "min_net_delay_ps": 357.0,
+        "limit_ps": 14700
+      },
+      "tagged_fifo_gray": {
+        "passed": true,
+        "unique_loads": 18,
+        "minimum_expected": 18,
+        "max_net_delay_ps": 1263.0,
+        "min_net_delay_ps": 172.0,
+        "limit_ps": 14700
+      }
+    },
+    "timestamp_stage_pairs": 20,
+    "failures": [],
+    "global_sdc_changed": false,
+    "inherited_gray_constraint_coverage": "NOT_FIXED; widened FIFO keeps official core/pointer behavior, with explicit routed delay inspection",
+    "limit": "Route-specific envelope/structure check, not MTBF, analog metastability simulation, or board long-run verification"
+  },
+  "limitations": [
+    "Configured clock, not calibrated absolute timing",
+    "BAD retains previous qualified values; startup invalid count is separated from steady increases",
+    "All inherited long-run FIFO/Gray constraint and hardware PVT risks remain subject to board testing",
+    "F is RAW latency identity; existing TRACK LAST counter is a different observation point",
+    "No exposure, DDR scheduling, algorithm change or claim of lower end-to-end latency"
+  ],
+  "route_db_sha256": "73c33e7ca080a8219734fe8ffd8311a78b375d5cd35201f05fbc34f95f2b7003",
+  "rollback_tag": "track-region-fix-v1-candidate",
+  "rollback_bit_sha256": "049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99"
+}

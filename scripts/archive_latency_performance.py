@@ -58,7 +58,7 @@ def main():
     copy_reports(OUT/'cdc',ev/'cdc')
     for result in tests:
         src=(ROOT/result).parent;relative=src.relative_to(ROOT/'tmp/latency_performance')
-        copy_reports(src,ev/'regression'/relative)
+        copy_reports(src,ev/'verification'/relative)
     # Preserve preliminary resource/routing evidence without stale databases/bits.
     for name in ('memory_syn_r0','integrated_syn_r2','integrated_syn_r3','integrated_syn_r4','integrated_syn_r5','retime_syn','full_r0'):
         attempt=ROOT/'tmp/latency_performance'/name

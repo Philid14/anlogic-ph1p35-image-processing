@@ -1,6 +1,6 @@
-# LATENCY_PERFORMANCE_V1 暂停检查点
+# LATENCY_PERFORMANCE_V1 进度与历史检查点
 
-状态：用户于2026-11-03明确恢复工作；以下暂停记录保留作为历史。
+状态：2026-11-03最终R1完成SYN/PHY/STA/bitgen并归档；NOT_RUN。以REPORT和BUILD_INFO为当前结论；以下暂停及中间记录保留作为历史。
 角色MAIN；基线072bc0f8 / TRACK_REGION_FIX_V1；分支codex/main/latency-performance-v1。
 
 ## 已完成
@@ -45,3 +45,11 @@
 - retime_syn实际确认105ERAM。R1需重新正式构建，禁止引用R0时序冒充R1。
 - 校正诊断超时使用DDR实际配置66.667MHz，并让参考时钟中断sticky invalid直到全局复位；新增独立异常测试，视频调度不变。
 - Draft PR30已创建，依赖29；尚无最终candidate bit/tag，仍不能宣称实板验收通过。
+
+## 最终R1候选（2026-11-03）
+
+- 实际源码69521d7932c2fec94dd67c03a7362b4d6b0ceb8f；完整TD通过，20831Slice、19532LUT6、21337FF、105ERAM、25DSP。
+- Setup/Hold+0.175/+0.020ns、TNS0；新增CDC对同一route DB审计通过，PLL/SDC不变；既有Gray覆盖/长时运行风险未排除。
+- 45份结果/原生源码清单哈希门禁、18帧720p及实际模块小高度链路数字验证通过，不等于实板通过。
+- bit/BUILD_INFO及证据归档artifacts/bitstreams/LATENCY_PERFORMANCE_V1；tag latency-performance-v1-candidate，远程发布以REMOTE_RECEIPT为准。
+- 仅完成签发/发布核验后停止，等待按BOARD_TEST反馈；不合并、不自行下一版。
