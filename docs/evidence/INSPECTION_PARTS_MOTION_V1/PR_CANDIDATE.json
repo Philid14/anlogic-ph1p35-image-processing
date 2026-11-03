@@ -1,0 +1,12 @@
+{
+  "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/31",
+  "number": 31,
+  "title": "INSPECTION_PARTS_MOTION_V1: 密集运动点阵、T/L七项同时标注与资源优化",
+  "base": "codex/main/latency-performance-v1",
+  "base_sha": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+  "head": "codex/main/inspection-parts-motion-v1",
+  "head_sha": "72fb25a571bd7b91347ff93e7cb66af3f873d0e0",
+  "draft": true,
+  "merged": false,
+  "state": "open"
+}

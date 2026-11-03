@@ -1,0 +1,21 @@
+{
+  "version": "INSPECTION_UI_DIMENSION_V1",
+  "source_commit": "d26a591a399f70259944671956c7a801d9674b6d",
+  "candidate_archive_commit": "dfbec5818de58925852e06554c1d8fa0c8bf1d31",
+  "tag": "inspection-ui-dimension-v1-candidate",
+  "bit_sha256": "2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc",
+  "git_blob_bit_hash_verified": true,
+  "remote_refs": {
+    "refs/heads/codex/main/inspection-ui-dimension-v1": "dfbec5818de58925852e06554c1d8fa0c8bf1d31",
+    "refs/tags/inspection-ui-dimension-v1-candidate": "7d98dcb8830d2b292601b2bf69e6a33b7e2c9b32",
+    "refs/tags/inspection-ui-dimension-v1-candidate^{}": "dfbec5818de58925852e06554c1d8fa0c8bf1d31"
+  },
+  "branch": "codex/main/inspection-ui-dimension-v1",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "push_success": true,
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/18",
+  "board_test": "NOT_RUN",
+  "checked_before_publication_document_commit": true,
+  "excluded_user_change": "docs/GITHUB_REFERENCE_RESEARCH.md and existing untracked user data",
+  "checked_at": "2026-10-30T17:37:35.201332+08:00"
+}

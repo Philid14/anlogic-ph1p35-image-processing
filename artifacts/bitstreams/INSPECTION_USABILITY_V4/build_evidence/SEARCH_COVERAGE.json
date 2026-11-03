@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "x": [
+    256,
+    1023
+  ],
+  "y": [
+    192,
+    479
+  ],
+  "pixels": [
+    768,
+    288
+  ],
+  "capture_bands": [
+    192,
+    203,
+    214,
+    225,
+    236,
+    247,
+    258,
+    269,
+    280,
+    291,
+    302,
+    313,
+    324,
+    335,
+    346,
+    357,
+    368,
+    379,
+    390,
+    401,
+    412,
+    423,
+    434,
+    445,
+    456,
+    467,
+    478
+  ],
+  "adjacent_row_positions_covered": 287,
+  "total_positions": 287,
+  "cache_bits": 73728,
+  "limitation": "Clear horizontal 1mm ticks must intersect >=2 adjacent rows, enough intervals and contrast; a ruler anywhere is not an arbitrary-pattern/OCR guarantee"
+}

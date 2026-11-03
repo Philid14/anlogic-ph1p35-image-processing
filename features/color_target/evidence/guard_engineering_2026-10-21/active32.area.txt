@@ -1,0 +1,55 @@
+standard
+***Report Model: guard_synth_top Device: PH1P35MDG324***
+
+Design Statistics
+#IO                        77   out of    160   48.12%
+  #input                   45
+  #output                  32
+  #inout                    0
+#lut                      936
+  #lut1                    11
+  #lut2                   279
+  #lut3                    11
+  #lut4                    61
+  #lut5                    58
+  #lut6                   516
+#reg                     1247
+  #slice reg             1247   out of  42432    2.94%
+  #pad reg                  0
+
+Utilization Statistics
+#slice*                   927   out of  21216    4.37%
+  #used ram                 0
+    #dram lut               0
+    #shifter lut            0
+  #used logic             927
+    #with luts*           526
+    #with adder           241
+    #reg only*            160
+#f7mux                      0   out of  10608    0.00%
+#f8mux                      0   out of   5304    0.00%
+#eram                       0   out of    108    0.00%
+  #eram20k                  0
+  #fifo20k                  0
+#dsp                        0   out of     40    0.00%
+#ddr_byte                   0   out of     12    0.00%
+#mipi_tx                    0   out of      2    0.00%
+#mipi_rx                    0   out of      2    0.00%
+#pad                       77   out of    160   48.12%
+#pll                        0   out of      6    0.00%
+#gclk                       0   out of     32    0.00%
+#lclk                       0   out of     12    0.00%
+#sclk                       0   out of     48    0.00%
+#mlclk                      0   out of      6    0.00%
+#ioclk                      0   out of     18    0.00%
+
+* Note! The LUT and Slice count after Optimize-Gate is not the final value, Run Optimize-place for a more realistic count.
+
+Report Hierarchy Area:
++------------------------------------------------------------------------------------------------------------------------------------------------+
+|Instance    |Module                   |logic lut |ripple  |seq     |eram    |dsp     |dram lut |shifter lut |f7mux   |f8mux   |pll     |ddr     |
++------------------------------------------------------------------------------------------------------------------------------------------------+
+|top         |guard_synth_top          |526       |241     |1247    |0       |0       |0        |0           |0       |0       |0       |0       |
+|  u_guard   |color_target_track_guard |204       |241     |485     |0       |0       |0        |0           |0       |0       |0       |0       |
+|    u_track |color_target_track       |54        |0       |101     |0       |0       |0        |0           |0       |0       |0       |0       |
++------------------------------------------------------------------------------------------------------------------------------------------------+

@@ -4,10 +4,26 @@ module isp_top #(
     parameter [9:0] BLACK_LEVEL_RAW10 = 10'd15,
     parameter EDGE_ENABLE = 1,
     parameter [13:0] EDGE_THRESHOLD = 14'd80,
-    parameter integer EDGE_CONTROL_ENABLE = 0
+    parameter integer EDGE_CONTROL_ENABLE = 0,
+    parameter integer DENOISE_ENABLE = 0,
+    parameter integer NMS_ENABLE = 0,
+    parameter integer QUALITY_ENABLE = 0,
+    parameter integer QUALITY_HOPS = 4,
+    parameter integer TEMPORAL_ENABLE = 0,
+    parameter integer RELIABILITY_ENABLE = 0,
+    parameter integer COLOR_COMPARE_ENABLE = 0,
+    parameter integer INSPECTION_ENABLE = 0,
+    parameter integer AUTO_DIMENSION = 0,
+    parameter integer USABILITY_ENABLE = 0,
+    parameter integer INSPECTION_V4 = 0,
+    parameter integer VISION_ENABLE = 0,
+    parameter integer INSPECTION_V5 = 0,
+    parameter integer COMPACT_FONT = 0
 ) (
     input 			axi4s_video_aclk,
-    input [8:0] I_edge_config,
+    input [18:0] I_edge_config,
+    input [31:0] I_fifo_event_counts,
+    input [3:0] I_switch,input I_measure_key_n,
     input 			I_rst_n			,
     input 			I_tlast			,
     input 			I_tuser			,
@@ -19,6 +35,7 @@ module isp_top #(
     output 			O_tlast			,
     output 			O_tuser			,
     output 			O_tvalid		,
+    output O_capture_toggle,
     output 			I_tready
 );
  
@@ -63,14 +80,16 @@ wire         m_aixs_tvalid;  //synthesis keep
           else last_128 <= algorithm_last;
       end
       assign algorithm_last_128 = last_128;
-      edge_control_stream u_control (
+      edge_control_stream #(.DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS), .TEMPORAL_ENABLE(TEMPORAL_ENABLE), .RELIABILITY_ENABLE(RELIABILITY_ENABLE),.COLOR_COMPARE_ENABLE(COLOR_COMPARE_ENABLE),.INSPECTION_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.VISION_ENABLE(VISION_ENABLE),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5)) u_control (
           .clk(axi4s_video_aclk), .rst_n(I_rst_n),
           .requested_config(I_edge_config),
+          .I_fifo_event_counts(I_fifo_event_counts),
+          .I_switch(I_switch),.I_measure_key_n(I_measure_key_n),
           .I_data(awb_O_tdata), .I_valid(awb_O_tvalid),
           .I_user(awb_O_tuser), .I_last(awb_O_tlast),
           .I_ready(awb_O_tready), .O_ready(O_tready),
           .O_data(algorithm_data), .O_valid(algorithm_valid),
-          .O_user(algorithm_user), .O_last(algorithm_last)
+          .O_user(algorithm_user), .O_last(algorithm_last),.O_capture_toggle(O_capture_toggle)
       );
   end else if (EDGE_ENABLE) begin : g_edge
       reg last_128;
@@ -80,7 +99,7 @@ wire         m_aixs_tvalid;  //synthesis keep
       end
       assign algorithm_last_128 = last_128;
       edge_detect_96 #(.IMG_WIDTH(1280), .IMG_HEIGHT(720),
-                       .EDGE_TH(EDGE_THRESHOLD)) u_edge (
+                       .EDGE_TH(EDGE_THRESHOLD), .DENOISE_ENABLE(DENOISE_ENABLE), .NMS_ENABLE(NMS_ENABLE), .QUALITY_ENABLE(QUALITY_ENABLE), .QUALITY_HOPS(QUALITY_HOPS)) u_edge (
           .I_clk(axi4s_video_aclk), .I_rst_n(I_rst_n),
           .I_tlast(awb_O_tlast), .I_tuser(awb_O_tuser), .I_threshold(8'd80),
           .I_tdata(awb_O_tdata), .I_tvalid(awb_O_tvalid),
@@ -139,7 +158,8 @@ data128_96 u_data128_96 (
 
 awb #(
     .IMG_HEIGHT(720 ),
-    .IMG_WIDTH (1280)
+    .IMG_WIDTH (1280),
+    .FRAME_SERIAL_DIV(1)
 ) u_awb (
     .I_clk   (axi4s_video_aclk),
     .I_rst_n (I_rst_n),

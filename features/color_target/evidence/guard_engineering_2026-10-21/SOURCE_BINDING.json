@@ -1,0 +1,29 @@
+{
+  "actual_run_head": "d247788b9b64114f57d21397ca37e9e0b30f29ee",
+  "actual_run_worktree": "?? features/color_target/integration/TARGET_CONFIG_PENDING.json\n?? features/color_target/run_guard_synthesis.py\n?? features/color_target/tools/check_target_config.py\n?? features/color_target/tools/guard_synth_top.v\n?? features/color_target/tools/synth_guard.tcl\n",
+  "description": "Runs used recorded dirty worktree hashes. HEAD alone does not identify new measurement tools.",
+  "tested_sources": {
+    "features/color_target/board/TARGET_DELIVERY.json": "3cb39332ca8353297ae7eee3a2202af7dd67859933f5090014c97da59e46e89c",
+    "features/color_target/integration/TARGET_CONFIG_PENDING.json": "68f2d36ffb8d2066ed5c87b5c5a7cd3b24c8f822b73e1ade6b2b5bea470343ff",
+    "features/color_target/rtl/color_classify.v": "6f5a214a92bbe127c361f3364613bb23fd1105ab4b2e1c3e511e590a1ccc050e",
+    "features/color_target/rtl/color_target_detect.v": "0852d4e23648ff7fde9df4d76ff42d37eefd886a26ba684c538da86971ca99de",
+    "features/color_target/rtl/color_target_detect_stream.v": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+    "features/color_target/rtl/color_target_mask_stats.v": "2ac2d163e9992eaff3363b23f58e097cdd600d33ff85559e91bd4321f4efb9aa",
+    "features/color_target/rtl/color_target_overlay.v": "b8253d68fff5f3b12513cf1406d2450575ddb840899652cb8d2f8ec59ce264fc",
+    "features/color_target/rtl/color_target_support3.v": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+    "features/color_target/rtl/color_target_text_overlay.v": "b89d4b65bb27deb0fe63606601b53483296d147ff0378667ed6a9cabf6690aa9",
+    "features/color_target/rtl/color_target_track.v": "a0ad7ba300e5898c8edc4b209332a1c7105380369d68bbc4891bcd6e5e975457",
+    "features/color_target/rtl/color_target_track_guard.v": "29a9933ee2f8b404f9eed4358b40a1e5b3524311562db127fe652f70e7852196",
+    "features/color_target/run_guard_fixture.py": "bfb7bbb3c2abaae3fb1883ddac18291241d8e4c578951372cf4cd508a124630d",
+    "features/color_target/run_guard_synthesis.py": "62b75bebc11560810e70f4b267f95cae3c605a89bd48b755daba7d2ef81d1143",
+    "features/color_target/run_track_guard_contract.py": "ad64e9d62000674d23bb9ba706493493822c4ee24111fc20375f1ccebb1808e7",
+    "features/color_target/tb/tb_guard_synth_fixture.v": "96585a249e17309f48b4928c924e94ed3b6680822c7c69ee0232ee0089fc598d",
+    "features/color_target/tb/test_guard_engineering.py": "c09fd806fd7ca98a278345e995ccabd3d24b95f959255d3de2692e5543e7a59f",
+    "features/color_target/tools/check_target_config.py": "c256d9fa67a0dcad0a790c395869a2c60946b427c83fbb6d8b507c85b03a25d8",
+    "features/color_target/tools/guard_synth_top.v": "f700f85a49e1ef1a9b4012a9cd5b936d41a50b0bde42223dd014f9cb5f6ab2d4",
+    "features/color_target/tools/simlib.py": "dcc7b67ddd53257fda2cd48ac5f6beb9fff32b7313a6a2e337609c516bc64be3",
+    "features/color_target/tools/synth_guard.tcl": "78e73fc208dc00f784d24af072e2d0a3fe196783ce302d6782ce9164a93c489a"
+  },
+  "production_rtl_unchanged": true,
+  "integration_ready": false
+}

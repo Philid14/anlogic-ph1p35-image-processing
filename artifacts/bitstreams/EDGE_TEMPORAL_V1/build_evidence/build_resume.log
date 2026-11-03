@@ -1,0 +1,5 @@
+Prepared syn_1: 64 source/IP/constraint entries
+Prepared phy_1: 64 source/IP/constraint entries
+START phy_1 95b4afce4baa1df376bc174c0f6a1a0ca029d8aa
+COMPLETE phy_1 exit 0
+COMPLETE TD; inspect final STA, resources and warnings before candidate

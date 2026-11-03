@@ -1,0 +1,15 @@
+PASS compatibility hashes: 18 V1 algorithm/ISP/DDR/HDMI/pin/sdc paths unchanged
+PASS rgb gray/binary beats=2322 pixels=9288
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_rgb.v:40: $finish called at 2322000 (1ps)
+PASS RGB model: 2322 beats / 9288 pixels
+PASS multi-mode keys: K3 cycle/debounce/hold, K4 short/long, independent 10..250 thresholds, CDC ACK
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_keys.v:139: $finish called at 40310000 (1ps)
+PASS multi-mode mailbox: 200 fast atomic 18-bit packets, latest state, reset recovery
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_keys.v:195: $finish called at 2214000 (1ps)
+PASS multi-mode stream width=64 height=32 cycles=5602 valid_beats=4608 packed_words=3168 reliability=1
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_stream.v:113: $finish called at 56106000 (1ps)
+PASS multi-mode stream 64x32: 4608 beats, 3168 words
+PASS multi-mode stream width=1280 height=720 cycles=463767 valid_beats=460800 packed_words=345600 reliability=1
+D:\anlogic_formal_project\tests\tb_edge_multi_mode_stream.v:113: $finish called at 4637756000 (1ps)
+PASS multi-mode stream 1280x720: 460800 beats, 345600 words
+PASS EDGE_MULTI_MODE_V1 RTL regression; physical board/IP validation pending

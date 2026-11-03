@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "frames": 160,
+  "stats_cycles": 91459,
+  "metric_snapshots": 240,
+  "calibration_test": true,
+  "scope": "independent binary-mask geometry and ruler arithmetic, no camera/board accuracy claim",
+  "sources": {
+    "tests/tb_planar_measure.sv": "0a566cf5f0533dfc8600fe07a4526ca389462cead40a57ed62987705276188c3",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v": "bd9a56dd1f21d61ba25b223198c89b23b9a4d53d080ce2d8f120375448d529bc",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_calibration.v": "d31b92f9bdd9aa9e345a8e96ebaa305ab64677dd0811b2edff79ab913ec169e7",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "30264cc7db47999a6b9dff0da56b04dd01124d7c7234468cd6c89209f5f7e538",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a"
+  }
+}

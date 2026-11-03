@@ -1,0 +1,71 @@
+{
+  "warning_counts_new": {
+    "PRJ-5611": 6,
+    "PHY-5060": 2,
+    "PHY-5016": 4,
+    "PHY-5088": 6,
+    "PHY-5079": 1,
+    "HDL-5007": 41,
+    "HDL-5373": 2,
+    "HDL-5323": 7,
+    "HDL-5317": 20,
+    "HDL-5314": 20,
+    "HDL-5369": 1,
+    "HDL-5001": 2,
+    "HDL-5106": 2,
+    "SYN-5065": 1,
+    "SYN-5013": 10,
+    "SYN-5025": 3,
+    "SYN-5011": 12,
+    "SYN-5041": 8
+  },
+  "warning_counts_baseline": {
+    "PRJ-5611": 6,
+    "PHY-5060": 2,
+    "PHY-5016": 4,
+    "PHY-5088": 6,
+    "PHY-5079": 1,
+    "HDL-5007": 41,
+    "HDL-5373": 2,
+    "HDL-5323": 7,
+    "HDL-5317": 20,
+    "HDL-5314": 20,
+    "HDL-5369": 1,
+    "HDL-5001": 2,
+    "HDL-5106": 2,
+    "SYN-5065": 1,
+    "SYN-5013": 10,
+    "SYN-5025": 3,
+    "SYN-5011": 12,
+    "SYN-5041": 8
+  },
+  "warning_count_delta": {},
+  "added_normalized_warning_contexts": [
+    "PHY-5060 CRITICAL-WARNING: Clock net candidate O_cam_24m_syn_N has mixed fanouts of 184 clock pins; 1 data/ctrl pins. Please check connection of the net in design."
+  ],
+  "new_style_warning_contexts": [],
+  "critical_setup_path": {
+    "Slack": "0.104ns",
+    "Begin Point": "u_hdmi_mixer/mult0_syn_59.clk (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })",
+    "End Point": "u_hdmi_mixer/O_hdmi_data_reg[9]_syn_2.ib (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })"
+  },
+  "style_routed_area_row": "|      g_style_delayed$u_style                                    |style_fill_96                                  |449       |240     |888     |10      |0       |0        |0           |0       |0       |0       |0       |",
+  "sta_coverage_new": "95.99%",
+  "sta_coverage_baseline": "96.16%",
+  "gray_max_delay": {
+    "path_counts": [
+      18,
+      18
+    ],
+    "limits_ns": [
+      14.7,
+      13.033
+    ],
+    "ignored": [
+      18,
+      18
+    ],
+    "status": "existing unresolved risk"
+  },
+  "note": "Whole-design resource deltas include TD optimization and packing; local STYLE is not free. STA coverage remains incomplete; no global SDC changes."
+}

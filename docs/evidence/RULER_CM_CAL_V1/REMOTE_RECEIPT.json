@@ -1,0 +1,23 @@
+{
+  "version": "RULER_CM_CAL_V1",
+  "captured_at": "2026-11-02T11:05:03.732490+08:00",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "visibility": "private",
+  "candidate_archive_commit": "67204bf5f0a2caae1b5b657bb3b684799deb4ec8",
+  "actual_td_source_commit": "9d1eff3e1e88861bfac317c6064c51062282aa4d",
+  "tag": "ruler-cm-cal-v1-candidate",
+  "refs_at_candidate_publication": {
+    "refs/heads/codex/main/ruler-cm-cal-v1": "67204bf5f0a2caae1b5b657bb3b684799deb4ec8",
+    "refs/tags/ruler-cm-cal-v1-candidate": "d940fbe866415e32d058a5db96a0a0d9da0e4259",
+    "refs/tags/ruler-cm-cal-v1-candidate^{}": "67204bf5f0a2caae1b5b657bb3b684799deb4ec8"
+  },
+  "tag_bit_sha256": "6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2",
+  "actual_td_inputs_verified": 84,
+  "historical_bits_unchanged": true,
+  "pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/27",
+  "draft": true,
+  "merged": false,
+  "push_status": "SUCCEEDED",
+  "board_test": "NOT_RUN",
+  "scope": "Candidate publication snapshot; receipt/docs may advance branch without moving tag"
+}

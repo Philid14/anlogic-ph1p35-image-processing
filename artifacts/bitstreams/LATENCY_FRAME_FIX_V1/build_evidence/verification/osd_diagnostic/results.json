@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "native": true,
+  "pixels": 30720,
+  "rows": [
+    "LAT: 002.00MS  NEW",
+    "MIN: 001.23 MAX: 456.78",
+    "F:DEADBEEF N:0123 E:0002",
+    "AGE: 003.00MS  10US HEX",
+    "C:12 W:A5 D:34"
+  ],
+  "sources": {
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_font.dath": "4eed02fdfda4c26c95c055cde67b95533bba94e6ccb3edd644fc8f767659e2fb",
+    "scripts/generate_inspection_font.py": "d98f2bf4b29274decd43c88abe70c166f93ffe9ec1a46ca126dedf9352f2ca9b"
+  }
+}

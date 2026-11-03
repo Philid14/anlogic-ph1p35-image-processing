@@ -1,0 +1,23 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_shape PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 13:51:31 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_inspection_shape.sv(13): [TFMPC] - Too few port connections. Expected 20, found 18.
+# 
+#         Region: /tb_inspection_shape/stats
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_inspection_shape.sv(13): [TFMPC] - Missing connection for port 'part_valid'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_inspection_shape.sv(13): [TFMPC] - Missing connection for port 'part_coords'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS background mixed reflectance, polarity, W/H geometry circle/square/diamond/T, malformed capture, clear, 2-cycle metadata 51026 cycles
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_shape.sv(84)
+#    Time: 510346 ns  Iteration: 0  Instance: /tb_inspection_shape
+# End time: 13:51:32 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 3

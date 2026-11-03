@@ -1,0 +1,31 @@
+{
+  "source_git_lf_sha256": "adcb8f9b759e3b1f0baea3979734393ebce8b6e66d21aa9c812ce66d9c75c1eb",
+  "manifest_sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+  "newline_count": 17,
+  "match": {
+    "crlf_lines": [
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "lf_lines": [
+      1,
+      2,
+      14,
+      15,
+      16,
+      17
+    ],
+    "bytes": 1156,
+    "sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d"
+  },
+  "scope": "Exact SHA preimage using ONLY LF/CRLF substitutions; no command text changed"
+}

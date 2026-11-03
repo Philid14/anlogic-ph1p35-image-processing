@@ -1,0 +1,30 @@
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS model equivalence: 70 independent comparisons against prior 2D reference (already RTL-verified)
+PASS Gaussian spatial: cycles=1546 valid_beats=1282 full8bit/earlySOF/bubbles/threshold alignment
+D:\anlogic_formal_project\tests\tb_gaussian_pair.v:51: $finish called at 15526000 (1ps)
+PASS checkpoints_B_C_D stream width=64 height=16 cycles=8995 valid_beats=6916 packed_words=5187 denoise=0 depth=7
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:84: $finish called at 90036000 (1ps)
+PASS denoise=0 64x16, frames=26+recovery, beats=6916, words=5187
+PASS checkpoints_B_C_D stream width=64 height=16 cycles=8999 valid_beats=6916 packed_words=5187 denoise=1 depth=11
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:84: $finish called at 90076000 (1ps)
+PASS denoise=1 64x16, frames=26+recovery, beats=6916, words=5187
+PASS checkpoints_B_C_D stream width=1280 height=96 cycles=837847 valid_beats=829444 packed_words=622083 denoise=1 depth=11
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:84: $finish called at 8378556000 (1ps)
+PASS denoise=1 1280x96, frames=26+recovery, beats=829444, words=622083
+PASS checkpoints_B_C_D stream width=1280 height=720 cycles=930378 valid_beats=921600 packed_words=691200 denoise=1 depth=11
+D:\anlogic_formal_project\tests\tb_edge_control_stream.v:84: $finish called at 9303866000 (1ps)
+PASS denoise=1 1280x720, frames=4, beats=921600, words=691200
+PASS frozen_main: 194 unchanged hashes
+PASS read_only_reference: 68 unchanged hashes
+PASS hardware_sources: 3 unchanged hashes
+PASS frozen_main: 190 hashes unchanged
+PASS read_only_reference: 68 hashes unchanged
+PASS hardware_sources: 3 hashes unchanged
+PASS actual Top sensor isolation, CDC wiring, key-only ADC change, production timers
+PASS EDGE_DENOISE_V1; board noise/long-run behavior pending

@@ -1,0 +1,19 @@
+{
+  "version": "LATENCY_PERFORMANCE_V1",
+  "time": "2026-11-03T10:01:03.035402+08:00",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "branch": "codex/main/latency-performance-v1",
+  "remote_head": "bc05cb064892b6dc815b47617b69b76d661df466",
+  "source_commit": "69521d7932c2fec94dd67c03a7362b4d6b0ceb8f",
+  "archive_commit": "bc05cb064892b6dc815b47617b69b76d661df466",
+  "tag": "latency-performance-v1-candidate",
+  "tag_object": "f65c9c152e276d5403b2f977a24948fd325f6f9c",
+  "push_status": "SUCCESS",
+  "board_test": "NOT_RUN",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/30",
+  "bit_sha256": "062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4",
+  "inputs_verified": 95,
+  "historical_bits_unchanged": 30,
+  "verification_hashes": 45,
+  "cdc_passed": true
+}

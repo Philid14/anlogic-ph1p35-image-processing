@@ -1,0 +1,26 @@
+{
+  "source_commit": "97858d51c7599a504a733b2302db797207c1ac0e",
+  "base_commit": "712fbb33cfc5ba8436b96306e1fe443553aa6591",
+  "history_checkpoint": "d512607ec608badd0821f45ce257e88523ab9bda",
+  "bit_sha256": "629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5",
+  "lut6": 16162,
+  "ff": 15423,
+  "slice": 17894,
+  "eram": 47,
+  "dsp": 9,
+  "setup_wns_ns": 0.009,
+  "hold_wns_ns": 0.02,
+  "sta_coverage": "96.11%",
+  "syn_log": "td_20261017_223119.log",
+  "phy_log": "td_20261017_224134.log",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "link_hierarchy": [
+    "|        g_quality$g_hop[0]$u_link                                |edge_link_pair_3x3                             |60        |0       |94      |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[1]$u_link                                |edge_link_pair_3x3                             |59        |0       |103     |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[2]$u_link                                |edge_link_pair_3x3                             |58        |0       |98      |2       |0       |0        |0           |0       |0       |0       |0       |",
+    "|        g_quality$g_hop[3]$u_link                                |edge_link_pair_3x3                             |55        |0       |95      |2       |0       |0        |0           |0       |0       |0       |0       |"
+  ]
+}

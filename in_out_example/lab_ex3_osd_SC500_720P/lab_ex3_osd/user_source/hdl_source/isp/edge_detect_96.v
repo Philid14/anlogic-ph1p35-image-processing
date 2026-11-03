@@ -2,13 +2,19 @@
 // Stage 1 adaptation of the bundled edge_example edge_detect_96.v.
 // Keep its pair-averaged luminance, Sobel kernel and duplicated binary output.
 // 1280 output pixels represent 640 horizontal Sobel samples, not 1280 kernels.
-// Local changes: early SOF support, synchronous line RAM, five pipeline stages,
-// and explicit non-stalling stream semantics. See ALGORITHM_INTEGRATION_PLAN.md.
+// Five Sobel stages, optional four-stage Gaussian and four-stage gradient NMS.
+// Optional QUALITY path adds four bounded boolean hops, three stages each.
+// Early SOF and non-stalling semantics. See EDGE_QUALITY_V1_DESIGN.md.
 module edge_detect_96 #(
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
     parameter [13:0] EDGE_TH = 14'd80,
-    parameter integer RUNTIME_THRESHOLD = 0
+    parameter integer RUNTIME_THRESHOLD = 0,
+    parameter integer DENOISE_ENABLE = 0,
+    parameter integer NMS_ENABLE = 0,
+    parameter integer QUALITY_ENABLE = 0,
+    parameter integer QUALITY_HOPS = 4,
+    parameter integer TEMPORAL_ENABLE = 0
 )(
     input I_clk,
     input I_rst_n,
@@ -19,10 +25,11 @@ module edge_detect_96 #(
     output I_tready,
     output O_tlast,
     output O_tuser,
-    output reg [95:0] O_tdata,
+    output [95:0] O_tdata,
     output O_tvalid,
     input O_tready,
-    input [7:0] I_threshold
+    input [7:0] I_threshold,
+    output [1:0] O_temporal_support
 );
     // The camera/packer chain has no backpressure protocol. Never discard a
     // valid camera beat because its existing downstream ready is undriven.
@@ -42,7 +49,27 @@ module edge_detect_96 #(
     wire [8:0] pair_sum1 = {1'b0,gray(I_tdata[47:24])}
                          + {1'b0,gray(I_tdata[23:0])};
 
+    // Gaussian affects only paired gray samples, never the Original RGB.
+    wire [15:0] source_pair;
+    wire source_valid,source_user,source_last;
+    wire [7:0] source_threshold;
+    generate if (DENOISE_ENABLE) begin : g_gaussian
+        gaussian_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT)) u_gaussian (
+            .clk(I_clk),.rst_n(I_rst_n),.I_pair({pair_sum0[8:1],pair_sum1[8:1]}),
+            .I_valid(I_tvalid),.I_user(I_tuser),.I_last(I_tlast),.I_threshold(I_threshold),
+            .O_pair(source_pair),.O_valid(source_valid),.O_user(source_user),
+            .O_last(source_last),.O_threshold(source_threshold));
+    end else begin : g_unfiltered
+        assign source_pair={pair_sum0[8:1],pair_sum1[8:1]};
+        assign source_valid=I_tvalid;assign source_user=I_tuser;assign source_last=I_tlast;
+        assign source_threshold=I_threshold;
+    end endgenerate
+
     reg [4:0] valid_p, user_p, last_p;
+    reg nms_valid_d,nms_user_d,nms_last_d;
+    reg [95:0] legacy_rgb;
+    wire quality_valid,quality_user,quality_last;
+    wire [95:0] quality_rgb;
     reg [7:0] threshold_p [0:3];
     integer th_stage;
     always @(posedge I_clk or negedge I_rst_n) begin
@@ -53,34 +80,35 @@ module edge_detect_96 #(
             for (th_stage=0; th_stage<4; th_stage=th_stage+1)
                 threshold_p[th_stage] <= EDGE_TH[7:0];
         end else begin
-            valid_p <= {valid_p[3:0],I_tvalid};
-            user_p <= {user_p[3:0],I_tuser};
-            last_p <= {last_p[3:0],I_tlast};
-            threshold_p[0] <= I_threshold;
+            valid_p <= {valid_p[3:0],source_valid};
+            user_p <= {user_p[3:0],source_user};
+            last_p <= {last_p[3:0],source_last};
+            threshold_p[0] <= source_threshold;
             for (th_stage=1; th_stage<4; th_stage=th_stage+1)
                 threshold_p[th_stage] <= threshold_p[th_stage-1];
         end
     end
-    assign O_tvalid = valid_p[4];
-    assign O_tuser = user_p[4];
-    assign O_tlast = last_p[4];
+    assign O_tvalid = (QUALITY_ENABLE && NMS_ENABLE) ? quality_valid : (NMS_ENABLE ? nms_valid_d : valid_p[4]);
+    assign O_tuser = (QUALITY_ENABLE && NMS_ENABLE) ? quality_user : (NMS_ENABLE ? nms_user_d : user_p[4]);
+    assign O_tlast = (QUALITY_ENABLE && NMS_ENABLE) ? quality_last : (NMS_ENABLE ? nms_last_d : last_p[4]);
+    assign O_tdata = (QUALITY_ENABLE && NMS_ENABLE) ? quality_rgb : legacy_rgb;
 
     // S1: one word per four RGB pixels. Count only valid beats; SOF also
     // resets counters when it arrives before the AWB delayed pixels.
     reg [10:0] x_grp, y_pos, x_s1, y_s1;
     reg [15:0] pair_s1;
-    wire [10:0] x_now = I_tuser ? 11'd0 : x_grp;
-    wire [10:0] y_now = I_tuser ? 11'd0 : y_pos;
+    wire [10:0] x_now = source_user ? 11'd0 : x_grp;
+    wire [10:0] y_now = source_user ? 11'd0 : y_pos;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             x_grp <= 0; y_pos <= 0;
             x_s1 <= 0; y_s1 <= 0; pair_s1 <= 0;
         end else begin
-            if (I_tuser) begin
+            if (source_user) begin
                 x_grp <= 0; y_pos <= 0;
             end
-            if (I_tvalid) begin
-                pair_s1 <= {pair_sum0[8:1],pair_sum1[8:1]};
+            if (source_valid) begin
+                pair_s1 <= source_pair;
                 x_s1 <= x_now;
                 y_s1 <= y_now;
                 if (x_now == LINE_GROUPS-1) begin
@@ -154,7 +182,7 @@ module edge_detect_96 #(
             gx0_s3 <= 0; gy0_s3 <= 0; gx1_s3 <= 0; gy1_s3 <= 0;
             window_s3 <= 0;
         end else begin
-            window_s3 <= valid_p[1] && (y_s2 >= 2) && (x_s2 != 0) && !user_p[1];
+            window_s3 <= valid_p[1] && (y_s2 >= (DENOISE_ENABLE ? 4 : 2)) && (x_s2 >= (DENOISE_ENABLE ? 2 : 1)) && !user_p[1];
             if (valid_p[1]) begin
                 gx0_s3 <= sobel_gx(top_prev2,top_s2[15:8],mid_prev2,mid_s2[15:8],bot_prev2,bot_s2[15:8]);
                 gy0_s3 <= sobel_gy(top_prev2,top_prev1,top_s2[15:8],bot_prev2,bot_prev1,bot_s2[15:8]);
@@ -176,17 +204,98 @@ module edge_detect_96 #(
     reg [13:0] mag0_s4,mag1_s4;
     reg window_s4;
     wire [13:0] comparison_threshold = RUNTIME_THRESHOLD ? {6'd0,threshold_p[3]} : EDGE_TH;
-    wire [23:0] edge0 = window_s4 && (mag0_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
-    wire [23:0] edge1 = window_s4 && (mag1_s4 >= comparison_threshold) ? 24'hffffff : 24'h0;
+    function [1:0] gradient_axis;
+        input signed [12:0] gx,gy;
+        reg [12:0] ax,ay;
+        begin
+            ax=abs13(gx);ay=abs13(gy);
+            if({ay,1'b0}<={1'b0,ax}) gradient_axis=0;
+            else if({ax,1'b0}<={1'b0,ay}) gradient_axis=2;
+            else gradient_axis=(gx[12]==gy[12]) ? 2'd1:2'd3;
+        end
+    endfunction
+    wire [27:0] nms_magnitude,nms_center;
+    wire nms_center_valid;
+    wire [1:0] nms_keep;
+    wire nms_valid,nms_user,nms_last;
+    wire [13:0] nms_threshold;
+    generate if(NMS_ENABLE) begin : g_nms
+        reg [1:0] dir0_s4,dir1_s4;
+        always @(posedge I_clk or negedge I_rst_n) begin
+            if(!I_rst_n) begin dir0_s4<=0;dir1_s4<=0;end
+            else begin dir0_s4<=gradient_axis(gx0_s3,gy0_s3);dir1_s4<=gradient_axis(gx1_s3,gy1_s3);end
+        end
+        nms_gradient_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+            .INPUT_BORDER(DENOISE_ENABLE ? 4:2)) u_nms (
+            .clk(I_clk),.rst_n(I_rst_n),
+            .I_magnitude(window_s4 ? {mag0_s4,mag1_s4}:28'd0),.I_direction({dir0_s4,dir1_s4}),
+            .I_valid(valid_p[3]),.I_user(user_p[3]),.I_last(last_p[3]),.I_threshold(comparison_threshold),
+            .O_magnitude(nms_magnitude),.O_keep(nms_keep),.O_valid(nms_valid),.O_user(nms_user),
+            .O_last(nms_last),.O_threshold(nms_threshold),.O_debug_valid(nms_center_valid),.O_center(nms_center),
+            .O_direction(),.O_negative(),.O_positive());
+    end else begin : g_no_nms
+        assign nms_center=0;assign nms_center_valid=0;assign nms_magnitude=0;assign nms_keep=0;assign nms_valid=0;assign nms_user=0;assign nms_last=0;assign nms_threshold=0;
+    end endgenerate
+    always @(posedge I_clk or negedge I_rst_n) begin
+        if(!I_rst_n) begin nms_valid_d<=0;nms_user_d<=0;nms_last_d<=0;end
+        else begin nms_valid_d<=nms_valid;nms_user_d<=nms_user;nms_last_d<=nms_last;end
+    end
+    wire [23:0] edge0 = (NMS_ENABLE ? (nms_keep[1] && nms_magnitude[27:14]>=nms_threshold) : (window_s4 && mag0_s4>=comparison_threshold)) ? 24'hffffff : 24'h0;
+    wire [23:0] edge1 = (NMS_ENABLE ? (nms_keep[0] && nms_magnitude[13:0]>=nms_threshold) : (window_s4 && mag1_s4>=comparison_threshold)) ? 24'hffffff : 24'h0;
     always @(posedge I_clk or negedge I_rst_n) begin
         if (!I_rst_n) begin
             mag0_s4 <= 0; mag1_s4 <= 0; window_s4 <= 0;
-            O_tdata <= 0;
+            legacy_rgb <= 0;
         end else begin
             mag0_s4 <= {1'b0,abs13(gx0_s3)} + {1'b0,abs13(gy0_s3)};
             mag1_s4 <= {1'b0,abs13(gx1_s3)} + {1'b0,abs13(gy1_s3)};
             window_s4 <= window_s3;
-            O_tdata <= valid_p[3] ? {edge0,edge0,edge1,edge1} : 96'd0;
+            legacy_rgb <= (NMS_ENABLE ? nms_valid : valid_p[3]) ? {edge0,edge0,edge1,edge1} : 96'd0;
         end
     end
+    // Existing S5 becomes strong/weak classification for QUALITY only.
+    // THRESHOLD OSD is the high threshold; low=floor(high/2). No sensor writes.
+    generate if(QUALITY_ENABLE && NMS_ENABLE) begin : g_quality
+        wire [13:0] low_threshold={1'b0,nms_threshold[13:1]};
+        reg [3:0] classified;
+        reg [1:0] support_classified;
+        wire [1:0] support[0:QUALITY_HOPS];
+        always @(posedge I_clk or negedge I_rst_n)begin
+            if(!I_rst_n)support_classified<=0;
+            else support_classified<={nms_center_valid && nms_center[27:14]>=low_threshold,
+                                      nms_center_valid && nms_center[13:0]>=low_threshold};
+        end
+        assign support[0]=support_classified;
+        assign O_temporal_support=TEMPORAL_ENABLE ? support[QUALITY_HOPS]:2'd0;
+        wire [3:0] labels[0:QUALITY_HOPS];
+        wire [QUALITY_HOPS:0] qv,qu,ql;
+        always @(posedge I_clk or negedge I_rst_n) begin
+            if(!I_rst_n) classified<=0;
+            else classified<={nms_keep[1] && nms_magnitude[27:14]>=low_threshold,
+                              nms_keep[1] && nms_magnitude[27:14]>=nms_threshold,
+                              nms_keep[0] && nms_magnitude[13:0]>=low_threshold,
+                              nms_keep[0] && nms_magnitude[13:0]>=nms_threshold};
+        end
+        assign labels[0]=classified;assign qv[0]=nms_valid_d;
+        assign qu[0]=nms_user_d;assign ql[0]=nms_last_d;
+        genvar hop;
+        for(hop=0;hop<QUALITY_HOPS;hop=hop+1) begin : g_hop
+            if(TEMPORAL_ENABLE)begin:g_support
+                edge_center_pair_delay #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+                    .INPUT_BORDER((DENOISE_ENABLE ? 6:4)+2*hop)) u_center(
+                    .clk(I_clk),.rst_n(I_rst_n),.I_pair(support[hop]),
+                    .I_valid(qv[hop]),.I_user(qu[hop]),.I_last(ql[hop]),.O_pair(support[hop+1]));
+            end else begin:g_no_support assign support[hop+1]=0;end
+            edge_link_pair_3x3 #(.IMG_WIDTH(IMG_WIDTH),.IMG_HEIGHT(IMG_HEIGHT),
+                .INPUT_BORDER((DENOISE_ENABLE ? 6:4)+2*hop)) u_link (
+                .clk(I_clk),.rst_n(I_rst_n),.I_labels(labels[hop]),
+                .I_valid(qv[hop]),.I_user(qu[hop]),.I_last(ql[hop]),
+                .O_labels(labels[hop+1]),.O_valid(qv[hop+1]),.O_user(qu[hop+1]),.O_last(ql[hop+1]));
+        end
+        assign quality_valid=qv[QUALITY_HOPS];assign quality_user=qu[QUALITY_HOPS];assign quality_last=ql[QUALITY_HOPS];
+        assign quality_rgb=quality_valid ? {{48{labels[QUALITY_HOPS][2]}},{48{labels[QUALITY_HOPS][0]}}}:96'd0;
+    end else begin : g_no_quality
+        assign O_temporal_support=0;
+        assign quality_valid=0;assign quality_user=0;assign quality_last=0;assign quality_rgb=0;
+    end endgenerate
 endmodule

@@ -1,0 +1,12 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 18:52:50 on Nov 01,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_vision_keys.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_config_cdc.v 
+-- Compiling module tb_vision_keys
+-- Compiling module edge_key_event
+-- Compiling module edge_key_control
+-- Compiling module edge_config_cdc
+
+Top level modules:
+	tb_vision_keys
+End time: 18:52:50 on Nov 01,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

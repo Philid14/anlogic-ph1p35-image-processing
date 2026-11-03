@@ -1,0 +1,3 @@
+Prepared syn_1: 68 source/IP/constraint entries
+Prepared phy_1: 68 source/IP/constraint entries
+PASS syn actual TD inputs unchanged; board NOT_RUN

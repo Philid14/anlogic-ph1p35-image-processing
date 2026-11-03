@@ -1,0 +1,12 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 14:49:15 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_parts_views.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v 
+-- Compiling module tb_parts_views
+-- Compiling module edge_control_stream
+-- Compiling module parts_measure_view
+
+Top level modules:
+	tb_parts_views
+	edge_control_stream
+End time: 14:49:15 on Nov 03,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

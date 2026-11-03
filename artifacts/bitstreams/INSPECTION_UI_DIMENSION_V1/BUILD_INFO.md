@@ -1,0 +1,23 @@
+# INSPECTION_UI_DIMENSION_V1 BUILD_INFO
+
+- Version / Role: INSPECTION_UI_DIMENSION_V1 / MAIN
+- Branch: codex/main/inspection-ui-dimension-v1
+- Actual TD source commit: d26a591a399f70259944671956c7a801d9674b6d
+- Candidate tag: inspection-ui-dimension-v1-candidate (created after archive)
+- Build time: 2026-10-30T17:31:49.727449+08:00
+- Device / Top: PH1P35MDG324 speed3 / design_top_wrapper
+- Original bit path: D:/anlogic_formal_project/tmp/metrology_v1/r2/camera_to_dsi_display.bit
+- Bit SHA256: 2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc
+- Resource: {"slice": 20042, "lut6": 18668, "ff": 18560, "eram": 85, "dsp": 23}
+- Delta vs COLOR_COMPARE_V1: {"slice": 706, "lut6": 564, "ff": 954, "eram": 0, "dsp": 2}
+- Setup WNS / TNS: +0.152ns / 0.0; Hold WNS / TNS: +0.020ns / 0.0
+- Synthesis -> Physical Design -> final STA -> bitgen: PASS
+- Critical warning types: ['PHY-5060', 'PHY-5079']; new: []
+- Board Test Status: NOT_RUN. User must validate switches/pins, display, dimensional accuracy, lighting and long-term stability.
+- No extra pixel latency vs COLOR_COMPARE_V1; same 31-cycle five-mode/OSD alignment (including its two comparison clocks). Metrics describe preceding completed capture frame, not same-frame tracking.
+- Color means/classifier/tolerance preserved, all original five algorithms/Sensor/ISP/DDR/MIPI/PLL/SDC frozen. HDMI external data/sync/latency unchanged; only Logo address retimed with cycle-equivalence proof. Four switch pins verified; K4 reuses existing C7, neither 1.5V K1/K2 is used.
+- Manual 100mm ruler calibration in X/Y; no guessed scale. 0.1mm displayed resolution is NOT established accuracy. Thin single workpiece, plain contrast background, axis alignment; GAPX/Y are cross-sections, no circle fitting or multi-hole recognition.
+- No additional frame RAM. Constant scale multiplication may map to DSP; actual counts above govern.
+- Historical FIFO B/S and Gray-pointer constraint coverage risks remain. New UI only synchronizes human inputs, no new video CDC or frame gating.
+- Rollback: artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27; historical artifacts/tags unchanged.
+- Full simulation boundaries: explicit post-AWB RGB and synchronized control/calibration values. Actual control debounce/ruler UI tested independently. No physical Sensor/DDR/HDMI simulation or board claim.

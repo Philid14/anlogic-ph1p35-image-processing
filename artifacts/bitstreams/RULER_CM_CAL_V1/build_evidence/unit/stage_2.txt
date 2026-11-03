@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_ruler_cm "+STIM=D:/anlogic_formal_project/tmp/ruler_cm/unit/vectors.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 10:53:06 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS cm ruler 19 checks 3992831 cycles: cm vs half/mm, average, bounds, geometry, retry
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_ruler_cm.sv(22)
+#    Time: 39928316 ns  Iteration: 0  Instance: /tb_ruler_cm
+# End time: 10:53:59 on Nov 02,2026, Elapsed time: 0:00:53
+# Errors: 0, Warnings: 0

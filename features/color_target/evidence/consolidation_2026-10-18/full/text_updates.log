@@ -1,0 +1,4 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS XW=11/YW=10: 3981 clocks, atomic tuples and latest-value progress
+PASS XW=14/YW=12: 3981 clocks, atomic tuples and latest-value progress
+PASS text updates: 7962 clocks, 0 violations

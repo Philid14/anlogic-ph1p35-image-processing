@@ -1,0 +1,18 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS  no_result  (pixels=26624)
+PASS  result_invalid  (pixels=26624)
+PASS  box_and_cross_basic  (pixels=26624)
+PASS  box_at_origin  (pixels=272)
+PASS  box_at_far_corner  (pixels=676)
+PASS  box_smaller_than_thick  (pixels=576)
+PASS  cross_at_edge  (pixels=1296)
+PASS  degenerate_single_pixel_box  (pixels=729)
+PASS  thick_cross  (pixels=26624)
+PASS  thick_box  (pixels=26624)
+PASS  BOX_THICK=0 == BOX_THICK=1（27984 像素）  框线 0 夹到 1（不要框应由 present=0 表达，而不是把线宽设成 0）
+PASS  BOX_THICK=-3 == BOX_THICK=1（27984 像素）  框线负数夹到 1
+PASS  CROSS_THICK=0 == CROSS_THICK=1（27984 像素）  十字线宽 0 夹到 1
+PASS  CROSS_THICK=-2 == CROSS_THICK=1（27984 像素）  十字线宽负数夹到 1
+PASS  CROSS_ARM=-5 == CROSS_ARM=0（27984 像素）  十字半臂负数夹到 0（退化成一点）
+
+10/10 用例通过；夹取等价性 5/5 通过  [sim=modelsim]

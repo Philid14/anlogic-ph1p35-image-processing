@@ -1,0 +1,49 @@
+{
+  "version": "VISION_TRACK_MOTION_V1",
+  "role": "MAIN",
+  "branch": "codex/main/vision-track-motion-v1",
+  "source_commit": "c3bdf9240647d9f98a2ff68c416693ad1e20f4b9",
+  "archive_driver_commit": "ff8e533e5bd0fdbc2ef84c00c1c27526bc85c3e6",
+  "tag": "vision-track-motion-v1-candidate",
+  "build_time": "2026-11-01T19:11:13.666752+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:/anlogic_formal_project/tmp/vision_track_motion/combined_r4/camera_to_dsi_display.bit",
+  "bit_sha256": "f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0",
+  "resources": {
+    "slice": 20694,
+    "lut6": 19497,
+    "ff": 20285,
+    "eram": 102,
+    "dsp": 27
+  },
+  "resource_delta_vs_V4": {
+    "slice": -300,
+    "lut6": -366,
+    "ff": 1169,
+    "eram": 12,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.106,
+  "setup_tns_ns": 0.0,
+  "hold_wns_ns": 0.02,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "high_density_warning": true,
+  "extra_common_pixel_cycles": 0,
+  "common_pixel_cycles": 31,
+  "target_source": "ee2edc581877e6a0c7f85073f04e9b7d79277c1b; immutable PR2 snapshot; no merge",
+  "limitations": [
+    "One red class, merged same-color components, bbox center not centroid",
+    "Coordinates/count are explicitly LAST capture frame, HEX format; no current-frame bbox",
+    "32x16 block mean motion, changed-block count not object count, global lighting ambiguity",
+    "Ingress heartbeat does not prove DDR output freshness or provide end-to-end latency",
+    "Inherited FIFO sticky, Gray-pointer constraint and long-run board stability remain unverified"
+  ],
+  "route_db_sha256": "5492b70d1f053b7d6c0bfe71149e436c8e78a7a6c3ac94f852fd42426d3f75ee"
+}

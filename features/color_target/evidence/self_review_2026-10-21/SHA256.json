@@ -1,0 +1,82 @@
+{
+  "schema": 1,
+  "scope": "This review source/docs/evidence, excludes self",
+  "files": [
+    {
+      "path": "features/color_target/VERIFICATION.md",
+      "sha256_git_bytes": "ce26d451390126114c3df3a55b1d95db9dff6e43d6c5e9d8feb83f656eda6bb7"
+    },
+    {
+      "path": "features/color_target/board/MAIN_HANDOFF.md",
+      "sha256_git_bytes": "96a94ab68bba4df92a3bb17a2362623cbcb9a832cc284b91fd1c8ed760f89b6d"
+    },
+    {
+      "path": "features/color_target/integration/SELF_REVIEW_2026-10-21.md",
+      "sha256_git_bytes": "9f3c63d9bbef7dc220076db33a0e5a864635861d8820cf04db021fbf706fe73d"
+    },
+    {
+      "path": "features/color_target/integration/LATENCY_REVIEW_531ef61.md",
+      "sha256_git_bytes": "025ec226549dc5f8de4575c43ba2081bd0b1f720060552417e32777ee19ea206"
+    },
+    {
+      "path": "features/color_target/run_latency_handoff_review.py",
+      "sha256_git_bytes": "3281e419ef25d69f2519b96c51d320979c69f6da943a9e3d1f9748a2a1e20954"
+    },
+    {
+      "path": "features/color_target/tb/tb_latency_handoff_review.v",
+      "sha256_git_bytes": "6852e4200c016883c20c26febfdbf21a3723f8bc20637a66f64559a1218ad338"
+    },
+    {
+      "path": "features/color_target/tb/test_latency_review_evidence.py",
+      "sha256_git_bytes": "f53dfa14dc8a1f5e125e5c0867f26d5b04f71779888022ce4a02399016396d68"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/.gitattributes",
+      "sha256_git_bytes": "609f1894f501c864dc72d3df3865cf3042aead04ab60a872dc04de12a90d3f6b"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/after-probes.json",
+      "sha256_git_bytes": "09d645005205c45eba83c8977ca904cfc81a3f5e17115c7d2d837856e8b6facd"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/before-parser-probes.json",
+      "sha256_git_bytes": "0f372886758358e99df09b9a6799107b83adfa56c3aa08cdef258b24deee3e01"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/component-summary.json",
+      "sha256_git_bytes": "35c3bb753b74c06d0175e2f73227a695c743d49996978a28cc610c0ddc5a92c3"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/LOG_ARCHIVE_INDEX.json",
+      "sha256_git_bytes": "5dc6bb50c632b32ac085edcaf94cf491913a0949cfa9b2ca653aa44a35ddb26f"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/original-stimulus-gaps.json",
+      "sha256_git_bytes": "4cd4754990f941cac6959bbd6918b2caf917a79b261b815f002ff8339a307d40"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/parser-tests.log",
+      "sha256_git_bytes": "7fa2c3f39772ba088198b95aa567e627f67c3902377d56005c27e26c62e660a9"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/RAW_LOGS.zip",
+      "sha256_git_bytes": "24260a65cf00cc0cfb9bc6e4f33b094ab5fb586dab40e261b94e53b9099fb09f"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/source-state.json",
+      "sha256_git_bytes": "9ef150b572b1e44e3b87b8a50d2159cd4370731fb35e34beb2e8ab40d501602b"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/summary.json",
+      "sha256_git_bytes": "4af9bcb56e1f53442ce78948df4b6a4e99f1df9b02ee8dab32ec715ac0235300"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/tool-selftests.json",
+      "sha256_git_bytes": "35ce47ebad646b7a80d07d281d9e19d6ddcc699b9240758e54a960b034c62d4d"
+    },
+    {
+      "path": "features/color_target/evidence/self_review_2026-10-21/VALIDATION.md",
+      "sha256_git_bytes": "8bb0fedd9ce18d3c55b9c8526474dee9856edf55aa858e6c1d24124690f50ec0"
+    }
+  ]
+}

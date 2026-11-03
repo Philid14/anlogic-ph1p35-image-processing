@@ -1,0 +1,2 @@
+PASS COLOR_FORMATTER snapshots=        218 fields=       2398
+D:\anlogic_formal_project\tests\tb_color_compare_formatter.sv:28: $finish called at 549410000 (1ps)

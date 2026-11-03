@@ -1,0 +1,499 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_awb_divider_equivalence glbl -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 18:57:46 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2727): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_2c3c91d5
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2727): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2727): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2809): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_17a6d7fa
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2809): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(2809): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3781): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f683b5d3
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3781): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3781): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3870): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f65f531c
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3870): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(3870): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4852): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_8cc7c1e
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4852): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4852): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4948): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_12836a8f
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4948): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(4948): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(5946): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5892fcb5
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(5946): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(5946): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(6049): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_b3f6820d
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(6049): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(6049): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7063): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_7c3d1a1a
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7063): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7063): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7173): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f5789861
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7173): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(7173): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8203): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_3aab319
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8203): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8203): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8320): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_61a0d7ee
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8320): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(8320): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9366): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_623841ba
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9366): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9366): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9490): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_2de59830
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9490): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(9490): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10546): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_aa681be
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10546): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10546): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10677): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_6d616ad8
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10677): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(10677): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11749): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f70fd955
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11749): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11749): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11887): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_26555348
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11887): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(11887): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(12975): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_b1b33ac1
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(12975): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(12975): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(13120): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_9642b13d
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(13120): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(13120): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15068): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_35ee5592
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15068): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15068): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15220): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_50e9f109
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15220): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(15220): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16340): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_7f00f7cf
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16340): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16340): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16499): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_e29bec0b
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16499): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(16499): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17629): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_d51334f9
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17629): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17629): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17795): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_893284b6
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17795): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(17795): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(18941): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_3d1326ec
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(18941): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(18941): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(19114): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_fe1a61c8
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(19114): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(19114): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20276): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_c7f8d01f
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20276): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20276): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20456): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_cc6624f3
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20456): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(20456): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21634): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5fe5f689
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21634): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21634): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21821): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_d9f3f288
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21821): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(21821): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23015): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_614d9b5f
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23015): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23015): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23209): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_40de5145
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23209): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(23209): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24413): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_2b863aeb
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24413): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24413): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24614): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_a0f4601c
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24614): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(24614): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(25834): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_b8005145
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(25834): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(25834): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(26042): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_3728e305
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(26042): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(26042): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27278): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_33912f9
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27278): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27278): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27493): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5379bc02
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27493): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(27493): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29636): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5984d26f
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29636): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29636): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29858): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f4fca905
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29858): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(29858): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(31126): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5e220ed
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(31126): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(31126): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(32635): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_4d428833
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(32635): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(32635): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(34151): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_6defe612
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(34151): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(34151): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(35667): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_be405246
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(35667): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(35667): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(37183): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_83514792
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(37183): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(37183): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(38699): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_fd3e8af2
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(38699): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(38699): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(40215): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_9425b3df
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(40215): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(40215): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(41731): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_5c7d50e3
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(41731): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(41731): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(43247): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_d271eb9
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(43247): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(43247): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(45676): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_1f358278
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(45676): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(45676): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(47192): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_6c167d08
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(47192): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(47192): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(48708): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_6570f066
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(48708): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(48708): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(50224): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f8363f33
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(50224): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(50224): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(51740): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_ca709f8b
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(51740): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(51740): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(53256): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_20bc1162
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(53256): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(53256): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(54772): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_dc46bad1
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(54772): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(54772): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(57046): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_f4af5624
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(57046): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(57046): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58500): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_7b9955b
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58500): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58500): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58505): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_2beb57ee
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58505): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(58505): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59403): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_2f3c0b9c
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59403): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59403): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59457): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_ddf981e2
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59457): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(59457): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60365): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_98b3b8dd
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60365): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60365): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60426): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_60de78b1
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60426): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(60426): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61350): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_bb9963f6
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61350): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61350): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61418): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_7241ba4
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61418): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(61418): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62358): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_39ead89a
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62358): [TFMPC] - Missing connection for port 'b'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62358): [TFMPC] - Missing connection for port 'c'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62433): [TFMPC] - Too few port connections. Expected 4, found 2.
+# 
+#         Region: /tb_awb_divider_equivalence/reference_ip/al_14fec680
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62433): [TFMPC] - Missing connection for port 'a'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v(62433): [TFMPC] - Missing connection for port 'b'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS native frame-divider equivalence math311 qualified_compares358 cycles23782 all50 reset offsets; done age49
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_awb_divider_equivalence.sv(49)
+#    Time: 237817 ns  Iteration: 0  Instance: /tb_awb_divider_equivalence
+# End time: 19:00:52 on Nov 03,2026, Elapsed time: 0:03:06
+# Errors: 0, Warnings: 207

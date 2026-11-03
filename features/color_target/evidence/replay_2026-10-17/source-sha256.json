@@ -1,0 +1,26 @@
+{
+  "normalized_lf": {
+    "rtl/color_classify.v": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+    "rtl/color_target_detect.v": "55e350c07b3d87b06774a087d70423e8c969cbc6461686821c5e6c256a224f86",
+    "rtl/color_target_mask_stats.v": "b14d06c400e927774050a5f5290c31f430854511b3d87e937c6aa186b365bf1e",
+    "rtl/color_target_detect_stream.v": "ce2456e9efa0da5cbf3455a3ca86ab0ed2d61a98c71f6fe7d8e559e3180bb0b1",
+    "rtl/color_target_support3.v": "cc9b8def032f6b74202d7cfc08443274f2073571bd9cfc52747da95f070b042e",
+    "rtl/color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "rtl/color_target_overlay.v": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+    "rtl/color_target_text_overlay.v": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+    "tb/tb_color_target_replay.v": "642fb38415ca74e404a97da8b2ba57c2ae9abab1816850e0b80cdf5104c0f414",
+    "tb/ct_text_font_stub.v": "97fad069774d414116fbce8fe7e36a9799d41f2548ff14bd77f2d35d9ab5afea",
+    "model/ref_color_target_stream.py": "bc2e86683dfc11462dd3ddf703e35e2bdd57a299f0d3edfa00f3dc4c5dd8137d",
+    "model/ref_color_target.py": "72d4f39ef07ad65403532e4ee88f785a160c2ec2d92dacb29bac834b1b90f4a8",
+    "model/ref_color_target_track.py": "208b7c22e1bd741237c7936a2158411e6e28e02e79058103fd93d27056fb6580",
+    "model/ref_color_target_support3.py": "ab11e205bd2eff969a11479be0c12b5d6ce33d62a7281070e2edde6ae507bb88",
+    "model/ref_color_target_text.py": "567999bf04e070b12f8fe50bdaf29b4c543b2f9a8f870d86f04e7c71c208a2fd",
+    "model/ref_color_target_overlay.py": "b94dcdc1aacc8f7e43dc4b099a561e3ca34c3a22851a8f989622127cee6b0e3b",
+    "model/replay_data.py": "fb96f83a19195b112e272bfd7a28d2881532a94f17aed9ed8ffe0b95747557d7",
+    "tools/make_replay_controls.py": "07e7eacec6d8e5e3448493b8fb2720ce81d9926447ee587ba0355b95724ba0c9",
+    "tools/replay_synth_top.v": "d68e5807dcd3e2a04245c19eeb58c3088571972ef9304f3135683aa7c416e156",
+    "tools/synth_replay.tcl": "3d8ee61cc5f03429c46e3605446f8d834b5f8cafe024dd13b3d1c50ed091735a",
+    "run_color_target_replay.py": "540253b5610b39fe90fc46ffad5b2518b9f0a373932846ba41cb3d2cffe239b4",
+    "run_replay_data_checks.py": "16564310edf988ec5aaf0ad3ca916ae29cbfded5c61264c4cb4ec7e9e1082dff"
+  }
+}

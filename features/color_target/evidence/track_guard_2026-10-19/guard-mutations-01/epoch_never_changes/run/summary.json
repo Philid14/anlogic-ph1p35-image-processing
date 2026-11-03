@@ -1,0 +1,79 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-19T11:59:18.520732+00:00",
+  "kind": "INDEPENDENT GUARD RTL; no CDC/DDR/main/video/physical/board proof",
+  "head": "4ec3d35a5cd08cc2d64fe03aa403be16fd696706",
+  "branch": "codex/target/track-guard-v1",
+  "worktree": "?? features/color_target/rtl/color_target_track_guard.v\n?? features/color_target/run_track_guard_contract.py\n?? features/color_target/tb/tb_color_target_track_guard.v\n",
+  "simulator": "modelsim",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "guard_source": "C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/outputs/integration-readiness-2026-10-19/guard-mutations-01/epoch_never_changes/color_target_track_guard.v",
+  "source_sha256_lf": {
+    "features/color_target/rtl/color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/outputs/integration-readiness-2026-10-19/guard-mutations-01/epoch_never_changes/color_target_track_guard.v": "b24e0e0f849a547677febace0e4845c942a9a53e6cabdb65152f40057885cd0e",
+    "features/color_target/tb/tb_color_target_track_guard.v": "8d29872c4ae25504629b8eb608bdec8c11bd87247547fc0091c11c8f9aa8025a",
+    "features/color_target/run_track_guard_contract.py": "61eae1c94b26b47127cc6b58479ddf0a79bd70a0fd6abc0ff42bb26e04613eb0",
+    "features/color_target/tools/simlib.py": "6742d80e18f9963f6490d4a611c022546726c7d56bf4395a3668ada239da7055"
+  },
+  "source_unchanged": true,
+  "jobs": [
+    {
+      "name": "core_time8",
+      "top": "tb_color_target_track_guard",
+      "parameters": {
+        "TIME_W": 8
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_myx6yufp",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\integration-readiness-2026-10-19\\guard-mutations-01\\epoch_never_changes\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_myx6yufp",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-quiet",
+            "-gTIME_W=8",
+            "work.tb_color_target_track_guard",
+            "-do",
+            "run -all; quit -f"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_myx6yufp",
+          "exit_code": 0,
+          "failure": "error_marker",
+          "passed": false,
+          "log": "vsim.log"
+        }
+      ]
+    }
+  ],
+  "passed": false,
+  "integration_ready": false,
+  "production_thresholds": "UNSET; testbench limits are fixtures"
+}

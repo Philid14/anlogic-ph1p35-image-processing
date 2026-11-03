@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "source_commit": "042345cb0e92a1cc5ea0a74fed1be352cf338f2c",
+  "source_root": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\negative-command-source",
+  "manifest_sha256": "e702e34eef2e6e54d028c604dd921faec7a5499e13afb582bbba05ab9b491933",
+  "files": [
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc",
+      "expected_sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+      "passed": false,
+      "raw_sha256": "68b21626f4b46dfb2a56e82a88ddc206d7f964026b3b368206c798136165e336",
+      "reason": "no_exact_representation_match"
+    }
+  ],
+  "total": 1,
+  "matched": 0,
+  "passed": false,
+  "scope": "Source-content binding only; no rebuilt bit, constraints coverage or board proof",
+  "source_mutated": false
+}

@@ -1,0 +1,26 @@
+[
+  {
+    "original": "D:\\Anlogic\\Competition\\Depress\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\mc_to_user_interface.v",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+    "sha256": "feb0e79b852ce9ae3319bdd8cb563a3a829498e487f9252f89818482651ff527",
+    "normalizes_exactly_to_git": true,
+    "LF": 88,
+    "CRLF": 66
+  },
+  {
+    "original": "D:\\Anlogic\\Competition\\Depress\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\ph1p35_ddr\\ph1p35_324_ddr_wrapper.v",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+    "sha256": "891e2838ab36107b05bd23f67967f8ef3f9e9564f2fb022ec382f54e233e9e8d",
+    "normalizes_exactly_to_git": true,
+    "LF": 124,
+    "CRLF": 119
+  },
+  {
+    "original": "D:\\Anlogic\\Competition\\Depress\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\user_source\\hdl_source\\hdmi_tx.v",
+    "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_tx.v",
+    "sha256": "12aa38918c9c7f589af6d6e6a16e8f4825b0acf0210edd050fbf462667c243ad",
+    "normalizes_exactly_to_git": true,
+    "LF": 250,
+    "CRLF": 200
+  }
+]

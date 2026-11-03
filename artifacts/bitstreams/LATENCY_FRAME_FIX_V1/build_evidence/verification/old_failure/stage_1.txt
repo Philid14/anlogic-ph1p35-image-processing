@@ -1,0 +1,12 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 21:25:10 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_latency_blanking.sv D:/anlogic_formal_project/tmp/latency_frame_fix/old_failure/latency_capture_tag_baseline.v 
+-- Compiling module tb_latency_blanking
+-- Compiling module latency_timebase
+-- Compiling module latency_capture_tag
+
+Top level modules:
+	tb_latency_blanking
+	latency_timebase
+End time: 21:25:10 on Nov 03,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

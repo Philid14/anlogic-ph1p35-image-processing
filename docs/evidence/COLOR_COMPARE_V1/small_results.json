@@ -1,0 +1,27 @@
+{
+  "unit": {
+    "frames": 80,
+    "checks": 4461,
+    "malformed_frames": true,
+    "last_pixel_in_roi": true,
+    "seed": 20261028
+  },
+  "stream": {
+    "width": 64,
+    "height": 32,
+    "beats": 5632,
+    "packed_words": 3872,
+    "compare_enabled": true
+  },
+  "boundary": "post-AWB explicit input; no PHY/board claim",
+  "sources": {
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "3a1d9f209f3fd3490b9e8c17d0c97887a20c39be47ebea279770665d44556501",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v": "986f713712734966ab9b73a21ce6e2f71479f51e717707fe94723b67e80754ea",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v": "662fb443faa8ddf3d5cafaab82aeb4eecc6ea2f1c038f0436651196797fd1de2",
+    "tests/tb_edge_style_stream.v": "79ec43559059275c58c4a93da4c6b07e826250d6294c34eef7e2fc20f6daad61",
+    "tests/tb_color_compare_stats.sv": "f6999eabdd2a8a156620f2b55641cf8d1d3e1e2437b75a5c5269d4968c8b0f4f",
+    "tests/color_compare_model.py": "dd0b035315fd2b95ac329d3660c6ef93bf055d398516d2c60632d0f280d15f3e",
+    "tests/run_color_compare_v1.py": "b728b9915f61346af190ec109fb856ffe79369d7995eba585a06617f6171d010"
+  }
+}

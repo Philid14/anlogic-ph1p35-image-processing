@@ -1,0 +1,36 @@
+{
+  "version": "EDGE_TEMPORAL_V1_R0",
+  "source_commit": "ab9081f906739090f431ae8f0dc7ede9e682eb64",
+  "resume_driver_commit": "95b4afce4baa1df376bc174c0f6a1a0ca029d8aa",
+  "baseline_commit": "b64daf39af09980621adb1138df1674a8501ea09",
+  "bit_sha256": "F9AD71C7D33453461C1B47C56770EDD77B75838DBCB7A74E686AEEEF27C0A989",
+  "bit_size": 1789539,
+  "lut": 15490,
+  "ff": 15659,
+  "slice": 16440,
+  "eram": 75,
+  "dsp": 9,
+  "setup_wns_ns": 0.104,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ps": 0,
+  "hold_tns_ps": 0,
+  "timing_passed": true,
+  "sta_coverage": "96.29%",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "additional_pipeline_cycles": 2,
+  "additional_frame_wait": 0,
+  "candidate_eligible": false,
+  "rejection_reason": "Balanced duplicate/missing EOL can incorrectly qualify previous-frame history; strict sequence guard required",
+  "board_test": "not issued for board testing",
+  "delta_from_quality": {
+    "lut": -672,
+    "ff": 236,
+    "slice": -1454,
+    "eram": 28,
+    "dsp": 0
+  }
+}

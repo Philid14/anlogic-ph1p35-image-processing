@@ -1,0 +1,12221 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "case": "same",
+      "ref": [
+        149,
+        152,
+        95
+      ],
+      "test": [
+        149,
+        152,
+        95
+      ],
+      "raw": [
+        0,
+        0,
+        0
+      ],
+      "l1": 0,
+      "maximum": 0,
+      "normalized": [
+        [
+          96,
+          98,
+          61
+        ],
+        [
+          96,
+          98,
+          61
+        ]
+      ],
+      "chr": 0,
+      "dv": 0,
+      "reliable": true,
+      "status": 0,
+      "name": "MATCH"
+    },
+    {
+      "case": "multiplicative_shading",
+      "ref": [
+        140,
+        150,
+        90
+      ],
+      "test": [
+        168,
+        180,
+        108
+      ],
+      "raw": [
+        28,
+        30,
+        18
+      ],
+      "l1": 76,
+      "maximum": 30,
+      "normalized": [
+        [
+          94,
+          101,
+          60
+        ],
+        [
+          94,
+          101,
+          60
+        ]
+      ],
+      "chr": 0,
+      "dv": 30,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "hue_change",
+      "ref": [
+        140,
+        150,
+        90
+      ],
+      "test": [
+        170,
+        110,
+        108
+      ],
+      "raw": [
+        30,
+        40,
+        18
+      ],
+      "l1": 88,
+      "maximum": 40,
+      "normalized": [
+        [
+          94,
+          101,
+          60
+        ],
+        [
+          112,
+          72,
+          71
+        ]
+      ],
+      "chr": 29,
+      "dv": 20,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "neutral_different_reflectance_ambiguous",
+      "ref": [
+        100,
+        100,
+        100
+      ],
+      "test": [
+        180,
+        180,
+        180
+      ],
+      "raw": [
+        80,
+        80,
+        80
+      ],
+      "l1": 240,
+      "maximum": 80,
+      "normalized": [
+        [
+          85,
+          85,
+          85
+        ],
+        [
+          85,
+          85,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 80,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "clipped",
+      "ref": [
+        240,
+        190,
+        90
+      ],
+      "test": [
+        255,
+        220,
+        110
+      ],
+      "raw": [
+        15,
+        30,
+        20
+      ],
+      "l1": 65,
+      "maximum": 30,
+      "normalized": [
+        [
+          118,
+          93,
+          44
+        ],
+        [
+          111,
+          96,
+          48
+        ]
+      ],
+      "chr": 7,
+      "dv": 15,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "dark",
+      "ref": [
+        10,
+        12,
+        8
+      ],
+      "test": [
+        30,
+        35,
+        20
+      ],
+      "raw": [
+        20,
+        23,
+        12
+      ],
+      "l1": 55,
+      "maximum": 23,
+      "normalized": [
+        [
+          85,
+          102,
+          68
+        ],
+        [
+          90,
+          105,
+          60
+        ]
+      ],
+      "chr": 8,
+      "dv": 23,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "raw_boundary12",
+      "ref": [
+        100,
+        100,
+        100
+      ],
+      "test": [
+        112,
+        112,
+        112
+      ],
+      "raw": [
+        12,
+        12,
+        12
+      ],
+      "l1": 36,
+      "maximum": 12,
+      "normalized": [
+        [
+          85,
+          85,
+          85
+        ],
+        [
+          85,
+          85,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 12,
+      "reliable": true,
+      "status": 0,
+      "name": "MATCH"
+    },
+    {
+      "case": "raw_boundary13",
+      "ref": [
+        100,
+        100,
+        100
+      ],
+      "test": [
+        113,
+        113,
+        113
+      ],
+      "raw": [
+        13,
+        13,
+        13
+      ],
+      "l1": 39,
+      "maximum": 13,
+      "normalized": [
+        [
+          85,
+          85,
+          85
+        ],
+        [
+          85,
+          85,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 13,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "red_vs_green",
+      "ref": [
+        200,
+        30,
+        30
+      ],
+      "test": [
+        30,
+        200,
+        30
+      ],
+      "raw": [
+        170,
+        170,
+        0
+      ],
+      "l1": 340,
+      "maximum": 170,
+      "normalized": [
+        [
+          196,
+          29,
+          29
+        ],
+        [
+          29,
+          196,
+          29
+        ]
+      ],
+      "chr": 167,
+      "dv": 0,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "zero",
+      "ref": [
+        0,
+        0,
+        0
+      ],
+      "test": [
+        0,
+        0,
+        0
+      ],
+      "raw": [
+        0,
+        0,
+        0
+      ],
+      "l1": 0,
+      "maximum": 0,
+      "normalized": [
+        [
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0
+        ]
+      ],
+      "chr": 0,
+      "dv": 0,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "shading_0",
+      "ref": [
+        134,
+        51,
+        54
+      ],
+      "test": [
+        174,
+        66,
+        70
+      ],
+      "raw": [
+        40,
+        15,
+        16
+      ],
+      "l1": 71,
+      "maximum": 40,
+      "normalized": [
+        [
+          143,
+          54,
+          58
+        ],
+        [
+          143,
+          54,
+          58
+        ]
+      ],
+      "chr": 0,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_1",
+      "ref": [
+        163,
+        90,
+        47
+      ],
+      "test": [
+        212,
+        117,
+        61
+      ],
+      "raw": [
+        49,
+        27,
+        14
+      ],
+      "l1": 90,
+      "maximum": 49,
+      "normalized": [
+        [
+          139,
+          77,
+          40
+        ],
+        [
+          139,
+          77,
+          40
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_2",
+      "ref": [
+        128,
+        45,
+        46
+      ],
+      "test": [
+        166,
+        58,
+        60
+      ],
+      "raw": [
+        38,
+        13,
+        14
+      ],
+      "l1": 65,
+      "maximum": 38,
+      "normalized": [
+        [
+          149,
+          52,
+          54
+        ],
+        [
+          149,
+          52,
+          54
+        ]
+      ],
+      "chr": 0,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_3",
+      "ref": [
+        123,
+        68,
+        75
+      ],
+      "test": [
+        160,
+        88,
+        98
+      ],
+      "raw": [
+        37,
+        20,
+        23
+      ],
+      "l1": 80,
+      "maximum": 37,
+      "normalized": [
+        [
+          118,
+          65,
+          72
+        ],
+        [
+          118,
+          65,
+          72
+        ]
+      ],
+      "chr": 0,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_4",
+      "ref": [
+        82,
+        56,
+        58
+      ],
+      "test": [
+        107,
+        73,
+        75
+      ],
+      "raw": [
+        25,
+        17,
+        17
+      ],
+      "l1": 59,
+      "maximum": 25,
+      "normalized": [
+        [
+          107,
+          73,
+          75
+        ],
+        [
+          107,
+          73,
+          75
+        ]
+      ],
+      "chr": 0,
+      "dv": 25,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_5",
+      "ref": [
+        97,
+        163,
+        111
+      ],
+      "test": [
+        126,
+        212,
+        144
+      ],
+      "raw": [
+        29,
+        49,
+        33
+      ],
+      "l1": 111,
+      "maximum": 49,
+      "normalized": [
+        [
+          67,
+          112,
+          76
+        ],
+        [
+          67,
+          112,
+          76
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_6",
+      "ref": [
+        146,
+        147,
+        147
+      ],
+      "test": [
+        190,
+        191,
+        191
+      ],
+      "raw": [
+        44,
+        44,
+        44
+      ],
+      "l1": 132,
+      "maximum": 44,
+      "normalized": [
+        [
+          85,
+          85,
+          85
+        ],
+        [
+          85,
+          85,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_7",
+      "ref": [
+        102,
+        51,
+        57
+      ],
+      "test": [
+        133,
+        66,
+        74
+      ],
+      "raw": [
+        31,
+        15,
+        17
+      ],
+      "l1": 63,
+      "maximum": 31,
+      "normalized": [
+        [
+          124,
+          62,
+          69
+        ],
+        [
+          124,
+          62,
+          69
+        ]
+      ],
+      "chr": 0,
+      "dv": 31,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_8",
+      "ref": [
+        156,
+        119,
+        40
+      ],
+      "test": [
+        203,
+        155,
+        52
+      ],
+      "raw": [
+        47,
+        36,
+        12
+      ],
+      "l1": 95,
+      "maximum": 47,
+      "normalized": [
+        [
+          126,
+          96,
+          32
+        ],
+        [
+          126,
+          96,
+          32
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_9",
+      "ref": [
+        85,
+        43,
+        102
+      ],
+      "test": [
+        110,
+        56,
+        133
+      ],
+      "raw": [
+        25,
+        13,
+        31
+      ],
+      "l1": 69,
+      "maximum": 31,
+      "normalized": [
+        [
+          94,
+          48,
+          113
+        ],
+        [
+          94,
+          48,
+          113
+        ]
+      ],
+      "chr": 0,
+      "dv": 31,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_10",
+      "ref": [
+        89,
+        53,
+        103
+      ],
+      "test": [
+        116,
+        69,
+        134
+      ],
+      "raw": [
+        27,
+        16,
+        31
+      ],
+      "l1": 74,
+      "maximum": 31,
+      "normalized": [
+        [
+          93,
+          55,
+          107
+        ],
+        [
+          93,
+          55,
+          107
+        ]
+      ],
+      "chr": 0,
+      "dv": 31,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_11",
+      "ref": [
+        40,
+        158,
+        63
+      ],
+      "test": [
+        52,
+        205,
+        82
+      ],
+      "raw": [
+        12,
+        47,
+        19
+      ],
+      "l1": 78,
+      "maximum": 47,
+      "normalized": [
+        [
+          39,
+          154,
+          62
+        ],
+        [
+          39,
+          154,
+          62
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_12",
+      "ref": [
+        127,
+        140,
+        152
+      ],
+      "test": [
+        165,
+        182,
+        198
+      ],
+      "raw": [
+        38,
+        42,
+        46
+      ],
+      "l1": 126,
+      "maximum": 46,
+      "normalized": [
+        [
+          77,
+          85,
+          93
+        ],
+        [
+          77,
+          85,
+          93
+        ]
+      ],
+      "chr": 0,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_13",
+      "ref": [
+        151,
+        53,
+        120
+      ],
+      "test": [
+        196,
+        69,
+        156
+      ],
+      "raw": [
+        45,
+        16,
+        36
+      ],
+      "l1": 97,
+      "maximum": 45,
+      "normalized": [
+        [
+          119,
+          42,
+          94
+        ],
+        [
+          119,
+          42,
+          94
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_14",
+      "ref": [
+        82,
+        156,
+        149
+      ],
+      "test": [
+        107,
+        203,
+        194
+      ],
+      "raw": [
+        25,
+        47,
+        45
+      ],
+      "l1": 117,
+      "maximum": 47,
+      "normalized": [
+        [
+          54,
+          103,
+          98
+        ],
+        [
+          54,
+          103,
+          98
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_15",
+      "ref": [
+        71,
+        63,
+        79
+      ],
+      "test": [
+        92,
+        82,
+        103
+      ],
+      "raw": [
+        21,
+        19,
+        24
+      ],
+      "l1": 64,
+      "maximum": 24,
+      "normalized": [
+        [
+          85,
+          75,
+          95
+        ],
+        [
+          85,
+          75,
+          95
+        ]
+      ],
+      "chr": 0,
+      "dv": 24,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_16",
+      "ref": [
+        81,
+        138,
+        43
+      ],
+      "test": [
+        105,
+        179,
+        56
+      ],
+      "raw": [
+        24,
+        41,
+        13
+      ],
+      "l1": 78,
+      "maximum": 41,
+      "normalized": [
+        [
+          79,
+          134,
+          42
+        ],
+        [
+          79,
+          134,
+          42
+        ]
+      ],
+      "chr": 0,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_17",
+      "ref": [
+        60,
+        137,
+        70
+      ],
+      "test": [
+        78,
+        178,
+        91
+      ],
+      "raw": [
+        18,
+        41,
+        21
+      ],
+      "l1": 80,
+      "maximum": 41,
+      "normalized": [
+        [
+          57,
+          131,
+          67
+        ],
+        [
+          57,
+          131,
+          67
+        ]
+      ],
+      "chr": 0,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_18",
+      "ref": [
+        92,
+        78,
+        83
+      ],
+      "test": [
+        120,
+        101,
+        108
+      ],
+      "raw": [
+        28,
+        23,
+        25
+      ],
+      "l1": 76,
+      "maximum": 28,
+      "normalized": [
+        [
+          93,
+          79,
+          84
+        ],
+        [
+          93,
+          78,
+          84
+        ]
+      ],
+      "chr": 1,
+      "dv": 28,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_19",
+      "ref": [
+        71,
+        98,
+        162
+      ],
+      "test": [
+        92,
+        127,
+        211
+      ],
+      "raw": [
+        21,
+        29,
+        49
+      ],
+      "l1": 99,
+      "maximum": 49,
+      "normalized": [
+        [
+          55,
+          75,
+          125
+        ],
+        [
+          55,
+          75,
+          125
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_20",
+      "ref": [
+        150,
+        92,
+        106
+      ],
+      "test": [
+        195,
+        120,
+        138
+      ],
+      "raw": [
+        45,
+        28,
+        32
+      ],
+      "l1": 105,
+      "maximum": 45,
+      "normalized": [
+        [
+          110,
+          67,
+          78
+        ],
+        [
+          110,
+          68,
+          78
+        ]
+      ],
+      "chr": 1,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_21",
+      "ref": [
+        46,
+        116,
+        47
+      ],
+      "test": [
+        60,
+        151,
+        61
+      ],
+      "raw": [
+        14,
+        35,
+        14
+      ],
+      "l1": 63,
+      "maximum": 35,
+      "normalized": [
+        [
+          56,
+          142,
+          57
+        ],
+        [
+          56,
+          142,
+          57
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_22",
+      "ref": [
+        97,
+        96,
+        60
+      ],
+      "test": [
+        126,
+        125,
+        78
+      ],
+      "raw": [
+        29,
+        29,
+        18
+      ],
+      "l1": 76,
+      "maximum": 29,
+      "normalized": [
+        [
+          98,
+          97,
+          60
+        ],
+        [
+          98,
+          97,
+          60
+        ]
+      ],
+      "chr": 0,
+      "dv": 29,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_23",
+      "ref": [
+        82,
+        123,
+        102
+      ],
+      "test": [
+        107,
+        160,
+        133
+      ],
+      "raw": [
+        25,
+        37,
+        31
+      ],
+      "l1": 93,
+      "maximum": 37,
+      "normalized": [
+        [
+          68,
+          102,
+          85
+        ],
+        [
+          68,
+          102,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_24",
+      "ref": [
+        142,
+        63,
+        103
+      ],
+      "test": [
+        185,
+        82,
+        134
+      ],
+      "raw": [
+        43,
+        19,
+        31
+      ],
+      "l1": 93,
+      "maximum": 43,
+      "normalized": [
+        [
+          118,
+          52,
+          85
+        ],
+        [
+          118,
+          52,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_25",
+      "ref": [
+        131,
+        98,
+        53
+      ],
+      "test": [
+        170,
+        127,
+        69
+      ],
+      "raw": [
+        39,
+        29,
+        16
+      ],
+      "l1": 84,
+      "maximum": 39,
+      "normalized": [
+        [
+          118,
+          89,
+          48
+        ],
+        [
+          118,
+          88,
+          48
+        ]
+      ],
+      "chr": 1,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_26",
+      "ref": [
+        88,
+        148,
+        58
+      ],
+      "test": [
+        114,
+        192,
+        75
+      ],
+      "raw": [
+        26,
+        44,
+        17
+      ],
+      "l1": 87,
+      "maximum": 44,
+      "normalized": [
+        [
+          76,
+          128,
+          50
+        ],
+        [
+          76,
+          129,
+          50
+        ]
+      ],
+      "chr": 1,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_27",
+      "ref": [
+        125,
+        110,
+        145
+      ],
+      "test": [
+        162,
+        143,
+        188
+      ],
+      "raw": [
+        37,
+        33,
+        43
+      ],
+      "l1": 113,
+      "maximum": 43,
+      "normalized": [
+        [
+          84,
+          74,
+          97
+        ],
+        [
+          84,
+          74,
+          97
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_28",
+      "ref": [
+        141,
+        102,
+        102
+      ],
+      "test": [
+        183,
+        133,
+        133
+      ],
+      "raw": [
+        42,
+        31,
+        31
+      ],
+      "l1": 104,
+      "maximum": 42,
+      "normalized": [
+        [
+          104,
+          75,
+          75
+        ],
+        [
+          104,
+          76,
+          76
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_29",
+      "ref": [
+        114,
+        121,
+        132
+      ],
+      "test": [
+        148,
+        157,
+        172
+      ],
+      "raw": [
+        34,
+        36,
+        40
+      ],
+      "l1": 110,
+      "maximum": 40,
+      "normalized": [
+        [
+          79,
+          84,
+          92
+        ],
+        [
+          79,
+          84,
+          92
+        ]
+      ],
+      "chr": 0,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_30",
+      "ref": [
+        153,
+        161,
+        130
+      ],
+      "test": [
+        199,
+        209,
+        169
+      ],
+      "raw": [
+        46,
+        48,
+        39
+      ],
+      "l1": 133,
+      "maximum": 48,
+      "normalized": [
+        [
+          88,
+          92,
+          75
+        ],
+        [
+          88,
+          92,
+          75
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_31",
+      "ref": [
+        148,
+        40,
+        128
+      ],
+      "test": [
+        192,
+        52,
+        166
+      ],
+      "raw": [
+        44,
+        12,
+        38
+      ],
+      "l1": 94,
+      "maximum": 44,
+      "normalized": [
+        [
+          119,
+          32,
+          103
+        ],
+        [
+          119,
+          32,
+          103
+        ]
+      ],
+      "chr": 0,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_32",
+      "ref": [
+        54,
+        127,
+        59
+      ],
+      "test": [
+        70,
+        165,
+        77
+      ],
+      "raw": [
+        16,
+        38,
+        18
+      ],
+      "l1": 72,
+      "maximum": 38,
+      "normalized": [
+        [
+          57,
+          135,
+          63
+        ],
+        [
+          57,
+          135,
+          63
+        ]
+      ],
+      "chr": 0,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_33",
+      "ref": [
+        145,
+        136,
+        108
+      ],
+      "test": [
+        188,
+        177,
+        140
+      ],
+      "raw": [
+        43,
+        41,
+        32
+      ],
+      "l1": 116,
+      "maximum": 43,
+      "normalized": [
+        [
+          95,
+          89,
+          71
+        ],
+        [
+          95,
+          89,
+          71
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_34",
+      "ref": [
+        59,
+        150,
+        162
+      ],
+      "test": [
+        77,
+        195,
+        211
+      ],
+      "raw": [
+        18,
+        45,
+        49
+      ],
+      "l1": 112,
+      "maximum": 49,
+      "normalized": [
+        [
+          41,
+          103,
+          111
+        ],
+        [
+          41,
+          103,
+          111
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_35",
+      "ref": [
+        115,
+        100,
+        66
+      ],
+      "test": [
+        150,
+        130,
+        86
+      ],
+      "raw": [
+        35,
+        30,
+        20
+      ],
+      "l1": 85,
+      "maximum": 35,
+      "normalized": [
+        [
+          104,
+          91,
+          60
+        ],
+        [
+          105,
+          91,
+          60
+        ]
+      ],
+      "chr": 1,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_36",
+      "ref": [
+        101,
+        99,
+        62
+      ],
+      "test": [
+        131,
+        129,
+        81
+      ],
+      "raw": [
+        30,
+        30,
+        19
+      ],
+      "l1": 79,
+      "maximum": 30,
+      "normalized": [
+        [
+          98,
+          96,
+          60
+        ],
+        [
+          98,
+          96,
+          61
+        ]
+      ],
+      "chr": 1,
+      "dv": 30,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_37",
+      "ref": [
+        165,
+        67,
+        140
+      ],
+      "test": [
+        214,
+        87,
+        182
+      ],
+      "raw": [
+        49,
+        20,
+        42
+      ],
+      "l1": 111,
+      "maximum": 49,
+      "normalized": [
+        [
+          113,
+          46,
+          96
+        ],
+        [
+          113,
+          46,
+          96
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_38",
+      "ref": [
+        107,
+        44,
+        61
+      ],
+      "test": [
+        139,
+        57,
+        79
+      ],
+      "raw": [
+        32,
+        13,
+        18
+      ],
+      "l1": 63,
+      "maximum": 32,
+      "normalized": [
+        [
+          129,
+          53,
+          73
+        ],
+        [
+          129,
+          53,
+          73
+        ]
+      ],
+      "chr": 0,
+      "dv": 32,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_39",
+      "ref": [
+        123,
+        151,
+        76
+      ],
+      "test": [
+        160,
+        196,
+        99
+      ],
+      "raw": [
+        37,
+        45,
+        23
+      ],
+      "l1": 105,
+      "maximum": 45,
+      "normalized": [
+        [
+          90,
+          110,
+          55
+        ],
+        [
+          90,
+          110,
+          55
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_40",
+      "ref": [
+        90,
+        164,
+        107
+      ],
+      "test": [
+        117,
+        213,
+        139
+      ],
+      "raw": [
+        27,
+        49,
+        32
+      ],
+      "l1": 108,
+      "maximum": 49,
+      "normalized": [
+        [
+          64,
+          116,
+          76
+        ],
+        [
+          64,
+          116,
+          76
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_41",
+      "ref": [
+        131,
+        93,
+        129
+      ],
+      "test": [
+        170,
+        121,
+        168
+      ],
+      "raw": [
+        39,
+        28,
+        39
+      ],
+      "l1": 106,
+      "maximum": 39,
+      "normalized": [
+        [
+          95,
+          67,
+          93
+        ],
+        [
+          94,
+          67,
+          93
+        ]
+      ],
+      "chr": 1,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_42",
+      "ref": [
+        139,
+        122,
+        83
+      ],
+      "test": [
+        181,
+        159,
+        108
+      ],
+      "raw": [
+        42,
+        37,
+        25
+      ],
+      "l1": 104,
+      "maximum": 42,
+      "normalized": [
+        [
+          103,
+          90,
+          62
+        ],
+        [
+          103,
+          91,
+          61
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_43",
+      "ref": [
+        47,
+        55,
+        63
+      ],
+      "test": [
+        61,
+        72,
+        82
+      ],
+      "raw": [
+        14,
+        17,
+        19
+      ],
+      "l1": 50,
+      "maximum": 19,
+      "normalized": [
+        [
+          73,
+          85,
+          97
+        ],
+        [
+          72,
+          85,
+          97
+        ]
+      ],
+      "chr": 1,
+      "dv": 19,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_44",
+      "ref": [
+        72,
+        78,
+        153
+      ],
+      "test": [
+        94,
+        101,
+        199
+      ],
+      "raw": [
+        22,
+        23,
+        46
+      ],
+      "l1": 91,
+      "maximum": 46,
+      "normalized": [
+        [
+          61,
+          66,
+          129
+        ],
+        [
+          61,
+          65,
+          129
+        ]
+      ],
+      "chr": 1,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_45",
+      "ref": [
+        129,
+        81,
+        41
+      ],
+      "test": [
+        168,
+        105,
+        53
+      ],
+      "raw": [
+        39,
+        24,
+        12
+      ],
+      "l1": 75,
+      "maximum": 39,
+      "normalized": [
+        [
+          131,
+          82,
+          42
+        ],
+        [
+          131,
+          82,
+          41
+        ]
+      ],
+      "chr": 1,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_46",
+      "ref": [
+        112,
+        78,
+        84
+      ],
+      "test": [
+        146,
+        101,
+        109
+      ],
+      "raw": [
+        34,
+        23,
+        25
+      ],
+      "l1": 82,
+      "maximum": 34,
+      "normalized": [
+        [
+          104,
+          73,
+          78
+        ],
+        [
+          105,
+          72,
+          78
+        ]
+      ],
+      "chr": 1,
+      "dv": 34,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_47",
+      "ref": [
+        140,
+        84,
+        100
+      ],
+      "test": [
+        182,
+        109,
+        130
+      ],
+      "raw": [
+        42,
+        25,
+        30
+      ],
+      "l1": 97,
+      "maximum": 42,
+      "normalized": [
+        [
+          110,
+          66,
+          79
+        ],
+        [
+          110,
+          66,
+          79
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_48",
+      "ref": [
+        158,
+        151,
+        95
+      ],
+      "test": [
+        205,
+        196,
+        124
+      ],
+      "raw": [
+        47,
+        45,
+        29
+      ],
+      "l1": 121,
+      "maximum": 47,
+      "normalized": [
+        [
+          100,
+          95,
+          60
+        ],
+        [
+          100,
+          95,
+          60
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_49",
+      "ref": [
+        61,
+        149,
+        44
+      ],
+      "test": [
+        79,
+        194,
+        57
+      ],
+      "raw": [
+        18,
+        45,
+        13
+      ],
+      "l1": 76,
+      "maximum": 45,
+      "normalized": [
+        [
+          61,
+          150,
+          44
+        ],
+        [
+          61,
+          150,
+          44
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_50",
+      "ref": [
+        89,
+        127,
+        85
+      ],
+      "test": [
+        116,
+        165,
+        110
+      ],
+      "raw": [
+        27,
+        38,
+        25
+      ],
+      "l1": 90,
+      "maximum": 38,
+      "normalized": [
+        [
+          75,
+          108,
+          72
+        ],
+        [
+          76,
+          108,
+          72
+        ]
+      ],
+      "chr": 1,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_51",
+      "ref": [
+        65,
+        136,
+        137
+      ],
+      "test": [
+        84,
+        177,
+        178
+      ],
+      "raw": [
+        19,
+        41,
+        41
+      ],
+      "l1": 101,
+      "maximum": 41,
+      "normalized": [
+        [
+          49,
+          103,
+          103
+        ],
+        [
+          49,
+          103,
+          103
+        ]
+      ],
+      "chr": 0,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_52",
+      "ref": [
+        109,
+        109,
+        95
+      ],
+      "test": [
+        142,
+        142,
+        124
+      ],
+      "raw": [
+        33,
+        33,
+        29
+      ],
+      "l1": 95,
+      "maximum": 33,
+      "normalized": [
+        [
+          89,
+          89,
+          77
+        ],
+        [
+          89,
+          89,
+          78
+        ]
+      ],
+      "chr": 1,
+      "dv": 33,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_53",
+      "ref": [
+        56,
+        96,
+        162
+      ],
+      "test": [
+        73,
+        125,
+        211
+      ],
+      "raw": [
+        17,
+        29,
+        49
+      ],
+      "l1": 95,
+      "maximum": 49,
+      "normalized": [
+        [
+          45,
+          78,
+          132
+        ],
+        [
+          46,
+          78,
+          132
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_54",
+      "ref": [
+        123,
+        54,
+        104
+      ],
+      "test": [
+        160,
+        70,
+        135
+      ],
+      "raw": [
+        37,
+        16,
+        31
+      ],
+      "l1": 84,
+      "maximum": 37,
+      "normalized": [
+        [
+          112,
+          49,
+          94
+        ],
+        [
+          112,
+          49,
+          94
+        ]
+      ],
+      "chr": 0,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_55",
+      "ref": [
+        106,
+        147,
+        165
+      ],
+      "test": [
+        138,
+        191,
+        214
+      ],
+      "raw": [
+        32,
+        44,
+        49
+      ],
+      "l1": 125,
+      "maximum": 49,
+      "normalized": [
+        [
+          65,
+          90,
+          101
+        ],
+        [
+          65,
+          90,
+          100
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_56",
+      "ref": [
+        105,
+        134,
+        106
+      ],
+      "test": [
+        136,
+        174,
+        138
+      ],
+      "raw": [
+        31,
+        40,
+        32
+      ],
+      "l1": 103,
+      "maximum": 40,
+      "normalized": [
+        [
+          78,
+          99,
+          78
+        ],
+        [
+          77,
+          99,
+          79
+        ]
+      ],
+      "chr": 1,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_57",
+      "ref": [
+        44,
+        60,
+        106
+      ],
+      "test": [
+        57,
+        78,
+        138
+      ],
+      "raw": [
+        13,
+        18,
+        32
+      ],
+      "l1": 63,
+      "maximum": 32,
+      "normalized": [
+        [
+          53,
+          73,
+          129
+        ],
+        [
+          53,
+          73,
+          129
+        ]
+      ],
+      "chr": 0,
+      "dv": 32,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_58",
+      "ref": [
+        144,
+        159,
+        126
+      ],
+      "test": [
+        187,
+        207,
+        164
+      ],
+      "raw": [
+        43,
+        48,
+        38
+      ],
+      "l1": 129,
+      "maximum": 48,
+      "normalized": [
+        [
+          86,
+          95,
+          75
+        ],
+        [
+          85,
+          95,
+          75
+        ]
+      ],
+      "chr": 1,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_59",
+      "ref": [
+        50,
+        120,
+        120
+      ],
+      "test": [
+        65,
+        156,
+        156
+      ],
+      "raw": [
+        15,
+        36,
+        36
+      ],
+      "l1": 87,
+      "maximum": 36,
+      "normalized": [
+        [
+          44,
+          106,
+          106
+        ],
+        [
+          44,
+          106,
+          106
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_60",
+      "ref": [
+        156,
+        101,
+        129
+      ],
+      "test": [
+        203,
+        131,
+        168
+      ],
+      "raw": [
+        47,
+        30,
+        39
+      ],
+      "l1": 116,
+      "maximum": 47,
+      "normalized": [
+        [
+          103,
+          67,
+          85
+        ],
+        [
+          103,
+          67,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_61",
+      "ref": [
+        105,
+        61,
+        121
+      ],
+      "test": [
+        136,
+        79,
+        157
+      ],
+      "raw": [
+        31,
+        18,
+        36
+      ],
+      "l1": 85,
+      "maximum": 36,
+      "normalized": [
+        [
+          93,
+          54,
+          108
+        ],
+        [
+          93,
+          54,
+          108
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_62",
+      "ref": [
+        48,
+        118,
+        77
+      ],
+      "test": [
+        62,
+        153,
+        100
+      ],
+      "raw": [
+        14,
+        35,
+        23
+      ],
+      "l1": 72,
+      "maximum": 35,
+      "normalized": [
+        [
+          50,
+          124,
+          81
+        ],
+        [
+          50,
+          124,
+          81
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_63",
+      "ref": [
+        158,
+        74,
+        83
+      ],
+      "test": [
+        205,
+        96,
+        108
+      ],
+      "raw": [
+        47,
+        22,
+        25
+      ],
+      "l1": 94,
+      "maximum": 47,
+      "normalized": [
+        [
+          128,
+          60,
+          67
+        ],
+        [
+          128,
+          60,
+          67
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_64",
+      "ref": [
+        55,
+        100,
+        163
+      ],
+      "test": [
+        72,
+        130,
+        212
+      ],
+      "raw": [
+        17,
+        30,
+        49
+      ],
+      "l1": 96,
+      "maximum": 49,
+      "normalized": [
+        [
+          44,
+          80,
+          131
+        ],
+        [
+          44,
+          80,
+          131
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_65",
+      "ref": [
+        112,
+        131,
+        63
+      ],
+      "test": [
+        146,
+        170,
+        82
+      ],
+      "raw": [
+        34,
+        39,
+        19
+      ],
+      "l1": 92,
+      "maximum": 39,
+      "normalized": [
+        [
+          93,
+          109,
+          53
+        ],
+        [
+          94,
+          109,
+          53
+        ]
+      ],
+      "chr": 1,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_66",
+      "ref": [
+        115,
+        63,
+        118
+      ],
+      "test": [
+        150,
+        82,
+        153
+      ],
+      "raw": [
+        35,
+        19,
+        35
+      ],
+      "l1": 89,
+      "maximum": 35,
+      "normalized": [
+        [
+          99,
+          54,
+          102
+        ],
+        [
+          99,
+          54,
+          101
+        ]
+      ],
+      "chr": 1,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_67",
+      "ref": [
+        165,
+        40,
+        159
+      ],
+      "test": [
+        214,
+        52,
+        207
+      ],
+      "raw": [
+        49,
+        12,
+        48
+      ],
+      "l1": 109,
+      "maximum": 49,
+      "normalized": [
+        [
+          116,
+          28,
+          111
+        ],
+        [
+          115,
+          28,
+          112
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_68",
+      "ref": [
+        138,
+        91,
+        80
+      ],
+      "test": [
+        179,
+        118,
+        104
+      ],
+      "raw": [
+        41,
+        27,
+        24
+      ],
+      "l1": 92,
+      "maximum": 41,
+      "normalized": [
+        [
+          114,
+          75,
+          66
+        ],
+        [
+          114,
+          75,
+          66
+        ]
+      ],
+      "chr": 0,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_69",
+      "ref": [
+        61,
+        45,
+        114
+      ],
+      "test": [
+        79,
+        58,
+        148
+      ],
+      "raw": [
+        18,
+        13,
+        34
+      ],
+      "l1": 65,
+      "maximum": 34,
+      "normalized": [
+        [
+          71,
+          52,
+          132
+        ],
+        [
+          71,
+          52,
+          132
+        ]
+      ],
+      "chr": 0,
+      "dv": 34,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_70",
+      "ref": [
+        105,
+        161,
+        143
+      ],
+      "test": [
+        136,
+        209,
+        186
+      ],
+      "raw": [
+        31,
+        48,
+        43
+      ],
+      "l1": 122,
+      "maximum": 48,
+      "normalized": [
+        [
+          65,
+          100,
+          89
+        ],
+        [
+          65,
+          100,
+          89
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_71",
+      "ref": [
+        132,
+        111,
+        163
+      ],
+      "test": [
+        172,
+        144,
+        212
+      ],
+      "raw": [
+        40,
+        33,
+        49
+      ],
+      "l1": 122,
+      "maximum": 49,
+      "normalized": [
+        [
+          83,
+          70,
+          102
+        ],
+        [
+          83,
+          70,
+          102
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_72",
+      "ref": [
+        142,
+        164,
+        98
+      ],
+      "test": [
+        185,
+        213,
+        127
+      ],
+      "raw": [
+        43,
+        49,
+        29
+      ],
+      "l1": 121,
+      "maximum": 49,
+      "normalized": [
+        [
+          90,
+          104,
+          62
+        ],
+        [
+          90,
+          103,
+          62
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_73",
+      "ref": [
+        117,
+        102,
+        129
+      ],
+      "test": [
+        152,
+        133,
+        168
+      ],
+      "raw": [
+        35,
+        31,
+        39
+      ],
+      "l1": 105,
+      "maximum": 39,
+      "normalized": [
+        [
+          86,
+          75,
+          95
+        ],
+        [
+          86,
+          75,
+          95
+        ]
+      ],
+      "chr": 0,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_74",
+      "ref": [
+        73,
+        94,
+        150
+      ],
+      "test": [
+        95,
+        122,
+        195
+      ],
+      "raw": [
+        22,
+        28,
+        45
+      ],
+      "l1": 95,
+      "maximum": 45,
+      "normalized": [
+        [
+          59,
+          76,
+          121
+        ],
+        [
+          59,
+          76,
+          121
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_75",
+      "ref": [
+        99,
+        98,
+        160
+      ],
+      "test": [
+        129,
+        127,
+        208
+      ],
+      "raw": [
+        30,
+        29,
+        48
+      ],
+      "l1": 107,
+      "maximum": 48,
+      "normalized": [
+        [
+          71,
+          70,
+          114
+        ],
+        [
+          71,
+          70,
+          114
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_76",
+      "ref": [
+        102,
+        105,
+        59
+      ],
+      "test": [
+        133,
+        136,
+        77
+      ],
+      "raw": [
+        31,
+        31,
+        18
+      ],
+      "l1": 80,
+      "maximum": 31,
+      "normalized": [
+        [
+          98,
+          101,
+          57
+        ],
+        [
+          98,
+          100,
+          57
+        ]
+      ],
+      "chr": 1,
+      "dv": 31,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_77",
+      "ref": [
+        58,
+        48,
+        122
+      ],
+      "test": [
+        75,
+        62,
+        159
+      ],
+      "raw": [
+        17,
+        14,
+        37
+      ],
+      "l1": 68,
+      "maximum": 37,
+      "normalized": [
+        [
+          65,
+          54,
+          136
+        ],
+        [
+          65,
+          53,
+          137
+        ]
+      ],
+      "chr": 1,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_78",
+      "ref": [
+        44,
+        43,
+        150
+      ],
+      "test": [
+        57,
+        56,
+        195
+      ],
+      "raw": [
+        13,
+        13,
+        45
+      ],
+      "l1": 71,
+      "maximum": 45,
+      "normalized": [
+        [
+          47,
+          46,
+          161
+        ],
+        [
+          47,
+          46,
+          161
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_79",
+      "ref": [
+        88,
+        65,
+        157
+      ],
+      "test": [
+        114,
+        84,
+        204
+      ],
+      "raw": [
+        26,
+        19,
+        47
+      ],
+      "l1": 92,
+      "maximum": 47,
+      "normalized": [
+        [
+          72,
+          53,
+          129
+        ],
+        [
+          72,
+          53,
+          129
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_80",
+      "ref": [
+        44,
+        90,
+        44
+      ],
+      "test": [
+        57,
+        117,
+        57
+      ],
+      "raw": [
+        13,
+        27,
+        13
+      ],
+      "l1": 53,
+      "maximum": 27,
+      "normalized": [
+        [
+          63,
+          129,
+          63
+        ],
+        [
+          63,
+          129,
+          63
+        ]
+      ],
+      "chr": 0,
+      "dv": 27,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_81",
+      "ref": [
+        40,
+        107,
+        128
+      ],
+      "test": [
+        52,
+        139,
+        166
+      ],
+      "raw": [
+        12,
+        32,
+        38
+      ],
+      "l1": 82,
+      "maximum": 38,
+      "normalized": [
+        [
+          37,
+          99,
+          119
+        ],
+        [
+          37,
+          99,
+          119
+        ]
+      ],
+      "chr": 0,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_82",
+      "ref": [
+        142,
+        134,
+        99
+      ],
+      "test": [
+        185,
+        174,
+        129
+      ],
+      "raw": [
+        43,
+        40,
+        30
+      ],
+      "l1": 113,
+      "maximum": 43,
+      "normalized": [
+        [
+          97,
+          91,
+          67
+        ],
+        [
+          97,
+          91,
+          67
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_83",
+      "ref": [
+        49,
+        58,
+        123
+      ],
+      "test": [
+        64,
+        75,
+        160
+      ],
+      "raw": [
+        15,
+        17,
+        37
+      ],
+      "l1": 69,
+      "maximum": 37,
+      "normalized": [
+        [
+          54,
+          64,
+          136
+        ],
+        [
+          55,
+          64,
+          136
+        ]
+      ],
+      "chr": 1,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_84",
+      "ref": [
+        144,
+        100,
+        108
+      ],
+      "test": [
+        187,
+        130,
+        140
+      ],
+      "raw": [
+        43,
+        30,
+        32
+      ],
+      "l1": 105,
+      "maximum": 43,
+      "normalized": [
+        [
+          104,
+          72,
+          78
+        ],
+        [
+          104,
+          73,
+          78
+        ]
+      ],
+      "chr": 1,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_85",
+      "ref": [
+        147,
+        85,
+        120
+      ],
+      "test": [
+        191,
+        110,
+        156
+      ],
+      "raw": [
+        44,
+        25,
+        36
+      ],
+      "l1": 105,
+      "maximum": 44,
+      "normalized": [
+        [
+          106,
+          62,
+          87
+        ],
+        [
+          107,
+          61,
+          87
+        ]
+      ],
+      "chr": 1,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_86",
+      "ref": [
+        153,
+        123,
+        108
+      ],
+      "test": [
+        199,
+        160,
+        140
+      ],
+      "raw": [
+        46,
+        37,
+        32
+      ],
+      "l1": 115,
+      "maximum": 46,
+      "normalized": [
+        [
+          102,
+          82,
+          72
+        ],
+        [
+          102,
+          82,
+          72
+        ]
+      ],
+      "chr": 0,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_87",
+      "ref": [
+        123,
+        141,
+        130
+      ],
+      "test": [
+        160,
+        183,
+        169
+      ],
+      "raw": [
+        37,
+        42,
+        39
+      ],
+      "l1": 118,
+      "maximum": 42,
+      "normalized": [
+        [
+          80,
+          91,
+          84
+        ],
+        [
+          80,
+          91,
+          84
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_88",
+      "ref": [
+        159,
+        75,
+        55
+      ],
+      "test": [
+        207,
+        98,
+        72
+      ],
+      "raw": [
+        48,
+        23,
+        17
+      ],
+      "l1": 88,
+      "maximum": 48,
+      "normalized": [
+        [
+          140,
+          66,
+          49
+        ],
+        [
+          140,
+          66,
+          49
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_89",
+      "ref": [
+        109,
+        54,
+        162
+      ],
+      "test": [
+        142,
+        70,
+        211
+      ],
+      "raw": [
+        33,
+        16,
+        49
+      ],
+      "l1": 98,
+      "maximum": 49,
+      "normalized": [
+        [
+          86,
+          42,
+          127
+        ],
+        [
+          86,
+          42,
+          127
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_90",
+      "ref": [
+        135,
+        88,
+        69
+      ],
+      "test": [
+        176,
+        114,
+        90
+      ],
+      "raw": [
+        41,
+        26,
+        21
+      ],
+      "l1": 88,
+      "maximum": 41,
+      "normalized": [
+        [
+          118,
+          77,
+          60
+        ],
+        [
+          118,
+          77,
+          60
+        ]
+      ],
+      "chr": 0,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_91",
+      "ref": [
+        49,
+        140,
+        69
+      ],
+      "test": [
+        64,
+        182,
+        90
+      ],
+      "raw": [
+        15,
+        42,
+        21
+      ],
+      "l1": 78,
+      "maximum": 42,
+      "normalized": [
+        [
+          48,
+          138,
+          68
+        ],
+        [
+          49,
+          138,
+          68
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_92",
+      "ref": [
+        79,
+        144,
+        116
+      ],
+      "test": [
+        103,
+        187,
+        151
+      ],
+      "raw": [
+        24,
+        43,
+        35
+      ],
+      "l1": 102,
+      "maximum": 43,
+      "normalized": [
+        [
+          59,
+          108,
+          87
+        ],
+        [
+          60,
+          108,
+          87
+        ]
+      ],
+      "chr": 1,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_93",
+      "ref": [
+        102,
+        121,
+        41
+      ],
+      "test": [
+        133,
+        157,
+        53
+      ],
+      "raw": [
+        31,
+        36,
+        12
+      ],
+      "l1": 79,
+      "maximum": 36,
+      "normalized": [
+        [
+          99,
+          117,
+          40
+        ],
+        [
+          99,
+          117,
+          39
+        ]
+      ],
+      "chr": 1,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_94",
+      "ref": [
+        63,
+        67,
+        44
+      ],
+      "test": [
+        82,
+        87,
+        57
+      ],
+      "raw": [
+        19,
+        20,
+        13
+      ],
+      "l1": 52,
+      "maximum": 20,
+      "normalized": [
+        [
+          92,
+          98,
+          64
+        ],
+        [
+          93,
+          98,
+          64
+        ]
+      ],
+      "chr": 1,
+      "dv": 20,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_95",
+      "ref": [
+        58,
+        134,
+        46
+      ],
+      "test": [
+        75,
+        174,
+        60
+      ],
+      "raw": [
+        17,
+        40,
+        14
+      ],
+      "l1": 71,
+      "maximum": 40,
+      "normalized": [
+        [
+          62,
+          144,
+          49
+        ],
+        [
+          62,
+          144,
+          50
+        ]
+      ],
+      "chr": 1,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_96",
+      "ref": [
+        102,
+        150,
+        146
+      ],
+      "test": [
+        133,
+        195,
+        190
+      ],
+      "raw": [
+        31,
+        45,
+        44
+      ],
+      "l1": 120,
+      "maximum": 45,
+      "normalized": [
+        [
+          65,
+          96,
+          94
+        ],
+        [
+          65,
+          96,
+          94
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_97",
+      "ref": [
+        89,
+        86,
+        62
+      ],
+      "test": [
+        116,
+        112,
+        81
+      ],
+      "raw": [
+        27,
+        26,
+        19
+      ],
+      "l1": 72,
+      "maximum": 27,
+      "normalized": [
+        [
+          96,
+          93,
+          67
+        ],
+        [
+          96,
+          92,
+          67
+        ]
+      ],
+      "chr": 1,
+      "dv": 27,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_98",
+      "ref": [
+        44,
+        100,
+        75
+      ],
+      "test": [
+        57,
+        130,
+        98
+      ],
+      "raw": [
+        13,
+        30,
+        23
+      ],
+      "l1": 66,
+      "maximum": 30,
+      "normalized": [
+        [
+          51,
+          116,
+          87
+        ],
+        [
+          51,
+          116,
+          88
+        ]
+      ],
+      "chr": 1,
+      "dv": 30,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_99",
+      "ref": [
+        159,
+        149,
+        90
+      ],
+      "test": [
+        207,
+        194,
+        117
+      ],
+      "raw": [
+        48,
+        45,
+        27
+      ],
+      "l1": 120,
+      "maximum": 48,
+      "normalized": [
+        [
+          102,
+          95,
+          58
+        ],
+        [
+          102,
+          96,
+          58
+        ]
+      ],
+      "chr": 1,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_100",
+      "ref": [
+        140,
+        92,
+        42
+      ],
+      "test": [
+        182,
+        120,
+        55
+      ],
+      "raw": [
+        42,
+        28,
+        13
+      ],
+      "l1": 83,
+      "maximum": 42,
+      "normalized": [
+        [
+          130,
+          86,
+          39
+        ],
+        [
+          130,
+          86,
+          39
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_101",
+      "ref": [
+        75,
+        143,
+        104
+      ],
+      "test": [
+        98,
+        186,
+        135
+      ],
+      "raw": [
+        23,
+        43,
+        31
+      ],
+      "l1": 97,
+      "maximum": 43,
+      "normalized": [
+        [
+          59,
+          113,
+          82
+        ],
+        [
+          60,
+          113,
+          82
+        ]
+      ],
+      "chr": 1,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_102",
+      "ref": [
+        44,
+        165,
+        106
+      ],
+      "test": [
+        57,
+        214,
+        138
+      ],
+      "raw": [
+        13,
+        49,
+        32
+      ],
+      "l1": 94,
+      "maximum": 49,
+      "normalized": [
+        [
+          36,
+          134,
+          86
+        ],
+        [
+          36,
+          133,
+          86
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_103",
+      "ref": [
+        80,
+        79,
+        121
+      ],
+      "test": [
+        104,
+        103,
+        157
+      ],
+      "raw": [
+        24,
+        24,
+        36
+      ],
+      "l1": 84,
+      "maximum": 36,
+      "normalized": [
+        [
+          73,
+          72,
+          110
+        ],
+        [
+          73,
+          72,
+          110
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_104",
+      "ref": [
+        165,
+        135,
+        44
+      ],
+      "test": [
+        214,
+        176,
+        57
+      ],
+      "raw": [
+        49,
+        41,
+        13
+      ],
+      "l1": 103,
+      "maximum": 49,
+      "normalized": [
+        [
+          122,
+          100,
+          33
+        ],
+        [
+          122,
+          100,
+          33
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_105",
+      "ref": [
+        61,
+        61,
+        132
+      ],
+      "test": [
+        79,
+        79,
+        172
+      ],
+      "raw": [
+        18,
+        18,
+        40
+      ],
+      "l1": 76,
+      "maximum": 40,
+      "normalized": [
+        [
+          61,
+          61,
+          133
+        ],
+        [
+          61,
+          61,
+          133
+        ]
+      ],
+      "chr": 0,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_106",
+      "ref": [
+        86,
+        113,
+        112
+      ],
+      "test": [
+        112,
+        147,
+        146
+      ],
+      "raw": [
+        26,
+        34,
+        34
+      ],
+      "l1": 94,
+      "maximum": 34,
+      "normalized": [
+        [
+          71,
+          93,
+          92
+        ],
+        [
+          71,
+          93,
+          92
+        ]
+      ],
+      "chr": 0,
+      "dv": 34,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_107",
+      "ref": [
+        123,
+        164,
+        154
+      ],
+      "test": [
+        160,
+        213,
+        200
+      ],
+      "raw": [
+        37,
+        49,
+        46
+      ],
+      "l1": 132,
+      "maximum": 49,
+      "normalized": [
+        [
+          71,
+          95,
+          89
+        ],
+        [
+          71,
+          95,
+          89
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_108",
+      "ref": [
+        107,
+        116,
+        52
+      ],
+      "test": [
+        139,
+        151,
+        68
+      ],
+      "raw": [
+        32,
+        35,
+        16
+      ],
+      "l1": 83,
+      "maximum": 35,
+      "normalized": [
+        [
+          99,
+          108,
+          48
+        ],
+        [
+          99,
+          108,
+          48
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_109",
+      "ref": [
+        151,
+        99,
+        102
+      ],
+      "test": [
+        196,
+        129,
+        133
+      ],
+      "raw": [
+        45,
+        30,
+        31
+      ],
+      "l1": 106,
+      "maximum": 45,
+      "normalized": [
+        [
+          109,
+          72,
+          74
+        ],
+        [
+          109,
+          72,
+          74
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_110",
+      "ref": [
+        109,
+        43,
+        116
+      ],
+      "test": [
+        142,
+        56,
+        151
+      ],
+      "raw": [
+        33,
+        13,
+        35
+      ],
+      "l1": 81,
+      "maximum": 35,
+      "normalized": [
+        [
+          104,
+          41,
+          110
+        ],
+        [
+          104,
+          41,
+          110
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_111",
+      "ref": [
+        47,
+        161,
+        60
+      ],
+      "test": [
+        61,
+        209,
+        78
+      ],
+      "raw": [
+        14,
+        48,
+        18
+      ],
+      "l1": 80,
+      "maximum": 48,
+      "normalized": [
+        [
+          45,
+          153,
+          57
+        ],
+        [
+          45,
+          153,
+          57
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_112",
+      "ref": [
+        104,
+        142,
+        48
+      ],
+      "test": [
+        135,
+        185,
+        62
+      ],
+      "raw": [
+        31,
+        43,
+        14
+      ],
+      "l1": 88,
+      "maximum": 43,
+      "normalized": [
+        [
+          90,
+          123,
+          42
+        ],
+        [
+          90,
+          123,
+          41
+        ]
+      ],
+      "chr": 1,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_113",
+      "ref": [
+        122,
+        150,
+        150
+      ],
+      "test": [
+        159,
+        195,
+        195
+      ],
+      "raw": [
+        37,
+        45,
+        45
+      ],
+      "l1": 127,
+      "maximum": 45,
+      "normalized": [
+        [
+          74,
+          91,
+          91
+        ],
+        [
+          74,
+          91,
+          91
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_114",
+      "ref": [
+        76,
+        59,
+        162
+      ],
+      "test": [
+        99,
+        77,
+        211
+      ],
+      "raw": [
+        23,
+        18,
+        49
+      ],
+      "l1": 90,
+      "maximum": 49,
+      "normalized": [
+        [
+          65,
+          51,
+          139
+        ],
+        [
+          65,
+          51,
+          139
+        ]
+      ],
+      "chr": 0,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_115",
+      "ref": [
+        101,
+        99,
+        122
+      ],
+      "test": [
+        131,
+        129,
+        159
+      ],
+      "raw": [
+        30,
+        30,
+        37
+      ],
+      "l1": 97,
+      "maximum": 37,
+      "normalized": [
+        [
+          80,
+          78,
+          97
+        ],
+        [
+          80,
+          79,
+          97
+        ]
+      ],
+      "chr": 1,
+      "dv": 37,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_116",
+      "ref": [
+        96,
+        139,
+        89
+      ],
+      "test": [
+        125,
+        181,
+        116
+      ],
+      "raw": [
+        29,
+        42,
+        27
+      ],
+      "l1": 98,
+      "maximum": 42,
+      "normalized": [
+        [
+          76,
+          109,
+          70
+        ],
+        [
+          76,
+          109,
+          70
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_117",
+      "ref": [
+        126,
+        110,
+        72
+      ],
+      "test": [
+        164,
+        143,
+        94
+      ],
+      "raw": [
+        38,
+        33,
+        22
+      ],
+      "l1": 93,
+      "maximum": 38,
+      "normalized": [
+        [
+          104,
+          91,
+          60
+        ],
+        [
+          104,
+          91,
+          60
+        ]
+      ],
+      "chr": 0,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_118",
+      "ref": [
+        113,
+        74,
+        119
+      ],
+      "test": [
+        147,
+        96,
+        155
+      ],
+      "raw": [
+        34,
+        22,
+        36
+      ],
+      "l1": 92,
+      "maximum": 36,
+      "normalized": [
+        [
+          94,
+          62,
+          99
+        ],
+        [
+          94,
+          62,
+          99
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_119",
+      "ref": [
+        93,
+        142,
+        89
+      ],
+      "test": [
+        121,
+        185,
+        116
+      ],
+      "raw": [
+        28,
+        43,
+        27
+      ],
+      "l1": 98,
+      "maximum": 43,
+      "normalized": [
+        [
+          73,
+          112,
+          70
+        ],
+        [
+          73,
+          112,
+          70
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_120",
+      "ref": [
+        130,
+        96,
+        93
+      ],
+      "test": [
+        169,
+        125,
+        121
+      ],
+      "raw": [
+        39,
+        29,
+        28
+      ],
+      "l1": 96,
+      "maximum": 39,
+      "normalized": [
+        [
+          104,
+          77,
+          74
+        ],
+        [
+          104,
+          77,
+          74
+        ]
+      ],
+      "chr": 0,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_121",
+      "ref": [
+        138,
+        159,
+        160
+      ],
+      "test": [
+        179,
+        207,
+        208
+      ],
+      "raw": [
+        41,
+        48,
+        48
+      ],
+      "l1": 137,
+      "maximum": 48,
+      "normalized": [
+        [
+          77,
+          89,
+          89
+        ],
+        [
+          77,
+          89,
+          89
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_122",
+      "ref": [
+        142,
+        157,
+        140
+      ],
+      "test": [
+        185,
+        204,
+        182
+      ],
+      "raw": [
+        43,
+        47,
+        42
+      ],
+      "l1": 132,
+      "maximum": 47,
+      "normalized": [
+        [
+          82,
+          91,
+          81
+        ],
+        [
+          83,
+          91,
+          81
+        ]
+      ],
+      "chr": 1,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_123",
+      "ref": [
+        104,
+        150,
+        134
+      ],
+      "test": [
+        135,
+        195,
+        174
+      ],
+      "raw": [
+        31,
+        45,
+        40
+      ],
+      "l1": 116,
+      "maximum": 45,
+      "normalized": [
+        [
+          68,
+          99,
+          88
+        ],
+        [
+          68,
+          99,
+          88
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_124",
+      "ref": [
+        93,
+        155,
+        56
+      ],
+      "test": [
+        121,
+        202,
+        73
+      ],
+      "raw": [
+        28,
+        47,
+        17
+      ],
+      "l1": 92,
+      "maximum": 47,
+      "normalized": [
+        [
+          78,
+          130,
+          47
+        ],
+        [
+          78,
+          130,
+          47
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_125",
+      "ref": [
+        142,
+        147,
+        124
+      ],
+      "test": [
+        185,
+        191,
+        161
+      ],
+      "raw": [
+        43,
+        44,
+        37
+      ],
+      "l1": 124,
+      "maximum": 44,
+      "normalized": [
+        [
+          88,
+          91,
+          77
+        ],
+        [
+          88,
+          91,
+          76
+        ]
+      ],
+      "chr": 1,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_126",
+      "ref": [
+        131,
+        157,
+        42
+      ],
+      "test": [
+        170,
+        204,
+        55
+      ],
+      "raw": [
+        39,
+        47,
+        13
+      ],
+      "l1": 99,
+      "maximum": 47,
+      "normalized": [
+        [
+          101,
+          121,
+          32
+        ],
+        [
+          101,
+          121,
+          33
+        ]
+      ],
+      "chr": 1,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_127",
+      "ref": [
+        67,
+        159,
+        154
+      ],
+      "test": [
+        87,
+        207,
+        200
+      ],
+      "raw": [
+        20,
+        48,
+        46
+      ],
+      "l1": 114,
+      "maximum": 48,
+      "normalized": [
+        [
+          45,
+          107,
+          103
+        ],
+        [
+          45,
+          107,
+          103
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_128",
+      "ref": [
+        141,
+        82,
+        80
+      ],
+      "test": [
+        183,
+        107,
+        104
+      ],
+      "raw": [
+        42,
+        25,
+        24
+      ],
+      "l1": 91,
+      "maximum": 42,
+      "normalized": [
+        [
+          119,
+          69,
+          67
+        ],
+        [
+          118,
+          69,
+          67
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_129",
+      "ref": [
+        103,
+        129,
+        92
+      ],
+      "test": [
+        134,
+        168,
+        120
+      ],
+      "raw": [
+        31,
+        39,
+        28
+      ],
+      "l1": 98,
+      "maximum": 39,
+      "normalized": [
+        [
+          81,
+          102,
+          72
+        ],
+        [
+          81,
+          102,
+          73
+        ]
+      ],
+      "chr": 1,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_130",
+      "ref": [
+        149,
+        82,
+        80
+      ],
+      "test": [
+        194,
+        107,
+        104
+      ],
+      "raw": [
+        45,
+        25,
+        24
+      ],
+      "l1": 94,
+      "maximum": 45,
+      "normalized": [
+        [
+          122,
+          67,
+          66
+        ],
+        [
+          122,
+          67,
+          65
+        ]
+      ],
+      "chr": 1,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_131",
+      "ref": [
+        48,
+        61,
+        47
+      ],
+      "test": [
+        62,
+        79,
+        61
+      ],
+      "raw": [
+        14,
+        18,
+        14
+      ],
+      "l1": 46,
+      "maximum": 18,
+      "normalized": [
+        [
+          78,
+          100,
+          77
+        ],
+        [
+          78,
+          100,
+          77
+        ]
+      ],
+      "chr": 0,
+      "dv": 18,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_132",
+      "ref": [
+        106,
+        133,
+        154
+      ],
+      "test": [
+        138,
+        173,
+        200
+      ],
+      "raw": [
+        32,
+        40,
+        46
+      ],
+      "l1": 118,
+      "maximum": 46,
+      "normalized": [
+        [
+          69,
+          86,
+          100
+        ],
+        [
+          69,
+          86,
+          100
+        ]
+      ],
+      "chr": 0,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_133",
+      "ref": [
+        126,
+        120,
+        110
+      ],
+      "test": [
+        164,
+        156,
+        143
+      ],
+      "raw": [
+        38,
+        36,
+        33
+      ],
+      "l1": 107,
+      "maximum": 38,
+      "normalized": [
+        [
+          90,
+          86,
+          79
+        ],
+        [
+          90,
+          86,
+          79
+        ]
+      ],
+      "chr": 0,
+      "dv": 38,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_134",
+      "ref": [
+        145,
+        44,
+        152
+      ],
+      "test": [
+        188,
+        57,
+        198
+      ],
+      "raw": [
+        43,
+        13,
+        46
+      ],
+      "l1": 102,
+      "maximum": 46,
+      "normalized": [
+        [
+          108,
+          33,
+          114
+        ],
+        [
+          108,
+          33,
+          114
+        ]
+      ],
+      "chr": 0,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_135",
+      "ref": [
+        120,
+        60,
+        82
+      ],
+      "test": [
+        156,
+        78,
+        107
+      ],
+      "raw": [
+        36,
+        18,
+        25
+      ],
+      "l1": 79,
+      "maximum": 36,
+      "normalized": [
+        [
+          117,
+          58,
+          80
+        ],
+        [
+          117,
+          58,
+          80
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_136",
+      "ref": [
+        61,
+        47,
+        90
+      ],
+      "test": [
+        79,
+        61,
+        117
+      ],
+      "raw": [
+        18,
+        14,
+        27
+      ],
+      "l1": 59,
+      "maximum": 27,
+      "normalized": [
+        [
+          79,
+          61,
+          116
+        ],
+        [
+          78,
+          61,
+          116
+        ]
+      ],
+      "chr": 1,
+      "dv": 27,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_137",
+      "ref": [
+        80,
+        161,
+        112
+      ],
+      "test": [
+        104,
+        209,
+        146
+      ],
+      "raw": [
+        24,
+        48,
+        34
+      ],
+      "l1": 106,
+      "maximum": 48,
+      "normalized": [
+        [
+          58,
+          116,
+          81
+        ],
+        [
+          58,
+          116,
+          81
+        ]
+      ],
+      "chr": 0,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_138",
+      "ref": [
+        84,
+        141,
+        81
+      ],
+      "test": [
+        109,
+        183,
+        105
+      ],
+      "raw": [
+        25,
+        42,
+        24
+      ],
+      "l1": 91,
+      "maximum": 42,
+      "normalized": [
+        [
+          70,
+          118,
+          68
+        ],
+        [
+          70,
+          118,
+          67
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_139",
+      "ref": [
+        79,
+        49,
+        160
+      ],
+      "test": [
+        103,
+        64,
+        208
+      ],
+      "raw": [
+        24,
+        15,
+        48
+      ],
+      "l1": 87,
+      "maximum": 48,
+      "normalized": [
+        [
+          70,
+          43,
+          142
+        ],
+        [
+          70,
+          44,
+          141
+        ]
+      ],
+      "chr": 1,
+      "dv": 48,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_140",
+      "ref": [
+        115,
+        83,
+        44
+      ],
+      "test": [
+        150,
+        108,
+        57
+      ],
+      "raw": [
+        35,
+        25,
+        13
+      ],
+      "l1": 73,
+      "maximum": 35,
+      "normalized": [
+        [
+          121,
+          87,
+          46
+        ],
+        [
+          121,
+          87,
+          46
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_141",
+      "ref": [
+        71,
+        140,
+        139
+      ],
+      "test": [
+        92,
+        182,
+        181
+      ],
+      "raw": [
+        21,
+        42,
+        42
+      ],
+      "l1": 105,
+      "maximum": 42,
+      "normalized": [
+        [
+          52,
+          102,
+          101
+        ],
+        [
+          52,
+          102,
+          101
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_142",
+      "ref": [
+        140,
+        59,
+        126
+      ],
+      "test": [
+        182,
+        77,
+        164
+      ],
+      "raw": [
+        42,
+        18,
+        38
+      ],
+      "l1": 98,
+      "maximum": 42,
+      "normalized": [
+        [
+          110,
+          46,
+          99
+        ],
+        [
+          110,
+          46,
+          99
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_143",
+      "ref": [
+        113,
+        130,
+        121
+      ],
+      "test": [
+        147,
+        169,
+        157
+      ],
+      "raw": [
+        34,
+        39,
+        36
+      ],
+      "l1": 109,
+      "maximum": 39,
+      "normalized": [
+        [
+          79,
+          91,
+          85
+        ],
+        [
+          79,
+          91,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_144",
+      "ref": [
+        112,
+        77,
+        140
+      ],
+      "test": [
+        146,
+        100,
+        182
+      ],
+      "raw": [
+        34,
+        23,
+        42
+      ],
+      "l1": 99,
+      "maximum": 42,
+      "normalized": [
+        [
+          87,
+          60,
+          109
+        ],
+        [
+          87,
+          60,
+          108
+        ]
+      ],
+      "chr": 1,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_145",
+      "ref": [
+        66,
+        139,
+        44
+      ],
+      "test": [
+        86,
+        181,
+        57
+      ],
+      "raw": [
+        20,
+        42,
+        13
+      ],
+      "l1": 75,
+      "maximum": 42,
+      "normalized": [
+        [
+          68,
+          142,
+          45
+        ],
+        [
+          68,
+          142,
+          45
+        ]
+      ],
+      "chr": 0,
+      "dv": 42,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_146",
+      "ref": [
+        106,
+        120,
+        113
+      ],
+      "test": [
+        138,
+        156,
+        147
+      ],
+      "raw": [
+        32,
+        36,
+        34
+      ],
+      "l1": 102,
+      "maximum": 36,
+      "normalized": [
+        [
+          80,
+          90,
+          85
+        ],
+        [
+          80,
+          90,
+          85
+        ]
+      ],
+      "chr": 0,
+      "dv": 36,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_147",
+      "ref": [
+        83,
+        162,
+        60
+      ],
+      "test": [
+        108,
+        211,
+        78
+      ],
+      "raw": [
+        25,
+        49,
+        18
+      ],
+      "l1": 92,
+      "maximum": 49,
+      "normalized": [
+        [
+          69,
+          135,
+          50
+        ],
+        [
+          69,
+          136,
+          50
+        ]
+      ],
+      "chr": 1,
+      "dv": 49,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_148",
+      "ref": [
+        131,
+        82,
+        91
+      ],
+      "test": [
+        170,
+        107,
+        118
+      ],
+      "raw": [
+        39,
+        25,
+        27
+      ],
+      "l1": 91,
+      "maximum": 39,
+      "normalized": [
+        [
+          110,
+          69,
+          76
+        ],
+        [
+          110,
+          69,
+          76
+        ]
+      ],
+      "chr": 0,
+      "dv": 39,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_149",
+      "ref": [
+        79,
+        144,
+        95
+      ],
+      "test": [
+        103,
+        187,
+        124
+      ],
+      "raw": [
+        24,
+        43,
+        29
+      ],
+      "l1": 96,
+      "maximum": 43,
+      "normalized": [
+        [
+          63,
+          115,
+          76
+        ],
+        [
+          63,
+          115,
+          76
+        ]
+      ],
+      "chr": 0,
+      "dv": 43,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_150",
+      "ref": [
+        92,
+        115,
+        133
+      ],
+      "test": [
+        120,
+        150,
+        173
+      ],
+      "raw": [
+        28,
+        35,
+        40
+      ],
+      "l1": 103,
+      "maximum": 40,
+      "normalized": [
+        [
+          69,
+          86,
+          100
+        ],
+        [
+          69,
+          86,
+          100
+        ]
+      ],
+      "chr": 0,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_151",
+      "ref": [
+        46,
+        155,
+        144
+      ],
+      "test": [
+        60,
+        202,
+        187
+      ],
+      "raw": [
+        14,
+        47,
+        43
+      ],
+      "l1": 104,
+      "maximum": 47,
+      "normalized": [
+        [
+          34,
+          115,
+          106
+        ],
+        [
+          34,
+          115,
+          106
+        ]
+      ],
+      "chr": 0,
+      "dv": 47,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_152",
+      "ref": [
+        87,
+        138,
+        89
+      ],
+      "test": [
+        113,
+        179,
+        116
+      ],
+      "raw": [
+        26,
+        41,
+        27
+      ],
+      "l1": 94,
+      "maximum": 41,
+      "normalized": [
+        [
+          71,
+          112,
+          72
+        ],
+        [
+          71,
+          112,
+          73
+        ]
+      ],
+      "chr": 1,
+      "dv": 41,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_153",
+      "ref": [
+        50,
+        56,
+        97
+      ],
+      "test": [
+        65,
+        73,
+        126
+      ],
+      "raw": [
+        15,
+        17,
+        29
+      ],
+      "l1": 61,
+      "maximum": 29,
+      "normalized": [
+        [
+          63,
+          70,
+          122
+        ],
+        [
+          63,
+          71,
+          122
+        ]
+      ],
+      "chr": 1,
+      "dv": 29,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_154",
+      "ref": [
+        58,
+        78,
+        148
+      ],
+      "test": [
+        75,
+        101,
+        192
+      ],
+      "raw": [
+        17,
+        23,
+        44
+      ],
+      "l1": 84,
+      "maximum": 44,
+      "normalized": [
+        [
+          52,
+          70,
+          133
+        ],
+        [
+          52,
+          70,
+          133
+        ]
+      ],
+      "chr": 0,
+      "dv": 44,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_155",
+      "ref": [
+        85,
+        98,
+        66
+      ],
+      "test": [
+        110,
+        127,
+        86
+      ],
+      "raw": [
+        25,
+        29,
+        20
+      ],
+      "l1": 74,
+      "maximum": 29,
+      "normalized": [
+        [
+          87,
+          100,
+          68
+        ],
+        [
+          87,
+          100,
+          68
+        ]
+      ],
+      "chr": 0,
+      "dv": 29,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_156",
+      "ref": [
+        115,
+        97,
+        59
+      ],
+      "test": [
+        150,
+        126,
+        77
+      ],
+      "raw": [
+        35,
+        29,
+        18
+      ],
+      "l1": 82,
+      "maximum": 35,
+      "normalized": [
+        [
+          108,
+          91,
+          56
+        ],
+        [
+          108,
+          91,
+          56
+        ]
+      ],
+      "chr": 0,
+      "dv": 35,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_157",
+      "ref": [
+        108,
+        133,
+        124
+      ],
+      "test": [
+        140,
+        173,
+        161
+      ],
+      "raw": [
+        32,
+        40,
+        37
+      ],
+      "l1": 109,
+      "maximum": 40,
+      "normalized": [
+        [
+          75,
+          93,
+          87
+        ],
+        [
+          75,
+          93,
+          87
+        ]
+      ],
+      "chr": 0,
+      "dv": 40,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_158",
+      "ref": [
+        150,
+        130,
+        44
+      ],
+      "test": [
+        195,
+        169,
+        57
+      ],
+      "raw": [
+        45,
+        39,
+        13
+      ],
+      "l1": 97,
+      "maximum": 45,
+      "normalized": [
+        [
+          118,
+          102,
+          35
+        ],
+        [
+          118,
+          102,
+          35
+        ]
+      ],
+      "chr": 0,
+      "dv": 45,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "shading_159",
+      "ref": [
+        93,
+        152,
+        79
+      ],
+      "test": [
+        121,
+        198,
+        103
+      ],
+      "raw": [
+        28,
+        46,
+        24
+      ],
+      "l1": 98,
+      "maximum": 46,
+      "normalized": [
+        [
+          73,
+          120,
+          62
+        ],
+        [
+          73,
+          120,
+          62
+        ]
+      ],
+      "chr": 0,
+      "dv": 46,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "random_0",
+      "ref": [
+        176,
+        95,
+        25
+      ],
+      "test": [
+        116,
+        28,
+        65
+      ],
+      "raw": [
+        60,
+        67,
+        40
+      ],
+      "l1": 167,
+      "maximum": 67,
+      "normalized": [
+        [
+          152,
+          82,
+          22
+        ],
+        [
+          142,
+          34,
+          79
+        ]
+      ],
+      "chr": 57,
+      "dv": 60,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_1",
+      "ref": [
+        174,
+        184,
+        61
+      ],
+      "test": [
+        130,
+        222,
+        208
+      ],
+      "raw": [
+        44,
+        38,
+        147
+      ],
+      "l1": 229,
+      "maximum": 147,
+      "normalized": [
+        [
+          106,
+          112,
+          37
+        ],
+        [
+          59,
+          101,
+          95
+        ]
+      ],
+      "chr": 58,
+      "dv": 38,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_2",
+      "ref": [
+        122,
+        172,
+        62
+      ],
+      "test": [
+        163,
+        225,
+        66
+      ],
+      "raw": [
+        41,
+        53,
+        4
+      ],
+      "l1": 98,
+      "maximum": 53,
+      "normalized": [
+        [
+          87,
+          123,
+          44
+        ],
+        [
+          92,
+          126,
+          37
+        ]
+      ],
+      "chr": 7,
+      "dv": 53,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_3",
+      "ref": [
+        193,
+        26,
+        252
+      ],
+      "test": [
+        191,
+        29,
+        118
+      ],
+      "raw": [
+        2,
+        3,
+        134
+      ],
+      "l1": 139,
+      "maximum": 134,
+      "normalized": [
+        [
+          104,
+          14,
+          136
+        ],
+        [
+          144,
+          22,
+          89
+        ]
+      ],
+      "chr": 47,
+      "dv": 61,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_4",
+      "ref": [
+        153,
+        54,
+        143
+      ],
+      "test": [
+        252,
+        92,
+        0
+      ],
+      "raw": [
+        99,
+        38,
+        143
+      ],
+      "l1": 280,
+      "maximum": 143,
+      "normalized": [
+        [
+          111,
+          39,
+          104
+        ],
+        [
+          187,
+          68,
+          0
+        ]
+      ],
+      "chr": 104,
+      "dv": 99,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_5",
+      "ref": [
+        5,
+        186,
+        41
+      ],
+      "test": [
+        161,
+        87,
+        222
+      ],
+      "raw": [
+        156,
+        99,
+        181
+      ],
+      "l1": 436,
+      "maximum": 181,
+      "normalized": [
+        [
+          5,
+          204,
+          45
+        ],
+        [
+          87,
+          47,
+          120
+        ]
+      ],
+      "chr": 157,
+      "dv": 36,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_6",
+      "ref": [
+        128,
+        242,
+        137
+      ],
+      "test": [
+        244,
+        214,
+        211
+      ],
+      "raw": [
+        116,
+        28,
+        74
+      ],
+      "l1": 218,
+      "maximum": 116,
+      "normalized": [
+        [
+          64,
+          122,
+          69
+        ],
+        [
+          93,
+          82,
+          80
+        ]
+      ],
+      "chr": 40,
+      "dv": 2,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_7",
+      "ref": [
+        250,
+        198,
+        108
+      ],
+      "test": [
+        9,
+        173,
+        232
+      ],
+      "raw": [
+        241,
+        25,
+        124
+      ],
+      "l1": 390,
+      "maximum": 241,
+      "normalized": [
+        [
+          115,
+          91,
+          50
+        ],
+        [
+          6,
+          107,
+          143
+        ]
+      ],
+      "chr": 109,
+      "dv": 18,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_8",
+      "ref": [
+        238,
+        88,
+        72
+      ],
+      "test": [
+        220,
+        238,
+        124
+      ],
+      "raw": [
+        18,
+        150,
+        52
+      ],
+      "l1": 220,
+      "maximum": 150,
+      "normalized": [
+        [
+          152,
+          56,
+          46
+        ],
+        [
+          96,
+          104,
+          54
+        ]
+      ],
+      "chr": 56,
+      "dv": 0,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_9",
+      "ref": [
+        98,
+        179,
+        130
+      ],
+      "test": [
+        82,
+        251,
+        254
+      ],
+      "raw": [
+        16,
+        72,
+        124
+      ],
+      "l1": 212,
+      "maximum": 124,
+      "normalized": [
+        [
+          61,
+          112,
+          81
+        ],
+        [
+          36,
+          109,
+          110
+        ]
+      ],
+      "chr": 29,
+      "dv": 75,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_10",
+      "ref": [
+        120,
+        203,
+        199
+      ],
+      "test": [
+        198,
+        225,
+        133
+      ],
+      "raw": [
+        78,
+        22,
+        66
+      ],
+      "l1": 166,
+      "maximum": 78,
+      "normalized": [
+        [
+          59,
+          99,
+          97
+        ],
+        [
+          91,
+          103,
+          61
+        ]
+      ],
+      "chr": 36,
+      "dv": 22,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_11",
+      "ref": [
+        120,
+        75,
+        161
+      ],
+      "test": [
+        78,
+        52,
+        35
+      ],
+      "raw": [
+        42,
+        23,
+        126
+      ],
+      "l1": 191,
+      "maximum": 126,
+      "normalized": [
+        [
+          86,
+          54,
+          115
+        ],
+        [
+          121,
+          80,
+          54
+        ]
+      ],
+      "chr": 61,
+      "dv": 83,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_12",
+      "ref": [
+        212,
+        100,
+        35
+      ],
+      "test": [
+        156,
+        68,
+        145
+      ],
+      "raw": [
+        56,
+        32,
+        110
+      ],
+      "l1": 198,
+      "maximum": 110,
+      "normalized": [
+        [
+          156,
+          73,
+          26
+        ],
+        [
+          108,
+          47,
+          100
+        ]
+      ],
+      "chr": 74,
+      "dv": 56,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_13",
+      "ref": [
+        19,
+        238,
+        56
+      ],
+      "test": [
+        235,
+        25,
+        33
+      ],
+      "raw": [
+        216,
+        213,
+        23
+      ],
+      "l1": 452,
+      "maximum": 216,
+      "normalized": [
+        [
+          15,
+          194,
+          46
+        ],
+        [
+          205,
+          22,
+          29
+        ]
+      ],
+      "chr": 190,
+      "dv": 3,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_14",
+      "ref": [
+        73,
+        45,
+        89
+      ],
+      "test": [
+        206,
+        135,
+        91
+      ],
+      "raw": [
+        133,
+        90,
+        2
+      ],
+      "l1": 225,
+      "maximum": 133,
+      "normalized": [
+        [
+          90,
+          55,
+          110
+        ],
+        [
+          122,
+          80,
+          54
+        ]
+      ],
+      "chr": 56,
+      "dv": 117,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_15",
+      "ref": [
+        192,
+        63,
+        233
+      ],
+      "test": [
+        105,
+        108,
+        168
+      ],
+      "raw": [
+        87,
+        45,
+        65
+      ],
+      "l1": 197,
+      "maximum": 87,
+      "normalized": [
+        [
+          100,
+          33,
+          122
+        ],
+        [
+          70,
+          72,
+          112
+        ]
+      ],
+      "chr": 39,
+      "dv": 65,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_16",
+      "ref": [
+        94,
+        217,
+        9
+      ],
+      "test": [
+        41,
+        21,
+        228
+      ],
+      "raw": [
+        53,
+        196,
+        219
+      ],
+      "l1": 468,
+      "maximum": 219,
+      "normalized": [
+        [
+          75,
+          173,
+          7
+        ],
+        [
+          36,
+          18,
+          200
+        ]
+      ],
+      "chr": 193,
+      "dv": 11,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_17",
+      "ref": [
+        53,
+        102,
+        101
+      ],
+      "test": [
+        11,
+        207,
+        247
+      ],
+      "raw": [
+        42,
+        105,
+        146
+      ],
+      "l1": 293,
+      "maximum": 146,
+      "normalized": [
+        [
+          53,
+          102,
+          101
+        ],
+        [
+          6,
+          114,
+          135
+        ]
+      ],
+      "chr": 47,
+      "dv": 145,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_18",
+      "ref": [
+        38,
+        233,
+        15
+      ],
+      "test": [
+        108,
+        83,
+        42
+      ],
+      "raw": [
+        70,
+        150,
+        27
+      ],
+      "l1": 247,
+      "maximum": 150,
+      "normalized": [
+        [
+          34,
+          208,
+          13
+        ],
+        [
+          118,
+          91,
+          46
+        ]
+      ],
+      "chr": 117,
+      "dv": 125,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_19",
+      "ref": [
+        207,
+        194,
+        158
+      ],
+      "test": [
+        141,
+        210,
+        221
+      ],
+      "raw": [
+        66,
+        16,
+        63
+      ],
+      "l1": 145,
+      "maximum": 66,
+      "normalized": [
+        [
+          94,
+          88,
+          72
+        ],
+        [
+          63,
+          94,
+          99
+        ]
+      ],
+      "chr": 31,
+      "dv": 14,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_20",
+      "ref": [
+        208,
+        166,
+        236
+      ],
+      "test": [
+        188,
+        159,
+        2
+      ],
+      "raw": [
+        20,
+        7,
+        234
+      ],
+      "l1": 261,
+      "maximum": 234,
+      "normalized": [
+        [
+          87,
+          69,
+          99
+        ],
+        [
+          137,
+          116,
+          1
+        ]
+      ],
+      "chr": 98,
+      "dv": 48,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_21",
+      "ref": [
+        188,
+        57,
+        179
+      ],
+      "test": [
+        181,
+        204,
+        215
+      ],
+      "raw": [
+        7,
+        147,
+        36
+      ],
+      "l1": 190,
+      "maximum": 147,
+      "normalized": [
+        [
+          113,
+          34,
+          108
+        ],
+        [
+          77,
+          87,
+          91
+        ]
+      ],
+      "chr": 53,
+      "dv": 27,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_22",
+      "ref": [
+        139,
+        125,
+        177
+      ],
+      "test": [
+        83,
+        205,
+        130
+      ],
+      "raw": [
+        56,
+        80,
+        47
+      ],
+      "l1": 183,
+      "maximum": 80,
+      "normalized": [
+        [
+          80,
+          72,
+          102
+        ],
+        [
+          51,
+          125,
+          79
+        ]
+      ],
+      "chr": 53,
+      "dv": 28,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_23",
+      "ref": [
+        58,
+        167,
+        66
+      ],
+      "test": [
+        245,
+        96,
+        227
+      ],
+      "raw": [
+        187,
+        71,
+        161
+      ],
+      "l1": 419,
+      "maximum": 187,
+      "normalized": [
+        [
+          51,
+          146,
+          58
+        ],
+        [
+          110,
+          43,
+          102
+        ]
+      ],
+      "chr": 103,
+      "dv": 78,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_24",
+      "ref": [
+        166,
+        74,
+        140
+      ],
+      "test": [
+        67,
+        199,
+        67
+      ],
+      "raw": [
+        99,
+        125,
+        73
+      ],
+      "l1": 297,
+      "maximum": 125,
+      "normalized": [
+        [
+          111,
+          50,
+          94
+        ],
+        [
+          51,
+          152,
+          51
+        ]
+      ],
+      "chr": 102,
+      "dv": 33,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_25",
+      "ref": [
+        136,
+        204,
+        74
+      ],
+      "test": [
+        44,
+        178,
+        39
+      ],
+      "raw": [
+        92,
+        26,
+        35
+      ],
+      "l1": 153,
+      "maximum": 92,
+      "normalized": [
+        [
+          84,
+          126,
+          46
+        ],
+        [
+          43,
+          174,
+          38
+        ]
+      ],
+      "chr": 48,
+      "dv": 26,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_26",
+      "ref": [
+        117,
+        14,
+        64
+      ],
+      "test": [
+        44,
+        142,
+        7
+      ],
+      "raw": [
+        73,
+        128,
+        57
+      ],
+      "l1": 258,
+      "maximum": 128,
+      "normalized": [
+        [
+          153,
+          18,
+          84
+        ],
+        [
+          58,
+          188,
+          9
+        ]
+      ],
+      "chr": 170,
+      "dv": 25,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_27",
+      "ref": [
+        92,
+        50,
+        179
+      ],
+      "test": [
+        106,
+        89,
+        79
+      ],
+      "raw": [
+        14,
+        39,
+        100
+      ],
+      "l1": 153,
+      "maximum": 100,
+      "normalized": [
+        [
+          73,
+          40,
+          142
+        ],
+        [
+          99,
+          83,
+          74
+        ]
+      ],
+      "chr": 68,
+      "dv": 73,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_28",
+      "ref": [
+        244,
+        147,
+        158
+      ],
+      "test": [
+        50,
+        235,
+        83
+      ],
+      "raw": [
+        194,
+        88,
+        75
+      ],
+      "l1": 357,
+      "maximum": 194,
+      "normalized": [
+        [
+          113,
+          68,
+          73
+        ],
+        [
+          35,
+          163,
+          58
+        ]
+      ],
+      "chr": 95,
+      "dv": 9,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_29",
+      "ref": [
+        173,
+        82,
+        219
+      ],
+      "test": [
+        44,
+        2,
+        181
+      ],
+      "raw": [
+        129,
+        80,
+        38
+      ],
+      "l1": 247,
+      "maximum": 129,
+      "normalized": [
+        [
+          93,
+          44,
+          118
+        ],
+        [
+          49,
+          2,
+          203
+        ]
+      ],
+      "chr": 85,
+      "dv": 38,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_30",
+      "ref": [
+        144,
+        67,
+        69
+      ],
+      "test": [
+        21,
+        221,
+        116
+      ],
+      "raw": [
+        123,
+        154,
+        47
+      ],
+      "l1": 324,
+      "maximum": 154,
+      "normalized": [
+        [
+          131,
+          61,
+          63
+        ],
+        [
+          15,
+          157,
+          83
+        ]
+      ],
+      "chr": 116,
+      "dv": 77,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_31",
+      "ref": [
+        199,
+        253,
+        103
+      ],
+      "test": [
+        142,
+        125,
+        6
+      ],
+      "raw": [
+        57,
+        128,
+        97
+      ],
+      "l1": 282,
+      "maximum": 128,
+      "normalized": [
+        [
+          91,
+          116,
+          47
+        ],
+        [
+          133,
+          117,
+          6
+        ]
+      ],
+      "chr": 42,
+      "dv": 111,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_32",
+      "ref": [
+        163,
+        67,
+        10
+      ],
+      "test": [
+        10,
+        117,
+        91
+      ],
+      "raw": [
+        153,
+        50,
+        81
+      ],
+      "l1": 284,
+      "maximum": 153,
+      "normalized": [
+        [
+          173,
+          71,
+          11
+        ],
+        [
+          12,
+          137,
+          106
+        ]
+      ],
+      "chr": 161,
+      "dv": 46,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_33",
+      "ref": [
+        129,
+        54,
+        225
+      ],
+      "test": [
+        72,
+        214,
+        168
+      ],
+      "raw": [
+        57,
+        160,
+        57
+      ],
+      "l1": 274,
+      "maximum": 160,
+      "normalized": [
+        [
+          81,
+          34,
+          141
+        ],
+        [
+          40,
+          120,
+          94
+        ]
+      ],
+      "chr": 86,
+      "dv": 11,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_34",
+      "ref": [
+        230,
+        23,
+        169
+      ],
+      "test": [
+        101,
+        107,
+        151
+      ],
+      "raw": [
+        129,
+        84,
+        18
+      ],
+      "l1": 231,
+      "maximum": 129,
+      "normalized": [
+        [
+          139,
+          14,
+          102
+        ],
+        [
+          72,
+          76,
+          107
+        ]
+      ],
+      "chr": 67,
+      "dv": 79,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_35",
+      "ref": [
+        211,
+        97,
+        88
+      ],
+      "test": [
+        151,
+        146,
+        103
+      ],
+      "raw": [
+        60,
+        49,
+        15
+      ],
+      "l1": 124,
+      "maximum": 60,
+      "normalized": [
+        [
+          136,
+          62,
+          57
+        ],
+        [
+          96,
+          93,
+          66
+        ]
+      ],
+      "chr": 40,
+      "dv": 60,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_36",
+      "ref": [
+        24,
+        179,
+        246
+      ],
+      "test": [
+        126,
+        140,
+        168
+      ],
+      "raw": [
+        102,
+        39,
+        78
+      ],
+      "l1": 219,
+      "maximum": 102,
+      "normalized": [
+        [
+          14,
+          102,
+          140
+        ],
+        [
+          74,
+          82,
+          99
+        ]
+      ],
+      "chr": 60,
+      "dv": 78,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_37",
+      "ref": [
+        43,
+        190,
+        157
+      ],
+      "test": [
+        206,
+        213,
+        157
+      ],
+      "raw": [
+        163,
+        23,
+        0
+      ],
+      "l1": 186,
+      "maximum": 163,
+      "normalized": [
+        [
+          28,
+          124,
+          103
+        ],
+        [
+          91,
+          94,
+          70
+        ]
+      ],
+      "chr": 63,
+      "dv": 23,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_38",
+      "ref": [
+        158,
+        79,
+        127
+      ],
+      "test": [
+        96,
+        14,
+        144
+      ],
+      "raw": [
+        62,
+        65,
+        17
+      ],
+      "l1": 144,
+      "maximum": 65,
+      "normalized": [
+        [
+          111,
+          55,
+          89
+        ],
+        [
+          96,
+          14,
+          145
+        ]
+      ],
+      "chr": 56,
+      "dv": 14,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_39",
+      "ref": [
+        87,
+        98,
+        129
+      ],
+      "test": [
+        91,
+        229,
+        54
+      ],
+      "raw": [
+        4,
+        131,
+        75
+      ],
+      "l1": 210,
+      "maximum": 131,
+      "normalized": [
+        [
+          71,
+          80,
+          105
+        ],
+        [
+          62,
+          156,
+          37
+        ]
+      ],
+      "chr": 76,
+      "dv": 100,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_40",
+      "ref": [
+        200,
+        91,
+        196
+      ],
+      "test": [
+        54,
+        78,
+        78
+      ],
+      "raw": [
+        146,
+        13,
+        118
+      ],
+      "l1": 277,
+      "maximum": 146,
+      "normalized": [
+        [
+          105,
+          48,
+          103
+        ],
+        [
+          66,
+          95,
+          95
+        ]
+      ],
+      "chr": 47,
+      "dv": 122,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_41",
+      "ref": [
+        149,
+        72,
+        80
+      ],
+      "test": [
+        49,
+        96,
+        119
+      ],
+      "raw": [
+        100,
+        24,
+        39
+      ],
+      "l1": 163,
+      "maximum": 100,
+      "normalized": [
+        [
+          126,
+          61,
+          68
+        ],
+        [
+          47,
+          93,
+          115
+        ]
+      ],
+      "chr": 79,
+      "dv": 30,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_42",
+      "ref": [
+        139,
+        52,
+        167
+      ],
+      "test": [
+        9,
+        207,
+        38
+      ],
+      "raw": [
+        130,
+        155,
+        129
+      ],
+      "l1": 414,
+      "maximum": 155,
+      "normalized": [
+        [
+          99,
+          37,
+          119
+        ],
+        [
+          9,
+          208,
+          38
+        ]
+      ],
+      "chr": 171,
+      "dv": 40,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_43",
+      "ref": [
+        227,
+        255,
+        244
+      ],
+      "test": [
+        206,
+        163,
+        67
+      ],
+      "raw": [
+        21,
+        92,
+        177
+      ],
+      "l1": 290,
+      "maximum": 177,
+      "normalized": [
+        [
+          80,
+          90,
+          86
+        ],
+        [
+          120,
+          95,
+          39
+        ]
+      ],
+      "chr": 47,
+      "dv": 49,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_44",
+      "ref": [
+        134,
+        214,
+        220
+      ],
+      "test": [
+        120,
+        2,
+        237
+      ],
+      "raw": [
+        14,
+        212,
+        17
+      ],
+      "l1": 243,
+      "maximum": 212,
+      "normalized": [
+        [
+          60,
+          96,
+          99
+        ],
+        [
+          85,
+          1,
+          168
+        ]
+      ],
+      "chr": 95,
+      "dv": 17,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_45",
+      "ref": [
+        113,
+        75,
+        66
+      ],
+      "test": [
+        210,
+        31,
+        203
+      ],
+      "raw": [
+        97,
+        44,
+        137
+      ],
+      "l1": 278,
+      "maximum": 137,
+      "normalized": [
+        [
+          113,
+          75,
+          66
+        ],
+        [
+          121,
+          18,
+          117
+        ]
+      ],
+      "chr": 57,
+      "dv": 97,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_46",
+      "ref": [
+        5,
+        237,
+        136
+      ],
+      "test": [
+        131,
+        28,
+        106
+      ],
+      "raw": [
+        126,
+        209,
+        30
+      ],
+      "l1": 365,
+      "maximum": 209,
+      "normalized": [
+        [
+          3,
+          160,
+          92
+        ],
+        [
+          126,
+          27,
+          102
+        ]
+      ],
+      "chr": 133,
+      "dv": 106,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_47",
+      "ref": [
+        242,
+        115,
+        76
+      ],
+      "test": [
+        99,
+        243,
+        38
+      ],
+      "raw": [
+        143,
+        128,
+        38
+      ],
+      "l1": 309,
+      "maximum": 143,
+      "normalized": [
+        [
+          143,
+          68,
+          45
+        ],
+        [
+          66,
+          163,
+          26
+        ]
+      ],
+      "chr": 95,
+      "dv": 1,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_48",
+      "ref": [
+        96,
+        6,
+        175
+      ],
+      "test": [
+        21,
+        126,
+        38
+      ],
+      "raw": [
+        75,
+        120,
+        137
+      ],
+      "l1": 332,
+      "maximum": 137,
+      "normalized": [
+        [
+          88,
+          6,
+          161
+        ],
+        [
+          29,
+          174,
+          52
+        ]
+      ],
+      "chr": 168,
+      "dv": 49,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_49",
+      "ref": [
+        248,
+        70,
+        221
+      ],
+      "test": [
+        68,
+        120,
+        161
+      ],
+      "raw": [
+        180,
+        50,
+        60
+      ],
+      "l1": 290,
+      "maximum": 180,
+      "normalized": [
+        [
+          117,
+          33,
+          105
+        ],
+        [
+          50,
+          88,
+          118
+        ]
+      ],
+      "chr": 67,
+      "dv": 87,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_50",
+      "ref": [
+        132,
+        166,
+        148
+      ],
+      "test": [
+        221,
+        87,
+        166
+      ],
+      "raw": [
+        89,
+        79,
+        18
+      ],
+      "l1": 186,
+      "maximum": 89,
+      "normalized": [
+        [
+          75,
+          95,
+          85
+        ],
+        [
+          119,
+          47,
+          89
+        ]
+      ],
+      "chr": 48,
+      "dv": 55,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_51",
+      "ref": [
+        200,
+        234,
+        187
+      ],
+      "test": [
+        46,
+        36,
+        159
+      ],
+      "raw": [
+        154,
+        198,
+        28
+      ],
+      "l1": 380,
+      "maximum": 198,
+      "normalized": [
+        [
+          82,
+          96,
+          77
+        ],
+        [
+          49,
+          38,
+          168
+        ]
+      ],
+      "chr": 91,
+      "dv": 75,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_52",
+      "ref": [
+        220,
+        18,
+        229
+      ],
+      "test": [
+        186,
+        208,
+        123
+      ],
+      "raw": [
+        34,
+        190,
+        106
+      ],
+      "l1": 330,
+      "maximum": 190,
+      "normalized": [
+        [
+          120,
+          10,
+          125
+        ],
+        [
+          92,
+          103,
+          61
+        ]
+      ],
+      "chr": 93,
+      "dv": 21,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_53",
+      "ref": [
+        11,
+        76,
+        126
+      ],
+      "test": [
+        96,
+        69,
+        144
+      ],
+      "raw": [
+        85,
+        7,
+        18
+      ],
+      "l1": 110,
+      "maximum": 85,
+      "normalized": [
+        [
+          13,
+          91,
+          151
+        ],
+        [
+          79,
+          57,
+          119
+        ]
+      ],
+      "chr": 66,
+      "dv": 18,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_54",
+      "ref": [
+        35,
+        106,
+        209
+      ],
+      "test": [
+        24,
+        139,
+        228
+      ],
+      "raw": [
+        11,
+        33,
+        19
+      ],
+      "l1": 63,
+      "maximum": 33,
+      "normalized": [
+        [
+          26,
+          77,
+          152
+        ],
+        [
+          16,
+          91,
+          149
+        ]
+      ],
+      "chr": 14,
+      "dv": 19,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_55",
+      "ref": [
+        134,
+        60,
+        192
+      ],
+      "test": [
+        164,
+        147,
+        86
+      ],
+      "raw": [
+        30,
+        87,
+        106
+      ],
+      "l1": 223,
+      "maximum": 106,
+      "normalized": [
+        [
+          89,
+          40,
+          127
+        ],
+        [
+          105,
+          94,
+          55
+        ]
+      ],
+      "chr": 72,
+      "dv": 28,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_56",
+      "ref": [
+        84,
+        87,
+        210
+      ],
+      "test": [
+        220,
+        174,
+        229
+      ],
+      "raw": [
+        136,
+        87,
+        19
+      ],
+      "l1": 242,
+      "maximum": 136,
+      "normalized": [
+        [
+          56,
+          58,
+          141
+        ],
+        [
+          90,
+          71,
+          94
+        ]
+      ],
+      "chr": 47,
+      "dv": 19,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_57",
+      "ref": [
+        235,
+        81,
+        11
+      ],
+      "test": [
+        204,
+        26,
+        130
+      ],
+      "raw": [
+        31,
+        55,
+        119
+      ],
+      "l1": 205,
+      "maximum": 119,
+      "normalized": [
+        [
+          183,
+          63,
+          9
+        ],
+        [
+          145,
+          18,
+          92
+        ]
+      ],
+      "chr": 83,
+      "dv": 31,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_58",
+      "ref": [
+        28,
+        19,
+        141
+      ],
+      "test": [
+        45,
+        136,
+        25
+      ],
+      "raw": [
+        17,
+        117,
+        116
+      ],
+      "l1": 250,
+      "maximum": 117,
+      "normalized": [
+        [
+          38,
+          26,
+          191
+        ],
+        [
+          56,
+          168,
+          31
+        ]
+      ],
+      "chr": 160,
+      "dv": 5,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_59",
+      "ref": [
+        215,
+        158,
+        216
+      ],
+      "test": [
+        95,
+        68,
+        26
+      ],
+      "raw": [
+        120,
+        90,
+        190
+      ],
+      "l1": 400,
+      "maximum": 190,
+      "normalized": [
+        [
+          93,
+          68,
+          94
+        ],
+        [
+          128,
+          92,
+          35
+        ]
+      ],
+      "chr": 59,
+      "dv": 121,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_60",
+      "ref": [
+        181,
+        71,
+        154
+      ],
+      "test": [
+        9,
+        31,
+        16
+      ],
+      "raw": [
+        172,
+        40,
+        138
+      ],
+      "l1": 350,
+      "maximum": 172,
+      "normalized": [
+        [
+          114,
+          45,
+          97
+        ],
+        [
+          41,
+          141,
+          73
+        ]
+      ],
+      "chr": 96,
+      "dv": 150,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_61",
+      "ref": [
+        187,
+        119,
+        1
+      ],
+      "test": [
+        123,
+        39,
+        44
+      ],
+      "raw": [
+        64,
+        80,
+        43
+      ],
+      "l1": 187,
+      "maximum": 80,
+      "normalized": [
+        [
+          155,
+          99,
+          1
+        ],
+        [
+          152,
+          48,
+          54
+        ]
+      ],
+      "chr": 53,
+      "dv": 64,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_62",
+      "ref": [
+        49,
+        46,
+        119
+      ],
+      "test": [
+        55,
+        200,
+        99
+      ],
+      "raw": [
+        6,
+        154,
+        20
+      ],
+      "l1": 180,
+      "maximum": 154,
+      "normalized": [
+        [
+          58,
+          55,
+          142
+        ],
+        [
+          40,
+          144,
+          71
+        ]
+      ],
+      "chr": 89,
+      "dv": 81,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_63",
+      "ref": [
+        129,
+        119,
+        50
+      ],
+      "test": [
+        107,
+        88,
+        76
+      ],
+      "raw": [
+        22,
+        31,
+        26
+      ],
+      "l1": 79,
+      "maximum": 31,
+      "normalized": [
+        [
+          110,
+          102,
+          43
+        ],
+        [
+          101,
+          83,
+          72
+        ]
+      ],
+      "chr": 29,
+      "dv": 22,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_64",
+      "ref": [
+        27,
+        173,
+        153
+      ],
+      "test": [
+        219,
+        180,
+        189
+      ],
+      "raw": [
+        192,
+        7,
+        36
+      ],
+      "l1": 235,
+      "maximum": 192,
+      "normalized": [
+        [
+          20,
+          125,
+          111
+        ],
+        [
+          95,
+          78,
+          82
+        ]
+      ],
+      "chr": 75,
+      "dv": 46,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_65",
+      "ref": [
+        71,
+        33,
+        83
+      ],
+      "test": [
+        140,
+        172,
+        236
+      ],
+      "raw": [
+        69,
+        139,
+        153
+      ],
+      "l1": 361,
+      "maximum": 153,
+      "normalized": [
+        [
+          97,
+          45,
+          113
+        ],
+        [
+          65,
+          80,
+          110
+        ]
+      ],
+      "chr": 35,
+      "dv": 153,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_66",
+      "ref": [
+        199,
+        80,
+        73
+      ],
+      "test": [
+        121,
+        51,
+        58
+      ],
+      "raw": [
+        78,
+        29,
+        15
+      ],
+      "l1": 122,
+      "maximum": 78,
+      "normalized": [
+        [
+          144,
+          58,
+          53
+        ],
+        [
+          134,
+          57,
+          64
+        ]
+      ],
+      "chr": 11,
+      "dv": 78,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_67",
+      "ref": [
+        65,
+        152,
+        194
+      ],
+      "test": [
+        137,
+        119,
+        16
+      ],
+      "raw": [
+        72,
+        33,
+        178
+      ],
+      "l1": 283,
+      "maximum": 178,
+      "normalized": [
+        [
+          40,
+          94,
+          120
+        ],
+        [
+          128,
+          112,
+          15
+        ]
+      ],
+      "chr": 105,
+      "dv": 57,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_68",
+      "ref": [
+        239,
+        191,
+        186
+      ],
+      "test": [
+        21,
+        219,
+        21
+      ],
+      "raw": [
+        218,
+        28,
+        165
+      ],
+      "l1": 411,
+      "maximum": 218,
+      "normalized": [
+        [
+          99,
+          79,
+          77
+        ],
+        [
+          21,
+          214,
+          21
+        ]
+      ],
+      "chr": 135,
+      "dv": 20,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_69",
+      "ref": [
+        8,
+        109,
+        245
+      ],
+      "test": [
+        90,
+        64,
+        86
+      ],
+      "raw": [
+        82,
+        45,
+        159
+      ],
+      "l1": 286,
+      "maximum": 159,
+      "normalized": [
+        [
+          6,
+          77,
+          173
+        ],
+        [
+          96,
+          68,
+          91
+        ]
+      ],
+      "chr": 90,
+      "dv": 155,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_70",
+      "ref": [
+        193,
+        57,
+        1
+      ],
+      "test": [
+        255,
+        14,
+        144
+      ],
+      "raw": [
+        62,
+        43,
+        143
+      ],
+      "l1": 248,
+      "maximum": 143,
+      "normalized": [
+        [
+          196,
+          58,
+          1
+        ],
+        [
+          157,
+          9,
+          89
+        ]
+      ],
+      "chr": 88,
+      "dv": 62,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_71",
+      "ref": [
+        203,
+        200,
+        108
+      ],
+      "test": [
+        155,
+        161,
+        222
+      ],
+      "raw": [
+        48,
+        39,
+        114
+      ],
+      "l1": 201,
+      "maximum": 114,
+      "normalized": [
+        [
+          101,
+          100,
+          54
+        ],
+        [
+          73,
+          76,
+          105
+        ]
+      ],
+      "chr": 51,
+      "dv": 19,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_72",
+      "ref": [
+        152,
+        175,
+        113
+      ],
+      "test": [
+        155,
+        95,
+        128
+      ],
+      "raw": [
+        3,
+        80,
+        15
+      ],
+      "l1": 98,
+      "maximum": 80,
+      "normalized": [
+        [
+          88,
+          101,
+          65
+        ],
+        [
+          105,
+          64,
+          86
+        ]
+      ],
+      "chr": 37,
+      "dv": 20,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_73",
+      "ref": [
+        247,
+        29,
+        17
+      ],
+      "test": [
+        46,
+        212,
+        135
+      ],
+      "raw": [
+        201,
+        183,
+        118
+      ],
+      "l1": 502,
+      "maximum": 201,
+      "normalized": [
+        [
+          215,
+          25,
+          15
+        ],
+        [
+          30,
+          138,
+          88
+        ]
+      ],
+      "chr": 185,
+      "dv": 35,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_74",
+      "ref": [
+        148,
+        61,
+        15
+      ],
+      "test": [
+        152,
+        150,
+        161
+      ],
+      "raw": [
+        4,
+        89,
+        146
+      ],
+      "l1": 239,
+      "maximum": 146,
+      "normalized": [
+        [
+          168,
+          69,
+          17
+        ],
+        [
+          84,
+          83,
+          89
+        ]
+      ],
+      "chr": 84,
+      "dv": 13,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_75",
+      "ref": [
+        27,
+        50,
+        61
+      ],
+      "test": [
+        250,
+        15,
+        116
+      ],
+      "raw": [
+        223,
+        35,
+        55
+      ],
+      "l1": 313,
+      "maximum": 223,
+      "normalized": [
+        [
+          50,
+          92,
+          113
+        ],
+        [
+          167,
+          10,
+          78
+        ]
+      ],
+      "chr": 117,
+      "dv": 189,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_76",
+      "ref": [
+        70,
+        19,
+        109
+      ],
+      "test": [
+        154,
+        200,
+        112
+      ],
+      "raw": [
+        84,
+        181,
+        3
+      ],
+      "l1": 268,
+      "maximum": 181,
+      "normalized": [
+        [
+          90,
+          24,
+          140
+        ],
+        [
+          84,
+          109,
+          61
+        ]
+      ],
+      "chr": 85,
+      "dv": 91,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_77",
+      "ref": [
+        124,
+        206,
+        150
+      ],
+      "test": [
+        137,
+        217,
+        34
+      ],
+      "raw": [
+        13,
+        11,
+        116
+      ],
+      "l1": 140,
+      "maximum": 116,
+      "normalized": [
+        [
+          66,
+          109,
+          80
+        ],
+        [
+          90,
+          143,
+          22
+        ]
+      ],
+      "chr": 58,
+      "dv": 11,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_78",
+      "ref": [
+        179,
+        103,
+        239
+      ],
+      "test": [
+        148,
+        95,
+        149
+      ],
+      "raw": [
+        31,
+        8,
+        90
+      ],
+      "l1": 129,
+      "maximum": 90,
+      "normalized": [
+        [
+          88,
+          50,
+          117
+        ],
+        [
+          96,
+          62,
+          97
+        ]
+      ],
+      "chr": 20,
+      "dv": 90,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_79",
+      "ref": [
+        70,
+        98,
+        238
+      ],
+      "test": [
+        119,
+        98,
+        200
+      ],
+      "raw": [
+        49,
+        0,
+        38
+      ],
+      "l1": 87,
+      "maximum": 49,
+      "normalized": [
+        [
+          44,
+          62,
+          149
+        ],
+        [
+          73,
+          60,
+          122
+        ]
+      ],
+      "chr": 29,
+      "dv": 38,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_80",
+      "ref": [
+        28,
+        162,
+        30
+      ],
+      "test": [
+        244,
+        191,
+        252
+      ],
+      "raw": [
+        216,
+        29,
+        222
+      ],
+      "l1": 467,
+      "maximum": 222,
+      "normalized": [
+        [
+          32,
+          188,
+          35
+        ],
+        [
+          91,
+          71,
+          94
+        ]
+      ],
+      "chr": 117,
+      "dv": 90,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_81",
+      "ref": [
+        162,
+        238,
+        221
+      ],
+      "test": [
+        245,
+        12,
+        145
+      ],
+      "raw": [
+        83,
+        226,
+        76
+      ],
+      "l1": 385,
+      "maximum": 226,
+      "normalized": [
+        [
+          67,
+          98,
+          91
+        ],
+        [
+          155,
+          8,
+          92
+        ]
+      ],
+      "chr": 90,
+      "dv": 7,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_82",
+      "ref": [
+        114,
+        124,
+        73
+      ],
+      "test": [
+        230,
+        250,
+        80
+      ],
+      "raw": [
+        116,
+        126,
+        7
+      ],
+      "l1": 249,
+      "maximum": 126,
+      "normalized": [
+        [
+          93,
+          102,
+          60
+        ],
+        [
+          105,
+          114,
+          36
+        ]
+      ],
+      "chr": 24,
+      "dv": 126,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_83",
+      "ref": [
+        169,
+        137,
+        223
+      ],
+      "test": [
+        75,
+        121,
+        198
+      ],
+      "raw": [
+        94,
+        16,
+        25
+      ],
+      "l1": 135,
+      "maximum": 94,
+      "normalized": [
+        [
+          81,
+          66,
+          107
+        ],
+        [
+          49,
+          78,
+          128
+        ]
+      ],
+      "chr": 32,
+      "dv": 25,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_84",
+      "ref": [
+        156,
+        121,
+        228
+      ],
+      "test": [
+        176,
+        186,
+        52
+      ],
+      "raw": [
+        20,
+        65,
+        176
+      ],
+      "l1": 261,
+      "maximum": 176,
+      "normalized": [
+        [
+          79,
+          61,
+          115
+        ],
+        [
+          108,
+          115,
+          32
+        ]
+      ],
+      "chr": 83,
+      "dv": 42,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_85",
+      "ref": [
+        223,
+        227,
+        203
+      ],
+      "test": [
+        138,
+        14,
+        253
+      ],
+      "raw": [
+        85,
+        213,
+        50
+      ],
+      "l1": 348,
+      "maximum": 213,
+      "normalized": [
+        [
+          87,
+          89,
+          79
+        ],
+        [
+          87,
+          9,
+          159
+        ]
+      ],
+      "chr": 80,
+      "dv": 26,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_86",
+      "ref": [
+        8,
+        43,
+        168
+      ],
+      "test": [
+        234,
+        31,
+        174
+      ],
+      "raw": [
+        226,
+        12,
+        6
+      ],
+      "l1": 244,
+      "maximum": 226,
+      "normalized": [
+        [
+          9,
+          50,
+          196
+        ],
+        [
+          136,
+          18,
+          101
+        ]
+      ],
+      "chr": 127,
+      "dv": 66,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_87",
+      "ref": [
+        225,
+        192,
+        201
+      ],
+      "test": [
+        46,
+        153,
+        206
+      ],
+      "raw": [
+        179,
+        39,
+        5
+      ],
+      "l1": 223,
+      "maximum": 179,
+      "normalized": [
+        [
+          93,
+          79,
+          83
+        ],
+        [
+          29,
+          96,
+          130
+        ]
+      ],
+      "chr": 64,
+      "dv": 19,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_88",
+      "ref": [
+        40,
+        80,
+        84
+      ],
+      "test": [
+        234,
+        88,
+        96
+      ],
+      "raw": [
+        194,
+        8,
+        12
+      ],
+      "l1": 214,
+      "maximum": 194,
+      "normalized": [
+        [
+          50,
+          100,
+          105
+        ],
+        [
+          143,
+          54,
+          59
+        ]
+      ],
+      "chr": 93,
+      "dv": 150,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_89",
+      "ref": [
+        115,
+        139,
+        172
+      ],
+      "test": [
+        194,
+        213,
+        250
+      ],
+      "raw": [
+        79,
+        74,
+        78
+      ],
+      "l1": 231,
+      "maximum": 79,
+      "normalized": [
+        [
+          69,
+          83,
+          103
+        ],
+        [
+          75,
+          83,
+          97
+        ]
+      ],
+      "chr": 6,
+      "dv": 78,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "random_90",
+      "ref": [
+        175,
+        60,
+        92
+      ],
+      "test": [
+        47,
+        97,
+        42
+      ],
+      "raw": [
+        128,
+        37,
+        50
+      ],
+      "l1": 215,
+      "maximum": 128,
+      "normalized": [
+        [
+          136,
+          47,
+          72
+        ],
+        [
+          64,
+          133,
+          58
+        ]
+      ],
+      "chr": 86,
+      "dv": 78,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_91",
+      "ref": [
+        142,
+        65,
+        190
+      ],
+      "test": [
+        227,
+        118,
+        241
+      ],
+      "raw": [
+        85,
+        53,
+        51
+      ],
+      "l1": 189,
+      "maximum": 85,
+      "normalized": [
+        [
+          91,
+          42,
+          122
+        ],
+        [
+          99,
+          51,
+          105
+        ]
+      ],
+      "chr": 17,
+      "dv": 51,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_92",
+      "ref": [
+        126,
+        48,
+        80
+      ],
+      "test": [
+        98,
+        244,
+        193
+      ],
+      "raw": [
+        28,
+        196,
+        113
+      ],
+      "l1": 337,
+      "maximum": 196,
+      "normalized": [
+        [
+          126,
+          48,
+          80
+        ],
+        [
+          47,
+          116,
+          92
+        ]
+      ],
+      "chr": 79,
+      "dv": 118,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_93",
+      "ref": [
+        248,
+        85,
+        110
+      ],
+      "test": [
+        19,
+        105,
+        72
+      ],
+      "raw": [
+        229,
+        20,
+        38
+      ],
+      "l1": 287,
+      "maximum": 229,
+      "normalized": [
+        [
+          143,
+          49,
+          63
+        ],
+        [
+          25,
+          137,
+          94
+        ]
+      ],
+      "chr": 118,
+      "dv": 143,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_94",
+      "ref": [
+        203,
+        71,
+        35
+      ],
+      "test": [
+        76,
+        99,
+        233
+      ],
+      "raw": [
+        127,
+        28,
+        198
+      ],
+      "l1": 353,
+      "maximum": 198,
+      "normalized": [
+        [
+          168,
+          59,
+          29
+        ],
+        [
+          48,
+          62,
+          146
+        ]
+      ],
+      "chr": 120,
+      "dv": 30,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_95",
+      "ref": [
+        153,
+        91,
+        120
+      ],
+      "test": [
+        180,
+        135,
+        202
+      ],
+      "raw": [
+        27,
+        44,
+        82
+      ],
+      "l1": 153,
+      "maximum": 82,
+      "normalized": [
+        [
+          107,
+          64,
+          84
+        ],
+        [
+          89,
+          67,
+          100
+        ]
+      ],
+      "chr": 18,
+      "dv": 49,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_96",
+      "ref": [
+        250,
+        138,
+        69
+      ],
+      "test": [
+        36,
+        109,
+        25
+      ],
+      "raw": [
+        214,
+        29,
+        44
+      ],
+      "l1": 287,
+      "maximum": 214,
+      "normalized": [
+        [
+          139,
+          77,
+          39
+        ],
+        [
+          54,
+          164,
+          38
+        ]
+      ],
+      "chr": 87,
+      "dv": 141,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_97",
+      "ref": [
+        159,
+        158,
+        148
+      ],
+      "test": [
+        180,
+        81,
+        242
+      ],
+      "raw": [
+        21,
+        77,
+        94
+      ],
+      "l1": 192,
+      "maximum": 94,
+      "normalized": [
+        [
+          87,
+          87,
+          81
+        ],
+        [
+          91,
+          41,
+          123
+        ]
+      ],
+      "chr": 46,
+      "dv": 83,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_98",
+      "ref": [
+        128,
+        99,
+        16
+      ],
+      "test": [
+        239,
+        141,
+        194
+      ],
+      "raw": [
+        111,
+        42,
+        178
+      ],
+      "l1": 331,
+      "maximum": 178,
+      "normalized": [
+        [
+          134,
+          104,
+          17
+        ],
+        [
+          106,
+          63,
+          86
+        ]
+      ],
+      "chr": 69,
+      "dv": 111,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_99",
+      "ref": [
+        144,
+        174,
+        168
+      ],
+      "test": [
+        147,
+        83,
+        183
+      ],
+      "raw": [
+        3,
+        91,
+        15
+      ],
+      "l1": 109,
+      "maximum": 91,
+      "normalized": [
+        [
+          76,
+          91,
+          88
+        ],
+        [
+          91,
+          51,
+          113
+        ]
+      ],
+      "chr": 40,
+      "dv": 9,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_100",
+      "ref": [
+        198,
+        138,
+        41
+      ],
+      "test": [
+        35,
+        242,
+        76
+      ],
+      "raw": [
+        163,
+        104,
+        35
+      ],
+      "l1": 302,
+      "maximum": 163,
+      "normalized": [
+        [
+          134,
+          93,
+          28
+        ],
+        [
+          25,
+          175,
+          55
+        ]
+      ],
+      "chr": 109,
+      "dv": 44,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_101",
+      "ref": [
+        5,
+        68,
+        197
+      ],
+      "test": [
+        227,
+        228,
+        146
+      ],
+      "raw": [
+        222,
+        160,
+        51
+      ],
+      "l1": 433,
+      "maximum": 222,
+      "normalized": [
+        [
+          5,
+          64,
+          186
+        ],
+        [
+          96,
+          97,
+          62
+        ]
+      ],
+      "chr": 124,
+      "dv": 31,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_102",
+      "ref": [
+        142,
+        8,
+        119
+      ],
+      "test": [
+        219,
+        145,
+        145
+      ],
+      "raw": [
+        77,
+        137,
+        26
+      ],
+      "l1": 240,
+      "maximum": 137,
+      "normalized": [
+        [
+          135,
+          8,
+          113
+        ],
+        [
+          110,
+          73,
+          73
+        ]
+      ],
+      "chr": 65,
+      "dv": 77,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_103",
+      "ref": [
+        12,
+        60,
+        31
+      ],
+      "test": [
+        83,
+        176,
+        138
+      ],
+      "raw": [
+        71,
+        116,
+        107
+      ],
+      "l1": 294,
+      "maximum": 116,
+      "normalized": [
+        [
+          30,
+          149,
+          77
+        ],
+        [
+          53,
+          113,
+          89
+        ]
+      ],
+      "chr": 36,
+      "dv": 116,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_104",
+      "ref": [
+        181,
+        119,
+        196
+      ],
+      "test": [
+        103,
+        73,
+        206
+      ],
+      "raw": [
+        78,
+        46,
+        10
+      ],
+      "l1": 134,
+      "maximum": 78,
+      "normalized": [
+        [
+          93,
+          61,
+          101
+        ],
+        [
+          69,
+          49,
+          138
+        ]
+      ],
+      "chr": 37,
+      "dv": 10,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_105",
+      "ref": [
+        147,
+        205,
+        145
+      ],
+      "test": [
+        146,
+        82,
+        90
+      ],
+      "raw": [
+        1,
+        123,
+        55
+      ],
+      "l1": 179,
+      "maximum": 123,
+      "normalized": [
+        [
+          75,
+          105,
+          74
+        ],
+        [
+          117,
+          66,
+          72
+        ]
+      ],
+      "chr": 42,
+      "dv": 59,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_106",
+      "ref": [
+        205,
+        223,
+        211
+      ],
+      "test": [
+        159,
+        186,
+        110
+      ],
+      "raw": [
+        46,
+        37,
+        101
+      ],
+      "l1": 184,
+      "maximum": 101,
+      "normalized": [
+        [
+          82,
+          89,
+          84
+        ],
+        [
+          89,
+          104,
+          62
+        ]
+      ],
+      "chr": 22,
+      "dv": 37,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_107",
+      "ref": [
+        179,
+        215,
+        35
+      ],
+      "test": [
+        136,
+        51,
+        68
+      ],
+      "raw": [
+        43,
+        164,
+        33
+      ],
+      "l1": 240,
+      "maximum": 164,
+      "normalized": [
+        [
+          106,
+          128,
+          21
+        ],
+        [
+          136,
+          51,
+          68
+        ]
+      ],
+      "chr": 77,
+      "dv": 79,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_108",
+      "ref": [
+        83,
+        215,
+        34
+      ],
+      "test": [
+        15,
+        207,
+        55
+      ],
+      "raw": [
+        68,
+        8,
+        21
+      ],
+      "l1": 97,
+      "maximum": 68,
+      "normalized": [
+        [
+          64,
+          165,
+          26
+        ],
+        [
+          14,
+          191,
+          51
+        ]
+      ],
+      "chr": 50,
+      "dv": 8,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_109",
+      "ref": [
+        65,
+        78,
+        38
+      ],
+      "test": [
+        190,
+        84,
+        46
+      ],
+      "raw": [
+        125,
+        6,
+        8
+      ],
+      "l1": 139,
+      "maximum": 125,
+      "normalized": [
+        [
+          92,
+          110,
+          54
+        ],
+        [
+          151,
+          67,
+          37
+        ]
+      ],
+      "chr": 59,
+      "dv": 112,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_110",
+      "ref": [
+        24,
+        235,
+        255
+      ],
+      "test": [
+        245,
+        79,
+        97
+      ],
+      "raw": [
+        221,
+        156,
+        158
+      ],
+      "l1": 535,
+      "maximum": 221,
+      "normalized": [
+        [
+          12,
+          117,
+          127
+        ],
+        [
+          148,
+          48,
+          59
+        ]
+      ],
+      "chr": 136,
+      "dv": 10,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_111",
+      "ref": [
+        95,
+        100,
+        40
+      ],
+      "test": [
+        153,
+        134,
+        85
+      ],
+      "raw": [
+        58,
+        34,
+        45
+      ],
+      "l1": 137,
+      "maximum": 58,
+      "normalized": [
+        [
+          103,
+          109,
+          43
+        ],
+        [
+          105,
+          92,
+          58
+        ]
+      ],
+      "chr": 17,
+      "dv": 53,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_112",
+      "ref": [
+        125,
+        61,
+        24
+      ],
+      "test": [
+        164,
+        192,
+        105
+      ],
+      "raw": [
+        39,
+        131,
+        81
+      ],
+      "l1": 251,
+      "maximum": 131,
+      "normalized": [
+        [
+          152,
+          74,
+          29
+        ],
+        [
+          91,
+          106,
+          58
+        ]
+      ],
+      "chr": 61,
+      "dv": 67,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_113",
+      "ref": [
+        54,
+        133,
+        237
+      ],
+      "test": [
+        136,
+        48,
+        7
+      ],
+      "raw": [
+        82,
+        85,
+        230
+      ],
+      "l1": 397,
+      "maximum": 230,
+      "normalized": [
+        [
+          32,
+          80,
+          143
+        ],
+        [
+          182,
+          64,
+          9
+        ]
+      ],
+      "chr": 150,
+      "dv": 101,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_114",
+      "ref": [
+        66,
+        145,
+        190
+      ],
+      "test": [
+        7,
+        97,
+        153
+      ],
+      "raw": [
+        59,
+        48,
+        37
+      ],
+      "l1": 144,
+      "maximum": 59,
+      "normalized": [
+        [
+          42,
+          92,
+          121
+        ],
+        [
+          7,
+          96,
+          152
+        ]
+      ],
+      "chr": 35,
+      "dv": 37,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_115",
+      "ref": [
+        135,
+        86,
+        106
+      ],
+      "test": [
+        237,
+        246,
+        106
+      ],
+      "raw": [
+        102,
+        160,
+        0
+      ],
+      "l1": 262,
+      "maximum": 160,
+      "normalized": [
+        [
+          105,
+          67,
+          83
+        ],
+        [
+          103,
+          107,
+          46
+        ]
+      ],
+      "chr": 40,
+      "dv": 111,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_116",
+      "ref": [
+        24,
+        32,
+        238
+      ],
+      "test": [
+        21,
+        123,
+        72
+      ],
+      "raw": [
+        3,
+        91,
+        166
+      ],
+      "l1": 260,
+      "maximum": 166,
+      "normalized": [
+        [
+          21,
+          28,
+          206
+        ],
+        [
+          25,
+          145,
+          85
+        ]
+      ],
+      "chr": 121,
+      "dv": 115,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_117",
+      "ref": [
+        72,
+        87,
+        110
+      ],
+      "test": [
+        8,
+        67,
+        203
+      ],
+      "raw": [
+        64,
+        20,
+        93
+      ],
+      "l1": 177,
+      "maximum": 93,
+      "normalized": [
+        [
+          68,
+          82,
+          104
+        ],
+        [
+          7,
+          61,
+          186
+        ]
+      ],
+      "chr": 82,
+      "dv": 93,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_118",
+      "ref": [
+        124,
+        194,
+        86
+      ],
+      "test": [
+        169,
+        249,
+        98
+      ],
+      "raw": [
+        45,
+        55,
+        12
+      ],
+      "l1": 112,
+      "maximum": 55,
+      "normalized": [
+        [
+          78,
+          122,
+          54
+        ],
+        [
+          84,
+          123,
+          48
+        ]
+      ],
+      "chr": 6,
+      "dv": 55,
+      "reliable": true,
+      "status": 2,
+      "name": "LIGHT"
+    },
+    {
+      "case": "random_119",
+      "ref": [
+        175,
+        200,
+        79
+      ],
+      "test": [
+        24,
+        206,
+        205
+      ],
+      "raw": [
+        151,
+        6,
+        126
+      ],
+      "l1": 283,
+      "maximum": 151,
+      "normalized": [
+        [
+          98,
+          112,
+          44
+        ],
+        [
+          14,
+          121,
+          120
+        ]
+      ],
+      "chr": 84,
+      "dv": 6,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_120",
+      "ref": [
+        87,
+        88,
+        84
+      ],
+      "test": [
+        52,
+        203,
+        243
+      ],
+      "raw": [
+        35,
+        115,
+        159
+      ],
+      "l1": 309,
+      "maximum": 159,
+      "normalized": [
+        [
+          86,
+          87,
+          83
+        ],
+        [
+          27,
+          104,
+          124
+        ]
+      ],
+      "chr": 59,
+      "dv": 155,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_121",
+      "ref": [
+        1,
+        238,
+        211
+      ],
+      "test": [
+        117,
+        15,
+        186
+      ],
+      "raw": [
+        116,
+        223,
+        25
+      ],
+      "l1": 364,
+      "maximum": 223,
+      "normalized": [
+        [
+          1,
+          135,
+          120
+        ],
+        [
+          94,
+          12,
+          149
+        ]
+      ],
+      "chr": 123,
+      "dv": 52,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_122",
+      "ref": [
+        64,
+        183,
+        137
+      ],
+      "test": [
+        255,
+        118,
+        67
+      ],
+      "raw": [
+        191,
+        65,
+        70
+      ],
+      "l1": 326,
+      "maximum": 191,
+      "normalized": [
+        [
+          43,
+          122,
+          91
+        ],
+        [
+          148,
+          68,
+          39
+        ]
+      ],
+      "chr": 105,
+      "dv": 72,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_123",
+      "ref": [
+        22,
+        109,
+        175
+      ],
+      "test": [
+        251,
+        27,
+        198
+      ],
+      "raw": [
+        229,
+        82,
+        23
+      ],
+      "l1": 334,
+      "maximum": 229,
+      "normalized": [
+        [
+          18,
+          91,
+          146
+        ],
+        [
+          134,
+          14,
+          106
+        ]
+      ],
+      "chr": 116,
+      "dv": 76,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_124",
+      "ref": [
+        27,
+        41,
+        4
+      ],
+      "test": [
+        241,
+        4,
+        240
+      ],
+      "raw": [
+        214,
+        37,
+        236
+      ],
+      "l1": 487,
+      "maximum": 236,
+      "normalized": [
+        [
+          96,
+          145,
+          14
+        ],
+        [
+          127,
+          2,
+          126
+        ]
+      ],
+      "chr": 143,
+      "dv": 200,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_125",
+      "ref": [
+        199,
+        13,
+        93
+      ],
+      "test": [
+        24,
+        215,
+        97
+      ],
+      "raw": [
+        175,
+        202,
+        4
+      ],
+      "l1": 381,
+      "maximum": 202,
+      "normalized": [
+        [
+          166,
+          11,
+          78
+        ],
+        [
+          18,
+          163,
+          74
+        ]
+      ],
+      "chr": 152,
+      "dv": 16,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_126",
+      "ref": [
+        34,
+        28,
+        138
+      ],
+      "test": [
+        64,
+        50,
+        142
+      ],
+      "raw": [
+        30,
+        22,
+        4
+      ],
+      "l1": 56,
+      "maximum": 30,
+      "normalized": [
+        [
+          43,
+          36,
+          176
+        ],
+        [
+          64,
+          50,
+          141
+        ]
+      ],
+      "chr": 35,
+      "dv": 4,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_127",
+      "ref": [
+        17,
+        112,
+        224
+      ],
+      "test": [
+        58,
+        72,
+        151
+      ],
+      "raw": [
+        41,
+        40,
+        73
+      ],
+      "l1": 154,
+      "maximum": 73,
+      "normalized": [
+        [
+          12,
+          81,
+          162
+        ],
+        [
+          53,
+          65,
+          137
+        ]
+      ],
+      "chr": 41,
+      "dv": 73,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_128",
+      "ref": [
+        200,
+        111,
+        241
+      ],
+      "test": [
+        0,
+        199,
+        33
+      ],
+      "raw": [
+        200,
+        88,
+        208
+      ],
+      "l1": 496,
+      "maximum": 208,
+      "normalized": [
+        [
+          92,
+          51,
+          111
+        ],
+        [
+          0,
+          219,
+          36
+        ]
+      ],
+      "chr": 168,
+      "dv": 42,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_129",
+      "ref": [
+        222,
+        233,
+        67
+      ],
+      "test": [
+        73,
+        68,
+        139
+      ],
+      "raw": [
+        149,
+        165,
+        72
+      ],
+      "l1": 386,
+      "maximum": 165,
+      "normalized": [
+        [
+          108,
+          114,
+          33
+        ],
+        [
+          66,
+          62,
+          127
+        ]
+      ],
+      "chr": 94,
+      "dv": 94,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_130",
+      "ref": [
+        47,
+        242,
+        241
+      ],
+      "test": [
+        174,
+        24,
+        99
+      ],
+      "raw": [
+        127,
+        218,
+        142
+      ],
+      "l1": 487,
+      "maximum": 218,
+      "normalized": [
+        [
+          23,
+          116,
+          116
+        ],
+        [
+          149,
+          21,
+          85
+        ]
+      ],
+      "chr": 126,
+      "dv": 68,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_131",
+      "ref": [
+        160,
+        6,
+        174
+      ],
+      "test": [
+        58,
+        163,
+        201
+      ],
+      "raw": [
+        102,
+        157,
+        27
+      ],
+      "l1": 286,
+      "maximum": 157,
+      "normalized": [
+        [
+          120,
+          5,
+          131
+        ],
+        [
+          35,
+          98,
+          121
+        ]
+      ],
+      "chr": 93,
+      "dv": 27,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_132",
+      "ref": [
+        41,
+        175,
+        38
+      ],
+      "test": [
+        47,
+        153,
+        235
+      ],
+      "raw": [
+        6,
+        22,
+        197
+      ],
+      "l1": 225,
+      "maximum": 197,
+      "normalized": [
+        [
+          41,
+          176,
+          38
+        ],
+        [
+          28,
+          90,
+          138
+        ]
+      ],
+      "chr": 100,
+      "dv": 60,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_133",
+      "ref": [
+        143,
+        188,
+        141
+      ],
+      "test": [
+        215,
+        210,
+        187
+      ],
+      "raw": [
+        72,
+        22,
+        46
+      ],
+      "l1": 140,
+      "maximum": 72,
+      "normalized": [
+        [
+          77,
+          102,
+          76
+        ],
+        [
+          90,
+          88,
+          78
+        ]
+      ],
+      "chr": 14,
+      "dv": 27,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_134",
+      "ref": [
+        87,
+        98,
+        32
+      ],
+      "test": [
+        16,
+        236,
+        69
+      ],
+      "raw": [
+        71,
+        138,
+        37
+      ],
+      "l1": 246,
+      "maximum": 138,
+      "normalized": [
+        [
+          102,
+          115,
+          38
+        ],
+        [
+          13,
+          187,
+          55
+        ]
+      ],
+      "chr": 89,
+      "dv": 138,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_135",
+      "ref": [
+        71,
+        234,
+        10
+      ],
+      "test": [
+        148,
+        54,
+        192
+      ],
+      "raw": [
+        77,
+        180,
+        182
+      ],
+      "l1": 439,
+      "maximum": 182,
+      "normalized": [
+        [
+          57,
+          189,
+          8
+        ],
+        [
+          96,
+          35,
+          124
+        ]
+      ],
+      "chr": 154,
+      "dv": 42,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_136",
+      "ref": [
+        172,
+        157,
+        52
+      ],
+      "test": [
+        235,
+        243,
+        0
+      ],
+      "raw": [
+        63,
+        86,
+        52
+      ],
+      "l1": 201,
+      "maximum": 86,
+      "normalized": [
+        [
+          115,
+          105,
+          35
+        ],
+        [
+          125,
+          130,
+          0
+        ]
+      ],
+      "chr": 35,
+      "dv": 71,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_137",
+      "ref": [
+        186,
+        99,
+        120
+      ],
+      "test": [
+        130,
+        176,
+        143
+      ],
+      "raw": [
+        56,
+        77,
+        23
+      ],
+      "l1": 156,
+      "maximum": 77,
+      "normalized": [
+        [
+          117,
+          62,
+          76
+        ],
+        [
+          74,
+          100,
+          81
+        ]
+      ],
+      "chr": 43,
+      "dv": 10,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_138",
+      "ref": [
+        130,
+        232,
+        135
+      ],
+      "test": [
+        81,
+        109,
+        130
+      ],
+      "raw": [
+        49,
+        123,
+        5
+      ],
+      "l1": 177,
+      "maximum": 123,
+      "normalized": [
+        [
+          67,
+          119,
+          69
+        ],
+        [
+          65,
+          87,
+          104
+        ]
+      ],
+      "chr": 35,
+      "dv": 102,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_139",
+      "ref": [
+        185,
+        250,
+        93
+      ],
+      "test": [
+        39,
+        96,
+        167
+      ],
+      "raw": [
+        146,
+        154,
+        74
+      ],
+      "l1": 374,
+      "maximum": 154,
+      "normalized": [
+        [
+          89,
+          121,
+          45
+        ],
+        [
+          33,
+          81,
+          141
+        ]
+      ],
+      "chr": 96,
+      "dv": 83,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_140",
+      "ref": [
+        56,
+        141,
+        243
+      ],
+      "test": [
+        252,
+        2,
+        48
+      ],
+      "raw": [
+        196,
+        139,
+        195
+      ],
+      "l1": 530,
+      "maximum": 196,
+      "normalized": [
+        [
+          32,
+          82,
+          141
+        ],
+        [
+          213,
+          2,
+          41
+        ]
+      ],
+      "chr": 181,
+      "dv": 9,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_141",
+      "ref": [
+        142,
+        41,
+        116
+      ],
+      "test": [
+        36,
+        126,
+        135
+      ],
+      "raw": [
+        106,
+        85,
+        19
+      ],
+      "l1": 210,
+      "maximum": 106,
+      "normalized": [
+        [
+          121,
+          35,
+          99
+        ],
+        [
+          31,
+          108,
+          116
+        ]
+      ],
+      "chr": 90,
+      "dv": 7,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_142",
+      "ref": [
+        170,
+        135,
+        51
+      ],
+      "test": [
+        226,
+        95,
+        254
+      ],
+      "raw": [
+        56,
+        40,
+        203
+      ],
+      "l1": 299,
+      "maximum": 203,
+      "normalized": [
+        [
+          122,
+          97,
+          37
+        ],
+        [
+          100,
+          42,
+          113
+        ]
+      ],
+      "chr": 76,
+      "dv": 84,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_143",
+      "ref": [
+        127,
+        165,
+        190
+      ],
+      "test": [
+        248,
+        177,
+        17
+      ],
+      "raw": [
+        121,
+        12,
+        173
+      ],
+      "l1": 306,
+      "maximum": 173,
+      "normalized": [
+        [
+          67,
+          87,
+          101
+        ],
+        [
+          143,
+          102,
+          10
+        ]
+      ],
+      "chr": 91,
+      "dv": 58,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_144",
+      "ref": [
+        177,
+        218,
+        147
+      ],
+      "test": [
+        118,
+        31,
+        5
+      ],
+      "raw": [
+        59,
+        187,
+        142
+      ],
+      "l1": 388,
+      "maximum": 187,
+      "normalized": [
+        [
+          83,
+          103,
+          69
+        ],
+        [
+          195,
+          51,
+          8
+        ]
+      ],
+      "chr": 112,
+      "dv": 100,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_145",
+      "ref": [
+        215,
+        210,
+        208
+      ],
+      "test": [
+        238,
+        204,
+        160
+      ],
+      "raw": [
+        23,
+        6,
+        48
+      ],
+      "l1": 77,
+      "maximum": 48,
+      "normalized": [
+        [
+          87,
+          85,
+          84
+        ],
+        [
+          101,
+          86,
+          68
+        ]
+      ],
+      "chr": 16,
+      "dv": 23,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_146",
+      "ref": [
+        127,
+        48,
+        90
+      ],
+      "test": [
+        80,
+        28,
+        236
+      ],
+      "raw": [
+        47,
+        20,
+        146
+      ],
+      "l1": 213,
+      "maximum": 146,
+      "normalized": [
+        [
+          122,
+          46,
+          87
+        ],
+        [
+          59,
+          21,
+          175
+        ]
+      ],
+      "chr": 88,
+      "dv": 109,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_147",
+      "ref": [
+        67,
+        68,
+        122
+      ],
+      "test": [
+        22,
+        60,
+        238
+      ],
+      "raw": [
+        45,
+        8,
+        116
+      ],
+      "l1": 169,
+      "maximum": 116,
+      "normalized": [
+        [
+          66,
+          67,
+          121
+        ],
+        [
+          18,
+          48,
+          190
+        ]
+      ],
+      "chr": 69,
+      "dv": 116,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_148",
+      "ref": [
+        121,
+        94,
+        82
+      ],
+      "test": [
+        149,
+        63,
+        16
+      ],
+      "raw": [
+        28,
+        31,
+        66
+      ],
+      "l1": 125,
+      "maximum": 66,
+      "normalized": [
+        [
+          104,
+          81,
+          70
+        ],
+        [
+          167,
+          70,
+          18
+        ]
+      ],
+      "chr": 63,
+      "dv": 28,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_149",
+      "ref": [
+        132,
+        186,
+        70
+      ],
+      "test": [
+        6,
+        0,
+        164
+      ],
+      "raw": [
+        126,
+        186,
+        94
+      ],
+      "l1": 406,
+      "maximum": 186,
+      "normalized": [
+        [
+          87,
+          122,
+          46
+        ],
+        [
+          9,
+          0,
+          246
+        ]
+      ],
+      "chr": 200,
+      "dv": 22,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_150",
+      "ref": [
+        247,
+        82,
+        237
+      ],
+      "test": [
+        78,
+        130,
+        71
+      ],
+      "raw": [
+        169,
+        48,
+        166
+      ],
+      "l1": 383,
+      "maximum": 169,
+      "normalized": [
+        [
+          111,
+          37,
+          107
+        ],
+        [
+          71,
+          119,
+          65
+        ]
+      ],
+      "chr": 82,
+      "dv": 117,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_151",
+      "ref": [
+        241,
+        153,
+        17
+      ],
+      "test": [
+        52,
+        191,
+        18
+      ],
+      "raw": [
+        189,
+        38,
+        1
+      ],
+      "l1": 228,
+      "maximum": 189,
+      "normalized": [
+        [
+          150,
+          95,
+          11
+        ],
+        [
+          51,
+          187,
+          18
+        ]
+      ],
+      "chr": 99,
+      "dv": 50,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_152",
+      "ref": [
+        252,
+        42,
+        57
+      ],
+      "test": [
+        18,
+        31,
+        25
+      ],
+      "raw": [
+        234,
+        11,
+        32
+      ],
+      "l1": 277,
+      "maximum": 234,
+      "normalized": [
+        [
+          183,
+          31,
+          41
+        ],
+        [
+          62,
+          107,
+          86
+        ]
+      ],
+      "chr": 121,
+      "dv": 221,
+      "reliable": false,
+      "status": 3,
+      "name": "CHECK"
+    },
+    {
+      "case": "random_153",
+      "ref": [
+        43,
+        25,
+        31
+      ],
+      "test": [
+        77,
+        115,
+        191
+      ],
+      "raw": [
+        34,
+        90,
+        160
+      ],
+      "l1": 284,
+      "maximum": 160,
+      "normalized": [
+        [
+          111,
+          64,
+          80
+        ],
+        [
+          51,
+          77,
+          127
+        ]
+      ],
+      "chr": 60,
+      "dv": 148,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_154",
+      "ref": [
+        98,
+        106,
+        227
+      ],
+      "test": [
+        95,
+        49,
+        103
+      ],
+      "raw": [
+        3,
+        57,
+        124
+      ],
+      "l1": 184,
+      "maximum": 124,
+      "normalized": [
+        [
+          58,
+          63,
+          134
+        ],
+        [
+          98,
+          51,
+          106
+        ]
+      ],
+      "chr": 40,
+      "dv": 124,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_155",
+      "ref": [
+        19,
+        237,
+        207
+      ],
+      "test": [
+        95,
+        187,
+        212
+      ],
+      "raw": [
+        76,
+        50,
+        5
+      ],
+      "l1": 131,
+      "maximum": 76,
+      "normalized": [
+        [
+          10,
+          131,
+          114
+        ],
+        [
+          49,
+          97,
+          109
+        ]
+      ],
+      "chr": 39,
+      "dv": 25,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_156",
+      "ref": [
+        59,
+        121,
+        53
+      ],
+      "test": [
+        41,
+        187,
+        5
+      ],
+      "raw": [
+        18,
+        66,
+        48
+      ],
+      "l1": 132,
+      "maximum": 66,
+      "normalized": [
+        [
+          65,
+          132,
+          58
+        ],
+        [
+          45,
+          205,
+          5
+        ]
+      ],
+      "chr": 73,
+      "dv": 66,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_157",
+      "ref": [
+        59,
+        108,
+        121
+      ],
+      "test": [
+        75,
+        160,
+        2
+      ],
+      "raw": [
+        16,
+        52,
+        119
+      ],
+      "l1": 187,
+      "maximum": 119,
+      "normalized": [
+        [
+          52,
+          96,
+          107
+        ],
+        [
+          81,
+          172,
+          2
+        ]
+      ],
+      "chr": 105,
+      "dv": 39,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_158",
+      "ref": [
+        1,
+        249,
+        127
+      ],
+      "test": [
+        114,
+        201,
+        138
+      ],
+      "raw": [
+        113,
+        48,
+        11
+      ],
+      "l1": 172,
+      "maximum": 113,
+      "normalized": [
+        [
+          1,
+          168,
+          86
+        ],
+        [
+          64,
+          113,
+          78
+        ]
+      ],
+      "chr": 63,
+      "dv": 48,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    },
+    {
+      "case": "random_159",
+      "ref": [
+        119,
+        79,
+        228
+      ],
+      "test": [
+        206,
+        73,
+        181
+      ],
+      "raw": [
+        87,
+        6,
+        47
+      ],
+      "l1": 140,
+      "maximum": 87,
+      "normalized": [
+        [
+          71,
+          47,
+          136
+        ],
+        [
+          114,
+          40,
+          100
+        ]
+      ],
+      "chr": 43,
+      "dv": 22,
+      "reliable": true,
+      "status": 1,
+      "name": "DIFF"
+    }
+  ],
+  "limitation": "LIGHT does not distinguish illumination from different material lightness; no raw camera sequence or calibrated reflectance ground truth",
+  "comparisons": {
+    "raw_absolute": "all 160 controlled shading cases exceed MAX12",
+    "normalized": "160/160 have CHR<=1; retain raw mismatch as LIGHT, never automatically MATCH",
+    "offset_correction": "not selected: an unknown single-color sample cannot calibrate channel-dependent illumination"
+  }
+}

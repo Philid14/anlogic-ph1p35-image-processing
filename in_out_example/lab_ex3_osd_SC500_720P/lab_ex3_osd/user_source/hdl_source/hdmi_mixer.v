@@ -3,10 +3,15 @@ module hdmi_mixer #(
     parameter V_OFFSET = 60,
     parameter IMG_WIDTH = 1280,
     parameter IMG_HEIGHT = 720,
-    parameter integer DEBUG_MODE = 0
+    parameter integer DEBUG_MODE = 0,
+    parameter integer LOGO_ERAM_ENABLE = 0,
+    parameter integer VISION_WATCHDOG = 0,
+    parameter integer STALE_CYCLES = 15000000,
+    parameter integer LATENCY_ENABLE = 0
 )(
     input wire        I_clk,
     input wire        I_rst_n,
+    input wire        I_capture_toggle,
 
     input wire        I_video_vsync,
     input wire        I_video_hsync,
@@ -22,7 +27,12 @@ module hdmi_mixer #(
     output reg        O_hdmi_vsync,
     output reg        O_hdmi_hsync,
     output reg        O_hdmi_de,
-    output reg[23:0]  O_hdmi_data
+    output reg[23:0]  O_hdmi_data,
+    input wire[19:0] I_latency,I_latency_min,I_latency_max,I_latency_age,
+    input wire[31:0] I_latency_frame,
+    input wire[15:0] I_latency_samples,I_latency_errors,
+    input wire[23:0] I_latency_diagnostic,
+    input wire[2:0] I_latency_status
 );
 
     reg        S_video_vsync_1d;
@@ -39,6 +49,13 @@ module hdmi_mixer #(
     reg [11:0] S_x_2d;
     reg [11:0] S_y_1d;
     reg [11:0] S_y_2d;
+    wire performance_hit;wire[23:0] performance_color;
+    generate if(LATENCY_ENABLE)begin:g_latency_osd
+        latency_osd u_panel(.clk(I_clk),.rst_n(I_rst_n),.update(I_video_user),
+            .latency(I_latency),.minimum(I_latency_min),.maximum(I_latency_max),.age(I_latency_age),
+            .frame_id(I_latency_frame),.samples(I_latency_samples),.errors(I_latency_errors),.status(I_latency_status),.diagnostic(I_latency_diagnostic),
+            .x1(S_x_1d),.y1(S_y_1d),.x2(S_x_2d),.y2(S_y_2d),.hit(performance_hit),.color(performance_color));
+    end else begin:g_no_latency assign performance_hit=0;assign performance_color=0;end endgenerate
 
     reg        S_osd_hit;
     reg [23:0] S_osd_color;
@@ -469,11 +486,30 @@ module hdmi_mixer #(
     endfunction
 
     assign O_video_rd_en = I_video_de;
+    // Only a one-bit source-complete heartbeat crosses into HDMI. Statistics
+    // remain burned into source pixels before DDR, so no wide unsafely sampled bus.
+    (* async_reg="true" *) reg capture_meta,capture_sync;
+    reg capture_seen;reg [23:0] capture_age;reg source_seen;
+    wire video_stale=VISION_WATCHDOG && (!source_seen || capture_age>=STALE_CYCLES);
+    generate if(VISION_WATCHDOG)begin:g_watchdog
+        always @(posedge I_clk or negedge I_rst_n)begin
+            if(!I_rst_n)begin capture_meta<=0;capture_sync<=0;capture_seen<=0;capture_age<=0;source_seen<=0;end
+            else begin
+                capture_meta<=I_capture_toggle;capture_sync<=capture_meta;capture_seen<=capture_sync;
+                if(capture_sync!=capture_seen)begin capture_age<=0;source_seen<=1;end
+                else if(capture_age<STALE_CYCLES)capture_age<=capture_age+1'b1;
+            end
+        end
+    end endgenerate
 
-    anlogic_logo_rom u_anlogic_logo_rom(
-        .I_addr  ( S_logo_addr  ),
-        .O_pixel ( S_logo_pixel )
-    );
+    // Two synchronous ROM reads start from the original stage-zero coordinates.
+    // They finish with *_2d, exactly where the old asynchronous ROM was used.
+    wire [14:0] early_logo_address=(I_video_de && S_x<LOGO_W && S_y<LOGO_H) ? S_y*LOGO_W+S_x : 15'd0;
+    generate if(LOGO_ERAM_ENABLE)begin:g_eram_logo
+        vision_logo_palette u_logo(.clk(I_clk),.address(early_logo_address),.pixel(S_logo_pixel));
+    end else begin:g_legacy_logo
+        anlogic_logo_rom u_anlogic_logo_rom(.I_addr(S_logo_addr),.O_pixel(S_logo_pixel));
+    end endgenerate
 
     osd_char_lib u_osd_char_lib(
         .I_char     ( S_pf_char     ),
@@ -498,6 +534,7 @@ module hdmi_mixer #(
             else begin
                 S_x <= S_x + 12'd1;
             end
+
         end
     end
 
@@ -560,10 +597,21 @@ module hdmi_mixer #(
         end
     end
 
+    // Logo address is calculated from the existing earlier coordinate stage.
+    // At every clock these coordinates and DE advance into *_2d together.
+    // This cuts multiply/add -> ROM -> output into existing pipeline slots;
+    // pixel data, video read enable and HDMI sync/output latency are unchanged.
+    always @(posedge I_clk or negedge I_rst_n) begin
+        if(!I_rst_n) S_logo_addr <= 15'd0;
+        else if(S_video_de_1d && S_x_1d>=LOGO_X && S_x_1d<LOGO_X+LOGO_W &&
+                S_y_1d>=LOGO_Y && S_y_1d<LOGO_Y+LOGO_H)
+            S_logo_addr <= (S_y_1d-LOGO_Y)*LOGO_W+(S_x_1d-LOGO_X);
+        else S_logo_addr <= 15'd0;
+    end
+
     always @(*) begin
         S_osd_hit   = 1'b0;
         S_osd_color = 24'd0;
-        S_logo_addr = 15'd0;
 
         S_logo_x = 12'd0;
         S_logo_y = 12'd0;
@@ -616,7 +664,6 @@ module hdmi_mixer #(
                (S_y_2d >= LOGO_Y) && (S_y_2d < (LOGO_Y + LOGO_H))) begin
                 S_logo_x = S_x_2d - LOGO_X;
                 S_logo_y = S_y_2d - LOGO_Y;
-                S_logo_addr = S_logo_y * LOGO_W + S_logo_x;
                 if(S_logo_pixel[24]) begin
                     S_osd_hit   = 1'b1;
                     S_osd_color = S_logo_pixel[23:0];
@@ -813,6 +860,15 @@ module hdmi_mixer #(
                     S_osd_color = COLOR_DYN_TEXT;
                 end
             end
+            if(video_stale && S_x_2d>=32 && S_x_2d<208 && S_y_2d>=680 && S_y_2d<696)begin
+                case((S_x_2d-32)>>4)
+                    0:S_pf_char="V";1:S_pf_char="I";2:S_pf_char="D";3:S_pf_char="E";4:S_pf_char="O";
+                    5:S_pf_char=" ";6:S_pf_char="S";7:S_pf_char="T";8:S_pf_char="A";9:S_pf_char="L";10:S_pf_char="E";
+                    default:S_pf_char=" ";
+                endcase
+                S_pf_row=S_y_2d-680;S_pf_col=S_x_2d[3:0];
+                if(S_pf_row_bits[15-S_pf_col])begin S_osd_hit=1;S_osd_color=24'hff4040;end
+            end
         end
     end
 
@@ -900,6 +956,8 @@ module hdmi_mixer #(
             else begin
                 if(S_osd_hit)
                     O_hdmi_data <= S_osd_color;
+                else if(performance_hit)
+                    O_hdmi_data <= performance_color;
                 else
                     O_hdmi_data <= S_video_data_2d;
             end

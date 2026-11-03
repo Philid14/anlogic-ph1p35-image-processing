@@ -1,0 +1,1 @@
+267a478 completed SYN and nine-frame regression only; no PHY/bitgen. Vertical coverage model showed 6px scan spacing misses short tick bands. Final r1 uses twelve rows at 3px spacing and fresh synthesis/regression.

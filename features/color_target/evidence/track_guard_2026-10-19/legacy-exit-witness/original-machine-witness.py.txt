@@ -1,0 +1,81 @@
+"""Independent injected-process witness. No real simulator or RTL is changed."""
+import argparse
+import contextlib
+import hashlib
+import importlib.util
+import io
+import json
+from pathlib import Path
+import subprocess
+import sys
+from unittest.mock import patch
+
+ROOT=Path(r'C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\work\target-text-atomic')
+HERE=ROOT/'features/color_target'
+OUT=Path(__file__).resolve().parent
+
+def load(name,path):
+    spec=importlib.util.spec_from_file_location(name,path)
+    module=importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+def child(mode,directory):
+    sys.path.insert(0,str(HERE))
+    sys.path.insert(0,str(HERE/'tools'))
+    import simlib
+    contract=load('class_contract_probe',HERE/'run_target_class_contract.py')
+    original_simulate=simlib.simulate
+    runtime_code=0 if mode=='success' else 7
+    calls=[]
+    def injected(srcs,top,params,args,**kwargs):
+        fixture=HERE/'evidence/consolidation_2026-10-18/full/class_rtl'/f"class-{params['CLASS']}.log"
+        stdout=fixture.read_text(encoding='utf-8')
+        if mode=='text_error':stdout+='\n** Error: injected runtime failure\n'
+        completed=subprocess.CompletedProcess(['INJECTED_SIMULATOR'],runtime_code,stdout,'')
+        with patch.object(simlib,'pick',return_value=('iverilog',('INJECTED','independent witness'))), \
+             patch.object(simlib,'_build_iverilog',return_value=None), \
+             patch.object(simlib,'find_iverilog',return_value=('INJECTED_COMPILER','INJECTED_RUNTIME','fixture')), \
+             patch.object(simlib.subprocess,'run',return_value=completed):
+            ok,text,error=original_simulate(srcs,top,params,args,**kwargs)
+        calls.append(dict(parameter=params['CLASS'],injected_runtime_exit=runtime_code,
+            simlib_ok=ok,fixture_sha256_lf=hashlib.sha256(fixture.read_bytes().replace(b'\r\n',b'\n')).hexdigest()))
+        return ok,text,error
+    with patch.object(contract,'simulate',side_effect=injected), \
+         patch.object(sys,'argv',['run_target_class_contract.py','--sim','iverilog','--out',str(directory)]):
+        code=contract.main()
+    (directory/'injected-calls.json').write_text(json.dumps(calls,indent=2)+'\n',encoding='utf-8')
+    return code
+
+def main():
+    ap=argparse.ArgumentParser();ap.add_argument('--child',choices=['success','silent_nonzero','text_error']);ap.add_argument('--out',type=Path)
+    args=ap.parse_args()
+    if args.child:return child(args.child,args.out)
+    directory=OUT/'exit-witness-01';directory.mkdir(exist_ok=False)
+    runner=load('verification_exit_probe',HERE/'run_verification.py')
+    results=[]
+    for mode,want in [('success',True),('silent_nonzero',False),('text_error',False)]:
+        target=directory/mode
+        got=runner.execute([sys.executable,'-B','-X','utf8','-u',str(Path(__file__)),
+            '--child',mode,'--out',str(target)],directory/(mode+'.log'),r'^12/12 parameter configurations;',120)
+        calls=json.loads((target/'injected-calls.json').read_text(encoding='utf-8'))
+        summary=json.loads((target/'summary.json').read_text(encoding='utf-8'))
+        details=None
+        if got['passed']:details=runner.inspect_report('class_rtl',target)
+        results.append(dict(mode=mode,independent_expected_pass=want,observed_pass=got['passed'],
+            mismatch=got['passed']!=want,python_child_exit=got['exit_code'],failure=got['failure'],
+            class_cases_passed=summary['passed'],class_cases_total=summary['total'],
+            injected_runtime_exit=calls[0]['injected_runtime_exit'],simlib_ok_values=sorted(set(c['simlib_ok'] for c in calls)),
+            structured_report=details))
+    report=dict(kind='INJECTED SUBPROCESS EXIT WITNESS; not an actual simulator failure or hardware run',
+        source_head=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+        source_sha256_lf={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes().replace(b'\r\n',b'\n')).hexdigest()
+            for p in [HERE/'tools/simlib.py',HERE/'run_target_class_contract.py',HERE/'run_verification.py']},
+        results=results,defect_reproduced=[r['mode'] for r in results if r['mismatch']]==['silent_nonzero'],
+        conclusion='OPEN: simulator nonzero can be lost below a successful Python child, despite exact data and completion checks',
+        production_changes=[])
+    (directory/'summary.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
+    print(json.dumps(report,ensure_ascii=False,indent=2))
+    return 0 if report['defect_reproduced'] else 1
+
+if __name__=='__main__':raise SystemExit(main())

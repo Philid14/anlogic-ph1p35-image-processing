@@ -1,0 +1,708 @@
+{
+  "algorithm": "evidence exact bytes; live source/document text LF-normalized",
+  "base_commit": "4ec3d35a5cd08cc2d64fe03aa403be16fd696706",
+  "files": {
+    "features/color_target/evidence/track_guard_2026-10-19/.gitattributes": {
+      "sha256": "40c83f13b27522cfe6d2924150d57b102c73c24d4ee889775af78958da3b1fda",
+      "bytes": 90,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/.gitignore": {
+      "sha256": "15c4437080db4ec4be5ef2b2dde82e82749b1bb6379ee7f82d0fa7c87feba804",
+      "bytes": 8,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/APPROVED_PLAN.md": {
+      "sha256": "271b4311dcefcce456161ba5b15562c0dfc6d5867658ab820f02c9e07adac287",
+      "bytes": 7975,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/board-records/GAIN_TEST_A-tagged-BUILD_INFO.md": {
+      "sha256": "86335211f87efc6d7d744e2cc3f06c8a4b1e8bf2ff62436b66636ddaa91fc43e",
+      "bytes": 2694,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/board-records/GAIN_TEST_B-tagged-BUILD_INFO.md": {
+      "sha256": "2b6dcd1a59cd9f1571fc7b9a95e99905bb2757e775aecd077b6178ad7703d377",
+      "bytes": 2682,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/board-records/git-history.log": {
+      "sha256": "ad72387c43a7b5b7d0a9bb8002b5d1157f601713474c9ae8ea6bdf96c1801397",
+      "bytes": 2207,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/board-records/index.json": {
+      "sha256": "a02b92622933a6135b204bb0415e4a3843d474a298d10ff526487aaf40a5300d",
+      "bytes": 9969,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/board-records/INDEX.md": {
+      "sha256": "97002106ffc893147c1eb9dd36cc9d91905e381223bbd7ca26a7202b327046a9",
+      "bytes": 4976,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/color_target_track_guard.v": {
+      "sha256": "e7fb53f33ebf8f29de08826ffd94277db65c9214394102a716a030a606ed2578",
+      "bytes": 12249,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/launcher.log": {
+      "sha256": "752eecaf932abc4b5eaeebda5e4d81a27e00216c5e2e574508a2e6eb5ee42301",
+      "bytes": 99,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/run/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/run/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/run/core_time8/vsim.log": {
+      "sha256": "57f9be1ac858c8a74d48e7d0984ef3b942f39e1b57fb316b627ad6408825b77f",
+      "bytes": 1555,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/arrival_refreshes_age/run/summary.json": {
+      "sha256": "3576f5b9c89ffeb54c5397b77111041a3d228178024056330a7ef473d9504871",
+      "bytes": 3682,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/color_target_track_guard.v": {
+      "sha256": "eb90fcbc9dd08d2100904ac355070cfe7fb72f0395fcadbc5fa20b0375170d87",
+      "bytes": 12258,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/launcher.log": {
+      "sha256": "752eecaf932abc4b5eaeebda5e4d81a27e00216c5e2e574508a2e6eb5ee42301",
+      "bytes": 99,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/run/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/run/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/run/core_time8/vsim.log": {
+      "sha256": "1df914757b52fc9418859a793192c0b2754b8e40dd3e7101c6d36cb1437d9519",
+      "bytes": 2256,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/duplicate_admitted/run/summary.json": {
+      "sha256": "c4e0b86abfa59c48588bbd152c60665ff9edf3f6a8d3920dbbf2247bba36af38",
+      "bytes": 3673,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/color_target_track_guard.v": {
+      "sha256": "09b03738ede0467be665f66a38a96f33edfc3d98703f2b100c5ccbca68aa7bb8",
+      "bytes": 12211,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/launcher.log": {
+      "sha256": "752eecaf932abc4b5eaeebda5e4d81a27e00216c5e2e574508a2e6eb5ee42301",
+      "bytes": 99,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/run/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/run/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/run/core_time8/vsim.log": {
+      "sha256": "04d435389fe06a77971fadbf98ca84ce1fb5d80f2bcf17924c14cab6a4c6f197",
+      "bytes": 2009,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/epoch_never_changes/run/summary.json": {
+      "sha256": "e9ec48dfb9fab6f3b014abacd47172217e75e571aa96b0379c76461c047d1277",
+      "bytes": 3676,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/summary.json": {
+      "sha256": "f048492c7c3498fc39660c6971e449bd41b147d661e41659b1b38e44c48279f1",
+      "bytes": 5344,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/color_target_track_guard.v": {
+      "sha256": "9fbd9aeaa608241686182e38c9ab44d1f096d584d6f4d79768bf6eea06f07e71",
+      "bytes": 12275,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/launcher.log": {
+      "sha256": "752eecaf932abc4b5eaeebda5e4d81a27e00216c5e2e574508a2e6eb5ee42301",
+      "bytes": 99,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/run/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/run/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/run/core_time8/vsim.log": {
+      "sha256": "4a39ddfb614cb524cd957d64edaeeba205250092b6ab1612448827c4f404d037",
+      "bytes": 1344,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-mutations-01/target_expiry_erases_reliable/run/summary.json": {
+      "sha256": "db602777d165548d0f56685493785209d7b3c69ffa1a223d64c0fec01b5bc573",
+      "bytes": 3706,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/core_time64/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/core_time64/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/core_time8/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/largest_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/largest_limit/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/negative_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/negative_limit/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/overflow_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/overflow_limit/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/positive_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/positive_limit/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/reliable_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/reliable_disabled/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/reliable_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/reliable_limit/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/source-snapshot/color_target_track_guard.v": {
+      "sha256": "ce5357f7342704abf88d72ef55f6a1dc4937403573ddec61fa4c4b08bd90f949",
+      "bytes": 11810,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/source-snapshot/run_track_guard_contract.py": {
+      "sha256": "48a98a9a84c399661a13229cdf22ee480efcb911a9a3881e25b7dbd30d57ac57",
+      "bytes": 8292,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/source-snapshot/tb_color_target_track_guard.v": {
+      "sha256": "420ffcea36b71856b2a83d79475a8da1aca21ed28b73b8e58a46d1a56fb7a51e",
+      "bytes": 16127,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/summary.json": {
+      "sha256": "710019322def65fc9579d9eea8ac2123c39b67ac1fc433f9de42005bfbef8222",
+      "bytes": 15172,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/target_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-01/target_disabled/vlog.log": {
+      "sha256": "a7b87bcfb75fcf28441e5f59d015d84b36174ec39265d89289db5e3487d372c2",
+      "bytes": 20977,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time64/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time64/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time64/vsim.log": {
+      "sha256": "6827133c10772cc23164725beebb039c2d2483b358dac08824213645f9c80a2b",
+      "bytes": 1181,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/core_time8/vsim.log": {
+      "sha256": "d1c570e78c300932e2c58869a51a05e6857a1e6b0bb5847a0d575dc83c484ef2",
+      "bytes": 1180,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/largest_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/largest_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/largest_limit/vsim.log": {
+      "sha256": "61e2d2bba8c5c4139a2a3659d99ba13d07a8fefa4a32b6d4bcb89cf27d541d49",
+      "bytes": 7184,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/negative_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/negative_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/negative_limit/vsim.log": {
+      "sha256": "6026f6cfddea9bad72bc7c57150e76458c6c275e661deca8da3f2ec9cd0b019f",
+      "bytes": 7180,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/overflow_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/overflow_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/overflow_limit/vsim.log": {
+      "sha256": "ae50e81eed698b860e5a15c965098e24e85c4138ab34aa6022c0cb265811d4e5",
+      "bytes": 7181,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/positive_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/positive_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/positive_limit/vsim.log": {
+      "sha256": "cc376c8d77a656767e5172c97de7cf359d35f8c135b644a510f267b594f94337",
+      "bytes": 7185,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_disabled/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_disabled/vsim.log": {
+      "sha256": "db3c945b2fc02eab642a4a9eb587effff94d6046b36a1468459bd02c245ed8a1",
+      "bytes": 7179,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/reliable_limit/vsim.log": {
+      "sha256": "ba376a9658a629f50a144172965268d55cdc6f800de085288b7de4bfacc8943f",
+      "bytes": 7190,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/source-snapshot/color_target_track_guard.v": {
+      "sha256": "ce5357f7342704abf88d72ef55f6a1dc4937403573ddec61fa4c4b08bd90f949",
+      "bytes": 11810,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/source-snapshot/run_track_guard_contract.py": {
+      "sha256": "48a98a9a84c399661a13229cdf22ee480efcb911a9a3881e25b7dbd30d57ac57",
+      "bytes": 8292,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/source-snapshot/tb_color_target_track_guard.v": {
+      "sha256": "a1c598f619ec3070450b02daec87974274d14c142bbe2b22413c054cc50270fc",
+      "bytes": 16710,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/summary.json": {
+      "sha256": "e2b477233e897c85515debfa3e4dd48f5715f83ed4d3764321810b12dc74f15a",
+      "bytes": 22164,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/target_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/target_disabled/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-02/target_disabled/vsim.log": {
+      "sha256": "a381e8ccd5235e7dfb9651bf0491b971bddd88ea48dacbe2441f6ebf9cb5d7e3",
+      "bytes": 7179,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time64/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time64/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time64/vsim.log": {
+      "sha256": "11be1de389d68c910dd4140b1d430b0db466997752dffe165e3afd34b7d50138",
+      "bytes": 1224,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time8/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time8/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/core_time8/vsim.log": {
+      "sha256": "9206975cecdcc0e2694c1eb43c0b9f7a64a9b2c62bb1b4fff789ed9ea41fba5b",
+      "bytes": 1223,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/largest_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/largest_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/largest_limit/vsim.log": {
+      "sha256": "cd815caa9f332829db38ef8f73e9e5f1de7e473b0bdc4584ac77f7dc6d25ffb0",
+      "bytes": 7184,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/negative_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/negative_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/negative_limit/vsim.log": {
+      "sha256": "8b21cb0eb1882cbe29d40ddf0e071a12788f7bfeaa569a8fad25898eb2de917b",
+      "bytes": 7180,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/overflow_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/overflow_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/overflow_limit/vsim.log": {
+      "sha256": "c7d9d22ae894e806564c86df5ad21876207a39265dd3c631a6cfee7b5d898c84",
+      "bytes": 7181,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/positive_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/positive_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/positive_limit/vsim.log": {
+      "sha256": "86278ed0058e6f760f16ab01686d1405b72644c61874139a920929242985ca48",
+      "bytes": 7185,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_disabled/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_disabled/vsim.log": {
+      "sha256": "276a296246a81f83bcaea0daed2c9b90014cacaad3e85c34fdc424b454dca9d3",
+      "bytes": 7179,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_limit/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_limit/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/reliable_limit/vsim.log": {
+      "sha256": "56a940787e89ebf7865c0bdc76516f4ea174c79f4090218befdf4518553a33e3",
+      "bytes": 7190,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/summary.json": {
+      "sha256": "acdeb7fa48f95aada6521a17e68caee21361604fd6d8d9b878c09ffad1ee636f",
+      "bytes": 22337,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/target_disabled/vlib.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/target_disabled/vlog.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-rtl-03/target_disabled/vsim.log": {
+      "sha256": "0730c5afd618fffa55ddbb9dee0dc59615d72632fe7089e7b0f9d7d97d20c842",
+      "bytes": 7179,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-01/summary.json": {
+      "sha256": "d401bad03227ce4283c1b926c323c3e9c1e0e7e25c9ead89bbe9de8c5606e245",
+      "bytes": 2626,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-01/tool_error_after_completion.log": {
+      "sha256": "b044096904ae48f910e823d4931ed8f09f040b6f7cf887620688012741a25ff8",
+      "bytes": 56,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-01/tool_exit_after_completion.log": {
+      "sha256": "d106ff5797263d16cc9ba09aad4e60c86e50126c3433420176cacb30493322af",
+      "bytes": 36,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-01/tool_success.log": {
+      "sha256": "d106ff5797263d16cc9ba09aad4e60c86e50126c3433420176cacb30493322af",
+      "bytes": 36,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-02/summary.json": {
+      "sha256": "53a9f81eea561eb6e187dfe8b39e9b2166ec5e67d7d756ac5126cb06bdae3c8f",
+      "bytes": 2717,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-02/tool_error_after_completion.log": {
+      "sha256": "b044096904ae48f910e823d4931ed8f09f040b6f7cf887620688012741a25ff8",
+      "bytes": 56,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-02/tool_exit_after_completion.log": {
+      "sha256": "d106ff5797263d16cc9ba09aad4e60c86e50126c3433420176cacb30493322af",
+      "bytes": 36,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/guard-tools-02/tool_success.log": {
+      "sha256": "d106ff5797263d16cc9ba09aad4e60c86e50126c3433420176cacb30493322af",
+      "bytes": 36,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/original-machine-witness.py.txt": {
+      "sha256": "369bec84e2e1102056d157f74ac825391746b30a6676f89b56a626ce433167c6",
+      "bytes": 4661,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/silent_nonzero-injected-calls.json": {
+      "sha256": "57309c8aa9328b5d777b4ca404df96d7c2557544c1b2d9153239df4df8dffd76",
+      "bytes": 2210,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/silent_nonzero.log": {
+      "sha256": "9292aa3cdd4f8db5556e40acb71078102946b28ad2dc64e22dc7f0c84218f1ac",
+      "bytes": 1077,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/success-injected-calls.json": {
+      "sha256": "235063ae89c4a38bdf5cf7f0c26f2f1335e1841c13fe115752de41fd924b1f68",
+      "bytes": 2210,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/success.log": {
+      "sha256": "9292aa3cdd4f8db5556e40acb71078102946b28ad2dc64e22dc7f0c84218f1ac",
+      "bytes": 1077,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/summary.json": {
+      "sha256": "775106f655f0ca421706ab04f9417ea2b1e727f561bb2144930fa8154d9c3b37",
+      "bytes": 2015,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/text_error-injected-calls.json": {
+      "sha256": "57309c8aa9328b5d777b4ca404df96d7c2557544c1b2d9153239df4df8dffd76",
+      "bytes": 2210,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/legacy-exit-witness/text_error.log": {
+      "sha256": "f6f98421955373520cecc0857640742978348f027340a21ad171803cb6d3bae4",
+      "bytes": 1076,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/original-source-check.json": {
+      "sha256": "e7addde1c62ac2292708f54688ebd61f24cd38f9c042b71b6f7825cc02bd5c08",
+      "bytes": 188,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/REVIEW_4ec3d35.md": {
+      "sha256": "51882cd595e180ef57ae780c6f8a843f45a0815b99621e9e809a8072e944d27a",
+      "bytes": 3207,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/tool-version.txt": {
+      "sha256": "be5b82458ed2730ac3ead290d2ddf18dba646b188f925658281b6e0cbe8bd2be",
+      "bytes": 208,
+      "exact_bytes": true
+    },
+    "features/color_target/evidence/track_guard_2026-10-19/VALIDATION.md": {
+      "sha256": "6b435cf7c6faab24924f6ca0e61c399394b83eeab98b0aaaf75b76ae4d927056",
+      "bytes": 10692,
+      "exact_bytes": true
+    },
+    "features/color_target/integration/TRACK_GUARD_INTERFACE.md": {
+      "sha256": "df22a37387d4bfa77fe52e766e10fa623b8930f9c4d5bdb2bf9f4a268b4a576f",
+      "bytes": 9636,
+      "exact_bytes": false
+    },
+    "features/color_target/rtl/color_target_track_guard.v": {
+      "sha256": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "bytes": 12044,
+      "exact_bytes": false
+    },
+    "features/color_target/run_track_guard_contract.py": {
+      "sha256": "61eae1c94b26b47127cc6b58479ddf0a79bd70a0fd6abc0ff42bb26e04613eb0",
+      "bytes": 9012,
+      "exact_bytes": false
+    },
+    "features/color_target/tb/tb_color_target_track_guard.v": {
+      "sha256": "8d29872c4ae25504629b8eb608bdec8c11bd87247547fc0091c11c8f9aa8025a",
+      "bytes": 17476,
+      "exact_bytes": false
+    }
+  },
+  "checks": {
+    "assertions": 818,
+    "jobs": 9,
+    "tool_processes": 27,
+    "tool_selftests": 6,
+    "mutants_detected": 4,
+    "relative_doc_links": 11,
+    "missing_links": []
+  },
+  "exclusions": [
+    "this manifest itself"
+  ]
+}

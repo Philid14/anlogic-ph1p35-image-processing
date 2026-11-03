@@ -1,0 +1,2 @@
+PASS checkpoints_B_C_D stream width=1280 height=160 cycles=517089 valid_beats=512000 packed_words=384000 denoise=1 nms=1 depth=29
+D:\anlogic_formal_project\tmp\edge_temporal_v1\tb_edge_temporal_stream.v:110: $finish called at 5170976000 (1ps)

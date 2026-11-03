@@ -1,0 +1,41 @@
+{
+  "version": "LATENCY_FRAME_FIX_V1",
+  "role": "MAIN",
+  "branch": "codex/main/latency-frame-fix-v1",
+  "baseline": "793c9d3de58420524007474bafb2125cbad104f1",
+  "source_commit": "ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8",
+  "tag": "latency-frame-fix-v1-candidate",
+  "build_time": "2026-11-03T21:31:49.554151+08:00",
+  "device": "PH1P35MDG324 speed3",
+  "top": "design_top_wrapper",
+  "original_bit_path": "D:\\anlogic_formal_project\\tmp\\latency_frame_fix\\full_r0\\camera_to_dsi_display.bit",
+  "bit_sha256": "d516c1d81ec30999d3510ac82e32e354dd31e1e40dd374ad376e2b572a1f2c16",
+  "resources": {
+    "slice": 19177,
+    "lut6": 18498,
+    "ff": 16374,
+    "eram": 105,
+    "dsp": 25
+  },
+  "resource_delta": {
+    "slice": -32,
+    "lut6": -53,
+    "ff": 34,
+    "eram": 0,
+    "dsp": 0
+  },
+  "setup_wns_ns": 0.137,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "board_test": "NOT_RUN",
+  "push_status": "PENDING",
+  "draft_pr": "DEFERRED per user expedited-bit request",
+  "regression": "Native old-fails/new-passes blanking ownership; active source/line/full rejection; journal/display units; exact native5-line OSD raster; actual240-word DDR FIFO/mixer path12commits10samples",
+  "limits": "Specific board root not yet proved; C/W/D needed if BAD persists. Full unrelated regression and physical long-run/PVT deferred. Unchanged production video clocks/SDC/payload and existing CDC risk; added diagnostic bit synchronizers not an atomic measurement bus."
+}

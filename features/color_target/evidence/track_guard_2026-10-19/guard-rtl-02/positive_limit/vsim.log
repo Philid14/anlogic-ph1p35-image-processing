@@ -1,0 +1,70 @@
+Reading D:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet -gTARGET_AGE=3 -gRELIABLE_AGE=7 -gMODE=1 work.tb_color_target_track_guard_limits -do "run -all; quit -f" 
+# Start time: 19:55:34 on Oct 19,2026
+# ** Warning: (vsim-3017) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Too few port connections. Expected 58, found 31.
+# 
+#         Region: /tb_color_target_track_guard_limits/dut
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_current_session_id'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_event_strobe'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_observation_session_id'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_observation_frame_id'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_box_session_id'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_box_frame_id'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_reliable_age'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_positive_age'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_reliable_tick'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_positive_tick'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_color_class'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_pixel_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_xmin'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_xmax'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_center_x'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_ymin'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_ymax'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_center_y'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_duplicate_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_reorder_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_wrong_session_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_identity_error_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_invalid_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_cancelled_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_stale_result_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_time_error_count'.
+# 
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(219): [TFMPC] - Missing connection for port 'O_timeout_count'.
+# 
+# run -all
+# CASE positive_age_independent_of_reliable_age
+# GUARD_COMPLETE checks=5 failures=0
+# ** Note: $finish    : C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_color_target_track_guard.v(262)
+#    Time: 66 ns  Iteration: 0  Instance: /tb_color_target_track_guard_limits
+# End time: 19:55:35 on Oct 19,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 28

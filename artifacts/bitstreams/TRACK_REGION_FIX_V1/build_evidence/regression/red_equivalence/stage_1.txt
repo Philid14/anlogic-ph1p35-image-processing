@@ -1,0 +1,14 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 20:28:15 on Nov 02,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_track_red_equivalence.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v D:/anlogic_formal_project/features/color_target/rtl/color_classify.v 
+-- Compiling module tb_track_red_equivalence
+-- Compiling module vision_source_observer
+-- Compiling module vision_red_run_stats
+-- Compiling module vision_red_classify
+-- Compiling module color_classify
+
+Top level modules:
+	tb_track_red_equivalence
+	vision_source_observer
+End time: 20:28:15 on Nov 02,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

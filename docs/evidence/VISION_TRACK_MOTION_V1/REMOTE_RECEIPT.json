@@ -1,0 +1,24 @@
+{
+  "version": "VISION_TRACK_MOTION_V1",
+  "captured_at": "2026-11-01T19:16:19.107295+08:00",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "visibility": "private",
+  "candidate_archive_commit": "be226969254331561de1e6376610cd6bf99af601",
+  "actual_td_source_commit": "c3bdf9240647d9f98a2ff68c416693ad1e20f4b9",
+  "tag": "vision-track-motion-v1-candidate",
+  "refs_at_candidate_publication": {
+    "refs/heads/codex/main/vision-track-motion-v1": "be226969254331561de1e6376610cd6bf99af601",
+    "refs/tags/vision-track-motion-v1-candidate": "7cb32d95694e1e0f84abe3d4ae75cf158c57d278",
+    "refs/tags/vision-track-motion-v1-candidate^{}": "be226969254331561de1e6376610cd6bf99af601"
+  },
+  "bit_sha256": "f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0",
+  "tag_bit_verified": true,
+  "actual_td_inputs_verified": 84,
+  "historical_bits_unchanged": true,
+  "pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/24",
+  "pr_draft": true,
+  "pr_merged": false,
+  "board_test": "NOT_RUN",
+  "push_status": "SUCCEEDED",
+  "scope": "Candidate publication snapshot; subsequent receipts/docs may advance branch without moving candidate tag"
+}

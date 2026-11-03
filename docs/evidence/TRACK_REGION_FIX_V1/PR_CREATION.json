@@ -1,0 +1,13 @@
+{
+  "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29",
+  "number": 29,
+  "draft": true,
+  "state": "open",
+  "merged": false,
+  "base": "codex/main/inspection-shape-track-v1",
+  "base_sha": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+  "head": "codex/main/track-region-fix-v1",
+  "head_sha_at_creation": "806e29ab76f360a2bc76eea37fe826a92a8da57c",
+  "created_at": "2026-11-02T13:08:14Z",
+  "reviewer": "Philid14 (human review required; no merge authorization)"
+}

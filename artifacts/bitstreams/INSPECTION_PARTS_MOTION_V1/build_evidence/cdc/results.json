@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "route_db_sha256": "06ebfece1aaa3a6d8d50ad2781f9d382f977f9bb7408d0bfcc34b10ddb90312b",
+  "audit_script_sha256": "6b5a2eb5bce1999bfc91b695c8bdd43c999f49fc4a705bf8801c1a0c5cf1d3c8",
+  "raw_net_report_sha256": "1b027a98f5684e76437c3a790ee432d15ebbcc10398db2f03b799fc0acf606e2",
+  "alias_report_sha256": "792f78ba9966ad6b3fa2080e44a9a627f3aa680aefd622ff8f7e389ca5a2212d",
+  "checks": {
+    "time_gray": {
+      "passed": true,
+      "source_bits": 20,
+      "expected_source_bits": 20,
+      "missing_bits": [],
+      "unexpected_bits": [],
+      "load_count_mismatch": [],
+      "all_routed_loads_checked": 23,
+      "max_net_delay_ps": 964.0,
+      "limit_ps": 14700
+    },
+    "held_tuple": {
+      "passed": true,
+      "source_bits": 85,
+      "expected_source_bits": 85,
+      "missing_bits": [],
+      "unexpected_bits": [],
+      "load_count_mismatch": [],
+      "all_routed_loads_checked": 85,
+      "max_net_delay_ps": 1037.0,
+      "limit_ps": 26666
+    },
+    "tagged_fifo_gray": {
+      "passed": true,
+      "source_bits": 18,
+      "expected_source_bits": 18,
+      "missing_bits": [],
+      "unexpected_bits": [],
+      "load_count_mismatch": [],
+      "all_routed_loads_checked": 18,
+      "max_net_delay_ps": 795.0,
+      "limit_ps": 14700
+    },
+    "heartbeat": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 513.0,
+      "min_net_delay_ps": 513.0,
+      "limit_ps": 14700
+    },
+    "select_toggle": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 343.0,
+      "min_net_delay_ps": 343.0,
+      "limit_ps": 26666
+    },
+    "read_bad": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 1185.0,
+      "min_net_delay_ps": 1185.0,
+      "limit_ps": 14700
+    }
+  },
+  "logical_outputs": {
+    "timestamp_stage1": {
+      "passed": true,
+      "output_bits": 20,
+      "expected": 20,
+      "explicit_RTL_aliases": 0,
+      "missing": []
+    },
+    "timestamp_stage2": {
+      "passed": true,
+      "output_bits": 20,
+      "expected": 20,
+      "explicit_RTL_aliases": 0,
+      "missing": []
+    },
+    "held_tuple": {
+      "passed": true,
+      "output_bits": 85,
+      "expected": 85,
+      "explicit_RTL_aliases": 64,
+      "missing": []
+    },
+    "rd_to_wr_firststage": {
+      "passed": true,
+      "output_bits": 9,
+      "expected": 9,
+      "explicit_RTL_aliases": 0,
+      "missing": []
+    },
+    "wr_to_rd_firststage": {
+      "passed": true,
+      "output_bits": 9,
+      "expected": 9,
+      "explicit_RTL_aliases": 0,
+      "missing": []
+    }
+  },
+  "failures": [],
+  "global_sdc_changed": false,
+  "method": "Complete20/85/18 source-bit coverage and ALL physical fanouts, plus logical Q-output aliases; never filter by a colocated physical cell canonical name",
+  "inherited_gray_constraint_coverage": "NOT_FIXED; read-only routed envelope/structure audit, not new global SDC constraints",
+  "limit": "Not full CDC/MTBF signoff, hardware PVT or long-run validation"
+}

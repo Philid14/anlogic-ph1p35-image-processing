@@ -1,0 +1,33 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_parts_profile "+DIR=D:/anlogic_formal_project/tmp/inspection_parts_motion/profile" "+CASES=15" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 14:43:41 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Too few port connections. Expected 20, found 13.
+# 
+#         Region: /tb_parts_profile/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'round_present'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'gap_valid'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'sizes'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'gap_coords'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'sample_id'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'result_threshold'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_parts_profile.sv(5): [TFMPC] - Missing connection for port 'result_bright'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS          15 T/L profiles, reflection hole, rectangle/rotation/taper/gap/short/malformed rejection, recovery and 1px jitter
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_parts_profile.sv(27)
+#    Time: 5022226 ns  Iteration: 0  Instance: /tb_parts_profile
+# End time: 14:43:46 on Nov 03,2026, Elapsed time: 0:00:05
+# Errors: 0, Warnings: 8

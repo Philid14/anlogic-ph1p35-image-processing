@@ -1,0 +1,569 @@
+{
+  "white": {
+    "V1": {
+      "rgb_mae": 8.330634223090279,
+      "chroma_error_mae": 2.8143717447916665,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 8.330634223090279,
+      "chroma_error_mae": 2.8143717447916665,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 8.330634223090279,
+      "chroma_error_mae": 2.8143717447916665,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 8.330634223090279,
+      "chroma_error_mae": 2.8143717447916665,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    }
+  },
+  "gray_threshold": {
+    "V1": {
+      "rgb_mae": 54.35588921440972,
+      "chroma_error_mae": 24.299224853515625,
+      "neutral_colored_fraction": 0.4730631510416667,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 18.76861572265625,
+      "chroma_error_mae": 15.238087972005209,
+      "neutral_colored_fraction": 0.6919759114583334,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 1.9085761176215277,
+      "chroma_error_mae": 2.821929931640625,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 1.9085761176215277,
+      "chroma_error_mae": 2.821929931640625,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    }
+  },
+  "black": {
+    "V1": {
+      "rgb_mae": 1.2810872395833333,
+      "chroma_error_mae": 1.942962646484375,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 1.0,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 1.2810872395833333,
+      "chroma_error_mae": 1.942962646484375,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 1.0,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 1.2810872395833333,
+      "chroma_error_mae": 1.942962646484375,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 1.0,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 1.2810872395833333,
+      "chroma_error_mae": 1.942962646484375,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 1.0,
+      "new_ink_pixels": null
+    }
+  },
+  "gray": {
+    "V1": {
+      "rgb_mae": 41.055935329861114,
+      "chroma_error_mae": 24.048116048177082,
+      "neutral_colored_fraction": 0.4689534505208333,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 15.754591200086805,
+      "chroma_error_mae": 15.224578857421875,
+      "neutral_colored_fraction": 0.69293212890625,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 1.9074367947048612,
+      "chroma_error_mae": 2.8218892415364585,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 1.9074367947048612,
+      "chroma_error_mae": 2.8218892415364585,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    }
+  },
+  "color_patches": {
+    "V1": {
+      "rgb_mae": 5.164415147569445,
+      "chroma_error_mae": 8.061452229817709,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.1483154296875,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 4.155131022135417,
+      "chroma_error_mae": 5.033599853515625,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.1483154296875,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 3.4688178168402777,
+      "chroma_error_mae": 2.9746602376302085,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.1483154296875,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 0.6606038411458334,
+      "chroma_error_mae": 0.99090576171875,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.12888590494791666,
+      "new_ink_pixels": null
+    }
+  },
+  "gray_ramp": {
+    "V1": {
+      "rgb_mae": 24.609375,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.25,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 11.234375,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.125,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 7.9375,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0625,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 7.9375,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.0625,
+      "new_ink_pixels": null
+    }
+  },
+  "siemens_star": {
+    "V1": {
+      "rgb_mae": 20.0048828125,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.326416015625,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.07845052083333333
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 20.0048828125,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.326416015625,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.07845052083333333
+    },
+    "joint_old_ink": {
+      "rgb_mae": 20.0048828125,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.326416015625,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.07845052083333333
+    },
+    "V2": {
+      "rgb_mae": 0.0,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.24796549479166666,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.0
+    }
+  },
+  "thin_dark": {
+    "V1": {
+      "rgb_mae": 43.10699462890625,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.3311360677083333,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16904703776041666
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 43.10699462890625,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.3311360677083333,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16904703776041666
+    },
+    "joint_old_ink": {
+      "rgb_mae": 43.10699462890625,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.3311360677083333,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16904703776041666
+    },
+    "V2": {
+      "rgb_mae": 0.0,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.16208902994791666,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.0
+    }
+  },
+  "thin_bright": {
+    "V1": {
+      "rgb_mae": 40.96435546875,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.9985555013020834,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16064453125
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 40.96435546875,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.9985555013020834,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16064453125
+    },
+    "joint_old_ink": {
+      "rgb_mae": 40.96435546875,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.9985555013020834,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.16064453125
+    },
+    "V2": {
+      "rgb_mae": 0.0,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.8379109700520834,
+      "new_ink_pixels": null,
+      "binary_mismatch_fraction": 0.0
+    }
+  },
+  "text": {
+    "V1": {
+      "rgb_mae": 17.7926025390625,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.129150390625,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 17.5626220703125,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.12738037109375,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 17.47528076171875,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.12648518880208334,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 3.13421630859375,
+      "chroma_error_mae": 0.0,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.06085205078125,
+      "new_ink_pixels": null
+    }
+  },
+  "color_texture": {
+    "V1": {
+      "rgb_mae": 38.971089680989586,
+      "chroma_error_mae": 49.901336669921875,
+      "neutral_colored_fraction": 0.09971509971509972,
+      "black_fraction": 0.20151774088541666,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 26.59979926215278,
+      "chroma_error_mae": 34.066874186197914,
+      "neutral_colored_fraction": 0.23076923076923078,
+      "black_fraction": 0.19156901041666666,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 23.73257107204861,
+      "chroma_error_mae": 21.350911458333332,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.19134521484375,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 17.92544216579861,
+      "chroma_error_mae": 14.404093424479166,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.12430826822916667,
+      "new_ink_pixels": null
+    }
+  },
+  "geometry": {
+    "V1": {
+      "rgb_mae": 41.125827365451386,
+      "chroma_error_mae": 7.613423665364583,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.009114583333333334,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 11.090569390190971,
+      "chroma_error_mae": 4.667867024739583,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.009114583333333334,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 15.317640516493055,
+      "chroma_error_mae": 0.24953206380208334,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.009114583333333334,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 14.420423719618055,
+      "chroma_error_mae": 0.24953206380208334,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.004536946614583333,
+      "new_ink_pixels": null
+    }
+  },
+  "chroma_texture": {
+    "V1": {
+      "rgb_mae": 24.38412136501736,
+      "chroma_error_mae": 16.336130777994793,
+      "neutral_colored_fraction": 0.0,
+      "black_fraction": 0.06404622395833333,
+      "new_ink_pixels": null
+    },
+    "RGB8_old_ink": {
+      "rgb_mae": 22.59168158637153,
+      "chroma_error_mae": 18.251312255859375,
+      "neutral_colored_fraction": 0.889553752535497,
+      "black_fraction": 0.06404622395833333,
+      "new_ink_pixels": null
+    },
+    "joint_old_ink": {
+      "rgb_mae": 10.679280598958334,
+      "chroma_error_mae": 2.0446268717447915,
+      "neutral_colored_fraction": 0.005679513184584178,
+      "black_fraction": 0.06404622395833333,
+      "new_ink_pixels": null
+    },
+    "V2": {
+      "rgb_mae": 0.4463975694444444,
+      "chroma_error_mae": 0.6685078938802084,
+      "neutral_colored_fraction": 0.005679513184584178,
+      "black_fraction": 0.0,
+      "new_ink_pixels": null
+    }
+  },
+  "counterexamples": {
+    "(191, 192, 191)": {
+      "V1": [
+        170,
+        255,
+        170
+      ],
+      "RGB8_old_ink": [
+        182,
+        218,
+        182
+      ],
+      "joint_old_ink": [
+        192,
+        192,
+        192
+      ],
+      "V2": [
+        192,
+        192,
+        192
+      ]
+    },
+    "(191, 192, 192)": {
+      "V1": [
+        170,
+        255,
+        255
+      ],
+      "RGB8_old_ink": [
+        182,
+        218,
+        218
+      ],
+      "joint_old_ink": [
+        192,
+        192,
+        192
+      ],
+      "V2": [
+        192,
+        192,
+        192
+      ]
+    },
+    "(200, 200, 200)": {
+      "V1": [
+        255,
+        255,
+        255
+      ],
+      "RGB8_old_ink": [
+        218,
+        218,
+        218
+      ],
+      "joint_old_ink": [
+        192,
+        192,
+        192
+      ],
+      "V2": [
+        192,
+        192,
+        192
+      ]
+    },
+    "(255, 0, 0)": {
+      "V1": [
+        255,
+        0,
+        0
+      ],
+      "RGB8_old_ink": [
+        255,
+        0,
+        0
+      ],
+      "joint_old_ink": [
+        255,
+        0,
+        0
+      ],
+      "V2": [
+        255,
+        0,
+        0
+      ]
+    },
+    "(0, 128, 0)": {
+      "V1": [
+        0,
+        170,
+        0
+      ],
+      "RGB8_old_ink": [
+        0,
+        145,
+        0
+      ],
+      "joint_old_ink": [
+        0,
+        128,
+        0
+      ],
+      "V2": [
+        0,
+        128,
+        0
+      ]
+    },
+    "(0, 0, 255)": {
+      "V1": [
+        0,
+        0,
+        255
+      ],
+      "RGB8_old_ink": [
+        0,
+        0,
+        255
+      ],
+      "joint_old_ink": [
+        0,
+        0,
+        255
+      ],
+      "V2": [
+        0,
+        0,
+        255
+      ]
+    }
+  },
+  "highlight_levels": {
+    "V1": [
+      255
+    ],
+    "RGB8_old_ink": [
+      218,
+      255
+    ],
+    "joint_old_ink": [
+      192,
+      224,
+      255
+    ],
+    "V2": [
+      192,
+      224,
+      255
+    ]
+  },
+  "binary_identity_random_pixels": 12416,
+  "motion": {
+    "history_frames": 0,
+    "residual_pixels": 0,
+    "geometry_ink_pixels": 223
+  },
+  "supplied_chart": {
+    "sha256": "d54b2ad181f5b35302c4dcc91a1035726899a1e5224b6fac14b32d500b9c6735",
+    "input_kind": "user digital artwork, not camera ORIGIN RGB",
+    "stress_model": "0.76*RGB+[0,2,-1]+N(0,2), seed132"
+  },
+  "evidence_limit": "Synthetic/digital-source model improvements; real camera contribution and V2 board appearance unverified. Phone photograph not treated as raw RGB."
+}

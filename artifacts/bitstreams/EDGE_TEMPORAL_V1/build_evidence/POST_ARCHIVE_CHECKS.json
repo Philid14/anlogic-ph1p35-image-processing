@@ -1,0 +1,11 @@
+{
+  "td_input_hashes_unchanged": true,
+  "old_bit_hashes_unchanged": true,
+  "settings_match_quality": {
+    "syn_settings.cfg": true,
+    "phy_settings.cfg": true
+  },
+  "final_source_commit": "7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8",
+  "critical_global_constraints_unchanged": true,
+  "notes": "native timing report whitespace preserved; no gate/SDF or board validation claimed"
+}

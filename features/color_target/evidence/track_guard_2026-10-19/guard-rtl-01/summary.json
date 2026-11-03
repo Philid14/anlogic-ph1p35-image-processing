@@ -1,0 +1,388 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-19T11:53:56.877634+00:00",
+  "kind": "INDEPENDENT GUARD RTL; no CDC/DDR/main/video/physical/board proof",
+  "head": "4ec3d35a5cd08cc2d64fe03aa403be16fd696706",
+  "branch": "codex/target/track-guard-v1",
+  "worktree": "?? features/color_target/rtl/color_target_track_guard.v\n?? features/color_target/run_track_guard_contract.py\n?? features/color_target/tb/tb_color_target_track_guard.v\n",
+  "simulator": "modelsim",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "source_sha256_lf": {
+    "features/color_target/rtl/color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "features/color_target/rtl/color_target_track_guard.v": "ce5357f7342704abf88d72ef55f6a1dc4937403573ddec61fa4c4b08bd90f949",
+    "features/color_target/tb/tb_color_target_track_guard.v": "420ffcea36b71856b2a83d79475a8da1aca21ed28b73b8e58a46d1a56fb7a51e",
+    "features/color_target/run_track_guard_contract.py": "48a98a9a84c399661a13229cdf22ee480efcb911a9a3881e25b7dbd30d57ac57",
+    "features/color_target/tools/simlib.py": "6742d80e18f9963f6490d4a611c022546726c7d56bf4395a3668ada239da7055"
+  },
+  "source_unchanged": true,
+  "jobs": [
+    {
+      "name": "core_time8",
+      "top": "tb_color_target_track_guard",
+      "parameters": {
+        "TIME_W": 8
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_dd0laaag",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_dd0laaag",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "core_time64",
+      "top": "tb_color_target_track_guard",
+      "parameters": {
+        "TIME_W": 64
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_89ninxe7",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_89ninxe7",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "positive_limit",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 3,
+        "RELIABLE_AGE": 7,
+        "MODE": 1
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_mi8up4x4",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_mi8up4x4",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "reliable_limit",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 7,
+        "RELIABLE_AGE": 3,
+        "MODE": 2
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_o25937ak",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_o25937ak",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "target_disabled",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 0,
+        "RELIABLE_AGE": 5,
+        "MODE": 0
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_hw97cyzw",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_hw97cyzw",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "reliable_disabled",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 5,
+        "RELIABLE_AGE": 0,
+        "MODE": 0
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_lfsrbgyo",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_lfsrbgyo",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "negative_limit",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": -1,
+        "RELIABLE_AGE": 5,
+        "MODE": 0
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_19yn_k4p",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_19yn_k4p",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "overflow_limit",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 256,
+        "RELIABLE_AGE": 5,
+        "MODE": 0
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard__6108r54",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard__6108r54",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    },
+    {
+      "name": "largest_limit",
+      "top": "tb_color_target_track_guard_limits",
+      "parameters": {
+        "TARGET_AGE": 255,
+        "RELIABLE_AGE": 255,
+        "MODE": 3
+      },
+      "passed": false,
+      "failure": "tool_stage_failure",
+      "details": null,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_ookb4p7c",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-quiet",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_color_target_track_guard.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\AppData\\Local\\Temp\\ct_guard_ookb4p7c",
+          "exit_code": 2,
+          "failure": "nonzero_exit",
+          "passed": false,
+          "log": "vlog.log"
+        }
+      ]
+    }
+  ],
+  "passed": false,
+  "integration_ready": false,
+  "production_thresholds": "UNSET; testbench limits are fixtures"
+}

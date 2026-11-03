@@ -1,0 +1,2 @@
+PASS temporal history cycles=5481
+D:\anlogic_formal_project\tests\tb_edge_temporal_hold.v:24: $finish called at 54856000 (1ps)

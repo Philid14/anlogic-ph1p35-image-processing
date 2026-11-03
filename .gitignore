@@ -53,3 +53,10 @@ desktop.ini
 # Local verification vectors, PDF renders and Python bytecode
 /tmp/
 __pycache__/
+
+# Final submission packages and local-only source media/reference assets
+/dist/
+/local_assets/
+/2026-10-05/
+/3_原理图/摄像头SC500CS/
+/最终作品实现/*.pdf

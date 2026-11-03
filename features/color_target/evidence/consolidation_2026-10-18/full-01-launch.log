@@ -1,0 +1,27 @@
+RUN class_models
+PASS class_models completed
+RUN contract
+PASS contract completed
+RUN data_contract
+PASS data_contract completed
+RUN class_rtl
+PASS class_rtl completed
+RUN track_audit
+PASS track_audit completed
+RUN text_updates
+PASS text_updates completed
+RUN legacy_chain
+PASS legacy_chain completed
+RUN classifier
+PASS classifier completed
+RUN detector
+PASS detector completed
+RUN geometry
+PASS geometry completed
+RUN track_regression
+PASS track_regression completed
+RUN real_font
+PASS real_font completed
+RUN rgb_replay
+PASS rgb_replay completed
+CHECKS PASS INTEGRATION NOT READY; read C:\Users\Kelinna\Documents\Codex\2026-10-16\AnlogicTrack2\outputs\consolidation-2026-10-18\full-01\REPORT.md

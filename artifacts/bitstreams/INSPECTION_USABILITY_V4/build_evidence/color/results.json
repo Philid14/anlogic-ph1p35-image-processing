@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "pairs": 330,
+  "fields": 4290,
+  "sources": {
+    "tests/tb_light_compare_v4.sv": "b2e67c87a1d921c8dd603c0c5d48c7b50336672f8b82169f3602b2f706b0eb99",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "e2d857b8d4892df9e778fd4fe1133cb2ec2e85d9570fc06b7750b805d4dee974",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/engineering_dimension_marks.v": "c17e2c34d070969479cec29d1f67e45fdb9dc82b4946612516269f42147d04f8",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a"
+  }
+}

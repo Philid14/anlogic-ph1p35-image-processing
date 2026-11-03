@@ -1,0 +1,286 @@
+{
+  "date": "2026-11-02",
+  "scope": "DOCUMENT_ONLY",
+  "result": "PASS",
+  "candidate_board_status": "NOT_RUN",
+  "checks": [
+    {
+      "name": "docx_zip_and_xml",
+      "passed": true,
+      "details": {
+        "xml_parts": 15,
+        "bad_zip_member": null
+      }
+    },
+    {
+      "name": "document_structure",
+      "passed": true,
+      "details": {
+        "tables": 20,
+        "explicit_page_breaks": 19
+      }
+    },
+    {
+      "name": "title_order",
+      "passed": true,
+      "details": {
+        "count": 20
+      }
+    },
+    {
+      "name": "page_fields",
+      "passed": true,
+      "details": "PAGE / NUMPAGES in native footer XML"
+    },
+    {
+      "name": "docx_digest",
+      "passed": true,
+      "details": "f3caeb15a6fe68c8ee099a9bb6c212a5a147ef71c341f75b05b0f00fd4ca1531"
+    },
+    {
+      "name": "rendered_pages",
+      "passed": true,
+      "details": {
+        "pages": 20,
+        "title_on_expected_page": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "footer_on_each_page": [
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true,
+          true
+        ]
+      }
+    },
+    {
+      "name": "pngs",
+      "passed": true,
+      "details": {
+        "dpi": 140,
+        "expected": 20
+      }
+    },
+    {
+      "name": "final_render_comparison",
+      "passed": true,
+      "details": {
+        "unchanged_pages": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20
+        ],
+        "changed_and_reinspected": [
+          7
+        ]
+      }
+    },
+    {
+      "name": "experiment_and_asset_ids",
+      "passed": true,
+      "details": {
+        "experiments": 13,
+        "asset_groups": 13
+      }
+    },
+    {
+      "name": "dr_sequence",
+      "passed": true,
+      "details": "D/R measurements precede return to W/H"
+    },
+    {
+      "name": "blank_form_default",
+      "passed": true,
+      "details": "No preselected completion; pending actual SHA/result fields; numeric examples labelled in prose"
+    },
+    {
+      "name": "fixed_sources",
+      "passed": true,
+      "details": [
+        {
+          "path": "docs/INSPECTION_SHAPE_TRACK_V1_BOARD_TEST.md",
+          "matched": true,
+          "sha256": "8f12aa9ef043d385ba5dff6d9780c441862a3e19d40285eb686cfd2314cbe6ce"
+        },
+        {
+          "path": "docs/INSPECTION_SHAPE_TRACK_V1_REPORT.md",
+          "matched": true,
+          "sha256": "6c8c7ff2b2b72b371fdaae51e8f21ac3ccaa9de792d59281b8a5797db786d3a7"
+        },
+        {
+          "path": "artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/BUILD_INFO.json",
+          "matched": true,
+          "sha256": "692c1a1ed7f06e51d903bbec59f9d13e5d3c15fc5a26c45371b883626786d565"
+        }
+      ]
+    },
+    {
+      "name": "official_template",
+      "passed": true,
+      "details": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c"
+    },
+    {
+      "name": "r1_retained",
+      "passed": true,
+      "details": {
+        "exists": true,
+        "sha256": "aa77b7f3981aa3a3ca58037a0891d182e6772ae4278311ca030dd9f946819fe1"
+      }
+    },
+    {
+      "name": "previous_tracked_files_unchanged",
+      "passed": true,
+      "details": []
+    },
+    {
+      "name": "change_scope",
+      "passed": true,
+      "details": [
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/AnlogicTrack2_现场拍摄与测量记录册_R2.docx",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/BUILD_INFO.json",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/FIELD_WORKBOOK.md",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/MATERIALS_COVERAGE.md",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/README.md",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/SYNC_REPORT.json",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/VERIFICATION_LOG.md",
+        "?? docs/technical_report/FIELD_MATERIALS_INSPECTION_SHAPE_TRACK_V1_R2/tools/build_workbook.py"
+      ]
+    },
+    {
+      "name": "relative_links",
+      "passed": true,
+      "details": {
+        "checked": 18,
+        "broken": []
+      }
+    },
+    {
+      "name": "credential_feature_scan",
+      "passed": true,
+      "details": {
+        "hit_files_only": [],
+        "scope": "UTF-8 text and DOCX XML; no suspicious values printed"
+      }
+    },
+    {
+      "name": "delivery_extensions",
+      "passed": true,
+      "details": [
+        ".docx",
+        ".json",
+        ".md",
+        ".py"
+      ]
+    }
+  ],
+  "manual_review": {
+    "official_coverage": "official template five parts and competition PDF physical pages 16-18 compared",
+    "visual": "All 20 corresponding page images reviewed. Release page 7 re-inspected; other 19 PNGs byte-identical to reviewed final draft.",
+    "measurement_fields": "Blank pending field collection; recommendations not official pass thresholds."
+  },
+  "not_executed": [
+    "RTL regression",
+    "TD synthesis/P&R/STA",
+    "board download",
+    "physical measurement",
+    "long-run test"
+  ],
+  "unresolved": [
+    "Real measurements and original photos/videos pending",
+    "5 raw TD-input hashes unresolved as in V5",
+    "Final MAIN scope/drawing and engineering handoff pending"
+  ],
+  "files": [
+    {
+      "path": "AnlogicTrack2_现场拍摄与测量记录册_R2.docx",
+      "bytes": 59902,
+      "sha256": "f3caeb15a6fe68c8ee099a9bb6c212a5a147ef71c341f75b05b0f00fd4ca1531"
+    },
+    {
+      "path": "BUILD_INFO.json",
+      "bytes": 1385,
+      "sha256": "c311dcb68b570a759aceba28132baf6e09a3d4cc3a1cfaf60e3d79dd50bed29c"
+    },
+    {
+      "path": "FIELD_WORKBOOK.md",
+      "bytes": 39844,
+      "sha256": "bfeba5636f6210f313501584c6905a8c5e0a71acf86a34d2d3c680a7188f97ad"
+    },
+    {
+      "path": "MATERIALS_COVERAGE.md",
+      "bytes": 10142,
+      "sha256": "7d643e1c85b2f175647ba98b0f3feefadc130140cd4560c04e122317a3621533"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5763,
+      "sha256": "052fbcf259632d4bfe0efac9486281d4812450a11bab6dd67b41077736facae9"
+    },
+    {
+      "path": "SYNC_REPORT.json",
+      "bytes": 1610,
+      "sha256": "a6994e155dd1de49c0e09825f2ddeeaba2d0341047a79df526ead123dd4f584f"
+    },
+    {
+      "path": "tools/build_workbook.py",
+      "bytes": 39053,
+      "sha256": "57c8a34bad7283b6647bce767c247e2da0996db6a15e1a3c337dbfc0aaa331f5"
+    },
+    {
+      "path": "VERIFICATION_LOG.md",
+      "bytes": 3982,
+      "sha256": "ede46420d241a71438dfff263c6d9c1e65686a59ff1ec5c439afe749934a555b"
+    }
+  ]
+}

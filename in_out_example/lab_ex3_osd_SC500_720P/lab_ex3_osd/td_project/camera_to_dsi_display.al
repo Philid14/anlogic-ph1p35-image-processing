@@ -291,6 +291,14 @@
                     <Attr Name="CompileOrder" Val="50"/>
                 </FileInfo>
             </File>
+            <File Path="../user_source/hdl_source/vision/vision_logo_palette.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="50"/>
+                </FileInfo>
+            </File>
             <File Path="../user_source/hdl_source/osd_char_lib.v">
                 <FileInfo>
                     <Attr Name="UsedInSyn" Val="true"/>
@@ -337,6 +345,241 @@
                     <Attr Name="UsedInP&R" Val="true"/>
                     <Attr Name="BelongTo" Val="design_1"/>
                     <Attr Name="CompileOrder" Val="56"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/rgb_effects_96.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="57"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/style_fill_96.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="65"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/gaussian_pair_3x3.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="57"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/nms_gradient_pair_3x3.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="58"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/edge_link_pair_3x3.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="59"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/fifo_event_counter.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
+            <File Path="../user_source/hdl_source/isp/edge_center_pair_delay.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
+            <File Path="../user_source/hdl_source/isp/edge_temporal_hold.v"><FileInfo><Attr Name="UsedInSyn" Val="true"/><Attr Name="UsedInP&R" Val="true"/><Attr Name="BelongTo" Val="design_1"/><Attr Name="CompileOrder" Val="100"/></FileInfo></File>
+            <File Path="../user_source/hdl_source/isp/planar_measure_stats.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="70"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/inspection_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/ruler_auto_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/ruler_robust_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+    <File Path="../user_source/hdl_source/isp/ruler_area_calibration.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/engineering_dimension_marks.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="69"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/inspection_control.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="68"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/color_compare_stats.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="80"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/isp/color_compare_osd.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="81"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/vision_motion_grid.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="159"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/vision_source_observer.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="160"/>
+                </FileInfo>
+            </File>
+            <File Path="../../../../features/color_target/rtl/color_classify.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="161"/>
+                </FileInfo>
+            </File>
+            <File Path="../../../../features/color_target/rtl/color_target_mask_stats.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="162"/>
+                </FileInfo>
+            </File>
+            <File Path="../../../../features/color_target/rtl/color_target_track.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="163"/>
+                </FileInfo>
+            </File>
+            <File Path="../../../../features/color_target/rtl/color_target_track_guard.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="164"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/inspection_font_rom.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="180"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/measure_background.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="181"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/inspection_config_delay.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="182"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/inspection_shape_select.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="183"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/edge_row_history.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="200"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/latency_capture_tag.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="201"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/latency_slot_journal.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="202"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/latency_tagged_fifo.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="203"/>
+                </FileInfo>
+            </File>
+            <File Path="../user_source/hdl_source/vision/latency_osd.v">
+                <FileInfo>
+                    <Attr Name="UsedInSyn" Val="true"/>
+                    <Attr Name="UsedInP&R" Val="true"/>
+                    <Attr Name="BelongTo" Val="design_1"/>
+                    <Attr Name="CompileOrder" Val="204"/>
                 </FileInfo>
             </File>
         </Verilog>

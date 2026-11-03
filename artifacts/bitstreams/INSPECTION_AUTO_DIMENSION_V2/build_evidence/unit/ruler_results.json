@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "checks": 27,
+  "cases": "2..16 integer and 2.2/2.5/3.3/6.6/11.7 fractional px/mm; early/inline SOF; valid gaps; two-of-three lines; no contrast; missing ticks; mismatch; malformed stream; cancel; reset",
+  "sources": {
+    "tests/tb_ruler_auto_calibration.sv": "2ad3e25d8efea60b605c84b827c160c7595f60173a4902db157bdef2729ce837",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_auto_calibration.v": "2598199d1f4b8d288cc12ae5cafed59b2e6b68083f4f292c7b852e3697b7a6f0"
+  }
+}

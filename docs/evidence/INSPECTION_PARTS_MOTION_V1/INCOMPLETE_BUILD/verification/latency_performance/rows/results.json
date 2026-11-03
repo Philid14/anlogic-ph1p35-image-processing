@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "beats": {
+    "gaussian": 1282,
+    "nms": 2564
+  },
+  "native": true
+}

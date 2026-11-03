@@ -1,0 +1,36 @@
+{
+  "version": "EDGE_STYLE_FILL_V2",
+  "source_commit": "694559fd76676093e134229d435161ecb44ab00c",
+  "bit_sha256": "CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51",
+  "bit_size": 1789539,
+  "lut": 17170,
+  "ff": 16814,
+  "slice": 18140,
+  "eram": 85,
+  "dsp": 21,
+  "setup_wns_ns": 0.1,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ps": 0,
+  "hold_tns_ps": 0,
+  "timing_passed": true,
+  "sta_coverage": "96.14%",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "additional_pipeline_cycles_from_style_v1": 0,
+  "per_branch_alignment_cycles": 27,
+  "osd_cycles": 2,
+  "pack_cycles": 1,
+  "candidate_eligible": true,
+  "release_decision": "candidate; board validation pending",
+  "board_test": "pending; STYLE appearance, five-mode switching, B/S and 30-minute stability unverified",
+  "delta_from_style_v1": {
+    "lut": 578,
+    "ff": -158,
+    "slice": 348,
+    "eram": 0,
+    "dsp": 0
+  }
+}

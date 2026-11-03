@@ -1,0 +1,17 @@
+[
+  {
+    "name": "changed_gold_to_match_wrong_value",
+    "incorrect_evidence_accepted": true,
+    "incorrect_pass": true
+  },
+  {
+    "name": "nonbinary_pass_flag",
+    "incorrect_evidence_accepted": true,
+    "incorrect_pass": true
+  },
+  {
+    "name": "changed_requirement_into_setup",
+    "incorrect_evidence_accepted": true,
+    "incorrect_pass": true
+  }
+]

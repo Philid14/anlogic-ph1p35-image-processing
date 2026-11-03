@@ -1,0 +1,36 @@
+{
+  "version": "COLOR_COMPARE_V1",
+  "branch": "codex/main/color-compare-v1",
+  "source_commit": "06e70a0d5d1676ed7991c475facd533b2b804aad",
+  "archive_driver_commit": "d18aaf3b57b3092df56eba6cd5d2e00cc4f06ef0",
+  "tag": "color-compare-v1-candidate",
+  "bit_sha256": "b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27",
+  "resources": {
+    "slice": 19336,
+    "lut6": 18104,
+    "ff": 17606,
+    "eram": 85,
+    "dsp": 21
+  },
+  "setup_wns_ns": 0.0,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ns": 0.0,
+  "hold_tns_ns": 0.0,
+  "board_test": "NOT_RUN",
+  "extra_stream_cycles": 2,
+  "route_db_sha256": "c5eda11d1b20f45fbd46d6225ff7fd4e9835d69b31dff444c81d7e67c771101e",
+  "baseline": "edge-style-fill-v2-candidate",
+  "measurement": "same complete pre-effect post-AWB frame, both 128x128 ROIs; LAST labels previous sample frame; not CIE Delta E",
+  "resource_delta_vs_STYLE_V2": {
+    "slice": 1196,
+    "lut6": 934,
+    "ff": 792,
+    "eram": 0,
+    "dsp": 0
+  },
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": []
+}

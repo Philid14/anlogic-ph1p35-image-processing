@@ -1,0 +1,1 @@
+PASS replay data contract checks=17; synthetic temporary fixtures only

@@ -1,0 +1,6 @@
+{
+  "source_commit": "fcf6e3f4907a6d63dcfcf1809b4b4ed02121e738",
+  "status": "REJECTED_NO_BIT",
+  "reason": "PHY-9053 at21251Slice,35above21216",
+  "next": "Equivalent36-bit gray/binary fixed-delay SP RAM mapping"
+}

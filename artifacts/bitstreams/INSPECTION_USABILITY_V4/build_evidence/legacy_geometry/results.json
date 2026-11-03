@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "frames": 160,
+  "stats_cycles": 91459,
+  "metric_snapshots": 240,
+  "calibration_test": true,
+  "scope": "independent binary-mask geometry and ruler arithmetic, no camera/board accuracy claim"
+}

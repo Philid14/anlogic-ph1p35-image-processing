@@ -1,0 +1,364 @@
+{
+  "schema": 1,
+  "manifests": [
+    {
+      "label": "primary",
+      "sha256": "f993180559f4e0b9046bb09fdd59ce32c6f7e83737f490c75e2e8ca9c91499a6"
+    },
+    {
+      "label": "narrow_controls",
+      "sha256": "7883ec69ddebaaf71c1301b44abbda6c1b7493ade92c631a17a2be8371dea4b6"
+    },
+    {
+      "label": "full_controls",
+      "sha256": "64f62fb819019e71102c95cce384672535d5d51f328e53c68fd3369d8371d9b2"
+    }
+  ],
+  "camera_material_used": false,
+  "parameters": {
+    "target_class": 0,
+    "hue_half_width_deg": 30,
+    "c_min": 24,
+    "v_min": 32,
+    "min_count": 4
+  },
+  "quality_note": "Synthetic controls establish mechanism correctness only; camera policy reserved",
+  "results": [
+    {
+      "mode": "bypass-64x48",
+      "width": 64,
+      "height": 48,
+      "input_cycles": 76241,
+      "accepted_pixels": 193540,
+      "result_events": 62,
+      "track_events": 61,
+      "display_probes": 18276,
+      "legacy_results_compared": 59,
+      "cancelled_frames": 2,
+      "event_sha256": "aa0d18099c62e12d70ef9e36a4ae102bc8b71df4f0fb9cd62a0c998fb9bcf3db",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 64,
+          "annotated": 60,
+          "unknown": 4,
+          "evaluated_frames": 51,
+          "excluded_known_frames": 9,
+          "positive_frames": 44,
+          "negative_frames": 7,
+          "misses": 3,
+          "false_positives": 4,
+          "mean_positive_iou": 0.7985647638177931,
+          "center_l1_p95": 112
+        }
+      }
+    },
+    {
+      "mode": "support3-64x48",
+      "width": 64,
+      "height": 48,
+      "input_cycles": 76241,
+      "accepted_pixels": 193540,
+      "result_events": 61,
+      "track_events": 61,
+      "display_probes": 18276,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 3,
+      "event_sha256": "aa7a66b890450a74760a3483275fdacf50dca8e140d038caf6f0b419c2658925",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 64,
+          "annotated": 60,
+          "unknown": 4,
+          "evaluated_frames": 50,
+          "excluded_known_frames": 10,
+          "positive_frames": 43,
+          "negative_frames": 7,
+          "misses": 3,
+          "false_positives": 4,
+          "mean_positive_iou": 0.9186046511627907,
+          "center_l1_p95": 112
+        }
+      }
+    },
+    {
+      "mode": "bypass-4x1",
+      "width": 4,
+      "height": 1,
+      "input_cycles": 1116,
+      "accepted_pixels": 24,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 304,
+      "legacy_results_compared": 6,
+      "cancelled_frames": 0,
+      "event_sha256": "28128ca48f862d775c24b46a1452438faff986cbee3610623b9f631ea8b65fef",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "support3-4x1",
+      "width": 4,
+      "height": 1,
+      "input_cycles": 1116,
+      "accepted_pixels": 24,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 304,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 0,
+      "event_sha256": "479c02668934e948361b58bf145bcb1f4f09a1e3598a6f3da5bfa549a766d270",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 4,
+          "false_positives": 0,
+          "mean_positive_iou": 0.0,
+          "center_l1_p95": 5
+        }
+      }
+    },
+    {
+      "mode": "bypass-4x2",
+      "width": 4,
+      "height": 2,
+      "input_cycles": 1138,
+      "accepted_pixels": 48,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 320,
+      "legacy_results_compared": 6,
+      "cancelled_frames": 0,
+      "event_sha256": "200edf7333c2b885ec0452c68c0898456aff075f943bd21217e8ddd2b54d92f9",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "support3-4x2",
+      "width": 4,
+      "height": 2,
+      "input_cycles": 1138,
+      "accepted_pixels": 48,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 320,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 0,
+      "event_sha256": "680ae83700f66a46c14789ffba8f301d1713c927297196f5448776f5c09bbc3d",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "bypass-8x1",
+      "width": 8,
+      "height": 1,
+      "input_cycles": 1143,
+      "accepted_pixels": 48,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 320,
+      "legacy_results_compared": 6,
+      "cancelled_frames": 0,
+      "event_sha256": "ace8cdeac2ce37d8c273ea5a52d5a973d367a15b9c0bac907e5168f2e25d2814",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "support3-8x1",
+      "width": 8,
+      "height": 1,
+      "input_cycles": 1143,
+      "accepted_pixels": 48,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 320,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 0,
+      "event_sha256": "63c877acebdebf483a082bdf3e30a33f35d6eeec2c8e50fbe469b80fd1f9bb7c",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 0.75,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "bypass-8x3",
+      "width": 8,
+      "height": 3,
+      "input_cycles": 1223,
+      "accepted_pixels": 144,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 376,
+      "legacy_results_compared": 6,
+      "cancelled_frames": 0,
+      "event_sha256": "28a2e228795da680acd5b22afd86bf8a0bf989cfc5a0c04ddc27c937a7e1c0a4",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "support3-8x3",
+      "width": 8,
+      "height": 3,
+      "input_cycles": 1223,
+      "accepted_pixels": 144,
+      "result_events": 6,
+      "track_events": 6,
+      "display_probes": 376,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 0,
+      "event_sha256": "2c4fcf7e07c7b96cfb63b79ee8b029e7574d8409c5f5240eab981618a8d78649",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 6,
+          "annotated": 6,
+          "unknown": 0,
+          "evaluated_frames": 5,
+          "excluded_known_frames": 1,
+          "positive_frames": 4,
+          "negative_frames": 1,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "bypass-1280x720",
+      "width": 1280,
+      "height": 720,
+      "input_cycles": 925801,
+      "accepted_pixels": 3686400,
+      "result_events": 4,
+      "track_events": 4,
+      "display_probes": 368,
+      "legacy_results_compared": 4,
+      "cancelled_frames": 0,
+      "event_sha256": "440458ab34c224d603bb817cf531eb03be1878e729a2dbb29da4a7580f7a1ead",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 4,
+          "annotated": 4,
+          "unknown": 0,
+          "evaluated_frames": 4,
+          "excluded_known_frames": 0,
+          "positive_frames": 2,
+          "negative_frames": 2,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    },
+    {
+      "mode": "support3-1280x720",
+      "width": 1280,
+      "height": 720,
+      "input_cycles": 925801,
+      "accepted_pixels": 3686400,
+      "result_events": 4,
+      "track_events": 4,
+      "display_probes": 368,
+      "legacy_results_compared": 0,
+      "cancelled_frames": 0,
+      "event_sha256": "efb7c7241c8b09a10644085162196d96d42da7edb79548f3a2b978fe542d9f1e",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 4,
+          "annotated": 4,
+          "unknown": 0,
+          "evaluated_frames": 4,
+          "excluded_known_frames": 0,
+          "positive_frames": 2,
+          "negative_frames": 2,
+          "misses": 0,
+          "false_positives": 0,
+          "mean_positive_iou": 1.0,
+          "center_l1_p95": 0
+        }
+      }
+    }
+  ]
+}

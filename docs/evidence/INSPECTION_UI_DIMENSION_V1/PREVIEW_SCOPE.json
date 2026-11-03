@@ -1,0 +1,22 @@
+{
+  "synthetic": true,
+  "board_capture": false,
+  "bbox": [
+    400,
+    819,
+    240,
+    459
+  ],
+  "sizes_px": [
+    420,
+    220,
+    80,
+    76
+  ],
+  "scale_reference_mm": 100,
+  "scale_px": [
+    400,
+    200
+  ],
+  "scope": "Synthetic post-AWB UI composition only; actual HDMI Logo/CNT tested separately in mixer cycle equivalence. Not user workpiece dimensions, not board or accuracy evidence."
+}

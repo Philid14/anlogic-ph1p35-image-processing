@@ -1,0 +1,20 @@
+{
+  "time": "2026-11-01T11:45:28.774506+08:00",
+  "scope": "Archive publication receipt; later documentation-only branch commits may follow, tag immutable",
+  "branch": "codex/main/inspection-auto-dimension-v2",
+  "verified_archive_branch_head": "0a5c262072c4e996cc0a7a4d078fbe2f3341ce42",
+  "archive_commit": "0a5c262072c4e996cc0a7a4d078fbe2f3341ce42",
+  "source_commit": "a198ef662d293e4a4699e3222b51da0c40cb21ec",
+  "tag": "inspection-auto-dimension-v2-candidate",
+  "bit_sha256": "db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20",
+  "tag_bit_verified": true,
+  "tag_source_inputs_verified": 73,
+  "remote_refs": [
+    "0a5c262072c4e996cc0a7a4d078fbe2f3341ce42\trefs/heads/codex/main/inspection-auto-dimension-v2",
+    "d0428e38be71c2e33f16d711d50d1981116da8ee\trefs/tags/inspection-auto-dimension-v2-candidate",
+    "0a5c262072c4e996cc0a7a4d078fbe2f3341ce42\trefs/tags/inspection-auto-dimension-v2-candidate^{}"
+  ],
+  "pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/21",
+  "draft": true,
+  "merged": false
+}

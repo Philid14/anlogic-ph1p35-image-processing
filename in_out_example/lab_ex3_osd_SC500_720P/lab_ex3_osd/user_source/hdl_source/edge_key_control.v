@@ -46,12 +46,18 @@ module edge_key_event #(
 endmodule
 
 module edge_key_control #(
+    parameter integer VISION_ENABLE = 0,
     parameter integer DEBOUNCE_CYCLES = 480000,
     parameter integer LONG_CYCLES = 16800000
 )(
     input clk, input rst_n, input [1:0] keys_n,
-    output reg [8:0] requested_config
+    output reg [18:0] requested_config
 );
+    localparam [2:0] MODE_ORIGIN = 3'd0;
+    localparam [2:0] MODE_GRAY   = 3'd1;
+    localparam [2:0] MODE_BINARY = 3'd2;
+    localparam [2:0] MODE_EDGE   = 3'd3;
+    localparam [2:0] MODE_STYLE  = 3'd4;
     wire mode_press, threshold_short, threshold_long;
     edge_key_event #(.DEBOUNCE_CYCLES(DEBOUNCE_CYCLES), .LONG_CYCLES(LONG_CYCLES)) u_mode (
         .clk(clk), .rst_n(rst_n), .key_n(keys_n[0]),
@@ -62,15 +68,43 @@ module edge_key_control #(
         .press(), .short_release(threshold_short), .long_press(threshold_long)
     );
     always @(posedge clk or negedge rst_n) begin
-        if (!rst_n) requested_config <= {1'b1,8'd80};
+        if (!rst_n) requested_config <= {MODE_EDGE,8'd80,8'd130};
         else begin
-            if (mode_press) requested_config[8] <= !requested_config[8];
-            if (threshold_short)
-                requested_config[7:0] <= (requested_config[7:0] > 8'd20)
-                    ? requested_config[7:0]-8'd10 : 8'd10;
-            else if (threshold_long)
-                requested_config[7:0] <= (requested_config[7:0] < 8'd240)
-                    ? requested_config[7:0]+8'd10 : 8'd250;
+            // Preserve EDGE -> ORIGIN first; fifth mode follows BINARY.
+            if (mode_press) begin
+                case(requested_config[18:16])
+                    MODE_EDGE: requested_config[18:16]<=MODE_ORIGIN;
+                    MODE_ORIGIN: requested_config[18:16]<=MODE_GRAY;
+                    MODE_GRAY: requested_config[18:16]<=MODE_BINARY;
+                    MODE_BINARY: requested_config[18:16]<=MODE_STYLE;
+                    MODE_STYLE: requested_config[18:16]<=VISION_ENABLE?3'd5:MODE_EDGE;
+                    3'd5: requested_config[18:16]<=VISION_ENABLE?3'd6:MODE_EDGE;
+                    default: requested_config[18:16]<=MODE_EDGE;
+                endcase
+            end
+            // K4 edits only the threshold belonging to the current mode.
+            // ORIGIN and GRAY ignore both short and long events.
+            if (threshold_short) begin
+                case (requested_config[18:16])
+                    MODE_BINARY:
+                        requested_config[7:0] <= (requested_config[7:0] > 8'd20)
+                            ? requested_config[7:0]-8'd10 : 8'd10;
+                    MODE_EDGE:
+                        requested_config[15:8] <= (requested_config[15:8] > 8'd20)
+                            ? requested_config[15:8]-8'd10 : 8'd10;
+                    default: ;
+                endcase
+            end else if (threshold_long) begin
+                case (requested_config[18:16])
+                    MODE_BINARY:
+                        requested_config[7:0] <= (requested_config[7:0] < 8'd240)
+                            ? requested_config[7:0]+8'd10 : 8'd250;
+                    MODE_EDGE:
+                        requested_config[15:8] <= (requested_config[15:8] < 8'd240)
+                            ? requested_config[15:8]+8'd10 : 8'd250;
+                    default: ;
+                endcase
+            end
         end
     end
 endmodule

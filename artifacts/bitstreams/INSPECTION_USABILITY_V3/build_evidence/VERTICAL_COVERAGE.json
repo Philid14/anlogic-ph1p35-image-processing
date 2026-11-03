@@ -1,0 +1,23 @@
+{
+  "scope": "Controlled vertical placement coverage, not a real ruler length or board success measurement",
+  "rows": [
+    {
+      "tick_height_px": 6,
+      "placements": 31,
+      "six_rows_two_hits": 0,
+      "twelve_rows_two_hits": 31
+    },
+    {
+      "tick_height_px": 8,
+      "placements": 29,
+      "six_rows_two_hits": 9,
+      "twelve_rows_two_hits": 29
+    },
+    {
+      "tick_height_px": 10,
+      "placements": 27,
+      "six_rows_two_hits": 17,
+      "twelve_rows_two_hits": 27
+    }
+  ]
+}

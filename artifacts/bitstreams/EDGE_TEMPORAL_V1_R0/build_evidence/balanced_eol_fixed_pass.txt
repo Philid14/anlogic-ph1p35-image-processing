@@ -1,0 +1,2 @@
+PASS temporal history cycles=520
+tests\tb_edge_temporal_hold.v:24: $finish called at 5246000 (1ps)

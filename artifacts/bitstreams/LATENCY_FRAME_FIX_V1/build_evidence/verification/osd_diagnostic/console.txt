@@ -1,0 +1,18 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_fix_osd PH1P_PHY_GSR "+OUT=D:/anlogic_formal_project/tmp/latency_frame_fix/osd_diagnostic/pixels.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:22:58 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# incase
+# 
+# PASS latency OSD exact original glyph raster and serial decimal conversion
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_fix_osd.sv(22)
+#    Time: 308496 ns  Iteration: 0  Instance: /tb_latency_fix_osd
+# End time: 21:22:58 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

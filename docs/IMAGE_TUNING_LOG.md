@@ -169,6 +169,36 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - Board Test Result：**待用户上板**，没有新版本实拍或30分钟结果。步骤见EDGE_CONTROL_V1_BOARD_TEST；固定场景比较80/60/40/20及100/120/160，记录真实轮廓和噪声假边，至少20次模式切换与30分钟稳定性。
 - 是否保留/下一步：保留candidate，停止并等待用户反馈。640点Sobel/两像素复制与既有核偏移保持，降低阈值不等于增加采集信息；不自行进入Gray/Binary/AE或曝光/VTS调整。
 
+### EDGE_CONTROL_V1 上板观察（用户2026-10-16反馈）
+
+- Version / Git Commit / Git Tag：EDGE_CONTROL_V1 / 归档`467df3cee53218f4bc9eab7b29bfbc9df084dd97` / `edge-control-v1-candidate`；原bit和tag保持，SHA256 `05E05B153800E38982D7D1C2981A347B3616EAFA6EABA91A43443468FAF5DCF6`，原构建+0.100/+0.020ns。
+- Board Test Result：ORIGIN彩色正常，无肉眼明显雪花，亮度基本满意；弱光EDGE在80漏弱边，降阈值增加真边也增加大量白色假边；增照明明显减少雪花；部分遮挡噪点相对稳定并小幅波动；全遮光几乎全黑。尚无定量数据、20次切换或30分钟稳定性结果。
+- 是否保留/下一步：保留未降噪对照。只验证Edge分支Gaussian滤波，先对照原Sobel/Gaussian/Median合成模型，不改变Sensor/ISP画质；现象支持低照噪声梯度重叠，但不能排除其他硬件因素。
+
+## EDGE_DENOISE_V1 candidate（2026-10-16）
+
+- Version / Git Commit / Git Tag：EDGE_DENOISE_V1 / 实际构建源码`b78dd6b43730c69896bf99753c6b961c3f44a9ae` / `edge-denoise-v1-candidate`（归档提交由tag唯一恢复）；MAIN分支codex/main/edge-denoise-v1，基线c42168e，协议TEAM_PROTOCOL_V1；PR等待Philid14审查，未自动合并main。
+- 修改假设/唯一主要变量：Edge在原灰度/两像素平均后新增3×3Gaussian，再保持原Sobel/阈值；降低噪声梯度同时保留足够真实轮廓。原DENOISE_ENABLE=0，无滤波5拍；候选=1，Gaussian4拍+Sobel5拍，原图/配置同9拍，OSD2+打包1总12拍。K3/K4语义、默认EDGE080/10–250、OSD内容/位置不变。
+- 冻结参数：Exposure1990、VTS1000、HTS1600、Gain1f/3f=15.75×、Digital Gain、BLC15、AWB_V2、demosaic/MIPI/DDR/HDMI/PLL/ADC/SDC与旧版一致。194主工程/68只读参考/3原理图SHA一致；59实际TD输入与构建提交匹配；旧11个bit均未改。
+- 模型：研究提交a3796fe先于RTL，13合成场景/三方案/13阈值=507行CSV；无实际传感器RAW/RGB帧。低对比阶跃选点原TH70/GaussianTH40/MedianTH40误检0.2634%/0.0718%/0.0399%、召回均100%；细线保留下降、椒盐Median更好。不能把合成收益当作实板结论。
+- Bit SHA-256：`224D4BE2F53B807137E19D095DCF6132BAA9CFC023C3C59BCE17ABDE3332B84A`，归档artifacts/bitstreams/EDGE_DENOISE_V1/camera_to_dsi_display.bit，1789539bytes。
+- Build Result：完整Synthesis/Physical/Timing/bitgen通过；LUT6 15163、FF14667、Slice16859（79.46%）、ERAM39、DSP9；Setup/Hold +0.112/+0.020ns、TNS0、违例0，既有关键类型PHY-5060/5079，无新增关键类型。Gaussian新增两条SYN-5041，实际额外256 DRAM LUT、0ERAM/0DSP。独立Gaussian1282拍、新联合1764876拍/1323657字（四完整720p帧）、旧旁路回归1293320拍全部PASS。
+- Board Test Result：**待用户上板**；实际雪花减少幅度、真实弱边/细线是否保留、HDMI连续性及30分钟长稳尚未测试。新旧核中心约偏移4像素/2行与2像素/1行；候选首4行/首8像素置黑，整帧172800个DDR字不变。
+- 是否保留/下一步：保留候选和原控制版bit，按EDGE_DENOISE_V1_BOARD_TEST同机位/照明分别扫描阈值，重点弱光ROI/细线/遮挡/运动、20次切换与30分钟。完成候选即停止，不直接集成Median/Canny/AE或改变曝光/VTS。
+
+### EDGE_DENOISE_V1 上板观察（用户EDGE_NMS任务反馈）
+
+- Version / Git Commit / Git Tag：EDGE_DENOISE_V1 / candidate归档08ea909febf2dd0952e7221a0ce2bf34b24e3b44，构建b78dd6b / edge-denoise-v1-candidate。bit SHA256 `224D4BE2F53B807137E19D095DCF6132BAA9CFC023C3C59BCE17ABDE3332B84A`，原完整构建+0.112/+0.020ns。
+- Board Test Result：用户描述夜间弱光020/040/060/080四档实拍：020碎纹理密集且局部成片；040轮廓和纹理丰富但碎边多；060主要轮廓相对明显而弱细节减少；080较干净但丢弱边。不能将所有白纹理判断为噪声。未得到本轮可用ORIGIN RGB输入或30分钟结果，不补造定量结论。
+- 是否保留/下一步：保留未NMS对照，下一版只加二值化前NMS，研究双阈值仅限软件。PR #3尚未合并，不自动合并或改其分支，新增依赖分支codex/main/edge-nms-v1。
+
+### EDGE_NMS_V1 用户上板观察（2026-10-17，EDGE_QUALITY任务补录）
+
+- Version / Git Commit / Git Tag：EDGE_NMS_V1 / 归档712fbb33cfc5ba8436b96306e1fe443553aa6591，实际构建8ae2fd6 / edge-nms-v1-candidate；SHA256 `734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448`。历史归档文件/tag保持原样，本条只追加新反馈。
+- 修改假设/唯一主要变量/原值/新值：前轮在Gaussian+Sobel单门限前加入NMS；完整TD原结果LUT6 15206、FF15018、Slice16598、ERAM39、DSP9，Setup/Hold+0.101/+0.020ns。
+- Board Test Result：用户确认边缘明显变细，弱边仍易断裂；TH40眼镜/脸/头发轮廓较丰富但杂线多，TH60较干净同时缺真实轮廓，TH80大量弱边消失。本轮3张拍屏能观察到对应类型现象，但右侧OSD裁切，不能自行逐张认定TH数字或计算真实原图召回率。没有可用摄像头ORIGIN RGB，也未提供30分钟稳定性/溢出测量。
+- 是否保留/下一步：保留NMS作为准确可回退对照；EDGE_QUALITY只研究Edge内部质量，先模型比较再实现，Sensor/原图内容/外部链路冻结。待用户评价连续性与杂边的真实折中，不自动合并#3/#4。
+
 ## 每次测试填写项
 
 - 固件/工程版本、TD 工程路径、综合/时序结果、修改的唯一因素、原始/新寄存器编码；保留 bitstream 的可识别名称。
@@ -204,3 +234,242 @@ TD 6.2.168116 综合、Physical Design、Timing Check、bitgen 全部成功，Se
 - V0 的 bit 在构建时未记录 SHA-256 与归档路径，原始 `phy_1` 目录随后被 AWB_V1 构建覆盖。本次从 `best_result/` 中恢复出与 V0 构建时间（2026-10-05 20:22:08）及 `phy_run.log` 一致的 bit 并归档；该对应关系以时间戳和构建日志为据，**未做上板复现**。
 - 未建立 `baseline-official-osd` / `baseline-official-edge`：归档时 `user_source/hdl_source/awb.v` 已是 AWB_V1，工作目录内不存在可逐字节校验的官方原始副本，不能把已修改工程标记为官方基线。需取回官方原始压缩包校验后单独提交并打 tag。
 - 追溯链：`bit 文件 → Git commit → 源码 + 工程配置 + 约束 + 文档 + 构建信息 + 上板测试记录`。
+
+## EDGE_NMS_V1 candidate（2026-10-16，MAIN）
+
+- Version / Git Commit / Git Tag：EDGE_NMS_V1；实际构建源码`8ae2fd6c38416095e1232783a0e63b2eb2d1e9f3`；归档提交通过`git rev-parse edge-nms-v1-candidate^{commit}`唯一解析；tag `edge-nms-v1-candidate`；分支codex/main/edge-nms-v1，base08ea909/PR #3，Draft PR依赖降噪分支，等待Philid14最新提交审查。
+- 修改假设/唯一主要变量：只在Gaussian+Sobel幅值与二值阈值间加入方向NMS，压窄粗边；原值Gaussian4+Sobel5共9拍分支，新值Gaussian4+Sobel前4+NMS4+阈值1共13拍，Original/配置/标记同步延迟。逻辑缓存新增19200bit。Exposure1990 half-lines/VTS1000/HTS1600/Gain15.75×/BLC15/AWB_V2/Gaussian/按键/OSD/MIPI/DDR/HDMI/PLL/约束冻结，无双阈值硬件。
+- Bit SHA-256：`734F5D97C429D086FBE8518514B8547CF0C2FBC485B44D35BD218F0F7FA2A448`；路径artifacts/bitstreams/EDGE_NMS_V1/camera_to_dsi_display.bit。
+- Build Result：完整Synthesis→Physical Design→Timing Check→bitgen通过；LUT6 15206、FF 15018、Slice 16598 (78.23%)、ERAM 39、DSP 9；Setup/Hold +0.101/+0.020ns，TNS0/端点违例0，既有PHY-5060/5079保留无新增关键类型。新联合2264588拍/1698441字、NMS单元2564拍/4200中心、25方向、旧旁路1764876拍/1323657字及控制回归通过。首轮仅有声明顺序warning，修复后完整重建，无失败bit；原始证据保留。
+- Board Test Result：**待用户上板**。软件合成TH40直阶跃厚度4→1、模糊阶跃7→1且100%逐行覆盖；不等于真实场景测量。未发现真实ORIGIN RGB帧，未证明物理I2C/厂商PHY或长期整机稳定。
+- 是否保留/下一步：保留candidate及旧降噪对照；按EDGE_NMS_V1_BOARD_TEST同条件比较020/040/060/080，优先边缘变细且主要轮廓不过度断裂，纹理仍被检测不直接判失败。至少20次切换/30分钟，等待结果；不自行进入滞后硬件、AE或其他扩展。
+
+## EDGE_QUALITY_V1_R0 工程检查点（2026-10-17，未选为上板candidate）
+
+- Version / Git Commit / Git Tag：EDGE_QUALITY_V1_R0，构建acf7d444f19ae0dbb8a36a854edc7627f7f8b2ec；归档commit通过edge-quality-v1-r0-build^{commit}解析；分支codex/main/edge-quality-v1。
+- 假设/唯一变量/原值/新值：NMS后加入四跳强锚弱边连接，单阈值→high=TH/low=floor(TH/2)，总16→28拍；Sensor、原图内容及外部控制/链路冻结。
+- Bit SHA256：27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B；artifacts/bitstreams/EDGE_QUALITY_V1_R0/camera_to_dsi_display.bit。
+- Build Result：全流程成功、Setup/Hold+0.102/+0.020ns、TNS0；LUT6 16888/FF15402/Slice18263(86.08%)/ERAM39/DSP9。四层512DRAM LUT高于预算，Slice增量1665超过1400目标。
+- Board Test Result：未上板，不推荐烧录。是否保留/下一步：保留bit和全部证据，未选为最终candidate；仅优化等价缓存成对写入，重新验证和构建，不能把R0称作优化后版本。
+
+## EDGE_QUALITY_V1 candidate（2026-10-17，MAIN）
+
+- Version / Git Commit / Git Tag：EDGE_QUALITY_V1；实际构建源码`97858d51c7599a504a733b2302db797207c1ac0e`，归档commit通过`git rev-parse edge-quality-v1-candidate^{commit}`唯一解析；tag edge-quality-v1-candidate，分支codex/main/edge-quality-v1，base712fbb3，PR依赖codex/main/edge-nms-v1/#4/#3，等待Philid14审查。
+- 修改假设/唯一主要变量：在冻结Gaussian/Sobel/NMS后四跳8邻接强锚弱边传播。原值单TH逐点二值化/13拍Edge分支，新值high=TH/low=floor(TH/2)、最多4跳/25拍Edge，Original/config等量对齐；OSD+打包总16→28拍。最终逻辑行数组新增7680bit，实际DRAM增量+0LUT。Sensor/ISP画质、NMS/Gaussian、原图内容、按键/OSD/Logo/CNT、外部链路和时钟约束冻结。
+- Bit SHA-256：`629ACAA828EF8151DED0261779ED8B91F0FA618EED66DD46C72D6E799ADCC9D5`；路径artifacts/bitstreams/EDGE_QUALITY_V1/camera_to_dsi_display.bit。
+- Build Result：完整Synthesis→Physical Design→Timing Check→bitgen成功；LUT6 16162、FF 15423、Slice 17894 (84.34%)、ERAM 47、DSP 9，Setup/Hold +0.009/+0.020ns、TNS0、端点违例0。既有关键类型保留、无新增关键类型；61项源码匹配、13旧bit加R0及旧归档不变。新联合2699276拍/2024457字、旧NMS回归2264588拍/1698441字、四层独立168500拍/1348000采样层、分类2892采样及旧控制单元通过。
+- Board Test Result：**待用户上板**。合成TH60平均轮廓召回67.28%→74.20%，平坦误检0.0043%→0.028%；没有真实ORIGIN帧，不等于实际眼镜/脸/文字质量改善已确认。TH40可能扩散噪声，零响应/无强锚弱边仍不能恢复，孤立强点仍保留。
+- 是否保留/下一步：保留candidate及原NMS对照，按EDGE_QUALITY_V1_BOARD_TEST同场景分别做同TH及近似相同完整度比较，40/50/60/70/80扫描、至少20次切换/30分钟。R0资源未达目标已保留、未作为最终candidate；首次测试夹具失败已修复，主动中断较宽地址回归后按最终源码统一重跑。停止等待实板，不自动改曝光/VTS、增跳数、换采样密度或合并PR。
+
+## EDGE_TEMPORAL_V1 candidate（2026-10-18，MAIN）
+
+- Version / Git：EDGE_TEMPORAL_V1；分支codex/main/edge-temporal-v1；实际TD源码7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8；candidate tag edge-temporal-v1-candidate（归档commit由tag唯一解析）；Draft PR#10→#6/#4/#3，不自动合并。准确QUALITY基线b64daf3，研究PR#9仅为证据来源，没有继承诊断缓存。
+- 修改假设 / 唯一主要算法变量：当前未抑制Sobel梯度仍≥TH/2时，最多保留一采集帧原始QUALITY边缘；不递归保存已保持结果。修改前为Gaussian/Sobel/NMS/四跳，修改后加单帧保持；高低门限、Sensor Exposure1990/VTS1000/HTS1600/Gain15.75×、BLC15/AWB_V2、K3/K4、原OSD/Logo/CNT、视频规格及PLL/SDC不变。
+- 独立可靠性观测：只读写FIFO.full计数，前600帧B/之后S；新增第三行十六进制历史计数。FIFO控制未改；没有实板计数反馈前，不宣称启动或稳态根因已定位。原Gray max_delay两组18路径仍Ignored，未改全局约束。
+- Bit：artifacts/bitstreams/EDGE_TEMPORAL_V1/camera_to_dsi_display.bit，1789539 bytes；SHA256 `14A36D98BC0A1547F84588087D796C14098AD4441CB30B5878D8F81CBADC95C4`。
+- Build Result：完整Synthesis→Physical Design→final Timing Check→bitgen PASS；LUT6 16119、FF15657、Slice17684（83.35%）、ERAM75、DSP9；Setup/Hold +0.133/+0.020ns，TNS0、违例0，STA96.05%，无新增关键warning类型。相对QUALITY全设计净增FF234/ERAM28，LUT−43/Slice−210/DSP0；重映射净值不能当算法负面积。新增2接收时钟周期，无新增整帧等待/空间偏移。
+- Verification：最终严格门禁5481周期单元、最终720p×2帧460800拍/345600打包字、10帧小尺寸及状态OSD、旧QUALITY/NMS与link尾数/1280地址回归、FIFO计数独立测试通过；R0正常算法核心另有720p×10帧对照。未进行新候选实板或门级/SDF验证。
+- 失败保留：R0时序通过但组合重复/缺EOL能误接纳历史，拒绝上板；归档EDGE_TEMPORAL_V1_R0、tag edge-temporal-v1-r0-build。最终仅增加逐行pending_eol资格检查并完整重建，不移动旧tag/bit。
+- 模型结果：TH60弱/强静态边缘翻转约下降49%/46%，参考轮廓容差召回保留，但线会增厚；8px/帧移动未像投票那样完全丢失。真实18:42 ROI TH40翻转16.6667%→14.8667%、平均边缘94.167→126.167，无真值不判定真实画质提升。
+- Board Test Result：**待用户烧录**；真实静态稳定、运动增厚/拖影、S计数稳态复发、30分钟及明暗变化均待测。
+- 是否保留 / 下一步：保留此candidate及R0全部证据，见EDGE_TEMPORAL_V1_REPORT/BOARD_TEST/DESIGN。先5/30/120秒B/S，再同TH旧新固定目标与移动/消失对照；S增加先阻断正式验收查FIFO。完成本轮即停止，不自动合并或开展下一版。
+
+## EDGE_MULTI_MODE_V1 candidate（2026-10-18，MAIN）
+
+- Version / Git：EDGE_MULTI_MODE_V1；分支`codex/main/edge-multi-mode-v1`；实际TD源码`4ea67f194941c6717fc1d28889c687a4fb78533f`；candidate tag `edge-multi-mode-v1-candidate`；从EDGE_TEMPORAL_V1 `b47105f`起分支，Draft PR以`codex/main/edge-temporal-v1`为base，不自动合并。
+- 修改假设 / 唯一主要变量：在原有ORIGIN/EDGE基础上增加GRAY、BINARY及18位帧锁存配置；`Y=(77R+150G+29B+128)>>8`，BINARY按`Y>=T`输出纯黑白。新增分支与Edge共用27拍窗口，Edge历史在所有模式持续运行。Sensor Exposure1990/VTS1000/HTS1600/Gain15.75×、BLC15、AWB_V2、MIPI/DDR/HDMI、Logo/CNT、PLL/引脚/SDC不变。
+- 参数/控制：复位`EDGE/EDGE_TH=80/BINARY_TH=130`；K3为`EDGE→ORIGIN→GRAY→BINARY→EDGE`；K4短按-10、长按+10，ORIGIN/GRAY忽略，两个阈值独立保存，10..250饱和。配置整包跨24MHz→MIPI接收域，AWB提前SOF锁存，帧内不以新配置切换数据。
+- R0：移位加法实现LUT6 17040、FF15801、Slice18483、ERAM75、DSP9，Setup/Hold +0.002/+0.020ns；虽零违例但2ps裕量不足，拒绝上板，归档`EDGE_MULTI_MODE_V1_R0`及tag `edge-multi-mode-v1-r0-build`。
+- 最终Bit：`artifacts/bitstreams/EDGE_MULTI_MODE_V1/camera_to_dsi_display.bit`，1789539 bytes；SHA256 `8C62195DA8A2F8748CE9D6CFD7D9703BCB81E6F6CDA09AEDF4BBB0DE0FE0BBE9`。
+- Build Result：完整Synthesis→Physical Design→final Timing Check→bitgen PASS；LUT6 16942、FF15809、Slice18319（86.35%）、ERAM75、DSP21；Setup/Hold +0.107/+0.020ns，TNS0、违例0，STA96.16%，无新增关键warning类型。相对TEMPORAL LUT+823/FF+152/Slice+635/ERAM0/DSP+12；亮度常数乘法映射DSP后，全设计较R0恢复105ps Setup裕量。
+- Verification：9288像素灰度/二值边界与随机对照、K3/K4/18位CDC、九帧混合四模式4608拍/3168字、完整720p×2帧460800拍/345600字逐字节通过；18个V1算法/ISP/DDR/HDMI/Logo/引脚/SDC文件SHA保持一致。
+- Board Test Result：**待用户烧录**。默认EDGE、四模式切换、GRAY灰阶、BINARY纯黑白、双阈值保留、OSD/Logo/CNT、B/S计数、30分钟及光照变化均待测。
+- 是否保留 / 下一步：保留最终candidate及R0全部证据。按`docs/EDGE_MULTI_MODE_V1_BOARD_TEST.md`验收；S计数增长先阻断正式验收并查FIFO/DDR。完成本轮即停止，不自动合并或开始下一阶段。
+
+## EDGE_STYLE_FILL_V1 candidate（2026-10-19，MAIN）
+
+- Branch/Source/Tag：codex/main/edge-style-fill-v1；实际TD源码`042345cb0e92a1cc5ea0a74fed1be352cf338f2c`；edge-style-fill-v1-candidate。基线四模式ed55269，用户已反馈整体可接受；Draft PR依赖#11，不合并main。
+- 唯一主要变量：增加独立STYLE有界2×2同色均值/64色填色/RGB描黑；不是全物体或洞填充。原四模式算法、Sensor/ISP、Logo/CNT/B:S、DDR/HDMI、PLL/SDC不变。19位配置；K3加STYLE，K4旧阈值独立保留。
+- Bit：artifacts/bitstreams/EDGE_STYLE_FILL_V1/camera_to_dsi_display.bit；SHA `B4FBB61FABD6A510B26EEC6DAD4D950FF8A3D2B6F561753D5611B334274B336E`。
+- Build：完整TD PASS；LUT16592 / FF16972 / Slice17792 / ERAM85 / DSP21；Setup/Hold +0.104/+0.020ns；TNS0、违例0。
+- 验证：合成几何/缺口/嵌套/运动/复位逐像素，完整720p五帧1152000拍/864000打包字；59个冻结TD输入及构建选项一致。证据见EDGE_STYLE_FILL_V1_REPORT.md。
+- Board Test：待用户上板；真实视觉、B/S稳态、30分钟/光照变化未验收。保留候选与全部历史；按BOARD_TEST检查，S增长阻断正式验收。完成candidate后停止。
+
+## EDGE_STYLE_FILL_V2 candidate（2026-10-19，MAIN）
+
+- 基线：V1/e17a1af，用户已上板，功能基本正常但有绿青斑/细线与星中心损失/过描黑/偏色/高光白化；本轮拍屏和数字卡证据见EDGE_STYLE_FILL_V2_DESIGN.md，无摄像头ORIGIN帧。
+- Git：codex/main/edge-style-fill-v2；实际TD源码`694559fd76676093e134229d435161ecb44ab00c`；tag edge-style-fill-v2-candidate；Draft PR依赖STYLE_V1/#12，不合并。
+- 唯一主要变量：STYLE渲染策略；V1独立4级RGB+极差黑边→V2保守均值+9档共享明度/中性保护+亮度暗侧描边。仅1个RTL文件变化，其余65个TD输入不变；原四模式/ISP/Sensor/按键/OSD/视频/PLL/SDC冻结。新增流水0拍、ERAM增量+0。
+- Bit：artifacts/bitstreams/EDGE_STYLE_FILL_V2/camera_to_dsi_display.bit；SHA `CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51`。
+- Build：完整TD PASS；LUT17170 / FF16814 / Slice18140 / ERAM85 / DSP21；Setup/Hold +0.100/+0.020ns；TNS0、违例0。
+- 模型/RTL：中性门限彩斑47.31%→0，数字星/亮线结构误差→0；这些不是实板改善率。5尺寸×63序列、完整720p五帧1152000拍/864000打包字通过。
+- Board：待用户上板；按BOARD_TEST比较ORIGIN/V1/V2；浅色去饱和/明度色带/输入饱和不可恢复等代价已记录。B/S稳态、30分钟/光照变化待验收，S增长阻断正式验收。
+- 保留候选与V1全部历史；停止本轮，不开发进阶五或队友目标检测。
+
+### 2026-10-28 / COLOR_COMPARE_V1 candidate / MAIN
+
+- 用户明确停止STYLE_V2_TARGET黑屏修复，改从已正常上板的EDGE_STYLE_FILL_V2推进固定平台颜色比对。
+- 基线tag edge-style-fill-v2-candidate（8d26c6e）；新分支codex/main/color-compare-v1；实际TD源码commit 06e70a0d5d1676ed7991c475facd533b2b804aad。
+- 唯一主要新增功能：并接于算法前彩色流的左右128×128区域RGB均值/粗颜色分类/差值比对，OSD显示REF/TEST/ABS/L1/MAX与LAST；不引入TARGET事务帧通路、不控制原视频读写。
+- 原Sensor/ISP、曝光1990、VTS1000、HTS1600、15.75×增益、BLC15、五模式算法和K3/K4、Logo/CNT、MIPI/DDR/HDMI/PLL/SDC不变。公共像素流水新增2拍，无新增ERAM/DSP。
+- 软件/RTL：80帧统计/4464检查、218快照2398字段、完整五模式720p 1152000四像素拍/864000打包字及原键控/CDC/STYLE回归PASS；物理IP和实板不在该仿真证明范围。
+- TD SYN→Physical→final Timing→bitgen PASS：Slice19336、LUT6 18104、FF17606、ERAM85、DSP21；Setup +0.000ns，Hold +0.020ns，TNS0。Setup裕量紧，一次布局后优化未改善、未选用。不能报告长期实板稳定。
+- Bit：artifacts/bitstreams/COLOR_COMPARE_V1/camera_to_dsi_display.bit；SHA256 b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27；candidate tag color-compare-v1-candidate（已push，归档commit9670a39，Draft PR #17）。
+- Board Test：NOT_RUN；相机RGB差非标定ΔE，LIM12为演示容差，空框/背景仍参与均值。保留候选等待上板，暂不进入测尺寸或后续ISP调节。
+
+
+## 2026-10-30 INSPECTION_UI_DIMENSION_V1 candidate
+
+- Version: INSPECTION_UI_DIMENSION_V1
+- Git Branch: codex/main/inspection-ui-dimension-v1
+- Actual TD source Git Commit: d26a591a399f70259944671956c7a801d9674b6d
+- Git Tag: inspection-ui-dimension-v1-candidate (after archive; not an accepted final tag)
+- 修改假设/主要变量: 以颜色比对版构建可切换的固定平台仪表应用；先独立UI检查点，再独立几何统计/标定；为实际STA收敛最小等价重定时Logo地址。
+- 修改前: 颜色框和面板常驻、黑底、混合字形；无尺子标定或工件尺寸。
+- 修改后: SW0显隐颜色、透明统一字库，SW1尺寸、SW2极性/轴、SW3标定；已有K4在ORIGIN标定中调整；100mm两轴手动标定，单薄件外包/中心截线。
+- 保持: 原颜色统计/分类/MAX12、Sensor/ISP/曝光增益、五算法、K3/K4正常语义、720p、MIPI/DDR/PLL/SDC；无新增帧缓存。K1/K2为1.5V不使用，最终复用C7/K4。
+- Bit SHA-256: 2003bbcc9f205b488ba566d7606e16416335b28dec738810827e296d62b62adc
+- Build Result: r2 SYN/PHY/final STA/bitgen PASS; Slice20042, LUT18668, FF18560, ERAM85, DSP23, Setup+0.152ns, Hold+0.020ns, TNS0。
+- 失败保留: r0 ADC //注释语法；r1 Setup-1.276ns及撤回错误A9/K2提案，均无bit；证据不删除。
+- Validation: 完整720p六帧1382400拍/1036800打包字PASS，mixer1857588周期等价PASS，几何/标定/换算/显隐/颜色/原按键和STYLE回归PASS。独立数字边界，不冒充硬件验证。
+- Board Test Result: NOT_RUN. 用户薄T片/矩形片、100mm丁字尺、纯色背景先验收；GAP不是自动圆拟合，0.1mm显示不是精度。
+- 是否保留: candidate待实板，不替换历史已验证bit。FIFO S增长为验收阻断，Gray约束局限独立保留。
+- 下一步结论: 先按BOARD_TEST完成开关/字形、两轴独立标定、已知尺寸及30分钟稳定性验证；等待用户反馈，不开发下一版、不合并PR。
+
+### 2026-10-30 INSPECTION_UI_DIMENSION_V1 首次界面反馈 / MAIN
+
+- 沿用上述candidate、源码commit与bit SHA256；本次唯一变更为文档纠正与实测记录，无RTL/配置/bit改动，无新tag。
+- Board Test Result: PARTIAL。全部物理OFF显示CAL Y；仅第一路ON为CAL X；仅第二路ON为颜色；仅第三路ON为尺寸RUN、BRIGHT、CAL:OK、NO VALID OBJECT。用户确认每次单独拨动；第二路ON后再开第四路无变化。
+- 确认问题：原物理路数说明未经实板核验，撤回；第四路颜色显隐未通过。实际路由SW0/A4、SW1/B4、SW2/E11、SW3/D11仅证实编译绑定，不证实实板顺序。禁止按排除法盲改引脚。
+- 标定证据：SPAN0256为默认，CAL:OK仅说明访问X/Y并退出，不等于已对齐100mm。当前没有有效工件尺寸或精度验证结果。
+- 是否保留：candidate保留，未宣称通过。下一步按修订BOARD_TEST使用前三路操作、同平面尺子两轴标定和独立尺寸复测；另核实实板SWITCH丝印/原理图。反光、单张B/S不能证明画面故障或长期无溢出。
+- 详细记录：docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md。无新算法、无重建、无PR合并。
+
+
+## 2026-11-01 INSPECTION_AUTO_DIMENSION_V2 candidate / MAIN
+
+- 基线7cffe56/PR #18；分支codex/main/inspection-auto-dimension-v2；实际TD源码a198ef662d293e4a4699e3222b51da0c40cb21ec；tag inspection-auto-dimension-v2-candidate。
+- 修改假设/主要变量：二维测量应用改为1mm尺周期自动定标和对应位置的工程尺寸线。由手调100mm像素跨度、双轴访问/开关确认，改为ORIGIN/CAL下一完整帧三近邻扫描线、两线一致才确认；K4短按一次，不改正常阈值语义。
+- 保持Sensor/ISP参数、五算法、颜色分类与MAX12、Logo/CNT、MIPI/DDR/HDMI/PLL/引脚/SDC、队友目录；无新公共视频延迟，无整帧缓存。
+- Bit SHA256：db8e1490d85d0acf8d10937897cb0ec03fe537e2987ee401b8e41eaeb07edd20；Bit artifacts/bitstreams/INSPECTION_AUTO_DIMENSION_V2/camera_to_dsi_display.bit。
+- Build Result：r2 SYN/PHY/final STA/bitgen PASS；Slice20503(96.64%)、LUT6 19369、FF18808、ERAM86、DSP24；Setup/Hold +0.251/+0.020ns、TNS0。新增PHY-7022高占用风险，关键类型未新增。
+- 数字验证：27项读尺/含分数间距；五整屏绘图1152000拍；实际ISP九帧2073600拍/1555200打包字和500px/100mm读尺PASS；旧几何/换算/透明显隐/键控/颜色回归PASS。
+- Board Test Result：NOT_RUN，不宣称物理尺子或计量精度已验证。X/Y共享比例须正俯视和双方向独立尺寸复核；工件仍只测外包/中心截线，不是自动CAD。第四物理开关、FIFO B/S与Gray覆盖仍待处理。
+- 是否保留：candidate等待上板；r0/r1仅SYN撤回、无bit。下一步按新BOARD_TEST短按读尺、居中薄片测量、独立真实尺寸与长期视频稳定性验收；不合并PR、不自行下一版。
+
+- 发布核对：归档commit 0a5c262072c4e996cc0a7a4d078fbe2f3341ce42；Draft PR #21，依赖#18→#17→#13→#12；分支和candidate tag已push，tag内bit SHA及73个TD输入源码与实际构建提交一致；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 INSPECTION_USABILITY_V3 candidate / MAIN
+
+- 基线7323b05/PR #21；分支codex/main/inspection-usability-v3；实际TD源码ee01ac3b420dcfc37b8a62bb6f49385d9af54c4d；tag inspection-usability-v3-candidate。
+- V2实板反馈PARTIAL：真实透明尺CAL FAIL，128px颜色框跨多个色块/隔线。最终用户纠正开关编号为从左到右，不按丝印。旧失败无码，现场唯一原因尚未定位，旧归档不改写。
+- 修改假设/主要变量：保持检测原理和视频链路，改善采样区域/读尺条件与可观测性。色框128x128改32x32、中心不变；三近邻读尺改十二行3px搜索/逐行阈值/主间距筛选/两线一致；增加透明SW逻辑位与R错误码。逻辑0颜色、1尺寸优先、2明暗极性、3CAL；物理排列待SW观察，不猜测换引脚。
+- 冻结Sensor/ISP、五算法、K3/K4正常阈值语义、Logo/CNT、视频/PLL/ADC/SDC和队友文件，66个其余TD输入不变。没有新增公共视频延迟或整帧缓存。
+- Bit artifacts/bitstreams/INSPECTION_USABILITY_V3/camera_to_dsi_display.bit；SHA256 18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d。
+- Build Result：r1 SYN/PHY/final STA/bitgen PASS；Slice20561(96.91%)、LUT6 19435、FF19041、ERAM88、DSP26；相比V2 +58/+66/+233/+2/+2；Setup/Hold +0.106/+0.020ns、TNS0、STA95.80%。关键warning类型未新增；高密度/既有FIFO和Gray覆盖风险保留。
+- 数字验证：25读尺检查、16种SW组合及全部错误码、实际ISP九帧720p共2073600拍/1555200打包字及500px/100mm捕获PASS；旧读尺27项、UI/键控、几何/换算、五整屏工程标注、颜色格式PASS。边界为post-AWB数字输入，不冒充实板。
+- r0/267a478六行6px版完成SYN/回归后撤回，无PHY/bit；受控纵向覆盖不足促成十二行版本重新验证。报告与证据保留，不移动旧tag。
+- Board Test Result：NOT_RUN。实际透明尺成功率、物理SW映射、独立尺寸精度、光照与长期无溢出均待用户测试。R6或S稳态增长时阻断正式验收，优先视频完整性。
+- 是否保留/下一步：保留本candidate与全部历史。按INSPECTION_USABILITY_V3_BOARD_TEST先记录SW基准及左1..4变化，再无字白纸/1mm刻线/K4采样并记录R；独立横竖尺寸和30分钟稳定性验收。完成本轮即停止，不合并、不开发下一版。
+
+- 发布核对：归档commit409f493652fab2299753ebf28b05334c9eb40508，Draft PR #22依赖#21；分支/tag实际push成功，远程引用、tag内bit SHA和74个TD源码与构建提交一致。详见REMOTE_RECEIPT；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 INSPECTION_USABILITY_V4 candidate / MAIN
+
+- 基线8591403/PR #22；分支codex/main/inspection-usability-v4；实际TD源码7067db0bb052747b3c06bc97c4acf9ff36dcbdae；tag inspection-usability-v4-candidate。
+- 用户V3实板反馈PARTIAL：小框已显示，同一黄纸两侧RGB仍有差值；要求CAL扩大。照片不能定量证明照明是唯一来源，也未提供真实CAL成功/尺寸精度。
+- 修改假设/主要变量：围绕读尺放置与颜色解释改善应用。读尺窄带→x256..1023/y192..479的768x288区域，十二行缓存27带搜索；仅同一有效帧两条线确认，异常R6停止。原RGB/ABS/L1/MAX12保留，增加归一化CHR/DV及LIGHT/CHECK，LIGHT绝不自动等同MATCH。
+- 独立源码检查点909d506读尺、7067db0颜色集成；相互独立模型/RTL证据保留。68个其余TD输入不变；Sensor/ISP/五算法/正常键控/视频/PLL/引脚/SDC/队友目录冻结，无公共视频延迟增量或整帧缓存。
+- Bit artifacts/bitstreams/INSPECTION_USABILITY_V4/camera_to_dsi_display.bit；SHA256 2655fd65ebb245279b684fbdc5f3065dab8f654b387c7c61cfca3bdbadc64f39。
+- Build Result：SYN/PHY/final STA/bitgen PASS；Slice20994(98.95%)、LUT6 19863、FF19116、ERAM90、DSP27；比V3 +433/+428/+75/+2/+1；Setup/Hold +0.146/+0.020ns、TNS0、STA95.84%；关键warning类型无新增，高密度风险加重。
+- 验证：16区域读尺检查/1947736周期、完整287相邻行对覆盖模型、330颜色对/4290字段、五状态面板321600拍、实际ISP九帧720p共2073600拍/1555200打包字及500px/100mm标定PASS；旧读尺/UI/按键/几何/换算/绘图/颜色格式回归PASS。
+- Board Test Result：NOT_RUN。模型证明等比例增益下比例稳定，不证明现场照明贡献率或标准色度精度；大框不能保证斜尺/模糊/只有厘米长线。共用XY标尺需正俯视、同平面和真实已知长度复测。
+- 是否保留/下一步：保留candidate与历史，按V4_BOARD_TEST先多位置水平读尺，再同色/异色/光照型差异及尺寸验证；R6或S稳态增长先查视频完整性；FIFO/Gray覆盖未冒充已修复。完成后停止，不合并、不自行下一版。
+
+- 发布核对：归档commit ff3282008ac0109f103a3cf9ad90d6fea7b9d4e5；Draft PR #23依赖#22。分支/candidate tag已实际push，远程ref、tag内bit SHA及75个TD输入源码闭环核对通过，见REMOTE_RECEIPT；仍NOT_RUN，不合并。
+
+
+## 2026-11-01 VISION_TRACK_MOTION_V1 candidate / MAIN
+
+- 用户授权直接推进进阶2/4且资源优化优先，准确基线43ff61b4/V4/PR#23；分支codex/main/vision-track-motion-v1，实际TD源码c3bdf9240647d9f98a2ff68c416693ad1e20f4b9，tag vision-track-motion-v1-candidate。
+- 本轮主变量：资源受控的颜色跟踪/运动观察；保留独立Logo优化、运动RAM映射、原生完整回归和负载链检查点，失败尝试无bit并保留。
+- 参数前后：Sensor曝光1990、gain15.75、VTS1000/HTS1600、BLC15/AWB、五算法、PLL/SDC、视频链不变；新增红色±30度/C24/V32/MIN64和32×16均值帧差TH12/至少3块；明确LAST/HEX，当前像素/变化块同步标记。
+- 完整SYN/PHY/final STA/bitgen PASS；Slice20694(97.54%,比V4 -300)、LUT6 19497(-366)、FF20285(+1169)、ERAM102(+12)、DSP27(0)。Setup/Hold+0.106/+0.020ns、TNS0、coverage95.68%；剩余522 Slice/6 ERAM，不是宽裕预算。
+- 验证：真实厂商ERAM/GSR+实际ISP/打包17帧720p、3916800拍/2937600字逐像素通过；32768地址Logo/1857588周期等价；observer14帧异常/超时；七模式按键/CDC；复位首拍701周期通过。全部是数字/构建证据，不冒充实板。
+- Bit artifacts/bitstreams/VISION_TRACK_MOTION_V1/camera_to_dsi_display.bit；SHA256 f3dfd9f1ad42bbca95199ac128b9d4808327d4482a1465019ce85a678c0b63a0。
+- Board Test Result：NOT_RUN；FIFO稳态溢出、Gray覆盖、长期/温度/光照、实际目标误报/漏检和旧应用验收仍待联合实板。原type PHY-5060/5079与高密度告警保留，不宣称修复。
+- 是否保留/下一步：保留本candidate与历史V4；按BOARD_TEST验收，进阶2/4仅“候选集成”不先写正式达标。完成即停止，不合并、不改队友RTL或进入下一版。发布信息另补回执。
+
+- 发布核对：归档commit be226969254331561de1e6376610cd6bf99af601；Draft PR #24依赖#23，未合并。实际分支/candidate tag push成功，tag内bit SHA及84个TD输入与实际构建源码闭环已核对；历史bit未变。见VISION_TRACK_MOTION_V1的REMOTE_RECEIPT；仍NOT_RUN，等待联合上板。
+
+
+## 2026-11-02 RULER_CM_CAL_V1 candidate / MAIN
+
+- 用户实板CAL FAIL/R5（具体bit SHA未核验）后授权改为厘米刻线像素间距平均，接受粗略标尺。基线123186a9/VISION/PR24；分支codex/main/ruler-cm-cal-v1，实际TD源码9d1eff3e1e88861bfac317c6064c51062282aa4d，tag ruler-cm-cal-v1-candidate。
+- 唯一主要变量：原至少24个毫米间距/严格两行8px一致 → 至少五条厘米线、行内平均4+间距、相邻行粗一致，再选全区域较大稳定周期。标题1MM BLACK→1CM LONG；尺度接口仍px/100mm、缓存不增加。
+- 两个正式HDL改变，另外82个TD输入不变；原五算法/颜色/目标跟踪/运动/尺寸绘图、Sensor参数、video/DDR、PLL/引脚/SDC和实体按键/开关语义不改。
+- 数字验证：19项/3992831周期；完整1280x720/768x288读尺27443319周期上下框位置；9帧720p整机（仅读尺搜索高度12，全部288另测）加8帧跟踪运动，3916800拍/2937600打包字逐像素通过，尺度500px/100mm。不是实板精度证据。
+- 完整TD SYN/PHY/final STA/bitgen PASS。Slice20726(+32)、LUT6 19445(-52)、FF20230(-55)、ERAM102(0)、DSP25(-2)，Setup/Hold+0.145/+0.020ns，TNS0，STA95.66%。无新增关键warning类型，仍仅490 Slice/6 ERAM余量。
+- Bit artifacts/bitstreams/RULER_CM_CAL_V1/camera_to_dsi_display.bit；SHA256 6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2。
+- Board Test Result：NOT_RUN。公制厘米长线/清楚水平/干净浅色背景是前提，不是OCR，不保证无倍数误认；新CAL OK后独立已知尺寸复核。
+- 是否保留/下一步：保留候选和所有历史；按BOARD_TEST验证实际尺子成功率及粗尺度误差、旧功能和稳态B/S。R6或溢出增长先查完整性。完成后停止，不合并PR、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit 67204bf5f0a2caae1b5b657bb3b684799deb4ec8；Draft PR #27依赖#24，未合并。分支/candidate tag已实际push，远程tag内bit SHA和84个TD输入与实际构建源码闭环核对通过，历史bit不变；见RULER_CM_CAL_V1 REMOTE_RECEIPT。仍NOT_RUN，等待用户读尺与粗尺度复核，不自行下一版。
+
+
+## 2026-11-02 INSPECTION_SHAPE_TRACK_V1 candidate / MAIN
+
+- 基线8dd67021 / RULER_CM_CAL_V1 / Draft PR27；新分支codex/main/inspection-shape-track-v1，实际TD源码517697c7f3ad3328ed62a976867b5185fbcb7df0，tag inspection-shape-track-v1-candidate。
+- 用户实板反馈：反光工件漏测、瓶盖无D/R、红色目标只有填充无跟随框。Sensor/ISP/SDC不改；分别保留背景、D/R、框和资源检查点，未把三个问题伪称同一根因。
+- 旧固定阈值 → 空台面4样本格参照/逐像素双极性差12；无D/R → ORIGIN测量RUN长K4显式圆片档；绿色实心目标 → 保留红色本体、上一完整结果LAST外框。短K4学背景，CAL/阈值交互保持。
+- 自动近圆分类因资源失败放弃正式集成，四轮失败证据归档；最终资源{'slice': 21103, 'lut6': 19809, 'ff': 20499, 'eram': 105, 'dsp': 25}，差值vs厘米版{'slice': 377, 'lut6': 364, 'ff': 269, 'eram': 3, 'dsp': 0}，Setup/Hold+0.111/+0.020ns，TNS0，SYN/PHY/final STA/bitgen PASS。
+- Bit artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/camera_to_dsi_display.bit；SHA256 5d93f2ec5b80ee288455bc942a654de84166ecb202cda7b139b7a4f701b13f9a。
+- 数字验证：18帧720p ISP/打包器、2帧D/R绘图、4帧背景缓存、MAIN TRACK128×96、160帧几何/240换算、字库/配置RAM/复位/选择等通过；不是实板证据。
+- Board Test NOT_RUN，FIFO/Gray、资源紧张和实际反光/测量误差/跟踪滞后待验收。保留候选及全部历史；按BOARD_TEST完成CAL→空背景→工件及TRACK对照，S稳态若增长先查完整性。停止候选开发，不自动合并、不自行下一版。
+
+- 发布核对：候选归档commit 8fe9dbbf65d0d1f606d1c5ae05bbbc646b897cb3；Draft [PR #28](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/28) 依赖未合并#27。Private origin分支/tag实际push成功；远程tag内bit SHA、89个TD输入与实际构建源码闭环核对通过，28份历史bit未变。见REMOTE_RECEIPT.json；仍NOT_RUN，等待实板，不自动合并或进入下一版。
+
+
+## 2026-11-02 TRACK_REGION_FIX_V1 candidate / MAIN
+
+- 上一版INSPECTION_SHAPE_TRACK_V1实板补记：用户报告空台面与红瓶盖均出现近全屏跳框，TRACK未验收通过；照片未核验实际烧录SHA，不能作原始RGB。本轮不改历史归档。
+- 基线4d0f779cefd680363b8a3f0d4d5c33a42d81197f / Draft PR28；唯一主要变量：全局红点包围框 → MAIN相对红优势+连续主要区域选择。TARGET、Sensor/ISP、其他模式/尺寸/颜色、DDR/HDMI/PLL/SDC冻结。
+- 实际TD源码0e054712064041a18047f13c8ee76c57ad8e29f8，branch codex/main/track-region-fix-v1，tag track-region-fix-v1-candidate。
+- 模型与旧RTL同输入复现误框，新RTL独立16帧+7帧720p及完整15组native回归通过；不是实板验证。N语义改为选中连续区域支持面积。
+- 最终资源{'slice': 20942, 'lut6': 19498, 'ff': 20368, 'eram': 105, 'dsp': 25}，差值{'slice': -161, 'lut6': -311, 'ff': -131, 'eram': 0, 'dsp': 0}；Setup/Hold+0.137/+0.020ns，TNS0；完整SYN/PHY/STA/bitgen PASS。首轮打包失败保留证据。
+- Bit artifacts/bitstreams/TRACK_REGION_FIX_V1/camera_to_dsi_display.bit；SHA256 049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99；Board Test NOT_RUN。FIFO/Gray/长期/热稳定风险未排除。
+- 保留本候选与全部历史，按BOARD_TEST完成空台面/单实心红目标/移动/消失验证；不自动合并，不自行下一版。
+
+- 发布核对：候选归档commit806e29ab76f360a2bc76eea37fe826a92a8da57c；[Draft PR #29](https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29)依赖未合并PR28。Private origin分支与candidate tag已实际push，远程tag内bit/89个输入与实际TD源码一致，29个历史bit不变。见REMOTE_RECEIPT/PR_CREATION；Board Test仍NOT_RUN，不自动合并，等待本版上板。
+
+## 2026-11-03 LATENCY_PERFORMANCE_V1 candidate / MAIN
+
+- 用户恢复进阶三延迟可视化及扩展四资源优化，其他功能保持；基线072bc0f8/PR29，branch codex/main/latency-performance-v1，实际TD源码69521d7932c2fec94dd67c03a7362b4d6b0ceb8f，tag latency-performance-v1-candidate。
+- 假设：身份/时间随像素FIFO和DDR读槽代次传递，测量RAW首valid至同帧HDMI首DE；等价行缓存及配置存储优化抵消资源。Sensor/ISP、算法、颜色/尺寸/跟踪、按键/开关、调度、PLL/SDC不变，公共流水仍31拍。
+- 原无延迟面板→透明LAT/MIN/MAX/AGE、NEW/REP/BAD/WAIT、HEX F/N/E；10us量化未物理校准，REP不重复累计、BAD不计有效统计。
+- SYN/PHY/final STA/bitgen PASS；Slice20831(-111)、LUT6 19532(+34)、FF21337(+969)、ERAM105(0)、DSP25(0)，Setup/Hold+0.175/+0.020ns、TNS0、STA95.33%。关键warning类型无新增，仍仅385Slice/3ERAM余量。
+- 45份结果/原生源码清单哈希门禁PASS；18帧720p/4147200拍/3110400打包字旧参考、原生FIFO/异常/重复帧/时钟中断、OSD及实际模块1280x4链路通过。R0无bit，资源失败/中止尝试保留。
+- 最终route新增CDC审计PASS；既有Gray约束覆盖及历史溢出复发、PVT长稳仍待实板，不宣称已修复。
+- Bit artifacts/bitstreams/LATENCY_PERFORMANCE_V1/camera_to_dsi_display.bit；SHA256 062b48ec7c002b56b4a025cd36a0e0f5e9138178f5706d6390a7f91eef3a27a4。
+- Board Test NOT_RUN。按BOARD_TEST记录5s/30s/120s及30min稳态E/B/S和旧功能。保留历史；Draft PR30依赖29，不合并、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit bc05cb064892b6dc815b47617b69b76d661df466，candidate tag/branch已实际push；tag内bit与95项TD输入对应实际源码，30份历史bit未变，45份验证清单核验通过。见REMOTE_RECEIPT及PR_CANDIDATE；PR30保持Draft/unmerged。NOT_RUN，停止并等待上板。
+
+
+## 2026-11-03 INSPECTION_PARTS_MOTION_V1 candidate / MAIN
+
+- 基线6ad4f7cd / LATENCY_PERFORMANCE_V1 / PR30；branch codex/main/inspection-parts-motion-v1，实际TD源码bb1f8811cafd441815b2248bcc19b263b02657eb，tag inspection-parts-motion-v1-candidate。
+- 用户要求：粉色运动点难看清、过稀；T/L工件需要各部分尺寸。分别保存运动/分段检查点；最终两项联合，资源优化保持数值和像素时序，不引入新的画质变量。
+- 运动原每块4粉色像素→FF3000橙红8px间距3×3点阵，最多8点/72px；TH12/32×16检测格保持，9bit均值历史仍2 ERAM，LAST口径及异常清除保持。
+- 尺寸原W/H、D/R→增加S颈宽、T梁厚、A/B伸出、V竖段长，最终七项同时工程标注；单件薄工件、轴对齐、T横梁水平、两段嵌套行包络。4px分段量化和反光/标尺/透视限制，非CAD。
+- 资源R0/R1打包超容量，R2轮巡21127Slice且30轮/超过2h仍拥塞，手动中止无bit；RAM延迟试验无收益不推广。复用每帧稀疏AWB48/32除法，保持原49拍done和复位在途语义，AWB算法/参数/50拍RAM延迟不改。原厂IP不改；默认/小高度走原IP。
+- 最终SYN/PHY/final STA/bitgen PASS；Slice19209(-1622)、LUT6 18551(-981)、FF16340(-4997)、ERAM105(0)、DSP25(0)，Setup/Hold+0.257/+0.020ns，TNS0，STA94.40%。公共31拍、4PPC/720p不变。
+- 58份结果/原生清单门禁PASS：15轮廓、7帧七项720p绘图、8帧实际31拍流/1382400拍MOTION逐像素、旧18帧720p/4147200拍/3110400打包字、原D/R/控制/TRACK/背景/复位/延迟；原厂除法311向量/50复位偏移及完整AWB12帧256×64/194744输出像素逐拍等价。均非实板。
+- 路由CDC核对全部20/85/18位扇出及逻辑寄存器别名通过，保留旧名称筛选漏计；未改SDC，不宣称修复全局Gray覆盖/历史FIFO复发或PVT长稳。
+- Bit artifacts/bitstreams/INSPECTION_PARTS_MOTION_V1/camera_to_dsi_display.bit；SHA256 1a1737923e33e0f8c87ca918978fff08d8dd4c7d6120e54f4835bfc911f1bf11。
+- 用户最终要求延迟面板一直显示，不新增按键接口；SW5/SW6分别为蜂鸣器/显示供电电路。其他原模式、颜色、控件、Sensor/BLC/AWB参数、MIPI/DDR/HDMI、PLL/引脚/SDC、Logo/CNT保持。
+- Board Test NOT_RUN，按BOARD_TEST完成MOTION、CAL/空背景/T/L、D/R、原功能及30min稳态E/B/S。保留全部历史；Draft PR31依赖30，不合并、不自行下一版。发布回执另补。
+
+- 发布核对：归档commit72fb25a571bd7b91347ff93e7cb66af3f873d0e0，Private origin分支/candidate tag已实际push；tag内bit、95项实际输入与58份原生证据字节闭环通过，31份历史bit不变。见INSPECTION_PARTS_MOTION_V1的REMOTE_RECEIPT及PR_CANDIDATE。Draft PR31依赖30，未合并；实板NOT_RUN，停止本轮并等待用户反馈。

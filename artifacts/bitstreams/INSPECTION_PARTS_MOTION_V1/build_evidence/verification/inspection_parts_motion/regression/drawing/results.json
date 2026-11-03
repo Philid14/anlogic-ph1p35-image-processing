@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "sources": {
+    "tests/tb_inspection_drawing.sv": "dcec2a0f7c72ed7e5e6514475c10cda477fcc9d74a70049e9ded01d2817af90a",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "b2e5c497ef3bc9abaef07629cd06651628f6fdc070819045a0c1fe03a2ea675e",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/engineering_dimension_marks.v": "2161a34f689a95bdefb015d55debfa08d2a42c5ca097df4ccba236afff14c562",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_font_rom.v": "7fee3c2200977f41c854755463f698b46d084b10df03a44ffcba0e562926102b"
+  },
+  "gold_sha256": "5da3e382bc7e02e7615ba34ac1e37a724ec7f283ef8a77f0ffb10f858805931b"
+}

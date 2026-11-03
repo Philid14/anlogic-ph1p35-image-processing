@@ -1,0 +1,37 @@
+{
+  "base": "b64daf39af09980621adb1138df1674a8501ea09",
+  "final_td_source": "7aa6beb87d477c01303f44b6d50a0ca66f2c9ac8",
+  "final_strict_rtl_sha256": "043d24b7597a3f6fbce87686921ffb86b0478932ae4a7f0a8f6c40a842a1b6fd",
+  "source_of_real_data": "research PR9 commit58f3a6d, all101pages+burst+per-frame pre/post CRC previously passed",
+  "raw_capture_files": {
+    "real_184242.npz": "0fc080aa2550f9bb77a058bd15ea22d0fa2b8cb18482487518e77aa1601c526c",
+    "real_flat.npz": "d50c47e6a099f234a18bfbde418b82991856ba8f708215251c46fcfd866d419a"
+  },
+  "real_scene_limitations": [
+    "184242 target handheld; no reliable black-white contour truth",
+    "flat capture contains no threshold edges"
+  ],
+  "final_strict_720p": {
+    "frames": 2,
+    "beats": 460800,
+    "packed_words": 345600,
+    "reliability_osd_enabled": true
+  },
+  "earlier_core_720p": {
+    "source": "ab9081f906739090f431ae8f0dc7ede9e682eb64",
+    "frames": 10,
+    "beats": 2304000,
+    "packed_words": 1728000,
+    "released": false
+  },
+  "final_unit_cycles": 5481,
+  "scope": "new strict line-order gate tested with actual source bytes; full FIFO/PHY/board not simulated",
+  "independent_confidence_center_widths": [
+    64,
+    68,
+    72,
+    76,
+    1280
+  ],
+  "model_96_rows_replay_equal": true
+}

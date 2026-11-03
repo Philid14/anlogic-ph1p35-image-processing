@@ -1,0 +1,22 @@
+{
+  "schema": 1,
+  "description": "Template only; replace paths with actual camera frames. No camera material is included.",
+  "clips": [
+    {
+      "clip_id": "replace_with_capture_name",
+      "group_id": "replace_with_scene_and_capture_group",
+      "split": "tune",
+      "source_kind": "camera",
+      "width": 1280,
+      "height": 720,
+      "frames": [
+        {
+          "path": "capture_01/000000.ppm",
+          "session": 1,
+          "frame": 0,
+          "annotation": null
+        }
+      ]
+    }
+  ]
+}

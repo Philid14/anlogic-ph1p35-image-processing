@@ -1,0 +1,30 @@
+[
+  {
+    "ref": "origin/codex/target/color-target-detect-v1",
+    "sha": "ee2edc581877e6a0c7f85073f04e9b7d79277c1b"
+  },
+  {
+    "ref": "origin/codex/latency/same-frame-association-v2",
+    "sha": "87bb9a5375843c4f3e9696eb0dbd028f3e364f47"
+  },
+  {
+    "ref": "origin/codex/target/submission-intro-review-v2",
+    "sha": "37b8b5f4f6e715ba76e9264f8ace212ab4eec9f3"
+  },
+  {
+    "ref": "origin/docs/final-application-report",
+    "sha": "449f03ec516c8dc7766ae4dc0750190e4613f440"
+  },
+  {
+    "ref": "origin/codex/target/technical-report-vision-v2",
+    "sha": "48cbd024187ac20af70dee64a27000b9d30f1023"
+  },
+  {
+    "ref": "codex/docs/technical-draft-v0-1",
+    "sha": "36cb263c080859d4541dac34212780e268318063"
+  },
+  {
+    "ref": "codex/main/frame-concept-v1",
+    "sha": "4b8cc7414c1d8a9563251bfcde51a6c7f776f659"
+  }
+]

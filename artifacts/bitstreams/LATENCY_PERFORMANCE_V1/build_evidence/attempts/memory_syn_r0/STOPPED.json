@@ -1,0 +1,5 @@
+{
+  "status": "CANCELLED_BEFORE_FINAL_STA",
+  "reason": "Isolated row-memory-only route is superseded by a complete resource plan; preserves congestion evidence, not a timing failure or candidate",
+  "bit_generated": false
+}

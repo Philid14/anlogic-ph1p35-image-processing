@@ -1,0 +1,395 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-19T14:03:36.594376+00:00",
+  "scope": "Production TARGET RTL + TEST-ONLY atomic transfer/display scheduler; no physical CDC/DDR/MAIN/board proof",
+  "head": "8f49444460472e71b3242630a5d94ae2cd2e978d",
+  "source_sha256_lf": {
+    "rtl\\color_target_track.v": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+    "rtl\\color_target_track_guard.v": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+    "rtl\\color_target_overlay.v": "e6c077a1fcf585e2fd7fc742adf6ddbc4bc74f77ed73e90303209ba46fd791f4",
+    "rtl\\color_target_text_overlay.v": "14fc907f62610678619befeaf6ed5f997ee68437ccdebabd98dd1543d351833d",
+    "tb\\tb_display_transactions.v": "4ee430e898adeb8514f9ecd0c1744fcc4f16d90705600deded98c0bdcb52604f",
+    "run_display_transactions.py": "d8948869b46fa6bb9dda041921ba0cecb1c0fe2f642f6fb8b8e8aaa8a1607503",
+    "run_track_guard_contract.py": "61eae1c94b26b47127cc6b58479ddf0a79bd70a0fd6abc0ff42bb26e04613eb0"
+  },
+  "source_unchanged": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "clock_period_ns": {
+    "observation": 10,
+    "display": 14
+  },
+  "fixtures": {
+    "max_target_age": 10000,
+    "max_reliable_age": 10000,
+    "text_settle_display_clocks": 141
+  },
+  "jobs": [
+    {
+      "name": "baseline",
+      "mutation": 0,
+      "tool_ok": true,
+      "complete": true,
+      "checks": 180,
+      "failures": 0,
+      "expected": "PASS",
+      "matched": true,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\baseline",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-sv",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_display_transactions.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\baseline",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_display_transactions",
+            "-GMUTATION=0",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\baseline",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vsim.log"
+        }
+      ],
+      "cases": [
+        "startup_missing",
+        "text_preparation_barrier",
+        "same_frame_public_outputs",
+        "newer_result_during_scan",
+        "late_result_boundary",
+        "slot_generation_mismatch",
+        "hold_keeps_true_box_identity",
+        "identity_and_disposition",
+        "frame_wrap_requires_session",
+        "session_barrier_masks_inflight",
+        "whole_scan_age_budget",
+        "independent_time_loss_masks_all",
+        "global_reset_masks_all"
+      ]
+    },
+    {
+      "name": "ignore_slot_generation",
+      "mutation": 1,
+      "tool_ok": true,
+      "complete": true,
+      "checks": 180,
+      "failures": 2,
+      "expected": "functional assertion failure",
+      "matched": true,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_slot_generation",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-sv",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_display_transactions.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_slot_generation",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_display_transactions",
+            "-GMUTATION=1",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_slot_generation",
+          "exit_code": 0,
+          "failure": "error_marker",
+          "passed": false,
+          "log": "vsim.log"
+        }
+      ],
+      "cases": [
+        "startup_missing",
+        "text_preparation_barrier",
+        "same_frame_public_outputs",
+        "newer_result_during_scan",
+        "late_result_boundary",
+        "slot_generation_mismatch",
+        "hold_keeps_true_box_identity",
+        "identity_and_disposition",
+        "frame_wrap_requires_session",
+        "session_barrier_masks_inflight",
+        "whole_scan_age_budget",
+        "independent_time_loss_masks_all",
+        "global_reset_masks_all"
+      ]
+    },
+    {
+      "name": "live_box_during_scan",
+      "mutation": 2,
+      "tool_ok": true,
+      "complete": true,
+      "checks": 180,
+      "failures": 3,
+      "expected": "functional assertion failure",
+      "matched": true,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\live_box_during_scan",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-sv",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_display_transactions.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\live_box_during_scan",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_display_transactions",
+            "-GMUTATION=2",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\live_box_during_scan",
+          "exit_code": 0,
+          "failure": "error_marker",
+          "passed": false,
+          "log": "vsim.log"
+        }
+      ],
+      "cases": [
+        "startup_missing",
+        "text_preparation_barrier",
+        "same_frame_public_outputs",
+        "newer_result_during_scan",
+        "late_result_boundary",
+        "slot_generation_mismatch",
+        "hold_keeps_true_box_identity",
+        "identity_and_disposition",
+        "frame_wrap_requires_session",
+        "session_barrier_masks_inflight",
+        "whole_scan_age_budget",
+        "independent_time_loss_masks_all",
+        "global_reset_masks_all"
+      ]
+    },
+    {
+      "name": "ignore_frame_identity",
+      "mutation": 3,
+      "tool_ok": true,
+      "complete": true,
+      "checks": 180,
+      "failures": 2,
+      "expected": "functional assertion failure",
+      "matched": true,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_frame_identity",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-sv",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_display_transactions.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_frame_identity",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_display_transactions",
+            "-GMUTATION=3",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\ignore_frame_identity",
+          "exit_code": 0,
+          "failure": "error_marker",
+          "passed": false,
+          "log": "vsim.log"
+        }
+      ],
+      "cases": [
+        "startup_missing",
+        "text_preparation_barrier",
+        "same_frame_public_outputs",
+        "newer_result_during_scan",
+        "late_result_boundary",
+        "slot_generation_mismatch",
+        "hold_keeps_true_box_identity",
+        "identity_and_disposition",
+        "frame_wrap_requires_session",
+        "session_barrier_masks_inflight",
+        "whole_scan_age_budget",
+        "independent_time_loss_masks_all",
+        "global_reset_masks_all"
+      ]
+    },
+    {
+      "name": "skip_text_preparation_barrier",
+      "mutation": 4,
+      "tool_ok": true,
+      "complete": true,
+      "checks": 180,
+      "failures": 2,
+      "expected": "functional assertion failure",
+      "matched": true,
+      "stages": [
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlib.exe",
+            "work"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\skip_text_preparation_barrier",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlib.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vlog.exe",
+            "-sv",
+            "-work",
+            "work",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_track_guard.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\rtl\\color_target_text_overlay.v",
+            "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic\\features\\color_target\\tb\\tb_display_transactions.v"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\skip_text_preparation_barrier",
+          "exit_code": 0,
+          "failure": null,
+          "passed": true,
+          "log": "vlog.log"
+        },
+        {
+          "command": [
+            "D:\\altera\\14.1\\modelsim_ase\\win32aloem\\vsim.exe",
+            "-c",
+            "-onfinish",
+            "stop",
+            "work.tb_display_transactions",
+            "-GMUTATION=4",
+            "-do",
+            "onerror {quit -code 2}; run -all; quit -f -code 0"
+          ],
+          "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\outputs\\frame-transactions-2026-10-19\\rtl-01\\skip_text_preparation_barrier",
+          "exit_code": 0,
+          "failure": "error_marker",
+          "passed": false,
+          "log": "vsim.log"
+        }
+      ],
+      "cases": [
+        "startup_missing",
+        "text_preparation_barrier",
+        "same_frame_public_outputs",
+        "newer_result_during_scan",
+        "late_result_boundary",
+        "slot_generation_mismatch",
+        "hold_keeps_true_box_identity",
+        "identity_and_disposition",
+        "frame_wrap_requires_session",
+        "session_barrier_masks_inflight",
+        "whole_scan_age_budget",
+        "independent_time_loss_masks_all",
+        "global_reset_masks_all"
+      ]
+    }
+  ],
+  "passed": true,
+  "integration_ready": false
+}

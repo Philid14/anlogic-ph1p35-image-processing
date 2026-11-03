@@ -1,0 +1,33 @@
+{
+  "synthetic_only": true,
+  "outer_bounds": {
+    "old": [
+      60,
+      129,
+      40,
+      119
+    ],
+    "learned": [
+      60,
+      199,
+      40,
+      119
+    ],
+    "true_outer": [
+      60,
+      199,
+      40,
+      119
+    ]
+  },
+  "old_width_px": 70,
+  "new_width_px": 140,
+  "truth_width_px": 140,
+  "old_foreground": 4850,
+  "new_foreground": 9700,
+  "limitations": [
+    "Surface holes remain in mask; envelope measures exterior only",
+    "No recovery when workpiece and background are optically identical",
+    "No board accuracy or glare-recovery-rate claim"
+  ]
+}

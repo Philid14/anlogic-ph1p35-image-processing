@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "native": true,
+  "widths": [
+    96,
+    32,
+    23,
+    36
+  ],
+  "delays": [
+    21,
+    26,
+    24,
+    26
+  ],
+  "sources": {
+    "tests/tb_inspection_payload_delay.sv": "3471ee0b146ab02e94f0372f8b9918430532a98a2955b25dac38aa2243b4b854",
+    "tmp/inspection_parts_motion/payload18_staging_r1/vision/inspection_payload_delay.v": "0f1be868f61b67dc05e86c46e2bc27ca3a43ea705d9409c9dce2259241d734d1"
+  }
+}

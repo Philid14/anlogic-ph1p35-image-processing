@@ -1,0 +1,27 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_planar_measure "+STIM=D:/anlogic_formal_project/tmp/inspection_parts_motion/regression/contract/stats.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 13:51:45 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_planar_measure.sv(6): [TFMPC] - Too few port connections. Expected 20, found 16.
+# 
+#         Region: /tb_planar_measure/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(6): [TFMPC] - Missing connection for port 'round_present'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(6): [TFMPC] - Missing connection for port 'gap_coords'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(6): [TFMPC] - Missing connection for port 'part_valid'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_planar_measure.sv(6): [TFMPC] - Missing connection for port 'part_coords'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS planar stats 91459 cycles: runs, lanes, polarity, gaps, malformed frames, reset
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_planar_measure.sv(25)
+#    Time: 914596 ns  Iteration: 0  Instance: /tb_planar_measure
+# End time: 13:51:47 on Nov 03,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 5

@@ -1,0 +1,184 @@
+{
+  "passed": true,
+  "checks": 16,
+  "cases": [
+    {
+      "case": "vertical_0",
+      "bands": 1,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_10",
+      "bands": 1,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_11",
+      "bands": 2,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_21",
+      "bands": 2,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_22",
+      "bands": 3,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_33",
+      "bands": 4,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        340,
+        340
+      ]
+    },
+    {
+      "case": "vertical_46",
+      "bands": 5,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        340,
+        340
+      ]
+    },
+    {
+      "case": "left_partial",
+      "bands": 3,
+      "ok": true,
+      "span": 340,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        null,
+        340,
+        340
+      ]
+    },
+    {
+      "case": "right_partial",
+      "bands": 4,
+      "ok": true,
+      "span": 339,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        339,
+        339
+      ]
+    },
+    {
+      "case": "small_pitch_wide_histogram",
+      "bands": 1,
+      "ok": true,
+      "span": 200,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        null,
+        null,
+        200,
+        200
+      ]
+    },
+    {
+      "case": "large_pitch_wide_accumulator",
+      "bands": 2,
+      "ok": true,
+      "span": 1600,
+      "status": 3,
+      "lines": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1600,
+        1600
+      ]
+    },
+    {
+      "case": "flat",
+      "bands": 5,
+      "ok": false,
+      "span": 0,
+      "status": 4
+    },
+    {
+      "case": "no_cross_frame_pairing",
+      "bands": 5,
+      "ok": false,
+      "span": 0,
+      "status": 5
+    }
+  ],
+  "sources": {
+    "tests/tb_ruler_area_v4.sv": "47e14389fe650cadf0b5119386eb50e9fa94a51dec6c82522e99007d0aecaa6b",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v": "b06f451c03c4857076b1e8ec3b7f15ceb1b45d6b386bd5b498cbd78bd66fd1ec"
+  },
+  "scope": "768px actual datapath; reduced vertical search for schedule tests; full production ROI covered separately"
+}

@@ -1,0 +1,23 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_osd PH1P_PHY_GSR "+OUT=D:/anlogic_formal_project/tmp/latency_frame_fix/osd/pixels.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:20:17 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_osd.sv(6): [TFMPC] - Too few port connections. Expected 18, found 17.
+# 
+#         Region: /tb_latency_osd/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_osd.sv(6): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# incase
+# 
+# PASS latency OSD exact original glyph raster and serial decimal conversion
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_osd.sv(22)
+#    Time: 247056 ns  Iteration: 0  Instance: /tb_latency_osd
+# End time: 21:20:18 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 2

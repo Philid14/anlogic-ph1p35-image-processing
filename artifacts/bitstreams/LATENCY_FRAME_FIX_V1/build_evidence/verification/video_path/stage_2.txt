@@ -1,0 +1,103 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_video_path PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:20:19 on Nov 03,2026
+# ** Warning: (vsim-PLI-3003) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(74): [TOFD] - System task or function '$abs' is not defined.
+# 
+#         Region: /tb_latency_video_path
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(29): [TFMPC] - Too few port connections. Expected 12, found 11.
+# 
+#         Region: /tb_latency_video_path/capture
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(29): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_latency_video_path/vi/g_tagged/u_fifo/u_fifo/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_latency_video_path/vi/g_tagged/u_fifo/u_fifo/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_latency_video_path/vi/g_tagged/u_fifo/u_fifo/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_latency_video_path/vo/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_latency_video_path/vo/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_latency_video_path/vo/U_w128_d512_fifo/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'cea'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(222).
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'ocea'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(223).
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(230).
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (1) does not match connection size (32) for port 'web'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(232).
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(234).
+# 
+#         Region: /tb_latency_video_path/mc/U_w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v(201): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(45): [TFMPC] - Too few port connections. Expected 15, found 14.
+# 
+#         Region: /tb_latency_video_path/journal
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(45): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Too few port connections. Expected 24, found 15.
+# 
+#         Region: /tb_latency_video_path/mixer
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_min'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_max'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_age'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_frame'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_samples'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_errors'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_diagnostic'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(47): [TFMPC] - Missing connection for port 'I_latency_status'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(51): [TFMPC] - Too few port connections. Expected 19, found 18.
+# 
+#         Region: /tb_latency_video_path/meter
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_video_path.sv(51): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS native complete DDR/mixer latency path commits=12 images=14 pixels=60424 repeats=4 samples=10
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_video_path.sv(123)
+#    Time: 4445928952 ps  Iteration: 1  Instance: /tb_latency_video_path
+# End time: 21:20:30 on Nov 03,2026, Elapsed time: 0:00:11
+# Errors: 0, Warnings: 35

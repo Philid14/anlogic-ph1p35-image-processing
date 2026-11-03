@@ -1,0 +1,135 @@
+{
+  "sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "parts": [
+    {
+      "path": "[Content_Types].xml",
+      "bytes": 2251,
+      "sha256": "618367816a2c5afd3057c26fa3740dc5813bae8910f976db22a409a436c1ea5b"
+    },
+    {
+      "path": "_rels/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "_rels/.rels",
+      "bytes": 737,
+      "sha256": "514e1846381cb6bcfff105a4b0a17d666cf0ed1f0c120bff73b82226ab7ed977"
+    },
+    {
+      "path": "docProps/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "docProps/app.xml",
+      "bytes": 633,
+      "sha256": "3b8588e196c1c392dd8fed6e2be1b54bc58bd8084ec02f7ecde2311a28671d62"
+    },
+    {
+      "path": "docProps/core.xml",
+      "bytes": 635,
+      "sha256": "a8d1f9acf12ca37ae36e3eb1eb5b1e3b9a56ff138bbb261bc7f9f4bce6d563f6"
+    },
+    {
+      "path": "docProps/custom.xml",
+      "bytes": 529,
+      "sha256": "040c6debe0523ee7ab5aac8000a2872b45e9d9820e95217421f91f07bb981ccd"
+    },
+    {
+      "path": "word/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "word/_rels/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "word/_rels/document.xml.rels",
+      "bytes": 1583,
+      "sha256": "253ca60a481d4f261333c8479dbfb702eaaff1c0b086bbab86233d56db916fb0"
+    },
+    {
+      "path": "word/_rels/header1.xml.rels",
+      "bytes": 289,
+      "sha256": "94bca6aec3177c3b64686e1248ecfb39e9750dc067c2274af33e6b442d1f6617"
+    },
+    {
+      "path": "word/document.xml",
+      "bytes": 40556,
+      "sha256": "dad3ece3e66c131ea95ef97723df62e26c213805d2422cab464ec79163bead9c"
+    },
+    {
+      "path": "word/fontTable.xml",
+      "bytes": 3040,
+      "sha256": "17a2a9395fe54c2b4781026ad6faa74bf356dd27ebc280a945825fa0c1a40b5a"
+    },
+    {
+      "path": "word/footer1.xml",
+      "bytes": 2054,
+      "sha256": "7cc9a412ae9680220f6c49983b5cebd0fb1e290d4034fee61a9f587ba977b22f"
+    },
+    {
+      "path": "word/footer2.xml",
+      "bytes": 1385,
+      "sha256": "2c837368fb74bfbd46898144bd35f871a1cb37a00da6135e425c202b665b8cb6"
+    },
+    {
+      "path": "word/footer3.xml",
+      "bytes": 1385,
+      "sha256": "f7f33cbc428f16016b96fd41c6e29b329a91e6a1942a8e4e7c4e8332da35029a"
+    },
+    {
+      "path": "word/header1.xml",
+      "bytes": 2608,
+      "sha256": "79bf0bda36dcc73e5e6b738f5ac470fa8d198b9d4dd0e0b975cfe60549c6fab6"
+    },
+    {
+      "path": "word/header2.xml",
+      "bytes": 1385,
+      "sha256": "3b5eae2c5845bca5504b9d33d322af26cf3a05934ed295799d82acec18e8bd5e"
+    },
+    {
+      "path": "word/header3.xml",
+      "bytes": 1385,
+      "sha256": "528ed28b8703d93b050584d793edeebb427f27bb9a1f23cbda4130caf35b5522"
+    },
+    {
+      "path": "word/media/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "word/media/image1.png",
+      "bytes": 67191,
+      "sha256": "787db8fa20de80a88e406e5eb8bc8c3076d71592635851045bb8a8cbfb4aaadc"
+    },
+    {
+      "path": "word/numbering.xml",
+      "bytes": 8482,
+      "sha256": "4c856d1c47d7214f308853fb4cdf4cf1f694e8f574c29f0b1027a0b64335c747"
+    },
+    {
+      "path": "word/settings.xml",
+      "bytes": 3757,
+      "sha256": "8bfaf5cc4c8ec38e67426db79208e1bd4e907a17b15a084e6273b07f400a0d14"
+    },
+    {
+      "path": "word/styles.xml",
+      "bytes": 24784,
+      "sha256": "b11bf8e04b2fca7ea9cc332a299dcc23002339164176d9e1bd3bb8c20fdfb40f"
+    },
+    {
+      "path": "word/theme/",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "word/theme/theme1.xml",
+      "bytes": 6444,
+      "sha256": "20b1cf0f6bd861afd2ee727424bf2da47b72e5e70232e7477547132a50c1f809"
+    }
+  ]
+}

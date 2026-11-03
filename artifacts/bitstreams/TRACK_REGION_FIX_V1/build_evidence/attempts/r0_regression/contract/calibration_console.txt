@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_calibration -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 19:55:22 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS ruler calibration two axes, explicit confirm, bounds and reset
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_planar_measure.sv(51)
+#    Time: 6746 ns  Iteration: 0  Instance: /tb_inspection_calibration
+# End time: 19:55:22 on Nov 02,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

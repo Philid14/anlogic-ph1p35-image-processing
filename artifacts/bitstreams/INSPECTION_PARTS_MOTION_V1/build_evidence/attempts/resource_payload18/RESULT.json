@@ -1,0 +1,8 @@
+{
+  "selected": false,
+  "role": "R2 compact-delay32bit control, NOT native18bit experiment",
+  "actual_helper": "Formal inspection_payload_delay.v; generic ADDED loop used formal32bit helper, see SOURCE_MANIFEST",
+  "estimated_slice": 22234,
+  "eram": 109,
+  "reason": "ERAM exceeds108; no bit; formal inputs unchanged"
+}

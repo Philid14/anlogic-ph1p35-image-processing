@@ -1,0 +1,398 @@
+{
+  "applied": true,
+  "workspace": "D:\\anlogic_formal_project",
+  "backup": "D:\\anlogic_project_backups\\final_prep_20261103",
+  "protected_worktree": "tmp/technical_document_draft/review-worktree",
+  "actions": [
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\auto_dimension_v2",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\auto_dimension_v2"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\color_compare_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\color_compare_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\competition_comparison_20261022",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\competition_comparison_20261022"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_control",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_control"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_multi_mode_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_multi_mode_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_style_fill_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_style_fill_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_style_fill_v2",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_style_fill_v2"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_temporal_184242",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_temporal_184242"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_temporal_edges_20261018",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_temporal_edges_20261018"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_temporal_real_20261018",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_temporal_real_20261018"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_temporal_second_20261018",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_temporal_second_20261018"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\edge_temporal_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\edge_temporal_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\final_product_review_20261022",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\final_product_review_20261022"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\inspection_parts_motion",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\inspection_parts_motion"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\inspection_shape_track",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\inspection_shape_track"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\inspection_v3",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\inspection_v3"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\inspection_v4",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\inspection_v4"
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\tmp\\latency_demo",
+      "destination": null
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\latency_frame_fix",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\latency_frame_fix"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\latency_performance",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\latency_performance"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\metrology_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\metrology_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\pdfs",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\pdfs"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\probe_aborted_boot_arming",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\probe_aborted_boot_arming"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\requirements_check_20261028",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\requirements_check_20261028"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\ruler_cm",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\ruler_cm"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\style_target_black_screen_20261028",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\style_target_black_screen_20261028"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\style_v2_target_v1",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\style_v2_target_v1"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_analysis_gates_5neay_1f",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_analysis_gates_5neay_1f"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_analysis_gates_aj36o18s",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_analysis_gates_aj36o18s"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_analysis_gates_nxs4ug3h",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_analysis_gates_nxs4ug3h"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_deps",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_deps"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_probe_regression",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_probe_regression"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_video_audit_1518hoom",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_video_audit_1518hoom"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_video_audit_1la9g3b4",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_video_audit_1la9g3b4"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\temporal_video_audit_uwegn4_y",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\temporal_video_audit_uwegn4_y"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\track_region_fix",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\track_region_fix"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tmp\\vision_track_motion",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\workspace_tmp\\vision_track_motion"
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\in_out_example\\lab_ex3_osd_SC500_720P\\lab_ex3_osd\\td_project\\camera_to_dsi_display_Runs",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\edge_example\\lab_ex2_edge_SC500_720P\\lab_ex2_edge\\td_project\\camera_to_dsi_display_Runs",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_112940.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_112940.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_113129.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_113129.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_113136.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_113136.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_222237.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261018_222237.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261021_205505.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261021_205505.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_083605.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_083605.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085013.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085013.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085158.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085158.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085243.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085243.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085514.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085514.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085603.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_085603.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_135956.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261022_135956.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261028_121924.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261028_121924.logw",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261028_121933.log",
+      "destination": null
+    },
+    {
+      "action": "delete_generated_or_retracted_demo",
+      "source": "D:\\anlogic_formal_project\\td_20261028_121933.logw",
+      "destination": null
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\video_20261018_171946.mp4",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\recordings\\video_20261018_171946.mp4"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\video_20261018_174321.mp4",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\recordings\\video_20261018_174321.mp4"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\video_20261018_181941.mp4",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\recordings\\video_20261018_181941.mp4"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\video_20261018_184242.mp4",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\recordings\\video_20261018_184242.mp4"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tests\\run_latency_actual_isp.py",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\exploratory_tests\\run_latency_actual_isp.py"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tests\\run_latency_real_timing.py",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\exploratory_tests\\run_latency_real_timing.py"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tests\\tb_latency_actual_isp.sv",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\exploratory_tests\\tb_latency_actual_isp.sv"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\tests\\tb_latency_real_timing.sv",
+      "destination": "D:\\anlogic_project_backups\\final_prep_20261103\\exploratory_tests\\tb_latency_real_timing.sv"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\docs\\ALUMINUM_FRAME_VENDOR_RFQ_600_2026-10-24.md",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\notes\\ALUMINUM_FRAME_VENDOR_RFQ_600_2026-10-24.md"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\docs\\MECHANICAL_MATERIALS_600_CUBE_2026-10-24.md",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\notes\\MECHANICAL_MATERIALS_600_CUBE_2026-10-24.md"
+    },
+    {
+      "action": "move_preserve",
+      "source": "D:\\anlogic_formal_project\\docs\\PROGRESS_REPORT_2026-10-21.md",
+      "destination": "D:\\anlogic_formal_project\\local_assets\\notes\\PROGRESS_REPORT_2026-10-21.md"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "kind": "VERIFICATION TOOL SELFTEST; not RTL",
+  "checks": [
+    {
+      "name": "tool_success",
+      "expected_pass": true,
+      "observed_pass": true,
+      "matched": true,
+      "stage": {
+        "command": [
+          "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+          "-B",
+          "-c",
+          "print('GUARD_COMPLETE checks=1 failures=0')"
+        ],
+        "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic",
+        "exit_code": 0,
+        "failure": null,
+        "passed": true,
+        "log": "tool_success.log"
+      }
+    },
+    {
+      "name": "tool_exit_after_completion",
+      "expected_pass": false,
+      "observed_pass": false,
+      "matched": true,
+      "stage": {
+        "command": [
+          "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+          "-B",
+          "-c",
+          "print('GUARD_COMPLETE checks=1 failures=0');raise SystemExit(7)"
+        ],
+        "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic",
+        "exit_code": 7,
+        "failure": "nonzero_exit",
+        "passed": false,
+        "log": "tool_exit_after_completion.log"
+      }
+    },
+    {
+      "name": "tool_error_after_completion",
+      "expected_pass": false,
+      "observed_pass": false,
+      "matched": true,
+      "stage": {
+        "command": [
+          "C:\\Users\\Kelinna\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+          "-B",
+          "-c",
+          "print('GUARD_COMPLETE checks=1 failures=0');print('** Error: injected')"
+        ],
+        "cwd": "C:\\Users\\Kelinna\\Documents\\Codex\\2026-10-16\\AnlogicTrack2\\work\\target-text-atomic",
+        "exit_code": 0,
+        "failure": "error_marker",
+        "passed": false,
+        "log": "tool_error_after_completion.log"
+      }
+    },
+    {
+      "name": "missing_completion",
+      "expected_pass": false,
+      "observed_pass": false,
+      "matched": true,
+      "failure": "incomplete_or_failing_checks"
+    },
+    {
+      "name": "zero_checks",
+      "expected_pass": false,
+      "observed_pass": false,
+      "matched": true,
+      "failure": "incomplete_or_failing_checks"
+    },
+    {
+      "name": "duplicate_case",
+      "expected_pass": false,
+      "observed_pass": false,
+      "matched": true,
+      "failure": "missing_or_duplicate_scenarios"
+    }
+  ],
+  "passed": true
+}

@@ -4,16 +4,17 @@
 // Requests during a transfer are coalesced to the latest complete config.
 module edge_config_cdc (
     input src_clk, input dst_clk, input rst_n,
-    input [8:0] requested_config,
-    output reg [8:0] received_config
+    input [18:0] requested_config,
+    output reg [18:0] received_config
 );
-    reg [8:0] held_config;
+    localparam [18:0] RESET_CONFIG = {3'd3,8'd80,8'd130};
+    reg [18:0] held_config;
     reg req_toggle, ack_toggle;
     (* async_reg = "true" *) reg ack_meta, ack_sync;
     (* async_reg = "true" *) reg req_meta, req_sync, req_guard;
     always @(posedge src_clk or negedge rst_n) begin
         if (!rst_n) begin
-            held_config <= {1'b1,8'd80}; req_toggle <= 0;
+            held_config <= RESET_CONFIG; req_toggle <= 0;
             ack_meta <= 0; ack_sync <= 0;
         end else begin
             ack_meta <= ack_toggle; ack_sync <= ack_meta;
@@ -26,7 +27,7 @@ module edge_config_cdc (
     always @(posedge dst_clk or negedge rst_n) begin
         if (!rst_n) begin
             req_meta <= 0; req_sync <= 0; req_guard <= 0;
-            ack_toggle <= 0; received_config <= {1'b1,8'd80};
+            ack_toggle <= 0; received_config <= RESET_CONFIG;
         end else begin
             req_meta <= req_toggle; req_sync <= req_meta; req_guard <= req_sync;
             if (req_guard != ack_toggle) begin

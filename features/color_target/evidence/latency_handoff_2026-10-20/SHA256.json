@@ -1,0 +1,70 @@
+{
+  "schema": 1,
+  "scope": "This review source/docs/evidence, excludes self",
+  "files": [
+    {
+      "path": "features/color_target/VERIFICATION.md",
+      "sha256_git_bytes": "4ac06ff34bd4d89ded39df332889cb033567bb20cc793978f146c249bcab4734"
+    },
+    {
+      "path": "features/color_target/board/MAIN_HANDOFF.md",
+      "sha256_git_bytes": "0e059b1964aac6ca04ca5cd4b3581039fd4b27bfde6b0c3552501352467eb510"
+    },
+    {
+      "path": "features/color_target/integration/LATENCY_RELIABILITY_REQUEST.md",
+      "sha256_git_bytes": "04ad00d9e1e44e40ea1eff4bcf0c68e780e46af40052936734914aae7caf4858"
+    },
+    {
+      "path": "features/color_target/integration/LATENCY_REVIEW_531ef61.md",
+      "sha256_git_bytes": "c2f0580d225da9197cfcd90d0f4e16376bd58f9382ab767e58f921966ecdaee3"
+    },
+    {
+      "path": "features/color_target/run_latency_handoff_review.py",
+      "sha256_git_bytes": "e1f0f3a60d5d6c318d47d234fd480211ee540492c7a94e5ef800dc2e4ca8bb2c"
+    },
+    {
+      "path": "features/color_target/tb/tb_latency_handoff_review.v",
+      "sha256_git_bytes": "3610694b5cde5a5f7806d63af951627be3fa3f826503bc115e96885e4bb904a5"
+    },
+    {
+      "path": "features/color_target/tb/test_latency_review_evidence.py",
+      "sha256_git_bytes": "a52f6aca08aa20d396a7378621e0441f4febff26ebfa779162b7cdb307e662ba"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/.gitattributes",
+      "sha256_git_bytes": "609f1894f501c864dc72d3df3865cf3042aead04ab60a872dc04de12a90d3f6b"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/baseline.json",
+      "sha256_git_bytes": "9e77ee1a97e0710815b2c53b67783f0f0daf87a549a91b467770d70b87c81724"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/evidence-parser-tests.log",
+      "sha256_git_bytes": "1b6f69157102cc03f5264c937d138171570f1a3f06ab9ba2d8345507e1df7261"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/LOG_ARCHIVE_INDEX.json",
+      "sha256_git_bytes": "8482571bb91ede66eb3ee3fcf59e1436d7666adadc2bbbe637442a70a4d3f69d"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/RAW_LOGS.zip",
+      "sha256_git_bytes": "a66b731974cb76d4ef10e1ab26f203895681ad70d3d77ad3d39b700689eacdbc"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/remote-verified.json",
+      "sha256_git_bytes": "acc0b48277a1a83ec21fca6cf2945acb38ff69e87731b3fdc130fa762adb2a15"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/summary.json",
+      "sha256_git_bytes": "b247f563e6c62e35b49aa558e31b96a3404ef2b5522d3342f0c1199a940280d8"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/tool-selftests.json",
+      "sha256_git_bytes": "a53ec0d3d8aa008e2112e381b6ddda3403c812d9d8071e12a3d1e5d973cb5101"
+    },
+    {
+      "path": "features/color_target/evidence/latency_handoff_2026-10-20/VALIDATION.md",
+      "sha256_git_bytes": "46ad324507791205c312a01b3d722590d5522cebb8041c290d67c37acb7efb72"
+    }
+  ]
+}

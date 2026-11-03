@@ -1,0 +1,29 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_vision_logo_resources PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 18:22:43 on Nov 01,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_vision_logo_resources.sv(9): [TFMPC] - Too few port connections. Expected 15, found 14.
+# 
+#         Region: /tb_vision_logo_resources/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_vision_logo_resources.sv(9): [TFMPC] - Missing connection for port 'I_capture_toggle'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# incase
+# 
+# incase
+# 
+# incase
+# 
+# incase
+# 
+# PASS mixer cycle equivalence 1857588 cycles / 1851484 active pixels; Logo/CNT, blanking, reset, unchanged sync/latency
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_vision_logo_resources.sv(52)
+#    Time: 18575886 ns  Iteration: 0  Instance: /tb_vision_logo_resources
+# End time: 18:23:35 on Nov 01,2026, Elapsed time: 0:00:52
+# Errors: 0, Warnings: 2

@@ -1,0 +1,21 @@
+{
+  "schema": 1,
+  "time_w": 64,
+  "counter_w": 16,
+  "xw": 11,
+  "yw": 10,
+  "width": 1280,
+  "height": 720,
+  "ppc": 4,
+  "pixel_format": "RGB888",
+  "lane_order": "MSB_FIRST",
+  "filter_enable": false,
+  "display_policy": "STRICT_SAME_FRAME",
+  "acq_frames": 3,
+  "lost_frames": 15,
+  "max_target_age_ticks": null,
+  "max_reliable_age_ticks": null,
+  "tick_hz": null,
+  "max_capture_to_display_start_ticks": null,
+  "max_scan_ticks": null
+}

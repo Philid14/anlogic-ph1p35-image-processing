@@ -1,0 +1,51 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_tagged_fifo PH1P_PHY_GSR -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 07:58:07 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_latency_tagged_fifo/dut/u_fifo/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_latency_tagged_fifo/dut/u_fifo/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_latency_tagged_fifo/dut/u_fifo/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_tagged_fifo.sv(7): [TFMPC] - Too few port connections. Expected 14, found 11.
+# 
+#         Region: /tb_latency_tagged_fifo/old
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_tagged_fifo.sv(7): [TFMPC] - Missing connection for port 'afull'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_tagged_fifo.sv(7): [TFMPC] - Missing connection for port 'aempty'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_tagged_fifo.sv(7): [TFMPC] - Missing connection for port 'wrusedw'.
+# 
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Too few port connections. Expected 16, found 14.
+# 
+#         Region: /tb_latency_tagged_fifo/old/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (1) does not match connection size (32) for port 'ceb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(333).
+# 
+#         Region: /tb_latency_tagged_fifo/old/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3015) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [PCDPC] - Port size (9) does not match connection size (32) for port 'addrb'. The port definition is at: D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(337).
+# 
+#         Region: /tb_latency_tagged_fifo/old/soft_fifo_al_4057d6b76aa6_Inst/ram_inst
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'doa'.
+# 
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v(221): [TFMPC] - Missing connection for port 'dib'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS tagged native FIFO bit-exact legacy data/flags and same-word metadata checks=5575
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_tagged_fifo.sv(38)
+#    Time: 200880 ns  Iteration: 0  Instance: /tb_latency_tagged_fifo
+# End time: 07:58:08 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 14

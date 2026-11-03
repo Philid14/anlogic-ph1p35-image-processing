@@ -1,0 +1,23 @@
+{
+  "source_commit": "e71b0696a09bfe3a57b0ccccc0d429aaf793cca4",
+  "shared_boundary": {
+    "test_methods": 4,
+    "probes": 13,
+    "exit_code": 0,
+    "log": "RAW_LOGS.zip:simlib-selftest-02.log"
+  },
+  "launcher": {
+    "test_methods": 8,
+    "exit_code": 0,
+    "log": "RAW_LOGS.zip:launcher-selftest-03.log"
+  },
+  "environment_failures": {
+    "reason": "Windows sandbox denies Python-created temporary directories (WinError 5), including a workspace temp root; normal local permissions succeeded",
+    "logs": [
+      "RAW_LOGS.zip:simlib-selftest-01.log",
+      "RAW_LOGS.zip:launcher-selftest-01.log"
+    ],
+    "functional_rtl_failure": false
+  },
+  "tested_backends": "Actual RTL: ModelSim ASE 10.3c only; Icarus subprocess paths use mocked boundary failures, not real Icarus RTL runs"
+}

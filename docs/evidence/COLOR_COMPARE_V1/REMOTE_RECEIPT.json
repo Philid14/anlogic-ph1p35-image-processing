@@ -1,0 +1,18 @@
+{
+  "version": "COLOR_COMPARE_V1",
+  "branch": "codex/main/color-compare-v1",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "push_status": "SUCCESS",
+  "candidate_commit": "9670a39f3a94f0876c303dd3cec4b6cc5c607a37",
+  "source_commit": "06e70a0d5d1676ed7991c475facd533b2b804aad",
+  "tag": "color-compare-v1-candidate",
+  "tag_target": "9670a39f3a94f0876c303dd3cec4b6cc5c607a37",
+  "draft_pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/17",
+  "pr_base": "codex/main/edge-style-fill-v2",
+  "bit_sha256": "b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27",
+  "setup_wns_ns": 0.0,
+  "hold_wns_ns": 0.02,
+  "board_test": "NOT_RUN",
+  "git_status": "This task committed; pre-existing GITHUB_REFERENCE_RESEARCH.md edits and untracked user materials preserved/excluded",
+  "note": "Branch and annotated tag checked with git ls-remote after successful push; no PR merged. Receipt is a later documentation commit; candidate tag stays immutable."
+}

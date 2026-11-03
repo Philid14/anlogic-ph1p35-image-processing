@@ -1,0 +1,2 @@
+PASS ruler auto calibration 16 checks, 1947736 cycles
+D:\anlogic_formal_project\tests\tb_ruler_area_v4.sv:26: $finish called at 19477366000 (1ps)

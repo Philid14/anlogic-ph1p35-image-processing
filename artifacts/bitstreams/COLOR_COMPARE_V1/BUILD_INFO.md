@@ -1,0 +1,22 @@
+# COLOR_COMPARE_V1 BUILD_INFO
+
+- Version: COLOR_COMPARE_V1 / MAIN
+- Branch: codex/main/color-compare-v1
+- Actual TD source commit: 06e70a0d5d1676ed7991c475facd533b2b804aad
+- Candidate tag: color-compare-v1-candidate (created separately after archive review)
+- Build time: 2026-10-28T13:21:43.991114+08:00
+- Device / Top: PH1P35MDG324 speed3 / design_top_wrapper
+- Baseline: edge-style-fill-v2-candidate (8d26c6eba95f07723b0f634efa82ed1424218975)
+- Original bit path: D:/anlogic_formal_project/tmp/color_compare_v1/r0/camera_to_dsi_display.bit
+- Bit SHA-256: b3dd03799924184d73bbd805caaa57c245a498030376d24ca75205ce06e91d27
+- Resources: {"slice": 19336, "lut6": 18104, "ff": 17606, "eram": 85, "dsp": 21}
+- Delta versus STYLE_V2: {"slice": 1196, "lut6": 934, "ff": 792, "eram": 0, "dsp": 0}
+- Routed Setup WNS: +0.000ns; Hold WNS: +0.020ns; Setup/Hold TNS: 0.0/0.0ns
+- Build: Synthesis -> Physical Design -> final Timing Check -> bitgen PASS
+- Critical warnings: ['PHY-5060', 'PHY-5079']; new types: []
+- Frame/line cache, algorithms, Sensor/ISP, DDR/MIPI/HDMI, clocks and SDC are unchanged from STYLE_V2; only comparison overlay adds two stream clocks. No TARGET ledger or diagnostic ROI capture included.
+- Known inherited risk: FIFO overflow sticky/Gray-pointer constraint coverage are not fixed or board-validated by this task. New color modules introduce no CDC or framebuffer. See design/board-test documents.
+- Board Test Status: NOT_RUN. Full post-AWB model/RTL/packer regression and STA do not prove actual camera/display or calibrated color accuracy.
+- Metrics: camera RGB means/differences and nine coarse classes; MATCH max channel difference <=12 is a demo criterion, not CIE Lab/Delta E or industrial conformance.
+- Rollback: artifacts/bitstreams/EDGE_STYLE_FILL_V2/camera_to_dsi_display.bit, SHA256 CFB7435648ED50310F053AFE138702F2094B0061B6A7DD68B3B064B6B3D88F51.
+- Setup margin disclosure: +0.000ns is a boundary STA pass, not adequate margin evidence or long-term board acceptance. One native post-route polish did not improve it and was not selected. Controlled candidate validation only.

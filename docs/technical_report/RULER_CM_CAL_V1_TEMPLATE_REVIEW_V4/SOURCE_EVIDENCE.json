@@ -1,0 +1,106 @@
+{
+  "date": "2026-11-02",
+  "source_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+  "bit_sha256_independently_checked": "6372f765f61ec31d8a18923596c8326ce84a0fd7637850847d5ac364cc3aebc2",
+  "sources": [
+    {
+      "path": "docs/RULER_CM_CAL_V1_DESIGN.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "d8255d95b457407593ed0063e5c57ca2b494b3983352a5cbd9368a653af891d1",
+      "bytes": 4324,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/RULER_CM_CAL_V1_DESIGN.md"
+    },
+    {
+      "path": "docs/RULER_CM_CAL_V1_REPORT.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "b61b541ea75385a19cc59b00d44dc61ef49f90be679817167dc50ea35d82adc7",
+      "bytes": 4854,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/RULER_CM_CAL_V1_REPORT.md"
+    },
+    {
+      "path": "docs/RULER_CM_CAL_V1_BOARD_TEST.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "6fd8a01c7d8c3f1030d7128009dadde6176477bcccfd5ed0dd2982c431a32bd5",
+      "bytes": 2056,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/RULER_CM_CAL_V1_BOARD_TEST.md"
+    },
+    {
+      "path": "docs/VISION_TRACK_MOTION_V1_DESIGN.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "ef0593d44b6869144c1ff2e65b538d45c29f000ee61eac68afc804f429525852",
+      "bytes": 6365,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/VISION_TRACK_MOTION_V1_DESIGN.md"
+    },
+    {
+      "path": "docs/COLOR_COMPARE_V1_DESIGN.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "4683a0c15ab72c76abee8e4ef03eee5d7bd31f26f669a12e4995167d974eeae5",
+      "bytes": 5203,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/COLOR_COMPARE_V1_DESIGN.md"
+    },
+    {
+      "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "5a9e108d506c69a0245363425b2213d1656df16df4bcbdf37ab9fcc9a31c6240",
+      "bytes": 3742,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md"
+    },
+    {
+      "path": "docs/IMAGE_TUNING_LOG.md",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "0e80d4359fcd7e7d3a21c82a73ed0788cdebaf910b431463e1a1c162b561782f",
+      "bytes": 70431,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/docs/IMAGE_TUNING_LOG.md"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "7759e723e943d4576d914d1196d00afa8394b04bd6d396233d08589252e0a27e",
+      "bytes": 1831,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.json"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/phy_final_timing.rpt",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "4b111e4e417976347ed44653c58233e99109da72c9bb2f055320f784bdc4f074",
+      "bytes": 4894636,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/phy_final_timing.rpt"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/unit/results.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "2de357bb678aa3b17f27c57e570275eb5e6900c298bc7ebff7313d90a846b62c",
+      "bytes": 1840,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/unit/results.json"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/full_roi/results.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "8b658af69694553f31579a08251f3a86b091603e534fb12acf646efe070ce8f9",
+      "bytes": 422,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/full_roi/results.json"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/stream_r1/results.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "e5e84b4277ae3172407d18d1cd897cc7443bb4b923ecdd02ba456caaa69b8f9b",
+      "bytes": 5408,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/stream_r1/results.json"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/features/results.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "c9ea1d1e23217bd3d8a1cae7b9277df6b7960d8ffae4352860547d8199bc1f49",
+      "bytes": 5571,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/features/results.json"
+    },
+    {
+      "path": "artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/controls/results.json",
+      "git_commit": "8dd67021a9f667047bad150125d2e17dd7a33c2a",
+      "git_blob_sha256": "a999665c5b17b51c9beca260b93e9d5cc9d6898d769a67ebd118d0b3bf17b504",
+      "bytes": 5940,
+      "url": "https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/8dd67021a9f667047bad150125d2e17dd7a33c2a/artifacts/bitstreams/RULER_CM_CAL_V1/build_evidence/controls/results.json"
+    }
+  ],
+  "rerun_rtl_td_board": false
+}

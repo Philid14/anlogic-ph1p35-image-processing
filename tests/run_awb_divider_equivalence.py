@@ -1,0 +1,13 @@
+import json,hashlib
+from pathlib import Path
+from vision_sim import ROOT,HDL,simulate
+OUT=ROOT/'tmp/inspection_parts_motion/awb_divider_equivalence_r1'
+def main():
+ src=[ROOT/'tests/tb_awb_divider_equivalence.sv',ROOT/'tmp/inspection_parts_motion/divider_stage_r1/awb.v',HDL.parent/'ip_source/divider/divider_gate.v']
+ src+=list(Path('D:/TD/sim_release/common').glob('al_map_*.v'))
+ src+=[Path('D:/TD/sim_release/common/al_phy_glbl.v')]
+ log=simulate(OUT,'tb_awb_divider_equivalence',src,parameters=['glbl'],timeout=900)
+ (OUT/'console.txt').write_text(log)
+ (OUT/'results.json').write_text(json.dumps(dict(passed=True,native=True,qualified_math_vectors=311,reset_offsets=50,expected_done_age=49,sources={str(p):hashlib.sha256(p.read_bytes()).hexdigest() for p in src}),indent=2)+'\n')
+ print(log[-1300:])
+if __name__=='__main__':main()

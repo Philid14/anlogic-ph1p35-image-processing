@@ -1,0 +1,25 @@
+{
+  "source_commit": "acf7d444f19ae0dbb8a36a854edc7627f7f8b2ec",
+  "base_commit": "712fbb33cfc5ba8436b96306e1fe443553aa6591",
+  "bit_sha256": "27FDB0B07DD1AE9196164D209DA54CF48E3867BD6F9357549AEE3100ECD0126B",
+  "lut6": 16888,
+  "ff": 15402,
+  "slice": 18263,
+  "eram": 39,
+  "dsp": 9,
+  "setup_wns_ns": 0.102,
+  "hold_wns_ns": 0.02,
+  "sta_coverage": "96.21%",
+  "syn_log": "td_20261017_220454.log",
+  "phy_log": "td_20261017_220918.log",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "link_hierarchy": [
+    "|        g_quality$g_hop[0]$u_link                                |edge_link_pair_3x3                             |93        |0       |86      |0       |0       |128      |0           |6       |0       |0       |0       |",
+    "|        g_quality$g_hop[1]$u_link                                |edge_link_pair_3x3                             |111       |0       |94      |0       |0       |128      |0           |6       |0       |0       |0       |",
+    "|        g_quality$g_hop[2]$u_link                                |edge_link_pair_3x3                             |89        |0       |90      |0       |0       |128      |0           |6       |0       |0       |0       |",
+    "|        g_quality$g_hop[3]$u_link                                |edge_link_pair_3x3                             |83        |0       |91      |0       |0       |128      |0           |6       |0       |0       |0       |"
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "native": true,
+  "boundary": "1280x4, actual240-word bursts and real native FIFO/MC/unpack/mixer, not physical DDR PHY"
+}

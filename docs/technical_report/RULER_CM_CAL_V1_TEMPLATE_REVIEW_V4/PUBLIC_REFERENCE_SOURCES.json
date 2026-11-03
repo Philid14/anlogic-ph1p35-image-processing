@@ -1,0 +1,93 @@
+{
+  "retrieved": "2026-11-02",
+  "purpose": "Read-only research of related past awarded works; no third-party files redistributed",
+  "verified_sources": [
+    {
+      "repo": "maojinxiang/FPGA-ANLU-National-First-Prize",
+      "commit_sha": "1e42ae35c6ea1deaff6fb86bb5c5a77501f2bdae",
+      "tree_sha": "e73ea89bed182a9aff6e35e6a0beb7f23ce89f28",
+      "observed_listing_sha": "1e42ae35c6ea1deaff6fb86bb5c5a77501f2bdae",
+      "retrieved": "2026-11-02",
+      "files": [
+        {
+          "path": "FPGA_Competition.pptx",
+          "sha256": "0cf6ce109e11e2e5382be9080295613f7fd5dda8de7aad9e3643f33309292946",
+          "bytes": 11047951,
+          "pages": null,
+          "slides": 13,
+          "url": "https://github.com/maojinxiang/FPGA-ANLU-National-First-Prize/blob/1e42ae35c6ea1deaff6fb86bb5c5a77501f2bdae/FPGA_Competition.pptx"
+        },
+        {
+          "path": "README.md",
+          "sha256": "97858785f4d9db9c376a6d65687b263a0831f93f174cfb9b659469b3e14a9454",
+          "bytes": 10025,
+          "pages": null,
+          "slides": null,
+          "url": "https://github.com/maojinxiang/FPGA-ANLU-National-First-Prize/blob/1e42ae35c6ea1deaff6fb86bb5c5a77501f2bdae/README.md"
+        }
+      ]
+    },
+    {
+      "repo": "WangBaren02/Image-acquisition-and-recognition-robotic-arm-analysis-and-control-system-based-on-FPGA",
+      "commit_sha": "cfa5611b2d89d852fe2f456b313c6fb9c42ea955",
+      "tree_sha": "5a65f1da24e2d4d7b175493707cf347d054dbd16",
+      "observed_listing_sha": "cfa5611b2d89d852fe2f456b313c6fb9c42ea955",
+      "retrieved": "2026-11-02",
+      "files": [
+        {
+          "path": "README.md",
+          "sha256": "7c26e8dbf418344a84b82fc785053b0d60ab08dabeaf75bd7f1120b04b457782",
+          "bytes": 17479,
+          "pages": null,
+          "slides": null,
+          "url": "https://github.com/WangBaren02/Image-acquisition-and-recognition-robotic-arm-analysis-and-control-system-based-on-FPGA/blob/cfa5611b2d89d852fe2f456b313c6fb9c42ea955/README.md"
+        },
+        {
+          "path": "docs/competition_presentation.pdf",
+          "sha256": "2bfecce97835a112d75562061aa8804417724c0842b4d87dd786bbddce745c2a",
+          "bytes": 1965003,
+          "pages": 25,
+          "slides": null,
+          "url": "https://github.com/WangBaren02/Image-acquisition-and-recognition-robotic-arm-analysis-and-control-system-based-on-FPGA/blob/cfa5611b2d89d852fe2f456b313c6fb9c42ea955/docs/competition_presentation.pdf"
+        },
+        {
+          "path": "docs/technical_report.pdf",
+          "sha256": "0360c40a2d9d9ad001b4ab3b7f298550be8ebac7348bbd7bccc9776b91fd939e",
+          "bytes": 2399721,
+          "pages": 49,
+          "slides": null,
+          "url": "https://github.com/WangBaren02/Image-acquisition-and-recognition-robotic-arm-analysis-and-control-system-based-on-FPGA/blob/cfa5611b2d89d852fe2f456b313c6fb9c42ea955/docs/technical_report.pdf"
+        }
+      ]
+    },
+    {
+      "official_awards_page": "https://univ.ciciec.com/nd.jsp?fromMid=1688&id=975",
+      "attachment_url": "https://14901018.s21i.faiusr.com/61/ABUIABA9GAAg5p-qxQYo8KvyuwY.pdf",
+      "sha256": "73a5c7ecc12eb3a5f52b63541b95003ab9a8b5f6f7115377fe2e0e415895017c",
+      "matches": [
+        {
+          "page": 7,
+          "team_row": "CICC0901373 / 海云捷迅杯 / 江苏大学 / 二等奖"
+        }
+      ]
+    }
+  ],
+  "supplemental_unverified": {
+    "url": "https://oshwhub.com/lxu0423/2025-nuedc-works",
+    "award": "author claim only",
+    "pdf_attachment": "listed but not obtained; body open403"
+  },
+  "reviewed_pdf_physical_pages": [
+    3,
+    5,
+    6,
+    12,
+    43,
+    44,
+    47,
+    49
+  ],
+  "official_awards_page_reviewed": 7,
+  "pptx_text_slides_read": 13,
+  "new_rtl_td_board_test": "NOT_RUN"
+}

@@ -1,0 +1,36 @@
+{
+  "version": "EDGE_MULTI_MODE_V1_R0",
+  "source_commit": "0f36d0957c5c45d9e607573d7143ed6cdfd91fe2",
+  "bit_sha256": "7D176CC317914C73872DB90D70B8892FB049192703E194805CD288353E52054F",
+  "bit_size": 1789539,
+  "lut": 17040,
+  "ff": 15801,
+  "slice": 18483,
+  "eram": 75,
+  "dsp": 9,
+  "setup_wns_ns": 0.002,
+  "hold_wns_ns": 0.02,
+  "setup_tns_ps": 0,
+  "hold_tns_ps": 0,
+  "timing_passed": true,
+  "sta_coverage": "96.22%",
+  "critical_warning_types": [
+    "PHY-5060",
+    "PHY-5079"
+  ],
+  "new_critical_warning_types": [],
+  "additional_pipeline_cycles_from_temporal": 0,
+  "per_branch_alignment_cycles": 27,
+  "osd_cycles": 2,
+  "pack_cycles": 1,
+  "candidate_eligible": false,
+  "release_decision": "REJECTED: setup margin +0.002ns is insufficient for release; new gray LUT usage to be optimized and rebuilt",
+  "board_test": "REJECTED; not for board testing",
+  "delta_from_temporal": {
+    "lut": 921,
+    "ff": 144,
+    "slice": 799,
+    "eram": 0,
+    "dsp": 0
+  }
+}

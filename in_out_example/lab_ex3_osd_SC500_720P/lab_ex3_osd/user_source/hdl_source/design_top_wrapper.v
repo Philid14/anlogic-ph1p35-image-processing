@@ -10,6 +10,7 @@ module design_top_wrapper (
     output wire       O_cam_rst,
       
     input wire [1:0]  I_button,
+    input wire [3:0] I_switch,
 
     output wire       O_screen_pwm,
     output wire       O_tmds_ch0_p,
@@ -436,8 +437,8 @@ module design_top_wrapper (
   assign S_ae_req = 1'b0;
   assign S_ae = 16'd1990;
   assign S_ag = 16'd0; // unused while S_ae_req=0, not a sensor gain encoding
-  wire [8:0] S_edge_requested_config, S_edge_received_config;
-  edge_key_control u_edge_keys (
+  wire [18:0] S_edge_requested_config, S_edge_received_config;
+  edge_key_control #(.VISION_ENABLE(1)) u_edge_keys (
       .clk(S_24m_clk), .rst_n(S_rst_n), .keys_n(I_button),
       .requested_config(S_edge_requested_config)
   );
@@ -585,9 +586,14 @@ assign S_raw_tuser  = S_axis_tuser;
 
 
 //ISP算法顶层模块
-isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
+wire [31:0] S_fifo_event_counts;
+wire vision_capture_toggle;
+isp_top #(.EDGE_CONTROL_ENABLE(1), .DENOISE_ENABLE(1), .NMS_ENABLE(1), .QUALITY_ENABLE(1), .QUALITY_HOPS(4), .RELIABILITY_ENABLE(1), .TEMPORAL_ENABLE(1), .COLOR_COMPARE_ENABLE(1), .INSPECTION_ENABLE(1),.AUTO_DIMENSION(1),.USABILITY_ENABLE(1),.INSPECTION_V4(1),.VISION_ENABLE(1),.COMPACT_FONT(0),.INSPECTION_V5(1)) u_isp_top (
+.O_capture_toggle(vision_capture_toggle),
 .axi4s_video_aclk(S_csi_rx_clk),
+.I_fifo_event_counts(S_fifo_event_counts),
 .I_edge_config   (S_edge_received_config),
+.I_switch(I_switch), .I_measure_key_n(I_button[1]),
 .I_rst_n         (S_rst_n),
 .I_tlast         (S_raw_tlast	),
 .I_tuser         (S_raw_tuser	),
@@ -603,7 +609,44 @@ isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
   );
 
 
-    video_in u_video_in(
+    wire[19:0] latency_tick,latency_tick_gray;
+    wire[86:0] latency_tag_in,latency_tag_out;
+    wire latency_camera_full,latency_read_select,latency_underflow,latency_command_full;
+    wire[1:0] latency_read_slot;
+    wire[84:0] latency_selected;
+    wire latency_select_toggle,latency_read_bad;
+    wire[19:0] latency_value,latency_min,latency_max,latency_age;
+    wire[31:0] latency_frame,latency_session;
+    wire[15:0] latency_samples,latency_errors;
+    wire[2:0] latency_status;
+    wire[7:0] latency_capture_diag,latency_write_diag,latency_display_diag;
+    // Diagnostic status only: independently synchronized bits, never frame IDs
+    // or timestamps. Values may show adjacent instants; not measurement data.
+    (* async_reg="true" *) reg[15:0] latency_diag_s1,latency_diag_s2;
+    always @(posedge S_hdmi_pixel_clk or negedge S_rst_n)begin
+        if(!S_rst_n)begin latency_diag_s1<=0;latency_diag_s2<=0;end
+        else begin latency_diag_s1<={latency_capture_diag,latency_write_diag};latency_diag_s2<=latency_diag_s1;end
+    end
+    latency_timebase #(.DIVIDER(750)) u_latency_timebase(
+        .clk(S_hdmi_pixel_clk),.rst_n(S_rst_n),.tick(latency_tick),.gray(latency_tick_gray));
+    latency_capture_tag u_latency_capture(
+        .clk(S_csi_rx_clk),.rst_n(S_rst_n),.tick_gray(latency_tick_gray),
+        .raw_valid(S_raw_tvalid),.raw_user(S_raw_tuser),.raw_last(S_raw_tlast),.raw_error(S_lane_error_any),
+        .packed_valid(S_ISP_O_tvalid),.packed_user(S_ISP_O_tuser),.fifo_full(latency_camera_full),.tag(latency_tag_in),.diagnostic(latency_capture_diag));
+    latency_slot_journal u_latency_slots(
+        .clk(S_ddr_clk),.rst_n(S_rst_n),.wr_en(S_vi_ddr_wr_en),.wr_addr(S_vi_ddr_wr_addr),.wr_tag(latency_tag_out),
+        .rd_en(S_vo_ddr_rd_en),.rd_valid(S_ddr_user_rd_valid),
+        .command_full(latency_command_full || (S_vi_ddr_wr_en && S_vo_ddr_rd_en)),
+        .read_select(latency_read_select),.read_slot(latency_read_slot),.reference_heartbeat(latency_tick_gray[0]),
+        .selected(latency_selected),.select_toggle(latency_select_toggle),.read_bad(latency_read_bad),.diagnostic(latency_write_diag));
+    latency_display_meter u_latency_display(
+        .clk(S_hdmi_pixel_clk),.rst_n(S_rst_n),.tick(latency_tick),.vsync(S_video_out_vsync),
+        .pixel_valid(S_hdmi_out_de),.fifo_underflow(latency_underflow),
+        .selected(latency_selected),.select_toggle(latency_select_toggle),.read_bad(latency_read_bad),
+        .latency(latency_value),.minimum(latency_min),.maximum(latency_max),.age(latency_age),
+        .frame_id(latency_frame),.session_id(latency_session),.samples(latency_samples),.errors(latency_errors),.status(latency_status),.diagnostic(latency_display_diag));
+
+    video_in #(.LATENCY_ENABLE(1)) u_video_in(
         .I_rst_n              (  S_rst_n             ),
 
         .I_camera_clk         ( S_csi_rx_clk          ),
@@ -621,7 +664,9 @@ isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
         .O_ddr_user_wr_en     ( S_vi_ddr_wr_en        ),
         .O_ddr_user_addr      ( S_vi_ddr_wr_addr      ),
         .O_ddr_user_wr_data   ( S_vi_ddr_wr_data      ),
-        .I_ddr_user_ready     ( S_ddr_user_ready      )
+        .I_ddr_user_ready     ( S_ddr_user_ready      ),
+        .O_fifo_event_counts  ( S_fifo_event_counts ),
+        .I_latency_tag(latency_tag_in),.O_latency_tag(latency_tag_out),.O_camera_fifo_full(latency_camera_full)
     );
 
 
@@ -655,7 +700,8 @@ isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
         .I_dsi_clk           ( S_hdmi_pixel_clk     ),
         .I_video_vsync       ( S_video_out_vsync    ),
         .I_video_rd_en       ( S_hdmi_window_rd_en  ),
-        .O_vdieo_data        ( S_video_rd_data      )
+        .O_vdieo_data        ( S_video_rd_data      ),
+        .O_read_select(latency_read_select),.O_selected_slot(latency_read_slot),.O_fifo_underflow(latency_underflow)
     );
 
 
@@ -663,6 +709,7 @@ isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
     mc_to_user_interface u_mc_to_user_interface(
         .I_clk                   ( S_ddr_clk               ),
         .I_rst_n                 ( S_rst_n                 ),
+        .O_command_full(latency_command_full),
 
         .I_ddr_user_wr_en        ( S_ddr_user_wr_en        ),
         .I_ddr_user_rd_en        ( S_ddr_user_rd_en        ),
@@ -749,8 +796,12 @@ isp_top #(.EDGE_CONTROL_ENABLE(1)) u_isp_top (
         .V_OFFSET   ( 0    ),
         .IMG_WIDTH  ( 1280 ),
         .IMG_HEIGHT ( 720  ),
-        .DEBUG_MODE ( 0    )
+        .DEBUG_MODE ( 0    ),
+        .LOGO_ERAM_ENABLE(1),.VISION_WATCHDOG(1),.LATENCY_ENABLE(1)
     )u_hdmi_mixer(
+        .I_capture_toggle(vision_capture_toggle),
+        .I_latency(latency_value),.I_latency_min(latency_min),.I_latency_max(latency_max),.I_latency_age(latency_age),
+        .I_latency_frame(latency_frame),.I_latency_samples(latency_samples),.I_latency_errors(latency_errors),.I_latency_status(latency_status),.I_latency_diagnostic({latency_diag_s2,latency_display_diag}),
         .I_clk           ( S_hdmi_pixel_clk   ),
         .I_rst_n         ( S_hdmi_rst_n       ),
         .I_video_vsync   ( S_hdmi_vsync       ),

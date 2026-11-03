@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_inspection_select -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 08:36:59 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS explicit W/H-D/R long-press selection, inactive events, no repeat, frame identity, reset
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_inspection_select.sv(13)
+#    Time: 536 ns  Iteration: 0  Instance: /tb_inspection_select
+# End time: 08:37:00 on Nov 03,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

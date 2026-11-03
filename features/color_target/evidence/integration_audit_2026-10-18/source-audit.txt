@@ -1,0 +1,4 @@
+Static files: 21 TD entries: 58 TARGET entries: 0
+Missing TD entry paths: 0
+Historical MAIN inputs unchanged: 58 / 58
+Identity symbol search is bounded to the listed main-path files; absence is not a whole-repository proof.

@@ -1,0 +1,33 @@
+{
+  "input_kind": "synthetic uniform matte-patch scene, not camera RGB",
+  "reference": [
+    180,
+    65,
+    60
+  ],
+  "test": [
+    200,
+    70,
+    65
+  ],
+  "lines": [
+    "REF  R:180 G:065 B:060 C:RED          ",
+    "TEST R:200 G:070 B:065 C:RED          ",
+    "ABS  R:020 G:005 B:005                ",
+    "L1:030 MAX:020 LIM:012 DIFF  LAST:0001"
+  ],
+  "rois": {
+    "ref": [
+      256,
+      256,
+      128,
+      128
+    ],
+    "test": [
+      896,
+      256,
+      128,
+      128
+    ]
+  }
+}

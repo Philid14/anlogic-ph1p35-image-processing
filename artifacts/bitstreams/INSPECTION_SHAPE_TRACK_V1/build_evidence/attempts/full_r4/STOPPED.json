@@ -1,0 +1,5 @@
+{
+  "status": "STOPPED_NOT_CANDIDATE",
+  "reason": "Bounded attempt: packed at99.32% Slice/99.07% ERAM, long routing oscillation; phase2 post-route update SWNS-6.930ns/STNS-230.542ns. Final STA not reached. No bit generated. Revert only COMPACT_FONT to isolate risky BRAM/font optimization.",
+  "time": "2026-11-02T13:42:24.575856"
+}

@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_vision_keys -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 18:52:50 on Nov 01,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS seven-mode keys: K3 cycle/debounce/hold, K4 short/long, independent 10..250 thresholds, CDC ACK
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_vision_keys.sv(146)
+#    Time: 50730 ns  Iteration: 1  Instance: /tb_vision_keys
+# End time: 18:52:51 on Nov 01,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0

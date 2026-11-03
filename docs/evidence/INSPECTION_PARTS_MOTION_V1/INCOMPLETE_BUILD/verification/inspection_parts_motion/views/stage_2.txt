@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_parts_views "+VECTORS=D:\anlogic_formal_project\tmp\inspection_parts_motion\views\vectors.txt" -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 14:49:15 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS         168 view phases, all T/L orientations, 32-source-frame dwell, holes/bypass
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_parts_views.sv(18)
+#    Time: 168 ns  Iteration: 0  Instance: /tb_parts_views
+# End time: 14:49:15 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0

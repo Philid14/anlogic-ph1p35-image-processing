@@ -1,0 +1,16 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_track_red_equivalence -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 20:28:15 on Nov 02,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS exhaustive16777216 RGB888 values: specialized red predicate equals unchanged TARGET W30/C24/V32 plus relative channel dominance
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_track_red_equivalence.sv(26)
+#    Time: 4194304 ns  Iteration: 0  Instance: /tb_track_red_equivalence
+# End time: 20:29:45 on Nov 02,2026, Elapsed time: 0:01:30
+# Errors: 0, Warnings: 0

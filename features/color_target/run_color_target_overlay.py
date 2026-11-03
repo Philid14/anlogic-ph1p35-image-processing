@@ -1,0 +1,223 @@
+"""color_target_overlay 的独立自检：生成逐像素激励 -> 仿真 -> 与参考模型比对。
+
+只验证模块本身。纯组合模块，因此激励是"像素 + 整帧结果"的组合，不需要时钟。
+
+用法：
+    python features/color_target/run_color_target_overlay.py
+    python features/color_target/run_color_target_overlay.py --sim modelsim
+"""
+
+import argparse
+import importlib.util
+import sys
+import tempfile
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+RTL = HERE / "rtl"
+TB = HERE / "tb"
+def _simlib():
+    """加载共用的仿真内核 tools/simlib.py —— 本目录的脚本不写死任何人的安装路径（协议 §5.1）。"""
+    spec = importlib.util.spec_from_file_location("ct_simlib", HERE / "tools" / "simlib.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+TB_NAME = "tb_color_target_overlay"
+MOD_NAME = "color_target_overlay"   # tb 里 $display 用的字样
+
+
+def load_model():
+    spec = importlib.util.spec_from_file_location(
+        "ref_ct_ov", HERE / "model" / "ref_color_target_overlay.py")
+    m = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(m)
+    return m
+
+
+# (名称, 结果参数, 叠加参数覆盖)
+def build_cases():
+    def c(name, **kw):
+        return (name, kw)
+    return [
+        c("no_result", present=0, xmin=100, xmax=299, ymin=80, ymax=199, cx=199, cy=139),
+        c("result_invalid", rv=0, present=1, xmin=100, xmax=299, ymin=80, ymax=199,
+          cx=199, cy=139),
+        c("box_and_cross_basic", present=1, xmin=100, xmax=299, ymin=80, ymax=199,
+          cx=199, cy=139),
+        c("box_at_origin", present=1, xmin=0, xmax=7, ymin=0, ymax=5, cx=3, cy=2),
+        c("box_at_far_corner", present=1, xmin=1272, xmax=1279, ymin=714, ymax=719,
+          cx=1275, cy=716),
+        c("box_smaller_than_thick", present=1, xmin=10, xmax=11, ymin=10, ymax=11,
+          cx=10, cy=10),
+        c("cross_at_edge", present=1, xmin=0, xmax=31, ymin=0, ymax=31, cx=0, cy=0),
+        c("degenerate_single_pixel_box", present=1, xmin=40, xmax=40, ymin=40, ymax=40,
+          cx=40, cy=40),
+        c("thick_cross", present=1, xmin=100, xmax=299, ymin=80, ymax=199, cx=199, cy=139,
+          ov={"cross_thick": 3}),
+        c("thick_box", present=1, xmin=100, xmax=299, ymin=80, ymax=199, cx=199, cy=139,
+          ov={"box_thick": 1}),
+    ]
+
+
+def write_stim(path, rows):
+    with open(path, "w", encoding="ascii") as f:
+        for r in rows:
+            f.write("%d %d %d %d %d %d %d %d %d %d %d\n" % r)
+
+
+def run_overlay(simlib, args, rows, params, tmp, name):
+    """编译一次、跑一遍，返回 (每像素覆盖颜色列表, 错误说明)。
+
+    抽成函数是为了让"参数夹取等价性"能拿同一份激励跑两次 RTL 再逐像素比对。
+    """
+    stim, outp = tmp / "stim.txt", tmp / "dut.txt"
+    write_stim(stim, rows)
+    ok, out, err = simlib.simulate(
+        srcs=[RTL / "color_target_overlay.v", TB / "tb_color_target_overlay.v"],
+        tb_top=TB_NAME, params=params,
+        plusargs=dict(STIM=stim.as_posix(), OUT=outp.as_posix()),
+        requested=args.sim, msim_root=args.msim, workdir=tmp, name="ov")
+    if not ok:
+        return None, err
+    # 注意匹配的是 tb 里 $display 的实际字样（模块名），不是 tb 文件名
+    if "FAIL" in out or f"PASS {MOD_NAME}" not in out:
+        return None, "仿真台断言失败：\n" + out.strip()
+    got = []
+    if outp.exists():
+        for line in outp.read_text().splitlines():
+            if line.strip():
+                v, rgb = line.split()
+                got.append(int(rgb, 16) if int(v) else 0)
+    return got, None
+
+
+def symmetry_violations(rows, got, cx, cy, arm, pad=2):
+    """**不依赖参考模型**的独立断言：中心附近的覆盖图案必须 180 度旋转对称。
+
+    为什么需要它：模型是照着同一套设计写的，若 RTL 与模型"一起错"，逐行对拍永远一致。
+    本题就发生过一次——十字线宽原本只向一侧生长（横臂落在 cy..cy+T-1），模型也照此实现，
+    于是对拍全绿，直到人工复查才发现视觉中心偏离了模块对外报告的 center_*。
+    这里改用与实现无关的不变量：以 (cx,cy) 为中心，点 (cx+dx, cy+dy) 与 (cx-dx, cy-dy)
+    必须同为覆盖或同为不覆盖。
+    """
+    if cx < arm + pad or cy < arm + pad or cx > 1279 - (arm + pad) or cy > 719 - (arm + pad):
+        return []          # 贴边时会被裁掉，对称性不成立，跳过
+    cov = {(r[1], r[2]): (1 if v else 0) for r, v in zip(rows, got)}
+    bad = []
+    for dx in range(-pad, pad + 1):
+        for dy in range(-pad, pad + 1):
+            a = cov.get((cx + dx, cy + dy))
+            b = cov.get((cx - dx, cy - dy))
+            if a is not None and b is not None and a != b:
+                bad.append((dx, dy, a, b))
+    return bad
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    simlib = _simlib()
+    simlib.add_args(ap)
+    args = ap.parse_args()
+
+    model = load_model()
+    total = passed = 0
+    for name, kw in build_cases():
+        ov_p = dict(model.OVERLAY_DEFAULTS, **kw.get("ov", {}))
+        res = dict(rv=kw.get("rv", 1), present=kw.get("present", 1),
+                   xmin=kw.get("xmin", 0), xmax=kw.get("xmax", 0),
+                   ymin=kw.get("ymin", 0), ymax=kw.get("ymax", 0),
+                   cx=kw.get("cx", 0), cy=kw.get("cy", 0))
+        xs, ys = model.overlay_window(res["xmin"], res["xmax"], res["ymin"], res["ymax"],
+                                      res["cx"], res["cy"])
+        # 额外加几个远离目标的像素，确认"框外不覆盖"
+        xs = xs + [1279, 0]
+        ys = ys + [719, 0]
+        rows = [(1, x, y, res["rv"], res["present"], res["xmin"], res["xmax"],
+                 res["ymin"], res["ymax"], res["cx"], res["cy"])
+                for y in sorted(set(ys)) for x in sorted(set(xs))]
+        want = [model.overlay_pixel(x, y, res["rv"], res["present"], res["xmin"],
+                                    res["xmax"], res["ymin"], res["ymax"], res["cx"],
+                                    res["cy"], ov_p) for (_p, x, y, *_r) in rows]
+
+        total += 1
+        params = dict(XW=11, YW=10, BOX_THICK=ov_p["box_thick"], BOX_RGB=ov_p["box_rgb"],
+                      CROSS_ARM=ov_p["cross_arm"], CROSS_THICK=ov_p["cross_thick"],
+                      CROSS_RGB=ov_p["cross_rgb"])
+        with tempfile.TemporaryDirectory(prefix="ctov-") as td:
+            tmp = Path(td)
+            got, err = run_overlay(simlib, args, rows, params, tmp, name)
+            if got is None:
+                print(f"FAIL  {name}  [仿真]\n      " + err.strip().replace("\n", "\n      "))
+                if "仿真台断言失败" in err:
+                    continue
+                return 2
+            if got != want:
+                bad = [(rows[i], got[i], want[i]) for i in range(min(len(got), len(want)))
+                       if got[i] != want[i]]
+                print(f"FAIL  {name}  [与模型不符]  {len(bad)}/{len(want)} 像素不同")
+                for row, g, w in bad[:6]:
+                    print(f"      像素 x={row[1]} y={row[2]}: got=0x{g:06x} want=0x{w:06x}")
+                continue
+            # 与实现无关的不变量：中心附近的覆盖图案必须 180 度旋转对称。
+            # 这一条能抓到"RTL 与模型一起错"的缺陷，逐行对拍抓不到。
+            if res["present"] and res["rv"]:
+                sym = symmetry_violations(rows, got, res["cx"], res["cy"], ov_p["cross_arm"])
+                if sym:
+                    print(f"FAIL  {name}  [对称性不变量]  {len(sym)} 处不对称")
+                    for dx, dy, a, b in sym[:6]:
+                        print(f"      ({res['cx']+dx},{res['cy']+dy})={a} 与 "
+                              f"({res['cx']-dx},{res['cy']-dy})={b} 不一致")
+                    continue
+            passed += 1
+            print(f"PASS  {name}  (pixels={len(want)})")
+
+    # ---- 参数夹取等价性：不依赖参考模型，直接比两次 RTL 运行的逐像素转储 ----
+    # 越界参数必须"夹到边界"，于是结果应与显式取边界值逐像素完全一致。
+    # 这条能独立抓住"我把夹取写成了位截断"或"夹取了但没接到判据上"。
+    exs, eys = model.overlay_window(100, 299, 80, 199, 199, 139, pad=5)
+    exs = sorted(set(exs + [0, 1279, 99, 300]))
+    eys = sorted(set(eys + [0, 719, 79, 200]))
+    eq_rows = [(1, x, y, 1, 1, 100, 299, 80, 199, 199, 139)
+               for y in eys for x in exs]
+    base = dict(XW=11, YW=10, BOX_THICK=3, BOX_RGB=0x00FF00,
+                CROSS_ARM=12, CROSS_THICK=1, CROSS_RGB=0xFFFF00)
+    equiv = [
+        ("BOX_THICK", 0, 1, "框线 0 夹到 1（不要框应由 present=0 表达，而不是把线宽设成 0）"),
+        ("BOX_THICK", -3, 1, "框线负数夹到 1"),
+        ("CROSS_THICK", 0, 1, "十字线宽 0 夹到 1"),
+        ("CROSS_THICK", -2, 1, "十字线宽负数夹到 1"),
+        ("CROSS_ARM", -5, 0, "十字半臂负数夹到 0（退化成一点）"),
+    ]
+    n_eq = 0
+    with tempfile.TemporaryDirectory(prefix="ctov-eq-") as td:
+        tmp = Path(td)
+        for key, lhs, rhs, why in equiv:
+            pa, pb = dict(base), dict(base)
+            pa[key], pb[key] = lhs, rhs
+            ga, erra = run_overlay(simlib, args, eq_rows, pa, tmp, "eqa")
+            if ga is None:
+                print(f"FAIL  等价性 {key}={lhs}: 仿真失败\n      " + erra.strip())
+                return 2
+            gb, errb = run_overlay(simlib, args, eq_rows, pb, tmp, "eqb")
+            if gb is None:
+                print(f"FAIL  等价性 {key}={rhs}: 仿真失败\n      " + errb.strip())
+                return 2
+            diff = [(i, a, b) for i, (a, b) in enumerate(zip(ga, gb)) if a != b]
+            if diff:
+                print(f"FAIL  等价性 {key}={lhs} vs {rhs}：{why}，"
+                      f"但 {len(diff)}/{len(ga)} 像素不同")
+                for i, a, b in diff[:5]:
+                    print(f"      像素 x={eq_rows[i][1]} y={eq_rows[i][2]}: "
+                          f"{lhs}->0x{a:06x}  {rhs}->0x{b:06x}")
+                return 1
+            n_eq += 1
+            print(f"PASS  {key}={lhs} == {key}={rhs}（{len(ga)} 像素）  {why}")
+
+    print(f"\n{passed}/{total} 用例通过；夹取等价性 {n_eq}/{len(equiv)} 通过  [sim={args.sim}]")
+    return 0 if passed == total else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

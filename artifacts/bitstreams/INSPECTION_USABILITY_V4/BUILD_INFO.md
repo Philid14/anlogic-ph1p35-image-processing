@@ -1,0 +1,25 @@
+# INSPECTION_USABILITY_V4 BUILD_INFO
+
+- Version / Role: INSPECTION_USABILITY_V4 / MAIN
+- Branch: codex/main/inspection-usability-v4
+- Actual TD source commit: 7067db0bb052747b3c06bc97c4acf9ff36dcbdae
+- Tag: inspection-usability-v4-candidate (created after archive)
+- Build time: 2026-11-01T17:01:30.744316+08:00
+- Device / Top: PH1P35MDG324 speed3 / design_top_wrapper
+- Original bit: D:/anlogic_formal_project/tmp/inspection_v4/r0/camera_to_dsi_display.bit
+- Bit SHA256: 2655fd65ebb245279b684fbdc5f3065dab8f654b387c7c61cfca3bdbadc64f39
+- Resource: {'slice': 20994, 'lut6': 19863, 'ff': 19116, 'eram': 90, 'dsp': 27}
+- Delta vs V3: {'slice': 433, 'lut6': 428, 'ff': 75, 'eram': 2, 'dsp': 1}
+- Setup WNS/TNS: +0.146ns / 0.0; Hold WNS/TNS: +0.020ns / 0.0
+- Synthesis -> Physical Design -> final Timing Check -> bitgen: PASS
+- Critical warning types: ['PHY-5060', 'PHY-5079']; new: []
+- High density warning PHY-7022: True; routed pass does not establish thermal/board stability.
+- Board Test Status: NOT_RUN. Independent ruler scale and measurement accuracy remain unverified.
+- Common pixel delay unchanged (31 cycles). No frame cache; twelve 768px grayscale scan lines only; 27 overlapping capture bands cover the 768x288 search ROI.
+- K4 short starts a bounded multi-frame search in ORIGIN/CAL; hold ruler still until R3/4/5; switch exit does not confirm.
+- Shared X/Y scale requires perpendicular view and equal magnification; no perspective/distortion correction or metrology precision claim. LIGHT cannot distinguish illumination from material lightness; CHR is not DeltaE.
+- Annotation uses actual measured bbox and gap endpoints, transparent glyphs; no automatic CAD/height/multi-hole reconstruction.
+- Original five algorithms, coarse color classifier/raw MAX12, Sensor/ISP parameters, video, Logo/CNT, keys, pins/PLL/SDC frozen. Color ROI remains32x32. Normalized CHR and raw max-component DV are additional diagnostics; LIGHT is not certified MATCH. SW displays logical inputs.
+- Physical switch mapping remains pending board SW-bit observations; FIFO B/S and Gray-pointer coverage risks inherited. R6 is an explicit video-integrity rejection.
+- Rollback: historical INSPECTION_USABILITY_V3 bit/tag; SHA256 18ec235c4d2d2fcebb66ae7634d45c21b6063a2b44956de8506f1a6d991ee68d.
+- No historical bit/tag modified. No PR merged. New features have default-off compatibility parameters.

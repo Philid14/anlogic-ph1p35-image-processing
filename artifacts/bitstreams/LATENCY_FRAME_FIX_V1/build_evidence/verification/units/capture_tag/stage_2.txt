@@ -1,0 +1,21 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_capture_tag -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:20:14 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_capture_tag.sv(6): [TFMPC] - Too few port connections. Expected 12, found 11.
+# 
+#         Region: /tb_latency_capture_tag/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_capture_tag.sv(6): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS capture tags early/inline SOF, geometry, source errors, overflow, bubbles, session rollover
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_capture_tag.sv(41)
+#    Time: 12760 ns  Iteration: 1  Instance: /tb_latency_capture_tag
+# End time: 21:20:14 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2

@@ -1,0 +1,2 @@
+PASS asynchronous switch debounce, short/long key, reset
+D:\anlogic_formal_project\tests\tb_inspection_ui.sv:74: $finish called at 690000 (1ps)

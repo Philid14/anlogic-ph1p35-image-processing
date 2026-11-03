@@ -1,0 +1,125 @@
+Path Group     :     HDMI_PIXEL_CLK -> HDMI_PIXEL_CLK
+Type           :     Self
+From Clock     :     HDMI_PIXEL_CLK
+To Clock       :     HDMI_PIXEL_CLK
+Min Period     :     13.231ns
+Fmax           :     75.580MHz
+
+Statistics:
+Max            : SWNS      0.102ns, STNS      0.000ns,         0 Viol Endpoints,      2490 Total Endpoints,     22666 Paths Analyzed
+Min            : HWNS      0.034ns, HTNS      0.000ns,         0 Viol Endpoints,      2490 Total Endpoints,     22666 Paths Analyzed
+----------------------------------------------------------------------------------------------------
+
+Max Paths
+----------------------------------------------------------------------------------------------------
+Slack               : 0.102ns
+Begin Point         : u_hdmi_mixer/mult0_syn_59.clk (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })
+End Point           : u_hdmi_mixer/O_hdmi_data_reg[14]_syn_2.ima (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })
+Check Type          : setup
+Process             : slow_m40c
+Budget              : 13.333ns { HDMI_PIXEL_CLK rising@13.333ns - HDMI_PIXEL_CLK rising@0.000ns }
+Data Path Delay     : 12.841ns (cell 5.730ns (44%), net 7.111ns (56%))
+Clock Skew          : 0.199ns
+Logic Level         : 14 ( LUT6=6  LUT5=2  LUT4=2  LUT2=2  unknown=1  DSPMULT=1 )
+Max Fanout          : 217
+Clock Uncertainty   : 0.127ns (sdc uncertainty: 0.000ns, default uncertainty: 0.127ns)
+
+Delay Type          Location             Incr           Path   Level  Netlist Info
+--------------------------------------------------------------------  ---------------
+source latency                          0.000          0.000               
+port                C4                  0.000          0.000          pin: I_sys_clk
+hierarchy                               0.000          0.000          pin: I_sys_clk_syn_7.ipad
+HDIO                x033y078            0.810          0.810          pin: I_sys_clk_syn_7.sg09_di
+HDIO                x033y078            0.684          1.494          pin: I_sys_clk_syn_7.di
+net (fo=3)          x043y079            0.115          1.609          net: I_sys_clk_dup_6,  ../../../user_source/hdl_source/design_top_wrapper.v(4)
+                                                                      pin: u_PLL/ph1p_phy_pll_wrapper_25a56e5ce2f9_Inst/u_PH1P_PHY_PLL.refclk
+PLL                 x043y079           -1.645         -0.036          pin: u_PLL/ph1p_phy_pll_wrapper_25a56e5ce2f9_Inst/u_PH1P_PHY_PLL.clkc[4]
+net (fo=1)                              0.827          0.791          net: u_hdmi_mixer/I_clk,  ../../../user_source/hdl_source/hdmi_mixer.v(8)
+                                                                      pin: u_hdmi_mixer/I_clk_created_gclkinst.clkin[0]
+GCLK                x023y039z17         0.016          0.807          pin: u_hdmi_mixer/I_clk_created_gclkinst.clkout
+net (fo=3)                              0.372          1.179          net: u_hdmi_mixer/I_clk_syn_654,  ../../../user_source/hdl_source/hdmi_mixer.v(8)
+                                                                      pin: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_r_bk2.clkin
+SCLK                x023y019z13         0.079          1.258          pin: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_r_bk2.clkout
+net (fo=173)                            0.708          1.966          net: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_r_bk2_sclk_outnet,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/mult0_syn_59.clk
+launch edge                             0.000    r     1.966               
+--------------------------------------------------------------------  ---------------
+DSPSIOU (clk2q)     x027y024            0.601    r     2.567          pin: u_hdmi_mixer/mult0_syn_59.mult_x[3]
+net (fo=1)                              0.000          2.567          net: u_hdmi_mixer/mult0_syn_61[3],  ../../../user_source/hdl_source/hdmi_mixer.v(619)
+                                                                      pin: u_hdmi_mixer/mult0_syn_60.x[3]
+DSPMULT             x027y024            1.190    r     3.757       1  pin: u_hdmi_mixer/mult0_syn_60.p[5]
+net (fo=1)                              0.000          3.757          net: u_hdmi_mixer/mult0_syn_107[5],  ../../../user_source/hdl_source/hdmi_mixer.v(619)
+                                                                      pin: u_hdmi_mixer/mult0_syn_59.mult_p[5]
+DSPSIOU             x027y024            0.585    f     4.342          pin: u_hdmi_mixer/mult0_syn_59.p[5]
+net (fo=1)                              0.805          5.147          net: u_hdmi_mixer/mult0_syn_5[5],  ../../../user_source/hdl_source/hdmi_mixer.v(619)
+                                                                      pin: u_hdmi_mixer/add0_syn_72.id
+                    x036y035z1          0.626    r     5.773       2  pin: u_hdmi_mixer/add0_syn_72.ofb
+net (fo=217)                            1.352          7.125          net: u_hdmi_mixer/add0_syn_2[5],  ../../../user_source/hdl_source/hdmi_mixer.v(619)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6131.imb
+LUT2                x030y027z0          0.271    r     7.396       3  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6131.ofb
+net (fo=19)                             0.623          8.019          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_dup_5622,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6063.imf
+LUT6                x029y027z3          0.168    r     8.187       4  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6063.ofb
+net (fo=2)                              0.536          8.723          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_1932,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6062.ie
+LUT6                x029y027z1          0.190    r     8.913       5  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6062.ofb
+net (fo=1)                              0.527          9.440          net: u_hdmi_mixer/u_anlogic_logo_rom/I_addr[3]_syn_4450,  ../../../user_source/hdl_source/anlogic_logo_rom.v(2)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6131.id
+LUT2                x030y027z0          0.266    f     9.706       6  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6131.ofa
+net (fo=1)                              0.398         10.104          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_1936,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6133.imf
+LUT6                x030y028z2          0.168    r    10.272       7  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_6133.ofb
+net (fo=2)                              0.626         10.898          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_1956,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_11222.id
+LUT5                x031y022z4          0.266    r    11.164       8  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_11222.ofb
+net (fo=6)                              0.499         11.663          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_1958,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_8339.id
+LUT5                x030y025z1          0.266    r    11.929       9  pin: u_hdmi_mixer/O_hdmi_data_b[17]_syn_8339.ofb
+net (fo=59)                             0.591         12.520          net: u_hdmi_mixer/O_hdmi_data_b[17]_syn_dup_5290,  NOFILE(0)
+                                                                      pin: u_isp_top/u_awb/divide_G_B_r1/al_c89715fb_syn_3.id
+LUT6                x026y024z7          0.231    f    12.751      10  pin: u_isp_top/u_awb/divide_G_B_r1/al_c89715fb_syn_3.ofb
+net (fo=1)                              0.260         13.011          net: u_hdmi_mixer/O_hdmi_data_b[14]_syn_25,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[14]_syn_148.ie
+LUT6                x025y024z3          0.190    r    13.201      11  pin: u_hdmi_mixer/O_hdmi_data_b[14]_syn_148.ofb
+net (fo=1)                              0.471         13.672          net: u_hdmi_mixer/O_hdmi_data_b[14]_syn_27,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/u_anlogic_logo_rom/sel0_syn_27248.ie
+LUT4                x022y021z5          0.189    r    13.861      12  pin: u_hdmi_mixer/u_anlogic_logo_rom/sel0_syn_27248.ofb
+net (fo=1)                              0.344         14.205          net: u_hdmi_mixer/u_anlogic_logo_rom/sel0_syn_14848[14],  ../../../user_source/hdl_source/anlogic_logo_rom.v(7)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_b[14]_syn_124.imf
+LUT6                x022y020z7          0.168    r    14.373      13  pin: u_hdmi_mixer/O_hdmi_data_b[14]_syn_124.ofb
+net (fo=1)                              0.079         14.452          net: u_hdmi_mixer/O_hdmi_data_b[14]_syn_38,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_reg[14]_syn_2.ima
+LUT4 (reg)          x022y020z2          0.355    f    14.807      14  net: u_hdmi_tx/I_video_in_data[14],  ../../../user_source/hdl_source/hdmi_tx.v(22)
+--------------------------------------------------------------------  ---------------
+Arrival                                               14.807               
+
+source latency                          0.000          0.000               
+port                C4                  0.000          0.000          pin: I_sys_clk
+hierarchy                               0.000          0.000          pin: I_sys_clk_syn_7.ipad
+HDIO                x033y078            0.745          0.745          pin: I_sys_clk_syn_7.sg09_di
+HDIO                x033y078            0.629          1.374          pin: I_sys_clk_syn_7.di
+net (fo=3)          x043y079            0.099          1.473          net: I_sys_clk_dup_6,  ../../../user_source/hdl_source/design_top_wrapper.v(4)
+                                                                      pin: u_PLL/ph1p_phy_pll_wrapper_25a56e5ce2f9_Inst/u_PH1P_PHY_PLL.refclk
+PLL                 x043y079           -1.411          0.062          pin: u_PLL/ph1p_phy_pll_wrapper_25a56e5ce2f9_Inst/u_PH1P_PHY_PLL.clkc[4]
+net (fo=1)                              0.708          0.770          net: u_hdmi_mixer/I_clk,  ../../../user_source/hdl_source/hdmi_mixer.v(8)
+                                                                      pin: u_hdmi_mixer/I_clk_created_gclkinst.clkin[0]
+GCLK                x023y039z17         0.014          0.784          pin: u_hdmi_mixer/I_clk_created_gclkinst.clkout
+net (fo=3)                              0.321          1.105          net: u_hdmi_mixer/I_clk_syn_654,  ../../../user_source/hdl_source/hdmi_mixer.v(8)
+                                                                      pin: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_l_bk3.clkin
+SCLK                x023y019z2          0.068          1.173          pin: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_l_bk3.clkout
+net (fo=90)                             0.549          1.722          net: u_hdmi_mixer/I_clk_created_gclkinst_auto_created_sclk_s_0_l_bk3_sclk_outnet,  NOFILE(0)
+                                                                      pin: u_hdmi_mixer/O_hdmi_data_reg[14]_syn_2.clk
+capture edge                           13.333    r    15.055               
+--------------------------------------------------------------------  ---------------
+setup                                  -0.064         14.991               
+clock uncertainty                      -0.127         14.864               
+clock pessimism                         0.045         14.909               
+--------------------------------------------------------------------  ---------------
+Required                                              14.909               
+--------------------------------------------------------------------  ---------------
+Slack                                                  0.102               
+
+Slack               : 0.102ns
+Begin Point         : u_hdmi_mixer/mult0_syn_59.clk (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })
+End Point           : u_hdmi_mixer/O_hdmi_data_reg[18]_syn_2.imf (rising edge triggered by clock HDMI_PIXEL_CLK  { rise@0.000000ns  fall@6.666000ns  period=13.333000 })
+Check Type          : setup

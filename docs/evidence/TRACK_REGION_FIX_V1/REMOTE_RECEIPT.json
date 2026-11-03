@@ -1,0 +1,20 @@
+{
+  "version": "TRACK_REGION_FIX_V1",
+  "time": "2026-11-02T21:05:06.561484+08:00",
+  "remote": "https://github.com/Philid14/anlogic-ph1p35-image-processing.git",
+  "branch": "codex/main/track-region-fix-v1",
+  "remote_head": "806e29ab76f360a2bc76eea37fe826a92a8da57c",
+  "source_commit": "0e054712064041a18047f13c8ee76c57ad8e29f8",
+  "archive_commit": "806e29ab76f360a2bc76eea37fe826a92a8da57c",
+  "tag": "track-region-fix-v1-candidate",
+  "tag_object": "d2fefe1f803d41bc3a938681d4566f20c724c3dd",
+  "bit_sha256": "049adbf16065b6ce0b7d9d0d32eb318573c872df1b8a7a1aa4350efbfc583a99",
+  "tagged_inputs_verified": 89,
+  "historical_bits_unchanged": 29,
+  "push_status": "SUCCESS",
+  "board_test": "NOT_RUN",
+  "pr": "https://github.com/Philid14/anlogic-ph1p35-image-processing/pull/29",
+  "pr_draft": true,
+  "pr_merged": false,
+  "scope": "Candidate archive branch/tag verified before adding this receipt; final publication commit is in git history"
+}

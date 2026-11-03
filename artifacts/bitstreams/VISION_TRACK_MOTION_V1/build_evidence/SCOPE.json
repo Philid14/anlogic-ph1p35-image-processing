@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "baseline": "43ff61b4f1791782e74100c92b9612317e0d2249",
+  "files": {
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_detect_96.v": "Only exact declaration relocation",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v": "Only exact declaration relocation",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v": "Exact baseline content",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v": "Exact baseline content",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v": "Exact baseline content",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v": "Exact baseline content",
+    "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_temporal_hold.v": "Exact baseline content",
+    "features/color_target/rtl/color_classify.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_detect.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_detect_stream.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_mask_stats.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_overlay.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_support3.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_text_overlay.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_track.v": "Exact immutable teammate git blob",
+    "features/color_target/rtl/color_target_track_guard.v": "Exact immutable teammate git blob"
+  },
+  "source_commit": "c3bdf9240647d9f98a2ff68c416693ad1e20f4b9",
+  "td_input_count": 84
+}

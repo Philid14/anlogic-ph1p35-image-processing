@@ -1,0 +1,87 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 19:00:00 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_awb_frame_equivalence.sv D:/anlogic_formal_project/tmp/inspection_parts_motion/awb_frame_equivalence_r1/awb_reference_baseline.v D:/anlogic_formal_project/tmp/inspection_parts_motion/divider_stage_r1/awb.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/blk_mem_gen_awb_delay_signal.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/ram_f84573da5ab5.v D:/TD/sim_release/common/al_map_adder.v D:/TD/sim_release/common/al_map_alu2b.v D:/TD/sim_release/common/al_map_basic.v D:/TD/sim_release/common/al_map_lut.v D:/TD/sim_release/common/al_map_mult.v D:/TD/sim_release/common/al_map_mux4.v D:/TD/sim_release/common/al_map_seq.v D:/TD/sim_release/common/al_phy_glbl.v D:/TD/sim_release/ph1p/ph1p_logic_eram.v D:/TD/sim_release/ph1p/ph1p_phy_gsr.v 
+-- Compiling module tb_awb_frame_equivalence
+-- Compiling module awb_reference_baseline
+-- Compiling module awb
+-- Compiling module awb_frame_divider48
+-- Compiling module signal_delay
+-- Compiling module divider
+-- Compiling module blk_mem_gen_awb_delay_signal
+-- Compiling module ram_f84573da5ab5
+-- Compiling module AL_MAP_ADDER
+-- Compiling module AL_MAP_ALU2B
+-- Compiling module reg_ar_as_w1
+-- Compiling module reg_sr_ss_w1
+-- Compiling module reg_ar_ss_w1
+-- Compiling module reg_sr_as_w1
+-- Compiling module latch_ar_ss_w1
+-- Compiling module latch_sr_as_w1
+-- Compiling module latch_sr_ss_w1
+-- Compiling module latch_ar_as_w1
+-- Compiling module AL_DFF_W
+-- Compiling module AL_DFF_0
+-- Compiling module AL_DFF_1
+-- Compiling module AL_DFF_X
+-- Compiling module AL_LATCH_W
+-- Compiling module AL_LATCH_0
+-- Compiling module AL_LATCH_1
+-- Compiling module AL_LATCH_X
+-- Compiling module AL_MUX
+-- Compiling module AL_DFF
+-- Compiling module AL_LATCH
+-- Compiling module AL_FADD
+-- Compiling module AL_MAP_LUT1
+-- Compiling module AL_MAP_LUT2
+-- Compiling module AL_MAP_LUT3
+-- Compiling module AL_MAP_LUT4
+-- Compiling module AL_MAP_LUT5
+-- Compiling module AL_MAP_LUT6
+-- Compiling module AL_MAP_LUT6P
+-- Compiling module AL_MAP_LUT6X
+-- Compiling module AL_MAP_LLMUX
+-- Compiling module AL_MAP_F7MUX
+-- Compiling module AL_MAP_F8MUX
+-- Compiling module AL_MAP_CARRY4
+-- Compiling module AL_MAP_BLE_MULT18X18
+-- Compiling module AL_MAP_BLE_MULT9X9
+-- Compiling module AL_PHY_MULT18
+-- Compiling module AL_MAP_SEQ
+-- Compiling module AL_MAP_SEQ_GSR
+-- Compiling module glbl
+-- Compiling module PH1P_LOGIC_ERAM
+-- Compiling module PH1P_PHY_GSR
+
+Top level modules:
+	tb_awb_frame_equivalence
+	AL_MAP_ALU2B
+	reg_ar_as_w1
+	reg_sr_ss_w1
+	reg_ar_ss_w1
+	reg_sr_as_w1
+	latch_ar_ss_w1
+	latch_sr_as_w1
+	latch_sr_ss_w1
+	latch_ar_as_w1
+	AL_DFF_W
+	AL_DFF_0
+	AL_DFF_1
+	AL_LATCH_W
+	AL_LATCH_0
+	AL_LATCH_1
+	AL_FADD
+	AL_MAP_LUT1
+	AL_MAP_LUT6P
+	AL_MAP_LUT6X
+	AL_MAP_LLMUX
+	AL_MAP_F7MUX
+	AL_MAP_F8MUX
+	AL_MAP_CARRY4
+	AL_MAP_BLE_MULT18X18
+	AL_MAP_BLE_MULT9X9
+	AL_MAP_SEQ
+	AL_MAP_SEQ_GSR
+	glbl
+	PH1P_PHY_GSR
+End time: 19:00:01 on Nov 03,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0

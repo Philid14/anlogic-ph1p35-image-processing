@@ -1,0 +1,9 @@
+{
+  "input_cycles": 2013324,
+  "accepted_pixels": 7760408,
+  "result_events": 179,
+  "track_events": 178,
+  "display_probes": 39928,
+  "legacy_results_compared": 87,
+  "cancelled_frames": 5
+}

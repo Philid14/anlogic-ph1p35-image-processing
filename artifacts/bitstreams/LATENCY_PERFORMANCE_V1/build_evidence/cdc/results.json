@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "route_db_sha256": "73c33e7ca080a8219734fe8ffd8311a78b375d5cd35201f05fbc34f95f2b7003",
+  "checks": {
+    "time_gray": {
+      "passed": true,
+      "unique_loads": 20,
+      "minimum_expected": 20,
+      "max_net_delay_ps": 1542.0,
+      "min_net_delay_ps": 172.0,
+      "limit_ps": 14700
+    },
+    "heartbeat": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 466.0,
+      "min_net_delay_ps": 466.0,
+      "limit_ps": 14700
+    },
+    "held_tuple": {
+      "passed": true,
+      "unique_loads": 85,
+      "minimum_expected": 85,
+      "max_net_delay_ps": 2010.0,
+      "min_net_delay_ps": 193.0,
+      "limit_ps": 26666
+    },
+    "select_toggle": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 636.0,
+      "min_net_delay_ps": 636.0,
+      "limit_ps": 26666
+    },
+    "read_bad": {
+      "passed": true,
+      "unique_loads": 1,
+      "minimum_expected": 1,
+      "max_net_delay_ps": 357.0,
+      "min_net_delay_ps": 357.0,
+      "limit_ps": 14700
+    },
+    "tagged_fifo_gray": {
+      "passed": true,
+      "unique_loads": 18,
+      "minimum_expected": 18,
+      "max_net_delay_ps": 1263.0,
+      "min_net_delay_ps": 172.0,
+      "limit_ps": 14700
+    }
+  },
+  "timestamp_stage_pairs": 20,
+  "failures": [],
+  "global_sdc_changed": false,
+  "inherited_gray_constraint_coverage": "NOT_FIXED; widened FIFO keeps official core/pointer behavior, with explicit routed delay inspection",
+  "limit": "Route-specific envelope/structure check, not MTBF, analog metastability simulation, or board long-run verification"
+}

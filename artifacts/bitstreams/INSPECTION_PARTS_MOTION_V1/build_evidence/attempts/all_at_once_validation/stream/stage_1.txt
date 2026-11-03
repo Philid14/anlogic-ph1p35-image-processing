@@ -1,0 +1,59 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 13:44:32 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_parts_stream.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/rgb_effects_96.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_detect_96.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/gaussian_pair_3x3.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/nms_gradient_pair_3x3.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_link_pair_3x3.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_center_pair_delay.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_temporal_hold.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_control.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_calibration.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_auto_calibration.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_robust_calibration.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/engineering_dimension_marks.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_status_osd.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/data_96bit_to_128bit.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data128_96/data128_96.v D:/anlogic_formal_project/tests/isp_boundary_stubs.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_motion_grid.v D:/anlogic_formal_project/features/color_target/rtl/color_classify.v D:/anlogic_formal_project/features/color_target/rtl/color_target_mask_stats.v D:/anlogic_formal_project/features/color_target/rtl/color_target_track.v D:/anlogic_formal_project/features/color_target/rtl/color_target_track_guard.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_font_rom.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/measure_background.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_config_delay.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_shape_select.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_payload_delay.v D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/edge_row_history.v D:/TD/sim_release/ph1p/ph1p_logic_eram.v D:/TD/sim_release/ph1p/ph1p_phy_gsr.v 
+-- Compiling module tb_parts_stream
+-- Compiling module edge_control_stream
+-- Compiling module rgb_effects_96
+-- Compiling module style_fill_96
+-- Compiling module edge_detect_96
+-- Compiling module gaussian_pair_3x3
+-- Compiling module nms_gradient_pair_3x3
+-- Compiling module edge_link_pair_3x3
+-- Compiling module edge_center_pair_delay
+-- Compiling module edge_temporal_hold
+-- Compiling module color_compare_stats
+-- Compiling module color_compare_osd
+-- Compiling module inspection_control
+-- Compiling module inspection_calibration
+-- Compiling module ruler_auto_calibration
+-- Compiling module ruler_robust_calibration
+-- Compiling module ruler_area_calibration
+-- Compiling module engineering_dimension_marks
+-- Compiling module planar_measure_stats
+-- Compiling module planar_two_band_profile
+-- Compiling module edge_key_event
+-- Compiling module edge_key_control
+-- Compiling module edge_status_osd
+-- Compiling module osd_char_lib
+-- Compiling module data_96bit_to_128bit
+-- Compiling module isp_top
+-- Compiling module data128_96
+-- Compiling module demosaic
+-- Compiling module awb
+-- Compiling module vision_source_observer
+-- Compiling module vision_red_run_stats
+-- Compiling module vision_red_classify
+-- Compiling module vision_motion_grid
+-- Compiling module color_classify
+-- Compiling module color_target_mask_stats
+-- Compiling module color_target_track
+-- Compiling module color_target_track_guard
+-- Compiling module inspection_font_rom
+-- Compiling module measure_background
+-- Compiling module inspection_config_delay
+-- Compiling module inspection_shape_select
+-- Compiling module inspection_payload_delay
+-- Compiling module edge_row_history
+-- Compiling module PH1P_LOGIC_ERAM
+-- Compiling module PH1P_PHY_GSR
+
+Top level modules:
+	tb_parts_stream
+	edge_key_control
+	isp_top
+	color_classify
+	color_target_mask_stats
+	inspection_payload_delay
+	PH1P_PHY_GSR
+End time: 13:44:33 on Nov 03,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0
