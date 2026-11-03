@@ -278,7 +278,11 @@ module edge_control_stream #(
             assign dim_round=0;assign dim_background=0;assign bg_status=0;assign dim_gap_coords=0;assign dim_sizes=0;assign dim_box=0;assign dim_valid=0;assign dim_present=0;
             assign dim_gap=0;assign dim_cut=0;assign dim_bright=0;assign dim_id=0;
         end
-        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5),.PARTS_ENABLE(INSPECTION_V5),
+        wire[43:0]view_sizes,view_box,view_gap_coords;wire[1:0]view_gap;wire[2:0]view_kind;
+        parts_measure_view u_part_view(.enabled(INSPECTION_V5 && dim_part_valid && !dim_round && dim_valid && dim_present),
+            .sample_id(dim_id),.sizes(dim_sizes),.box_coords(dim_box),.gap_coords(dim_gap_coords),.gap_valid(dim_gap),
+            .part_coords(dim_part_coords),.view_sizes(view_sizes),.view_box(view_box),.view_gap_coords(view_gap_coords),.view_gap(view_gap),.kind(view_kind));
+        color_compare_osd #(.WIDTH(IMG_WIDTH),.HEIGHT(IMG_HEIGHT),.UI_ENABLE(INSPECTION_ENABLE),.AUTO_DIMENSION(AUTO_DIMENSION),.USABILITY_ENABLE(USABILITY_ENABLE),.INSPECTION_V4(INSPECTION_V4),.COMPACT_FONT(COMPACT_FONT),.INSPECTION_V5(INSPECTION_V5),.VIEW_ENABLE(INSPECTION_V5),
             .REF_X(USABILITY_ENABLE?304:256),.TEST_X(USABILITY_ENABLE?944:896),.ROI_Y(USABILITY_ENABLE?304:256),
             .ROI_W(USABILITY_ENABLE?32:128),.ROI_H(USABILITY_ENABLE?32:128)) u_compare(
             .clk(clk),.rst_n(rst_n),.rgb(selected_data),.valid(valid_p[EDGE_STAGES-1]),
@@ -287,10 +291,10 @@ module edge_control_stream #(
              .display_enable(ui_pipe[EDGE_STAGES-1][0]),.dimension_enable(ui_pipe[EDGE_STAGES-1][1]),
             .cal_mode(ui_pipe[EDGE_STAGES-1][3]),.axis_y(ui_pipe[EDGE_STAGES-1][2]),
             .calibrated(ui_calibrated),.span_x(ui_span_x),.span_y(ui_span_y),.cal_visited(ui_visited),
-            .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(dim_sizes),.dim_box(dim_box),.dim_gap_coords(dim_gap_coords),.cal_status(ui_cal_status),
-            .dim_part_valid(dim_part_valid),.dim_part_coords(dim_part_coords),
+            .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(view_sizes),.dim_box(view_box),.dim_gap_coords(view_gap_coords),.cal_status(ui_cal_status),
+            .view_kind(view_kind),
             .dim_valid(dim_valid && dim_cut==config_p[EDGE_STAGES-1][7:0] && dim_bright==ui_pipe[EDGE_STAGES-1][2]),
-            .dim_present(dim_present),.dim_gap_valid(dim_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
+            .dim_present(dim_present),.dim_gap_valid(view_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),
             .out_rgb(compare_data),.out_valid(compare_valid),.out_user(compare_user),.out_last(compare_last));
     end else begin:g_no_color_compare
         assign compare_config=config_p[EDGE_STAGES-1];assign compare_switches=ui_pipe[EDGE_STAGES-1];assign compare_ruler=ui_cal_status;
@@ -309,4 +313,29 @@ module edge_control_stream #(
         .I_motion_count(motion_count),.I_motion_state(motion_state),.I_motion_frame(motion_frame),.I_observer_error(observer_error),
         .O_user(O_user), .O_last(O_last)
     );
+endmodule
+
+// Display one genuine measured rectangle at a time; 32 acquisition-frame
+// dwell, unaffected by repeated HDMI refreshes. Phases5..7 retain whole W/H.
+// Derived rectangle dimensions share the ORIGINAL 4-field formatter/drawing.
+module parts_measure_view(input enabled,input[15:0]sample_id,
+ input[43:0]sizes,box_coords,gap_coords,input[1:0]gap_valid,input[33:0]part_coords,
+ output reg[43:0]view_sizes,view_box,view_gap_coords,output reg[1:0]view_gap,output reg[2:0]kind);
+ wire[10:0]xl=box_coords[43:33],xr=box_coords[32:22],yt=box_coords[21:11],yb=box_coords[10:0];
+ wire[10:0]nl=part_coords[32:22],nr=part_coords[21:11],split=part_coords[10:0];
+ wire[10:0]bar_top=part_coords[33]?yt:split,bar_bottom=part_coords[33]?split-11'd1:yb;
+ reg[10:0]a,b,c,d;
+ always @*begin
+  a=xl;b=xr;c=yt;d=yb;kind=0;
+  view_sizes=sizes;view_box=box_coords;view_gap_coords=gap_coords;view_gap=gap_valid;
+  if(enabled)begin
+   case(sample_id[7:5])
+    1:begin kind=1;a=nl;b=nr;c=part_coords[33]?split:yt;d=part_coords[33]?yb:split-11'd1;end
+    2:begin kind=2;c=bar_top;d=bar_bottom;end
+    3:begin kind=nl>xl?3:2;b=nl>xl?nl-11'd1:xr;c=bar_top;d=bar_bottom;end
+    4:begin kind=nr<xr?4:2;a=nr<xr?nr+11'd1:xl;c=bar_top;d=bar_bottom;end
+   endcase
+   if(kind!=0)begin view_box={a,b,c,d};view_sizes={b-a+11'd1,d-c+11'd1,22'd0};view_gap_coords=0;view_gap=0;end
+  end
+ end
 endmodule

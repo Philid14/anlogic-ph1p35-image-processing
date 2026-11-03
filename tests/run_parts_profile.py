@@ -23,6 +23,12 @@ def main():
  a=cases[0][0].copy();a[120:123]=0;cases.append((a,False,None,False))
  cases.append((cases[0][0],False,None,True))
  cases.append(cases[0]) # recovery after a malformed frame
+ a=np.zeros((256,512),bool)
+ for y in range(64,192):
+  shift=0 if y in (64,96) else y%3-1
+  left,right=(100,411) if y<96 else (228,283)
+  a[y,left+shift:right+shift+1]=1
+ cases.append((a,True,(1,228,283,96),False))
  with (OUT/'stim.txt').open('w') as f:
   for a,_,_,bad in cases:
    for y in range(256):
@@ -36,6 +42,6 @@ def main():
    b=(box[0]<<33)|(box[1]<<22)|(box[2]<<11)|box[3]
    f.write(f'{int(good)} {c:x} {b:x}\n')
  src=[ROOT/'tests/tb_parts_profile.sv',HDL/'isp/planar_measure_stats.v']
- log=simulate(OUT,'tb_parts_profile',src,plus=['+DIR='+OUT.as_posix()])
+ log=simulate(OUT,'tb_parts_profile',src,plus=['+DIR='+OUT.as_posix(),'+CASES='+str(len(cases))])
  (OUT/'console.txt').write_text(log);(OUT/'results.json').write_text(json.dumps(dict(passed=True,cases=len(cases),sources={p.relative_to(ROOT).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in src}),indent=2)+'\n');print(log[-1000:])
 if __name__=='__main__':main()

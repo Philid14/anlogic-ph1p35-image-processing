@@ -1,7 +1,7 @@
 // Two-cycle MAIN overlay. Snapshot LAST completed post-AWB frame at early SOF.
 // Shared font is unchanged; four adjacent pixels share one 32px glyph cell.
 module color_compare_osd #(
-    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,COMPACT_FONT=0,INSPECTION_V5=0,PARTS_ENABLE=0,
+    parameter integer WIDTH=1280,HEIGHT=720,UI_ENABLE=0,AUTO_DIMENSION=0,USABILITY_ENABLE=0,INSPECTION_V4=0,COMPACT_FONT=0,INSPECTION_V5=0,VIEW_ENABLE=0,
     parameter integer REF_X=256,TEST_X=896,ROI_Y=256,ROI_W=128,ROI_H=128
 )(
     input clk,rst_n,input [95:0] rgb,input valid,user,last,
@@ -10,7 +10,7 @@ module color_compare_osd #(
     input [10:0] span_x,span_y,input [1:0] cal_visited,
     input dim_round,background_applied,input[2:0]background_status,input [43:0] dim_sizes,dim_box,dim_gap_coords,input [2:0] cal_status,input dim_valid,dim_present,
     input [1:0] dim_gap_valid,input [7:0] dim_threshold,
-    input [15:0] dim_id,input dim_part_valid,input[33:0]dim_part_coords,
+    input [15:0] dim_id,input[2:0]view_kind,
     output reg [95:0] out_rgb,output reg out_valid,out_user,out_last
 );
     reg show_color,show_dimension,held_cal,held_axis,held_calibrated;
@@ -20,21 +20,16 @@ module color_compare_osd #(
     reg held_dim_valid,held_present,held_round,held_background;reg[2:0]held_bg_status;
     reg [7:0] held_cut;
     reg [15:0] held_dim_id;
-    reg held_part_valid;reg[33:0]held_part_coords;
-    wire parts=PARTS_ENABLE && held_part_valid && !held_round;
-    wire[10:0]part_left=held_part_coords[32:22],part_right=held_part_coords[21:11],part_split=held_part_coords[10:0];
-    wire[10:0]part_top=held_box[21:11],part_bottom=held_box[10:0];
+    reg[2:0]held_view;
     wire dimension=UI_ENABLE && show_dimension;
     wire enabled=UI_ENABLE?show_color:1'b1;
     always @(posedge clk or negedge rst_n)begin
         if(!rst_n)begin
-            held_part_valid<=0;held_part_coords<=0;
-            held_round<=0;held_background<=0;held_bg_status<=0;show_color<=0;show_dimension<=0;held_cal<=0;held_axis<=0;held_calibrated<=0;
+            held_view<=0;held_round<=0;held_background<=0;held_bg_status<=0;show_color<=0;show_dimension<=0;held_cal<=0;held_axis<=0;held_calibrated<=0;
             held_span_x<=256;held_span_y<=256;held_visited<=0;held_sizes<=0;held_box<=0;
             held_gap_coords<=0;held_cal_status<=0;held_dim_valid<=0;held_present<=0;held_gap<=0;held_cut<=0;held_dim_id<=0;
         end else if(user)begin
-            held_part_valid<=PARTS_ENABLE && dim_part_valid;held_part_coords<=PARTS_ENABLE?dim_part_coords:34'd0;
-            held_round<=dim_round;held_background<=background_applied;held_bg_status<=background_status;
+            held_view<=VIEW_ENABLE?view_kind:3'd0;held_round<=dim_round;held_background<=background_applied;held_bg_status<=background_status;
             show_color<=display_enable && !dimension_enable;show_dimension<=dimension_enable;
             held_cal<=cal_mode;held_axis<=axis_y;held_calibrated<=calibrated;
             held_span_x<=span_x;held_span_y<=span_y;held_visited<=cal_visited;
@@ -153,9 +148,9 @@ module color_compare_osd #(
             endcase
         end
     endfunction
-    reg [19:0] number;reg [10:0] pixel_span,axis_span,part_a,part_b;reg part_plus;reg [7:0] norm_channel;
+    reg [19:0] number;reg [10:0] pixel_span,axis_span;reg [7:0] norm_channel;
     always @*begin
-        number=0;pixel_span=0;axis_span=1;norm_channel=0;part_a=0;part_b=0;part_plus=0;
+        number=0;pixel_span=0;axis_span=1;norm_channel=0;
         case(field)
             0:number=held_rgb[47:40];1:number=held_rgb[39:32];2:number=held_rgb[31:24];
             3:number=held_rgb[23:16];4:number=held_rgb[15:8];5:number=held_rgb[7:0];
@@ -167,20 +162,9 @@ module color_compare_osd #(
                 2:pixel_span=held_sizes[21:11];3:pixel_span=held_sizes[10:0];
                 default:pixel_span=0;
             endcase
-            if(parts)begin
-                case(field)
-                    2:begin part_a=part_right;part_b=part_left;part_plus=1;end
-                    3:begin part_a=held_part_coords[33]?part_split:part_bottom;part_b=held_part_coords[33]?part_top:part_split;part_plus=!held_part_coords[33];end
-                    4:begin part_a=part_left;part_b=held_box[43:33];end
-                    5:begin part_a=held_box[32:22];part_b=part_right;end
-                    6:begin part_a=held_part_coords[33]?part_bottom:part_split;part_b=held_part_coords[33]?part_split:part_top;part_plus=held_part_coords[33];end
-                endcase
-                if(field>=2)pixel_span=part_a-part_b+part_plus;
-            end
             axis_span=((field==1 && !(INSPECTION_V5 && held_round)) || field==3)?held_span_y:held_span_x;
-            if(parts && field==6)axis_span=held_span_y;
             if(axis_span==0)axis_span=1;
-            if(field<(parts?7:4))begin
+            if(field<4)begin
                 number=held_calibrated ? pixel_span*20'd1000 : pixel_span*20'd10;
                 if(INSPECTION_V5 && held_round && field==1)number=number>>1;
                 if(held_calibrated)number=number+(axis_span>>1);
@@ -230,7 +214,7 @@ module color_compare_osd #(
                     end else begin binary_shift<=quotient_next;bcd<=0;step<=1;end
                 end else step<=step+1'b1;
             end else if(step==0)begin
-                if(normalizing || (dimension && held_calibrated && field<(parts?7:4)))begin
+                if(normalizing || (dimension && held_calibrated && field<4))begin
                     dividing<=1;dividend<=number;denominator<=axis_span;
                     remainder<=0;quotient<=0;step<=1;
                 end else begin binary_shift<=number;bcd<=0;step<=1;end
@@ -238,7 +222,7 @@ module color_compare_osd #(
                 bcd<={adjusted[18:0],binary_shift[19]};binary_shift<={binary_shift[18:0],1'b0};
                 if(step==20)begin
                     digits[field]<={adjusted[18:0],binary_shift[19]};step<=0;
-                    if(field==(dimension?(AUTO_DIMENSION?(parts?6:3):6):(INSPECTION_V4?12:10)))begin busy<=0;formatted<=1;end else field<=field+1'b1;
+                    if(field==(dimension?(AUTO_DIMENSION?3:6):(INSPECTION_V4?12:10)))begin busy<=0;formatted<=1;end else field<=field+1'b1;
                 end else step<=step+1'b1;
             end
         end
@@ -267,11 +251,10 @@ module color_compare_osd #(
     wire [3:0] engineering_marks;
     wire engineering_text;wire [7:0] engineering_char;wire [3:0] engineering_row,engineering_col;
     generate if(AUTO_DIMENSION)begin:g_drawing
-        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4),.SHAPE_ENABLE(INSPECTION_V5),.PARTS_ENABLE(PARTS_ENABLE)) u_drawing(.round_object(held_round),.background_applied(held_background),.background_status(held_bg_status),.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
+        engineering_dimension_marks #(.SEARCH_ENABLE(USABILITY_ENABLE),.AREA_ENABLE(INSPECTION_V4),.SHAPE_ENABLE(INSPECTION_V5),.VIEW_ENABLE(VIEW_ENABLE)) u_drawing(.round_object(held_round),.background_applied(held_background),.background_status(held_bg_status),.x(px),.y(py),.cal(held_cal),.calibrated(held_calibrated),
             .object_valid(held_dim_valid && held_present),.formatted(formatted),.cal_status(held_cal_status),
-            .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(parts?2'd0:held_gap),
-            .parts(parts),.part_coords(held_part_coords),.part_digits({digits[2],digits[3],digits[4],digits[5],digits[6]}),
-            .digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),
+            .box_coords(held_box),.gap_coords(held_gap_coords),.gap_valid(held_gap),
+            .view_kind(held_view),.digits({digits[0],digits[1],digits[2],digits[3]}),.marks(engineering_marks),
             .text_valid(engineering_text),.character(engineering_char),.glyph_row(engineering_row),.glyph_col(engineering_col));
     end else begin:g_no_drawing
         assign engineering_marks=0;assign engineering_text=0;assign engineering_char=32;

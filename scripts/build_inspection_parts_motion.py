@@ -4,7 +4,7 @@ from pathlib import Path
 import build_track_region_fix as build
 ROOT=build.ROOT;P=build.P;HDL=build.HDL
 BASE='6ad4f7cd70b5614240c07db2a16775aa492d9f14'
-OUT=ROOT/'tmp/inspection_parts_motion/full_r0'
+OUT=ROOT/'tmp/inspection_parts_motion/full_r1'
 CHANGED={HDL+n for n in ('vision/vision_motion_grid.v','vision/vision_source_observer.v','isp/edge_control_stream.v','isp/planar_measure_stats.v','isp/color_compare_osd.v','isp/engineering_dimension_marks.v')}
 def snapshot():
  head=build.git('rev-parse','HEAD').decode().strip()
@@ -24,7 +24,7 @@ def snapshot():
  assert set(changed)<=CHANGED,changed
  return dict(source_commit=head,baseline=BASE,files=files,al_sha256=old['al_sha256'],old_bits={p.relative_to(ROOT).as_posix():build.sha(p) for p in (ROOT/'artifacts/bitstreams').glob('*/*.bit')})
 def regression_gate():
- folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','drawing','stream')]
+ folders=[ROOT/'tmp/inspection_parts_motion'/x for x in ('motion','profile','views','drawing','stream')]
  folders +=[ROOT/'tmp/inspection_parts_motion/regression'/x for x in ('font','shape','drawing','track','config','reset','select','contract','legacy','integrated','background_full','track_stream')]
  folders +=[ROOT/'tmp/latency_performance'/x for x in ('memory','rows','units','fifo','osd','video_path')]
  hashes={}

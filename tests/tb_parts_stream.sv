@@ -45,15 +45,13 @@ initial begin
    end
    beat(0,0,0,0,0,0);
    if(fr==7&&y==32)begin
-    if(!dut.g_color_compare.u_compare.parts || !dut.g_color_compare.u_compare.formatted)$fatal(1,"T profile not integrated");
-    if(dut.g_color_compare.u_compare.digits[0]!==20'h00800 || dut.g_color_compare.u_compare.digits[1]!==20'h00480 ||
-       dut.g_color_compare.u_compare.digits[2]!==20'h00160 || dut.g_color_compare.u_compare.digits[3]!==20'h00128 ||
-       dut.g_color_compare.u_compare.digits[4]!==20'h00320 || dut.g_color_compare.u_compare.digits[5]!==20'h00320 ||
-       dut.g_color_compare.u_compare.digits[6]!==20'h00352)$fatal(1,"T scale/field wiring");
+    if(!dut.g_color_compare.dim_part_valid || !dut.g_color_compare.u_compare.formatted)$fatal(1,"T profile not integrated");
+    if(dut.g_color_compare.dim_part_coords!=={1'b1,11'd560,11'd639,11'd304})$fatal(1,"T profile coordinates");
+    if(dut.g_color_compare.u_compare.digits[0]!==20'h00800 || dut.g_color_compare.u_compare.digits[1]!==20'h00480)$fatal(1,"T whole-view scale/field wiring");
    end
   end
  end
  repeat(40)beat(0,0,0,0,0,0);
- $display("PASS 8 full720p actual31-cycle streams, %d motion beats exact; T profile/calibration/7 fields integrated",verified);$finish;
+ $display("PASS 8 full720p actual31-cycle streams, %d motion beats exact; T profile/calibration/shared view formatter integrated",verified);$finish;
 end
 endmodule

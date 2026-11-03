@@ -17,14 +17,15 @@ module planar_measure_stats #(
     reg polarity;reg[7:0] cut;
     localparam SMALL_COUNT=SHAPE_ENABLE||COMPACT_COUNT;
     localparam COUNT_W=SMALL_COUNT?7:11,AREA_W=SMALL_COUNT?7:20;
-    reg[10:0] minx,maxx,miny,maxy,row_min,row_max,rows;
+    localparam ROWS_W=SMALL_COUNT?((MIN_ROWS<1)?1:$clog2(MIN_ROWS+1)):11;
+    reg[10:0] minx,maxx,miny,maxy,row_min,row_max;reg[ROWS_W-1:0]rows;
     reg[COUNT_W-1:0]row_count;
     reg[AREA_W-1:0] area;
     reg[1:0] run_h,run_v;
     reg[10:0] hx_left,hx_right,vy_top,vy_bottom;
     reg hx_lfound,hx_rfound,vy_tfound,vy_bfound,hcenter,vcenter;
     reg[10:0] next_min,next_max;reg[COUNT_W-1:0]next_count;
-    reg[1:0] next_run;
+    reg[1:0] next_run;reg[3:0]increment;reg[7:0]count_sum;
     reg[10:0] next_hleft,next_hright,next_vtop,next_vbottom;
     reg next_hlf,next_hrf,next_vtf,next_vbf,next_hcenter,next_vcenter;
     reg[1:0] next_vrun;
@@ -35,7 +36,7 @@ module planar_measure_stats #(
         next_hleft=hx_left;next_hright=hx_right;next_hlf=hx_lfound;next_hrf=hx_rfound;
         next_vtop=vy_top;next_vbottom=vy_bottom;next_vtf=vy_tfound;next_vbf=vy_bfound;
         next_hcenter=hcenter;next_vcenter=vcenter;next_vrun=run_v;
-        fg=0;q=0;start=0;
+        fg=0;q=0;start=0;increment=0;count_sum=0;
         for(k=0;k<4;k=k+1)begin
             q=px+k;
             fg=polarity?binary_pixels[3-k]:!binary_pixels[3-k];
@@ -59,9 +60,9 @@ module planar_measure_stats #(
                         if(next_run==3)begin
                             start=q-2;
                             if(start<next_min)next_min=start;
-                            next_max=q;if(!SMALL_COUNT || next_count<64)next_count=next_count+3;
+                            next_max=q;if(SMALL_COUNT)increment=increment+4'd3;else next_count=next_count+3;
                         end
-                    end else begin next_max=q;if(!SMALL_COUNT || next_count<64)next_count=next_count+1'b1;end
+                    end else begin next_max=q;if(SMALL_COUNT)increment=increment+4'd1;else next_count=next_count+1'b1;end
                     if(py==CY && next_run==3)begin
                         if(q<CX)begin next_hleft=q;next_hlf=1;end
                         if(q>=CX && !next_hrf)begin
@@ -70,6 +71,10 @@ module planar_measure_stats #(
                     end
                 end else next_run=0;
             end else next_run=0;
+        end
+        if(SMALL_COUNT)begin
+            count_sum={1'b0,row_count[6:0]}+increment;
+            next_count=count_sum>=8'd64 ? 7'd64 : count_sum[6:0];
         end
     end
     // Envelope area fills internal holes/highlights, but not a missing silhouette.
@@ -150,7 +155,7 @@ module planar_measure_stats #(
             if(px==WIDTH-4)begin
                 if(next_count>=MIN_ROW && py>=Y0 && py<Y1)begin
                     if(next_min<minx)minx<=next_min;if(next_max>maxx)maxx<=next_max;
-                    if(py<miny)miny<=py;maxy<=py;rows<=rows+1'b1;
+                    if(py<miny)miny<=py;maxy<=py;if(!SMALL_COUNT || rows<MIN_ROWS)rows<=rows+1'b1;
                     if(SMALL_COUNT)area<=small_area>=64?7'd64:small_area[6:0];else area<=area+next_count;
                 end
                 row_min<=2047;row_max<=0;row_count<=0;run_h<=0;
@@ -169,7 +174,7 @@ module planar_two_band_profile(
  output reg result_valid,output reg[33:0]coords);
  reg[1:0]state;reg ended;
  reg[8:0]al,ar,bl,br;
- reg[10:0]split,previous_y;
+ reg[10:0]split;
  wire[8:0]l=left_x[10:2],r=right_x[10:2];
  wire[8:0]ref_l=state==1?al:bl,ref_r=state==1?ar:br;
  // Modulo deltas of -1/0/+1 share one subtractor per endpoint. Valid ROI
@@ -183,16 +188,16 @@ module planar_two_band_profile(
  wire[10:0]ymin=box_coords[21:11],ymax=box_coords[10:0];
  wire[10:0]nl={a_wide?bl:al,2'b00},nr={a_wide?br:ar,2'b11};
  always @(posedge clk or negedge rst_n)begin
-  if(!rst_n)begin state<=0;ended<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;previous_y<=0;result_valid<=0;coords<=0;end
+  if(!rst_n)begin state<=0;ended<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;result_valid<=0;coords<=0;end
   else if(sof)begin
    result_valid<=commit && state==2 && (a_wide || b_wide) && split>=ymin+11'd6 && ymax+11'd1>=split+11'd6;
    coords<={a_wide,nl<xmin?xmin:nl,nr>xmax?xmax:nr,split};
    state<=0;ended<=0;
   end else if(row_end)begin
-   previous_y<=row_y;
+
    if(row_good)begin
     if(state==0)begin state<=1;al<=l;ar<=r;end
-    else if(ended || row_y!=previous_y+11'd1)state<=3;
+    else if(ended)state<=3;
     else if(state==1 && !same_band)begin state<=2;bl<=l;br<=r;split<=row_y;end
     else if(state==2 && !same_band)state<=3;
    end else if(state!=0)ended<=1;
