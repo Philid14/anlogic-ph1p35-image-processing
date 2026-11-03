@@ -1,0 +1,3 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS {"width": 1280, "height": 720, "input_cycles": 6108022, "checked_words": 4377438, "checked_pixels": 17509752, "completed_frames": 18, "exhaustive_3x3": false, "output_sha256": "613ba79ff48f2969a0bfad0be6989f3f8160d9fd61a6212c7ff1a4e0ee46397f", "max_tail_clocks": 322}
+PASS support3 all geometries; default bypass, set oracle, tags, tail and throughput

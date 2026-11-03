@@ -1,0 +1,629 @@
+{
+  "schema": 1,
+  "created_utc": "2026-10-19T14:06:13.226655+00:00",
+  "scope": "MODEL PROPOSAL; no physical CDC/DDR/HDMI, RTL implementation or board claim",
+  "source_sha256_lf": {
+    "run_frame_transactions.py": "a927632658dee8f5ab955fc1cde62a878065cd2a4d7585c0e81b0c95fbfd913f",
+    "model\\frame_transactions.py": "3a5ec6988e0acb47d24843b62b7f9b7e5cac4ead602225204cde91246a97ad7a",
+    "model\\integration_contract.py": "1fba1fc6ac614a045dd67ffe90be10e1d3da1e7c688d5b20b79f7084891e3c04"
+  },
+  "source_unchanged": true,
+  "fixtures": {
+    "slots": 4,
+    "max_age": 200,
+    "scan_bound": 20
+  },
+  "head": "8f49444460472e71b3242630a5d94ae2cd2e978d",
+  "cases": [
+    {
+      "name": "duplicate_reorder_and_wrap",
+      "input": {
+        "frames": [
+          1,
+          1,
+          0,
+          4294967295,
+          0
+        ]
+      },
+      "expected": [
+        "duplicate_or_reordered_capture",
+        "duplicate_or_reordered_capture",
+        4294967295,
+        "duplicate_or_reordered_capture"
+      ],
+      "observed": [
+        "duplicate_or_reordered_capture",
+        "duplicate_or_reordered_capture",
+        4294967295,
+        "duplicate_or_reordered_capture"
+      ],
+      "invariant": "Each session frame identity is unique and increasing; no in-session wrap",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "reader_lease_prevents_pixel_overwrite",
+      "input": {
+        "active": [
+          0,
+          1,
+          1
+        ],
+        "write": [
+          0,
+          2,
+          2
+        ]
+      },
+      "expected": [
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        "capture_dropped_reader_lease",
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        1
+      ],
+      "observed": [
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        "capture_dropped_reader_lease",
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        1
+      ],
+      "invariant": "In-flight pixels retain the exact selected generation; incoming video is never stalled",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "reuse_after_release_retires_old_result",
+      "input": {
+        "old_key": [
+          1,
+          1
+        ],
+        "new_key": [
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "retired_generation",
+        "result_missing"
+      ],
+      "observed": [
+        "retired_generation",
+        "result_missing"
+      ],
+      "invariant": "A stale result cannot attach to a reused slot, even after reader release",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "result_before_ddr_commit_is_staged",
+      "input": {
+        "result_at": 2,
+        "commit_after": 3
+      },
+      "expected": [
+        "result_staged",
+        "pixel_frame_unavailable",
+        "complete",
+        "visible"
+      ],
+      "observed": [
+        "result_staged",
+        "pixel_frame_unavailable",
+        "complete",
+        "visible"
+      ],
+      "invariant": "Detection completion does not imply DDR pixel completion",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "early_sof_cancel",
+      "input": {
+        "complete": false,
+        "beats": 2,
+        "errors": [
+          "early_sof"
+        ]
+      },
+      "expected": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "observed": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "invariant": "Cancelled or malformed frames never become a valid absence or displayable annotation",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "wrong_eol_cancel",
+      "input": {
+        "complete": true,
+        "beats": 4,
+        "errors": [
+          "wrong_eol"
+        ]
+      },
+      "expected": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "observed": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "invariant": "Cancelled or malformed frames never become a valid absence or displayable annotation",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "missing_eof_cancel",
+      "input": {
+        "complete": false,
+        "beats": 4,
+        "errors": []
+      },
+      "expected": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "observed": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "invariant": "Cancelled or malformed frames never become a valid absence or displayable annotation",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "partial_tail_cancel",
+      "input": {
+        "complete": true,
+        "beats": 4,
+        "errors": [
+          "source_lanes=2"
+        ]
+      },
+      "expected": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "observed": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "invariant": "Cancelled or malformed frames never become a valid absence or displayable annotation",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "last_beat_abort",
+      "input": {
+        "complete": true,
+        "beats": 4,
+        "errors": [
+          "abort"
+        ]
+      },
+      "expected": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "observed": [
+        "cancelled",
+        "pixel_frame_unavailable",
+        "cancelled_result"
+      ],
+      "invariant": "Cancelled or malformed frames never become a valid absence or displayable annotation",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "late_result_waits_for_next_display_boundary",
+      "input": {
+        "select": 10,
+        "result": 11,
+        "ready": 15,
+        "repeat": 17
+      },
+      "expected": [
+        "result_cached",
+        [
+          "result_missing",
+          null
+        ],
+        "visible",
+        false,
+        null,
+        16,
+        1,
+        1
+      ],
+      "observed": [
+        "result_cached",
+        [
+          "result_missing",
+          null
+        ],
+        "visible",
+        false,
+        null,
+        16,
+        1,
+        1
+      ],
+      "invariant": "Late results never alter an active frame; repeated display is age, not another latency sample",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "text_completion_is_not_mid_frame_commit",
+      "input": {
+        "text_ready": 20,
+        "display_start": 10
+      },
+      "expected": [
+        "text_not_ready",
+        [
+          "text_not_ready",
+          null
+        ],
+        "visible"
+      ],
+      "observed": [
+        "text_not_ready",
+        [
+          "text_not_ready",
+          null
+        ],
+        "visible"
+      ],
+      "invariant": "Box and text commit together; completing text mid-scan cannot reveal only half a bundle",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "newer_observation_cannot_change_active_frame",
+      "input": {
+        "active": "A",
+        "new_result": "B"
+      },
+      "expected": [
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        "duplicate_result",
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ]
+      ],
+      "observed": [
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ],
+        "duplicate_result",
+        [
+          "visible",
+          [
+            "A"
+          ]
+        ]
+      ],
+      "invariant": "Published data and the scan snapshot are immutable even when newer observations arrive",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "mixed_box_key",
+      "input": {
+        "pixel": [
+          1,
+          1
+        ],
+        "box_key": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "observed": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "invariant": "Pixel, box and text must carry exactly the same observation identity",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "mixed_text_key",
+      "input": {
+        "pixel": [
+          1,
+          1
+        ],
+        "text_key": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "observed": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "invariant": "Pixel, box and text must carry exactly the same observation identity",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "mixed_key",
+      "input": {
+        "pixel": [
+          1,
+          1
+        ],
+        "key": [
+          1,
+          2
+        ]
+      },
+      "expected": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "observed": [
+        "mixed_observation",
+        "result_missing"
+      ],
+      "invariant": "Pixel, box and text must carry exactly the same observation identity",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "cannot_refresh_old_capture_timestamp",
+      "input": {
+        "capture_tick": 1,
+        "forged_tick": 2
+      },
+      "expected": "capture_time_mismatch",
+      "observed": "capture_time_mismatch",
+      "invariant": "Result arrival and text preparation must not make the underlying image younger",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "whole_scan_age_181",
+      "input": {
+        "capture": 1,
+        "start": 181,
+        "scan_bound": 20,
+        "age_limit": 200
+      },
+      "expected": "visible",
+      "observed": "visible",
+      "invariant": "The whole permitted scan, not merely its first pixel, must fit the age budget",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "whole_scan_age_182",
+      "input": {
+        "capture": 1,
+        "start": 182,
+        "scan_bound": 20,
+        "age_limit": 200
+      },
+      "expected": "whole_scan_age_exceeded",
+      "observed": "whole_scan_age_exceeded",
+      "invariant": "The whole permitted scan, not merely its first pixel, must fit the age budget",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "scan_overrun_masks_annotation",
+      "input": {
+        "start": 10,
+        "bound": 20,
+        "query": 31
+      },
+      "expected": [
+        null,
+        "scan_bound_overrun"
+      ],
+      "observed": [
+        null,
+        "scan_bound_overrun"
+      ],
+      "invariant": "An exceeded scan-duration contract cannot keep an annotation valid",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "restart_rejects_inflight_packet_and_old_release",
+      "input": {
+        "old_sid": 1,
+        "new_sid": 2
+      },
+      "expected": [
+        "retired_generation",
+        "retired_scan_token",
+        2,
+        4
+      ],
+      "observed": [
+        "retired_generation",
+        "retired_scan_token",
+        2,
+        4
+      ],
+      "invariant": "A prior epoch packet or release cannot revalidate or unlock a new scan",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "session_reuse_is_rejected",
+      "input": {
+        "reuse_sid": 1
+      },
+      "expected": "session_reuse",
+      "observed": "session_reuse",
+      "invariant": "Session tokens cannot alias surviving old observations",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "cdc_loss_masks_all_annotation",
+      "input": {
+        "fault": "event_loss"
+      },
+      "expected": [
+        null,
+        "transport_or_time_untrusted"
+      ],
+      "observed": [
+        null,
+        "transport_or_time_untrusted"
+      ],
+      "invariant": "A loss/reset barrier removes all annotation eligibility without a video ready signal",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "metadata_loss_cannot_emit_valid_latency",
+      "input": {
+        "fault": "event_loss",
+        "repeat_at": 12
+      },
+      "expected": [
+        null,
+        null,
+        1,
+        0
+      ],
+      "observed": [
+        null,
+        null,
+        1,
+        0
+      ],
+      "invariant": "Untrusted metadata cannot increase reliable statistics or emit a valid age",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "clock_rollback_requires_new_session",
+      "input": {
+        "now": [
+          12,
+          3
+        ]
+      },
+      "expected": "clock_moved_backwards_requires_session",
+      "observed": "clock_moved_backwards_requires_session",
+      "invariant": "A wrapping/invalid clock cannot make stale observations appear fresh",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "new_session_can_rebase_time",
+      "input": {
+        "new_sid": 2,
+        "now": 0
+      },
+      "expected": [
+        true,
+        0
+      ],
+      "observed": [
+        true,
+        0
+      ],
+      "invariant": "Time recovery requires an explicit new session and cancels previous associations",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "skip_ab_display_c_only",
+      "input": {
+        "capture_ticks": [
+          1,
+          2,
+          3
+        ],
+        "display_c": [
+          13,
+          15
+        ]
+      },
+      "expected": [
+        10,
+        false,
+        null,
+        12,
+        1,
+        1
+      ],
+      "observed": [
+        10,
+        false,
+        null,
+        12,
+        1,
+        1
+      ],
+      "invariant": "Skipping A/B must not turn C latency into the age of the first queued capture",
+      "failure_condition": "observed differs from literal expected",
+      "passed": true
+    }
+  ],
+  "passed": true,
+  "integration_ready": false
+}

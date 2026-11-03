@@ -1,0 +1,5 @@
+# Raw process output and original review baseline are retained byte-for-byte.
+*.log -text -whitespace
+*.csv -text -whitespace
+PROJECT_REVIEW_BASELINE.md -text
+source-excerpts.md -whitespace

@@ -1,0 +1,52 @@
+Reading D:/altera/14.1/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet -gCLASS=6 work.tb_target_class_contract -do "run -all; quit -f" 
+# Start time: 13:22:52 on Oct 18,2026
+# ** Warning: (vsim-3017) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(32): [TFMPC] - Too few port connections. Expected 26, found 25.
+# 
+#         Region: /tb_target_class_contract/paths[1]/rgb_stream/dut
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(32): [TFMPC] - Missing connection for port 'O_protocol_error'.
+# 
+# ** Warning: (vsim-3017) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(32): [TFMPC] - Too few port connections. Expected 26, found 25.
+# 
+#         Region: /tb_target_class_contract/paths[2]/rgb_stream/dut
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(32): [TFMPC] - Missing connection for port 'O_protocol_error'.
+# 
+# ** Warning: (vsim-3017) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(40): [TFMPC] - Too few port connections. Expected 26, found 25.
+# 
+#         Region: /tb_target_class_contract/paths[3]/mask_stats/dut
+# ** Warning: (vsim-3722) C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(40): [TFMPC] - Missing connection for port 'O_protocol_error'.
+# 
+# run -all
+# C 1 1
+# R 0 4660 1 1 1 0 24 0 7 0 2 3 1
+# R 3 4660 1 1 1 0 24 0 7 0 2 3 1
+# R 1 4660 1 1 1 0 24 0 7 0 2 3 1
+# R 2 4660 1 1 1 0 24 0 7 0 2 3 1
+# C 2 0
+# R 0 4660 2 1 0 0 0 0 0 0 0 0 0
+# R 3 4660 2 1 1 0 24 0 7 0 2 3 1
+# R 1 4660 2 1 0 0 0 0 0 0 0 0 0
+# R 2 4660 2 1 0 0 0 0 0 0 0 0 0
+# C 3 0
+# R 0 4660 3 1 0 0 0 0 0 0 0 0 0
+# R 3 4660 3 1 1 0 24 0 7 0 2 3 1
+# R 1 4660 3 1 0 0 0 0 0 0 0 0 0
+# R 2 4660 3 1 0 0 0 0 0 0 0 0 0
+# C 4 0
+# R 0 4660 4 1 0 0 0 0 0 0 0 0 0
+# R 3 4660 4 1 0 0 0 0 0 0 0 0 0
+# R 1 4660 4 1 0 0 0 0 0 0 0 0 0
+# R 2 4660 4 1 0 0 0 0 0 0 0 0 0
+# C 5 1
+# R 0 4660 5 0 0 0 0 0 0 0 0 0 0
+# R 3 4660 5 0 0 0 0 0 0 0 0 0 0
+# R 1 4660 5 0 0 0 0 0 0 0 0 0 0
+# R 2 4660 5 0 0 0 0 0 0 0 0 0 0
+# PASS target class probe completed
+# ** Note: $finish    : C:/Users/Kelinna/Documents/Codex/2026-10-16/AnlogicTrack2/work/target-text-atomic/features/color_target/tb/tb_target_class_contract.v(76)
+#    Time: 1940 ns  Iteration: 1  Instance: /tb_target_class_contract
+# End time: 13:22:53 on Oct 18,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 6

@@ -1,0 +1,1002 @@
+{
+  "schema": 1,
+  "status": "PROPOSED CONTRACT MODEL ONLY",
+  "fixture_limits": {
+    "age_ticks": 5,
+    "acquire": 2,
+    "lose": 2,
+    "queue": 2
+  },
+  "source_sha256": {
+    "run_integration_contract.py": "d8c4e88762f5e87f65f334dbd1646d400b1d2c64092a6fb70b70b19877cecc41",
+    "integration_contract.py": "1fba1fc6ac614a045dd67ffe90be10e1d3da1e7c688d5b20b79f7084891e3c04"
+  },
+  "cases": [
+    {
+      "name": "identity_duplicate_and_reorder",
+      "category": 1,
+      "inputs": {
+        "frames": [
+          10,
+          10,
+          9,
+          11
+        ],
+        "time": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      "expected": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "duplicate",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "out_of_order",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "positive",
+          2,
+          2,
+          0,
+          true
+        ]
+      ],
+      "observed": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "duplicate",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "out_of_order",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "positive",
+          2,
+          2,
+          0,
+          true
+        ]
+      ],
+      "invariant": "Only unique increasing identities may advance observations or acquisition",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "frame_gap_is_not_fabricated_misses",
+      "category": 1,
+      "inputs": {
+        "frames": [
+          10,
+          12
+        ]
+      },
+      "expected": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "positive",
+          2,
+          2,
+          0,
+          true
+        ]
+      ],
+      "observed": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "positive",
+          2,
+          2,
+          0,
+          true
+        ]
+      ],
+      "invariant": "Frame gaps are transport/age facts, not fabricated no-target observations",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "session_restart_and_late_old_session",
+      "category": 2,
+      "inputs": {
+        "start_session": 7,
+        "late_packet": [
+          1,
+          99
+        ],
+        "new_packet": [
+          7,
+          0
+        ]
+      },
+      "expected": [
+        [
+          "wrong_session",
+          0,
+          0,
+          0,
+          false
+        ],
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ]
+      ],
+      "observed": [
+        [
+          "wrong_session",
+          0,
+          0,
+          0,
+          false
+        ],
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ]
+      ],
+      "invariant": "Only explicit session authority changes epoch; old packets cannot restart tracking",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "session_reuse_rejected",
+      "category": 2,
+      "inputs": {
+        "reuse_session": 7
+      },
+      "expected": "session_reuse_without_retirement",
+      "observed": "session_reuse_without_retirement",
+      "invariant": "No session token reuse while old associations can exist",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "same_session_wrap_rejected",
+      "category": 1,
+      "inputs": {
+        "frames": [
+          4294967295,
+          0
+        ]
+      },
+      "expected": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "out_of_order",
+          1,
+          1,
+          0,
+          false
+        ]
+      ],
+      "observed": [
+        [
+          "positive",
+          1,
+          1,
+          0,
+          false
+        ],
+        [
+          "out_of_order",
+          1,
+          1,
+          0,
+          false
+        ]
+      ],
+      "invariant": "Frame counter cannot wrap within the same session",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "early_sof_quarantines_until_reset",
+      "category": 3,
+      "inputs": [
+        {
+          "x": 0,
+          "y": 0,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "sof": false,
+          "eol": true,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "sof": false,
+          "eol": true,
+          "eof": true,
+          "source_lanes": 4
+        }
+      ],
+      "expected": [
+        "beat",
+        "beat",
+        "early_sof_requires_reset",
+        "needs_reset"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "early_sof_requires_reset",
+        "needs_reset"
+      ],
+      "invariant": "Premature SOF must not silently relabel old line state",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "wrong_eol_poison_complete_frame",
+      "category": 3,
+      "inputs": [
+        {
+          "x": 0,
+          "y": 0,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "sof": false,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "sof": false,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "sof": false,
+          "eol": true,
+          "eof": true,
+          "source_lanes": 4
+        }
+      ],
+      "expected": [
+        "beat",
+        "beat",
+        "beat",
+        "invalid_frame"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "beat",
+        "invalid_frame"
+      ],
+      "invariant": "Malformed complete raster is invalid, never a valid absence",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "missing_eof_requires_explicit_recovery",
+      "category": 3,
+      "inputs": [
+        {
+          "x": 0,
+          "y": 0,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "sof": false,
+          "eol": true,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "sof": false,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "sof": false,
+          "eol": true,
+          "eof": false,
+          "source_lanes": 4
+        }
+      ],
+      "expected": [
+        "beat",
+        "beat",
+        "beat",
+        "missing_eof_requires_reset"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "beat",
+        "missing_eof_requires_reset"
+      ],
+      "invariant": "No valid result may be inferred from silence or missing EOF",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "reset_then_complete_new_session",
+      "category": 3,
+      "inputs": {
+        "reset": true,
+        "new_key": [
+          2,
+          0
+        ]
+      },
+      "expected": [
+        "beat",
+        "beat",
+        "beat",
+        "complete_frame"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "beat",
+        "complete_frame"
+      ],
+      "invariant": "Recovery starts at a complete new-session SOF",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "partial_tail_is_unrepresentable",
+      "category": 4,
+      "inputs": [
+        {
+          "x": 0,
+          "y": 0,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "sof": false,
+          "eol": true,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "sof": false,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "sof": false,
+          "eol": true,
+          "eof": true,
+          "source_lanes": 2
+        }
+      ],
+      "expected": [
+        "beat",
+        "beat",
+        "beat",
+        "partial_tail_requires_abort"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "beat",
+        "partial_tail_requires_abort"
+      ],
+      "invariant": "V1 has no lane-valid mask: partial source beat requires rejection/abort before TARGET",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "abort_on_last_beat_invalidates_frame",
+      "category": 4,
+      "inputs": [
+        {
+          "x": 0,
+          "y": 0,
+          "sof": true,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 0,
+          "sof": false,
+          "eol": true,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 0,
+          "y": 1,
+          "sof": false,
+          "eol": false,
+          "eof": false,
+          "source_lanes": 4
+        },
+        {
+          "x": 4,
+          "y": 1,
+          "sof": false,
+          "eol": true,
+          "eof": true,
+          "source_lanes": 4,
+          "abort": true
+        }
+      ],
+      "expected": [
+        "beat",
+        "beat",
+        "beat",
+        "invalid_frame"
+      ],
+      "observed": [
+        "beat",
+        "beat",
+        "beat",
+        "invalid_frame"
+      ],
+      "invariant": "EOF lane data cannot override a frame abort",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "last_lane_geometric_gold",
+      "category": 4,
+      "inputs": {
+        "only_hit": [
+          7,
+          1
+        ],
+        "filter": false
+      },
+      "expected": [
+        7,
+        1,
+        7,
+        1
+      ],
+      "observed": [
+        7,
+        1,
+        7,
+        1
+      ],
+      "invariant": "Last lane on EOF contributes; existing RTL full-frame regression provides hardware evidence",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "late_result_does_not_change_active_scan",
+      "category": 5,
+      "inputs": {
+        "display_start": 3,
+        "result_ready": 4,
+        "repeat_display": 5
+      },
+      "expected": [
+        "missing",
+        [
+          "missing",
+          null
+        ],
+        "visible"
+      ],
+      "observed": [
+        "missing",
+        [
+          "missing",
+          null
+        ],
+        "visible"
+      ],
+      "invariant": "Late result may serve a later matching display, never update current scan",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "missing_result_never_borrows_latest_box",
+      "category": 5,
+      "inputs": {
+        "frame": [
+          1,
+          1
+        ],
+        "result": null
+      },
+      "expected": "missing",
+      "observed": "missing",
+      "invariant": "Missing result hides overlay; does not fabricate no-target or borrow another frame",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "slot_reuse_retires_old_generation",
+      "category": 6,
+      "inputs": {
+        "slot": 0,
+        "old": [
+          1,
+          1,
+          1
+        ],
+        "new": [
+          2,
+          1,
+          2
+        ]
+      },
+      "expected": [
+        "retired_or_incomplete",
+        "missing"
+      ],
+      "observed": [
+        "retired_or_incomplete",
+        "missing"
+      ],
+      "invariant": "Slot number alone is not identity; retired generations cannot supply annotations",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "overwrite_during_scan_exposes_integrity_failure",
+      "category": 6,
+      "inputs": {
+        "write_after_select": true
+      },
+      "expected": "slot_overwritten_during_scan",
+      "observed": "slot_overwritten_during_scan",
+      "invariant": "Selected pixel lease must remain valid; hiding overlay does not repair corrupted video",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "display_repeat_and_skip",
+      "category": 7,
+      "inputs": {
+        "display_frames": [
+          1,
+          1,
+          3
+        ]
+      },
+      "expected": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "observed": [
+        "visible",
+        "visible",
+        "visible"
+      ],
+      "invariant": "Display repetition/skip does not generate acquisition observations",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "cdc_source_reset_with_inflight",
+      "category": 8,
+      "inputs": {
+        "side": "source",
+        "old_frame": 1,
+        "new_frame": 2
+      },
+      "expected": [
+        [
+          1
+        ],
+        null,
+        2
+      ],
+      "observed": [
+        [
+          1
+        ],
+        null,
+        2
+      ],
+      "invariant": "Endpoint reset cancels in-flight epoch; old request/ack cannot reappear as fresh",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "cdc_destination_reset_with_inflight",
+      "category": 8,
+      "inputs": {
+        "side": "destination",
+        "old_frame": 1,
+        "new_frame": 2
+      },
+      "expected": [
+        [
+          1
+        ],
+        null,
+        2
+      ],
+      "observed": [
+        [
+          1
+        ],
+        null,
+        2
+      ],
+      "invariant": "Endpoint reset cancels in-flight epoch; old request/ack cannot reappear as fresh",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "bounded_channel_reports_overflow",
+      "category": 8,
+      "inputs": {
+        "capacity": 2,
+        "undrained_frames": [
+          1,
+          2,
+          3
+        ]
+      },
+      "expected": [
+        "queued",
+        "queued",
+        "overflow_reported"
+      ],
+      "observed": [
+        "queued",
+        "queued",
+        "overflow_reported"
+      ],
+      "invariant": "No silent overwrite or video backpressure; overflow is a counted whole-packet loss",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "channel_atomic_order_and_loss_accounting",
+      "category": 8,
+      "inputs": {
+        "drain": true
+      },
+      "expected": [
+        1,
+        2,
+        1
+      ],
+      "observed": [
+        1,
+        2,
+        1
+      ],
+      "invariant": "All admitted packets are whole and ordered, rejected packets are counted",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "box_text_identity_mismatch",
+      "category": 9,
+      "inputs": {
+        "box_frame": 1,
+        "text_frame": 2
+      },
+      "expected": "mixed_observation",
+      "observed": "mixed_observation",
+      "invariant": "Box/cross/text/count/state must represent one committed observation",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "invalid_and_valid_absence_are_distinct",
+      "category": 10,
+      "inputs": {
+        "after_confirmation": [
+          "invalid",
+          "no_target",
+          "no_target"
+        ]
+      },
+      "expected": [
+        [
+          "invalid",
+          2,
+          2,
+          0,
+          true
+        ],
+        [
+          "no_target",
+          3,
+          0,
+          1,
+          true
+        ],
+        [
+          "no_target",
+          4,
+          0,
+          2,
+          false
+        ]
+      ],
+      "observed": [
+        [
+          "invalid",
+          2,
+          2,
+          0,
+          true
+        ],
+        [
+          "no_target",
+          3,
+          0,
+          1,
+          true
+        ],
+        [
+          "no_target",
+          4,
+          0,
+          2,
+          false
+        ]
+      ],
+      "invariant": "Invalid frames do not count absence; valid absence advances loss policy",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "silence_expires_old_observation",
+      "category": 10,
+      "inputs": {
+        "last_positive": 2,
+        "now": 8,
+        "fixture_age_limit": 5
+      },
+      "expected": false,
+      "observed": false,
+      "invariant": "Age advances with trusted time even without result strobes",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "late_positive_cannot_refresh_age",
+      "category": 10,
+      "inputs": {
+        "arrival": 9,
+        "capture": 2,
+        "fixture_age_limit": 5
+      },
+      "expected": [
+        "stale_result",
+        2,
+        0,
+        0,
+        false
+      ],
+      "observed": [
+        "stale_result",
+        2,
+        0,
+        0,
+        false
+      ],
+      "invariant": "Age derives from capture time, never packet arrival time",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "future_timestamp_rejected",
+      "category": 10,
+      "inputs": {
+        "now": 1,
+        "capture": 3
+      },
+      "expected": [
+        "future_time",
+        0,
+        0,
+        0,
+        false
+      ],
+      "observed": [
+        "future_time",
+        0,
+        0,
+        0,
+        false
+      ],
+      "invariant": "Untrusted/future time cannot establish freshness",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "age_budget_covers_entire_scan",
+      "category": 10,
+      "inputs": {
+        "start": 4,
+        "duration_bound": 2,
+        "capture": 0,
+        "age_limit": 5
+      },
+      "expected": "age_budget",
+      "observed": "age_budget",
+      "invariant": "Frame-atomic display needs age margin through scan, not only at SOF",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "reset_cancels_complete_tail_and_partial_frame",
+      "category": 3,
+      "inputs": {
+        "frame1_eof": 10,
+        "due": 15,
+        "frame2_partial": true,
+        "reset": 13
+      },
+      "expected": [
+        [
+          1,
+          2
+        ],
+        []
+      ],
+      "observed": [
+        [
+          1,
+          2
+        ],
+        []
+      ],
+      "invariant": "Every reset-cancelled result is accounted, including complete pending tails",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "negative_wrong_box",
+      "category": 9,
+      "inputs": {
+        "faulty_state": "wrong_box"
+      },
+      "expected": "mixed_observation",
+      "observed": "mixed_observation",
+      "invariant": "Invariant rejects injected faulty committed state",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "negative_wrong_text",
+      "category": 9,
+      "inputs": {
+        "faulty_state": "wrong_text"
+      },
+      "expected": "mixed_observation",
+      "observed": "mixed_observation",
+      "invariant": "Invariant rejects injected faulty committed state",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    },
+    {
+      "name": "negative_wrong_session",
+      "category": 9,
+      "inputs": {
+        "faulty_state": "wrong_session"
+      },
+      "expected": "mixed_observation",
+      "observed": "mixed_observation",
+      "invariant": "Invariant rejects injected faulty committed state",
+      "failure": "observed differs from literal expected",
+      "passed": true
+    }
+  ],
+  "passed": 31,
+  "total": 31,
+  "categories_covered": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+  ]
+}

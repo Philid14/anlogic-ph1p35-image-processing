@@ -1,0 +1,49 @@
+{
+  "schema": 1,
+  "manifests": [
+    {
+      "label": "primary",
+      "sha256": "f993180559f4e0b9046bb09fdd59ce32c6f7e83737f490c75e2e8ca9c91499a6"
+    }
+  ],
+  "camera_material_used": false,
+  "parameters": {
+    "target_class": 0,
+    "hue_half_width_deg": 30,
+    "c_min": 24,
+    "v_min": 32,
+    "min_count": 4
+  },
+  "quality_note": "Synthetic controls establish mechanism correctness only; camera policy reserved",
+  "declared_unique_rgb_frames": 23,
+  "results": [
+    {
+      "mode": "bypass-64x48",
+      "width": 64,
+      "height": 48,
+      "input_cycles": 76241,
+      "accepted_pixels": 193540,
+      "result_events": 62,
+      "track_events": 61,
+      "display_probes": 18276,
+      "legacy_results_compared": 59,
+      "cancelled_frames": 2,
+      "event_sha256": "da01372bd0d21af6da8baea0a1a5aa1870df05e71c55bb085ed2ddab3871963b",
+      "metrics_by_source_and_split": {
+        "synthetic/validation": {
+          "frames": 64,
+          "annotated": 60,
+          "unknown": 4,
+          "evaluated_frames": 51,
+          "excluded_known_frames": 9,
+          "positive_frames": 44,
+          "negative_frames": 7,
+          "misses": 3,
+          "false_positives": 4,
+          "mean_positive_iou": 0.7985647638177931,
+          "center_l1_p95": 112
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+PASS baseline checks=187 failures=0
+PASS ignore_slot_generation checks=187 failures=2
+PASS live_box_during_scan checks=187 failures=3
+PASS ignore_frame_identity checks=187 failures=2
+PASS skip_text_preparation_barrier checks=187 failures=2
+PASS freeze_age_with_observation_clock checks=187 failures=1
+DISPLAY_TRANSACTIONS_COMPLETE jobs=6 matched=6 source_unchanged=True

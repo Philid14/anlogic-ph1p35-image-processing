@@ -1,0 +1,20 @@
+4ec3d35a5cd08cc2d64fe03aa403be16fd696706 test(target): consolidate verification and board observation workflow
+f540f7b50c3e3906cafa04b614aafebe4da41fa8 feat(target): add text overlay (coords/state), demo steps, and an evidence-backed interface checklist
+1b5d958ed02e3753c64694ef36bdb3d5d397ed64 fix(target): clamp all remaining parameters; add param-equivalence checks and a frame renderer
+3e19cc1cc164e9aea7423cc05db8edccae350c4e fix(target): fix hue product overflow, abort-frame leak, and TRACK first-miss threshold
+8c5d34f14d64e06dd4b55fefd016b32cf9d332f4 fix(target): make simulator lookup fully explicit; clamp MIN_COUNT; add track invariants
+4a8b2da6382bc7e473288384c0f4a85370718703 refactor(target): extract shared sim backend; drop hard-coded tool paths; close abort gaps
+4c401727ee019d1b0a237bdd0cc208f5a6cd8295 fix(target): center the cross thickness; add model-independent invariants; fix docs
+3e8e60578cd6213f64c9ba1d795860ffa6a007fa docs(target): add one-page integration guide for MAIN
+e51566e1a81c9d76da93450a5e1a0169176d77d3 test(target): add end-to-end chain self-check (detect -> track -> overlay)
+d1e146fd7aa4683be07400493b8e6f0122c96eb9 feat(target): add tracking state machine and debounce (T4) with frame-exact self-check
+bb293495b3f00d21d1feaa779431ec0fcf4fcd19 feat(target): add color target overlay module (T3) with pixel-exact self-check
+19ea8bec11a5223ba90ac69bfe9b9f7aef73d1b0 feat(target): add standalone color target detector (T1+T2) with self-check
+dff499a75cf0a348aaf2167548b4fe34bf4a78a9 Correct pure-input key ADC attributes and document board tests
+c786b86aad817a74b8753b942a7e6bae594bfa51 Record GAIN_TEST_E selected board brightness baseline
+3551f854f099c589c552ca0777039dc853676e6d Record GAIN_TEST_B board comparison
+7665bb1e7646fd00f913a5df7753445cc66a83ce Record GAIN_TEST_A board comparison
+fca1fee4d108b5b004dc359e23e15f8e21a3f92e Record A B C gain sweep board result
+2062775facf1ea78ceaabbee379e947da3fec71c Record AWB_V2 board feedback and freeze ISP baseline
+3536979b730eb2baa17313d04525be28ab9c389d docs(blc): record BLC_V1 board observations
+e8486d26d41f645056b8c7e1d94e45346105a11d chore(artifacts): 归档 BASELINE_V0 与 AWB_V1 候选 bit 及构建信息

@@ -1,0 +1,16 @@
+{
+  "schema": 1,
+  "results": [
+    {
+      "width": 1280,
+      "height": 3,
+      "input_cycles": 28263,
+      "checked_words": 18078,
+      "checked_pixels": 72312,
+      "completed_frames": 18,
+      "exhaustive_3x3": false,
+      "output_sha256": "b8e7d5d2c1b91e1a3fcdcd8933ae0166ea3403e746cae0d399e74600b966d5e7",
+      "max_tail_clocks": 322
+    }
+  ]
+}

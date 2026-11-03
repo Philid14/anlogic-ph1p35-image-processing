@@ -1,0 +1,2 @@
+# Selected verification transcripts are evidence, not disposable build output.
+!*.log

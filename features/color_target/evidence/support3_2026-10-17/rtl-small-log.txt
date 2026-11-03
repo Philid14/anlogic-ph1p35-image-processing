@@ -1,0 +1,8 @@
+[sim] 使用 modelsim：D:\altera\14.1\modelsim_ase\win32aloem（来源：--msim 指定）
+PASS {"width": 4, "height": 1, "input_cycles": 59, "checked_words": 19, "checked_pixels": 76, "completed_frames": 19, "exhaustive_3x3": false, "output_sha256": "470f7230af30a258e335d5bfec49ae54ffd7d82d89c92c40f08b3dc8a68c7693", "max_tail_clocks": 3}
+PASS {"width": 4, "height": 2, "input_cycles": 132, "checked_words": 50, "checked_pixels": 200, "completed_frames": 25, "exhaustive_3x3": false, "output_sha256": "2782b13e568207886dd35efc0f58f15fce1304afdc7fa0f57f20c7c4529dc970", "max_tail_clocks": 3}
+PASS {"width": 8, "height": 1, "input_cycles": 129, "checked_words": 50, "checked_pixels": 200, "completed_frames": 25, "exhaustive_3x3": false, "output_sha256": "30f0122cdb9e4abb4fd01d279ef1c826c68971d1288f8244212906189884b207", "max_tail_clocks": 4}
+PASS {"width": 8, "height": 3, "input_cycles": 286, "checked_words": 153, "checked_pixels": 612, "completed_frames": 25, "exhaustive_3x3": false, "output_sha256": "f3ed57c45caf48af603ba2b026b2905de8857d78361beb0336bc0309a6d9a487", "max_tail_clocks": 4}
+PASS {"width": 12, "height": 7, "input_cycles": 834, "checked_words": 542, "checked_pixels": 2168, "completed_frames": 25, "exhaustive_3x3": false, "output_sha256": "5e765b6079c39f284dc3fef0c12fa08beb0180c7ef44ee9e4f647c098bb02c13", "max_tail_clocks": 5}
+PASS {"width": 32, "height": 9, "input_cycles": 222440, "checked_words": 149322, "checked_pixels": 597288, "completed_frames": 2073, "exhaustive_3x3": true, "output_sha256": "fe75ff946e26d8e77a1c053796bb81ee89d9db0dc26a4d0eae03031dbb00ab22", "max_tail_clocks": 10}
+PASS support3 all geometries; default bypass, set oracle, tags, tail and throughput

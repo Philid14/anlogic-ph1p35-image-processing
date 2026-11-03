@@ -1,0 +1,74 @@
+[
+  {
+    "parameter": -2147483648,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "6feef0d7d2732e23dad7f49b1f352bbb905eecd8099bdb130285bd0e6b8060cf"
+  },
+  {
+    "parameter": -3,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "4c52a1676438d06502a1051ef6d3f3ed737601756f826972344ce55554e3e60f"
+  },
+  {
+    "parameter": -1,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "4f6b38b1159cac7aef69e48b71eba84d98bb821409a7fefd68d3af1ad1bce633"
+  },
+  {
+    "parameter": 0,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "dd8147ab0592b459fe2e099dc2956cde0361410cd9d4dd2e35ce86f2bd9ffc61"
+  },
+  {
+    "parameter": 1,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "6ba136101623a8a4855f295041c4fc2abcf3d237ac2afd8d94ec0e90cbbfcc14"
+  },
+  {
+    "parameter": 2,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "2393b6ef4ac9db25fe75fae91f83d7b2d2254de89d96571aa7efc55d6d3dfb61"
+  },
+  {
+    "parameter": 3,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "651683f35c882c237071ef6d0e4f2ebec01a7fa904a222fed8daa8dffa2a1b40"
+  },
+  {
+    "parameter": 4,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "c0008a3541bb0e2353b97b9d4d7899378f428f202ce8927d125282b9ffc97842"
+  },
+  {
+    "parameter": 5,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "92acbe109b10055e3aa8dfa8c81db8352587bc78a985130f94b7c395a061f76c"
+  },
+  {
+    "parameter": 6,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "9ce843a6d8df91719bb6349284b857f6981f3434893899a53abc1bed92fd12aa"
+  },
+  {
+    "parameter": 7,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "b4a604be4a44f612c5cc00d4d99a24476b077b8deeb5ab24523360911c9bb093"
+  },
+  {
+    "parameter": 2147483647,
+    "injected_runtime_exit": 0,
+    "simlib_ok": true,
+    "fixture_sha256_lf": "ae446ebadef2948fa8fb9ec6d344295263cdee39b3e2428d3110d6e97947bae3"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "changed_files": [
+    "features/color_target/INTEGRATION.md",
+    "features/color_target/INTERFACE.md",
+    "features/color_target/README.md",
+    "features/color_target/VERIFICATION.md",
+    "features/color_target/run_verification.py",
+    "features/color_target/tb/test_verification_runner.py",
+    "features/color_target/tools/simlib.py",
+    "features/color_target/board/MAIN_HANDOFF.md",
+    "features/color_target/board/TARGET_ACCEPTANCE.md",
+    "features/color_target/board/TARGET_DELIVERY.json",
+    "features/color_target/board/TARGET_REPORT_TEMPLATE.md",
+    "features/color_target/tb/test_simlib_failures.py"
+  ],
+  "production_rtl_changed": false,
+  "main_changed": false,
+  "large_files": false,
+  "credential_patterns_found": [],
+  "main_is_ancestor": true
+}

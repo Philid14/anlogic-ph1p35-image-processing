@@ -1,0 +1,4 @@
+Model Technology ModelSim ALTERA STARTER EDITION vsim 10.3c Simulator 2014.09 Sep 20 2014
+version query exit_code=0
+Python 3.12.14
+No TD synthesis, P&R, bit generation or hardware download was performed.

@@ -1,0 +1,10 @@
+test_geometry_not_silently_scaled (test_candidate_replay_preflight.ReplayPreflight.test_geometry_not_silently_scaled) ... ok
+test_missing_pinned_classifier_rejected (test_candidate_replay_preflight.ReplayPreflight.test_missing_pinned_classifier_rejected) ... ok
+test_tampered_pinned_classifier_rejected_even_if_local_matches (test_candidate_replay_preflight.ReplayPreflight.test_tampered_pinned_classifier_rejected_even_if_local_matches) ... ok
+test_unannotated_is_unknown_not_absence (test_candidate_replay_preflight.ReplayPreflight.test_unannotated_is_unknown_not_absence) ... ok
+test_wrong_tap_rejected (test_candidate_replay_preflight.ReplayPreflight.test_wrong_tap_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.037s
+
+OK

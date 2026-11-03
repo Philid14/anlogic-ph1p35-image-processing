@@ -1,0 +1,13 @@
+{
+  "base_head": "131b4382507cc0979c9aeda0f522fac092ffbab8",
+  "tested_source_working_changes": true,
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "production_rtl_unchanged": 9,
+  "original_parser_blob": "cafa3d06b25ce1a5f6fd2e04ad67fa3d9ba62294",
+  "original_tb_blob": "c76f431631c18847d5d37e8a7fe84be711ebfd35",
+  "tool_stages": 54,
+  "extra_vcd_replays": 2,
+  "board_test": "NOT_RUN",
+  "place_and_route": "NOT_RUN",
+  "bit": null
+}

@@ -1,0 +1,2 @@
+# Preserve exact simulator stdout, including blank-line spaces.
+track-transcript.txt -whitespace

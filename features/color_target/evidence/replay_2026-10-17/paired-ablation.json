@@ -1,0 +1,84 @@
+{
+  "clean_motion": {
+    "paired_frames": 6,
+    "positive_frames": 6,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "isolated_noise": {
+    "paired_frames": 6,
+    "positive_frames": 6,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 0.022808267997148968,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "empty_clusters": {
+    "paired_frames": 4,
+    "positive_frames": 0,
+    "raw_positive_iou_sum": 0.0,
+    "filtered_positive_iou_sum": 0.0,
+    "raw_false_positives": 4,
+    "filtered_false_positives": 4,
+    "raw_mean_positive_iou": null,
+    "filtered_mean_positive_iou": null
+  },
+  "thin_lane_alignment": {
+    "paired_frames": 4,
+    "positive_frames": 4,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 0.875
+  },
+  "rgb_threshold_edges": {
+    "paired_frames": 8,
+    "positive_frames": 8,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 0.625,
+    "filtered_mean_positive_iou": 0.625
+  },
+  "loss_reappearance": {
+    "paired_frames": 9,
+    "positive_frames": 6,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "session_restart": {
+    "paired_frames": 6,
+    "positive_frames": 6,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "complete_abort": {
+    "paired_frames": 3,
+    "positive_frames": 3,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "protocol_faults": {
+    "paired_frames": 2,
+    "positive_frames": 2,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  },
+  "reset_cancellation": {
+    "paired_frames": 2,
+    "positive_frames": 2,
+    "raw_false_positives": 0,
+    "filtered_false_positives": 0,
+    "raw_mean_positive_iou": 1.0,
+    "filtered_mean_positive_iou": 1.0
+  }
+}
