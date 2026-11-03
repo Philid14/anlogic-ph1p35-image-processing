@@ -291,7 +291,7 @@ module edge_control_stream #(
              .display_enable(ui_pipe[EDGE_STAGES-1][0]),.dimension_enable(ui_pipe[EDGE_STAGES-1][1]),
             .cal_mode(ui_pipe[EDGE_STAGES-1][3]),.axis_y(ui_pipe[EDGE_STAGES-1][2]),
             .calibrated(ui_calibrated),.span_x(ui_span_x),.span_y(ui_span_y),.cal_visited(ui_visited),
-            .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(view_sizes),.dim_box(view_box),.dim_gap_coords(view_gap_coords),.cal_status(ui_cal_status),
+            .dim_round(dim_round),.background_applied(dim_background),.background_status(bg_status),.dim_sizes(dim_sizes),.dim_box(view_box),.dim_gap_coords(view_gap_coords),.cal_status(ui_cal_status),
             .view_kind(view_kind),
             .dim_valid(dim_valid && dim_cut==config_p[EDGE_STAGES-1][7:0] && dim_bright==ui_pipe[EDGE_STAGES-1][2]),
             .dim_present(dim_present),.dim_gap_valid(view_gap),.dim_threshold(config_p[EDGE_STAGES-1][7:0]),.dim_id(dim_id),

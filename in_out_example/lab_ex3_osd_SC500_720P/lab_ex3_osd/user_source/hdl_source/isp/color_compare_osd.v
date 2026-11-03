@@ -162,6 +162,13 @@ module color_compare_osd #(
                 2:pixel_span=held_sizes[21:11];3:pixel_span=held_sizes[10:0];
                 default:pixel_span=0;
             endcase
+            // MAIN view mode obtains W/H (or D) from its already latched
+            // rectangle. One time-shared subtractor avoids duplicate span
+            // banks/arithmetic; generic legacy callers keep their sizes input.
+            if(VIEW_ENABLE && field<2)begin
+                pixel_span=((field==0 || (INSPECTION_V5 && held_round))?held_box[32:22]:held_box[10:0])-
+                    ((field==0 || (INSPECTION_V5 && held_round))?held_box[43:33]:held_box[21:11])+11'd1;
+            end
             axis_span=((field==1 && !(INSPECTION_V5 && held_round)) || field==3)?held_span_y:held_span_x;
             if(axis_span==0)axis_span=1;
             if(field<4)begin

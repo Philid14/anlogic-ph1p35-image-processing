@@ -172,7 +172,7 @@ module planar_two_band_profile(
  input clk,rst_n,sof,row_end,row_good,commit,
  input[10:0]left_x,right_x,row_y,input[43:0]box_coords,
  output reg result_valid,output reg[33:0]coords);
- reg[1:0]state;reg ended;
+ reg[1:0]state;reg ended,first_tall;reg[2:0]band_rows;
  reg[8:0]al,ar,bl,br;
  reg[10:0]split;
  wire[8:0]l=left_x[10:2],r=right_x[10:2];
@@ -187,19 +187,25 @@ module planar_two_band_profile(
  wire[10:0]xmin=box_coords[43:33],xmax=box_coords[32:22];
  wire[10:0]ymin=box_coords[21:11],ymax=box_coords[10:0];
  wire[10:0]nl={a_wide?bl:al,2'b00},nr={a_wide?br:ar,2'b11};
+ // Each chosen interval came from a qualified row included in the envelope:
+ // its 4px bucket cannot lie outside the envelope's bucket. Clamp only the
+ // two low bits; this is identical to the full-width clamp for valid results.
+ wire[1:0]low_l=nl[10:2]==xmin[10:2]?xmin[1:0]:2'b00;
+ wire[1:0]low_r=nr[10:2]==xmax[10:2]?xmax[1:0]:2'b11;
  always @(posedge clk or negedge rst_n)begin
-  if(!rst_n)begin state<=0;ended<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;result_valid<=0;coords<=0;end
+  if(!rst_n)begin state<=0;ended<=0;first_tall<=0;band_rows<=0;al<=0;ar<=0;bl<=0;br<=0;split<=0;result_valid<=0;coords<=0;end
   else if(sof)begin
-   result_valid<=commit && state==2 && (a_wide || b_wide) && split>=ymin+11'd6 && ymax+11'd1>=split+11'd6;
-   coords<={a_wide,nl<xmin?xmin:nl,nr>xmax?xmax:nr,split};
-   state<=0;ended<=0;
+   result_valid<=commit && state==2 && (a_wide || b_wide) && first_tall && band_rows==6;
+   coords<={a_wide,nl[10:2],low_l,nr[10:2],low_r,split};
+   state<=0;ended<=0;first_tall<=0;band_rows<=0;
   end else if(row_end)begin
 
    if(row_good)begin
-    if(state==0)begin state<=1;al<=l;ar<=r;end
+    if(state==0)begin state<=1;al<=l;ar<=r;band_rows<=1;end
     else if(ended)state<=3;
-    else if(state==1 && !same_band)begin state<=2;bl<=l;br<=r;split<=row_y;end
+    else if(state==1 && !same_band)begin state<=2;bl<=l;br<=r;split<=row_y;first_tall<=band_rows==6;band_rows<=1;end
     else if(state==2 && !same_band)state<=3;
+    else if(band_rows<6)band_rows<=band_rows+1'b1;
    end else if(state!=0)ended<=1;
   end
  end

@@ -4,7 +4,7 @@ from pathlib import Path
 import build_track_region_fix as build
 ROOT=build.ROOT;P=build.P;HDL=build.HDL
 BASE='6ad4f7cd70b5614240c07db2a16775aa492d9f14'
-OUT=ROOT/'tmp/inspection_parts_motion/full_r1'
+OUT=ROOT/'tmp/inspection_parts_motion/full_r2'
 CHANGED={HDL+n for n in ('vision/vision_motion_grid.v','vision/vision_source_observer.v','isp/edge_control_stream.v','isp/planar_measure_stats.v','isp/color_compare_osd.v','isp/engineering_dimension_marks.v')}
 def snapshot():
  head=build.git('rev-parse','HEAD').decode().strip()
