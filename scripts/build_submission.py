@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 def main():
  a=argparse.ArgumentParser();a.add_argument('--td-root',default='D:/TD');a.add_argument('--prepare-only',action='store_true');args=a.parse_args()
  if not args.prepare_only and len(ROOT.as_posix())>40:
-  raise SystemExit('TD6.2 Windows path limit: copy the complete extracted folder to D:/FPGA/FINAL_SUBMISSION_V1_1 (short root, <=40 characters), then run again. No RTL changes needed.')
+  raise SystemExit('TD6.2 Windows path limit: copy the complete extracted folder to D:/P35 (short root, <=40 characters), then run again. No RTL changes needed.')
  m=check.verify();p=prep.PROJECT;runs=p/'camera_to_dsi_display_Runs'
  for kind in ('syn','phy'):
   folder=runs/(kind+'_1');folder.mkdir(parents=True,exist_ok=True)
