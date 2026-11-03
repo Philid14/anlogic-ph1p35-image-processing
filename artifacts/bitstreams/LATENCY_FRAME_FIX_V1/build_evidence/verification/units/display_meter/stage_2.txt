@@ -1,0 +1,21 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_display_meter -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:20:16 on Nov 03,2026
+# ** Warning: (vsim-3017) D:/anlogic_formal_project/tests/tb_latency_display_meter.sv(7): [TFMPC] - Too few port connections. Expected 19, found 18.
+# 
+#         Region: /tb_latency_display_meter/dut
+# ** Warning: (vsim-3722) D:/anlogic_formal_project/tests/tb_latency_display_meter.sv(7): [TFMPC] - Missing connection for port 'diagnostic'.
+# 
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# PASS display meter same-frame timestamps, NEW/REP, min/max, underflow/overwrite/unmatched, wrap
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_display_meter.sv(43)
+#    Time: 3800 ns  Iteration: 1  Instance: /tb_latency_display_meter
+# End time: 21:20:16 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 2

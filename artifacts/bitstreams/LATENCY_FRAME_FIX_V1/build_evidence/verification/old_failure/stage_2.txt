@@ -1,0 +1,17 @@
+Reading D:/modelsim/modelsim_ase/tcl/vsim/pref.tcl
+
+# 10.3c
+
+# vsim -c -quiet tb_latency_blanking -do "onerror {quit -f -code 1}; onbreak {quit -f -code 1}; run -all; quit -f -code 0" 
+# Start time: 21:25:11 on Nov 03,2026
+# onerror {quit -f -code 1}
+#  Warning: onerror command for use within macro
+#  onbreak {quit -f -code 1}
+#  Warning: onbreak command for use within macro
+#  run -all
+# ** Fatal: Wrong qualification fault4 tag0000000080000002000322
+#    Time: 12621 ns  Scope: tb_latency_blanking.packed_frame File: D:/anlogic_formal_project/tests/tb_latency_blanking.sv Line: 27
+# ** Note: $finish    : D:/anlogic_formal_project/tests/tb_latency_blanking.sv(27)
+#    Time: 12621 ns  Iteration: 0  Instance: /tb_latency_blanking
+# End time: 21:25:11 on Nov 03,2026, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0

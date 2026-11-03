@@ -1,0 +1,13 @@
+Model Technology ModelSim ALTERA vlog 10.3c Compiler 2014.09 Sep 20 2014
+Start time: 21:20:16 on Nov 03,2026
+vlog -sv D:/anlogic_formal_project/tests/tb_latency_osd.sv D:/anlogic_formal_project/in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_osd.v D:/TD/sim_release/ph1p/ph1p_logic_eram.v D:/TD/sim_release/ph1p/ph1p_phy_gsr.v 
+-- Compiling module tb_latency_osd
+-- Compiling module latency_osd
+-- Compiling module PH1P_LOGIC_ERAM
+-- Compiling module PH1P_PHY_GSR
+
+Top level modules:
+	tb_latency_osd
+	PH1P_PHY_GSR
+End time: 21:20:17 on Nov 03,2026, Elapsed time: 0:00:01
+Errors: 0, Warnings: 0
