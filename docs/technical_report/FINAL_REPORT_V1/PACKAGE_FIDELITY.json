@@ -1,0 +1,15 @@
+{
+  "source_docx_sha256": "37ea9fb43593f54055d4cd84b0c6567b7c6c93170297573fe6f9c8e5534f480e",
+  "changed_original_parts": [
+    "word/document.xml",
+    "word/_rels/document.xml.rels",
+    "docProps/core.xml"
+  ],
+  "preserved_original_parts": 52,
+  "new_parts": [
+    "word/media/image32.jpg",
+    "word/media/image33.jpg"
+  ],
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "sections_equal": true
+}

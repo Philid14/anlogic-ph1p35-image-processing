@@ -1,0 +1,86 @@
+{
+  "method": "Only Word placement/crop; all inherited image files and package media preserved",
+  "original_index": "../FINAL_REPORT_V1/SELECTED_MEDIA.json",
+  "crops": [
+    {
+      "source_figure": "width_height.jpg",
+      "source_sha256": "2946c3c0a1a569a05709c469251f5b908250d241688c7c482b8f8a1c96512116",
+      "source_pixels": [
+        1280,
+        720
+      ],
+      "crop_pixels": [
+        350,
+        335,
+        660,
+        500
+      ],
+      "method": "Word a:srcRect; embedded source bytes unchanged"
+    },
+    {
+      "source_figure": "diameter.jpg",
+      "source_sha256": "e6e942e81ab894dc92c59d0bb1d10a5451e3bea7722b4708807c50c209985853",
+      "source_pixels": [
+        1280,
+        720
+      ],
+      "crop_pixels": [
+        425,
+        345,
+        685,
+        460
+      ],
+      "method": "Word a:srcRect; embedded source bytes unchanged"
+    },
+    {
+      "source_figure": "color_check.jpg",
+      "source_sha256": "ab3472159eb511eba692f287c193bb7599743061e475542943b2ac909057507b",
+      "source_pixels": [
+        1280,
+        720
+      ],
+      "crop_pixels": [
+        255,
+        355,
+        985,
+        475
+      ],
+      "method": "Word a:srcRect; embedded source bytes unchanged"
+    },
+    {
+      "source_figure": "color_light.jpg",
+      "source_sha256": "23dc43ecac6f26b2bd1ae2eb3bf5df3cb5264e59af30c501431450b2346111a8",
+      "source_pixels": [
+        1280,
+        720
+      ],
+      "crop_pixels": [
+        305,
+        500,
+        1070,
+        615
+      ],
+      "method": "Word a:srcRect; embedded source bytes unchanged"
+    }
+  ],
+  "intentionally_not_repeated_in_body": [
+    "motion_off.jpg",
+    "new_exterior.jpg",
+    "new_interior.jpg",
+    "observer_flow.png"
+  ],
+  "numeric_review": {
+    "figure": "width_height.jpg",
+    "released_transcription": "W/H=98.3/98.3",
+    "draft_misreading_withdrawn": "W=98.8 was a transient review misreading; native crop confirms3, retained original98.3",
+    "method": "native Word crop and complete original-frame inspection; not a new measurement"
+  },
+  "standalone_restored": [
+    "cal_fail.jpg",
+    "cal_ok.jpg",
+    "motion_on.jpg",
+    "new_motion_on.jpg",
+    "new_demo.jpg",
+    "new_demo_detail.jpg"
+  ]
+}

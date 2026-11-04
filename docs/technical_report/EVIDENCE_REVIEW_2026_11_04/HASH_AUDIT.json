@@ -1,0 +1,81 @@
+{
+  "fixed_source": "6055a560b020373e77328e7518d200e358401363",
+  "historical_audit": {
+    "matched": 184,
+    "unresolved": 7
+  },
+  "new_format_matches": 2,
+  "current_content_relation_supported": 186,
+  "remaining": 5,
+  "files": [
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+      "expected_build_sha256": "400b96e9fee3c1da52883b574e9748a98e94e13a4219cbdadf4ef2abe41e05de",
+      "git_blob_sha256": "461b1630b2235363e037b591af3e6a59bbc932ed5245a30a9897fa09f1517d01",
+      "format_reconstruction": null,
+      "status": "ORIGINAL_BUILD_BYTES_PENDING"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+      "expected_build_sha256": "891e2838ab36107b05bd23f67967f8ef3f9e9564f2fb022ec382f54e233e9e8d",
+      "git_blob_sha256": "5da885ee8c633d629321c8189c1873ead3548a8620517c373c5e00372fecd815",
+      "format_reconstruction": null,
+      "status": "ORIGINAL_BUILD_BYTES_PENDING"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_tx.v",
+      "expected_build_sha256": "12aa38918c9c7f589af6d6e6a16e8f4825b0acf0210edd050fbf462667c243ad",
+      "git_blob_sha256": "3388fe1f2d8bd1ebadd5de4159b0bf52c225e323c5ea6abda70fa84b7fae74f5",
+      "format_reconstruction": null,
+      "status": "ORIGINAL_BUILD_BYTES_PENDING"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/measure_background.v",
+      "expected_build_sha256": "d7b20081a7bf9ee1f7ac2c97ce2a1c69c0fd3cdbd72021299c057889399ff1fe",
+      "git_blob_sha256": "27adc32750133cc2d0c48f5f1a14588b50c2cff927cdb0ff339916d5f21637fa",
+      "format_reconstruction": {
+        "sha256": "d7b20081a7bf9ee1f7ac2c97ce2a1c69c0fd3cdbd72021299c057889399ff1fe",
+        "bytes": 3964,
+        "normalization_to_git_identical": true,
+        "method": "all lines LF except final line71 CRLF",
+        "kind": "reconstructed_format_candidate_verified_against_original_manifest_hash; not a new TD build or a found original copy"
+      },
+      "status": "FORMAT_MATCH_VERIFIED"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc",
+      "expected_build_sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+      "git_blob_sha256": "adcb8f9b759e3b1f0baea3979734393ebce8b6e66d21aa9c812ce66d9c75c1eb",
+      "format_reconstruction": {
+        "sha256": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+        "bytes": 1156,
+        "normalization_to_git_identical": true,
+        "method": "lines3..13 CRLF, remaining lines LF",
+        "kind": "reconstructed_format_candidate_verified_against_original_manifest_hash; not a new TD build or a found original copy"
+      },
+      "status": "FORMAT_MATCH_VERIFIED"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v",
+      "expected_build_sha256": "75e5785ae0733b4ef7ce9a80d09f68419ceb0a6a5143baf866c5442ca310cb5e",
+      "git_blob_sha256": "b22e673d85bbbf560614d725aa53e3df6cfbc78c45f65fffa2abe98c7e695997",
+      "format_reconstruction": null,
+      "status": "ORIGINAL_BUILD_BYTES_PENDING"
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v",
+      "expected_build_sha256": "cffdae59273ca6d7a4ab6473baa8cf94e81ab1900c4b9e358adca6e4b196114d",
+      "git_blob_sha256": "641e3e423ddbd8a9a2ccce2721f27e703a7ac2b9ea7b5312337a0925c3db527e",
+      "format_reconstruction": null,
+      "status": "ORIGINAL_BUILD_BYTES_PENDING"
+    }
+  ],
+  "original_archive_location": "User confirmed original P35.rar is on MAIN computer; to be provided later",
+  "not_changed": [
+    "old reports/manifests",
+    "production RTL/SDC/IP",
+    "bitstream",
+    "board test status"
+  ],
+  "limits": "Remaining5 causes unknown. Same Git blobs between6432c91 and6055a56 do not prove original build bytes match. No full semantic equivalence or new P&R claimed."
+}

@@ -1,0 +1,22 @@
+{
+  "inherited_index": "../REAL_MEDIA_MOTION_LATENCY_V7/SELECTED_MEDIA.json",
+  "inherited_figure_count": 30,
+  "new": [
+    {
+      "figure": "figures/final_light_low.jpg",
+      "figure_sha256": "3f8f35e1dddd3ab702d394683ea9ab5665d86cd9114e69795d1845537af3b14a",
+      "source_id": "F01",
+      "sample_frame": 305,
+      "nominal_time_seconds": 152.0,
+      "treatment": "uncropped proportional JPEG re-save; no text/number/color edits"
+    },
+    {
+      "figure": "figures/final_light_high.jpg",
+      "figure_sha256": "be12b1852ff6f8926a59cf0b6bd9d76b23801457d174fdc69eac003c9fe69ea7",
+      "source_id": "F01",
+      "sample_frame": 311,
+      "nominal_time_seconds": 155.0,
+      "treatment": "uncropped proportional JPEG re-save; no text/number/color edits"
+    }
+  ]
+}

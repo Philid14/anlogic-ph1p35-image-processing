@@ -1,0 +1,120 @@
+{
+  "scope": "DOCUMENT_AND_READ_ONLY_EVIDENCE",
+  "checks": [
+    {
+      "name": "official_length_limits",
+      "passed": true,
+      "details": {
+        "摘要": {
+          "characters_excluding_whitespace": 537,
+          "limit": 800
+        },
+        "1.1": {
+          "characters_excluding_whitespace": 191,
+          "limit": 400
+        },
+        "1.2": {
+          "characters_excluding_whitespace": 104,
+          "limit": 400
+        },
+        "1.3": {
+          "characters_excluding_whitespace": 176,
+          "limit": 400
+        },
+        "1.4": {
+          "characters_excluding_whitespace": 161,
+          "limit": 200
+        },
+        "1.5": {
+          "characters_excluding_whitespace": 118,
+          "limit": 200
+        },
+        "1.6": {
+          "characters_excluding_whitespace": 112,
+          "limit": 200
+        },
+        "4.1": {
+          "characters_excluding_whitespace": 150,
+          "limit": 300
+        },
+        "4.2": {
+          "characters_excluding_whitespace": 533,
+          "limit": 1000
+        }
+      }
+    },
+    {
+      "name": "five_parts",
+      "passed": true,
+      "details": "official five parts retained"
+    },
+    {
+      "name": "references",
+      "passed": true,
+      "details": "20 references"
+    },
+    {
+      "name": "figures",
+      "passed": true,
+      "details": "24 inherited + 6 new; 18 numbered figure groups"
+    },
+    {
+      "name": "docx_zip",
+      "passed": true,
+      "details": "ZIP integrity"
+    },
+    {
+      "name": "preserve_only_parts",
+      "passed": true,
+      "details": "all V6 opaque parts including style/header/footer/image/field/numbering retained"
+    },
+    {
+      "name": "native_equation",
+      "passed": true,
+      "details": "1 native OMML equation"
+    },
+    {
+      "name": "section_geometry",
+      "passed": true,
+      "details": "A4 1 section, original margins"
+    },
+    {
+      "name": "new_decode_to_EOF",
+      "passed": true,
+      "details": "4 videos / 175 samples / 43.65 container seconds"
+    },
+    {
+      "name": "selected_media_hashes",
+      "passed": true,
+      "details": "6 new figures incl. one explicitly traced crop"
+    },
+    {
+      "name": "inherited_figures",
+      "passed": true,
+      "details": "24 existing figure files byte-identical"
+    },
+    {
+      "name": "source_and_bit_scope",
+      "passed": true,
+      "details": "95 matching Git blobs / 90 build-manifest direct-or-EOL matches / 5 raw input hashes explicitly unresolved; bit hash independently checked in prepare_v7"
+    },
+    {
+      "name": "measurement_boundary",
+      "passed": true,
+      "details": "DEMO not accepted as measurement; recording bit unresolved"
+    },
+    {
+      "name": "original_template_unchanged",
+      "passed": true,
+      "details": "retained official template digest"
+    }
+  ],
+  "docx_sha256": "37ea9fb43593f54055d4cd84b0c6567b7c6c93170297573fe6f9c8e5534f480e",
+  "result": "PASS",
+  "not_run": [
+    "RTL simulation",
+    "TD/P&R",
+    "bitgen",
+    "new hardware/physical accuracy/latency/long-run measurement"
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "scope": "DOCUMENT_EDIT_ONLY",
+  "result": "PASS",
+  "checks": [
+    {
+      "name": "length_limits",
+      "passed": true,
+      "details": {
+        "摘要": {
+          "chars": 532,
+          "limit": 800
+        },
+        "1.1": {
+          "chars": 143,
+          "limit": 400
+        },
+        "1.2": {
+          "chars": 96,
+          "limit": 400
+        },
+        "1.3": {
+          "chars": 140,
+          "limit": 400
+        },
+        "1.4": {
+          "chars": 164,
+          "limit": 200
+        },
+        "1.5": {
+          "chars": 113,
+          "limit": 200
+        },
+        "1.6": {
+          "chars": 127,
+          "limit": 200
+        },
+        "4.1": {
+          "chars": 118,
+          "limit": 300
+        },
+        "4.2": {
+          "chars": 444,
+          "limit": 1000
+        }
+      }
+    },
+    {
+      "name": "five_parts",
+      "passed": true,
+      "details": "official five parts"
+    },
+    {
+      "name": "references",
+      "passed": true,
+      "details": "20 references"
+    },
+    {
+      "name": "figure_groups",
+      "passed": true,
+      "details": "15 consecutive numbered groups"
+    },
+    {
+      "name": "inline_pictures",
+      "passed": true,
+      "details": "24 full images + 4 native Word details"
+    },
+    {
+      "name": "zip",
+      "passed": true,
+      "details": "ZIP CRC"
+    },
+    {
+      "name": "template_parts",
+      "passed": true,
+      "details": "all opaque parts/styles/header/footer/media retained"
+    },
+    {
+      "name": "geometry",
+      "passed": true,
+      "details": "official A4 section"
+    },
+    {
+      "name": "native_equation",
+      "passed": true,
+      "details": "OMML retained"
+    },
+    {
+      "name": "images_unchanged",
+      "passed": true,
+      "details": "all 32 source figures unchanged"
+    },
+    {
+      "name": "word_native_crops",
+      "passed": true,
+      "details": "four layout crops; no edited image files"
+    },
+    {
+      "name": "measurement_scope",
+      "passed": true,
+      "details": "consolidated unmeasured/recording boundaries retained"
+    },
+    {
+      "name": "screen_transcription",
+      "passed": true,
+      "details": "native crop confirms original W/H98.3/98.3; transient draft misreading withdrawn"
+    },
+    {
+      "name": "source_evidence",
+      "passed": true,
+      "details": "source/bit conclusions unchanged"
+    },
+    {
+      "name": "template_hash",
+      "passed": true,
+      "details": "official template retained"
+    }
+  ],
+  "docx_sha256": "bccd5ef0206affdf159854da55ff9e24504b5e002f3d1b7da0bb806ec1aeae2f",
+  "not_run": [
+    "new RTL/TD/P&R/bitgen",
+    "new physical accuracy/latency/long-run experiments"
+  ]
+}
