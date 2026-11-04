@@ -1,0 +1,11 @@
+{
+  "source_docx_sha256": "6a1985faab4cec43c39c702d6a2cee775b004cd815bf67e9e035e709a9b4b327",
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "changed_original_parts": [
+    "word/document.xml",
+    "word/_rels/document.xml.rels",
+    "docProps/core.xml"
+  ],
+  "new_parts": [],
+  "preserved_original_media": true
+}
