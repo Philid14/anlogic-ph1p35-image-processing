@@ -1,0 +1,15 @@
+{
+  "id": "F01",
+  "file": "11月3日(1).mp4",
+  "bytes": 370429410,
+  "sha256": "827b845f55a19fba82c38e98c72657b1f570f7ed8860f9fabaa968201cc0d091",
+  "duration_seconds_container": 171.2,
+  "decode_exit": 0,
+  "sample_interval_seconds": 0.5,
+  "sampled_frames": 342,
+  "method": "full decode to EOF 2Hz samples; 1Hz sequential contact sheets; no system-fps or latency inference",
+  "user_statement": "用户确认整个工程已完成、GitHub最新代码为最终版，并提供该展示视频；尚未据此给视频绑定具体下载bit SHA。",
+  "reviewed": "12-frame overview; all fifteen 1Hz sequential contact sheets; key native sample frames. No audio transcription or native-frame-by-frame continuity audit.",
+  "result": "Completed presentation mapping; edited video is not a continuous stability/accuracy test. DEMO is visible in motion segment; no accepted real latency measurement.",
+  "exact_recording_bit_sha256": null
+}

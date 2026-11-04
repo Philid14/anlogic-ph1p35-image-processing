@@ -1,0 +1,11 @@
+{
+  "source_docx_sha256": "3fa151c95da0526efa2e770906b926a2230124567b88e69d3b66580eb10cda76",
+  "official_template_sha256": "d15a2aa186f600cb9c234bffd9deff0c4e9b05c569643d8a81d536f66f424f0c",
+  "changed_original_parts": [
+    "word/document.xml",
+    "docProps/core.xml"
+  ],
+  "new_parts": [],
+  "preserved_original_media": true,
+  "section_geometry_equal": true
+}
