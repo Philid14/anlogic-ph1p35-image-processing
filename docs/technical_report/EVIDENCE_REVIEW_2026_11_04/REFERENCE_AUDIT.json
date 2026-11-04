@@ -1,0 +1,303 @@
+{
+  "report_commit": "319e34d4f333fb36b3492fce5e0078f8ea8112ee",
+  "entries": [
+    {
+      "number": 1,
+      "text": "[1] 上海安路信息科技股份有限公司. 2026 FPGA创新设计赛道选题指南[Z]. 2026: 选题二 基于安路PH1P35的实时数字图像处理系统，物理页16—18。",
+      "objects": [],
+      "category": "official_problem_statement"
+    },
+    {
+      "number": 2,
+      "text": "[2] AnlogicTrack2项目组. RULER_CM_CAL_V1设计说明[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/RULER_CM_CAL_V1_DESIGN.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/RULER_CM_CAL_V1_DESIGN.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/RULER_CM_CAL_V1_DESIGN.md",
+          "type": "blob",
+          "bytes": 4324,
+          "sha256": "d8255d95b457407593ed0063e5c57ca2b494b3983352a5cbd9368a653af891d1",
+          "first_heading": "# RULER_CM_CAL_V1：厘米刻度粗标定"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 3,
+      "text": "[3] AnlogicTrack2项目组. RULER_CM_CAL_V1构建报告[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/RULER_CM_CAL_V1_REPORT.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/RULER_CM_CAL_V1_REPORT.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/RULER_CM_CAL_V1_REPORT.md",
+          "type": "blob",
+          "bytes": 4854,
+          "sha256": "b61b541ea75385a19cc59b00d44dc61ef49f90be679817167dc50ea35d82adc7",
+          "first_heading": "# RULER_CM_CAL_V1：厘米刻线平均粗标定候选"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 4,
+      "text": "[4] AnlogicTrack2项目组. RULER_CM_CAL_V1板测方案[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/RULER_CM_CAL_V1_BOARD_TEST.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/RULER_CM_CAL_V1_BOARD_TEST.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/RULER_CM_CAL_V1_BOARD_TEST.md",
+          "type": "blob",
+          "bytes": 2056,
+          "sha256": "6fd8a01c7d8c3f1030d7128009dadde6176477bcccfd5ed0dd2982c431a32bd5",
+          "first_heading": "# 厘米粗标定上板步骤"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 5,
+      "text": "[5] AnlogicTrack2项目组. RULER_CM_CAL_V1构建信息[DS/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.json](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.json)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "artifacts/bitstreams/RULER_CM_CAL_V1/BUILD_INFO.json",
+          "type": "blob",
+          "bytes": 1831,
+          "sha256": "7759e723e943d4576d914d1196d00afa8394b04bd6d396233d08589252e0a27e"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 6,
+      "text": "[6] AnlogicTrack2项目组. VISION_TRACK_MOTION_V1设计说明[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/VISION_TRACK_MOTION_V1_DESIGN.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/VISION_TRACK_MOTION_V1_DESIGN.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/VISION_TRACK_MOTION_V1_DESIGN.md",
+          "type": "blob",
+          "bytes": 6365,
+          "sha256": "ef0593d44b6869144c1ff2e65b538d45c29f000ee61eac68afc804f429525852",
+          "first_heading": "# VISION_TRACK_MOTION_V1：资源优先的两项增量"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 7,
+      "text": "[7] AnlogicTrack2项目组. COLOR_COMPARE_V1设计说明[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/COLOR_COMPARE_V1_DESIGN.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/COLOR_COMPARE_V1_DESIGN.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/COLOR_COMPARE_V1_DESIGN.md",
+          "type": "blob",
+          "bytes": 5203,
+          "sha256": "4683a0c15ab72c76abee8e4ef03eee5d7bd31f26f669a12e4995167d974eeae5",
+          "first_heading": "# COLOR_COMPARE_V1：固定平台双区颜色比对"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 8,
+      "text": "[8] AnlogicTrack2项目组. INSPECTION_UI_DIMENSION_V1实板反馈转录[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/INSPECTION_UI_DIMENSION_V1_BOARD_FEEDBACK_2026-10-30.md",
+          "type": "blob",
+          "bytes": 3742,
+          "sha256": "5a9e108d506c69a0245363425b2213d1656df16df4bcbdf37ab9fcc9a31c6240",
+          "first_heading": "# INSPECTION_UI_DIMENSION_V1 首次界面反馈"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 9,
+      "text": "[9] AnlogicTrack2项目组. 图像调试日志[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/IMAGE_TUNING_LOG.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/IMAGE_TUNING_LOG.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/IMAGE_TUNING_LOG.md",
+          "type": "blob",
+          "bytes": 72501,
+          "sha256": "e4d4a885af19b1bba6fd09d42a9fde4539e1377154736ef52da54718e19ebc80",
+          "first_heading": "# 基础彩色视频画质调试记录"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 10,
+      "text": "[10] AnlogicTrack2项目组. TARGET颜色检测与年龄保护源码[CP/OL]. [2026-11-02]. [GitHub 固定提交ee2edc5 features/color_target/](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/ee2edc581877e6a0c7f85073f04e9b7d79277c1b/features/color_target/)",
+      "objects": [
+        {
+          "commit": "ee2edc581877e6a0c7f85073f04e9b7d79277c1b",
+          "path": "features/color_target",
+          "type": "tree",
+          "bytes": 1839,
+          "sha256": "b67fb9f22a42ee0fb338c25d458697fc97e985879be9578e1652b698b2dc7b9d"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 11,
+      "text": "[11] 竞赛技术文档模板[Z]. 2026. 本文沿用官方五部分结构，图表与细分小节纳入对应部分。",
+      "objects": [],
+      "category": "official_document_template"
+    },
+    {
+      "number": 12,
+      "text": "[12] AnlogicTrack2项目组. INSPECTION_SHAPE_TRACK_V1设计说明[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/INSPECTION_SHAPE_TRACK_V1_DESIGN.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/INSPECTION_SHAPE_TRACK_V1_DESIGN.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/INSPECTION_SHAPE_TRACK_V1_DESIGN.md",
+          "type": "blob",
+          "bytes": 7785,
+          "sha256": "e00f4774d880eab447a964287a7ea552df69528c74a5e00690e73f75489f92c1",
+          "first_heading": "# INSPECTION_SHAPE_TRACK_V1：MAIN 设计与证据边界"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 13,
+      "text": "[13] AnlogicTrack2项目组. INSPECTION_SHAPE_TRACK_V1构建验证报告[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/INSPECTION_SHAPE_TRACK_V1_REPORT.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/INSPECTION_SHAPE_TRACK_V1_REPORT.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/INSPECTION_SHAPE_TRACK_V1_REPORT.md",
+          "type": "blob",
+          "bytes": 6424,
+          "sha256": "6c8c7ff2b2b72b371fdaae51e8f21ac3ccaa9de792d59281b8a5797db786d3a7",
+          "first_heading": "# INSPECTION_SHAPE_TRACK_V1 candidate"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 14,
+      "text": "[14] AnlogicTrack2项目组. INSPECTION_SHAPE_TRACK_V1板测方案[EB/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 docs/INSPECTION_SHAPE_TRACK_V1_BOARD_TEST.md](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/docs/INSPECTION_SHAPE_TRACK_V1_BOARD_TEST.md)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "docs/INSPECTION_SHAPE_TRACK_V1_BOARD_TEST.md",
+          "type": "blob",
+          "bytes": 3606,
+          "sha256": "8f12aa9ef043d385ba5dff6d9780c441862a3e19d40285eb686cfd2314cbe6ce",
+          "first_heading": "# 上板验收：反光测量 / 圆片D/R / 红色跟随框"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 15,
+      "text": "[15] AnlogicTrack2项目组. INSPECTION_SHAPE_TRACK_V1构建与原始证据[DS/OL]. [2026-11-02]. [GitHub 固定提交4d0f779 artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/BUILD_INFO.json](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/4d0f779cefd680363b8a3f0d4d5c33a42d81197f/artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/BUILD_INFO.json)",
+      "objects": [
+        {
+          "commit": "4d0f779cefd680363b8a3f0d4d5c33a42d81197f",
+          "path": "artifacts/bitstreams/INSPECTION_SHAPE_TRACK_V1/BUILD_INFO.json",
+          "type": "blob",
+          "bytes": 2569,
+          "sha256": "692c1a1ed7f06e51d903bbec59f9d13e5d3c15fc5a26c45371b883626786d565"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 16,
+      "text": "[16] WangBaren02项目组. 基于FPGA的图像识别与机械臂控制系统技术文档[EB/OL]. 2025[2026-11-02]: 5—8, 12, 43—49. [作者公开技术文档 固定提交cfa5611](https://github.com/WangBaren02/Image-acquisition-and-recognition-robotic-arm-analysis-and-control-system-based-on-FPGA/blob/cfa5611b2d89d852fe2f456b313c6fb9c42ea955/docs/technical_report.pdf)",
+      "objects": [],
+      "category": "external_project_report"
+    },
+    {
+      "number": 17,
+      "text": "[17] AnlogicTrack2项目组. TRACK_REGION_FIX_V1诊断与修复报告[EB/OL]. [2026-11-03]. [GitHub 固定提交072bc0f](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/072bc0f8858ceb3009659f8df7cb02b9da05ed36/docs/TRACK_REGION_FIX_V1_REPORT.md)",
+      "objects": [
+        {
+          "commit": "072bc0f8858ceb3009659f8df7cb02b9da05ed36",
+          "path": "docs/TRACK_REGION_FIX_V1_REPORT.md",
+          "type": "blob",
+          "bytes": 4764,
+          "sha256": "903333935abc9529bbf86d1ff38ee1aa415b330fe588ef0a4740955a8c6bd905",
+          "first_heading": "# TRACK_REGION_FIX_V1 诊断与修复报告"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 18,
+      "text": "[18] AnlogicTrack2项目组. 内部计时与最终V1.2独立重建资料[EB/OL]. [2026-11-04]. [计时设计 6ad4f7c；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/6ad4f7cd70b5614240c07db2a16775aa492d9f14/docs/LATENCY_PERFORMANCE_V1_REPORT.md)[资格修复 6055a56；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/6055a560b020373e77328e7518d200e358401363/docs/LATENCY_FRAME_FIX_V1.md)[模拟说明 e2c37e2；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/e2c37e23e2ce4a1d506105727f5303186cc3e757/docs/LATENCY_DEMO_V1.md)[独立重建 6055a56；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/6055a560b020373e77328e7518d200e358401363/artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/BUILD_INFO.json)[最终交付 6055a56；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/6055a560b020373e77328e7518d200e358401363/submission/PACKAGE_README.md)",
+      "objects": [
+        {
+          "commit": "6ad4f7cd70b5614240c07db2a16775aa492d9f14",
+          "path": "docs/LATENCY_PERFORMANCE_V1_REPORT.md",
+          "type": "blob",
+          "bytes": 7288,
+          "sha256": "42754fc8f0b3b3ac375fbb9524227411137d07d95b134b54767ca3b0545ec3c8",
+          "first_heading": "# LATENCY_PERFORMANCE_V1：同帧延迟可视化与资源优化"
+        },
+        {
+          "commit": "6055a560b020373e77328e7518d200e358401363",
+          "path": "docs/LATENCY_FRAME_FIX_V1.md",
+          "type": "blob",
+          "bytes": 2268,
+          "sha256": "10a4a0bd1d01f3248e0507ba9d9aea53b71b4a7cd0dda4f35b5bd746075fc871",
+          "first_heading": "# LATENCY_FRAME_FIX_V1 — MAIN expedited board candidate"
+        },
+        {
+          "commit": "e2c37e23e2ce4a1d506105727f5303186cc3e757",
+          "path": "docs/LATENCY_DEMO_V1.md",
+          "type": "blob",
+          "bytes": 1184,
+          "sha256": "4daab924e558e83912f13a315d18a62ed8393327ecd69ad60e2fe7fe6273049b",
+          "first_heading": "# LATENCY_DEMO_V1 — MAIN explicit OSD simulation"
+        },
+        {
+          "commit": "6055a560b020373e77328e7518d200e358401363",
+          "path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/BUILD_INFO.json",
+          "type": "blob",
+          "bytes": 1261,
+          "sha256": "45daabb053759bea760bb7be87559d4eb69ed696041355709a552c466fa2df7d"
+        },
+        {
+          "commit": "6055a560b020373e77328e7518d200e358401363",
+          "path": "submission/PACKAGE_README.md",
+          "type": "blob",
+          "bytes": 3604,
+          "sha256": "c07b08cc58efd57b15306c5f5e4d40c12061b982ec481c5404f66f00afb721ce",
+          "first_heading": "# PH1P35 最终提交代码包 V1.2"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 19,
+      "text": "[19] AnlogicTrack2项目组. INSPECTION_PARTS_MOTION_V1最终构建与验证报告[EB/OL]. [2026-11-03]. [固定报告 793c9d3；](https://github.com/Philid14/anlogic-ph1p35-image-processing/blob/793c9d3de58420524007474bafb2125cbad104f1/docs/INSPECTION_PARTS_MOTION_V1_REPORT.md)",
+      "objects": [
+        {
+          "commit": "793c9d3de58420524007474bafb2125cbad104f1",
+          "path": "docs/INSPECTION_PARTS_MOTION_V1_REPORT.md",
+          "type": "blob",
+          "bytes": 6232,
+          "sha256": "0bd87f566abc088c48abf0edeffa6777aabfb450d22c962d917db5512c10a2c4",
+          "first_heading": "# INSPECTION_PARTS_MOTION_V1 / MAIN 报告"
+        }
+      ],
+      "category": "internal_engineering_record"
+    },
+    {
+      "number": 20,
+      "text": "[20] AnlogicTrack2项目组. 系统实物照片与功能展示视频[DS]. 2026-11-02—2026-11-04整理. 图示来源和成片身份见3.3.5，操作与DEMO对照见图10—18。",
+      "objects": [],
+      "category": "own_photos_and_video"
+    }
+  ],
+  "internal_entries": 16,
+  "internal_git_targets_checked": 20,
+  "missing_git_targets": [],
+  "external_report_local_sha256": "0360c40a2d9d9ad001b4ab3b7f298550be8ebac7348bbd7bccc9776b91fd939e",
+  "official_template_instruction": "按照标准格式，限20篇以内。",
+  "editorial_conclusion": "Files exist, but16 own engineering records plus template and own media are overrepresented in bibliography. Do not treat these as20 external papers. Reorganize internal evidence into implementation/verification; retain only genuinely used external references."
+}
