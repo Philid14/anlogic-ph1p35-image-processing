@@ -1,0 +1,1426 @@
+{
+  "main_commit": "6055a560b020373e77328e7518d200e358401363",
+  "delivery_tag": "final-submission-v1.2",
+  "hardware_version": "FINAL_SUBMISSION_REBUILD_V1",
+  "hardware_source_commit": "6432c918fea3b8ea25d65f5c5fe3816400b0cbfe",
+  "algorithm_source_commit": "ebbd3cd7b41bde86c06bdd5bc436dcb3195990d8",
+  "tag_commits": {
+    "final-submission-v1.2": "6055a560b020373e77328e7518d200e358401363",
+    "final-submission-rebuild-v1-candidate": "6055a560b020373e77328e7518d200e358401363"
+  },
+  "bit_path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/camera_to_dsi_display.bit",
+  "bit_sha256": "ce6d17efe38297709ff71f24fd57f260270e16ff1bb6ed7031f5a03adc866515",
+  "sources": [
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "submission/MANIFEST.json",
+      "sha256": "089a0e9430d1cc5f4d0896e7393bfe59c8532295d75cefc22dd0254f8fff69d7"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "submission/VERIFICATION.json",
+      "sha256": "dfab45c256c6159081bdc6e6fba1d8c6cf9c6a87fa3603745d7b83fc0b82897b"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "submission/PACKAGE_README.md",
+      "sha256": "c07b08cc58efd57b15306c5f5e4d40c12061b982ec481c5404f66f00afb721ce"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "submission/README.md",
+      "sha256": "0eb650e6472c8839f757a2b1448b0948bb1ee30c5aeaa4f15ff90f2a5465b9c2"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "submission/ACCEPTANCE.md",
+      "sha256": "fbe361cdc591eeea4375b743a810ade4b1d3cdd31ce89f7488a9eca08541e707"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/BUILD_INFO.json",
+      "sha256": "45daabb053759bea760bb7be87559d4eb69ed696041355709a552c466fa2df7d"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/build_evidence/SOURCE_MANIFEST.json",
+      "sha256": "cf1ae02fd42761c0f787f708196e203731cc580abcd0939f16499f616aba12a6"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "artifacts/bitstreams/FINAL_SUBMISSION_REBUILD_V1/build_evidence/phy_route.qor",
+      "sha256": "064faf91c3fb3cf0fcfbadff781cc49b3315c7a475dd96d99ed4b27583c7220d"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "docs/INSPECTION_PARTS_MOTION_V1_REPORT.md",
+      "sha256": "0bd87f566abc088c48abf0edeffa6777aabfb450d22c962d917db5512c10a2c4"
+    },
+    {
+      "commit": "6055a560b020373e77328e7518d200e358401363",
+      "path": "docs/LATENCY_FRAME_FIX_V1.md",
+      "sha256": "10a4a0bd1d01f3248e0507ba9d9aea53b71b4a7cd0dda4f35b5bd746075fc871"
+    }
+  ],
+  "input_blob_audit": [
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/design_top_wrapper.v",
+      "expected_build_input": "04a0c5bec67ad7af74515bdf1c9764bb7a2171fa21806dc669d3d10d7c844af2",
+      "git_blob_sha256": "5b9853092edb80638295b99c6bdf3a3637f4d94e941bcdd7ddd4e4cdb3b9f59d",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_in.v",
+      "expected_build_input": "6e263b244f4e77575d75cc853d234b4a756d81aba8dc3ccf74e2700d867674d5",
+      "git_blob_sha256": "5507ceffe8d3241d7cbeb9e959d30bf28da99fbe14ebb2e67df1697f1c229159",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/video_out.v",
+      "expected_build_input": "4f5ff8409bcae61af73332102dd1c89829355d951ee862bc45c6dfdaf1325cd6",
+      "git_blob_sha256": "09fbb2f1a90c54533b4b4de48ece43d889c94d23f63a04c6409def5dc87fcb30",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+      "expected_build_input": "400b96e9fee3c1da52883b574e9748a98e94e13a4219cbdadf4ef2abe41e05de",
+      "git_blob_sha256": "461b1630b2235363e037b591af3e6a59bbc932ed5245a30a9897fa09f1517d01",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/signal_delay.v",
+      "expected_build_input": "b7a8156bc59bee5de2c1af20cb31079388ace1f4e767a18288a7dff8bae3d5fd",
+      "git_blob_sha256": "3d8b1fc1faebf25c451b590bfc2435e8ecaf98c58a060cf94fe8f7fa9100851f",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/awb.v",
+      "expected_build_input": "8f55ab0cdf6d34a53b9b4b2d8da9dcdbf4b8b7810277c794fafaac42ceddd075",
+      "git_blob_sha256": "2b399f47cc2f2f1c006b2ca9610f85a5f7cdf542367688a30252e4f4a5c529ce",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+      "expected_build_input": "891e2838ab36107b05bd23f67967f8ef3f9e9564f2fb022ec382f54e233e9e8d",
+      "git_blob_sha256": "5da885ee8c633d629321c8189c1873ead3548a8620517c373c5e00372fecd815",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/csi_unpacket_2lane.v",
+      "expected_build_input": "b7e093e1e377f5a61a22216e9a4ec404068a3346923758297867b465679dacdd",
+      "git_blob_sha256": "56f57a00654b000ed2b136b4b5085a9f0ffbbd5d0c04aefa3cf30cdbdf3d6ca9",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/isp_top.v",
+      "expected_build_input": "9c88966b845636ca38f4131f6c5accbde6b95b3e7a71ad5956b7ade7116f03a3",
+      "git_blob_sha256": "3b840ecd0fdaf3f04096a22d1e96b8b4db429abb4c4cfebb88384a1508c46304",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/raw10_unpacket_2lane.v",
+      "expected_build_input": "83f89d7f8e2b19322a7f6a8ddc0cae64fcbd83fed6b742c10f5d2339f59d30fd",
+      "git_blob_sha256": "62d72b3f9bbeb26fc233307d7a62232806254d2a2f4ae6140fe17f3ef29f076a",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/uial2axis.v",
+      "expected_build_input": "8cd4d98799da50285bc381c16405aeb55eb4d28363e20b33836542a32539610e",
+      "git_blob_sha256": "83eaab604fc9c1272d32f9a4df8619569159c4536c3d0aa5be6674a41d46910a",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/bilinear_interpolation.v",
+      "expected_build_input": "53a4fc3dea805d59cee9bdab1a090c26c03eb555ab612a1a4698d810c1991baf",
+      "git_blob_sha256": "11ff09d716a4df50a62c90d7996f9173570597767630124cf1770f6973a623e0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/demosaic.v",
+      "expected_build_input": "95ff3eaa0e99fd1dbe63c153164e36faa1a97b19d071e4a0b0bb3936287f22d4",
+      "git_blob_sha256": "23f0a53e980f7899f62e3d403be51d9d9a0477e08d7a4c22cd681b1da2653a6f",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/line_buffer_demosaic.v",
+      "expected_build_input": "57d2626ef83f555d027cc442fae0959a916cf1b0939c0115aaa9d414745f94c7",
+      "git_blob_sha256": "57d2626ef83f555d027cc442fae0959a916cf1b0939c0115aaa9d414745f94c7",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/mipi_to_raw_converter.v",
+      "expected_build_input": "b77e678034af9968d0969655f403cac3b992412b109dba889e8ccb3f6f224975",
+      "git_blob_sha256": "81c462365a3f9106a84406db9b31e99f5325798e77bdf0cd561b5d659a5926fe",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/raw_matrix_3x3_buffer.v",
+      "expected_build_input": "28f19502f5a70b48e9bdeeaddcb84500052b7bd0c6e15b4da1ea9899265577c3",
+      "git_blob_sha256": "19d76c1f574c750a2973303526d6c0765a6a392737e38da72c4768aba7372fca",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/zhenghe.v",
+      "expected_build_input": "abcc6447ea9c47185b0e93b5acaef001f19e5ff99d0f80cc6e4cb4bb852a4bdd",
+      "git_blob_sha256": "c2e33ece63207b00c347929b76e636e52684ec459ea2cdf91b563ac842f81c20",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data128_96/data128_96.v",
+      "expected_build_input": "b6acceb73cc76058d4afe6ec593360bae6701646fdda780a9264ada3befd5318",
+      "git_blob_sha256": "cc2d537ea84ab8e918e033031caa734538067e7861adf2a551123cdf67dbc17e",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/data96_128/data96_128.v",
+      "expected_build_input": "c79a102378c70ce5faacbc46a62b5ae6eaac151b93891379eda2880a7d68fe30",
+      "git_blob_sha256": "70eabab946d684a9747c0f4ba036c2f9306a07b7fd50fae58af43612622e62a0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/SC500GainTbl.v",
+      "expected_build_input": "574a37980c5353c8079ae870b0b60df3429b78b301dc58fc97954b9fb79fbfd3",
+      "git_blob_sha256": "ecd2845055fbc01a230d8d63e05a4f2ab280992eb310ba182253232243c9a354",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uicfgcs500_720p.v",
+      "expected_build_input": "b7fad44ff1df3363b33a73d8a0811a708563c54675c18b2cdc9470d209714ac7",
+      "git_blob_sha256": "b7fad44ff1df3363b33a73d8a0811a708563c54675c18b2cdc9470d209714ac7",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uics500reg_720p60.v",
+      "expected_build_input": "569a0772f9c188f16be80cef0d7c9bfd54406f48902395d2340b1d03590ae5d9",
+      "git_blob_sha256": "22d1d423000146dfb583519e2325e7998deb76162aab13cadde50c4eb11b233b",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uics500regAE.v",
+      "expected_build_input": "f37e71b95b8aaa8f1a4c3bc7a38492d15c5fbea076d8564c3498f54facb8996f",
+      "git_blob_sha256": "69bc7f3ae191ab101ddd20791de3695f6255bb9062d7529577498c6af31646d2",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uics500_cfg/uii2c.v",
+      "expected_build_input": "032df05881f9bd7c7cf86cc1381adcb739a18f8a8744ed06b1160ac294a6dc0d",
+      "git_blob_sha256": "6eed54d134d70f043a50f4c94aded1be9706c1cf850bad3288dc8749fd918e14",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/uiisp_beta/ae_set.v",
+      "expected_build_input": "1938a5ace99f27c1cdb23b05ebd80aca26a973974c99d85374f436ddd1162273",
+      "git_blob_sha256": "103f5ce993ed3b2f92e6ff3b727b6c5c0a3906a0fbc5ee2dd6b4289c4ea3f476",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_tx.v",
+      "expected_build_input": "12aa38918c9c7f589af6d6e6a16e8f4825b0acf0210edd050fbf462667c243ad",
+      "git_blob_sha256": "3388fe1f2d8bd1ebadd5de4159b0bf52c225e323c5ea6abda70fa84b7fae74f5",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_1_4b_transmitter_core_wrapper.enc.v",
+      "expected_build_input": "867e0b0bdd874bc383d00918c9e1be3fe01edf41f343b6a0d73e262776596a63",
+      "git_blob_sha256": "25a28679c51d779a1c811772cf83e3092a3106b25e2e21f1560ba624ebd72bd0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_phy_warpper.v",
+      "expected_build_input": "416b082b0987001bdbc0a7e20a557cb8fb1dca34e25dc881e6d28a8cb3cf4300",
+      "git_blob_sha256": "7665996d6504860ef2554fb8fc70df0746b54dcb2fe078883c2f72c898366ffb",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/lane_lvds_10_1.v",
+      "expected_build_input": "de9529321354f04837e051d0ec1681cf44783d4be3284703a788e081147500bc",
+      "git_blob_sha256": "fd61b139c3803a16d1a3ed33bbd9babd88af4c73702a98b406d7ea6b7771269b",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vtc/uivtc.v",
+      "expected_build_input": "c7deaea83ea04fae9caaf34644fe089aeba6dc54dee26c377aef1df44648e4db",
+      "git_blob_sha256": "e08ec1d71e957792ba063be84363e2c6e87d614bd36eda5991daf502eb3af70c",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_mixer.v",
+      "expected_build_input": "b21e9d843a6365d0df21e94f488d15966030cfd165b18cb42ff60209b3f14a17",
+      "git_blob_sha256": "c2e27e2aae244898c36dce6c270e91fa0de4e7328ba9280d2a206c5ff0a872a3",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/I2S_receiver.v",
+      "expected_build_input": "08904598b42c2e1a4836cd9fb3293bc6c791ea2f79e35c7663a33127dc97f47b",
+      "git_blob_sha256": "108ca069d6e5393a7267fe1f99090e1ef89f4939c7156eedebfafdaaaab93a69",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/audio_arc_calculate.v",
+      "expected_build_input": "552d8d86afd237666b30ae08f31247808e89eb024efde5efc670b82eb617a7dc",
+      "git_blob_sha256": "b3b55c90ad7ba679b0f4cb550cdf656230d15a3facab00ce7f561f32bd63eb0d",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/key_remove_shakes.v",
+      "expected_build_input": "8832f59e7ba94bfb8cf31e4f5a772ef7177d5257a5a2532d53cbfa1d9b7f5cd9",
+      "git_blob_sha256": "fddeb8835bddd9b967de8b2362ba01054d98ca10e29a661fd0df9925375681b5",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/anlogic_logo_rom.v",
+      "expected_build_input": "37c76680345f17a85632b7835e46a3a197cf75fdd91ca6a970b75f5346e7a9f8",
+      "git_blob_sha256": "09b288fa85947bb8c2bd33f1b029ab1bd1be6a8a982c02c44aa41b5856763ec0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_logo_palette.v",
+      "expected_build_input": "c7ee71fa5d6d9943679d5690da46cf3f1a67ac2c7912eeafcbd63d117c03a4c2",
+      "git_blob_sha256": "815f8e6e8203e2ed69b5c75c35841ad3d9287e0023c9f1d3a3ea2d1b102b5bae",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/osd_char_lib.v",
+      "expected_build_input": "3851bf332e9df8cc61c2a29f364f13a7e730ca31aa6de5df865e20063b258e4a",
+      "git_blob_sha256": "381bcac721cd252cde87dee48f32af28641e4ace6954c583f4e11d3141cdbf5e",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_detect_96.v",
+      "expected_build_input": "b5c508a51413b61659b754e6944cf9720c709f1e6b69c5ae9b88d5b1f7a510d0",
+      "git_blob_sha256": "9f11be3e2a3d448d66d696cf60a415a0acccea058be5c901c3145f04951241a6",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_key_control.v",
+      "expected_build_input": "87f0cddb6ccdff4901506be972b5a34a5777b7741192d08ea7ca6318e266204c",
+      "git_blob_sha256": "2313d641e1bf1e3377044a2552156b4013a9b6087a814719538589db0e02d2d0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_config_cdc.v",
+      "expected_build_input": "83ebcadb5063e40fbdcaaaae3b753134a7bc50fba89f4784f17322124d2a2857",
+      "git_blob_sha256": "8dd341b7c18ada0652dd79dcae2ff43354e92ddf6598a4ce157c604ce179b3d6",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_control_stream.v",
+      "expected_build_input": "bde00d186145f3bba4edb019a0a62729290a64a76a226c151658ecbbab9c9b5b",
+      "git_blob_sha256": "bde00d186145f3bba4edb019a0a62729290a64a76a226c151658ecbbab9c9b5b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/edge_status_osd.v",
+      "expected_build_input": "0975e797983525a9f7e6ecd37c60e71f19512296d3bf01f6b76276e7aae896be",
+      "git_blob_sha256": "cc06495bd8376d654fd8fd49fb9b87653bf1c822692d71a30455357940da22e3",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/rgb_effects_96.v",
+      "expected_build_input": "ed568aa91f763ef618e9c63289dcc65885810e5b152378b2b29c8f3dc5c798bf",
+      "git_blob_sha256": "ed568aa91f763ef618e9c63289dcc65885810e5b152378b2b29c8f3dc5c798bf",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/style_fill_96.v",
+      "expected_build_input": "2b3b4118009c381287d9a3c826ec239d50e4ab2371e391c3eb32903d9e7f1423",
+      "git_blob_sha256": "2b3b4118009c381287d9a3c826ec239d50e4ab2371e391c3eb32903d9e7f1423",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/gaussian_pair_3x3.v",
+      "expected_build_input": "960e87ff4ae47046e23e9a12e06f80c8c10da0116b85beb6f4a41442baee4ab3",
+      "git_blob_sha256": "960e87ff4ae47046e23e9a12e06f80c8c10da0116b85beb6f4a41442baee4ab3",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/nms_gradient_pair_3x3.v",
+      "expected_build_input": "d2c04a969fe951a2acdee9c7e54802be8a6ef0c7677431e661b2298569b62a51",
+      "git_blob_sha256": "d2c04a969fe951a2acdee9c7e54802be8a6ef0c7677431e661b2298569b62a51",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_link_pair_3x3.v",
+      "expected_build_input": "2b539b5c00abdf057063a909a30180d7d958acb43ad91f221efc357933afe36c",
+      "git_blob_sha256": "2b539b5c00abdf057063a909a30180d7d958acb43ad91f221efc357933afe36c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/fifo_event_counter.v",
+      "expected_build_input": "8b2e6190cde535baaa232e9fad710062b8d2530606deb0df79725eddb874d689",
+      "git_blob_sha256": "8b2e6190cde535baaa232e9fad710062b8d2530606deb0df79725eddb874d689",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_center_pair_delay.v",
+      "expected_build_input": "cff263eac9f001937fe20dd4b1eaba180fb4c72e45a3d94a6f2434f8b662c336",
+      "git_blob_sha256": "cff263eac9f001937fe20dd4b1eaba180fb4c72e45a3d94a6f2434f8b662c336",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/edge_temporal_hold.v",
+      "expected_build_input": "043d24b7597a3f6fbce87686921ffb86b0478932ae4a7f0a8f6c40a842a1b6fd",
+      "git_blob_sha256": "de9372d3435d31101d7e8fd7dbaf3c4754fff3eefcb59f3256efa21d92e315c0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/planar_measure_stats.v",
+      "expected_build_input": "c9aff672f6009232b426c98f9343b471d4a5c743f824007bca846a179faf0816",
+      "git_blob_sha256": "c7c6400516c27cfc2137bb42cdf5b04a507c40bfdcea56c81967cd1100bef588",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_calibration.v",
+      "expected_build_input": "d31b92f9bdd9aa9e345a8e96ebaa305ab64677dd0811b2edff79ab913ec169e7",
+      "git_blob_sha256": "d31b92f9bdd9aa9e345a8e96ebaa305ab64677dd0811b2edff79ab913ec169e7",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_auto_calibration.v",
+      "expected_build_input": "2d32a79b9af81651ffede4a19f9ace27c7f821d0711e602b5421b2769ba19cb7",
+      "git_blob_sha256": "28949b38c52ac4c132fda6cd1cdc4e080a14cd4f21c32892e57da19b2149b0f6",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_robust_calibration.v",
+      "expected_build_input": "097690276f54a99e8a6feee44a1ab3eb6ce44ad825667c430f965c40787518e5",
+      "git_blob_sha256": "b7b525ad3afa8f8400a61c1e8f6f8e70ec7372dae673ecf4aef7853ce7ea2238",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/ruler_area_calibration.v",
+      "expected_build_input": "0e6cd255e794514c15454cc56fe35b791894e097558f1e5af67bea09f8184795",
+      "git_blob_sha256": "71e1d148f26b74cd04f0bb8d5e8459d62dff7387d9c58b6b665081003ba0852e",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/engineering_dimension_marks.v",
+      "expected_build_input": "2161a34f689a95bdefb015d55debfa08d2a42c5ca097df4ccba236afff14c562",
+      "git_blob_sha256": "2161a34f689a95bdefb015d55debfa08d2a42c5ca097df4ccba236afff14c562",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/inspection_control.v",
+      "expected_build_input": "da780e2f70276c640f60a42714fba802a7248250b015a54751d3e694b1a74dc6",
+      "git_blob_sha256": "da780e2f70276c640f60a42714fba802a7248250b015a54751d3e694b1a74dc6",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_stats.v",
+      "expected_build_input": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
+      "git_blob_sha256": "b3b45a14caff9a649ee26d7cdbd916007f71668c0bb5c4949319db342ef5b322",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/color_compare_osd.v",
+      "expected_build_input": "b2e5c497ef3bc9abaef07629cd06651628f6fdc070819045a0c1fe03a2ea675e",
+      "git_blob_sha256": "b2e5c497ef3bc9abaef07629cd06651628f6fdc070819045a0c1fe03a2ea675e",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_motion_grid.v",
+      "expected_build_input": "8e394cfd9e362b34c9dc44e48e67dd83080c1b0991bd3b83da74012e02bb0036",
+      "git_blob_sha256": "8e394cfd9e362b34c9dc44e48e67dd83080c1b0991bd3b83da74012e02bb0036",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_source_observer.v",
+      "expected_build_input": "290e4f41da57b3fcc35aa11734af6965240ae6507589f3822003a86b067ee519",
+      "git_blob_sha256": "0f99601a3d38b26d243ce51e62a36dd02d8d6536547e3b0841b6e395f4977cf4",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "features/color_target/rtl/color_classify.v",
+      "expected_build_input": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+      "git_blob_sha256": "56a61ac7fb0e74be9dbaed4a4b7ae2623166eeecd65ec211d09fbab7b83b52c3",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_mask_stats.v",
+      "expected_build_input": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+      "git_blob_sha256": "9095f198528e32f9ad91971bdcd0a718a1153b3f1b5f4c5331136373decf916d",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_track.v",
+      "expected_build_input": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "git_blob_sha256": "271efbe3a9a933afd60506fa1b875ca6fcc2afbfbd406a4367f16c15055013d4",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "features/color_target/rtl/color_target_track_guard.v",
+      "expected_build_input": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "git_blob_sha256": "01daf5323d1be707da39717426ff689d9f494e72a2726f7115068ebf837ad5d3",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_font_rom.v",
+      "expected_build_input": "7fee3c2200977f41c854755463f698b46d084b10df03a44ffcba0e562926102b",
+      "git_blob_sha256": "7fee3c2200977f41c854755463f698b46d084b10df03a44ffcba0e562926102b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/measure_background.v",
+      "expected_build_input": "d7b20081a7bf9ee1f7ac2c97ce2a1c69c0fd3cdbd72021299c057889399ff1fe",
+      "git_blob_sha256": "27adc32750133cc2d0c48f5f1a14588b50c2cff927cdb0ff339916d5f21637fa",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_config_delay.v",
+      "expected_build_input": "3794a95181073af2cc460e8f2874da59224f514c73282f58d167806f88b0d83f",
+      "git_blob_sha256": "3794a95181073af2cc460e8f2874da59224f514c73282f58d167806f88b0d83f",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_shape_select.v",
+      "expected_build_input": "64eb1bece1eab43c708c169708f7f792371cc0883da031fe799e41686a3bc65d",
+      "git_blob_sha256": "64eb1bece1eab43c708c169708f7f792371cc0883da031fe799e41686a3bc65d",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/edge_row_history.v",
+      "expected_build_input": "cca7362eb8ed342b7fce21dd9d9d5d14d10f3b67f184f0fb99293b2f8cf7079b",
+      "git_blob_sha256": "cca7362eb8ed342b7fce21dd9d9d5d14d10f3b67f184f0fb99293b2f8cf7079b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_capture_tag.v",
+      "expected_build_input": "3067492414e5aa8cc3cace43a415e6f3bfc8130cfb54563fa897679dddfa668c",
+      "git_blob_sha256": "e2831a386d7c27656820cfa41a33dcdd786bb7ff4813008962d7aa1060aee6fe",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_slot_journal.v",
+      "expected_build_input": "0ceb107a265856dd044297ca51363838dd4a2b2da93193c2e170ee587ac94038",
+      "git_blob_sha256": "8c84334256c90439d38fc2b6e638d03eeab12c609f4b94acca272747b5b3fe20",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_tagged_fifo.v",
+      "expected_build_input": "c2b5b1d57df20f239c3a6fcbe9c94236d872f55f1c6d6cb50d5ece3737e57942",
+      "git_blob_sha256": "c2b5b1d57df20f239c3a6fcbe9c94236d872f55f1c6d6cb50d5ece3737e57942",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_osd.v",
+      "expected_build_input": "497f530020505c0b7222fdc7042fdd9200362ed735eef0a1d0c7ac04a4cca4f0",
+      "git_blob_sha256": "e00017eb365b00bcb842a9a11041e41af2bfb01dbae21ff757d30419eb86e131",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/mipi_dphy_rx_ph1p_mipiio_wrapper.sv",
+      "expected_build_input": "86b796060b0a133d1d10fc659b85c73ebfc98ebfa51904860a89ad5bdb68fe5a",
+      "git_blob_sha256": "d25bcc9d6a15711633c5249f88ebfbedcf58f9c79069e85fac74e44d388baaf8",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/ph1p_mipiio_rx_wrapper.v",
+      "expected_build_input": "f957019576d22a8322889af73f8bfee07f46006959f9efcca0595bc8fa3234ae",
+      "git_blob_sha256": "25629841e1cdc9116993457048142a7b2b101d2e58b59c40b584cf59b17cf939",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/byte_aligner.enc.v",
+      "expected_build_input": "25a3581a512ad89bb43fed2758e32ce089ccca29dec445ef9b71da36423f217c",
+      "git_blob_sha256": "3c65c483a67e7cd58141fbff456cdc7079377eae8a7210da134a29a4210d49c9",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/byte_aligner_wrapper.enc.sv",
+      "expected_build_input": "d98ae007d77ae262c0c34b53586a5aa8a840edc7dcdbfcc9091eb89cc68a6776",
+      "git_blob_sha256": "887413db0017f638ae11ae00b5467520d529d6c512e87fddbe609cb7de147dfc",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/channel_aligner.enc.v",
+      "expected_build_input": "3824e224a0b0b4e2b37ca4ac5533002221bcaec2694ee86de5c0f1a104dffebb",
+      "git_blob_sha256": "e3dbd0d8705b3ad5b605b62dd646399fa71a125812da85283d6b993c359b349c",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/channel_aligner_wrapper.enc.sv",
+      "expected_build_input": "c26aef5aeb40a767633efa21be4e5e59c25b91e79d0ea1f7c05d70a958771846",
+      "git_blob_sha256": "fd94e6aeeb91cae7df0da35983431dec3358a2ac12b3fd2f45b94db3b26050d3",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mipi_dphy_rx/hs_detect.enc.v",
+      "expected_build_input": "bbf7a362273291a874793abbbd027a8d668c6281a4dd81240eae45572d5e5c92",
+      "git_blob_sha256": "5c711d41a9739c5b4956c3d0c16eb8e757a787a6b6da0cec873e8cbc8b55d8ed",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/constraints_source/pin.adc",
+      "expected_build_input": "5f78b9044138f8d1c3588f6f7265d33453d563cb7ec521851afaba60b9552cfe",
+      "git_blob_sha256": "cab0ef27b9f757361c8a075a719f42a6acb1547b120fbc47ed8ad5f33d9b3689",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc",
+      "expected_build_input": "457379c949a59da39579d996bea3c56f066f85be422cec9a3b320d558e8f5c0d",
+      "git_blob_sha256": "adcb8f9b759e3b1f0baea3979734393ebce8b6e66d21aa9c812ce66d9c75c1eb",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/PLL.xml",
+      "expected_build_input": "cdd3123c372c914ee1f71c7ede955dc572eba871ebb5752d0ff3220d16b89707",
+      "git_blob_sha256": "ebd66b2aceafa09120bc74a131ffb0f8ffca7d231ecfa4549c28acabfcf9f794",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.xml",
+      "expected_build_input": "168018c547dd95d242196199bdfb35d426265ad0df0a39288d23e0c4c8a4bdfc",
+      "git_blob_sha256": "168018c547dd95d242196199bdfb35d426265ad0df0a39288d23e0c4c8a4bdfc",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.xml",
+      "expected_build_input": "c16f1a475e2c0c61e4d9f05598a753086ac4f95bb223997e2c686557b30285ea",
+      "git_blob_sha256": "c16f1a475e2c0c61e4d9f05598a753086ac4f95bb223997e2c686557b30285ea",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/blk_mem_gen_awb_delay_signal.xml",
+      "expected_build_input": "2a4036c207ee38a5cc415e9df729333f00b82072c774ac911eb71a8855bcd423",
+      "git_blob_sha256": "2a4036c207ee38a5cc415e9df729333f00b82072c774ac911eb71a8855bcd423",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider.ipc",
+      "expected_build_input": "6c8d11f165aca0d4818325452b554ef11c11ff618e2e99473b50af32745afa62",
+      "git_blob_sha256": "6c8d11f165aca0d4818325452b554ef11c11ff618e2e99473b50af32745afa62",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/ddr2.xml",
+      "expected_build_input": "1c0928264dcbc2217f7c1015042fc61e02bd444b727eac8b2e8f9bc4b89fc720",
+      "git_blob_sha256": "0eda3a605d7b48c61ec372e46bddc9c19aa2de0d747e68007ecb4ed5dc27b52f",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/blk_mem_gen_zhenghe.xml",
+      "expected_build_input": "48edbc23f5a159c7174d46cfb3f71d57726553d99ee9c7095d3913ecb3b7a6ef",
+      "git_blob_sha256": "48edbc23f5a159c7174d46cfb3f71d57726553d99ee9c7095d3913ecb3b7a6ef",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/blk_mem_gen_demosaic.xml",
+      "expected_build_input": "9488f4f3af1d7cd60574a6a115f6fe78416432810231ee50de51e27c844a0570",
+      "git_blob_sha256": "9488f4f3af1d7cd60574a6a115f6fe78416432810231ee50de51e27c844a0570",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_logo_index.dath",
+      "expected_build_input": "eb6169952a5fc99d57f6ba5939375d04f23b8f6b5a65e97c3044be6c7c771a34",
+      "git_blob_sha256": "eb6169952a5fc99d57f6ba5939375d04f23b8f6b5a65e97c3044be6c7c771a34",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/vision_logo_palette.dath",
+      "expected_build_input": "17e3494fd453c86437c10daba2d00bc48cff3a859f409867cb08f9dec7e2f441",
+      "git_blob_sha256": "17e3494fd453c86437c10daba2d00bc48cff3a859f409867cb08f9dec7e2f441",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/inspection_font.dath",
+      "expected_build_input": "1f1662f8578f56a8ec53aa93b09e9f92459fbdf18e315ee3a3b7a0f926653462",
+      "git_blob_sha256": "c8f0a62b09c881f0ba46d31f2c61d381ec3ef9572191b7cb6b4ddd02c2b4a695",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/latency_font.dath",
+      "expected_build_input": "4eed02fdfda4c26c95c055cde67b95533bba94e6ccb3edd644fc8f767659e2fb",
+      "git_blob_sha256": "5964807599196f21e621b656fbfb082880d9f376654417691971b5a671245254",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/.m_params_blk_mem_gen_demosaic.txt",
+      "expected_build_input": "5e26ea4e1476686542cd496c81a4557aa1b674149ba313b3fd625af5c9fd1a2c",
+      "git_blob_sha256": "38fd7d2aca8fa464f5eee249f69c4766b925033db5dcfb30beff4783399a4d84",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/.params_blk_mem_gen_demosaic.txt",
+      "expected_build_input": "fd29c924b47d1e48bdc3a2eab4f7abb679fb23aab23b3c40e29372f0f2c8f1b1",
+      "git_blob_sha256": "cbeb8a1af193f34a227221b08fcf312dcf594806588d2c5301f46c3c049ab9ab",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/.ports_blk_mem_gen_demosaic.txt",
+      "expected_build_input": "f9882b0975a77f758baa98b74649159c7f4c6590a259591941c039bf1ef8eab9",
+      "git_blob_sha256": "8ca785a0e2583343e787015fb11d86e9a2986786c78101f060c22e899007551c",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/Design.xml",
+      "expected_build_input": "15d9b59feac472cfdc73a0ab4bc78c76c8af7cc9bbd3f1b09b3c10623770a559",
+      "git_blob_sha256": "6f9eeb7a830099c3ad9024117b7d170fb3e6f20cfa76124afe89182240701689",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/DesignConfiguration.xml",
+      "expected_build_input": "b4b0392ba552c1631343ac2c7732075d9aa95460715723994aecabf399da8868",
+      "git_blob_sha256": "4b7e95dd9b3ade15e0885e3efdfc142a8ed897440352b19aaa2875062df1b591",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/include/define.v",
+      "expected_build_input": "ce22c429acd5d725b986015db98a3a86609204620dc1ba9158123f1e335b6ac5",
+      "git_blob_sha256": "a06949c2636428d2f58760545730e626998561b44e34cac565f66e228f981537",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/RTL/ram_c36c2ca3b3a7.v",
+      "expected_build_input": "4c007b82769a2af9474683ec27711133c735ac776fd1f3d037d4eb00cc20a832",
+      "git_blob_sha256": "5ad4cdc18e946c5e491619405ed9dbcef2fd86df8aeacb0f45ad58e33569bae7",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_demosaic/blk_mem_gen_demosaic.v",
+      "expected_build_input": "f52e1a6ef3da30b6b5342ed21fffc1651b9d0574fd3331215dbc0fb21476b83f",
+      "git_blob_sha256": "42e058ba4100c363144bbae4856ecf55b4d3687004cb2e7af05ab9b8cdad1536",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/.m_params_blk_mem_gen_zhenghe.txt",
+      "expected_build_input": "97a9f87b1f5ac927934d32bebc00206a13b23830facc6b2a2298ccf7924903fc",
+      "git_blob_sha256": "af0963549eafc9ccbbcb43302fbc7c93046bdddd9276dff6540512c9ab491670",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/.params_blk_mem_gen_zhenghe.txt",
+      "expected_build_input": "902190f496eedd54c33824555ef6af4e5553329c256cc046074f7b8f4468693b",
+      "git_blob_sha256": "d85585a3946baea40b09916a8220701b19c27da29e50146322dc79f4158b9c6f",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/.ports_blk_mem_gen_zhenghe.txt",
+      "expected_build_input": "f9882b0975a77f758baa98b74649159c7f4c6590a259591941c039bf1ef8eab9",
+      "git_blob_sha256": "8ca785a0e2583343e787015fb11d86e9a2986786c78101f060c22e899007551c",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/Design.xml",
+      "expected_build_input": "dee91dfd99dee99429c37b0e7d57888c3aff5473464176c1d848573f08143ba4",
+      "git_blob_sha256": "1ac7fdffb938213e508cf14c75021a1a37de81ddc7fedc972f484fee61f4ddc6",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/DesignConfiguration.xml",
+      "expected_build_input": "abf427deb516260163dbfe3677440c5ba3b75ade76de7be5e13b9f02f65b2d33",
+      "git_blob_sha256": "00747d987f59c1fd2a9e6cfed3f8f9f485b0976b88b72651763cfa78343e2216",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/RTL/include/define.v",
+      "expected_build_input": "104eb8d9b626b944b1e2d3b8070f51c636af132bc00b32ebed0236bbb2c144c0",
+      "git_blob_sha256": "7c5a3328fd5824d76758cbeb49795626caa176987bcacb0daec8db7701e474d0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/RTL/ram_d32970204f32.v",
+      "expected_build_input": "facbb17d5cf7aa37e7cb63764780c2c7acc655ff421a766701c656adbb9f8c26",
+      "git_blob_sha256": "6a06de1aead75b6f73be11b14c1a55df360ab62e90a025eccfb27c964d5129d7",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/isp/demosaic_4x_2_0/blk_mem_gen_zhenghe/blk_mem_gen_zhenghe.v",
+      "expected_build_input": "c6b2064638cf7217b792e8f880840f46151a1c83158dd6e96d8d4c63631432bd",
+      "git_blob_sha256": "6932e98848bfaa5746491fbc23eae7ea7f3974dc4703e9d2608824705b699f1f",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/.m_params_ddr2.txt",
+      "expected_build_input": "2e7e92f7421ea8cde90c09d90fc68472e2043801f5ab8115518b347e4617546a",
+      "git_blob_sha256": "7c4ac6c1d73543a0c3bd39d114385ea2f02916bcc6d315031be824e3cc29b3e0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/.params_ddr2.txt",
+      "expected_build_input": "05c307685a34e4e3faff48b3f67bca22b992ad3a2ca39d67112347ca307d3cfb",
+      "git_blob_sha256": "1c2302ea8385fdebf0d8ec1b28bb1803013ea9068b527d74b1809f3f514f762e",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/.ports_ddr2.txt",
+      "expected_build_input": "8c870855f11b7288369350fb8cae50196ddad60b7df9108780aca164825ee88f",
+      "git_blob_sha256": "63c18349b670eccb2847a15fdb8d7eb1e74f483f558ba2189611c0ccbc9df95a",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/Design.xml",
+      "expected_build_input": "05f2df14236dae523772394418c4bfc68949fd9bc0c5a25fe9a5c82b815b3538",
+      "git_blob_sha256": "653743e9cb5cc3173b44caab9e1957bfb6e120c1335d450736422feb524b5737",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/DesignConfiguration.xml",
+      "expected_build_input": "a3b21234cb726166d33141f559b20bfdadea14b5f752e547b07e6ee8a8230fe5",
+      "git_blob_sha256": "ec54621d0f4240d5390837c0483c1bb04ceeb5e1e074fe7617c0854ce9491263",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/ddr2.v",
+      "expected_build_input": "99910fcd06d61b728c4333f8eb15dd07b61db32af197ad3871995283461fe29e",
+      "git_blob_sha256": "b7b609ec24f34f2dd1bab6f39f3a6652563de346d87e513e8d40946d49109973",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/ph1p_ddrmc_wrapper_63f4ac254419.v",
+      "expected_build_input": "a206d148022c1a5bb46c37932714dc9d57fea32f39fdb344e060e9fc9c6ff1ce",
+      "git_blob_sha256": "92fda1724f2160570a73b73a899bd19b845f75405f7f3d2cfae8debf84314a67",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/adc/ddr2.adc",
+      "expected_build_input": "9b579aef1dd260789b02b7012ca9689af6280ec9af530a1a946c5ac0a8c43e81",
+      "git_blob_sha256": "9b579aef1dd260789b02b7012ca9689af6280ec9af530a1a946c5ac0a8c43e81",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/clk/ph1p_ddrphy_clk_top.v",
+      "expected_build_input": "036a13cefc0014468cb7553aa43064a65bd2bf3008c25d2e495867fc5f43d329",
+      "git_blob_sha256": "036a13cefc0014468cb7553aa43064a65bd2bf3008c25d2e495867fc5f43d329",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/clk/ph1p_ddrphy_pll0.v",
+      "expected_build_input": "ab08d9b46eff0e2acf0abaf5b57e999629894e1ba4f28d14f859c45a6b487fa7",
+      "git_blob_sha256": "ab08d9b46eff0e2acf0abaf5b57e999629894e1ba4f28d14f859c45a6b487fa7",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/clk/ph1p_ddrphy_pll1.v",
+      "expected_build_input": "9aafa4558b482ee93f926ad3f710a90ce1be99ddf8712752d1e1c48404f90ae0",
+      "git_blob_sha256": "9aafa4558b482ee93f926ad3f710a90ce1be99ddf8712752d1e1c48404f90ae0",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/include/ph1p_mis_define.vh",
+      "expected_build_input": "a0e0bc78eab01cd1815a04f246420b68b4a5a616c43c2f36988c4df94fc1b471",
+      "git_blob_sha256": "6437db13f5890dea2b9c31179a581087e2a4eb01324ac7b6467595b9e573ce1a",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/init/ph1p_ddrphy_dram_init_ddr2.v",
+      "expected_build_input": "b4b6c9e5223852750d2a0d3a013447716a08c56055511afa517dce612380649f",
+      "git_blob_sha256": "b4b6c9e5223852750d2a0d3a013447716a08c56055511afa517dce612380649f",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/mc/alc_mc_top_all.enc.sv",
+      "expected_build_input": "19b4b773f7dae211b9b9adb73c3871d5b494345fbf684ce1b7dac9cd3cae512b",
+      "git_blob_sha256": "19b4b773f7dae211b9b9adb73c3871d5b494345fbf684ce1b7dac9cd3cae512b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/mc/alc_phy2mc_fifo_ctrl.v",
+      "expected_build_input": "cf1500a2d491c637a9150fb36fbc6de109e62cca5d8ff3c58dadf5f7f84472c6",
+      "git_blob_sha256": "cf1500a2d491c637a9150fb36fbc6de109e62cca5d8ff3c58dadf5f7f84472c6",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/misc/ph1p_ddr_fifo_dram_sync.v",
+      "expected_build_input": "21795bf78115dbd04d7ec81f4f240832d8e7267fdebeddcb6be50d3cb95ab8b6",
+      "git_blob_sha256": "21795bf78115dbd04d7ec81f4f240832d8e7267fdebeddcb6be50d3cb95ab8b6",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/misc/ph1p_ddrphy_sync_rst_gen.v",
+      "expected_build_input": "8db3d13deec253a2248899de81a7d1a382eacb7683f229732a28272ab9969c55",
+      "git_blob_sha256": "8db3d13deec253a2248899de81a7d1a382eacb7683f229732a28272ab9969c55",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ddrphy_cfg_rom.txt",
+      "expected_build_input": "2f5a00c5a364a4d37891042b4d4956a29b3990b3385512d20ede491c8ccf863b",
+      "git_blob_sha256": "2f5a00c5a364a4d37891042b4d4956a29b3990b3385512d20ede491c8ccf863b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/include/ph1p_ddrphy_board_delay.vh",
+      "expected_build_input": "fbb70f7d53984ac052b29ded89fefde7c82a003484fc7fc60e0a816372c0de89",
+      "git_blob_sha256": "7e830f19ae5f8e35ef0e1d5646a3588095675ec64d7b0349c2e4fba62dc02c56",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/include/ph1p_ddrphy_bus_matrix.vh",
+      "expected_build_input": "828cb1decead67b69ccd6540fc7c9b15b8daeb3b5f101f08c92d2a8a228f4acb",
+      "git_blob_sha256": "828cb1decead67b69ccd6540fc7c9b15b8daeb3b5f101f08c92d2a8a228f4acb",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/include/ph1p_ddrphy_ddrio.vh",
+      "expected_build_input": "8e9bde3255e6a332fc43aae1414a29183b5e1ed650d3ef731fddd2dbbff21863",
+      "git_blob_sha256": "8e9bde3255e6a332fc43aae1414a29183b5e1ed650d3ef731fddd2dbbff21863",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/include/ph1p_ddrphy_pad_type.vh",
+      "expected_build_input": "76439ab49aefb1e41d91d2d4ee12094ef362b1ac69a382b8faa5d3202842b7fb",
+      "git_blob_sha256": "76439ab49aefb1e41d91d2d4ee12094ef362b1ac69a382b8faa5d3202842b7fb",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy.v",
+      "expected_build_input": "d48e70211a598a211ce0f9060c767c04148592b0ec1137017027bb741ad5b283",
+      "git_blob_sha256": "d48e70211a598a211ce0f9060c767c04148592b0ec1137017027bb741ad5b283",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_apb_bridge.v",
+      "expected_build_input": "cde632f73a4e58c1cf375f62626b26e144ef553926b5539b5eae08b655fecb12",
+      "git_blob_sha256": "cde632f73a4e58c1cf375f62626b26e144ef553926b5539b5eae08b655fecb12",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_bankref_cfg.v",
+      "expected_build_input": "96121f2a93a56127499518158b07b2db9deff29bbac464d3c077ab6a718a8f1c",
+      "git_blob_sha256": "96121f2a93a56127499518158b07b2db9deff29bbac464d3c077ab6a718a8f1c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_byte_wrapper.v",
+      "expected_build_input": "ad7fa1a71337f4a3989cb619d77b770510c30c5b81f126f6661eaf65f01f710c",
+      "git_blob_sha256": "ad7fa1a71337f4a3989cb619d77b770510c30c5b81f126f6661eaf65f01f710c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_cmd_decode.v",
+      "expected_build_input": "b3bd00df9d41b792d6f6a18b2be29c8ab363aeb3fb7dc88fe0be61dff8905abd",
+      "git_blob_sha256": "b3bd00df9d41b792d6f6a18b2be29c8ab363aeb3fb7dc88fe0be61dff8905abd",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_cmd_execution.v",
+      "expected_build_input": "53c5eaad74abfc98bb0c2a4ede0a1863c8a34008da1955cf7ad397e151d0a9c1",
+      "git_blob_sha256": "53c5eaad74abfc98bb0c2a4ede0a1863c8a34008da1955cf7ad397e151d0a9c1",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_cmd_wrapper.v",
+      "expected_build_input": "82cdea3269662c94b82c675c8a7e110c1c1fc212775f4c696e876215e7ebd68e",
+      "git_blob_sha256": "82cdea3269662c94b82c675c8a7e110c1c1fc212775f4c696e876215e7ebd68e",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_dcu.v",
+      "expected_build_input": "0f335ebf3607a7823b90a6d6278dd3906fdf0e941c019c83186b2d017e613b49",
+      "git_blob_sha256": "0f335ebf3607a7823b90a6d6278dd3906fdf0e941c019c83186b2d017e613b49",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_dcu_wrapper.v",
+      "expected_build_input": "b130b5b93bcc9fb8fb71a0e38a1000c86cb663ac1d72aef0a47215d8154ab32c",
+      "git_blob_sha256": "b130b5b93bcc9fb8fb71a0e38a1000c86cb663ac1d72aef0a47215d8154ab32c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_fast_init.v",
+      "expected_build_input": "c36a5925a09f8dafe5d49144cdc72fa85656602b3d4a944f587bbd0d9fa1d5a3",
+      "git_blob_sha256": "c36a5925a09f8dafe5d49144cdc72fa85656602b3d4a944f587bbd0d9fa1d5a3",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_fast_init_wrapper.v",
+      "expected_build_input": "30cf679296790caa864d0ebbe6110a17b3c9b6bee529ef3cd6eeabe37da2dac1",
+      "git_blob_sha256": "30cf679296790caa864d0ebbe6110a17b3c9b6bee529ef3cd6eeabe37da2dac1",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_init.v",
+      "expected_build_input": "fafa767b0a4d1f431dac6ea1461dc16aff2ea1169c8aa45a50a009117a90f5c4",
+      "git_blob_sha256": "fafa767b0a4d1f431dac6ea1461dc16aff2ea1169c8aa45a50a009117a90f5c4",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_mdl_cal.v",
+      "expected_build_input": "247c8a832efebf5c4733e599d7e2b19abc3687ca48b6317ea1fc882095768d95",
+      "git_blob_sha256": "247c8a832efebf5c4733e599d7e2b19abc3687ca48b6317ea1fc882095768d95",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_mdl_cal_wrapper.v",
+      "expected_build_input": "0b583c987311deeadeeedd19dd51a04e8e14b227873e37f1ec8db8dd18b7c125",
+      "git_blob_sha256": "0b583c987311deeadeeedd19dd51a04e8e14b227873e37f1ec8db8dd18b7c125",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_rphase_ctl.v",
+      "expected_build_input": "2e26a87b37c99613bc61c52fd2482012a2f5bd8a662636f782418de5d9ce6928",
+      "git_blob_sha256": "2e26a87b37c99613bc61c52fd2482012a2f5bd8a662636f782418de5d9ce6928",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_top.v",
+      "expected_build_input": "0780509185215671e361e6fcc47a0cd8a986c5f48b8a3e140faa8ec64ad62eee",
+      "git_blob_sha256": "0780509185215671e361e6fcc47a0cd8a986c5f48b8a3e140faa8ec64ad62eee",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_wphase_ctl.v",
+      "expected_build_input": "6e62e4e832b2b85859cdbd38d2d08dde9b8066670246c6c7ab6d675e0dd13680",
+      "git_blob_sha256": "6e62e4e832b2b85859cdbd38d2d08dde9b8066670246c6c7ab6d675e0dd13680",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/phy/ph1p_ddrphy_wrapper.v",
+      "expected_build_input": "12ce7589375eb44f6e71d9d4280ae32cf2bb82ef7519a2ddaae01f7914ba0467",
+      "git_blob_sha256": "12ce7589375eb44f6e71d9d4280ae32cf2bb82ef7519a2ddaae01f7914ba0467",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_1066.vh",
+      "expected_build_input": "b64f54ddcca5ff29139f55cc2e9bfb388b3781c951eec156353dd6794171a49c",
+      "git_blob_sha256": "b64f54ddcca5ff29139f55cc2e9bfb388b3781c951eec156353dd6794171a49c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_1333.vh",
+      "expected_build_input": "50f8013ffd18e874a8917e633287e2c7803126c594e0f95bc582931a8e1aaab5",
+      "git_blob_sha256": "50f8013ffd18e874a8917e633287e2c7803126c594e0f95bc582931a8e1aaab5",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_400.vh",
+      "expected_build_input": "9ca837ef541e787058f3bbbdacb952b6d97a8fca315dc87dfc4db6561aedfd73",
+      "git_blob_sha256": "9ca837ef541e787058f3bbbdacb952b6d97a8fca315dc87dfc4db6561aedfd73",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_533.vh",
+      "expected_build_input": "78495997f24d6a890756101cadbd39ebdcd814ebc3981f190ae43cb319815c9c",
+      "git_blob_sha256": "78495997f24d6a890756101cadbd39ebdcd814ebc3981f190ae43cb319815c9c",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_667.vh",
+      "expected_build_input": "66fde1491aeb55f212ccccbb174649b63029d4e63df5105515241765538518d5",
+      "git_blob_sha256": "66fde1491aeb55f212ccccbb174649b63029d4e63df5105515241765538518d5",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_800.vh",
+      "expected_build_input": "034f9fa434e52a7f6e38e3c5d8d01218bc87c60cc8463bdde6bc5c454e1b25ae",
+      "git_blob_sha256": "034f9fa434e52a7f6e38e3c5d8d01218bc87c60cc8463bdde6bc5c454e1b25ae",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/timing/ddr2/ddr2_parameter.vh",
+      "expected_build_input": "4b10686e72bcde0f3f2a25c28b31df92c3478a39257b16b28cf7f88572436dfe",
+      "git_blob_sha256": "4b10686e72bcde0f3f2a25c28b31df92c3478a39257b16b28cf7f88572436dfe",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/rtl/top/ph1p_ddrmc_top.v",
+      "expected_build_input": "067ac86d88e35cb0c12e62816175542df2e907d244e86f92411611b83123736e",
+      "git_blob_sha256": "067ac86d88e35cb0c12e62816175542df2e907d244e86f92411611b83123736e",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ddr2/src/sdc/ddr2.sdc",
+      "expected_build_input": "adb6317927dfd09095073cad40be8e63d39ea3d941b4c790f2f483b1aed428d6",
+      "git_blob_sha256": "b09a784f3dd474ff2dfd63eddb9c398ab6cfb0cfbb0561886c7474855a5e6c55",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/.m_params_PLL.txt",
+      "expected_build_input": "2a9aec5bc56eaf55d21bdf04d909dba9f821359eda82395e7a170508ecf0a819",
+      "git_blob_sha256": "daae930a0c2f2c0fd06fa4d46e394f35747f4a7bb82fdb2a5361c23c867fb5bb",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/.params_PLL.txt",
+      "expected_build_input": "e73afc6db374fd675872530f5d57c162c75f708898c0c7493b61c499ca2d00ec",
+      "git_blob_sha256": "04973b17a1b8f26dd3d114e60a78f1dcefbddfdfbec571706983c53c637d6062",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/.ports_PLL.txt",
+      "expected_build_input": "bd8d1143b3926737d797e55f079433d4881e2029314ee46c4ea36802eeb246b4",
+      "git_blob_sha256": "5b1d54386fe9ffa64526d9d11416b3226ee3d37066523ff038b3a358ea8bf536",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/Design.xml",
+      "expected_build_input": "d72d72c78ca050de67b898426664373e915a67effed434d44aba3ff1fe30624f",
+      "git_blob_sha256": "c8648ef67c1075ea56304f527552a3b8eb02431d9b048b0ff3b532ccdd2f4cec",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/DesignConfiguration.xml",
+      "expected_build_input": "890ccd3b2faf9f3a2b0d36bd26fe5bfc81cc3a6c8ba9b8110311b97f43d55f65",
+      "git_blob_sha256": "e11282ed4eb296469265d8aa620d921b73db8c692ea96e427a3dfac767f0c866",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/PLL.v",
+      "expected_build_input": "1137946f04514e440b6c6cfd6695715dd6ae48d213af0c7314932b9f5e671037",
+      "git_blob_sha256": "1d1581ee7a969398183ab6a728b72f6145ea6b0cab0020a8c0a7744abd49c8cd",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/RTL/include/define.v",
+      "expected_build_input": "6c747d798a21add4498d24776caaa1318e0a20f0b04bc5e6f759ece127b53997",
+      "git_blob_sha256": "7c2075aee998b666106ec2bbb6db61ab2bea11fa42f5a62e693cfa8a0963f303",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/PLL/RTL/ph1p_phy_pll_wrapper_25a56e5ce2f9.v",
+      "expected_build_input": "2f6f2560129b950c9f5a36136f128a9304ff858bf1bae0f2129ea0145d941a1e",
+      "git_blob_sha256": "c5a137bcb6999b99a97db477d4cc7756b646a7376731f0532f08126b0a0a301d",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/.m_params_blk_mem_gen_awb_delay_signal.txt",
+      "expected_build_input": "c712f469bf120ea38e3d1c91d2d6aae1dd5ca658b26a5ce5dbdb9cc7370eb8dd",
+      "git_blob_sha256": "9b023225b50c845c5b66207c82b48a9f56d80785d1881b2b883e7782e0611cea",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/.params_blk_mem_gen_awb_delay_signal.txt",
+      "expected_build_input": "e9157f46121a253584f414d5a95b56a1bdbc958ee45c6cc053cd195ad021d7ea",
+      "git_blob_sha256": "ba5f4ecea42a8c86f9448ac15e4ed2176ed7518a5aa35f0cd7a00ff756a2216e",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/.ports_blk_mem_gen_awb_delay_signal.txt",
+      "expected_build_input": "ed060b0a8f1216f9389653e982879185b21022c48dd226da197a76315f1a2a46",
+      "git_blob_sha256": "66512711fa9de50125ce6a2fa847b0e8c461103bf1d84eef25756d898ce79ff0",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/Design.xml",
+      "expected_build_input": "e436f92f4c57a127cff592927c58dcec6901816ccd324d6a394dec3cdd1ef527",
+      "git_blob_sha256": "52139a62d7d215ec8272cf51552a1c7401909c12cdd496351d66549e8cd7e212",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/DesignConfiguration.xml",
+      "expected_build_input": "fbd224d860d857522661f5dde1710438d95ff685832a1d61f39b8b77bd005f0b",
+      "git_blob_sha256": "7d2fca0fc8b502c51c18516d0702f4c90bd9c6a103de57589097a1e4ed669c37",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/blk_mem_gen_awb_delay_signal.v",
+      "expected_build_input": "7cab7914392384bcc93a3daefe1dc038fc5cd88ac8f4306532fabb71740da93e",
+      "git_blob_sha256": "c287deff03cfc6a944fded2becb1f17eb3a9ca05302183db55ec1d4f0dca897a",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/blk_mem_gen_awb_delay_signal/ram_f84573da5ab5.v",
+      "expected_build_input": "2dcda5edbc2764e38137bf47b9aa0ed601dcad32b150e5f135036ae92308a94b",
+      "git_blob_sha256": "2dcda5edbc2764e38137bf47b9aa0ed601dcad32b150e5f135036ae92308a94b",
+      "build_input_match_method": "git_blob",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/divider/divider_gate.v",
+      "expected_build_input": "9f7ddab1d4aa3419c81061c3f14448b1475d22aab02492b9bb67ca6a5842ee7d",
+      "git_blob_sha256": "7311747585345611ae14029dae465589213f7326012db76de3988554a2ffcdaa",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/.m_params_w128_d512_fifo.txt",
+      "expected_build_input": "1a8581b6e24056ea3b566874c652189c227f2b7018e8d15109277a9ddd7f8875",
+      "git_blob_sha256": "5eab290c6836a99d7bd59a1f75666ed5010ef051f746038c0f7c4892b81bc492",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/.params_w128_d512_fifo.txt",
+      "expected_build_input": "9084c1d68af266a4109d691bb7dafa79249d7e4574e66537c55c96469c277602",
+      "git_blob_sha256": "16bf450e8570a1f234cde172572a7b529f52af7ea0bebffd1c291b5feb023e64",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/.ports_w128_d512_fifo.txt",
+      "expected_build_input": "572011b96130d64d6f8ca9cdd691e3d159e01cf3c646a18b6e04e74ec3ee926e",
+      "git_blob_sha256": "3eb9de70ddcc06b52577a5630a2f10c6827c2cf5f64304a6616571df74b56c71",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/Design.xml",
+      "expected_build_input": "73fb27576629befafb79a6fc5f7319186fd3730ab02b64230d39396b2eef8518",
+      "git_blob_sha256": "b5f91fa8ebc9a3c15fa7366edfd4057a8ecf736d23e1df9861c45d8f8783f6d5",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/DesignConfiguration.xml",
+      "expected_build_input": "aa7e1a92676245a06f76be11c89d1e6448350746169b2759f2048f2d5ffd43c6",
+      "git_blob_sha256": "aeba98a3b5446c7f038424c394fd8e5a760ab976f1dab885b29e26fbd0f9acd7",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v",
+      "expected_build_input": "75e5785ae0733b4ef7ce9a80d09f68419ceb0a6a5143baf866c5442ca310cb5e",
+      "git_blob_sha256": "b22e673d85bbbf560614d725aa53e3df6cfbc78c45f65fffa2abe98c7e695997",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.tcl",
+      "expected_build_input": "d8c23f200b61011541161d6f7a3afc73958defa23b46d11039c66f2e0e555235",
+      "git_blob_sha256": "c2869c64a5ff2eeb122c4e2e19255bc44d35dedac0f9da746fa6c7901f1359c2",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/w128_d512_fifo.v",
+      "expected_build_input": "5cd5f8e2216dd8989dc1e54d42b4da348dbb09f130bbe92deaa205db53a96bb4",
+      "git_blob_sha256": "e2a8157a84b089020d300f7c135696230bb018d949a7cdca8e41e4342038808b",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/.m_params_w155_d512_fifo.txt",
+      "expected_build_input": "1a8581b6e24056ea3b566874c652189c227f2b7018e8d15109277a9ddd7f8875",
+      "git_blob_sha256": "5eab290c6836a99d7bd59a1f75666ed5010ef051f746038c0f7c4892b81bc492",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/.params_w155_d512_fifo.txt",
+      "expected_build_input": "0827a0ecc7eda30611d9426412018d4200ddd71bfc48137bf8aea0686815e880",
+      "git_blob_sha256": "b7cf967609b5c6e21fd8c4a8bf7780f126f74e571af5621a6dc753638c8ad700",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/.ports_w155_d512_fifo.txt",
+      "expected_build_input": "1b00beacfff42ed042379fbb7c7eeb7d74543df3c116cc98f60a194087e5e3ad",
+      "git_blob_sha256": "1225a6aa5d5cb9087162615bc496e7fb988ccf0fcdf607a5c4272d0185736e34",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/Design.xml",
+      "expected_build_input": "9d55317fcafc1f7770a913def7546a9cf6d528e2e1f5d3053475fbf41e8e3d27",
+      "git_blob_sha256": "b71a77738c90399519656c94bde3731ea3f5dc03e9ea6ddf6a621c5d1b71b43b",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/DesignConfiguration.xml",
+      "expected_build_input": "fd3ac947078686af5ac2d07ae9e64b5cddaea3f796163a10c5c1079e47cccdee",
+      "git_blob_sha256": "860da3d243da71942cc908cef74978034b7829ed0bc082c1cb8f44df68bca560",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v",
+      "expected_build_input": "cffdae59273ca6d7a4ab6473baa8cf94e81ab1900c4b9e358adca6e4b196114d",
+      "git_blob_sha256": "641e3e423ddbd8a9a2ccce2721f27e703a7ac2b9ea7b5312337a0925c3db527e",
+      "build_input_match_method": null,
+      "same_blob_as_TD_source": true
+    },
+    {
+      "path": "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/w155_d512_fifo.v",
+      "expected_build_input": "d600bcd8e876691d6cf3a512650e7e69118fc8016e9fdf892ac85e4c63851e37",
+      "git_blob_sha256": "b9306d0ca8d10fb029dbff514b01564cce1a47268b8e16881f87cd218388a239",
+      "build_input_match_method": "CRLF",
+      "same_blob_as_TD_source": true
+    }
+  ],
+  "al_same_blob_as_TD_source": true,
+  "build_manifest_match_summary": {
+    "total": 191,
+    "direct_or_EOL_matches": 184,
+    "unresolved_raw_hash_paths": [
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/mc_to_user_interface.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/ph1p35_ddr/ph1p35_324_ddr_wrapper.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/hdmi_tx.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/hdl_source/vision/measure_background.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/td_project/camera_to_dsi_display.sdc",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w128_d512_fifo/soft_fifo_al_4057d6b76aa6.v",
+      "in_out_example/lab_ex3_osd_SC500_720P/lab_ex3_osd/user_source/ip_source/w155_d512_fifo/soft_fifo_al_f58e8b3e1f3d.v"
+    ]
+  },
+  "archived_board_test": "NOT_RUN",
+  "user_statement": "用户确认整个工程完成，GitHub最新代码为最终版并提供最终展示视频；不等同于全部性能指标已量化。",
+  "not_run_this_round": [
+    "RTL simulation",
+    "TD/P&R/bitgen",
+    "new hardware/latency/accuracy/long-run tests"
+  ],
+  "independent_rebuild": "MAIN archived fresh extraction SYN/PHY/STA/bitgen PASS; this round checks evidence only."
+}
